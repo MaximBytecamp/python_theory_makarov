@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Редакторы
+.idea/
+.vscode/
+
+# Стартовый пакет студента — самостоятельный репозиторий,
+# живёт по адресу https://github.com/MaximBytecamp/algo-portfolio-template
+op04-algoritmizaciya/starter-pack/
