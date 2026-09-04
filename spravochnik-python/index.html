@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Справочник по Python · Макаров Максим Николаевич</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cover { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(260px, .78fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+    .cover h1 { font-size: clamp(36px, 5.6vw, 74px); }
+    .cover__sub { margin: 0 0 22px; font-family: var(--display); font-size: clamp(17px, 1.8vw, 26px); letter-spacing: -.02em; color: var(--blue); }
+    .cover__meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; }
+    .cover__meta span { padding: 8px 12px; border: 2px solid var(--ink); background: #fff; font: 600 11px/1 var(--pixel); letter-spacing: 1px; }
+    .diary { position: relative; padding: 30px 28px 24px; border: 3px solid var(--ink); background: #FFFDF8; box-shadow: 7px 7px 0 var(--ink); transform: rotate(-.7deg); background-image: repeating-linear-gradient(to bottom, transparent, transparent 33px, rgba(2,8,53,.07) 33px, rgba(2,8,53,.07) 34px); background-position: 0 74px; }
+    .diary__tag { display: inline-block; margin: 0 0 18px; padding: 6px 11px; background: var(--ink); color: var(--sky); font: 600 10px/1 var(--pixel); letter-spacing: 1.4px; text-transform: uppercase; }
+    .diary blockquote { margin: 0 0 20px; font-family: var(--display); font-style: italic; font-size: clamp(19px, 1.75vw, 25px); line-height: 34px; letter-spacing: -.005em; text-wrap: balance; }
+    .diary blockquote::before { content: "«"; color: var(--blue); }
+    .diary blockquote::after { content: "»"; color: var(--blue); }
+    .diary__sign { display: block; padding-top: 12px; border-top: 2px solid var(--rule); font: 600 11px/1.5 var(--pixel); letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); }
+
+    .modules { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 22px; }
+    .module { border: 3px solid var(--ink); background: #fff; box-shadow: 6px 6px 0 var(--ink); display: grid; grid-template-columns: 40px minmax(0, 1fr); }
+    .module__spine { background: var(--ink); color: var(--sky); display: flex; align-items: center; justify-content: center; }
+    .module__spine b { writing-mode: vertical-rl; transform: rotate(180deg); font: 700 12px/1 var(--mono); letter-spacing: 2px; }
+    .module__body { padding: 18px 20px 16px; }
+    .module h3 { margin: 0 0 6px; font-family: var(--display); font-size: 19px; letter-spacing: -.02em; }
+    .module p { margin: 0 0 14px; color: var(--ink-soft); font-size: 14.5px; line-height: 1.45; }
+    .toc { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--rule); }
+    .toc li { margin: 0; border-bottom: 2px solid var(--rule); }
+    .toc li:last-child { border-bottom: 0; }
+    .toc a, .toc s { display: flex; align-items: baseline; gap: 10px; padding: 9px 0; text-decoration: none; font-size: 15px; }
+    .toc a { color: var(--ink); font-weight: 600; }
+    .toc a:hover { color: var(--blue); }
+    .toc s { color: var(--ink-faint); text-decoration: none; }
+    .toc em { margin-left: auto; font: 600 10px/1 var(--pixel); letter-spacing: 1px; text-transform: uppercase; font-style: normal; }
+    .toc a em { color: var(--blue); }
+    .toc s em { color: var(--ink-faint); }
+    .toc i { font: 700 12px/1 var(--mono); font-style: normal; color: var(--ink-faint); min-width: 30px; }
+    @media (max-width: 860px) { .cover { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Справочник по Python · Макаров М. Н.</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow">Учебное издание · для взрослых студентов</p>
+          <p class="author-line">Макаров Максим Николаевич</p>
+        </div>
+
+        <section class="cover">
+          <div>
+            <h1>Справочник<br>по Python</h1>
+            <p class="cover__sub">От переменной до объекта: базовый курс языка</p>
+            <p class="lead">Базовый курс языка для тех, кто учится всерьёз и во взрослом возрасте. Главы идут в том порядке, в котором тема нужна на практике, но каждая читается отдельно: паспорт темы сверху, разбор механизма в середине, частые ошибки, шпаргалка и проверка себя в конце. Все примеры запускаются как есть — скопируйте код в файл <code>main.py</code> и выполните его.</p>
+            <div class="cover__meta">
+              <span>Python 3.12</span><span>модули и главы</span><span>примеры с разбором</span><span>без воды</span>
+            </div>
+          </div>
+          <aside class="diary">
+            <span class="diary__tag">Из личного дневника</span>
+            <blockquote>Образование — не передача материала, а возвращённая человеку уверенность, что он способен разобраться.</blockquote>
+            <span class="diary__sign">Макаров Максим Николаевич</span>
+          </aside>
+        </section>
+
+        <h2><span class="sec">I</span>Основы языка</h2>
+        <p>Модуль о том, из чего состоит любая программа: данные, имена для них и вывод результата.</p>
+        <div class="modules">
+          <article class="module">
+            <div class="module__spine"><b>МОДУЛЬ 1</b></div>
+            <div class="module__body">
+              <h3>Данные и имена</h3>
+              <p>Как программа хранит значения и как мы к ним обращаемся.</p>
+              <ul class="toc">
+                <li><a href="temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании<em>читать</em></a></li>
+                <li><a href="temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python<em>читать</em></a></li>
+                <li><a href="temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных<em>читать</em></a></li>
+                <li><a href="temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end<em>читать</em></a></li>
+                <li><a href="temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных<em>читать</em></a></li>
+                <li><a href="temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание<em>читать</em></a></li>
+                <li><a href="temy/07-operacii-deleniya/index.html"><i>1.7</i>Операции деления: /, // и %<em>читать</em></a></li>
+              </ul>
+            </div>
+          </article>
+          <article class="module">
+            <div class="module__spine"><b>МОДУЛЬ 2</b></div>
+            <div class="module__body">
+              <h3>Ход выполнения</h3>
+              <p>Логика условий, ветвления, повторения и выход из них.</p>
+              <ul class="toc">
+                <li><a href="temy/08-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not<em>читать</em></a></li>
+                <li><a href="temy/09-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления<em>читать</em></a></li>
+                <li><s><i>2.3</i>Условия и ветвление<em>в работе</em></s></li>
+                <li><s><i>2.4</i>Цикл <code>while</code><em>в работе</em></s></li>
+                <li><s><i>2.5</i>Цикл <code>for</code> и <code>range()</code><em>в работе</em></s></li>
+                <li><s><i>2.6</i>Итераторы и итерируемые объекты<em>в работе</em></s></li>
+              </ul>
+            </div>
+          </article>
+          <article class="module">
+            <div class="module__spine"><b>МОДУЛЬ 3</b></div>
+            <div class="module__body">
+              <h3>Коллекции</h3>
+              <p>Когда одного значения мало и данные нужно хранить группами.</p>
+              <ul class="toc">
+                <li><s><i>3.1</i>Строки<em>в работе</em></s></li>
+                <li><s><i>3.2</i>Списки и кортежи<em>в работе</em></s></li>
+                <li><s><i>3.3</i>Словари и множества<em>в работе</em></s></li>
+                <li><s><i>3.4</i>Срезы и генераторы коллекций<em>в работе</em></s></li>
+              </ul>
+            </div>
+          </article>
+          <article class="module">
+            <div class="module__spine"><b>МОДУЛЬ 4</b></div>
+            <div class="module__body">
+              <h3>Функции</h3>
+              <p>Как выделить кусок логики и переиспользовать его.</p>
+              <ul class="toc">
+                <li><s><i>4.1</i>Объявление и вызов<em>в работе</em></s></li>
+                <li><s><i>4.2</i>Аргументы и возвращаемое значение<em>в работе</em></s></li>
+                <li><s><i>4.3</i>Область видимости имён<em>в работе</em></s></li>
+                <li><s><i>4.4</i>Модули и импорт<em>в работе</em></s></li>
+              </ul>
+            </div>
+          </article>
+          <article class="module">
+            <div class="module__spine"><b>МОДУЛЬ 5</b></div>
+            <div class="module__body">
+              <h3>Файлы и ошибки</h3>
+              <p>Данные, которые живут дольше одного запуска программы.</p>
+              <ul class="toc">
+                <li><s><i>5.1</i>Чтение и запись файлов<em>в работе</em></s></li>
+                <li><s><i>5.2</i>Исключения и <code>try / except</code><em>в работе</em></s></li>
+                <li><s><i>5.3</i>Форматы: CSV и JSON<em>в работе</em></s></li>
+              </ul>
+            </div>
+          </article>
+          <article class="module">
+            <div class="module__spine"><b>МОДУЛЬ 6</b></div>
+            <div class="module__body">
+              <h3>Объекты</h3>
+              <p>Собственные типы данных под задачу.</p>
+              <ul class="toc">
+                <li><s><i>6.1</i>Классы и экземпляры<em>в работе</em></s></li>
+                <li><s><i>6.2</i>Атрибуты и методы<em>в работе</em></s></li>
+                <li><s><i>6.3</i>Наследование<em>в работе</em></s></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="colophon">
+          <span>Справочник по Python · учебное издание для взрослых студентов</span>
+          <span class="author-line">© Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

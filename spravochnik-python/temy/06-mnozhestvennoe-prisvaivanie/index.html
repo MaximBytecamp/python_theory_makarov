@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.6 Множественное присваивание · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.6</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.6</span>
+          <h1>Множественное<br>присваивание</h1>
+          <p class="lead">Python позволяет присвоить значения нескольким переменным одной строкой. Приём выглядит как сокращение записи, но за ним стоит важная деталь механизма: правая часть вычисляется целиком до того, как хоть одно имя получит новое значение. Именно это делает возможным обмен значениями без третьей переменной.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Переменные, ввод данных, функции</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Сокращать запись и понимать порядок вычисления при присваивании</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Несколько имён в одной строке</a></li>
+            <li><a href="#s2">Как это выполняется</a></li>
+            <li><a href="#s3">Обмен значениями</a></li>
+            <li><a href="#s4">Пример с тремя переменными</a></li>
+            <li><a href="#s5">Одно значение нескольким именам</a></li>
+            <li><a href="#s6">Где это применяют</a></li>
+            <li><a href="#s7">Частые ошибки</a></li>
+            <li><a href="#s8">Проверьте себя</a></li>
+            <li><a href="#s9">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Несколько имён в одной строке</h2>
+        <p><span class="term">Множественное присваивание</span> — запись, в которой слева от знака <code>=</code> перечислено несколько имён, а справа — столько же значений. Обычные три строки:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>обычное присваивание</span></figcaption>
+<pre>a = <span class="n">1</span>
+b = <span class="n">2</span>
+c = <span class="n">3</span></pre>
+        </figure>
+        <p>записываются одной:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>множественное присваивание</span></figcaption>
+<pre>a, b, c = <span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span></pre>
+        </figure>
+        <p>Результат тот же: <code>a</code> равно 1, <code>b</code> равно 2, <code>c</code> равно 3. Значения расходятся по именам по позиции — первое первому, второе второму, и так далее.</p>
+        <p>Приём уместен, когда переменные связаны по смыслу и читаются как одна мысль: <code>x, y = 0, 0</code>, <code>day, month, year = 4, 9, 2026</code>. А вот собирать в одну строку четыре разнородных значения не стоит — короче станет, понятнее нет.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Как это выполняется</h2>
+        <p>Здесь и находится суть темы. Интерпретатор выполняет такую строку в два отдельных шага:</p>
+        <ol class="steps">
+          <li>Полностью вычисляет <strong>правую часть</strong> — все значения сразу, до единого.</li>
+          <li>Присваивает готовые значения именам <strong>слева</strong>, по порядку.</li>
+        </ol>
+        <p>Никакое имя слева не меняется, пока правая часть не досчитана. Поэтому в правой части всегда используются <strong>старые</strong> значения переменных — те, что существовали до начала строки. Запомните это: почти всё остальное в главе — следствие.</p>
+        <div class="margin-note">
+          <b>На полях: количество должно совпадать</b>
+          <p>Имён слева и значений справа должно быть поровну. При несовпадении программа остановится с <code>ValueError: too many values to unpack</code> или <code>not enough values to unpack</code> — сообщение прямо говорит, чего оказалось больше. Ошибка возникает при выполнении строки, а не при написании, так что редактор о ней не предупредит.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Обмен значениями</h2>
+        <p>Самое известное применение приёма — поменять значения двух переменных местами. Пусть есть:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>исходные значения</span></figcaption>
+<pre>a = <span class="n">1</span>
+b = <span class="n">2</span></pre>
+        </figure>
+        <p>Обмен занимает одну строку и не требует дополнительной переменной:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обмен значениями</span></figcaption>
+<pre>a, b = b, a
+
+<span class="f">print</span>(a, b)   <span class="c"># 2 1</span></pre>
+        </figure>
+        <p>Работает это ровно по правилу из §2. Сначала вычисляется правая часть <code>b, a</code> — берутся текущие значения, то есть <code>2</code> и <code>1</code>. Только потом они присваиваются именам <code>a</code> и <code>b</code>. Старое значение <code>a</code> к этому моменту уже вычислено и в безопасности, поэтому теряться нечему.</p>
+        <p>Сравните с наивной попыткой сделать то же в две строки:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>так обмен не работает</span></figcaption>
+<pre>a = b   <span class="c"># a стало 2, прежняя единица потеряна</span>
+b = a   <span class="c"># b получает 2 — то же самое значение</span></pre>
+        </figure>
+        <p>В других языках для обмена заводят третью переменную: <code>tmp = a</code>, <code>a = b</code>, <code>b = tmp</code>. В Python этого не требуется — одновременность присваивания уже даёт нужный эффект.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Пример с тремя переменными</h2>
+        <p>Правило работает при любом количестве имён. Пусть:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>разворот трёх значений</span></figcaption>
+<pre>a = <span class="n">1</span>
+b = <span class="n">2</span>
+c = <span class="n">3</span>
+
+a, b, c = c, b, a
+
+<span class="f">print</span>(a, b, c)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>3 2 1</pre>
+        </figure>
+        <p>Разберём по шагам, как получился этот результат:</p>
+        <ol class="steps">
+          <li>Вычисляется правая часть <code>c, b, a</code> — это набор значений <code>3, 2, 1</code>.</li>
+          <li>Первое значение уходит первому имени: <code>a = 3</code>.</li>
+          <li>Второе — второму: <code>b = 2</code>.</li>
+          <li>Третье — третьему: <code>c = 1</code>.</li>
+        </ol>
+        <p>Обратите внимание, что имя <code>a</code> получило новое значение на втором шаге, но в правой части оно участвовало со старым — единицей. Если бы присваивание шло по одной переменной сверху вниз, результат вышел бы другим: <code>3 2 3</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Одно значение нескольким именам</h2>
+        <p>Есть и вторая форма записи — цепочка знаков <code>=</code>. Она присваивает <strong>одно и то же</strong> значение сразу нескольким именам.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>цепочка присваиваний</span></figcaption>
+<pre>x = y = z = <span class="n">0</span>
+
+<span class="f">print</span>(x, y, z)   <span class="c"># 0 0 0</span></pre>
+        </figure>
+        <p>Формы легко перепутать, поэтому держите различие в голове:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что делает</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>a, b = 1, 2</code></td><td>раздаёт разные значения по позиции</td><td><code>a = 1</code>, <code>b = 2</code></td></tr>
+              <tr><td><code>a = b = 1</code></td><td>даёт одно значение обоим именам</td><td><code>a = 1</code>, <code>b = 1</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Цепочку берут для начальных значений — обнулить счётчики, задать стартовые координаты. С числами и строками она безопасна. А вот для списков её использовать не стоит: оба имени будут ссылаться на один и тот же объект, и изменение через одно имя окажется видно через другое. Разберём это в главе о списках — там же, где вернёмся к вопросу, чем имя отличается от значения.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Где это применяют</h2>
+        <p>За пределами учебных примеров множественное присваивание встречается постоянно.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>типичные случаи</span></figcaption>
+<pre><span class="c"># стартовые значения одной строкой</span>
+x, y = <span class="n">0</span>, <span class="n">0</span>
+
+<span class="c"># два ввода подряд</span>
+width = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Ширина: "</span>))
+height = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Высота: "</span>))
+
+<span class="c"># разбор строки на части</span>
+day, month, year = <span class="s">"04.09.2026"</span>.split(<span class="s">"."</span>)</pre>
+        </figure>
+        <p>Последняя строка забегает вперёд — метод <code>split()</code> разбирается в главе о строках, — но показывает главное направление, ради которого приём и существует: получить несколько значений разом и сразу дать им имена. Так же будут возвращать результат функции в модуле 4.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Читаемость важнее краткости</b>
+          <p>Запись <code>a, b, c, d, e = 1, 0, "нет", 3.14, ""</code> технически безупречна, но, чтобы понять, какое значение чьё, читателю придётся считать позиции. Правило простое: объединяйте в одну строку то, что и мыслится вместе. Пара координат — да; пять разнородных настроек — пять строк.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>a, b = 1, 2, 3</code></td><td><code>ValueError: too many values to unpack (expected 2)</code></td><td>слева и справа должно быть поровну</td></tr>
+              <tr><td><code>a, b, c = 1, 2</code></td><td><code>ValueError: not enough values to unpack</code></td><td>то же правило, только значений не хватает</td></tr>
+              <tr><td><code>a = b</code>, затем <code>b = a</code> для обмена</td><td>обе переменные получат одно значение, второе потеряется</td><td><code>a, b = b, a</code> — одной строкой</td></tr>
+              <tr><td><code>a, b = b, a</code> при несуществующем <code>b</code></td><td><code>NameError</code> — правая часть вычисляется первой</td><td>сначала задать оба значения</td></tr>
+              <tr><td><code>a = 1, 2</code></td><td>не ошибка, но в <code>a</code> окажется пара значений, а не число</td><td>если нужны две переменные — <code>a, b = 1, 2</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Проверьте себя</h2>
+        <details>
+          <summary>Что выведет программа: <code>a, b = 5, 10</code>, затем <code>a, b = b, a</code>, затем <code>print(a, b)</code>?</summary>
+          <p><code>10 5</code>. Правая часть вычисляется целиком до присваивания, поэтому в неё попадают старые значения — <code>10</code> и <code>5</code>, — и они уходят именам в обратном порядке.</p>
+        </details>
+        <details>
+          <summary>Почему обмен через <code>a, b = b, a</code> не требует третьей переменной?</summary>
+          <p>Потому что оба значения правой части вычисляются до того, как изменится хоть одно имя слева. Старое значение <code>a</code> уже вычислено к моменту, когда <code>a</code> получает новое, — терять нечего. Третья переменная нужна там, где присваивание идёт строго по одному.</p>
+        </details>
+        <details>
+          <summary>Чем <code>x = y = 0</code> отличается от <code>x, y = 0, 0</code>?</summary>
+          <p>Результат для чисел одинаков: обе переменные равны нулю. Отличается смысл записи: первая даёт <strong>одно</strong> значение обоим именам, вторая раздаёт <strong>разные</strong> значения по позициям. Для чисел разницы не видно, для списков она станет принципиальной.</p>
+        </details>
+        <details>
+          <summary>Что будет при выполнении <code>x, y, z = 1, 2</code>?</summary>
+          <p>Программа остановится с <code>ValueError: not enough values to unpack (expected 3, got 2)</code>. Имён три, значений два — интерпретатор не станет придумывать третье.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: пользователь вводит два числа. Выведите их в порядке возрастания, не используя условий.</summary>
+          <p>Условий мы ещё не проходили, но задача решается тем, что уже есть: <code>a, b = min(a, b), max(a, b)</code>. Встроенные функции <code>min()</code> и <code>max()</code> вернут меньшее и большее, а множественное присваивание разложит их по именам за один шаг. Дальше достаточно <code>print(a, b)</code>.</p>
+        </details>
+
+        <h2 id="s9"><span class="sec">§9</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Несколько значений</b>
+            <code>a, b, c = 1, 2, 3</code>
+          </div>
+          <div>
+            <b>Обмен значениями</b>
+            <code>a, b = b, a</code>
+            <code># без третьей переменной</code>
+          </div>
+          <div>
+            <b>Одно значение всем</b>
+            <code>x = y = z = 0</code>
+          </div>
+          <div>
+            <b>Порядок выполнения</b>
+            <code># 1. вся правая часть</code>
+            <code># 2. присваивание слева</code>
+          </div>
+          <div>
+            <b>Количество совпадает</b>
+            <code>a, b = 1, 2      ✓</code>
+            <code>a, b = 1, 2, 3   ✗ ValueError</code>
+          </div>
+          <div>
+            <b>Разложить на части</b>
+            <code>d, m, y = date.split(".")</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Множественное присваивание раздаёт значения нескольким именам за одну строку. Работает оно в два шага: сначала целиком вычисляется правая часть, потом значения расходятся по именам слева. Из этого порядка следует главное практическое умение — обмен значениями <code>a, b = b, a</code>, для которого не нужна третья переменная. Форму <code>x = y = 0</code> не путайте с ней: она даёт одно значение всем именам сразу.</p>
+
+        <div class="pager">
+          <a href="../05-input/index.html">← 1.5 Функция input(): ввод данных</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../07-operacii-deleniya/index.html">1.7 Операции деления →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.6 · Множественное присваивание · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

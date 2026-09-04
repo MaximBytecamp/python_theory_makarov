@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.1 Переменные в программировании · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.1</span>
+          <h1>Переменные<br>в программировании</h1>
+          <p class="lead">Переменная — первое, с чего начинается любая программа сложнее одной строки. Разберём, что это такое на самом деле, как имя связывается со значением и почему без переменных код быстро становится нечитаемым.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Типы данных, ввод и вывод, циклы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Понимать, где программа хранит данные и как к ним обращаться</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что такое переменная</a></li>
+            <li><a href="#s2">Как имя связывается со значением</a></li>
+            <li><a href="#s3">Имена: правила и стиль</a></li>
+            <li><a href="#s4">Разбор задачи: стоимость поездки</a></li>
+            <li><a href="#s5">Зачем нужны переменные</a></li>
+            <li><a href="#s6">Изменение значения</a></li>
+            <li><a href="#s7">Назначение print()</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что такое переменная</h2>
+        <p><span class="term">Переменная</span> — это имя, по которому программа обращается к данным. Само значение хранится в памяти, а имя даёт нам способ его назвать: записать, прочитать, заменить на другое.</p>
+        <p>Переменная решает три задачи:</p>
+        <ul>
+          <li><strong>хранит данные</strong> — результат вычисления не теряется после того, как строка выполнена;</li>
+          <li><strong>позволяет их изменять</strong> — то же имя можно связать с новым значением;</li>
+          <li><strong>связывает части программы</strong> — то, что посчитано в начале, используется дальше по коду.</li>
+        </ul>
+        <p>В самой короткой записи это выглядит так: <code>имя = значение</code>. Знак равенства здесь — не сравнение и не равенство из математики, а <span class="term">операция присваивания</span>: справа вычисляется значение, слева оно получает имя.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Как имя связывается со значением</h2>
+        <p>Удобная рабочая модель: программа — это комната, а переменные — подписанные ярлыками ячейки, в которых лежат значения.</p>
+        <div class="boxes">
+          <div><b>distance</b><i>→</i><span>500</span></div>
+          <div><b>fuel_price</b><i>→</i><span>45.5</span></div>
+          <div><b>cost_home</b><i>→</i><span>2500</span></div>
+        </div>
+        <p>С такой ячейкой мы делаем ровно три вещи: <strong>смотрим</strong>, что в ней лежит; <strong>берём</strong> значение для вычисления; <strong>кладём</strong> на его место новое. Никакой четвёртой операции у переменной нет — и этого достаточно для любой программы.</p>
+        <p>Модель полезна, но помните её границу. Ярлык приклеен не к ячейке, а к значению: в Python имя ссылается на объект в памяти, и одно и то же значение может иметь несколько имён сразу. К этому мы вернёмся в главе о типах данных, когда речь пойдёт о списках.</p>
+
+        <figure class="code">
+          <figcaption><span>Python</span><span>присваивание</span></figcaption>
+<pre><span class="c"># справа вычисляется значение, слева оно получает имя</span>
+distance = <span class="n">500</span>
+fuel_price = <span class="n">45.5</span>
+fuel_efficiency = <span class="n">12</span>
+cost_home = <span class="n">2500</span></pre>
+        </figure>
+
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Переменная</th><th>Что хранит</th><th>Значение</th></tr></thead>
+            <tbody>
+              <tr><td><code>distance</code></td><td>расстояние поездки, км</td><td>500</td></tr>
+              <tr><td><code>fuel_price</code></td><td>цена литра топлива, руб.</td><td>45.5</td></tr>
+              <tr><td><code>fuel_efficiency</code></td><td>расход: сколько км на литр</td><td>12</td></tr>
+              <tr><td><code>cost_home</code></td><td>стоимость проживания, руб.</td><td>2500</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Имена: правила и стиль</h2>
+        <p>Часть требований к имени проверяет интерпретатор — нарушите их, и программа не запустится. Остальное — договорённости сообщества, и держатся они на том, что код читают чаще, чем пишут.</p>
+        <h3>Что требует язык</h3>
+        <ul>
+          <li>имя состоит из букв, цифр и подчёркиваний; пробелов и дефисов в нём быть не может;</li>
+          <li>имя не начинается с цифры: <code>2day</code> — ошибка, <code>day2</code> — допустимо;</li>
+          <li>регистр важен: <code>distance</code> и <code>Distance</code> — две разные переменные;</li>
+          <li>нельзя занимать ключевые слова языка: <code>for</code>, <code>if</code>, <code>class</code>, <code>import</code> и другие.</li>
+        </ul>
+        <h3>Что требует читаемость</h3>
+        <ul>
+          <li>имя пишется в нижнем регистре, слова разделяются подчёркиванием: <code>fuel_price</code>, а не <code>fuelPrice</code> и не <code>FP</code>;</li>
+          <li>имя называет данные, а не их тип: <code>total_cost</code> понятнее, чем <code>number1</code> или <code>x</code>;</li>
+          <li>не занимайте имена встроенных функций. Строка <code>print = 5</code> выполнится, но после неё вывести что-либо в программе уже не получится.</li>
+        </ul>
+        <div class="margin-note margin-note--warn">
+          <b>Осторожно</b>
+          <p>Русские буквы в именах язык допускает, но так делать не стоит: такой код ломается при переносе между системами и не читается коллегами. Имена пишем латиницей, а комментарии и текст для пользователя — на любом удобном языке.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>Разбор задачи: стоимость поездки</h2>
+        <p>Посчитаем, во сколько обойдётся поездка на 500 км: топливо плюс проживание. Данные вынесены наверх отдельным блоком, дальше идут только вычисления — так их удобно менять, не выискивая числа по всему коду.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>полная программа</span></figcaption>
+<pre><span class="c"># Исходные данные</span>
+distance = <span class="n">500</span>
+fuel_price = <span class="n">45.5</span>
+fuel_efficiency = <span class="n">12</span>
+cost_home = <span class="n">2500</span>
+
+<span class="c"># Расчёт стоимости топлива</span>
+fuel_cost = (distance / fuel_efficiency) * fuel_price
+
+<span class="c"># Общая стоимость</span>
+total_cost = fuel_cost + cost_home
+
+<span class="f">print</span>(<span class="s">"Стоимость путешествия:"</span>)
+<span class="f">print</span>(<span class="s">f"Расходы на топливо: {fuel_cost:.2f} руб."</span>)
+<span class="f">print</span>(<span class="s">f"Расходы на проживание: {cost_home} руб."</span>)
+<span class="f">print</span>(<span class="s">f"Общая стоимость: {total_cost:.2f} руб."</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Стоимость путешествия:
+Расходы на топливо: 1895.83 руб.
+Расходы на проживание: 2500 руб.
+Общая стоимость: 4395.83 руб.</pre>
+        </figure>
+        <p>Обратите внимание на строку с <code>fuel_cost</code>. Промежуточный результат получил имя — и дальше мы им пользуемся дважды: в выводе и в подсчёте общей суммы. Без этого имени выражение <code>(distance / fuel_efficiency) * fuel_price</code> пришлось бы написать два раза, а при правке — не забыть исправить оба.</p>
+        <div class="margin-note">
+          <b>На полях: откуда взялось :.2f</b>
+          <p>Деление в Python даёт дробное число, и точного результата здесь нет: <code>fuel_cost</code> хранит <code>1895.8333333333333</code>. Если вывести значение как есть, в терминал попадёт весь длинный хвост. Запись <code>{fuel_cost:.2f}</code> внутри f-строки округляет число до двух знаков <em>при выводе</em>, не меняя самого значения — в дальнейших расчётах участвует полная точность.</p>
+        </div>
+
+        <h2 id="s5"><span class="sec">§5</span>Зачем нужны переменные</h2>
+        <p>Формально можно обойтись и без них: вычисление разрешено записать прямо в вызове функции. Сравним два варианта одной задачи.</p>
+        <figure class="code">
+          <figcaption><span>Вариант 1</span><span>без переменной</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Сумма чисел 2, 3 и 4:"</span>, <span class="n">2</span> + <span class="n">3</span> + <span class="n">4</span>)</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>Вариант 2</span><span>с переменной</span></figcaption>
+<pre>summ = <span class="n">2</span> + <span class="n">3</span> + <span class="n">4</span>
+<span class="f">print</span>(<span class="s">"Сумма:"</span>, summ)</pre>
+        </figure>
+        <p>На одной строке разница незаметна — работают оба. Она появляется, когда результат нужен не один раз:</p>
+        <figure class="code">
+          <figcaption><span>Что происходит дальше</span><span>без переменных</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Сумма:"</span>, <span class="n">2</span> + <span class="n">3</span> + <span class="n">4</span>)
+<span class="f">print</span>(<span class="s">"Сумма +5:"</span>, <span class="n">2</span> + <span class="n">3</span> + <span class="n">4</span> + <span class="n">5</span>)
+<span class="f">print</span>(<span class="s">"Результат:"</span>, (<span class="n">2</span> + <span class="n">3</span> + <span class="n">4</span> + <span class="n">5</span>) * <span class="n">2</span>)</pre>
+        </figure>
+        <p>Одно и то же выражение повторяется трижды. Стоит заменить тройку на четвёрку — и правку нужно внести в трёх местах, ничего не пропустив. Код становится длинным, повторяющимся и опасным при изменении. Переменная убирает все три проблемы сразу: значение вычисляется один раз, а дальше используется по имени.</p>
+        <p>Итого переменные дают нам возможность хранить промежуточные результаты, повторно использовать данные, сокращать код и — главное — объяснять читателю, что именно вычисляется. Имя <code>fuel_cost</code> говорит о смысле числа больше, чем само число.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Изменение значения</h2>
+        <p>Переменная на то и переменная: связанное с именем значение можно заменить. Для частого случая «взять текущее значение, что-то с ним сделать и записать обратно» в языке есть сокращённая запись.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>составное присваивание</span></figcaption>
+<pre>summ = <span class="n">2</span> + <span class="n">3</span> + <span class="n">4</span>   <span class="c"># summ → 9</span>
+summ += <span class="n">5</span>          <span class="c"># то же, что summ = summ + 5 → 14</span>
+summ *= <span class="n">2</span>          <span class="c"># то же, что summ = summ * 2 → 28</span>
+
+<span class="f">print</span>(<span class="s">"Результат:"</span>, summ)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Результат: 28</pre>
+        </figure>
+        <p>Порядок строк здесь имеет значение: интерпретатор выполняет их сверху вниз, и каждое присваивание работает с тем значением, которое лежит в переменной на этот момент. Поменяйте <code>+= 5</code> и <code>*= 2</code> местами — получите 23, а не 28.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Полная форма</th><th>Действие</th></tr></thead>
+            <tbody>
+              <tr><td><code>x += 5</code></td><td><code>x = x + 5</code></td><td>увеличить на 5</td></tr>
+              <tr><td><code>x -= 5</code></td><td><code>x = x - 5</code></td><td>уменьшить на 5</td></tr>
+              <tr><td><code>x *= 2</code></td><td><code>x = x * 2</code></td><td>умножить на 2</td></tr>
+              <tr><td><code>x /= 2</code></td><td><code>x = x / 2</code></td><td>разделить на 2 (результат дробный)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Назначение print()</h2>
+        <p>Функция <code>print()</code> отвечает за одно: показать готовый результат. Вычисления стоит выносить в отдельные строки с осмысленными именами, а в вывод передавать уже посчитанное.</p>
+        <p>Технически ничто не мешает написать всю формулу внутри <code>print()</code>. Но такую строку тяжело читать, невозможно переиспользовать и неудобно отлаживать: когда результат окажется неверным, вы не увидите промежуточных значений и будете разбирать выражение глазами. Разделение «сначала считаем — потом выводим» — не стилевая придирка, а способ быстрее находить собственные ошибки.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>print(summ)</code> до присваивания</td><td><code>NameError: name 'summ' is not defined</code> — имени ещё не существует</td><td>сначала присвоить значение, потом использовать</td></tr>
+              <tr><td><code>5 = x</code></td><td><code>SyntaxError</code> — слева от <code>=</code> стоит значение, а не имя</td><td><code>x = 5</code></td></tr>
+              <tr><td><code>total = fuel + home</code> при опечатке в имени</td><td><code>NameError</code> — <code>fuell</code> и <code>fuel</code> для языка разные имена</td><td>копировать имя, а не набирать заново</td></tr>
+              <tr><td><code>x = x + 1</code> в первой же строке</td><td><code>NameError</code> — справа читается несуществующее значение</td><td>задать начальное значение: <code>x = 0</code></td></tr>
+              <tr><td><code>print = "текст"</code></td><td>имя встроенной функции занято, вывод перестанет работать</td><td>выбрать другое имя, например <code>message</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Чем <code>=</code> в программировании отличается от знака равенства в математике?</summary>
+          <p>В математике это утверждение о равенстве двух частей. В Python это присваивание: сначала вычисляется правая часть, затем результат связывается с именем слева. Поэтому запись <code>x = x + 1</code> корректна — она означает «взять текущее значение <code>x</code>, прибавить 1 и записать обратно».</p>
+        </details>
+        <details>
+          <summary>Что выведет программа: <code>a = 10</code>, затем <code>b = a</code>, затем <code>a = 3</code>, затем <code>print(b)</code>?</summary>
+          <p><code>10</code>. В строке <code>b = a</code> вычисляется текущее значение <code>a</code> и связывается с именем <code>b</code>. Последующее присваивание <code>a = 3</code> меняет только связь имени <code>a</code> и на <code>b</code> не влияет.</p>
+        </details>
+        <details>
+          <summary>Какие из имён недопустимы: <code>2day</code>, <code>day_2</code>, <code>total cost</code>, <code>Total</code>, <code>for</code>?</summary>
+          <p>Недопустимы три: <code>2day</code> — начинается с цифры; <code>total cost</code> — содержит пробел; <code>for</code> — ключевое слово языка. Имена <code>day_2</code> и <code>Total</code> допустимы, но по стилю переменную лучше назвать <code>total</code> в нижнем регистре.</p>
+        </details>
+        <details>
+          <summary>Перепишите так, чтобы вычисление не повторялось: <code>print((2 + 3) * 2)</code> и <code>print((2 + 3) * 10)</code>.</summary>
+          <p>Вынести общую часть в переменную:</p>
+          <ul>
+            <li><code>base = 2 + 3</code></li>
+            <li><code>print(base * 2)</code></li>
+            <li><code>print(base * 10)</code></li>
+          </ul>
+          <p>Теперь изменение исходных чисел правится в одном месте.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: измените программу о поездке так, чтобы она считала стоимость поездки туда и обратно.</summary>
+          <p>Достаточно поменять одно значение — <code>distance = 1000</code> — либо ввести отдельное имя, например <code>trips = 2</code>, и умножить на него расстояние: <code>fuel_cost = (distance * trips / fuel_efficiency) * fuel_price</code>. Второй вариант лучше: из кода видно, откуда взялось удвоение.</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Создать и прочитать</b>
+            <code>x = 10</code>
+            <code>y = x + 5</code>
+            <code>print(y)</code>
+          </div>
+          <div>
+            <b>Изменить значение</b>
+            <code>x = 3</code>
+            <code>x += 2   # 5</code>
+            <code>x *= 10  # 50</code>
+          </div>
+          <div>
+            <b>Вывести с округлением</b>
+            <code>price = 1895.8333</code>
+            <code>print(f"{price:.2f}")</code>
+            <code># 1895.83</code>
+          </div>
+          <div>
+            <b>Стиль имени</b>
+            <code>fuel_price  ✓</code>
+            <code>fuelPrice   ✗</code>
+            <code>fp, x1      ✗</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Переменная — это имя для данных. Она хранит значение между строками программы, позволяет заменить его на новое и переиспользовать результат вместо повторного вычисления. Хорошо названные переменные делают код короче и, что важнее, объясняют читателю смысл каждого числа: <code>total_cost</code> вместо безымянного <code>4395.83</code>.</p>
+
+        <div class="pager">
+          <a href="../../index.html">← К содержанию справочника</a>
+          <a href="../02-tipy-dannyh/index.html">1.2 Типы данных в Python →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.1 · Переменные в программировании · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.2 Типы данных в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.2</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.2</span>
+          <h1>Типы данных<br>в Python</h1>
+          <p class="lead">В прошлой главе переменная получила имя и значение. Теперь разберёмся с самим значением: какого оно рода, что с ним разрешено делать и почему <code>"10"</code> и <code>10</code> — это два разных значения, с которыми программа поступает по-разному.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Переменные, ввод данных, условия</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Понимать, какие операции допустимы над значением и почему возникает TypeError</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что такое тип данных</a></li>
+            <li><a href="#s2">int — целые числа</a></li>
+            <li><a href="#s3">float — числа с дробной частью</a></li>
+            <li><a href="#s4">str — строки</a></li>
+            <li><a href="#s5">bool и None</a></li>
+            <li><a href="#s6">Строка с цифрами — не число</a></li>
+            <li><a href="#s7">Преобразование типов</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что такое тип данных</h2>
+        <p><span class="term">Тип данных</span> определяет две вещи: какие значения может хранить переменная и какие операции над этими значениями допустимы. Число можно разделить, строку — повторить; сложить строку с числом нельзя, и это не каприз языка, а отсутствие однозначного ответа, что должно получиться.</p>
+        <p>В Python тип не объявляют заранее. Он определяется автоматически, в момент присваивания, по самому значению — такой подход называется <span class="term">динамической типизацией</span>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>тип определяется значением</span></figcaption>
+<pre>x = <span class="n">10</span>          <span class="c"># int   — целое число</span>
+y = <span class="n">3.14</span>        <span class="c"># float — число с дробной частью</span>
+name = <span class="s">"Alice"</span>  <span class="c"># str   — строка</span></pre>
+        </figure>
+        <p>Проверить тип можно встроенной функцией <code>type()</code>. Она пригодится, когда программа ведёт себя не так, как вы ожидали: чаще всего причина в том, что в переменной лежит значение не того типа.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>проверка типа</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">type</span>(x))     <span class="c"># &lt;class 'int'&gt;</span>
+<span class="f">print</span>(<span class="f">type</span>(y))     <span class="c"># &lt;class 'float'&gt;</span>
+<span class="f">print</span>(<span class="f">type</span>(name))  <span class="c"># &lt;class 'str'&gt;</span></pre>
+        </figure>
+        <div class="margin-note">
+          <b>На полях</b>
+          <p>Тип принадлежит значению, а не имени. Строка <code>x = 10</code> делает <code>x</code> целым числом, но следующая же строка <code>x = "десять"</code> совершенно законна — теперь то же имя связано со строкой. Язык это разрешает, а вот читателю кода такая переменная жизнь усложняет: пусть одно имя хранит данные одного рода.</p>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span><span class="type-badge">int</span>Целые числа</h2>
+        <p>Тип <code>int</code> (от <em>integer</em>) хранит целые числа — без дробной части. Они бывают положительными, отрицательными и равными нулю: <code>-10</code>, <code>0</code>, <code>5</code>, <code>100</code>. Ограничения на величину в Python нет: целое может быть сколь угодно большим, пока хватает памяти.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Операция</th><th>Что делает</th><th>Пример при a = 10, b = 3</th></tr></thead>
+            <tbody>
+              <tr><td><code>a + b</code></td><td>сложение</td><td><code>13</code></td></tr>
+              <tr><td><code>a - b</code></td><td>вычитание</td><td><code>7</code></td></tr>
+              <tr><td><code>a * b</code></td><td>умножение</td><td><code>30</code></td></tr>
+              <tr><td><code>a / b</code></td><td>деление</td><td><code>3.3333333333333335</code> — результат <code>float</code></td></tr>
+              <tr><td><code>a // b</code></td><td>целочисленное деление</td><td><code>3</code> — сколько раз b помещается в a</td></tr>
+              <tr><td><code>a % b</code></td><td>остаток от деления</td><td><code>1</code></td></tr>
+              <tr><td><code>a ** b</code></td><td>возведение в степень</td><td><code>1000</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>операции с целыми</span></figcaption>
+<pre>a = <span class="n">10</span>
+b = <span class="n">3</span>
+
+<span class="f">print</span>(a + b)
+<span class="f">print</span>(a * b)
+<span class="f">print</span>(a // b)
+<span class="f">print</span>(a % b)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>13
+30
+3
+1</pre>
+        </figure>
+        <div class="margin-note margin-note--warn">
+          <b>Внимание: деление всегда даёт float</b>
+          <p>Даже когда делится нацело: <code>10 / 2</code> возвращает <code>5.0</code>, а не <code>5</code>. Если нужен именно целый результат — берите <code>//</code>. Пара <code>//</code> и <code>%</code> постоянно работает вместе: она отвечает на вопросы «сколько целых поместилось» и «сколько осталось» — так считают минуты из секунд, страницы из записей, сдачу из суммы.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span><span class="type-badge">float</span>Числа с дробной частью</h2>
+        <p>Тип <code>float</code> хранит числа с дробной частью. Дробная часть отделяется <strong>точкой</strong>, а не запятой: <code>3.14</code>, <code>-0.5</code>, <code>10.0</code>, <code>0.001</code>. Запись <code>10.0</code> — это уже <code>float</code>, хотя значение и целое.</p>
+        <p>Арифметика та же, что у целых. Если в выражении встречаются <code>int</code> и <code>float</code>, результат будет дробным — язык приводит оба значения к более общему типу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>операции с дробными</span></figcaption>
+<pre>a = <span class="n">5.5</span>
+b = <span class="n">2.0</span>
+
+<span class="f">print</span>(a + b)   <span class="c"># 7.5</span>
+<span class="f">print</span>(a * b)   <span class="c"># 11.0</span>
+<span class="f">print</span>(a / b)   <span class="c"># 2.75</span></pre>
+        </figure>
+        <p><code>float</code> берут там, где целых не хватает: цена, вес, доля, результат измерения, любое деление. Но у этой точности есть цена, о которой лучше узнать сразу, а не на третьем месяце работы.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Почему 0.1 + 0.2 не равно 0.3</b>
+          <p>Компьютер хранит дробные числа в двоичной системе, и <code>0.1</code> в ней не записывается точно — так же, как <code>1/3</code> не записывается точно в десятичной. Поэтому <code>print(0.1 + 0.2)</code> выведет <code>0.30000000000000004</code>. Это не ошибка Python, так устроены дробные числа во всех языках. При выводе округляйте: <code>f"{value:.2f}"</code>, а для денег в серьёзных расчётах существует отдельный тип <code>Decimal</code>. И никогда не сравнивайте два <code>float</code> через <code>==</code>.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span><span class="type-badge">str</span>Строки</h2>
+        <p>Строка (<em>string</em>) — это последовательность символов: имя, сообщение, адрес, номер телефона. Записывается в кавычках, и кавычки могут быть трёх видов:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>три способа записи</span></figcaption>
+<pre>name = <span class="s">"Alice"</span>            <span class="c"># двойные</span>
+message = <span class="s">'Привет, мир!'</span>  <span class="c"># одинарные — то же самое</span>
+text = <span class="s">"""Строка,</span>
+<span class="s">которая занимает</span>
+<span class="s">несколько строк"""</span>          <span class="c"># тройные — с переносами</span></pre>
+        </figure>
+        <p>Двойные и одинарные кавычки равноправны; выбор нужен, когда кавычка встречается внутри самого текста: <code>'Он сказал "да"'</code> пишется без ухищрений. Тройные кавычки удерживают переносы строк — их берут для длинного текста.</p>
+        <h3>Что можно делать со строками</h3>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>конкатенация, повторение, длина</span></figcaption>
+<pre>first = <span class="s">"Hello"</span>
+second = <span class="s">"World"</span>
+
+<span class="f">print</span>(first + <span class="s">" "</span> + second)   <span class="c"># склеивание строк</span>
+<span class="f">print</span>(<span class="s">"ha"</span> * <span class="n">3</span>)               <span class="c"># повторение</span>
+<span class="f">print</span>(<span class="f">len</span>(<span class="s">"Python"</span>))          <span class="c"># количество символов</span></pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Hello World
+hahaha
+6</pre>
+        </figure>
+        <p>Обратите внимание на пробел в <code>first + " " + second</code>. Операция <code>+</code> склеивает строки ровно как есть, ничего не добавляя от себя, — без явного пробела получилось бы <code>HelloWorld</code>. И заметьте: знаки <code>+</code> и <code>*</code> для строк означают не арифметику, а склеивание и повторение. Одна и та же запись работает по-разному в зависимости от типа значений — как раз поэтому тип и важен.</p>
+
+        <h2 id="s5"><span class="sec">§5</span><span class="type-badge">bool</span>Логический тип и None</h2>
+        <p>Помимо чисел и строк вам сразу встретятся ещё два типа, поэтому назовём их здесь коротко.</p>
+        <p><code>bool</code> хранит одно из двух значений: <code>True</code> или <code>False</code> (с заглавной буквы, без кавычек). Такое значение получается при любом сравнении — <code>10 &gt; 3</code> даёт <code>True</code>, — и именно на нём работают условия. Подробно разберём в главе о ветвлении.</p>
+        <p><code>None</code> — отдельное значение со смыслом «значения пока нет». Его ставят, когда переменную нужно объявить, а данных для неё ещё не получено. Это не ноль и не пустая строка: ноль — это результат, а <code>None</code> — его отсутствие.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>bool и None</span></figcaption>
+<pre>is_adult = <span class="n">10</span> &gt; <span class="n">3</span>
+<span class="f">print</span>(is_adult)         <span class="c"># True</span>
+<span class="f">print</span>(<span class="f">type</span>(is_adult))   <span class="c"># &lt;class 'bool'&gt;</span>
+
+answer = <span class="k">None</span>          <span class="c"># ответа ещё нет</span></pre>
+        </figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Строка с цифрами — не число</h2>
+        <p>Это различие стоит отдельного параграфа, потому что на нём спотыкаются чаще всего. Значение <code>"10"</code> в кавычках — строка из двух символов. Значение <code>10</code> без кавычек — целое число. Выглядят похоже, ведут себя по-разному.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два разных значения</span></figcaption>
+<pre>x = <span class="s">"10"</span>
+y = <span class="n">10</span>
+
+<span class="f">print</span>(<span class="f">type</span>(x))   <span class="c"># &lt;class 'str'&gt;</span>
+<span class="f">print</span>(<span class="f">type</span>(y))   <span class="c"># &lt;class 'int'&gt;</span>
+
+<span class="f">print</span>(x * <span class="n">2</span>)      <span class="c"># 1010 — строка повторилась дважды</span>
+<span class="f">print</span>(y * <span class="n">2</span>)      <span class="c"># 20   — число умножилось на два</span></pre>
+        </figure>
+        <p>Вопрос не теоретический: функция <code>input()</code>, которой мы будем получать данные от пользователя, всегда возвращает строку — даже если человек ввёл цифры. Поэтому введённое значение почти всегда приходится преобразовывать перед вычислениями.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Преобразование типов</h2>
+        <p>Перевести значение из одного типа в другой можно явно — функциями с именем типа.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Функция</th><th>Что делает</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><code>int(value)</code></td><td>приводит к целому числу</td><td><code>int("10") → 10</code></td></tr>
+              <tr><td><code>float(value)</code></td><td>приводит к дробному числу</td><td><code>float("3.5") → 3.5</code></td></tr>
+              <tr><td><code>str(value)</code></td><td>приводит к строке</td><td><code>str(10) → "10"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>считаем то, что пришло строкой</span></figcaption>
+<pre>x = <span class="s">"10"</span>
+
+<span class="f">print</span>(x + <span class="s">"10"</span>)         <span class="c"># 1010 — склеили две строки</span>
+<span class="f">print</span>(<span class="f">int</span>(x) + <span class="n">10</span>)      <span class="c"># 20   — сложили два числа</span></pre>
+        </figure>
+        <p>У преобразования есть свои правила, и их лучше знать заранее:</p>
+        <ul>
+          <li><code>int("3.5")</code> — ошибка <code>ValueError</code>: функция <code>int()</code> разбирает только запись целого числа. Через дробное — можно: <code>int(float("3.5"))</code> даст <code>3</code>;</li>
+          <li><code>int(3.99)</code> даёт <code>3</code>, а <code>int(-3.7)</code> даёт <code>-3</code> — дробная часть <strong>отбрасывается</strong>, а не округляется. Для округления по правилам есть <code>round()</code>;</li>
+          <li><code>int("десять")</code> — ошибка: в строке должно быть число, а не его название.</li>
+        </ul>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>"10" + 10</code></td><td><code>TypeError: can only concatenate str (not "int") to str</code></td><td><code>int("10") + 10</code> или <code>"10" + str(10)</code> — решаете вы, что нужно: сумма или склейка</td></tr>
+              <tr><td><code>int("3.5")</code></td><td><code>ValueError: invalid literal for int()</code></td><td><code>float("3.5")</code>, либо <code>int(float("3.5"))</code></td></tr>
+              <tr><td><code>x = 3,14</code></td><td>не ошибка, но и не число: получится кортеж из двух значений</td><td>десятичный разделитель — точка: <code>x = 3.14</code></td></tr>
+              <tr><td><code>print(10 / 2)</code>, ожидая <code>5</code></td><td>выведет <code>5.0</code> — деление возвращает <code>float</code></td><td><code>10 // 2</code>, если нужен целый результат</td></tr>
+              <tr><td><code>print("Итого: " + total)</code></td><td><code>TypeError</code>, если <code>total</code> — число</td><td>f-строка: <code>print(f"Итого: {total}")</code></td></tr>
+              <tr><td><code>x = "10"</code> из <code>input()</code>, затем <code>x * 2</code></td><td><code>1010</code> вместо <code>20</code> — сработало повторение строки</td><td>преобразовать сразу: <code>x = int(input())</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="margin-note">
+          <b>Как читать TypeError</b>
+          <p>Сообщение <code>can only concatenate str (not "int") to str</code> переводится буквально: «к строке можно прибавить только строку, а не целое». Python в ошибках прямо называет типы, которые не сошлись, — этого почти всегда достаточно, чтобы понять, где значение оказалось не того рода. Читайте последнюю строку трассировки: там и тип, и номер строки в вашем файле.</p>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Что выведет <code>print(type(10.0))</code>?</summary>
+          <p><code>&lt;class 'float'&gt;</code>. Наличие точки в записи делает значение дробным, даже если дробная часть нулевая. Целым числом было бы <code>10</code>.</p>
+        </details>
+        <details>
+          <summary>Чем отличается результат <code>7 / 2</code> от <code>7 // 2</code>?</summary>
+          <p><code>7 / 2</code> даёт <code>3.5</code> — обычное деление, результат всегда <code>float</code>. <code>7 // 2</code> даёт <code>3</code> — целочисленное деление: сколько целых двоек помещается в семёрке. Остаток от этого деления вернёт <code>7 % 2</code>, то есть <code>1</code>.</p>
+        </details>
+        <details>
+          <summary>Что выведет программа: <code>x = "5"</code>, затем <code>print(x + x)</code>?</summary>
+          <p><code>55</code>. Оба значения — строки, и <code>+</code> для строк означает склеивание. Чтобы получить <code>10</code>, нужно преобразовать: <code>print(int(x) + int(x))</code>.</p>
+        </details>
+        <details>
+          <summary>Пользователь ввёл возраст через <code>input()</code>. Почему <code>age + 1</code> вызывает ошибку?</summary>
+          <p>Потому что <code>input()</code> всегда возвращает строку, даже когда введены цифры. Прибавить целое к строке нельзя — будет <code>TypeError</code>. Преобразуйте значение сразу при вводе: <code>age = int(input("Ваш возраст: "))</code>.</p>
+        </details>
+        <details>
+          <summary>Какого типа получится значение в выражении <code>2 + 3.0</code> и почему?</summary>
+          <p><code>float</code>, результат <code>5.0</code>. Когда в выражении встречаются целое и дробное, целое приводится к дробному — иначе часть значения потерялась бы. Обратное приведение язык сам не делает никогда: терять данные без вашего ведома он не станет.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: программа из прошлой главы считает стоимость поездки. Что произойдёт, если <code>distance</code> получить через <code>input()</code> и ничего не менять?</summary>
+          <p>Строка <code>fuel_cost = (distance / fuel_efficiency) * fuel_price</code> завершится с <code>TypeError</code>: делить строку на число нельзя. Правка в одном месте — <code>distance = int(input("Расстояние, км: "))</code>. Это и есть типичный порядок работы: получили данные строкой, привели к нужному типу, дальше считаем.</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Четыре базовых типа</b>
+            <code>10        # int</code>
+            <code>3.14      # float</code>
+            <code>"текст"   # str</code>
+            <code>True      # bool</code>
+          </div>
+          <div>
+            <b>Узнать тип</b>
+            <code>print(type(x))</code>
+            <code># &lt;class 'int'&gt;</code>
+          </div>
+          <div>
+            <b>Деление</b>
+            <code>7 / 2   # 3.5  float</code>
+            <code>7 // 2  # 3    целое</code>
+            <code>7 % 2   # 1    остаток</code>
+          </div>
+          <div>
+            <b>Операции со строками</b>
+            <code>"a" + "b"   # ab</code>
+            <code>"ha" * 3    # hahaha</code>
+            <code>len("Python")  # 6</code>
+          </div>
+          <div>
+            <b>Преобразование</b>
+            <code>int("10")    # 10</code>
+            <code>float("3.5") # 3.5</code>
+            <code>str(10)      # "10"</code>
+          </div>
+          <div>
+            <b>Ввод — всегда строка</b>
+            <code>age = int(input())</code>
+            <code>price = float(input())</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Тип данных отвечает на вопрос, что за значение лежит в переменной и что с ним разрешено делать. Целые числа — <code>int</code>, дробные — <code>float</code>, текст — <code>str</code>, результат сравнения — <code>bool</code>. Python определяет тип сам при присваивании, но не додумывает за вас смысл операции: сложить строку с числом он не станет, потому что не может знать, нужна вам сумма или склейка. Решаете это вы — явным преобразованием через <code>int()</code>, <code>float()</code> или <code>str()</code>.</p>
+
+        <div class="pager">
+          <a href="../01-peremennye/index.html">← 1.1 Переменные в программировании</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../03-print/index.html">1.3 Функция print() →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.2 · Типы данных в Python · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

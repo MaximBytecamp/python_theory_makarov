@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.5 Функция input() в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.5</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.5</span>
+          <h1>Функция input():<br>ввод данных</h1>
+          <p class="lead">До сих пор все числа мы записывали прямо в код. Программа считала одно и то же при каждом запуске. Функция <code>input()</code> меняет это: теперь данные приходят от человека за клавиатурой — и с ними приходит первая настоящая проблема, к которой нас готовила прошлая глава.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Типы данных, вывод, исключения</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Получать данные от пользователя и приводить их к нужному типу</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что делает input()</a></li>
+            <li><a href="#s2">Подсказка для пользователя</a></li>
+            <li><a href="#s3">input() всегда возвращает строку</a></li>
+            <li><a href="#s4">Преобразование при вводе</a></li>
+            <li><a href="#s5">Разбор задачи: среднее двух чисел</a></li>
+            <li><a href="#s6">Преобразование в обе стороны</a></li>
+            <li><a href="#s7">Когда ввели не то</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что делает input()</h2>
+        <p>Функция <code>input()</code> получает данные от пользователя с клавиатуры. Выполнение программы на этой строке останавливается: интерпретатор ждёт, пока человек наберёт текст и нажмёт <kbd>Enter</kbd>. Введённое значение становится результатом функции — его и присваивают переменной.</p>
+        <figure class="code">
+          <figcaption><span>Синтаксис</span><span>input</span></figcaption>
+<pre>переменная = <span class="f">input</span>(<span class="s">"текст подсказки"</span>)</pre>
+        </figure>
+        <p>Разберём по шагам, что происходит при выполнении двух строк:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первый ввод</span></figcaption>
+<pre>name = <span class="f">input</span>(<span class="s">"Введите ваше имя: "</span>)
+<span class="f">print</span>(name)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>синим — то, что набрал пользователь</span></figcaption>
+<pre>Введите ваше имя: <span class="u">Алексей</span>
+Алексей</pre>
+        </figure>
+        <ol class="steps">
+          <li>Программа выводит подсказку <code>Введите ваше имя:</code> и оставляет курсор на той же строке.</li>
+          <li>Выполнение останавливается — программа ждёт, ничего больше не делая.</li>
+          <li>Пользователь набирает текст и нажимает <kbd>Enter</kbd>.</li>
+          <li>Введённое значение сохраняется в переменной <code>name</code>, и выполнение идёт дальше.</li>
+        </ol>
+        <div class="margin-note">
+          <b>На полях: программа не зависла</b>
+          <p>Самое частое недоумение на первом занятии — «программа запустилась и ничего не делает». Скорее всего, она дошла до <code>input()</code> и ждёт вас. Такое ожидание не ограничено по времени: пока не будет нажат <kbd>Enter</kbd>, следующая строка не выполнится. Прервать ожидание можно сочетанием <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span>Подсказка для пользователя</h2>
+        <p>Текст в скобках называется <span class="term">подсказкой</span>: он объясняет, что именно от человека требуется. Подсказка выводится ровно как написана, поэтому в её конце ставят пробел — иначе введённый текст прилипнет к двоеточию.</p>
+        <figure class="code">
+          <figcaption><span>Сравните</span><span>пробел в конце подсказки</span></figcaption>
+<pre>age = <span class="f">input</span>(<span class="s">"Ваш возраст:"</span>)    <span class="c"># Ваш возраст:18</span>
+age = <span class="f">input</span>(<span class="s">"Ваш возраст: "</span>)   <span class="c"># Ваш возраст: 18</span></pre>
+        </figure>
+        <p>Подсказку можно не передавать вовсе — <code>input()</code> без аргументов тоже работает. Но тогда пользователь увидит пустую строку и мигающий курсор без единого пояснения, что от него хотят. Считайте подсказку обязательной: это часть интерфейса вашей программы, а не украшение.</p>
+        <p>Хорошая подсказка называет и величину, и единицу измерения: <code>"Расстояние, км: "</code> понятнее, чем <code>"Введите число: "</code>. Человек не обязан догадываться, в чём вводить.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>input() всегда возвращает строку</h2>
+        <p>Это главное свойство функции, и запомнить его нужно сразу: <strong><code>input()</code> возвращает значение типа <code>str</code></strong> — всегда, при любом вводе. Даже когда пользователь набрал одни цифры.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверяем тип введённого</span></figcaption>
+<pre>age = <span class="f">input</span>(<span class="s">"Введите ваш возраст: "</span>)
+<span class="f">print</span>(age)
+<span class="f">print</span>(<span class="f">type</span>(age))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>пользователь ввёл 18</span></figcaption>
+<pre>Введите ваш возраст: <span class="u">18</span>
+18
+&lt;class 'str'&gt;</pre>
+        </figure>
+        <p>На экране <code>18</code> и <code>18</code> выглядят одинаково, но для программы это строка из двух символов, а не число. Со строкой не работает арифметика: <code>age + 1</code> завершится с <code>TypeError</code>, а <code>age * 2</code> даст <code>1818</code> вместо <code>36</code>. Мы разбирали это различие в главе о типах данных — вот задача, ради которой оно и нужно.</p>
+        <p>Ведёт себя так функция не по недосмотру. Она читает символы, набранные на клавиатуре, и не может решать за вас, что такое <code>007</code> — номер, код или число семь. Решение остаётся за автором программы.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Преобразование при вводе</h2>
+        <p>Чтобы считать введённое значение числом, его преобразуют явно — функциями <code>int()</code> и <code>float()</code>. Обычно это делают прямо в строке ввода, не заводя лишнего имени: сначала выполняется <code>input()</code>, затем полученная строка передаётся в <code>int()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>целое число</span></figcaption>
+<pre>age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите ваш возраст: "</span>))
+<span class="f">print</span>(<span class="s">"Ваш возраст:"</span>, age)
+<span class="f">print</span>(<span class="f">type</span>(age))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Введите ваш возраст: <span class="u">18</span>
+Ваш возраст: 18
+&lt;class 'int'&gt;</pre>
+        </figure>
+        <p>Теперь в переменной лежит число, и с ним допустимы вычисления. Для дробных величин — вес, цена, рост — берут <code>float()</code>:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>дробное число</span></figcaption>
+<pre>weight = <span class="f">float</span>(<span class="f">input</span>(<span class="s">"Введите ваш вес, кг: "</span>))
+<span class="f">print</span>(weight)      <span class="c"># 72.5</span>
+<span class="f">print</span>(<span class="f">type</span>(weight))  <span class="c"># &lt;class 'float'&gt;</span></pre>
+        </figure>
+        <p>Правило выбора простое: <code>int()</code> — для того, что считают штуками (возраст, количество, год), <code>float()</code> — для того, что измеряют (вес, цена, длина). Если сомневаетесь, берите <code>float()</code>: он примет и <code>72</code>, и <code>72.5</code>, тогда как <code>int()</code> на дробном вводе остановит программу с ошибкой.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Разбор задачи: среднее двух чисел</h2>
+        <p>Соберём всё вместе. Программа спрашивает два числа и выводит их среднее.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>полная программа</span></figcaption>
+<pre>num1 = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите первое число: "</span>))
+num2 = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите второе число: "</span>))
+
+average = (num1 + num2) / <span class="n">2</span>
+
+<span class="f">print</span>(<span class="s">"Среднее значение:"</span>, average)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>ввели 5 и 8</span></figcaption>
+<pre>Введите первое число: <span class="u">5</span>
+Введите второе число: <span class="u">8</span>
+Среднее значение: 6.5</pre>
+        </figure>
+        <p>Каждый <code>input()</code> — отдельная остановка: программа дождётся первого числа, только потом выведет вторую подсказку. Результат получился дробным, хотя вводили целые: деление <code>/</code> всегда возвращает <code>float</code>. Если по условию задачи нужно целое, результат приводят явно:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>целое среднее</span></figcaption>
+<pre>average = <span class="f">int</span>((num1 + num2) / <span class="n">2</span>)
+
+<span class="f">print</span>(<span class="s">"Среднее целое значение:"</span>, average)   <span class="c"># 6</span></pre>
+        </figure>
+        <div class="margin-note margin-note--warn">
+          <b>int() отбрасывает, а не округляет</b>
+          <p>Из <code>6.5</code> получилось <code>6</code>, и из <code>6.9</code> тоже получится <code>6</code>: дробная часть просто отсекается. Тот же результат даёт целочисленное деление <code>(num1 + num2) // 2</code> — запись короче. А если нужно именно округление по правилам, до ближайшего, берите <code>round((num1 + num2) / 2)</code>. Три разных инструмента для трёх разных задач — выбирайте осознанно.</p>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>Преобразование в обе стороны</h2>
+        <p>Преобразование работает не только на входе. Обратный перевод — числа в строку — нужен, когда значение требуется склеить с текстом.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>строка → число и обратно</span></figcaption>
+<pre><span class="c"># строка → число</span>
+num_str = <span class="s">"123"</span>
+num_int = <span class="f">int</span>(num_str)
+
+<span class="c"># число → строка</span>
+num_int = <span class="n">123</span>
+num_str = <span class="f">str</span>(num_int)</pre>
+        </figure>
+        <p>На экране <code>print(num_str)</code> и <code>print(num_int)</code> выведут одинаковые <code>123</code> — разницу видно только через <code>type()</code> и по тому, что с этими значениями разрешено делать. Обратите внимание: исходное значение при преобразовании не меняется, функция возвращает <strong>новое</strong>. Строка <code>int(num_str)</code> сама по себе бесполезна — результат нужно куда-то присвоить.</p>
+        <p>Для вывода текста вместе с числом <code>str()</code> обычно не требуется: f-строка подставит значение любого типа сама.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>два способа вывести число с текстом</span></figcaption>
+<pre>total = <span class="n">4395.83</span>
+
+<span class="f">print</span>(<span class="s">"Итого: "</span> + <span class="f">str</span>(total) + <span class="s">" руб."</span>)   <span class="c"># работает, но громоздко</span>
+<span class="f">print</span>(<span class="s">f"Итого: {total} руб."</span>)              <span class="c"># так короче и понятнее</span></pre>
+        </figure>
+
+        <h2 id="s7"><span class="sec">§7</span>Когда ввели не то</h2>
+        <p>Запись <code>int(input())</code> исходит из того, что пользователь введёт число. Но вводит человек, а человек ошибается, отвлекается и понимает подсказку по-своему. Если в <code>int()</code> попадёт что-то другое, программа остановится с ошибкой <code>ValueError</code> прямо на строке ввода.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Пользователь ввёл</th><th>Результат <code>int(...)</code></th></tr></thead>
+            <tbody>
+              <tr><td><code>18</code></td><td><code>18</code> — всё в порядке</td></tr>
+              <tr><td><code>&nbsp;18&nbsp;</code> с пробелами по краям</td><td><code>18</code> — пробелы по краям <code>int()</code> отбрасывает сам</td></tr>
+              <tr><td><code>18 лет</code></td><td><code>ValueError: invalid literal for int() with base 10: '18 лет'</code></td></tr>
+              <tr><td><code>18.5</code></td><td><code>ValueError</code> — для дробного нужен <code>float()</code></td></tr>
+              <tr><td>ничего, просто <kbd>Enter</kbd></td><td><code>ValueError</code> — пустая строка не является числом</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Полноценная защита от такого ввода — это <code>try / except</code>, и ей отведена отдельная глава в модуле об ошибках. Пока достаточно понимать причину и знать один приём для дробных чисел: у нас принято писать десятичный разделитель запятой, а Python понимает только точку. Заменить одно на другое можно сразу при вводе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>принимаем и 72.5, и 72,5</span></figcaption>
+<pre>raw = <span class="f">input</span>(<span class="s">"Введите ваш вес, кг: "</span>)
+weight = <span class="f">float</span>(raw.replace(<span class="s">","</span>, <span class="s">"."</span>))
+
+<span class="f">print</span>(weight)</pre>
+        </figure>
+        <p>Здесь ввод сначала сохранён в переменную <code>raw</code> — «сырое» значение, — и только потом преобразован. Такой порядок удобен, когда со строкой нужно что-то сделать до превращения в число.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>age = input("Возраст: ")</code>, затем <code>age + 1</code></td><td><code>TypeError</code> — к строке нельзя прибавить число</td><td><code>age = int(input("Возраст: "))</code></td></tr>
+              <tr><td><code>n = input()</code>, затем <code>n * 2</code></td><td><code>1818</code> вместо <code>36</code> — строка повторилась</td><td>преобразовать при вводе: <code>n = int(input())</code></td></tr>
+              <tr><td><code>int(input("Вес: "))</code> для веса <code>72.5</code></td><td><code>ValueError</code> — <code>int()</code> не принимает дробную запись</td><td><code>float(input("Вес, кг: "))</code></td></tr>
+              <tr><td><code>int(input("Возраст: ")</code></td><td><code>SyntaxError</code> — не закрыта вторая скобка</td><td>считайте скобки: их две, закрывающих тоже две</td></tr>
+              <tr><td><code>input = "Иван"</code></td><td>имя функции занято, следующий <code>input()</code> вызовет <code>TypeError</code></td><td>назвать переменную по смыслу: <code>name = "Иван"</code></td></tr>
+              <tr><td><code>name = print("Имя: ")</code></td><td>в <code>name</code> окажется <code>None</code> — <code>print</code> выводит, но ничего не возвращает</td><td>для ввода нужен <code>input()</code>, а не <code>print()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Какой тип будет у переменной <code>x</code> после строки <code>x = input("Число: ")</code>, если пользователь ввёл <code>42</code>?</summary>
+          <p><code>str</code>. Функция <code>input()</code> возвращает строку при любом вводе; цифры на клавиатуре ничего не меняют. Чтобы получить <code>int</code>, нужно написать <code>x = int(input("Число: "))</code>.</p>
+        </details>
+        <details>
+          <summary>Что выведет программа: <code>n = input()</code> и <code>print(n + n)</code>, если ввели <code>7</code>?</summary>
+          <p><code>77</code>. Обе части — строки, и <code>+</code> их склеивает. Для суммы <code>14</code> нужно преобразовать значение при вводе: <code>n = int(input())</code>.</p>
+        </details>
+        <details>
+          <summary>Почему <code>int(input("Цена: "))</code> — плохой выбор для ввода цены?</summary>
+          <p>Цена бывает дробной. Как только пользователь введёт <code>99.90</code>, программа остановится с <code>ValueError</code>. Для измеряемых величин берут <code>float()</code>: он примет и <code>100</code>, и <code>99.90</code>.</p>
+        </details>
+        <details>
+          <summary>В программе три подряд идущих <code>input()</code>. Сколько раз она остановится и почему подсказки не выводятся все сразу?</summary>
+          <p>Три раза. Строки выполняются сверху вниз: интерпретатор доходит до первого <code>input()</code>, печатает его подсказку и ждёт <kbd>Enter</kbd>. Только после ввода он переходит к следующей строке — и лишь тогда появляется вторая подсказка.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: переделайте программу о поездке из главы 1.1 так, чтобы расстояние и цену топлива вводил пользователь.</summary>
+          <p>Заменить две строки с данными на ввод и оставить расчёт нетронутым:</p>
+          <ul>
+            <li><code>distance = int(input("Расстояние, км: "))</code></li>
+            <li><code>fuel_price = float(input("Цена литра, руб.: "))</code></li>
+          </ul>
+          <p>Расстояние — целое, цена — дробная. Расчёт <code>fuel_cost</code> и вывод менять не нужно: в переменных лежат числа, а откуда они взялись, вычислениям безразлично. Это и есть польза от разделения «данные сверху — расчёт ниже».</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Ввод текста</b>
+            <code>name = input("Имя: ")</code>
+            <code># всегда str</code>
+          </div>
+          <div>
+            <b>Ввод целого числа</b>
+            <code>age = int(input("Возраст: "))</code>
+          </div>
+          <div>
+            <b>Ввод дробного числа</b>
+            <code>w = float(input("Вес, кг: "))</code>
+          </div>
+          <div>
+            <b>Число → строка</b>
+            <code>s = str(123)</code>
+            <code>print(f"Итого: {total}")</code>
+          </div>
+          <div>
+            <b>Дробное из целого</b>
+            <code>int(6.9)     # 6  отбросить</code>
+            <code>round(6.9)   # 7  округлить</code>
+          </div>
+          <div>
+            <b>Запятая вместо точки</b>
+            <code>raw = input("Вес: ")</code>
+            <code>float(raw.replace(",", "."))</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Функция <code>input()</code> останавливает программу и получает данные от пользователя. Её подсказка — часть интерфейса: она должна называть величину и единицу измерения. Возвращает <code>input()</code> всегда строку, поэтому перед вычислениями значение приводят к числу через <code>int()</code> или <code>float()</code> — обычно прямо в строке ввода. С этой главы программа перестала быть расчётом с зашитыми числами и стала инструментом, которым может воспользоваться другой человек.</p>
+
+        <div class="pager">
+          <a href="../04-print-sep-end/index.html">← 1.4 Параметры print(): sep и end</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../06-mnozhestvennoe-prisvaivanie/index.html">1.6 Множественное присваивание →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.5 · Функция input(): ввод данных · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

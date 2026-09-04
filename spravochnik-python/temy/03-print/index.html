@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.3 Функция print() в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.3</span>
+          <h1>Функция print():<br>вывод данных</h1>
+          <p class="lead">Программа может посчитать что угодно, но пока результат не выведен на экран, о нём никто не узнает. <code>print()</code> — самая часто вызываемая функция в учебном коде и первый инструмент отладки: именно ею вы будете проверять, что на самом деле лежит в переменной.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Переменные, типы данных, ввод</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Показывать результат работы программы и проверять её ход</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что делает print()</a></li>
+            <li><a href="#s2">Вывод переменных</a></li>
+            <li><a href="#s3">Несколько значений сразу</a></li>
+            <li><a href="#s4">Значения разных типов</a></li>
+            <li><a href="#s5">f-строки</a></li>
+            <li><a href="#s6">Запятая или плюс</a></li>
+            <li><a href="#s7">print() как инструмент отладки</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что делает print()</h2>
+        <p>Функция <code>print()</code> выводит данные на экран — в консоль, она же терминал. Всё, что вы передадите ей в скобках, появится в окне вывода; ничего другого она не делает и никакого результата в программу не возвращает.</p>
+        <figure class="code">
+          <figcaption><span>Синтаксис</span><span>print</span></figcaption>
+<pre><span class="f">print</span>(значение)</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первая программа</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Hello, world!"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Hello, world!</pre>
+        </figure>
+        <p>Текст в кавычках выводится буквально, символ в символ. Кавычки на экран не попадают: они нужны языку, чтобы отличить строку от имени переменной.</p>
+        <div class="margin-note">
+          <b>На полях: вывести и вернуть — разные вещи</b>
+          <p>Запись <code>x = print("текст")</code> синтаксически верна, но в <code>x</code> окажется <code>None</code> — «значения нет». <code>print()</code> показывает данные человеку, а не передаёт их программе. Перепутать это легко: <code>input()</code> возвращает введённое значение, <code>print()</code> не возвращает ничего.</p>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span>Вывод переменных</h2>
+        <p>В скобки передают не только текст в кавычках, но и имя переменной — тогда на экран попадёт её значение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>значение переменной</span></figcaption>
+<pre>name = <span class="s">"Alice"</span>
+<span class="f">print</span>(name)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Alice</pre>
+        </figure>
+        <p>Разница между <code>print(name)</code> и <code>print("name")</code> принципиальна: в первом случае выведется значение — <code>Alice</code>, во втором четыре буквы <code>name</code>. Кавычки означают «взять текст как есть», их отсутствие — «взять значение по имени».</p>
+        <p>Точно так же в скобках может стоять выражение. Оно сначала вычисляется, а на экран идёт уже результат:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сначала расчёт, потом вывод</span></figcaption>
+<pre>x = <span class="n">10</span>
+y = <span class="n">5</span>
+
+<span class="f">print</span>(x + y)   <span class="c"># 15</span></pre>
+        </figure>
+
+        <h2 id="s3"><span class="sec">§3</span>Несколько значений сразу</h2>
+        <p>Одному вызову можно передать сколько угодно значений — их перечисляют через запятую. На экране они окажутся в одной строке, разделённые пробелом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два значения в одном вызове</span></figcaption>
+<pre>name = <span class="s">"Alice"</span>
+age = <span class="n">25</span>
+
+<span class="f">print</span>(name, age)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Alice 25</pre>
+        </figure>
+        <p>Пробел между значениями <code>print()</code> ставит сам — вы его не писали. Это поведение по умолчанию, и его можно изменить: за разделитель отвечает параметр <code>sep</code>, о котором пойдёт речь в следующей главе.</p>
+        <p>Ещё одна мелочь, которая пригодится: вызов <code>print()</code> без единого аргумента выводит пустую строку. Так разделяют блоки вывода, чтобы результат читался.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Значения разных типов</h2>
+        <p>В одном вызове можно смешивать текст, числа и любые другие значения — <code>print()</code> сам приведёт каждое к строковому виду перед выводом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>текст вперемешку с данными</span></figcaption>
+<pre>name = <span class="s">"Alice"</span>
+age = <span class="n">25</span>
+
+<span class="f">print</span>(<span class="s">"Имя:"</span>, name, <span class="s">"Возраст:"</span>, age)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Имя: Alice Возраст: 25</pre>
+        </figure>
+        <p>Это важное отличие от операции <code>+</code>. Сложить строку с числом язык откажется — вы помните <code>TypeError</code> из главы о типах. А вот перечислить их через запятую внутри <code>print()</code> можно всегда: здесь не происходит сложения, значения просто выводятся друг за другом.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>f-строки</h2>
+        <p>Когда текст и данные перемешаны плотно, перечисление через запятую становится неудобным: трудно уследить за пробелами и запятыми. Для таких случаев есть <span class="term">f-строка</span> — строка с буквой <code>f</code> перед кавычкой, внутри которой значения подставляются прямо в текст, в фигурных скобках.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>подстановка значений в текст</span></figcaption>
+<pre>name = <span class="s">"Alice"</span>
+age = <span class="n">25</span>
+
+<span class="f">print</span>(<span class="s">f"Имя: {name}, возраст: {age}"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Имя: Alice, возраст: 25</pre>
+        </figure>
+        <p>Текст виден целиком, вместе со знаками препинания, — что написали, то и получите. Внутри фигурных скобок допустимо не только имя, но и выражение:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>вычисление внутри скобок</span></figcaption>
+<pre>n = <span class="n">7</span>
+<span class="f">print</span>(<span class="s">f"{n} в квадрате = {n ** 2}"</span>)   <span class="c"># 7 в квадрате = 49</span></pre>
+        </figure>
+        <p>И то самое форматирование числа, которым мы пользовались в главе о переменных, — это тоже f-строка: двоеточие после значения открывает описание того, как его показать.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>управление видом числа</span></figcaption>
+<pre>price = <span class="n">1895.8333333</span>
+
+<span class="f">print</span>(<span class="s">f"{price}"</span>)        <span class="c"># 1895.8333333</span>
+<span class="f">print</span>(<span class="s">f"{price:.2f}"</span>)    <span class="c"># 1895.83 — два знака после точки</span></pre>
+        </figure>
+        <div class="margin-note margin-note--warn">
+          <b>Не забывайте букву f</b>
+          <p>Без неё фигурные скобки останутся обычными символами: <code>print("Возраст: {age}")</code> выведет на экран буквально <code>Возраст: {age}</code>. Ошибки не будет, программа не упадёт — просто результат окажется бессмысленным. Если в выводе видны фигурные скобки, проверьте букву перед кавычкой.</p>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>Запятая или плюс</h2>
+        <p>Соединить текст со значением можно тремя способами. Работают все три, но выбирают между ними не наугад.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Способ</th><th>Как выглядит</th><th>Когда брать</th></tr></thead>
+            <tbody>
+              <tr><td>Запятая</td><td><code>print("Итого:", total)</code></td><td>быстрый вывод пары значений; пробел добавится сам</td></tr>
+              <tr><td>f-строка</td><td><code>print(f"Итого: {total} руб.")</code></td><td>основной способ: текст виден целиком, доступно форматирование</td></tr>
+              <tr><td>Плюс</td><td><code>print("Итого: " + str(total))</code></td><td>почти никогда: требует <code>str()</code> и легко даёт <code>TypeError</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Разница между запятой и плюсом в одном: запятая разделяет аргументы функции и сама ставит пробел, плюс склеивает строки и требует, чтобы обе части были строками. Отсюда практическое правило: для вывода — запятая или f-строка, а <code>+</code> оставьте для случаев, когда вам действительно нужно собрать одну строку из нескольких.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>print() как инструмент отладки</h2>
+        <p>Второе назначение функции — не менее важное, чем первое. Когда программа считает не то, что вы ожидали, <code>print()</code> позволяет заглянуть внутрь и посмотреть, что на самом деле лежит в переменных на этом шаге.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверяем ход вычисления</span></figcaption>
+<pre>fuel_cost = (distance / fuel_efficiency) * fuel_price
+<span class="f">print</span>(<span class="s">"проверка: fuel_cost ="</span>, fuel_cost, <span class="f">type</span>(fuel_cost))</pre>
+        </figure>
+        <p>Приём выглядит примитивно, но экономит часы. Правило то же, что и в главе о переменных: <code>print()</code> показывает готовое значение, а вычисления живут в отдельных строках с осмысленными именами. Тогда и проверять есть что — каждый промежуточный результат доступен по имени.</p>
+        <p>Отладочные выводы после проверки удаляют. Строка <code>print("сюда дошли")</code>, забытая в готовой программе, — верный признак незаконченной работы.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>print("Итого: " + total)</code></td><td><code>TypeError</code>, если <code>total</code> — число</td><td><code>print(f"Итого: {total}")</code></td></tr>
+              <tr><td><code>print("Возраст: {age}")</code></td><td>выведет скобки буквально — забыта буква <code>f</code></td><td><code>print(f"Возраст: {age}")</code></td></tr>
+              <tr><td><code>print(name)</code> вместо <code>print("name")</code> и наоборот</td><td>выведется не то: значение вместо текста или текст вместо значения</td><td>кавычки — это текст как есть, без кавычек — значение по имени</td></tr>
+              <tr><td><code>print("Привет)</code></td><td><code>SyntaxError</code> — не закрыта кавычка</td><td>кавычки и скобки закрываются парами</td></tr>
+              <tr><td><code>Print("Привет")</code></td><td><code>NameError</code> — регистр важен, такого имени нет</td><td>все встроенные функции пишутся строчными</td></tr>
+              <tr><td><code>x = print(2 + 2)</code></td><td>на экране <code>4</code>, но в <code>x</code> — <code>None</code></td><td><code>x = 2 + 2</code>, а затем <code>print(x)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Чем отличается <code>print(age)</code> от <code>print("age")</code>?</summary>
+          <p>Первый вызов выведет значение переменной <code>age</code> — например, <code>25</code>. Второй выведет три буквы <code>age</code>: всё, что стоит в кавычках, выводится буквально. Если переменной <code>age</code> не существует, первый вариант завершится с <code>NameError</code>, а второй отработает без ошибок.</p>
+        </details>
+        <details>
+          <summary>Что выведет <code>print("Сумма:", 2 + 3)</code>?</summary>
+          <p><code>Сумма: 5</code>. Выражение <code>2 + 3</code> вычисляется до вывода, а пробел между значениями <code>print()</code> добавляет сам.</p>
+        </details>
+        <details>
+          <summary>Почему <code>print("Цена: " + 100)</code> вызывает ошибку, а <code>print("Цена:", 100)</code> — нет?</summary>
+          <p>В первом случае выполняется сложение строки с числом, а такая операция не определена — <code>TypeError</code>. Во втором запятая просто разделяет два аргумента функции, никакого сложения не происходит: <code>print()</code> приводит каждое значение к строковому виду самостоятельно.</p>
+        </details>
+        <details>
+          <summary>Как вывести <code>Итого: 4395.83 руб.</code>, если в переменной <code>total</code> лежит <code>4395.833333</code>?</summary>
+          <p><code>print(f"Итого: {total:.2f} руб.")</code>. Запись <code>:.2f</code> округляет число до двух знаков при выводе; само значение в переменной не меняется.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: программа спрашивает имя и год рождения, а затем выводит одну строку вида «Иван, вам 30 лет».</summary>
+          <p>Три строки кода:</p>
+          <ul>
+            <li><code>name = input("Ваше имя: ")</code></li>
+            <li><code>year = int(input("Год рождения: "))</code></li>
+            <li><code>print(f"{name}, вам {2026 - year} лет")</code></li>
+          </ul>
+          <p>Обратите внимание: год приводим к числу, иначе вычесть его не получится, а сам расчёт спокойно живёт внутри фигурных скобок.</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Текст и значение</b>
+            <code>print("Привет")   # текст</code>
+            <code>print(name)       # значение</code>
+          </div>
+          <div>
+            <b>Несколько значений</b>
+            <code>print(name, age)</code>
+            <code># пробел ставится сам</code>
+          </div>
+          <div>
+            <b>f-строка</b>
+            <code>print(f"Имя: {name}")</code>
+            <code>print(f"{n} → {n ** 2}")</code>
+          </div>
+          <div>
+            <b>Округление при выводе</b>
+            <code>print(f"{price:.2f}")</code>
+            <code># 1895.83</code>
+          </div>
+          <div>
+            <b>Пустая строка</b>
+            <code>print()</code>
+          </div>
+          <div>
+            <b>Проверка при отладке</b>
+            <code>print("x =", x, type(x))</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Функция <code>print()</code> выводит на экран текст, значения переменных и результаты вычислений — и ничего не возвращает в программу. Несколько значений перечисляют через запятую, между ними автоматически появляется пробел. Основной способ собрать текст с данными — f-строка: она читается целиком и умеет форматировать числа. А для себя <code>print()</code> — первый инструмент отладки: когда результат не сходится, посмотрите, что лежит в переменных на самом деле.</p>
+
+        <div class="pager">
+          <a href="../02-tipy-dannyh/index.html">← 1.2 Типы данных в Python</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../04-print-sep-end/index.html">1.4 Параметры print(): sep и end →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.3 · Функция print(): вывод данных · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.2 Составление условий без ветвления · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.2</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.2</span>
+          <h1>Составление условий<br>без ветвления</h1>
+          <p class="lead">Операторы <code>and</code>, <code>or</code> и <code>not</code> мы разобрали поодиночке. Теперь научимся переводить на этот язык обычные формулировки задачи — «все три», «хотя бы одно», «ровно одно». Никакого <code>if</code> здесь ещё не будет: мы собираем и проверяем сами выражения, а ветвление получит их уже готовыми.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Логический тип, ветвление, операции деления</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Переводить словесное условие задачи в выражение на Python</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Три формулировки условий</a></li>
+            <li><a href="#s2">Кирпичик: проверка делимости</a></li>
+            <li><a href="#s3">Каждое — оператор and</a></li>
+            <li><a href="#s4">Хотя бы одно — оператор or</a></li>
+            <li><a href="#s5">Только одно — комбинация</a></li>
+            <li><a href="#s6">Ни одного и не все</a></li>
+            <li><a href="#s7">Как собирать длинные условия</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Три формулировки условий</h2>
+        <p>Условия в задачах формулируют словами, и почти всегда встречается одна из трёх конструкций. Умение узнавать их и есть навык, ради которого написана глава.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Формулировка</th><th>Смысл</th><th>Чем записывается</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Каждое</strong> — «все три числа кратны трём»</td><td>истинны все условия без исключения</td><td><code>and</code></td></tr>
+              <tr><td><strong>Хотя бы одно</strong> — «среди чисел есть отрицательное»</td><td>истинно одно или больше</td><td><code>or</code></td></tr>
+              <tr><td><strong>Только одно</strong> — «одно число чётное, другое нет»</td><td>истинно ровно одно, остальные ложны</td><td><code>and</code> и <code>or</code> вместе</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Первые две записываются напрямую, третья требует сборки. Разберём каждую на конкретной задаче.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Кирпичик: проверка делимости</h2>
+        <p>Почти во всех примерах этой главы встречается одна и та же проверка, поэтому разберём её отдельно. Выражение <code>A % 3 == 0</code> проверяет, делится ли <code>A</code> на три без остатка.</p>
+        <p>Читается оно справа налево от оператора: <code>A % 3</code> — остаток от деления (глава 1.7), <code>== 0</code> — сравнение этого остатка с нулём. Если остатка нет, значит число разделилось нацело, и всё выражение даёт <code>True</code>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>базовые проверки</span></figcaption>
+<pre>A % <span class="n">2</span> == <span class="n">0</span>    <span class="c"># A чётное</span>
+A % <span class="n">2</span> != <span class="n">0</span>    <span class="c"># A нечётное</span>
+A % <span class="n">3</span> == <span class="n">0</span>    <span class="c"># A кратно трём</span>
+A &lt; <span class="n">0</span>          <span class="c"># A отрицательное</span></pre>
+        </figure>
+        <p>Каждая такая строка — готовое логическое значение. Составное условие всегда собирается из подобных кирпичиков, и разбирать чужое условие тоже стоит начиная с них: сперва понять, что проверяет каждая часть, и лишь потом — как они связаны.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Каждое — оператор and</h2>
+        <p>Задача: проверить, что числа <code>A</code>, <code>B</code> и <code>C</code> кратны трём. Слово «и» между требованиями означает <code>and</code>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>условие «каждое»</span></figcaption>
+<pre>(A % <span class="n">3</span> == <span class="n">0</span>) <span class="k">and</span> (B % <span class="n">3</span> == <span class="n">0</span>) <span class="k">and</span> (C % <span class="n">3</span> == <span class="n">0</span>)</pre>
+        </figure>
+        <p>Операторов <code>and</code> может быть сколько угодно — выражение остаётся истинным, только если истинны все части сразу. Достаточно одному числу не разделиться на три, чтобы результат стал <code>False</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка на живых числах</span></figcaption>
+<pre>A, B, C = <span class="n">9</span>, <span class="n">6</span>, <span class="n">3</span>
+
+<span class="f">print</span>((A % <span class="n">3</span> == <span class="n">0</span>) <span class="k">and</span> (B % <span class="n">3</span> == <span class="n">0</span>) <span class="k">and</span> (C % <span class="n">3</span> == <span class="n">0</span>))   <span class="c"># True</span></pre>
+        </figure>
+        <p>Скобки вокруг каждой проверки не обязательны: сравнение <code>==</code> и без того выполняется раньше <code>and</code>. Но со скобками структура выражения видна сразу — три отдельных проверки, соединённые «и», — поэтому в длинных условиях их ставят.</p>
+        <div class="margin-note">
+          <b>На полях: and останавливается досрочно</b>
+          <p>Python вычисляет составное условие слева направо и прекращает, как только ответ определён. В цепочке <code>and</code> первое же ложное условие делает ложным всё выражение, и остальные проверки просто не выполняются. Это не оптимизация «под капотом», а поведение, на которое можно опираться: слева ставят самую дешёвую или самую отсекающую проверку.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>Хотя бы одно — оператор or</h2>
+        <p>Задача: проверить, есть ли среди чисел <code>A</code>, <code>B</code>, <code>C</code> отрицательное. Здесь достаточно одного попадания, значит нужен <code>or</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>условие «хотя бы одно»</span></figcaption>
+<pre>A = -<span class="n">5</span>
+B = <span class="n">10</span>
+C = <span class="n">3</span>
+
+<span class="f">print</span>((A &lt; <span class="n">0</span>) <span class="k">or</span> (B &lt; <span class="n">0</span>) <span class="k">or</span> (C &lt; <span class="n">0</span>))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>True</pre>
+        </figure>
+        <p>Результат истинный, потому что <code>A</code> меньше нуля. Что <code>B</code> и <code>C</code> положительны, роли не играет: <code>or</code> требует истинности хотя бы одной части. Ложным всё выражение станет, только если ни одна проверка не сработает.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Только одно — комбинация</h2>
+        <p>Самая интересная из трёх формулировок. Задача: проверить, что из двух чисел одно чётное, а другое нечётное — то есть <strong>ровно одно</strong> чётное.</p>
+        <p>Одним оператором это не записать. Разложим условие на два случая, каждый из которых нас устраивает:</p>
+        <ol class="steps">
+          <li><code>A</code> чётное <strong>и</strong> <code>B</code> нечётное — записывается как <code>A % 2 == 0 and B % 2 != 0</code>;</li>
+          <li><code>A</code> нечётное <strong>и</strong> <code>B</code> чётное — записывается как <code>A % 2 != 0 and B % 2 == 0</code>;</li>
+          <li>нас устраивает любой из этих случаев — значит, соединяем их через <code>or</code>.</li>
+        </ol>
+        <figure class="code">
+          <figcaption><span>Python</span><span>условие «только одно»</span></figcaption>
+<pre>(A % <span class="n">2</span> == <span class="n">0</span> <span class="k">and</span> B % <span class="n">2</span> != <span class="n">0</span>) <span class="k">or</span> (A % <span class="n">2</span> != <span class="n">0</span> <span class="k">and</span> B % <span class="n">2</span> == <span class="n">0</span>)</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверяем</span></figcaption>
+<pre>A, B = <span class="n">4</span>, <span class="n">7</span>
+
+<span class="f">print</span>((A % <span class="n">2</span> == <span class="n">0</span> <span class="k">and</span> B % <span class="n">2</span> != <span class="n">0</span>) <span class="k">or</span> (A % <span class="n">2</span> != <span class="n">0</span> <span class="k">and</span> B % <span class="n">2</span> == <span class="n">0</span>))   <span class="c"># True</span></pre>
+        </figure>
+        <p>Четвёрка чётная, семёрка нечётная — сработала первая половина условия, и этого достаточно. Если бы оба числа оказались чётными, ложными стали бы обе половины, и результат был бы <code>False</code>. Это и отличает «ровно одно» от «хотя бы одно»: случай «оба сразу» здесь запрещён.</p>
+        <p>Скобки в этой записи уже обязательны по смыслу — они показывают, что <code>or</code> соединяет два целых случая, а не отдельные проверки. Формально приоритет <code>and</code> выше и без них, но полагаться на это в выражении такой длины не стоит: скобки пишутся для читателя.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Ни одного и не все</h2>
+        <p>Ещё две формулировки встречаются постоянно, и обе получаются из уже разобранных отрицанием.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Формулировка</th><th>Как записать</th><th>Через что получается</th></tr></thead>
+            <tbody>
+              <tr><td>ни одно из чисел не отрицательно</td><td><code>not (A &lt; 0 or B &lt; 0)</code></td><td>отрицание «хотя бы одного»</td></tr>
+              <tr><td>то же самое напрямую</td><td><code>A &gt;= 0 and B &gt;= 0</code></td><td>каждое неотрицательно</td></tr>
+              <tr><td>не все числа кратны трём</td><td><code>not (A % 3 == 0 and B % 3 == 0)</code></td><td>отрицание «каждого»</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Первые две строки таблицы описывают одно и то же условие разными словами — и это не совпадение. Отрицание «хотя бы одного» всегда равно «каждое наоборот», а отрицание «каждого» — «хотя бы одно наоборот». Правило известно как законы де Моргана, но заучивать формулировку не нужно: достаточно помнить, что <code>not</code> вокруг скобок меняет и сами проверки, и <code>and</code> с <code>or</code> местами.</p>
+        <p>Из двух эквивалентных записей выбирайте ту, которая ближе к формулировке задачи. Если в условии сказано «оба числа неотрицательны» — пишите <code>A &gt;= 0 and B &gt;= 0</code>. Если «нет ни одного отрицательного» — <code>not (A &lt; 0 or B &lt; 0)</code> честнее передаёт мысль.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Как собирать длинные условия</h2>
+        <p>Когда проверок становится больше трёх, выражение перестаёт читаться. Порядок работы, который выручает:</p>
+        <ol class="steps">
+          <li>Выпишите словами каждое требование задачи отдельной строкой.</li>
+          <li>Переведите каждое в простую проверку — тот самый кирпичик из §2.</li>
+          <li>Определите связку: «и» между всеми — <code>and</code>, «или» — <code>or</code>, «ровно одно» — комбинация.</li>
+          <li>Дайте промежуточным проверкам имена, если их больше трёх.</li>
+        </ol>
+        <p>Последний шаг важнее, чем кажется. Сравните две записи одного условия — «человек совершеннолетний, со стажем и без задолженностей»:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>одной строкой</span></figcaption>
+<pre><span class="f">print</span>(age &gt;= <span class="n">18</span> <span class="k">and</span> experience &gt;= <span class="n">3</span> <span class="k">and</span> debt == <span class="n">0</span>)</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>Python</span><span>с промежуточными именами</span></figcaption>
+<pre>is_adult = age &gt;= <span class="n">18</span>
+is_experienced = experience &gt;= <span class="n">3</span>
+has_no_debt = debt == <span class="n">0</span>
+
+<span class="f">print</span>(is_adult <span class="k">and</span> is_experienced <span class="k">and</span> has_no_debt)</pre>
+        </figure>
+        <p>Вторая запись длиннее на три строки, зато последнюю строку можно прочесть вслух и понять, ничего не расшифровывая. Это то же правило, что и в главе о переменных: имя объясняет смысл лучше, чем выражение.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>A % 2 == 0 or B % 2 == 0</code> для «ровно одного»</td><td>условие истинно и когда оба числа чётные</td><td>развернуть в два случая через <code>and</code> и соединить их <code>or</code></td></tr>
+              <tr><td><code>A and B &lt; 0</code></td><td>проверяется не то: <code>A</code> само по себе истинно при любом ненулевом значении</td><td><code>A &lt; 0 and B &lt; 0</code> — у каждой проверки своя левая часть</td></tr>
+              <tr><td><code>A % 2 = 0</code></td><td><code>SyntaxError</code> — присваивание вместо сравнения</td><td><code>A % 2 == 0</code></td></tr>
+              <tr><td><code>A or B or C &lt; 0</code> для «есть отрицательное»</td><td>результат почти всегда <code>True</code> — сравнение относится только к <code>C</code></td><td><code>A &lt; 0 or B &lt; 0 or C &lt; 0</code></td></tr>
+              <tr><td><code>not A &lt; 0 or B &lt; 0</code></td><td><code>not</code> применился только к первой проверке — приоритет выше <code>or</code></td><td><code>not (A &lt; 0 or B &lt; 0)</code></td></tr>
+              <tr><td><code>A % 2 == 0 and != 0</code></td><td><code>SyntaxError</code> — у второго сравнения нет операнда</td><td>повторить проверяемое значение полностью</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="margin-note margin-note--warn">
+          <b>Самая частая из всех</b>
+          <p>Строка <code>A or B or C &lt; 0</code> выглядит как «A или B или C меньше нуля» — ровно так, как задача звучит по-русски. Но язык читает её иначе: сначала <code>A</code> как логическое значение, затем <code>B</code>, и только потом настоящую проверку <code>C &lt; 0</code>. А любое ненулевое число истинно, помните §3 прошлой главы. Программа не упадёт и выдаст правдоподобный ответ — тем эта ошибка и опасна. Каждой проверке нужна своя полная запись.</p>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Как записать условие «все три числа положительны»?</summary>
+          <p><code>(A &gt; 0) and (B &gt; 0) and (C &gt; 0)</code>. Формулировка «все» переводится цепочкой <code>and</code>: достаточно одному числу оказаться неположительным, и результат станет <code>False</code>.</p>
+        </details>
+        <details>
+          <summary>Чем условие «хотя бы одно из двух чётное» отличается от «ровно одно из двух чётное»?</summary>
+          <p>Случаем, когда чётны оба. «Хотя бы одно» — это <code>A % 2 == 0 or B % 2 == 0</code>, и при двух чётных числах оно истинно. «Ровно одно» в этом случае должно давать <code>False</code>, поэтому его собирают из двух взаимоисключающих вариантов через <code>and</code> и <code>or</code>.</p>
+        </details>
+        <details>
+          <summary>Что проверяет выражение <code>A % 5 == 0 and A % 3 == 0</code>?</summary>
+          <p>Что число <code>A</code> делится и на пять, и на три одновременно, то есть кратно пятнадцати. Обе проверки должны быть истинными — этого требует <code>and</code>.</p>
+        </details>
+        <details>
+          <summary>Почему <code>not A &lt; 0 or B &lt; 0</code> и <code>not (A &lt; 0 or B &lt; 0)</code> — разные условия?</summary>
+          <p>У <code>not</code> приоритет выше, чем у <code>or</code>, поэтому в первой записи отрицание относится только к <code>A &lt; 0</code>: получается «A неотрицательно или B отрицательно». Во второй скобки заставляют сначала вычислить всё условие целиком, и смысл становится «ни одно из чисел не отрицательно». Скобки здесь не украшение, а часть условия.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: пользователь вводит три числа. Проверьте, что ровно одно из них равно нулю.</summary>
+          <p>Формулировка «ровно одно» разворачивается в три случая — по одному на каждое число, — и в каждом остальные должны быть ненулевыми:</p>
+          <ul>
+            <li><code>(A == 0 and B != 0 and C != 0) or</code></li>
+            <li><code>(A != 0 and B == 0 and C != 0) or</code></li>
+            <li><code>(A != 0 and B != 0 and C == 0)</code></li>
+          </ul>
+          <p>Есть и короткий путь, опирающийся на то, что <code>True</code> равно единице: <code>(A == 0) + (B == 0) + (C == 0) == 1</code> — сумма истинных проверок должна равняться одному. Второй вариант короче, но требует от читателя знания про подкласс <code>int</code>; выбирайте по тому, кто будет читать код.</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Каждое</b>
+            <code>(A &gt; 0) and (B &gt; 0)</code>
+          </div>
+          <div>
+            <b>Хотя бы одно</b>
+            <code>(A &lt; 0) or (B &lt; 0)</code>
+          </div>
+          <div>
+            <b>Только одно</b>
+            <code>(A и не B) or (не A и B)</code>
+          </div>
+          <div>
+            <b>Ни одного</b>
+            <code>not (A &lt; 0 or B &lt; 0)</code>
+          </div>
+          <div>
+            <b>Проверки-кирпичики</b>
+            <code>n % 2 == 0   # чётное</code>
+            <code>n % 3 == 0   # кратно 3</code>
+            <code>n &lt; 0        # отрицательное</code>
+          </div>
+          <div>
+            <b>Каждой проверке — свой операнд</b>
+            <code>A &lt; 0 or B &lt; 0    ✓</code>
+            <code>A or B &lt; 0        ✗</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Словесная формулировка задачи переводится в выражение почти механически: «каждое» — это цепочка <code>and</code>, «хотя бы одно» — цепочка <code>or</code>, «только одно» — набор взаимоисключающих случаев, соединённых <code>or</code>. Собирается любое условие из простых проверок вроде <code>A % 2 == 0</code>, и разбирать чужое условие тоже стоит начиная с них. Длинные выражения раскладывайте на именованные части — читателю кода это важнее, чем экономия строк. Готовые условия мы теперь передадим оператору <code>if</code>, и программа наконец начнёт выбирать путь.</p>
+
+        <div class="pager">
+          <a href="../08-logicheskiy-tip/index.html">← 2.1 Логический тип и and, or, not</a>
+          <a href="../../index.html">К содержанию справочника</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 2.2 · Составление условий без ветвления · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

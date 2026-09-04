@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.7 Операции деления: /, // и % · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.7</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.7</span>
+          <h1>Операции деления:<br>/, // и %</h1>
+          <p class="lead">Деления в Python три, и это не прихоть языка: у задачи «разделить» бывает три разных ответа. Сколько получится в точности, сколько получится целых и сколько осталось — на каждый вопрос свой оператор. Пара <code>//</code> и <code>%</code> вдобавок умеет то, чего от арифметики не ждёшь: разбирать число по цифрам.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Типы данных, условия, циклы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Выбирать нужный вид деления и работать с цифрами числа</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Три вида деления</a></li>
+            <li><a href="#s2">/ — обычное деление</a></li>
+            <li><a href="#s3">// — деление без остатка</a></li>
+            <li><a href="#s4">% — остаток от деления</a></li>
+            <li><a href="#s5">% выделяет последние цифры</a></li>
+            <li><a href="#s6">// отрезает последние цифры</a></li>
+            <li><a href="#s7">Разбор задачи: число по цифрам</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Три вида деления</h2>
+        <p>Разделить 45 на 4 можно тремя способами, и все три нужны на практике.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Оператор</th><th>На какой вопрос отвечает</th><th>45 и 4</th><th>Тип результата</th></tr></thead>
+            <tbody>
+              <tr><td><code>/</code></td><td>сколько получится в точности</td><td><code>11.25</code></td><td>всегда <code>float</code></td></tr>
+              <tr><td><code>//</code></td><td>сколько получится целых</td><td><code>11</code></td><td><code>int</code>, если оба целые</td></tr>
+              <tr><td><code>%</code></td><td>сколько осталось</td><td><code>1</code></td><td><code>int</code>, если оба целые</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Житейская проверка: 45 конфет на 4 человек. Каждому достанется по 11 штук (<code>//</code>), одна останется в вазе (<code>%</code>), а «по 11.25 конфеты» (<code>/</code>) — ответ математически верный, но конфету так не поделишь. Выбор оператора — это выбор того, какой ответ вам нужен.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>/ — обычное деление</h2>
+        <p>Оператор <code>/</code> выполняет обычное математическое деление. Его результат <strong>всегда</strong> имеет тип <code>float</code> — даже когда делятся два целых числа и делятся нацело.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обычное деление</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">5</span> / <span class="n">2</span>)     <span class="c"># 2.5</span>
+<span class="f">print</span>(<span class="n">6</span> / <span class="n">3</span>)     <span class="c"># 2.0  ← не 2, а 2.0</span>
+<span class="f">print</span>(<span class="n">45</span> / <span class="n">4</span>)    <span class="c"># 11.25</span></pre>
+        </figure>
+        <p>Строка <code>6 / 3</code> заслуживает внимания: результат целый по существу, но тип у него дробный. Приведение операндов к <code>int</code> ничего не изменит — <code>int(6) / int(3)</code> тоже даст <code>2.0</code>. Тип результата определяется самим оператором, а не тем, что в него передали.</p>
+        <div class="margin-note">
+          <b>На полях: так было не всегда</b>
+          <p>Такое поведение появилось в Python 3. В Python 2 деление двух целых давало целое: <code>5 / 2</code> возвращало <code>2</code>. Отсюда живучая путаница в старых примерах из интернета — если код ведёт себя не так, как описано в статье, посмотрите на год публикации.</p>
+        </div>
+        <p>Второе, о чём стоит помнить: результат деления часто оказывается бесконечной дробью.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>периодическая дробь</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">1</span> / <span class="n">3</span>)   <span class="c"># 0.3333333333333333</span></pre>
+        </figure>
+        <p>Полная точность здесь недостижима — компьютер хранит ограниченное число разрядов. Поэтому результат либо округляют при выводе (<code>f"{x:.2f}"</code>), либо, если дробная часть вообще не нужна, берут другой оператор.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>// — деление без остатка</h2>
+        <p>Оператор <code>//</code> выполняет <span class="term">целочисленное деление</span>: возвращает целую часть результата, отбрасывая дробную.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>целочисленное деление</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">5</span> // <span class="n">2</span>)    <span class="c"># 2</span>
+<span class="f">print</span>(<span class="n">6</span> // <span class="n">3</span>)    <span class="c"># 2</span>
+<span class="f">print</span>(<span class="n">45</span> // <span class="n">4</span>)   <span class="c"># 11</span></pre>
+        </figure>
+        <p>Тип результата определяют операнды: два целых дают <code>int</code>, но стоит одному из них оказаться дробным — и результат станет <code>float</code>, пусть даже с нулевой дробной частью.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>достаточно одного float</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">5</span> // <span class="n">2.0</span>)   <span class="c"># 2.0</span>
+<span class="f">print</span>(<span class="n">5.0</span> // <span class="n">2</span>)   <span class="c"># 2.0</span></pre>
+        </figure>
+        <p>Если целый результат нужен обязательно — приведите его явно: <code>int(5.0 // 2)</code> даст <code>2</code>. Это тот же приём, что и в главе о вводе: язык не догадывается за вас, какой тип нужен на выходе.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>% — остаток от деления</h2>
+        <p>Оператор <code>%</code> возвращает остаток от деления — то, что не поместилось в целые части.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>остаток</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">10</span> % <span class="n">3</span>)   <span class="c"># 1</span></pre>
+        </figure>
+        <p>Проверить результат легко по школьной записи деления с остатком: <code>10 = 3 * 3 + 1</code>. Тройка помещается в десятке три раза, единица остаётся. Именно эту единицу и вернул оператор.</p>
+        <p>Операторы <code>//</code> и <code>%</code> — пара: первый отвечает, сколько раз поместилось, второй — сколько осталось. Вместе они решают целый класс бытовых задач.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>секунды в минуты и секунды</span></figcaption>
+<pre>total = <span class="n">137</span>
+
+minutes = total // <span class="n">60</span>   <span class="c"># 2 — сколько целых минут</span>
+seconds = total % <span class="n">60</span>    <span class="c"># 17 — сколько секунд осталось</span>
+
+<span class="f">print</span>(<span class="s">f"{minutes} мин {seconds} с"</span>)   <span class="c"># 2 мин 17 с</span></pre>
+        </figure>
+        <p>Так же считают сдачу монетами, страницы из записей, коробки из штук — везде, где целое и остаток нужны одновременно.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Осторожно с отрицательными числами</b>
+          <p>Для отрицательных <code>//</code> округляет не «к нулю», а вниз: <code>-7 // 2</code> даёт <code>-4</code>, а не <code>-3</code>. Остаток при этом всегда неотрицателен, если делитель положителен: <code>-7 % 2</code> равно <code>1</code>. Правило <code>a == (a // b) * b + a % b</code> при этом соблюдается всегда. Пока достаточно просто помнить: на отрицательных числах результат стоит проверить, а не додумать.</p>
+        </div>
+
+        <h2 id="s5"><span class="sec">§5</span>% выделяет последние цифры</h2>
+        <p>А теперь применение, ради которого <code>%</code> и вспоминают чаще всего. Остаток от деления на 10 — это последняя цифра числа.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>последняя цифра</span></figcaption>
+<pre>number = <span class="n">12345</span>
+last_digit = number % <span class="n">10</span>
+
+<span class="f">print</span>(last_digit)   <span class="c"># 5</span></pre>
+        </figure>
+        <p>Логика прозрачна: <code>12345</code> — это <code>1234</code> десятка и ещё <code>5</code>. Десятки делятся на 10 нацело, а единицы остаются в остатке. Увеличивая делитель, мы забираем больше цифр с конца:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Выражение</th><th>Результат для 12345</th><th>Что получили</th></tr></thead>
+            <tbody>
+              <tr><td><code>number % 10</code></td><td><code>5</code></td><td>последняя цифра</td></tr>
+              <tr><td><code>number % 100</code></td><td><code>45</code></td><td>последние две цифры</td></tr>
+              <tr><td><code>number % 1000</code></td><td><code>345</code></td><td>последние три цифры</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>// отрезает последние цифры</h2>
+        <p>Целочисленное деление работает зеркально: оно убирает цифры с конца.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>убрать последнюю цифру</span></figcaption>
+<pre>number = <span class="n">12345</span>
+without_last = number // <span class="n">10</span>
+
+<span class="f">print</span>(without_last)   <span class="c"># 1234</span></pre>
+        </figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Выражение</th><th>Результат для 12345</th><th>Что получили</th></tr></thead>
+            <tbody>
+              <tr><td><code>number // 10</code></td><td><code>1234</code></td><td>без последней цифры</td></tr>
+              <tr><td><code>number // 100</code></td><td><code>123</code></td><td>без двух последних</td></tr>
+              <tr><td><code>number // 1000</code></td><td><code>12</code></td><td>без трёх последних</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Запомнить пару легко по действию: <strong><code>%</code> оставляет хвост, <code>//</code> его отрезает.</strong> Комбинируя их, можно достать любую цифру числа — сначала отрезать всё лишнее справа, потом взять остаток.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Разбор задачи: число по цифрам</h2>
+        <p>Классическая задача первого месяца обучения: дано трёхзначное число, вывести его цифры по отдельности и найти их сумму. Циклов мы ещё не знаем — и они здесь не нужны, хватает двух операторов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>полная программа</span></figcaption>
+<pre>number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите трёхзначное число: "</span>))
+
+units = number % <span class="n">10</span>          <span class="c"># единицы: остаток от деления на 10</span>
+tens = number // <span class="n">10</span> % <span class="n">10</span>     <span class="c"># десятки: отрезали единицы, взяли остаток</span>
+hundreds = number // <span class="n">100</span>      <span class="c"># сотни: отрезали две цифры</span>
+
+<span class="f">print</span>(<span class="s">f"Сотни: {hundreds}, десятки: {tens}, единицы: {units}"</span>)
+<span class="f">print</span>(<span class="s">f"Сумма цифр: {hundreds + tens + units}"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>ввели 254</span></figcaption>
+<pre>Введите трёхзначное число: <span class="u">254</span>
+Сотни: 2, десятки: 5, единицы: 4
+Сумма цифр: 11</pre>
+        </figure>
+        <p>Разберите строку с десятками внимательно, это ключ ко всей задаче. Операторы <code>//</code> и <code>%</code> имеют одинаковый приоритет и выполняются слева направо, поэтому <code>number // 10 % 10</code> читается как «сначала убрать единицы — получится <code>25</code>, — а затем взять последнюю цифру от того, что вышло». Скобки здесь не нужны, но написать <code>(number // 10) % 10</code> для наглядности не запрещено.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>print(6 / 3)</code>, ожидая <code>2</code></td><td>выведет <code>2.0</code> — тип результата всегда <code>float</code></td><td><code>6 // 3</code>, если нужен <code>int</code></td></tr>
+              <tr><td><code>x / 0</code></td><td><code>ZeroDivisionError: division by zero</code></td><td>деление на ноль недопустимо — проверяйте делитель</td></tr>
+              <tr><td><code>x % 0</code> или <code>x // 0</code></td><td>та же ошибка <code>ZeroDivisionError</code></td><td>ноль не годится ни для одного вида деления</td></tr>
+              <tr><td><code>number / 10</code> для последней цифры</td><td>получится <code>1234.5</code>, а не цифра</td><td>для цифр нужны <code>%</code> и <code>//</code>, а не <code>/</code></td></tr>
+              <tr><td><code>5 // 2.0</code>, ожидая <code>int</code></td><td>выведет <code>2.0</code> — один дробный операнд делает дробным результат</td><td><code>int(5 // 2.0)</code></td></tr>
+              <tr><td><code>-7 // 2</code>, ожидая <code>-3</code></td><td>получится <code>-4</code> — округление идёт вниз</td><td>для отрицательных проверяйте результат, а не полагайтесь на интуицию</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Что выведет <code>print(7 / 2, 7 // 2, 7 % 2)</code>?</summary>
+          <p><code>3.5 3 1</code>. Обычное деление даёт точный дробный ответ, целочисленное — сколько целых двоек поместилось, остаток — что не поместилось.</p>
+        </details>
+        <details>
+          <summary>Почему <code>10 / 5</code> даёт <code>2.0</code>, а не <code>2</code>?</summary>
+          <p>Потому что оператор <code>/</code> всегда возвращает <code>float</code>, независимо от операндов и от того, делится ли нацело. Целый результат даст <code>10 // 5</code>.</p>
+        </details>
+        <details>
+          <summary>Как получить вторую цифру с конца у числа <code>4796</code>?</summary>
+          <p><code>4796 // 10 % 10</code> — сначала отрезаем последнюю цифру (получается <code>479</code>), затем берём остаток от деления на 10, то есть <code>9</code>.</p>
+        </details>
+        <details>
+          <summary>Как проверить, что число чётное, зная только операции деления?</summary>
+          <p>Взять остаток от деления на два: если <code>number % 2</code> равно нулю, число чётное. Этот приём — основа проверок делимости, и в следующем модуле мы будем строить на нём условия.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: переведите 3725 секунд в часы, минуты и секунды.</summary>
+          <p>Три строки на тех же двух операторах:</p>
+          <ul>
+            <li><code>hours = total // 3600</code> — целых часов;</li>
+            <li><code>minutes = total % 3600 // 60</code> — от остатка берём целые минуты;</li>
+            <li><code>seconds = total % 60</code> — остаток секунд.</li>
+          </ul>
+          <p>Для 3725 получится 1 час 2 минуты 5 секунд. Порядок тот же, что и с цифрами числа: отрезаем крупное, с остатком работаем дальше.</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Три деления</b>
+            <code>45 / 4    # 11.25  точно</code>
+            <code>45 // 4   # 11     целых</code>
+            <code>45 % 4    # 1      остаток</code>
+          </div>
+          <div>
+            <b>Тип результата</b>
+            <code>/   всегда float</code>
+            <code>//  int, если оба int</code>
+          </div>
+          <div>
+            <b>Последние цифры</b>
+            <code>n % 10    # последняя</code>
+            <code>n % 100   # две последние</code>
+          </div>
+          <div>
+            <b>Убрать цифры</b>
+            <code>n // 10   # без последней</code>
+            <code>n // 100  # без двух</code>
+          </div>
+          <div>
+            <b>Цифра в середине</b>
+            <code>n // 10 % 10</code>
+            <code># отрезать, потом взять</code>
+          </div>
+          <div>
+            <b>Чётность</b>
+            <code>n % 2 == 0  # чётное</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Три оператора отвечают на три разных вопроса: <code>/</code> — сколько получится в точности (всегда <code>float</code>), <code>//</code> — сколько получится целых, <code>%</code> — сколько осталось. Пара <code>//</code> и <code>%</code> работает вместе: одна отрезает хвост числа, другая его оставляет. Это даёт готовый инструмент для разбора числа по цифрам, перевода единиц измерения и проверки делимости — а проверкой делимости мы займёмся уже в следующем модуле.</p>
+
+        <div class="pager">
+          <a href="../06-mnozhestvennoe-prisvaivanie/index.html">← 1.6 Множественное присваивание</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../08-logicheskiy-tip/index.html">2.1 Логический тип и and, or, not →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.7 · Операции деления: /, // и % · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

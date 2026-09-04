@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.4 Параметры print(): sep и end · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.4</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.4</span>
+          <h1>Параметры print():<br>sep и end</h1>
+          <p class="lead">В прошлой главе <code>print()</code> дважды повёл себя «сам»: поставил пробел между значениями и перевёл строку в конце. И то и другое — не жёсткое правило, а значения по умолчанию, которые вы можете задать иначе.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Вывод данных, строки, циклы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Управлять форматом вывода и собирать результат в одну строку</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Параметры со значением по умолчанию</a></li>
+            <li><a href="#s2">sep — разделитель между значениями</a></li>
+            <li><a href="#s3">end — чем заканчивается вывод</a></li>
+            <li><a href="#s4">Что такое \n</a></li>
+            <li><a href="#s5">sep и end вместе</a></li>
+            <li><a href="#s6">Разбор задачи: вывод в строку</a></li>
+            <li><a href="#s7">Частые ошибки</a></li>
+            <li><a href="#s8">Проверьте себя</a></li>
+            <li><a href="#s9">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Параметры со значением по умолчанию</h2>
+        <p>Кроме самих значений <code>print()</code> принимает <span class="term">именованные параметры</span> — их передают по имени, через знак <code>=</code>, после всех выводимых значений. Два из них нужны постоянно:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Параметр</th><th>За что отвечает</th><th>Значение по умолчанию</th></tr></thead>
+            <tbody>
+              <tr><td><code>sep</code></td><td>что ставится <strong>между</strong> значениями</td><td><code>" "</code> — пробел</td></tr>
+              <tr><td><code>end</code></td><td>что ставится <strong>в конце</strong> вывода</td><td><code>"\n"</code> — перевод строки</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Значение по умолчанию — это то, что подставляется, когда вы параметр не указали. Поэтому <code>print(a, b)</code> и <code>print(a, b, sep=" ", end="\n")</code> работают совершенно одинаково: во втором случае мы просто написали вслух то, что происходит и так.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>sep — разделитель между значениями</h2>
+        <p>Параметр <code>sep</code> (от <em>separator</em>) задаёт, чем разделяются значения, перечисленные через запятую.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>без sep — разделитель по умолчанию</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"яблоко"</span>, <span class="s">"бабочки"</span>, <span class="s">"огурцы"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>яблоко бабочки огурцы</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>свой разделитель</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"яблоко"</span>, <span class="s">"бабочки"</span>, <span class="s">"огурцы"</span>, sep=<span class="s">"!! "</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>яблоко!! бабочки!! огурцы</pre>
+        </figure>
+        <p>Разделителем может быть любая строка — символ, несколько символов или вообще пустая строка. Обратите внимание: он ставится <strong>только между</strong> значениями, но не в начале и не в конце.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ещё варианты</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, sep=<span class="s">" - "</span>)     <span class="c"># 1 - 2 - 3</span>
+<span class="f">print</span>(<span class="s">"а"</span>, <span class="s">"б"</span>, <span class="s">"в"</span>, sep=<span class="s">""</span>)     <span class="c"># абв — без разделителя</span>
+<span class="f">print</span>(<span class="n">2026</span>, <span class="n">9</span>, <span class="n">4</span>, sep=<span class="s">"."</span>)      <span class="c"># 2026.9.4</span></pre>
+        </figure>
+        <p>Последняя строка — типичное применение: собрать дату, путь или список через один и тот же знак, не расставляя его руками между каждой парой значений.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>end — чем заканчивается вывод</h2>
+        <p>Параметр <code>end</code> задаёт, что будет добавлено после всего выведенного. По умолчанию это перевод строки — поэтому каждый следующий <code>print()</code> начинается с новой строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обычное поведение</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Hello"</span>)
+<span class="f">print</span>(<span class="s">"world"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>две строки</span></figcaption>
+<pre>Hello
+world</pre>
+        </figure>
+        <p>Заменим перевод строки на пустую строку — и переноса не будет: следующий вывод продолжится там же, где закончился предыдущий.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>end=""</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Hello, "</span>, end=<span class="s">""</span>)
+<span class="f">print</span>(<span class="s">"world!"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>одна строка</span></figcaption>
+<pre>Hello, world!</pre>
+        </figure>
+        <p>В <code>end</code> можно положить не только пустую строку, но и любой текст — например, пробел:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три вызова — одна строка</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Python"</span>, end=<span class="s">" "</span>)
+<span class="f">print</span>(<span class="s">"Java"</span>, end=<span class="s">" "</span>)
+<span class="f">print</span>(<span class="s">"C++"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Python Java C++</pre>
+        </figure>
+        <p>Заметьте: у последнего вызова <code>end</code> не задан. Он-то и переводит строку, завершая вывод. Если убрать перенос и у него, следующий вывод — или приглашение терминала — прилипнет к вашему тексту.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Что такое \n</h2>
+        <p>Запись <code>"\n"</code> выглядит как два символа, но означает один — <span class="term">перевод строки</span>. Обратный слеш здесь начинает <span class="term">управляющую последовательность</span>: сочетание, которым записывают символ, не имеющий видимого начертания.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что означает</th></tr></thead>
+            <tbody>
+              <tr><td><code>\n</code></td><td>перевод строки — то, что происходит при нажатии <kbd>Enter</kbd></td></tr>
+              <tr><td><code>\t</code></td><td>табуляция, отступ до следующей позиции колонки</td></tr>
+              <tr><td><code>\\</code></td><td>сам обратный слеш</td></tr>
+              <tr><td><code>\"</code></td><td>кавычка внутри строки в таких же кавычках</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Использовать их можно где угодно, не только в параметрах. Например, вывести каждое значение с новой строки одним вызовом:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перевод строки как разделитель</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, sep=<span class="s">"\n"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>1
+2
+3</pre>
+        </figure>
+
+        <h2 id="s5"><span class="sec">§5</span>sep и end вместе</h2>
+        <p>Оба параметра передаются в одном вызове, порядок между ними неважен — они именованные. Важно другое: сначала перечисляются все выводимые значения, и только потом идут параметры.</p>
+        <figure class="code">
+          <figcaption><span>Синтаксис</span><span>полная форма вызова</span></figcaption>
+<pre><span class="f">print</span>(значение1, значение2, sep=<span class="s">"разделитель"</span>, end=<span class="s">"окончание"</span>)</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>оба параметра сразу</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"итого"</span>, <span class="n">4395</span>, sep=<span class="s">": "</span>, end=<span class="s">" руб.\n"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>итого: 4395 руб.</pre>
+        </figure>
+        <p>Не увлекайтесь: тот же результат короче и понятнее даёт f-строка — <code>print(f"итого: {total} руб.")</code>. Параметры <code>sep</code> и <code>end</code> хороши не для украшения одной строки, а там, где значений много или вывод собирается из нескольких вызовов.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Разбор задачи: вывод в строку</h2>
+        <p>Настоящая польза от <code>end</code> видна, когда вызовов много и они идут не подряд в коде, а, например, в цикле. Циклы мы разберём в модуле 2, но идея видна и на трёх строках: без <code>end=""</code> каждый вывод занимал бы свою строку экрана, с ним — все складываются в одну.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>шкала загрузки</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Загрузка: "</span>, end=<span class="s">""</span>)
+<span class="f">print</span>(<span class="s">"#"</span>, end=<span class="s">""</span>)
+<span class="f">print</span>(<span class="s">"#"</span>, end=<span class="s">""</span>)
+<span class="f">print</span>(<span class="s">"#"</span>, end=<span class="s">""</span>)
+<span class="f">print</span>(<span class="s">" готово"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Загрузка: ### готово</pre>
+        </figure>
+        <p>Второй частый случай — <code>sep</code> для табличного вывода, где разделитель одинаков для всех колонок:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>строка отчёта</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Иванов"</span>, <span class="s">"Python"</span>, <span class="n">5</span>, sep=<span class="s">" | "</span>)
+<span class="f">print</span>(<span class="s">"Петров"</span>, <span class="s">"Python"</span>, <span class="n">4</span>, sep=<span class="s">" | "</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
+<pre>Иванов | Python | 5
+Петров | Python | 4</pre>
+        </figure>
+        <div class="margin-note">
+          <b>На полях: как выбрать между sep и f-строкой</b>
+          <p>Если разделитель одинаков для всех значений и их много — берите <code>sep</code>: один параметр вместо повторяющегося текста. Если между значениями разный текст — «Имя: …, возраст: …» — берите f-строку. Смешивать оба подхода в одном выводе можно, но читать такую строку тяжело.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>print(1, 2, sep = ", ", 3)</code></td><td><code>SyntaxError</code> — значение стоит после именованного параметра</td><td>сначала все значения, потом параметры: <code>print(1, 2, 3, sep=", ")</code></td></tr>
+              <tr><td><code>print("a", "b", sep)</code></td><td><code>NameError</code> — <code>sep</code> без <code>=</code> читается как имя переменной</td><td><code>print("a", "b", sep="-")</code></td></tr>
+              <tr><td><code>print("a", "b", end)</code> вместо <code>end=""</code></td><td>то же самое: <code>NameError</code></td><td>у именованного параметра всегда есть <code>=</code> и значение</td></tr>
+              <tr><td><code>print("Загрузка", end="")</code> и больше ничего</td><td>текст останется в одной строке с приглашением терминала</td><td>завершить вывод обычным <code>print()</code></td></tr>
+              <tr><td><code>print("C:\name")</code></td><td>выведет перевод строки: <code>\n</code> внутри пути сработал как управляющая последовательность</td><td>удвоить слеш: <code>"C:\\name"</code></td></tr>
+              <tr><td><code>print("a", "b", sep=", ", sep=" ")</code></td><td><code>SyntaxError</code> — параметр указан дважды</td><td>оставить одно значение <code>sep</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Проверьте себя</h2>
+        <details>
+          <summary>Что выведет <code>print("a", "b", "c", sep="")</code>?</summary>
+          <p><code>abc</code>. Пустая строка в качестве разделителя означает, что между значениями не ставится ничего. Перевод строки в конце при этом остаётся: за него отвечает <code>end</code>, а он не менялся.</p>
+        </details>
+        <details>
+          <summary>Сколько строк займёт вывод: <code>print("Hello", end=" ")</code>, затем <code>print("world")</code>?</summary>
+          <p>Одну: <code>Hello world</code>. Первый вызов закончился пробелом вместо переноса, поэтому второй продолжил ту же строку и уже сам её завершил.</p>
+        </details>
+        <details>
+          <summary>Чем отличается <code>print(1, 2, 3, sep="\n")</code> от трёх отдельных вызовов <code>print(1)</code>, <code>print(2)</code>, <code>print(3)</code>?</summary>
+          <p>На экране — ничем, результат одинаковый: три строки. Отличие в коде: один вызов вместо трёх. Так удобно выводить набор значений, который у вас уже есть под рукой.</p>
+        </details>
+        <details>
+          <summary>Почему в <code>print("Python", end=" ")</code>, <code>print("Java", end=" ")</code>, <code>print("C++")</code> у последнего вызова не задан <code>end</code>?</summary>
+          <p>Потому что вывод нужно завершить переносом строки — иначе следующий текст в консоли прилипнет к <code>C++</code>. У последнего вызова <code>end</code> оставляют по умолчанию именно для этого.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: вывести дату <code>04.09.2026</code>, имея три переменные — <code>day = 4</code>, <code>month = 9</code>, <code>year = 2026</code>.</summary>
+          <p>Через <code>sep</code>: <code>print(day, month, year, sep=".")</code> — но получится <code>4.9.2026</code>, без ведущих нулей. Чтобы вышло ровно <code>04.09.2026</code>, нужна f-строка с указанием ширины: <code>print(f"{day:02d}.{month:02d}.{year}")</code>. Хороший пример того, где <code>sep</code> уже не хватает.</p>
+        </details>
+
+        <h2 id="s9"><span class="sec">§9</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Значения по умолчанию</b>
+            <code>sep=" "   между значениями</code>
+            <code>end="\n"  в конце вывода</code>
+          </div>
+          <div>
+            <b>Свой разделитель</b>
+            <code>print(1, 2, 3, sep=" - ")</code>
+            <code># 1 - 2 - 3</code>
+          </div>
+          <div>
+            <b>Без разделителя</b>
+            <code>print("а", "б", sep="")</code>
+            <code># аб</code>
+          </div>
+          <div>
+            <b>Вывод в одну строку</b>
+            <code>print("Hello, ", end="")</code>
+            <code>print("world!")</code>
+          </div>
+          <div>
+            <b>Каждое с новой строки</b>
+            <code>print(1, 2, 3, sep="\n")</code>
+          </div>
+          <div>
+            <b>Управляющие символы</b>
+            <code>\n  перевод строки</code>
+            <code>\t  табуляция</code>
+            <code>\\  сам слеш</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>У <code>print()</code> есть два параметра, которые обычно не указывают, потому что их значения по умолчанию подходят: <code>sep=" "</code> ставит пробел между значениями, <code>end="\n"</code> переводит строку в конце. Задав их явно, вы управляете форматом вывода: собираете дату через точку, печатаете значения столбиком или склеиваете несколько вызовов в одну строку. Для текста с разными подписями по-прежнему удобнее f-строка — <code>sep</code> и <code>end</code> берут своё там, где формат однороден.</p>
+
+        <div class="pager">
+          <a href="../03-print/index.html">← 1.3 Функция print(): вывод данных</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../05-input/index.html">1.5 Функция input() →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 1.4 · Параметры print(): sep и end · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

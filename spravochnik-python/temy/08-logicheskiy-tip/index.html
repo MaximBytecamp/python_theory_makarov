@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.1 Логический тип: and, or, not · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.1</span>
+          <h1>Логический тип:<br>True, False и and, or, not</h1>
+          <p class="lead">Всё, что программа делает по-разному в разных обстоятельствах, опирается на один тип данных с двумя значениями. Прежде чем писать первое условие, разберёмся, что это за значения, откуда они берутся и как из простых проверок собираются составные.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Типы данных, условия, циклы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Строить проверки, на которых работает ветвление</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Два значения: True и False</a></li>
+            <li><a href="#s2">Откуда берутся булевы значения</a></li>
+            <li><a href="#s3">bool — это подкласс int</a></li>
+            <li><a href="#s4">Оператор and</a></li>
+            <li><a href="#s5">Оператор or</a></li>
+            <li><a href="#s6">Оператор not</a></li>
+            <li><a href="#s7">Проверки на живых данных</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Два значения: True и False</h2>
+        <p><span class="term">Логический тип</span> (<code>bool</code>, от <em>boolean</em>) — тип данных, у которого всего два возможных значения: <code>True</code> — истина и <code>False</code> — ложь. Третьего не дано, и в этом вся его польза: такое значение — готовый ответ на вопрос «да или нет», по которому программа выбирает, что делать дальше.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>два значения типа bool</span></figcaption>
+<pre>is_student = <span class="k">True</span>
+is_working = <span class="k">False</span>
+
+<span class="f">print</span>(<span class="f">type</span>(is_student))   <span class="c"># &lt;class 'bool'&gt;</span></pre>
+        </figure>
+        <p>Пишутся оба слова <strong>с заглавной буквы</strong> и без кавычек. Это не текст, а значения языка — такие же полноценные, как <code>10</code> или <code>3.14</code>.</p>
+        <div class="margin-note margin-note--warn">
+          <b>true и false — не то же самое</b>
+          <p>Строчная запись <code>true</code> вызовет <code>NameError: name 'true' is not defined</code>: язык ищет переменную с таким именем и не находит. А <code>"True"</code> в кавычках — это строка из четырёх букв, а вовсе не истина. В других языках принято иначе, поэтому ошибка живучая: в Python верна только запись <code>True</code> и <code>False</code>.</p>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span>Откуда берутся булевы значения</h2>
+        <p>Записывать <code>True</code> руками приходится редко. Обычно логическое значение получается само — как результат сравнения.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сравнение возвращает bool</span></figcaption>
+<pre>age = <span class="n">20</span>
+
+<span class="f">print</span>(age &gt; <span class="n">18</span>)          <span class="c"># True</span>
+<span class="f">print</span>(<span class="f">type</span>(age &gt; <span class="n">18</span>))    <span class="c"># &lt;class 'bool'&gt;</span></pre>
+        </figure>
+        <p>Выражение <code>age &gt; 18</code> не «спрашивает» ничего у пользователя — оно вычисляется и превращается в одно из двух значений, как <code>2 + 3</code> превращается в <code>5</code>. Операторов сравнения шесть:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Оператор</th><th>Проверяет</th><th>Пример</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>==</code></td><td>равно</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+              <tr><td><code>!=</code></td><td>не равно</td><td><code>5 != 5</code></td><td><code>False</code></td></tr>
+              <tr><td><code>&gt;</code></td><td>больше</td><td><code>7 &gt; 3</code></td><td><code>True</code></td></tr>
+              <tr><td><code>&lt;</code></td><td>меньше</td><td><code>7 &lt; 3</code></td><td><code>False</code></td></tr>
+              <tr><td><code>&gt;=</code></td><td>больше или равно</td><td><code>5 &gt;= 5</code></td><td><code>True</code></td></tr>
+              <tr><td><code>&lt;=</code></td><td>меньше или равно</td><td><code>4 &lt;= 3</code></td><td><code>False</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Не путайте <code>=</code> и <code>==</code>. Один знак — присваивание, «положить значение в переменную». Два знака — сравнение, «проверить, совпадают ли». Это разные операции, и подменять одну другой язык не станет.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>bool — это подкласс int</h2>
+        <p>Одна особенность реализации объясняет многое из того, что вы увидите дальше: в Python логический тип является <strong>подклассом целых чисел</strong>. Проще говоря, <code>True</code> равно единице, а <code>False</code> — нулю.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>True — это единица</span></figcaption>
+<pre><span class="f">print</span>(<span class="k">True</span> + <span class="k">True</span>)     <span class="c"># 2</span>
+<span class="f">print</span>(<span class="f">int</span>(<span class="k">True</span>))       <span class="c"># 1</span>
+<span class="f">print</span>(<span class="f">int</span>(<span class="k">False</span>))      <span class="c"># 0</span></pre>
+        </figure>
+        <p>Выводятся они при этом по-своему — <code>True</code> и <code>False</code>, а не <code>1</code> и <code>0</code>. Практическая польза от этого свойства есть: сумма логических значений равна количеству истинных среди них. Складывать <code>True</code> с <code>True</code> просто ради результата <code>2</code> не нужно, но знать, почему это работает, полезно.</p>
+        <p>Обратное преобразование тоже определено: функция <code>bool()</code> приводит к логическому типу любое значение. Правило одно — «пусто или ноль» считается ложью, всё остальное истиной.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>что считается ложью</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">bool</span>(<span class="n">0</span>))         <span class="c"># False</span>
+<span class="f">print</span>(<span class="f">bool</span>(<span class="s">""</span>))        <span class="c"># False — пустая строка</span>
+<span class="f">print</span>(<span class="f">bool</span>(<span class="n">5</span>))         <span class="c"># True</span>
+<span class="f">print</span>(<span class="f">bool</span>(<span class="s">"текст"</span>))   <span class="c"># True</span></pre>
+        </figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Оператор and</h2>
+        <p>Из простых проверок собирают составные — для этого есть три логические операции. Первая, <code>and</code> (И), даёт <code>True</code> только тогда, когда истинны <strong>оба</strong> условия.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Выражение</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>True and True</code></td><td><code>True</code></td></tr>
+              <tr><td><code>True and False</code></td><td><code>False</code></td></tr>
+              <tr><td><code>False and True</code></td><td><code>False</code></td></tr>
+              <tr><td><code>False and False</code></td><td><code>False</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Такая таблица называется <span class="term">таблицей истинности</span> — она перечисляет все возможные сочетания и результат для каждого. Житейский образ точный: «пойду, если будет тепло <strong>и</strong> не будет дождя». Хватит одного невыполненного условия, чтобы всё выражение стало ложным.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>and в действии</span></figcaption>
+<pre>age = <span class="n">20</span>
+student = <span class="k">True</span>
+
+<span class="f">print</span>(age &gt; <span class="n">18</span> <span class="k">and</span> student)   <span class="c"># True</span></pre>
+        </figure>
+        <p>Здесь проверяется сразу двумя условиями: возраст больше 18 <strong>и</strong> человек является студентом. Первое даёт <code>True</code>, второе — тоже, значит и всё выражение истинно.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Оператор or</h2>
+        <p>Операция <code>or</code> (ИЛИ) даёт <code>True</code>, если истинно <strong>хотя бы одно</strong> из условий.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Выражение</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>True or True</code></td><td><code>True</code></td></tr>
+              <tr><td><code>True or False</code></td><td><code>True</code></td></tr>
+              <tr><td><code>False or True</code></td><td><code>True</code></td></tr>
+              <tr><td><code>False or False</code></td><td><code>False</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>or в действии</span></figcaption>
+<pre>temperature = <span class="n">25</span>
+rain = <span class="k">False</span>
+
+<span class="f">print</span>(temperature &gt; <span class="n">20</span> <span class="k">or</span> rain)   <span class="c"># True</span></pre>
+        </figure>
+        <p>Результат истинный, потому что одно из условий выполнено: температура выше двадцати. Дождя при этом нет, но <code>or</code> и не требует, чтобы выполнялись оба.</p>
+        <p>Учтите, что <code>or</code> в языке означает не то же, что «или» в разговоре. Житейское «чай или кофе» подразумевает выбор одного, а <code>or</code> истинно и тогда, когда верны оба условия сразу. Как записать настоящее «ровно одно из двух» — разберём в следующей главе.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Оператор not</h2>
+        <p>Операция <code>not</code> (НЕ) работает с одним значением и меняет его на противоположное.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Выражение</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>not True</code></td><td><code>False</code></td></tr>
+              <tr><td><code>not False</code></td><td><code>True</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отрицание условия</span></figcaption>
+<pre>rain = <span class="k">False</span>
+
+<span class="f">print</span>(<span class="k">not</span> rain)          <span class="c"># True — дождя нет</span>
+<span class="f">print</span>(<span class="k">not</span> (<span class="n">5</span> &gt; <span class="n">3</span>))       <span class="c"># False</span></pre>
+        </figure>
+        <p>С <code>not</code> легко переусердствовать. Выражение <code>not (age &lt; 18)</code> верно, но <code>age &gt;= 18</code> говорит то же самое прямо и читается быстрее. Отрицание хорошо там, где условие уже лежит в переменной с говорящим именем: <code>not rain</code> — понятно с первого взгляда.</p>
+        <div class="margin-note">
+          <b>На полях: порядок операций</b>
+          <p>Приоритет у трёх операций разный: сначала выполняется <code>not</code>, затем <code>and</code>, затем <code>or</code>. Поэтому <code>a or b and c</code> означает <code>a or (b and c)</code>. Держать это в голове необязательно — надёжнее расставить скобки. Скобки не замедляют программу, но избавляют читателя от необходимости вспоминать таблицу приоритетов.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Проверки на живых данных</h2>
+        <p>Соберём главу в одну программу. Условия здесь ещё ничего не решают — мы просто выводим результат проверки, — но именно эти выражения станут условиями ветвления в следующих главах.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>анкета</span></figcaption>
+<pre>age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Ваш возраст: "</span>))
+experience = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Стаж работы, лет: "</span>))
+
+is_adult = age &gt;= <span class="n">18</span>
+is_experienced = experience &gt;= <span class="n">3</span>
+
+<span class="f">print</span>(<span class="s">"Совершеннолетний:"</span>, is_adult)
+<span class="f">print</span>(<span class="s">"Подходит на позицию:"</span>, is_adult <span class="k">and</span> is_experienced)
+<span class="f">print</span>(<span class="s">"Нужно обучение:"</span>, <span class="k">not</span> is_experienced)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод в терминал</span><span>ввели 20 и 1</span></figcaption>
+<pre>Ваш возраст: <span class="u">20</span>
+Стаж работы, лет: <span class="u">1</span>
+Совершеннолетний: True
+Подходит на позицию: False
+Нужно обучение: True</pre>
+        </figure>
+        <p>Приём, который стоит перенять: результат проверки положен в переменную с говорящим именем. Строка <code>is_adult and is_experienced</code> читается как обычная фраза, тогда как <code>age &gt;= 18 and experience &gt;= 3</code> требует разбирать числа. Имена для логических переменных обычно начинают с <code>is_</code> или <code>has_</code> — так сразу видно, что внутри «да или нет».</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>x = true</code></td><td><code>NameError</code> — регистр имеет значение</td><td><code>x = True</code></td></tr>
+              <tr><td><code>x = "True"</code></td><td>в переменной строка, а не логическое значение</td><td><code>x = True</code>, без кавычек</td></tr>
+              <tr><td><code>age = 18</code> вместо <code>age == 18</code></td><td>вместо сравнения выполнится присваивание</td><td>сравнение — это два знака: <code>==</code></td></tr>
+              <tr><td><code>age &gt; 18 and &lt; 65</code></td><td><code>SyntaxError</code> — у второго сравнения нет левой части</td><td><code>age &gt; 18 and age &lt; 65</code>, а лучше <code>18 &lt; age &lt; 65</code></td></tr>
+              <tr><td><code>x = 5 and y = 3</code></td><td><code>SyntaxError</code> — присваивание внутри выражения</td><td>сначала присвоить, потом проверять</td></tr>
+              <tr><td><code>0.1 + 0.2 == 0.3</code></td><td><code>False</code> — дробные числа хранятся неточно</td><td>сравнивать с допуском: <code>abs(a - b) &lt; 0.001</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details>
+          <summary>Что выведет <code>print(5 &gt; 3)</code> и какого типа будет результат?</summary>
+          <p><code>True</code>, тип <code>bool</code>. Сравнение — это выражение: оно вычисляется и превращается в одно из двух логических значений.</p>
+        </details>
+        <details>
+          <summary>Каким будет результат <code>True and False or True</code>?</summary>
+          <p><code>True</code>. Сначала выполняется <code>and</code>: <code>True and False</code> даёт <code>False</code>. Затем <code>False or True</code> даёт <code>True</code>. Чтобы не полагаться на приоритеты, ту же мысль лучше записать со скобками: <code>(True and False) or True</code>.</p>
+        </details>
+        <details>
+          <summary>Почему <code>print(True + True)</code> выводит <code>2</code>?</summary>
+          <p>Потому что <code>bool</code> — подкласс <code>int</code>, и <code>True</code> равно единице. В арифметическом выражении логическое значение ведёт себя как число. На практике это свойство используют, чтобы посчитать количество истинных проверок.</p>
+        </details>
+        <details>
+          <summary>Как записать проверку «возраст от 18 до 65 включительно»?</summary>
+          <p>Двумя способами: <code>age &gt;= 18 and age &lt;= 65</code> либо короче — <code>18 &lt;= age &lt;= 65</code>. Цепочку сравнений Python поддерживает, и читается она как в математике.</p>
+        </details>
+        <details>
+          <summary>Задача для практики: пользователь вводит число. Выведите <code>True</code>, если оно чётное и положительное.</summary>
+          <p>Два условия объединяются через <code>and</code>, чётность проверяется остатком из главы 1.7:</p>
+          <ul>
+            <li><code>number = int(input("Число: "))</code></li>
+            <li><code>print(number % 2 == 0 and number &gt; 0)</code></li>
+          </ul>
+          <p>Понятнее будет с промежуточными именами: <code>is_even = number % 2 == 0</code>, <code>is_positive = number &gt; 0</code>, а затем <code>print(is_even and is_positive)</code>.</p>
+        </details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div>
+            <b>Два значения</b>
+            <code>True   # истина</code>
+            <code>False  # ложь</code>
+            <code># с заглавной, без кавычек</code>
+          </div>
+          <div>
+            <b>Сравнения</b>
+            <code>==  !=  &gt;  &lt;  &gt;=  &lt;=</code>
+            <code># результат — bool</code>
+          </div>
+          <div>
+            <b>and — оба</b>
+            <code>True and True   → True</code>
+            <code>True and False  → False</code>
+          </div>
+          <div>
+            <b>or — хотя бы одно</b>
+            <code>True or False   → True</code>
+            <code>False or False  → False</code>
+          </div>
+          <div>
+            <b>not — наоборот</b>
+            <code>not True   → False</code>
+            <code>not False  → True</code>
+          </div>
+          <div>
+            <b>Приоритет</b>
+            <code>not → and → or</code>
+            <code># надёжнее — скобки</code>
+          </div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Логический тип хранит одно из двух значений — <code>True</code> или <code>False</code>, — и чаще всего они получаются сами, как результат сравнения. Три операции собирают из простых проверок составные: <code>and</code> требует истинности обоих условий, <code>or</code> довольствуется одним, <code>not</code> меняет значение на противоположное. Пока мы только выводим результат на экран, но именно эти выражения станут условиями, по которым программа выбирает путь.</p>
+
+        <div class="pager">
+          <a href="../07-operacii-deleniya/index.html">← 1.7 Операции деления</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../09-sostavnye-usloviya/index.html">2.2 Составление условий →</a>
+        </div>
+
+        <div class="colophon">
+          <span>Глава 2.1 · Логический тип: True, False и and, or, not · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
