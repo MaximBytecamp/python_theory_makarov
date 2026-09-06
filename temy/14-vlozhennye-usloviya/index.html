@@ -41,7 +41,7 @@
             <li><a href="#s2">Общий синтаксис</a></li>
             <li><a href="#s3">Как выполняется код</a></li>
             <li><a href="#s4">К какому if относится else</a></li>
-            <li><a href="#s5">Полный пример</a></li>
+            <li><a href="#s5">Разные варианты вложения</a></li>
             <li><a href="#s6">Вложение или and</a></li>
             <li><a href="#s7">Как не запутаться в отступах</a></li>
             <li><a href="#s8">Частые ошибки</a></li>
@@ -92,7 +92,8 @@ has_ticket = <span class="k">True</span>
         </figure>
         <p>Здесь <code>else</code> выровнен со вторым <code>if</code>, поэтому сообщает об отсутствии билета. Он ничего не делает для случая неподходящего возраста.</p>
 
-        <h2 id="s5"><span class="sec">§5</span>Полный пример</h2>
+        <h2 id="s5"><span class="sec">§5</span>Разные варианты вложения</h2>
+        <h3>Внутренние и внешние ветки else</h3>
         <figure class="code">
           <figcaption><span>main.py</span><span>все варианты ответа</span></figcaption>
 <pre>age = <span class="n">20</span>
@@ -108,6 +109,63 @@ has_ticket = <span class="k">False</span>
         </figure>
         <figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Нет билета</pre></figure>
         <p>Внешний <code>else</code> выровнен с первым <code>if</code>, а внутренний — со вторым. По отступам видно, какую проверку дополняет каждая ветка.</p>
+
+        <h3>Вложенный if внутри else</h3>
+        <p>Внутренняя проверка может находиться не только в ветке <code>if</code>, но и в ветке <code>else</code>. Тогда до неё программа доходит лишь после ложного внешнего условия.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>дополнительная проверка после отказа</span></figcaption>
+<pre>balance = <span class="n">300</span>
+price = <span class="n">500</span>
+has_discount = <span class="k">True</span>
+
+<span class="k">if</span> balance &gt;= price:
+    <span class="f">print</span>(<span class="s">"Можно купить"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Обычной суммы недостаточно"</span>)
+    <span class="k">if</span> has_discount:
+        <span class="f">print</span>(<span class="s">"Проверьте цену со скидкой"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>внешний if ложен</span></figcaption><pre>Обычной суммы недостаточно
+Проверьте цену со скидкой</pre></figure>
+        <p>Если бы денег хватало, выполнился бы первый блок, а <code>has_discount</code> вообще не проверялся бы.</p>
+
+        <h3>Цепочка if / elif / else внутри if</h3>
+        <p>Внутри внешней ветки можно выбрать один из нескольких вариантов с помощью <code>elif</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>роль вошедшего пользователя</span></figcaption>
+<pre>is_logged_in = <span class="k">True</span>
+role = <span class="s">"editor"</span>
+
+<span class="k">if</span> is_logged_in:
+    <span class="k">if</span> role == <span class="s">"admin"</span>:
+        <span class="f">print</span>(<span class="s">"Все настройки доступны"</span>)
+    <span class="k">elif</span> role == <span class="s">"editor"</span>:
+        <span class="f">print</span>(<span class="s">"Можно изменять материалы"</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(<span class="s">"Доступ только для чтения"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Сначала войдите в систему"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>is_logged_in = True</span></figcaption><pre>Можно изменять материалы</pre></figure>
+        <p>Сначала решается вопрос о входе. Только после этого внутренняя цепочка выбирает один вариант по роли.</p>
+
+        <h3>Действие между двумя проверками</h3>
+        <p>Внешний блок может содержать свои действия до внутреннего <code>if</code>. Это один из случаев, когда вложение точнее передаёт ход программы, чем одно условие с <code>and</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>действие на каждом уровне</span></figcaption>
+<pre>age = <span class="n">20</span>
+has_ticket = <span class="k">False</span>
+
+<span class="k">if</span> age &gt;= <span class="n">18</span>:
+    <span class="f">print</span>(<span class="s">"Возраст подходит"</span>)
+
+    <span class="k">if</span> has_ticket:
+        <span class="f">print</span>(<span class="s">"Вход разрешён"</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(<span class="s">"Нужен билет"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первый уровень пройден</span></figcaption><pre>Возраст подходит
+Нужен билет</pre></figure>
 
         <h2 id="s6"><span class="sec">§6</span>Вложение или and</h2>
         <p>Если действие одно и обе проверки равноправны, вложение можно заменить оператором <code>and</code>.</p>

@@ -123,7 +123,18 @@
         <figure class="code code--out"><figcaption><span>Вывод</span><span>grade = 85</span></figcaption><pre>Хорошо</pre></figure>
 
         <h2 id="s6"><span class="sec">§6</span>Порядок проверок</h2>
-        <p>Python проверяет ветки сверху вниз и останавливается на первой истинной. Поэтому частные или более строгие условия ставят раньше общих.</p>
+        <p>Python проверяет ветки сверху вниз и останавливается на первой истинной. Это относится ко всей связанной цепочке <code>if / elif / else</code>.</p>
+        <ol class="steps">
+          <li>Сначала проверяется условие <code>if</code>. Если оно истинно, выполняется его блок: условия <code>elif</code> уже не вычисляются, а <code>else</code> пропускается.</li>
+          <li>Если <code>if</code> оказался ложным, условия <code>elif</code> проверяются по очереди сверху вниз.</li>
+          <li>После первого истинного <code>elif</code> его блок выполняется: условия оставшихся <code>elif</code> уже не вычисляются, а <code>else</code> пропускается.</li>
+          <li>Если все условия ложны, выполняется <code>else</code>. Если его нет, вся цепочка пропускается.</li>
+        </ol>
+        <div class="margin-note">
+          <b>Главное правило цепочки</b>
+          <p>Выполняется не более одной ветки. Как только Python встретил первую истинную ветку, выбор закончен.</p>
+        </div>
+        <p>Поэтому частные или более строгие условия ставят раньше общих.</p>
         <figure class="code">
           <figcaption><span>Python</span><span>сначала высокая граница</span></figcaption>
 <pre><span class="k">if</span> score &gt;= <span class="n">90</span>:
@@ -134,6 +145,19 @@
     grade = <span class="s">"C"</span></pre>
         </figure>
         <p>Если начать с <code>score &gt;= 70</code>, то значение <code>95</code> попадёт в первую ветку и до проверки на <code>90</code> программа не дойдёт.</p>
+        <p>Не путайте одну цепочку с несколькими самостоятельными <code>if</code>. Каждый отдельный <code>if</code> проверяется независимо, поэтому могут выполниться сразу несколько блоков.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два независимых if</span></figcaption>
+<pre>number = <span class="n">10</span>
+
+<span class="k">if</span> number &gt; <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">"Положительное число"</span>)
+
+<span class="k">if</span> number &gt; <span class="n">5</span>:
+    <span class="f">print</span>(<span class="s">"Число больше пяти"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обе проверки выполнены</span></figcaption><pre>Положительное число
+Число больше пяти</pre></figure>
 
         <h2 id="s7"><span class="sec">§7</span>Полный пример</h2>
         <p>Определим стоимость доставки по сумме заказа.</p>
