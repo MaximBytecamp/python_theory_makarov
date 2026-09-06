@@ -312,8 +312,12 @@ tbody tr:last-child td { border-bottom: 0; }
 .errors-table th:nth-child(3),
 .errors-table td:nth-child(3) { width: 35%; }
 .errors-table td { overflow-wrap: break-word; }
-.errors-table td:nth-child(1) code,
-.errors-table td:nth-child(3) code { white-space: nowrap; }
+.errors-table td code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 
 /* ── Схема «имя → значение» ──────────────────────────────────── */
 .boxes { display: grid; gap: 10px; margin: 22px 0; max-width: 640px; }
