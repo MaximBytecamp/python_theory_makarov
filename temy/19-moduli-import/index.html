@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.4 Библиотеки и модули в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
+          <p class="running__folio">Глава 4.4</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.4</span>
+          <h1>Библиотеки и модули<br>в Python</h1>
+          <p class="lead">Готовый код можно подключить к программе и использовать по имени. Так функции распределяют по файлам, а программы собирают из уже созданных частей.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Организация программы</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Функции, файлы, имена</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Подключать готовый код и разделять проект на части</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Модуль и библиотека</a></li>
+            <li><a href="#s2">Зачем нужны модули</a></li>
+            <li><a href="#s3">Подключение через import</a></li>
+            <li><a href="#s4">Обращение через точку</a></li>
+            <li><a href="#s5">Импорт конкретного объекта</a></li>
+            <li><a href="#s6">Псевдонимы: as</a></li>
+            <li><a href="#s7">Стандартные и сторонние библиотеки</a></li>
+            <li><a href="#s8">Собственный модуль</a></li>
+            <li><a href="#s9">Какой способ импорта выбрать</a></li>
+            <li><a href="#s10">Частые ошибки</a></li>
+            <li><a href="#s11">Проверьте себя</a></li>
+            <li><a href="#s12">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Модуль и библиотека</h2>
+        <p><span class="term">Модуль</span> — файл с расширением <code>.py</code>. В нём могут находиться переменные, функции, классы и другой код.</p>
+        <p><span class="term">Библиотека</span> — готовый набор кода для определённых задач. Она может состоять из одного модуля или из множества модулей и пакетов. В разговоре эти слова иногда используют как близкие, но они описывают разные размеры структуры.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>от файла к набору инструментов</span></figcaption>
+<pre>модуль     → один файл .py
+пакет      → папка с модулями
+библиотека → готовый набор модулей и пакетов</pre>
+        </figure>
+
+        <h2 id="s2"><span class="sec">§2</span>Зачем нужны модули</h2>
+        <p>Модули позволяют не хранить всю программу в одном длинном файле и не писать заново уже готовые решения.</p>
+        <ul>
+          <li>разделять большую программу на понятные части;</li>
+          <li>повторно использовать функции в разных файлах;</li>
+          <li>подключать инструменты из стандартной библиотеки Python;</li>
+          <li>использовать сторонние библиотеки для специальных задач.</li>
+        </ul>
+
+        <h2 id="s3"><span class="sec">§3</span>Подключение через import</h2>
+        <p>Ключевое слово <code>import</code> загружает модуль и создаёт в программе имя, через которое можно обратиться к его содержимому.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>модуль math</span></figcaption>
+<pre><span class="k">import</span> math
+
+result = math.sqrt(<span class="n">16</span>)
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>квадратный корень</span></figcaption><pre>4.0</pre></figure>
+        <p><code>math</code> входит в стандартную библиотеку Python, поэтому отдельно устанавливать его не нужно.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Обращение через точку</h2>
+        <p>После обычного импорта объект внутри модуля указывают по схеме <code>модуль.объект</code>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>читаем слева направо</span></figcaption>
+<pre>math.sqrt(<span class="n">16</span>)
+│    └─ функция sqrt() внутри модуля
+└────── имя модуля</pre>
+        </figure>
+        <p>Полное имя показывает происхождение функции. Если в программе встретится <code>math.sqrt()</code>, сразу видно, что <code>sqrt()</code> взята из <code>math</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Импорт конкретного объекта</h2>
+        <p>Конструкция <code>from ... import ...</code> добавляет в программу конкретное имя из модуля. После этого имя модуля перед функцией не пишется.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>только функция sqrt()</span></figcaption>
+<pre><span class="k">from</span> math <span class="k">import</span> sqrt
+
+result = <span class="f">sqrt</span>(<span class="n">25</span>)
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>без префикса math.</span></figcaption><pre>5.0</pre></figure>
+        <div class="margin-note">
+          <b>Два разных способа</b>
+          <p>После <code>import math</code> пишут <code>math.sqrt()</code>. После <code>from math import sqrt</code> пишут просто <code>sqrt()</code>.</p>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>Псевдонимы: as</h2>
+        <p><code>as</code> задаёт импортированному объекту другое имя. Псевдоним используют для принятого сокращения или для более понятного названия.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>псевдоним модуля</span></figcaption>
+<pre><span class="k">import</span> math <span class="k">as</span> m
+
+<span class="f">print</span>(m.sqrt(<span class="n">25</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>m означает math</span></figcaption><pre>5.0</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>псевдоним функции</span></figcaption>
+<pre><span class="k">from</span> math <span class="k">import</span> sqrt <span class="k">as</span> square_root
+
+<span class="f">print</span>(<span class="f">square_root</span>(<span class="n">36</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>новое имя функции</span></figcaption><pre>6.0</pre></figure>
+        <p>Для некоторых библиотек существуют общепринятые сокращения, например <code>import numpy as np</code>. Такое сокращение работает только после установки самой библиотеки.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Стандартные и сторонние библиотеки</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Вид</th><th>Откуда берётся</th><th>Примеры</th></tr></thead>
+            <tbody>
+              <tr><td>стандартная библиотека</td><td>устанавливается вместе с Python</td><td><code>math</code>, <code>random</code>, <code>datetime</code></td></tr>
+              <tr><td>сторонняя библиотека</td><td>устанавливается отдельно</td><td><code>numpy</code>, <code>requests</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Сторонние библиотеки обычно устанавливают в терминале через менеджер пакетов <code>pip</code>.</p>
+        <figure class="code">
+          <figcaption><span>Терминал</span><span>пример команды установки</span></figcaption>
+<pre>python -m pip install numpy</pre>
+        </figure>
+        <p>Команда установки не является кодом Python: её вводят в терминале. Перед установкой проверьте название библиотеки и используйте окружение своего проекта.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Собственный модуль</h2>
+        <p>Любой созданный вами файл <code>.py</code> может стать модулем. Поместим функцию в один файл, а вызов — в другой.</p>
+        <figure class="code">
+          <figcaption><span>geometry.py</span><span>модуль с функцией</span></figcaption>
+<pre><span class="k">def</span> <span class="f">rectangle_area</span>(width, height):
+    <span class="k">return</span> width * height</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>оба файла лежат рядом</span></figcaption>
+<pre><span class="k">from</span> geometry <span class="k">import</span> rectangle_area
+
+area = <span class="f">rectangle_area</span>(<span class="n">5</span>, <span class="n">3</span>)
+<span class="f">print</span>(area)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>запуск main.py</span></figcaption><pre>15</pre></figure>
+        <p>Для такого импорта файлы <code>geometry.py</code> и <code>main.py</code> должны находиться в одной папке. Более сложную структуру проекта разберём отдельно.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Какой способ импорта выбрать</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Вызов</th><th>Особенность</th></tr></thead>
+            <tbody>
+              <tr><td><code>import math</code></td><td><code>math.sqrt(16)</code></td><td>хорошо видно происхождение имени</td></tr>
+              <tr><td><code>from math import sqrt</code></td><td><code>sqrt(16)</code></td><td>короче, если нужен конкретный объект</td></tr>
+              <tr><td><code>import math as m</code></td><td><code>m.sqrt(16)</code></td><td>используется короткий псевдоним</td></tr>
+              <tr><td><code>from math import sqrt as root</code></td><td><code>root(16)</code></td><td>объект получает новое имя</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для начала чаще выбирайте <code>import module</code>: полное имя легче читать и оно реже конфликтует с вашими переменными и функциями.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>import math</code>, затем <code>sqrt(16)</code></td><td><code>NameError</code>: имя <code>sqrt</code> отдельно не создано</td><td><code>math.sqrt(16)</code></td></tr>
+              <tr><td><code>from math import sqrt</code>, затем <code>math.sqrt(16)</code></td><td><code>NameError</code>: имя <code>math</code> не создано</td><td><code>sqrt(16)</code></td></tr>
+              <tr><td>ошибка в названии модуля</td><td><code>ModuleNotFoundError</code></td><td>проверить написание и установку библиотеки</td></tr>
+              <tr><td>свой файл назван <code>math.py</code></td><td>он может перекрыть стандартный модуль <code>math</code></td><td>дать своему файлу другое имя</td></tr>
+              <tr><td><code>from math import *</code></td><td>в программу попадёт много имён, их происхождение станет неясным</td><td>импортировать модуль или перечислить нужные объекты</td></tr>
+              <tr><td><code>pip install numpy</code> написано в <code>main.py</code></td><td><code>SyntaxError</code></td><td>выполнить команду в терминале</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s11"><span class="sec">§11</span>Проверьте себя</h2>
+        <details><summary>Как вызвать <code>sqrt()</code> после <code>import math</code>?</summary><p>Через имя модуля и точку: <code>math.sqrt(число)</code>.</p></details>
+        <details><summary>Чем модуль отличается от библиотеки?</summary><p>Модуль — отдельный файл <code>.py</code>, а библиотека — готовый набор кода, который может включать несколько модулей и пакетов.</p></details>
+        <details><summary>Что делает <code>as</code>?</summary><p>Назначает импортированному модулю или объекту другое имя в текущей программе.</p></details>
+
+        <h2 id="s12"><span class="sec">§12</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Модуль</b><code>import math</code><code>math.sqrt(16)</code></div>
+          <div><b>Один объект</b><code>from math import sqrt</code><code>sqrt(16)</code></div>
+          <div><b>Псевдоним модуля</b><code>import math as m</code><code>m.sqrt(16)</code></div>
+          <div><b>Псевдоним объекта</b><code>from math import sqrt as root</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Модуль — файл Python с готовым кодом. <code>import</code> подключает модуль, точка выбирает объект внутри него, <code>from ... import ...</code> импортирует конкретное имя, а <code>as</code> задаёт псевдоним. Стандартные модули поставляются с Python, сторонние библиотеки устанавливаются отдельно.</p>
+        <div class="pager">
+          <a href="../18-praktika-def/index.html">← 4.3 Практика функций</a>
+          <a href="../../index.html">К содержанию справочника</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.4 · Библиотеки и модули · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

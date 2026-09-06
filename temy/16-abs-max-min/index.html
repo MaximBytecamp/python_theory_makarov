@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.1 Функции abs(), max() и min() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
+          <p class="running__folio">Глава 4.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.1</span>
+          <h1>Функции <code>abs()</code>,<br><code>max()</code> и <code>min()</code></h1>
+          <p class="lead">Python уже умеет находить модуль числа, наибольшее и наименьшее значение. Нужно передать функции данные и сохранить или вывести полученный результат.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Встроенные функции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Числа, переменные, списки</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Получать расстояние и находить крайние значения</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Как читается вызов функции</a></li>
+            <li><a href="#s2">Абсолютное значение: abs()</a></li>
+            <li><a href="#s3">Разница и расстояние</a></li>
+            <li><a href="#s4">Наибольшее значение: max()</a></li>
+            <li><a href="#s5">Наименьшее значение: min()</a></li>
+            <li><a href="#s6">Несколько значений и список</a></li>
+            <li><a href="#s7">Работа со строками</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Как читается вызов функции</h2>
+        <p><span class="term">Функция</span> получает данные, выполняет действие и даёт результат. Имя функции пишется перед круглыми скобками, а данные передаются внутри них.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>вызов и результат</span></figcaption>
+<pre>имя_функции(данные) → результат
+
+<span class="f">abs</span>(-<span class="n">5</span>)            → 5
+<span class="f">max</span>(<span class="n">3</span>, <span class="n">7</span>, <span class="n">2</span>)      → 7
+<span class="f">min</span>(<span class="n">3</span>, <span class="n">7</span>, <span class="n">2</span>)      → 2</pre>
+        </figure>
+        <p>Результат можно сразу передать в <code>print()</code> или записать в переменную и использовать позже.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Абсолютное значение: abs()</h2>
+        <p><code>abs()</code> возвращает абсолютное значение числа — его величину без знака. Для положительного числа значение не меняется, а для отрицательного знак минус исчезает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>целые и дробные числа</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">abs</span>(-<span class="n">5</span>))
+<span class="f">print</span>(<span class="f">abs</span>(<span class="n">3</span>))
+<span class="f">print</span>(<span class="f">abs</span>(-<span class="n">7.2</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат вызовов</span></figcaption><pre>5
+3
+7.2</pre></figure>
+        <p>Функция принимает ровно одно число: целое <code>int</code> или дробное <code>float</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Разница и расстояние</h2>
+        <p>Обычное вычитание зависит от порядка чисел. Если нужна только величина разницы, результат вычитания передают в <code>abs()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>разница между двумя значениями</span></figcaption>
+<pre>first = <span class="n">4</span>
+second = <span class="n">10</span>
+
+difference = <span class="f">abs</span>(first - second)
+
+<span class="f">print</span>(difference)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>|4 − 10|</span></figcaption><pre>6</pre></figure>
+        <p>Тот же приём применяют для расстояния между точками на числовой прямой, разницы температур и отклонения от нужного значения.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Наибольшее значение: max()</h2>
+        <p><code>max()</code> сравнивает переданные значения и возвращает наибольшее.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>максимум из четырёх чисел</span></figcaption>
+<pre>highest = <span class="f">max</span>(<span class="n">3</span>, <span class="n">7</span>, <span class="n">2</span>, <span class="n">9</span>)
+
+<span class="f">print</span>(highest)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>наибольшее значение</span></figcaption><pre>9</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Наименьшее значение: min()</h2>
+        <p><code>min()</code> работает так же, но возвращает наименьшее значение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>минимум из четырёх чисел</span></figcaption>
+<pre>lowest = <span class="f">min</span>(<span class="n">3</span>, <span class="n">7</span>, <span class="n">2</span>, <span class="n">9</span>)
+
+<span class="f">print</span>(lowest)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>наименьшее значение</span></figcaption><pre>2</pre></figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Несколько значений и список</h2>
+        <p><code>max()</code> и <code>min()</code> можно передать несколько отдельных значений или одну коллекцию. Со списками вы познакомитесь подробно позже; пока достаточно увидеть общий принцип.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два способа передачи данных</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">max</span>(<span class="n">3</span>, <span class="n">7</span>, <span class="n">2</span>, <span class="n">9</span>))
+
+numbers = [<span class="n">3</span>, <span class="n">7</span>, <span class="n">2</span>, <span class="n">9</span>]
+<span class="f">print</span>(<span class="f">min</span>(numbers))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>оба варианта</span></figcaption><pre>9
+2</pre></figure>
+        <div class="margin-note">
+          <b>Не смешивайте формы</b>
+          <p>Либо передайте несколько отдельных значений, либо одну коллекцию. Функция должна получить данные, которые можно сравнить между собой.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Работа со строками</h2>
+        <p><code>max()</code> и <code>min()</code> умеют сравнивать символы и строки. Python использует порядок символов в таблице Unicode, поэтому регистр и алфавит влияют на результат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>символы одной строки</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">max</span>(<span class="s">"python"</span>))
+<span class="f">print</span>(<span class="f">min</span>(<span class="s">"python"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>для строчных латинских букв</span></figcaption><pre>y
+h</pre></figure>
+        <p>Для начала используйте эти функции с числами. Сравнение строк станет понятнее после отдельной темы о строках.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>abs(-5, 3)</code></td><td><code>TypeError</code>: функция получила два аргумента</td><td><code>abs(-5)</code></td></tr>
+              <tr><td><code>abs("-5")</code></td><td><code>TypeError</code>: строка не является числом</td><td><code>abs(-5)</code> или сначала преобразовать ввод в число</td></tr>
+              <tr><td><code>max()</code></td><td><code>TypeError</code>: сравнивать нечего</td><td>передать хотя бы одно значение</td></tr>
+              <tr><td><code>max(10, "20")</code></td><td><code>TypeError</code>: число и строку нельзя сравнить</td><td>использовать значения одного сравнимого типа</td></tr>
+              <tr><td><code>largest = max</code></td><td>в переменную попадёт сама функция, а не результат</td><td><code>largest = max(3, 7)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Что вернёт <code>abs(3 - 10)</code>?</summary><p>Число <code>7</code>: сначала получится <code>-7</code>, затем <code>abs()</code> уберёт знак.</p></details>
+        <details><summary>Чем отличаются <code>max()</code> и <code>min()</code>?</summary><p><code>max()</code> возвращает наибольшее значение, а <code>min()</code> — наименьшее.</p></details>
+        <details><summary>Можно ли передать <code>max()</code> список?</summary><p>Да. Например, <code>max([3, 7, 2])</code> вернёт <code>7</code>.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Модуль числа</b><code>abs(-8)  # 8</code></div>
+          <div><b>Максимум</b><code>max(4, 9, 2)  # 9</code></div>
+          <div><b>Минимум</b><code>min(4, 9, 2)  # 2</code></div>
+          <div><b>Разница</b><code>abs(a - b)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>abs()</code> возвращает абсолютное значение одного числа. <code>max()</code> и <code>min()</code> выбирают наибольшее и наименьшее из сравнимых значений. Результат любой функции можно вывести, сохранить в переменную или передать в другое выражение.</p>
+        <div class="pager">
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../17-def/index.html">4.2 Создание функций →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.1 · abs(), max() и min() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

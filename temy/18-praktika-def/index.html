@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#F2F1E9">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>4.3 Практическое применение def · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
+          <p class="running__folio">Глава 4.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.3</span>
+          <h1>Практическое<br>применение <code>def</code></h1>
+          <p class="lead">От короткой функции без параметров до небольшой программы, в которой несколько функций делят работу между собой.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Практика функций</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>def, return, условия, input()</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Собирать программу из небольших понятных действий</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Как работать с примерами</a></li>
+            <li><a href="#s2">Функция без параметров</a></li>
+            <li><a href="#s3">Функция с параметром</a></li>
+            <li><a href="#s4">Возвращаем результат</a></li>
+            <li><a href="#s5">Условие внутри функции</a></li>
+            <li><a href="#s6">Функция вызывает функцию</a></li>
+            <li><a href="#s7">Вложенная функция</a></li>
+            <li><a href="#s8">Несколько функций в программе</a></li>
+            <li><a href="#s9">Анализ числа</a></li>
+            <li><a href="#s10">Функция-меню</a></li>
+            <li><a href="#s11">Частые ошибки</a></li>
+            <li><a href="#s12">Проверьте себя</a></li>
+            <li><a href="#s13">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Как работать с примерами</h2>
+        <p>В каждом примере сначала определена задача функции, затем показан её вызов. Не ограничивайтесь чтением: изменяйте аргументы и заранее предполагайте результат.</p>
+        <ol class="steps">
+          <li>Назовите одно действие, которое должна выполнять функция.</li>
+          <li>Определите, какие данные ей нужны в параметрах.</li>
+          <li>Решите, должна ли она вывести сообщение или вернуть значение.</li>
+          <li>Вызовите функцию с несколькими аргументами и проверьте результат.</li>
+        </ol>
+
+        <h2 id="s2"><span class="sec">§2</span>Функция без параметров</h2>
+        <p><b>Задача:</b> создать функцию, которая выводит приглашение к работе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>готовое сообщение</span></figcaption>
+<pre><span class="k">def</span> <span class="f">welcome</span>():
+    <span class="f">print</span>(<span class="s">"Добро пожаловать в Python!"</span>)
+
+
+<span class="f">welcome</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат вызова</span></figcaption><pre>Добро пожаловать в Python!</pre></figure>
+        <p>Параметров нет, поэтому скобки в объявлении и вызове остаются пустыми.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Функция с параметром</h2>
+        <p><b>Задача:</b> принимать имя и составлять приветствие. Один код работает для разных людей.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>значение меняется при вызове</span></figcaption>
+<pre><span class="k">def</span> <span class="f">greet</span>(name):
+    <span class="f">print</span>(<span class="s">"Привет,"</span>, name)
+
+
+<span class="f">greet</span>(<span class="s">"Алексей"</span>)
+<span class="f">greet</span>(<span class="s">"Мария"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два аргумента</span></figcaption><pre>Привет, Алексей
+Привет, Мария</pre></figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Возвращаем результат</h2>
+        <p><b>Задача:</b> вычислять квадрат числа. Здесь полезнее <code>return</code>, потому что результат может понадобиться в другом вычислении.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>квадрат двух чисел</span></figcaption>
+<pre><span class="k">def</span> <span class="f">square</span>(number):
+    <span class="k">return</span> number * number
+
+
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">5</span>))
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">8</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два результата</span></figcaption><pre>25
+64</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Условие внутри функции</h2>
+        <p>Функция может принимать решение и возвращать логический результат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка чётности</span></figcaption>
+<pre><span class="k">def</span> <span class="f">is_even</span>(number):
+    <span class="k">return</span> number % <span class="n">2</span> == <span class="n">0</span>
+
+
+<span class="f">print</span>(<span class="f">is_even</span>(<span class="n">10</span>))
+<span class="f">print</span>(<span class="f">is_even</span>(<span class="n">7</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>логические значения</span></figcaption><pre>True
+False</pre></figure>
+        <p>Для выбора одного из двух результатов можно использовать обычное ветвление.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>большее из двух чисел</span></figcaption>
+<pre><span class="k">def</span> <span class="f">max_number</span>(a, b):
+    <span class="k">if</span> a &gt; b:
+        <span class="k">return</span> a
+    <span class="k">else</span>:
+        <span class="k">return</span> b
+
+
+<span class="f">print</span>(<span class="f">max_number</span>(<span class="n">10</span>, <span class="n">5</span>))
+<span class="f">print</span>(<span class="f">max_number</span>(<span class="n">3</span>, <span class="n">9</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два вызова</span></figcaption><pre>10
+9</pre></figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Функция вызывает функцию</h2>
+        <p><b>Задача:</b> сложить квадраты двух чисел. Уже готовую функцию <code>square()</code> можно использовать внутри новой функции.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>переиспользование вычисления</span></figcaption>
+<pre><span class="k">def</span> <span class="f">square</span>(number):
+    <span class="k">return</span> number * number
+
+
+<span class="k">def</span> <span class="f">sum_of_squares</span>(a, b):
+    <span class="k">return</span> <span class="f">square</span>(a) + <span class="f">square</span>(b)
+
+
+<span class="f">print</span>(<span class="f">sum_of_squares</span>(<span class="n">3</span>, <span class="n">4</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>9 + 16</span></figcaption><pre>25</pre></figure>
+        <p><code>sum_of_squares()</code> отвечает за общую задачу, а <code>square()</code> — за одно небольшое вычисление.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Вложенная функция</h2>
+        <p>Функцию можно объявить внутри другой функции. Внутренняя функция служит помощником и вызывается из тела внешней.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>простейшая вложенная функция</span></figcaption>
+<pre><span class="k">def</span> <span class="f">outer</span>():
+    <span class="k">def</span> <span class="f">inner</span>():
+        <span class="f">print</span>(<span class="s">"Это внутренняя функция"</span>)
+
+    <span class="f">inner</span>()
+
+
+<span class="f">outer</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>inner() вызвана внутри outer()</span></figcaption><pre>Это внутренняя функция</pre></figure>
+        <p>Вызов <code>outer()</code> создаёт внутреннюю функцию, а затем строка <code>inner()</code> запускает её.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>помощник для площади</span></figcaption>
+<pre><span class="k">def</span> <span class="f">rectangle_area</span>(width, height):
+    <span class="k">def</span> <span class="f">multiply</span>(a, b):
+        <span class="k">return</span> a * b
+
+    <span class="k">return</span> <span class="f">multiply</span>(width, height)
+
+
+<span class="f">print</span>(<span class="f">rectangle_area</span>(<span class="n">5</span>, <span class="n">3</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>площадь прямоугольника</span></figcaption><pre>15</pre></figure>
+        <p><code>multiply()</code> создаётся во время вызова <code>rectangle_area()</code> и предназначена для использования внутри неё. На начальном этапе применяйте вложенные функции только тогда, когда внутренний помощник не нужен остальной программе.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Несколько функций в программе</h2>
+        <p>Небольшую задачу можно разделить на отдельные вычисления, а затем собрать их в управляющей функции.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>квадрат и куб</span></figcaption>
+<pre><span class="k">def</span> <span class="f">square</span>(number):
+    <span class="k">return</span> number * number
+
+
+<span class="k">def</span> <span class="f">cube</span>(number):
+    <span class="k">return</span> number * number * number
+
+
+<span class="k">def</span> <span class="f">show_calculations</span>(number):
+    <span class="f">print</span>(<span class="s">"Квадрат:"</span>, <span class="f">square</span>(number))
+    <span class="f">print</span>(<span class="s">"Куб:"</span>, <span class="f">cube</span>(number))
+
+
+<span class="f">show_calculations</span>(<span class="n">3</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>number = 3</span></figcaption><pre>Квадрат: 9
+Куб: 27</pre></figure>
+
+        <h2 id="s9"><span class="sec">§9</span>Анализ числа</h2>
+        <p>Несколько маленьких функций делают каждый шаг заметным. Сначала объединим проверку чётности, абсолютное значение и квадрат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три характеристики числа</span></figcaption>
+<pre><span class="k">def</span> <span class="f">analyze_number</span>(number):
+    <span class="k">def</span> <span class="f">is_even</span>(value):
+        <span class="k">return</span> value % <span class="n">2</span> == <span class="n">0</span>
+
+    <span class="k">def</span> <span class="f">square</span>(value):
+        <span class="k">return</span> value * value
+
+    <span class="f">print</span>(<span class="s">"Чётное:"</span>, <span class="f">is_even</span>(number))
+    <span class="f">print</span>(<span class="s">"Абсолютное значение:"</span>, <span class="f">abs</span>(number))
+    <span class="f">print</span>(<span class="s">"Квадрат:"</span>, <span class="f">square</span>(number))
+
+
+<span class="f">analyze_number</span>(-<span class="n">4</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>number = -4</span></figcaption><pre>Чётное: True
+Абсолютное значение: 4
+Квадрат: 16</pre></figure>
+        <p>Во втором варианте разберём положительное целое число на последнюю цифру и оставшуюся часть.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>последняя цифра и остаток числа</span></figcaption>
+<pre><span class="k">def</span> <span class="f">last_digit</span>(number):
+    <span class="k">return</span> number % <span class="n">10</span>
+
+
+<span class="k">def</span> <span class="f">remove_last_digit</span>(number):
+    <span class="k">return</span> number // <span class="n">10</span>
+
+
+<span class="k">def</span> <span class="f">analyze_number</span>(number):
+    <span class="f">print</span>(<span class="s">"Последняя цифра:"</span>, <span class="f">last_digit</span>(number))
+    <span class="f">print</span>(<span class="s">"Без последней цифры:"</span>, <span class="f">remove_last_digit</span>(number))
+
+
+<span class="f">analyze_number</span>(<span class="n">12345</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>number = 12345</span></figcaption><pre>Последняя цифра: 5
+Без последней цифры: 1234</pre></figure>
+        <p>Для отрицательных чисел правила <code>%</code> и <code>//</code> требуют отдельного внимания. Этот пример рассчитан на положительное целое число.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Функция-меню</h2>
+        <p>В небольшой программе одна функция может получать данные, а отдельные функции — выполнять вычисления.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сумма и произведение</span></figcaption>
+<pre><span class="k">def</span> <span class="f">add</span>(a, b):
+    <span class="k">return</span> a + b
+
+
+<span class="k">def</span> <span class="f">multiply</span>(a, b):
+    <span class="k">return</span> a * b
+
+
+<span class="k">def</span> <span class="f">calculator</span>():
+    first = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите первое число: "</span>))
+    second = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите второе число: "</span>))
+
+    <span class="f">print</span>(<span class="s">"Сумма:"</span>, <span class="f">add</span>(first, second))
+    <span class="f">print</span>(<span class="s">"Произведение:"</span>, <span class="f">multiply</span>(first, second))
+
+
+<span class="f">calculator</span>()</pre>
+        </figure>
+        <p><code>calculator()</code> управляет сценарием, а <code>add()</code> и <code>multiply()</code> отвечают только за свои вычисления.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>одна функция одновременно вводит данные, считает и печатает много разных результатов</td><td>её трудно проверять и переиспользовать</td><td>разделить большую задачу на небольшие функции</td></tr>
+              <tr><td><code>return</code> забыли</td><td>при попытке сохранить результат получится <code>None</code></td><td>вернуть вычисленное значение</td></tr>
+              <tr><td>функция вызывает саму себя без условия остановки</td><td><code>RecursionError</code></td><td>вызвать нужную функцию или добавить условие завершения</td></tr>
+              <tr><td>внутреннюю функцию вызывают снаружи</td><td><code>NameError</code>: такое имя там недоступно</td><td>вызывать помощника внутри внешней функции</td></tr>
+              <tr><td>имя функции не объясняет действие</td><td>назначение вызова трудно понять</td><td>использовать имена вроде <code>calculate_area</code> или <code>is_even</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2>
+        <details><summary>Почему <code>is_even()</code> возвращает <code>True</code> или <code>False</code>?</summary><p>Выражение <code>number % 2 == 0</code> является сравнением и само даёт логический результат.</p></details>
+        <details><summary>Зачем <code>sum_of_squares()</code> вызывает <code>square()</code> дважды?</summary><p>Чтобы не повторять формулу квадрата: каждый вызов вычисляет квадрат одного аргумента.</p></details>
+        <details><summary>Когда уместна вложенная функция?</summary><p>Когда небольшой помощник нужен только одной внешней функции и не должен использоваться в остальных частях программы.</p></details>
+
+        <h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Проверка</b><code>def is_even(n):</code><code>    return n % 2 == 0</code></div>
+          <div><b>Вызов помощника</b><code>return square(a) + square(b)</code></div>
+          <div><b>Вложенный помощник</b><code>def outer():</code><code>    def inner():</code></div>
+          <div><b>Разделение ролей</b><code>ввод → вычисление → вывод</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Функция может получать параметры, возвращать значение, содержать условие и вызывать другие функции. Чем точнее одна функция отвечает за одну задачу, тем легче читать, проверять и переиспользовать программу.</p>
+        <div class="pager">
+          <a href="../17-def/index.html">← 4.2 Создание функций</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../19-moduli-import/index.html">4.4 Модули и импорт →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.3 · Практическое применение def · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

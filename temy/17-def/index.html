@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.2 Объявление и создание функций: def · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
+          <p class="running__folio">Глава 4.2</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.2</span>
+          <h1>Объявление и создание<br>функций: <code>def</code></h1>
+          <p class="lead">Функция собирает несколько действий под одним именем. Её можно вызвать столько раз, сколько требуется, и передавать ей разные данные.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Пользовательские функции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Переменные, условия, print()</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Не повторять код и делить программу на задачи</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что такое функция</a></li>
+            <li><a href="#s2">Объявление через def</a></li>
+            <li><a href="#s3">Объявление и вызов</a></li>
+            <li><a href="#s4">Порядок выполнения</a></li>
+            <li><a href="#s5">Параметр и аргумент</a></li>
+            <li><a href="#s6">Несколько параметров</a></li>
+            <li><a href="#s7">Возврат значения: return</a></li>
+            <li><a href="#s8">return или print()</a></li>
+            <li><a href="#s9">Повторное использование</a></li>
+            <li><a href="#s10">Частые ошибки</a></li>
+            <li><a href="#s11">Проверьте себя</a></li>
+            <li><a href="#s12">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что такое функция</h2>
+        <p><span class="term">Функция</span> — именованный блок кода для одной понятной задачи. Вместо повторения нескольких строк мы один раз описываем действие, а затем обращаемся к нему по имени.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>один блок — несколько вызовов</span></figcaption>
+<pre>объявить функцию → дать блоку имя
+вызвать функцию  → выполнить её блок</pre>
+        </figure>
+        <p>Функции помогают разделять программу на части, повторно использовать код и читать программу по названиям её действий.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Объявление через def</h2>
+        <p>Ключевое слово <code>def</code> сообщает Python, что дальше начинается объявление функции.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>общая форма</span></figcaption>
+<pre><span class="k">def</span> имя_функции(параметры):
+    блок_кода</pre>
+        </figure>
+        <ul>
+          <li><code>def</code> начинает объявление;</li>
+          <li>после него пишется имя функции;</li>
+          <li>в круглых скобках указываются параметры;</li>
+          <li>после скобок ставится двоеточие;</li>
+          <li>тело функции записывается с отступом в четыре пробела.</li>
+        </ul>
+
+        <h2 id="s3"><span class="sec">§3</span>Объявление и вызов</h2>
+        <p>Объявление создаёт функцию, но не выполняет её тело. Для запуска нужно отдельно написать имя функции с круглыми скобками.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первая функция</span></figcaption>
+<pre><span class="k">def</span> <span class="f">hello</span>():
+    <span class="f">print</span>(<span class="s">"Привет, мир!"</span>)
+
+
+<span class="f">hello</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>после вызова hello()</span></figcaption><pre>Привет, мир!</pre></figure>
+        <div class="margin-note">
+          <b>Скобки запускают функцию</b>
+          <p><code>hello</code> — имя функции, а <code>hello()</code> — её вызов. Без вызова строки внутри тела не выполнятся.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>Порядок выполнения</h2>
+        <p>Python читает файл сверху вниз. К моменту вызова объявление функции уже должно быть выполнено, поэтому обычно сначала пишут функции, а ниже — код, который их вызывает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сначала объявление, затем вызов</span></figcaption>
+<pre><span class="k">def</span> <span class="f">show_message</span>():
+    <span class="f">print</span>(<span class="s">"Функция работает"</span>)
+
+
+<span class="f">print</span>(<span class="s">"До вызова"</span>)
+<span class="f">show_message</span>()
+<span class="f">print</span>(<span class="s">"После вызова"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ход программы</span></figcaption><pre>До вызова
+Функция работает
+После вызова</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Параметр и аргумент</h2>
+        <p><span class="term">Параметр</span> — имя внутри объявления функции. <span class="term">Аргумент</span> — конкретное значение, которое передаётся при вызове.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>один параметр, два аргумента</span></figcaption>
+<pre><span class="k">def</span> <span class="f">greet</span>(name):
+    <span class="f">print</span>(<span class="s">"Привет,"</span>, name)
+
+
+<span class="f">greet</span>(<span class="s">"Алексей"</span>)
+<span class="f">greet</span>(<span class="s">"Мария"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два вызова</span></figcaption><pre>Привет, Алексей
+Привет, Мария</pre></figure>
+        <p>В объявлении <code>name</code> — параметр. При первом вызове аргументом служит строка <code>"Алексей"</code>, при втором — <code>"Мария"</code>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Несколько параметров</h2>
+        <p>Если функции нужно несколько входных значений, параметры перечисляются через запятую. При обычном вызове аргументы сопоставляются с ними слева направо.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два параметра</span></figcaption>
+<pre><span class="k">def</span> <span class="f">show_sum</span>(a, b):
+    <span class="f">print</span>(a + b)
+
+
+<span class="f">show_sum</span>(<span class="n">5</span>, <span class="n">3</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>a = 5, b = 3</span></figcaption><pre>8</pre></figure>
+
+        <h2 id="s7"><span class="sec">§7</span>Возврат значения: return</h2>
+        <p><code>return</code> возвращает результат из функции в место вызова. Возвращённое значение можно сохранить, вывести или использовать в вычислении.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция возвращает сумму</span></figcaption>
+<pre><span class="k">def</span> <span class="f">add</span>(a, b):
+    <span class="k">return</span> a + b
+
+
+result = <span class="f">add</span>(<span class="n">5</span>, <span class="n">3</span>)
+<span class="f">print</span>(result)
+<span class="f">print</span>(<span class="f">add</span>(<span class="n">10</span>, <span class="n">4</span>) * <span class="n">2</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат можно использовать</span></figcaption><pre>8
+28</pre></figure>
+        <p>После выполнения <code>return</code> работа текущего вызова функции заканчивается. Строки ниже него в этом пути уже не выполняются.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>return или print()</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Действие</th><th>Что делает</th><th>Когда использовать</th></tr></thead>
+            <tbody>
+              <tr><td><code>print(value)</code></td><td>показывает значение на экране</td><td>когда результат нужно сообщить пользователю</td></tr>
+              <tr><td><code>return value</code></td><td>передаёт значение из функции</td><td>когда результат нужен дальнейшему коду</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>вычисление отдельно от вывода</span></figcaption>
+<pre><span class="k">def</span> <span class="f">square</span>(number):
+    <span class="k">return</span> number * number
+
+
+area = <span class="f">square</span>(<span class="n">6</span>)
+<span class="f">print</span>(<span class="s">"Квадрат числа:"</span>, area)</pre>
+        </figure>
+        <p>Так функция отвечает за вычисление, а внешний код решает, как использовать результат.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Повторное использование</h2>
+        <p>Одно объявление можно вызывать с разными аргументами. Исправление формулы внутри функции сразу действует для всех вызовов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>одна функция — три результата</span></figcaption>
+<pre><span class="k">def</span> <span class="f">square</span>(number):
+    <span class="k">return</span> number * number
+
+
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">3</span>))
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">5</span>))
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">10</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три вызова</span></figcaption><pre>9
+25
+100</pre></figure>
+
+        <h2 id="s10"><span class="sec">§10</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>def hello()</code></td><td><code>SyntaxError</code>: нет двоеточия</td><td><code>def hello():</code></td></tr>
+              <tr><td>тело функции без отступа</td><td><code>IndentationError</code></td><td>добавить четыре пробела</td></tr>
+              <tr><td>функцию объявили, но не вызвали</td><td>тело функции не выполнится</td><td>написать <code>hello()</code></td></tr>
+              <tr><td><code>greet()</code> при параметре <code>name</code></td><td><code>TypeError</code>: не передан обязательный аргумент</td><td><code>greet("Анна")</code></td></tr>
+              <tr><td><code>result = print(a + b)</code></td><td>на экране будет сумма, но в <code>result</code> попадёт <code>None</code></td><td>вернуть сумму через <code>return a + b</code></td></tr>
+              <tr><td>вызов выше объявления функции</td><td><code>NameError</code>: имя ещё не создано</td><td>объявить функцию до места первого вызова</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s11"><span class="sec">§11</span>Проверьте себя</h2>
+        <details><summary>Выполняется ли тело функции сразу после <code>def</code>?</summary><p>Нет. <code>def</code> создаёт функцию. Её тело выполняется только после вызова со скобками.</p></details>
+        <details><summary>Чем параметр отличается от аргумента?</summary><p>Параметр — имя в объявлении функции, аргумент — конкретное значение при вызове.</p></details>
+        <details><summary>Зачем нужен <code>return</code>?</summary><p>Чтобы передать вычисленный результат из функции в вызывающий код и затем использовать его.</p></details>
+
+        <h2 id="s12"><span class="sec">§12</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Без параметров</b><code>def hello():</code><code>    print("Привет")</code></div>
+          <div><b>Один параметр</b><code>def greet(name):</code><code>    print(name)</code></div>
+          <div><b>Вернуть результат</b><code>def add(a, b):</code><code>    return a + b</code></div>
+          <div><b>Вызвать</b><code>result = add(2, 3)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>def</code> объявляет функцию, а имя со скобками вызывает её. Параметры принимают переданные аргументы. <code>print()</code> показывает значение, а <code>return</code> возвращает его из функции для дальнейшей работы.</p>
+        <div class="pager">
+          <a href="../16-abs-max-min/index.html">← 4.1 abs(), max() и min()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../18-praktika-def/index.html">4.3 Практика функций →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.2 · Объявление функций: def · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
