@@ -1,0 +1,76 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.22 Объект slice и именованные срезы · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.22</p></div>
+<header class="chapter-head"><span class="chapter-num">3.22</span><h1>Объект slice и<br>именованные срезы</h1><p class="lead">Запись <code>data[start:stop:step]</code> можно сохранить как объект <code>slice</code>, дать ему имя, передать в функцию и повторно применять к разным последовательностям.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Продвинутая работа со срезами</dd></div><div><dt>Уровень</dt><dd>Продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Срезы, строки, списки, кортежи</dd></div><div><dt>Зачем это знать</dt><dd>Заменять непонятные границы среза именованным правилом</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Срез как объект</a></li><li><a href="#s2">Создание slice</a></li><li><a href="#s3">Эквивалентность</a></li><li><a href="#s4">start, stop, step</a></li><li><a href="#s5">Пропущенные границы</a></li><li><a href="#s6">Отрицательный шаг</a></li><li><a href="#s7">Разные последовательности</a></li><li><a href="#s8">Именованный срез</a></li><li><a href="#s9">Передача в функцию</a></li><li><a href="#s10">Метод indices</a></li><li><a href="#s11">Практический пример</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>Двоеточия создают объект с параметрами среза</h2><p>Когда Python видит <code>data[1:7:2]</code>, он передаёт объекту <code>data</code> правило выбора, эквивалентное <code>slice(1, 7, 2)</code>. Функция <code>slice()</code> позволяет сохранить это правило отдельно от данных.</p><div class="boxes"><div><b>data[1:7:2]</b><i>↔</i><span>data[slice(1, 7, 2)]</span></div></div>
+<h2 id="s2"><span class="sec">§2</span>Создание объекта slice</h2><div class="table-scroll"><table><thead><tr><th>Запись</th><th>Соответствующий срез</th></tr></thead><tbody><tr><td><code>slice(stop)</code></td><td><code>[:stop]</code></td></tr><tr><td><code>slice(start, stop)</code></td><td><code>[start:stop]</code></td></tr><tr><td><code>slice(start, stop, step)</code></td><td><code>[start:stop:step]</code></td></tr></tbody></table></div><figure class="code"><figcaption><span>main.py</span><span>каждый второй элемент</span></figcaption><pre>every_second = <span class="f">slice</span>(<span class="n">1</span>, <span class="n">7</span>, <span class="n">2</span>)
+numbers = [<span class="n">0</span>, <span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>, <span class="n">50</span>, <span class="n">60</span>, <span class="n">70</span>]
+
+<span class="f">print</span>(numbers[every_second])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>индексы 1, 3 и 5</span></figcaption><pre>[10, 30, 50]</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>Обычный и объектный срез эквивалентны</h2><figure class="code"><figcaption><span>main.py</span><span>одно правило в двух формах</span></figcaption><pre>text = <span class="s">"abcdefghij"</span>
+
+<span class="f">print</span>(text[<span class="n">2</span>:<span class="n">8</span>:<span class="n">2</span>])
+<span class="f">print</span>(text[<span class="f">slice</span>(<span class="n">2</span>, <span class="n">8</span>, <span class="n">2</span>)])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результаты совпали</span></figcaption><pre>ceg
+ceg</pre></figure><p><code>slice</code> не хранит последовательность и не извлекает элементы сам. Он только хранит три параметра, которые последовательность применит позже.</p>
+<h2 id="s4"><span class="sec">§4</span>Параметры доступны как атрибуты</h2><figure class="code"><figcaption><span>main.py</span><span>структура объекта</span></figcaption><pre>part = <span class="f">slice</span>(<span class="n">2</span>, <span class="n">10</span>, <span class="n">3</span>)
+
+<span class="f">print</span>(part.start)
+<span class="f">print</span>(part.stop)
+<span class="f">print</span>(part.step)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три сохранённых значения</span></figcaption><pre>2
+10
+3</pre></figure><p>Атрибуты доступны только для чтения: после создания объект <code>slice</code> не меняется.</p>
+<h2 id="s5"><span class="sec">§5</span>Пропущенная часть записывается как None</h2><figure class="code"><figcaption><span>main.py</span><span>начало и конец не заданы</span></figcaption><pre>tail = <span class="f">slice</span>(<span class="n">3</span>, <span class="k">None</span>)
+even_positions = <span class="f">slice</span>(<span class="k">None</span>, <span class="k">None</span>, <span class="n">2</span>)
+
+<span class="f">print</span>(<span class="s">"abcdefgh"</span>[tail])
+<span class="f">print</span>(<span class="s">"abcdefgh"</span>[even_positions])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>[3:] и [::2]</span></figcaption><pre>defgh
+aceg</pre></figure>
+<h2 id="s6"><span class="sec">§6</span>Отрицательный шаг меняет направление</h2><figure class="code"><figcaption><span>main.py</span><span>разворот всей последовательности</span></figcaption><pre>reverse = <span class="f">slice</span>(<span class="k">None</span>, <span class="k">None</span>, -<span class="n">1</span>)
+
+<span class="f">print</span>(<span class="s">"python"</span>[reverse])
+<span class="f">print</span>((<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>)[reverse])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>строка и кортеж справа налево</span></figcaption><pre>nohtyp
+(3, 2, 1)</pre></figure><p>Шаг не может быть нулём: <code>slice(None, None, 0)</code> создаётся, но применение такого среза вызывает <code>ValueError</code>.</p>
+<h2 id="s7"><span class="sec">§7</span>Одно правило применяется к разным типам</h2><figure class="code"><figcaption><span>main.py</span><span>одинаковые позиции</span></figcaption><pre>middle = <span class="f">slice</span>(<span class="n">1</span>, -<span class="n">1</span>)
+
+<span class="f">print</span>([<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>][middle])
+<span class="f">print</span>(<span class="s">"python"</span>[middle])
+<span class="f">print</span>((<span class="s">"a"</span>, <span class="s">"b"</span>, <span class="s">"c"</span>)[middle])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>тип результата следует последовательности</span></figcaption><pre>[20, 30]
+ytho
+('b',)</pre></figure>
+<h2 id="s8"><span class="sec">§8</span>Имя объясняет смысл границ</h2><figure class="code"><figcaption><span>До</span><span>числа приходится расшифровывать</span></figcaption><pre>line = <span class="s">"2026-09-06 INFO Server started"</span>
+<span class="f">print</span>(line[<span class="n">0</span>:<span class="n">10</span>])
+<span class="f">print</span>(line[<span class="n">11</span>:<span class="n">15</span>])</pre></figure><figure class="code"><figcaption><span>После</span><span>правила получили имена</span></figcaption><pre>DATE = <span class="f">slice</span>(<span class="n">0</span>, <span class="n">10</span>)
+LEVEL = <span class="f">slice</span>(<span class="n">11</span>, <span class="n">15</span>)
+
+line = <span class="s">"2026-09-06 INFO Server started"</span>
+<span class="f">print</span>(line[DATE])
+<span class="f">print</span>(line[LEVEL])</pre></figure><p>Заглавные имена показывают, что правила считаются константами проекта. Теперь числа определены один раз, а место использования читается по смыслу.</p>
+<h2 id="s9"><span class="sec">§9</span>slice можно передать в функцию</h2><figure class="code"><figcaption><span>main.py</span><span>функция не знает границы заранее</span></figcaption><pre><span class="k">def</span> <span class="f">extract</span>(sequence, area):
+    <span class="k">return</span> sequence[area]
+
+first_three = <span class="f">slice</span>(<span class="n">3</span>)
+
+<span class="f">print</span>(<span class="f">extract</span>([<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>], first_three))
+<span class="f">print</span>(<span class="f">extract</span>(<span class="s">"Python"</span>, first_three))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>одно правило, разные данные</span></figcaption><pre>[10, 20, 30]
+Pyt</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>indices() приводит границы к длине</h2><figure class="code"><figcaption><span>main.py</span><span>фактические параметры для длины 8</span></figcaption><pre>part = <span class="f">slice</span>(-<span class="n">5</span>, <span class="k">None</span>, <span class="n">2</span>)
+<span class="f">print</span>(part.indices(<span class="n">8</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>start, stop, step</span></figcaption><pre>(3, 8, 2)</pre></figure><p>Метод учитывает длину конкретной последовательности, отрицательные границы и направление шага. Обычно Python делает это сам, но <code>indices()</code> полезен при реализации собственных последовательностей.</p>
+<h2 id="s11"><span class="sec">§11</span>Практический пример: поля фиксированного формата</h2><figure class="code"><figcaption><span>main.py</span><span>разбор строки платежа</span></figcaption><pre>PAYMENT_ID = <span class="f">slice</span>(<span class="n">0</span>, <span class="n">6</span>)
+STATUS = <span class="f">slice</span>(<span class="n">7</span>, <span class="n">11</span>)
+AMOUNT = <span class="f">slice</span>(<span class="n">12</span>, <span class="k">None</span>)
+
+row = <span class="s">"A10482 PAID 001250"</span>
+payment = {
+    <span class="s">"id"</span>: row[PAYMENT_ID],
+    <span class="s">"status"</span>: row[STATUS],
+    <span class="s">"amount"</span>: <span class="f">int</span>(row[AMOUNT]),
+}
+
+<span class="f">print</span>(payment)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>структурированные данные</span></figcaption><pre>{'id': 'A10482', 'status': 'PAID', 'amount': 1250}</pre></figure><p>Такой подход оправдан для действительно фиксированного формата. Для CSV, JSON и строк с разделителями следует применять инструменты этих форматов.</p>
+<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>slice(1, 5, 0)</code> затем применён к списку</td><td><code>ValueError</code>: шаг не может быть нулём</td><td>использовать ненулевой шаг</td></tr><tr><td>считать, что slice хранит данные</td><td>в объекте есть только границы</td><td>применять его как <code>sequence[area]</code></td></tr><tr><td>ожидать ускорения от именованного среза</td><td>алгоритм выбора не изменится</td><td>использовать slice ради смысла и повторного применения</td></tr><tr><td>давать имя каждому одноразовому <code>data[:2]</code></td><td>код станет длиннее без новой информации</td><td>именовать повторяемые или предметно значимые границы</td></tr><tr><td>считать срез представлением исходного списка</td><td>обычный список вернёт новый список</td><td>учитывать поведение конкретного типа данных</td></tr></tbody></table></div>
+<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Что хранит объект slice?</summary><p>Три параметра: <code>start</code>, <code>stop</code> и <code>step</code>. Самих элементов последовательности в нём нет.</p></details><details><summary>Чему эквивалентен slice(None, None, -1)?</summary><p>Обычному срезу <code>[::-1]</code>, который читает последовательность в обратном направлении.</p></details><details><summary>Когда именованный срез улучшает код?</summary><p>Когда одни границы повторяются или имеют предметный смысл, который можно выразить понятным именем.</p></details>
+<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Создать</b><code>slice(stop)</code><code>slice(start, stop)</code><code>slice(start, stop, step)</code></div><div><b>Применить</b><code>data[area]</code></div><div><b>Прочитать параметры</b><code>area.start</code><code>area.stop</code><code>area.step</code></div><div><b>Нормализовать</b><code>area.indices(len(data))</code></div></div>
+<h3>Итог главы</h3><p><code>slice</code> хранит правило выбора элементов отдельно от последовательности. Именованный срез полезен, когда границы повторяются, передаются в функцию или выражают поле фиксированного формата.</p>
+<div class="pager"><a href="../53-frozenset/index.html">← 3.21 frozenset</a><a href="../16-abs-max-min/index.html">4.1 abs, max и min →</a><a href="../../index.html">К содержанию справочника</a></div><div class="colophon"><span>Глава 3.22 · Объект slice · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

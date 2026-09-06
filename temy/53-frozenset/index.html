@@ -1,0 +1,70 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.21 frozenset в Python · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.21</p></div>
+<header class="chapter-head"><span class="chapter-num">3.21</span><h1>frozenset<br>в Python</h1><p class="lead"><code>frozenset</code> сохраняет уникальность и операции обычного множества, но запрещает изменение после создания. Благодаря этому он может быть ключом словаря или элементом другого множества.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Неизменяемые множества</dd></div><div><dt>Уровень</dt><dd>Продвинутый</dd></div><div><dt>Связанные темы</dt><dd>set, dict, tuple, хеширование</dd></div><div><dt>Зачем это знать</dt><dd>Использовать фиксированный набор как значение идентичности</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что такое frozenset</a></li><li><a href="#s2">Создание</a></li><li><a href="#s3">Свойства</a></li><li><a href="#s4">Неизменяемость</a></li><li><a href="#s5">Операции</a></li><li><a href="#s6">Отношения</a></li><li><a href="#s7">Смешивание с set</a></li><li><a href="#s8">Ключ словаря</a></li><li><a href="#s9">Элемент множества</a></li><li><a href="#s10">frozenset и tuple</a></li><li><a href="#s11">Практический пример</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>frozenset — неизменяемый вариант set</h2><div class="table-scroll"><table><thead><tr><th>Свойство</th><th><code>set</code></th><th><code>frozenset</code></th></tr></thead><tbody><tr><td>уникальные элементы</td><td>да</td><td>да</td></tr><tr><td>позиционный порядок</td><td>нет</td><td>нет</td></tr><tr><td>изменение после создания</td><td>да</td><td>нет</td></tr><tr><td>может быть ключом dict</td><td>нет</td><td>да, если элементы хешируемы</td></tr></tbody></table></div><p>Если состав набора — часть его смысла и не должен меняться, <code>frozenset</code> фиксирует это требование самим типом.</p>
+<h2 id="s2"><span class="sec">§2</span>Создание из итерируемого объекта</h2><figure class="code"><figcaption><span>main.py</span><span>список, строка и пустой набор</span></figcaption><pre>permissions = <span class="f">frozenset</span>([<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"read"</span>])
+letters = <span class="f">frozenset</span>(<span class="s">"hello"</span>)
+empty = <span class="f">frozenset</span>()
+
+<span class="f">print</span>(permissions)
+<span class="f">print</span>(<span class="f">len</span>(letters))
+<span class="f">print</span>(empty)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>повторы удалены</span></figcaption><pre>frozenset({'read', 'write'})
+4
+frozenset()</pre></figure><p>Отдельного литерала для <code>frozenset</code> нет, поэтому используется функция-конструктор.</p>
+<h2 id="s3"><span class="sec">§3</span>Уникальность и отсутствие индексов сохраняются</h2><p><code>frozenset</code> поддерживает <code>len()</code>, перебор и проверки <code>in</code>, но не поддерживает <code>data[0]</code>. Как и у <code>set</code>, порядок обхода не следует использовать как часть логики программы.</p><figure class="code"><figcaption><span>main.py</span><span>проверка принадлежности</span></figcaption><pre>roles = <span class="f">frozenset</span>({<span class="s">"reader"</span>, <span class="s">"editor"</span>})
+
+<span class="f">print</span>(<span class="s">"reader"</span> <span class="k">in</span> roles)
+<span class="f">print</span>(<span class="f">len</span>(roles))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>обычные операции коллекции</span></figcaption><pre>True
+2</pre></figure>
+<h2 id="s4"><span class="sec">§4</span>Методов изменения нет</h2><figure class="code"><figcaption><span>Ошибка</span><span>add отсутствует</span></figcaption><pre>roles = <span class="f">frozenset</span>({<span class="s">"reader"</span>})
+roles.add(<span class="s">"admin"</span>)</pre></figure><figure class="code code--out"><figcaption><span>Исключение</span><span>объект неизменяем</span></figcaption><pre>AttributeError: 'frozenset' object has no attribute 'add'</pre></figure><p>Также отсутствуют <code>remove()</code>, <code>discard()</code>, <code>pop()</code>, <code>clear()</code> и все <code>*_update()</code>.</p>
+<h2 id="s5"><span class="sec">§5</span>Операции возвращают новый набор</h2><figure class="code"><figcaption><span>main.py</span><span>объединение и разность</span></figcaption><pre>base = <span class="f">frozenset</span>({<span class="s">"read"</span>, <span class="s">"write"</span>})
+extended = base | {<span class="s">"delete"</span>}
+limited = base - {<span class="s">"write"</span>}
+
+<span class="f">print</span>(extended)
+<span class="f">print</span>(limited)
+<span class="f">print</span>(base)</pre></figure><p>Доступны <code>union()</code>, <code>intersection()</code>, <code>difference()</code>, <code>symmetric_difference()</code> и операторы <code>|</code>, <code>&amp;</code>, <code>-</code>, <code>^</code>. Исходный <code>frozenset</code> остаётся прежним.</p>
+<h2 id="s6"><span class="sec">§6</span>Отношения между множествами тоже доступны</h2><figure class="code"><figcaption><span>main.py</span><span>требования и выданные права</span></figcaption><pre>required = <span class="f">frozenset</span>({<span class="s">"read"</span>, <span class="s">"write"</span>})
+granted = <span class="f">frozenset</span>({<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>})
+
+<span class="f">print</span>(required.issubset(granted))
+<span class="f">print</span>(granted.issuperset(required))
+<span class="f">print</span>(required.isdisjoint({<span class="s">"ban"</span>}))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три отношения</span></figcaption><pre>True
+True
+True</pre></figure>
+<h2 id="s7"><span class="sec">§7</span>set и frozenset можно сравнивать и комбинировать</h2><figure class="code"><figcaption><span>main.py</span><span>равенство зависит от элементов</span></figcaption><pre>mutable = {<span class="n">1</span>, <span class="n">2</span>}
+fixed = <span class="f">frozenset</span>({<span class="n">2</span>, <span class="n">1</span>})
+
+<span class="f">print</span>(mutable == fixed)
+<span class="f">print</span>(fixed | {<span class="n">3</span>})</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>одинаковый состав</span></figcaption><pre>True
+frozenset({1, 2, 3})</pre></figure><p>Тип результата бинарной операции обычно следует типу левого операнда: <code>fixed | mutable</code> даёт <code>frozenset</code>, а <code>mutable | fixed</code> — <code>set</code>.</p>
+<h2 id="s8"><span class="sec">§8</span>frozenset может быть ключом словаря</h2><figure class="code"><figcaption><span>main.py</span><span>порядок прав не влияет на ключ</span></figcaption><pre>prices = {
+    <span class="f">frozenset</span>({<span class="s">"read"</span>}): <span class="n">100</span>,
+    <span class="f">frozenset</span>({<span class="s">"read"</span>, <span class="s">"write"</span>}): <span class="n">250</span>,
+}
+
+plan = <span class="f">frozenset</span>({<span class="s">"write"</span>, <span class="s">"read"</span>})
+<span class="f">print</span>(prices[plan])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>набор найден</span></figcaption><pre>250</pre></figure><p>Обычный <code>set</code> изменяем и потому не хешируется. У <code>frozenset</code> состав фиксирован, поэтому его хеш может оставаться постоянным.</p>
+<h2 id="s9"><span class="sec">§9</span>frozenset может лежать внутри set</h2><figure class="code"><figcaption><span>main.py</span><span>уникальные группы тегов</span></figcaption><pre>tag_groups = {
+    <span class="f">frozenset</span>({<span class="s">"python"</span>, <span class="s">"api"</span>}),
+    <span class="f">frozenset</span>({<span class="s">"sql"</span>, <span class="s">"database"</span>}),
+}
+
+<span class="f">print</span>(<span class="f">frozenset</span>({<span class="s">"api"</span>, <span class="s">"python"</span>}) <span class="k">in</span> tag_groups)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>порядок не влияет</span></figcaption><pre>True</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>frozenset и tuple выражают разные требования</h2><div class="table-scroll"><table><thead><tr><th>Нужное свойство</th><th>Выбор</th></tr></thead><tbody><tr><td>порядок и возможные повторы важны</td><td><code>tuple</code></td></tr><tr><td>важен только уникальный состав</td><td><code>frozenset</code></td></tr><tr><td>доступ по индексу</td><td><code>tuple</code></td></tr><tr><td>пересечение и разность</td><td><code>frozenset</code></td></tr></tbody></table></div><p><code>("read", "write")</code> и <code>("write", "read")</code> — разные кортежи. Два <code>frozenset</code> с этими элементами равны.</p>
+<h2 id="s11"><span class="sec">§11</span>Практический пример: кэш по набору фильтров</h2><figure class="code"><figcaption><span>main.py</span><span>ключ не зависит от порядка</span></figcaption><pre>cache = {}
+
+filters = <span class="f">frozenset</span>({<span class="s">"active"</span>, <span class="s">"verified"</span>})
+cache[filters] = [<span class="n">101</span>, <span class="n">208</span>]
+
+same_filters = <span class="f">frozenset</span>({<span class="s">"verified"</span>, <span class="s">"active"</span>})
+<span class="f">print</span>(cache[same_filters])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>тот же состав</span></figcaption><pre>[101, 208]</pre></figure>
+<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>fixed.add(value)</code></td><td><code>AttributeError</code></td><td>создать новый набор: <code>fixed | {value}</code></td></tr><tr><td><code>fixed[0]</code></td><td><code>TypeError</code>: индексов нет</td><td>перебирать или выбрать tuple</td></tr><tr><td><code>frozenset([[1], [2]])</code></td><td><code>TypeError</code>: вложенные списки не хешируются</td><td>использовать хешируемые элементы, например кортежи</td></tr><tr><td>выбрать frozenset при важном порядке</td><td>порядок не станет частью значения</td><td>использовать tuple</td></tr><tr><td>ожидать, что операция изменит fixed</td><td>вернётся новый объект</td><td>сохранить результат: <code>fixed = fixed | other</code></td></tr></tbody></table></div>
+<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Почему frozenset можно использовать как ключ словаря?</summary><p>Его состав нельзя изменить после создания, поэтому объект хешируем при условии, что хешируемы его элементы.</p></details><details><summary>Когда tuple подходит лучше?</summary><p>Когда важны порядок, повторы или доступ по индексу.</p></details><details><summary>Что возвращает fixed.union(other)?</summary><p>Новый <code>frozenset</code>; исходный объект не меняется.</p></details>
+<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Создать</b><code>fixed = frozenset(items)</code><code>empty = frozenset()</code></div><div><b>Комбинировать</b><code>fixed | other</code><code>fixed &amp; other</code><code>fixed - other</code></div><div><b>Сравнивать</b><code>left &lt;= right</code><code>left.isdisjoint(right)</code></div><div><b>Использовать</b><code>cache[fixed] = result</code><code>groups = {fixed}</code></div></div>
+<h3>Итог главы</h3><p><code>frozenset</code> — неизменяемое множество: уникальность и операции <code>set</code> сохраняются, а методы изменения исчезают. Хешируемость позволяет использовать фиксированный набор как ключ словаря или элемент другого множества.</p>
+<div class="pager"><a href="../52-izmenyayushchie-operacii-mnozhestv/index.html">← 3.20 Изменяющие операции</a><a href="../54-imenovannye-srezy/index.html">3.22 Именованные срезы →</a><a href="../../index.html">К содержанию справочника</a></div><div class="colophon"><span>Глава 3.21 · frozenset · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

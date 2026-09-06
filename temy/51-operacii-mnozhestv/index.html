@@ -1,0 +1,68 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.19 Операции над множествами · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.19</p></div>
+<header class="chapter-head"><span class="chapter-num">3.19</span><h1>Операции над<br>множествами</h1><p class="lead">Объединение, пересечение, разность и отношения между наборами позволяют описывать работу с доступами, тегами и фильтрами прямо через операции <code>set</code>.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Алгебра множеств</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Множества, операторы, булевы значения</dd></div><div><dt>Зачем это знать</dt><dd>Сравнивать и комбинировать наборы без вложенных циклов</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Два набора</a></li><li><a href="#s2">Объединение</a></li><li><a href="#s3">Пересечение</a></li><li><a href="#s4">Разность</a></li><li><a href="#s5">Симметрическая разность</a></li><li><a href="#s6">Методы и операторы</a></li><li><a href="#s7">Подмножество</a></li><li><a href="#s8">Надмножество</a></li><li><a href="#s9">Нет пересечений</a></li><li><a href="#s10">Несколько наборов</a></li><li><a href="#s11">Практический пример</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>Операция отвечает на вопрос о двух наборах</h2><p>Пусть у пользователя есть набор разрешений, а у страницы — набор требований. Вместо ручного перебора мы можем получить общие, недостающие или объединённые элементы одной операцией.</p><div class="boxes"><div><b>user</b><i>→</i><span>{"read", "write"}</span></div><div><b>required</b><i>→</i><span>{"write", "delete"}</span></div></div>
+<h2 id="s2"><span class="sec">§2</span>Объединение: все элементы без повторов</h2><figure class="code"><figcaption><span>main.py</span><span>union и оператор |</span></figcaption><pre>backend = {<span class="s">"Python"</span>, <span class="s">"SQL"</span>}
+frontend = {<span class="s">"JavaScript"</span>, <span class="s">"HTML"</span>, <span class="s">"SQL"</span>}
+
+<span class="f">print</span>(backend | frontend)
+<span class="f">print</span>(backend.union(frontend))</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>оба результата равны</span></figcaption><pre>{'Python', 'SQL', 'JavaScript', 'HTML'}
+{'Python', 'SQL', 'JavaScript', 'HTML'}</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>Пересечение: только общие элементы</h2><figure class="code"><figcaption><span>main.py</span><span>intersection и оператор &amp;</span></figcaption><pre>active = {<span class="n">101</span>, <span class="n">102</span>, <span class="n">103</span>}
+subscribed = {<span class="n">102</span>, <span class="n">103</span>, <span class="n">104</span>}
+
+target = active &amp; subscribed
+<span class="f">print</span>(target)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>оба условия выполнены</span></figcaption><pre>{102, 103}</pre></figure>
+<h2 id="s4"><span class="sec">§4</span>Разность: элементы только левого множества</h2><figure class="code"><figcaption><span>main.py</span><span>направление важно</span></figcaption><pre>required = {<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>}
+granted = {<span class="s">"read"</span>, <span class="s">"write"</span>}
+
+missing = required - granted
+extra = granted - required
+
+<span class="f">print</span>(missing)
+<span class="f">print</span>(extra)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>недостающее и лишнее</span></figcaption><pre>{'delete'}
+set()</pre></figure><p><code>A - B</code> и <code>B - A</code> обычно дают разные результаты.</p>
+<h2 id="s5"><span class="sec">§5</span>Симметрическая разность: элементы только одного набора</h2><figure class="code"><figcaption><span>main.py</span><span>symmetric_difference и оператор ^</span></figcaption><pre>yesterday = {<span class="s">"A"</span>, <span class="s">"B"</span>, <span class="s">"C"</span>}
+today = {<span class="s">"B"</span>, <span class="s">"C"</span>, <span class="s">"D"</span>}
+
+changed = yesterday ^ today
+<span class="f">print</span>(changed)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>добавленные или исчезнувшие</span></figcaption><pre>{'A', 'D'}</pre></figure><p>Общие элементы исключаются. Эту операцию можно прочитать как «принадлежит ровно одному из двух множеств».</p>
+<h2 id="s6"><span class="sec">§6</span>Методы принимают и другие итерируемые объекты</h2><div class="table-scroll"><table><thead><tr><th>Операция</th><th>Метод</th><th>Оператор</th></tr></thead><tbody><tr><td>объединение</td><td><code>a.union(b)</code></td><td><code>a | b</code></td></tr><tr><td>пересечение</td><td><code>a.intersection(b)</code></td><td><code>a &amp; b</code></td></tr><tr><td>разность</td><td><code>a.difference(b)</code></td><td><code>a - b</code></td></tr><tr><td>симметрическая разность</td><td><code>a.symmetric_difference(b)</code></td><td><code>a ^ b</code></td></tr></tbody></table></div><p>Метод может принять, например, список: <code>a.intersection([1, 2])</code>. Для бинарных операторов оба операнда должны быть множествами или <code>frozenset</code>.</p>
+<h2 id="s7"><span class="sec">§7</span>Подмножество: все элементы A входят в B</h2><figure class="code"><figcaption><span>main.py</span><span>обычное и строгое подмножество</span></figcaption><pre>required = {<span class="s">"read"</span>, <span class="s">"write"</span>}
+granted = {<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>}
+
+<span class="f">print</span>(required.issubset(granted))
+<span class="f">print</span>(required &lt; granted)
+<span class="f">print</span>(required &lt;= granted)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>все три проверки истинны</span></figcaption><pre>True
+True
+True</pre></figure><p><code>&lt;</code> требует, чтобы множества не были равны. <code>&lt;=</code> и <code>issubset()</code> допускают равенство.</p>
+<h2 id="s8"><span class="sec">§8</span>Надмножество — обратная проверка</h2><figure class="code"><figcaption><span>main.py</span><span>granted содержит все required</span></figcaption><pre>required = {<span class="s">"read"</span>, <span class="s">"write"</span>}
+granted = {<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>}
+
+<span class="f">print</span>(granted.issuperset(required))
+<span class="f">print</span>(granted &gt;= required)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два равных смысла</span></figcaption><pre>True
+True</pre></figure>
+<h2 id="s9"><span class="sec">§9</span>isdisjoint() проверяет отсутствие общих элементов</h2><figure class="code"><figcaption><span>main.py</span><span>конфликтующие роли</span></figcaption><pre>current = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
+blocked = {<span class="s">"banned"</span>, <span class="s">"suspended"</span>}
+
+<span class="f">print</span>(current.isdisjoint(blocked))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пересечения нет</span></figcaption><pre>True</pre></figure><p>Проверка короче и яснее, чем создание пересечения с последующим сравнением с пустым множеством.</p>
+<h2 id="s10"><span class="sec">§10</span>Методы могут объединять несколько наборов</h2><figure class="code"><figcaption><span>main.py</span><span>общий id в трёх группах</span></figcaption><pre>paid = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>}
+active = {<span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>}
+verified = {<span class="n">3</span>, <span class="n">4</span>, <span class="n">6</span>}
+
+<span class="f">print</span>(paid.intersection(active, verified))</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>выполнены три условия</span></figcaption><pre>{3, 4}</pre></figure>
+<h2 id="s11"><span class="sec">§11</span>Практический пример: проверка прав</h2><figure class="code"><figcaption><span>main.py</span><span>полный набор и недостающие права</span></figcaption><pre>required = {<span class="s">"orders:read"</span>, <span class="s">"orders:edit"</span>}
+granted = {<span class="s">"orders:read"</span>, <span class="s">"profile:read"</span>}
+
+<span class="k">if</span> required &lt;= granted:
+    <span class="f">print</span>(<span class="s">"доступ разрешён"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"не хватает:"</span>, required - granted)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>точная причина</span></figcaption><pre>не хватает: {'orders:edit'}</pre></figure>
+<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>required - granted</code> и <code>granted - required</code> считают одинаковыми</td><td>смысл результата изменится</td><td>сначала проговорить: «что есть слева, но нет справа»</td></tr><tr><td><code>values | [1, 2]</code></td><td><code>TypeError</code></td><td><code>values.union([1, 2])</code> или преобразовать список в set</td></tr><tr><td><code>a &lt; b</code> для допуска равенства</td><td>равные множества дадут <code>False</code></td><td><code>a &lt;= b</code> или <code>a.issubset(b)</code></td></tr><tr><td>ожидать изменения <code>a</code> после <code>a | b</code></td><td>исходные множества останутся прежними</td><td>сохранить результат или использовать изменяющую операцию</td></tr><tr><td><code>bool(a &amp; b)</code> для отсутствия общих элементов</td><td>условие приходится отрицать</td><td><code>a.isdisjoint(b)</code></td></tr></tbody></table></div>
+<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Чем разность отличается от симметрической разности?</summary><p><code>A - B</code> берёт элементы только из A. <code>A ^ B</code> берёт элементы, которые есть ровно в одном из двух наборов.</p></details><details><summary>Чем &lt; отличается от &lt;= для множеств?</summary><p><code>&lt;</code> проверяет строгое подмножество и исключает равенство; <code>&lt;=</code> равенство допускает.</p></details><details><summary>Меняет ли a.intersection(b) множество a?</summary><p>Нет, метод возвращает новое множество. Изменяющие варианты разберём в следующей главе.</p></details>
+<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Комбинации</b><code>a | b  # объединение</code><code>a &amp; b  # пересечение</code><code>a - b  # разность</code><code>a ^ b  # симметрическая</code></div><div><b>Подмножество</b><code>a &lt;= b</code><code>a.issubset(b)</code></div><div><b>Надмножество</b><code>a &gt;= b</code><code>a.issuperset(b)</code></div><div><b>Нет общих</b><code>a.isdisjoint(b)</code></div></div>
+<h3>Итог главы</h3><p>Операции множеств создают новые наборы или возвращают булев результат. Объединение собирает все элементы, пересечение — общие, разность зависит от направления, а симметрическая разность исключает общие.</p>
+<div class="pager"><a href="../50-metody-mnozhestv/index.html">← 3.18 Методы множеств</a><a href="../52-izmenyayushchie-operacii-mnozhestv/index.html">3.20 Изменяющие операции →</a><a href="../../index.html">К содержанию справочника</a></div><div class="colophon"><span>Глава 3.19 · Операции над множествами · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

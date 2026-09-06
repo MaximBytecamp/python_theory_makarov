@@ -1,0 +1,79 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.14 Словари в Python · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.14</p></div>
+<header class="chapter-head"><span class="chapter-num">3.14</span><h1>Словари<br>в Python</h1><p class="lead">Словарь связывает уникальные ключи со значениями. Вместо позиции <code>items[0]</code> мы обращаемся к данным по смысловому ключу: <code>user["name"]</code>.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Структуры данных</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Кортежи, циклы, хеширование, JSON</dd></div><div><dt>Зачем это знать</dt><dd>Находить и изменять данные по осмысленному ключу</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Ключ → значение</a></li><li><a href="#s2">Создание</a></li><li><a href="#s3">Ключи и значения</a></li><li><a href="#s4">Доступ и get</a></li><li><a href="#s5">Добавление и изменение</a></li><li><a href="#s6">Удаление</a></li><li><a href="#s7">Оператор in</a></li><li><a href="#s8">Перебор</a></li><li><a href="#s9">Вложенные словари</a></li><li><a href="#s10">Преобразования</a></li><li><a href="#s11">Почему доступ быстрый</a></li><li><a href="#s12">Практический пример</a></li><li><a href="#s13">Частые ошибки</a></li><li><a href="#s14">Проверьте себя</a></li><li><a href="#s15">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>Словарь хранит пары «ключ → значение»</h2><p>В списке элемент находят по числовой позиции. В <span class="term">словаре</span> (<code>dict</code>) значение находят по уникальному ключу.</p><div class="boxes"><div><b>"id"</b><i>→</i><span>101</span></div><div><b>"name"</b><i>→</i><span>"Max"</span></div><div><b>"role"</b><i>→</i><span>"admin"</span></div></div><p>Начиная с Python 3.7 словарь гарантированно сохраняет порядок добавления пар. Но обращаться к нему следует по ключам, а не по числовым позициям.</p>
+<h2 id="s2"><span class="sec">§2</span>Создание словаря</h2><figure class="code"><figcaption><span>main.py</span><span>литерал, dict и пустой словарь</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
+settings = <span class="f">dict</span>(theme=<span class="s">"dark"</span>, language=<span class="s">"ru"</span>)
+empty = {}
+
+<span class="f">print</span>(user)
+<span class="f">print</span>(settings)
+<span class="f">print</span>(<span class="f">type</span>(empty))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три словаря</span></figcaption><pre>{'name': 'Max', 'role': 'admin'}
+{'theme': 'dark', 'language': 'ru'}
+&lt;class 'dict'&gt;</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>Ключи уникальны и должны быть хешируемыми</h2><p>Строки, числа, неизменяемые кортежи и <code>frozenset</code> подходят на роль ключей. Списки, обычные множества и другие словари не подходят, потому что их содержимое можно менять.</p><figure class="code"><figcaption><span>main.py</span><span>повторный ключ заменяет значение</span></figcaption><pre>data = {<span class="s">"status"</span>: <span class="s">"new"</span>, <span class="s">"status"</span>: <span class="s">"done"</span>}
+<span class="f">print</span>(data)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>ключ один</span></figcaption><pre>{'status': 'done'}</pre></figure><p>Значениями могут быть любые объекты: числа, строки, списки, функции и вложенные словари.</p>
+<h2 id="s4"><span class="sec">§4</span>Квадратные скобки и безопасный get()</h2><figure class="code"><figcaption><span>main.py</span><span>два способа чтения</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
+
+<span class="f">print</span>(user[<span class="s">"name"</span>])
+<span class="f">print</span>(user.get(<span class="s">"age"</span>))
+<span class="f">print</span>(user.get(<span class="s">"age"</span>, <span class="n">0</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>ключ есть, затем ключа нет</span></figcaption><pre>Max
+None
+0</pre></figure><p><code>user["age"]</code> при отсутствии ключа вызывает <code>KeyError</code>. <code>get()</code> возвращает <code>None</code> либо переданное значение по умолчанию.</p><aside class="margin-note"><b>Выбор способа</b><p>Скобки полезны, когда отсутствие ключа означает ошибку в данных. <code>get()</code> подходит, когда ключ действительно может отсутствовать.</p></aside>
+<h2 id="s5"><span class="sec">§5</span>Одно присваивание добавляет или обновляет</h2><figure class="code"><figcaption><span>main.py</span><span>ключа ещё нет, затем он уже есть</span></figcaption><pre>user = {}
+user[<span class="s">"name"</span>] = <span class="s">"Max"</span>
+user[<span class="s">"role"</span>] = <span class="s">"student"</span>
+user[<span class="s">"role"</span>] = <span class="s">"teacher"</span>
+
+<span class="f">print</span>(user)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>role обновлён</span></figcaption><pre>{'name': 'Max', 'role': 'teacher'}</pre></figure>
+<h2 id="s6"><span class="sec">§6</span>Удаление пары</h2><div class="table-scroll"><table><thead><tr><th>Запись</th><th>Что делает</th><th>Возвращает</th></tr></thead><tbody><tr><td><code>del data[key]</code></td><td>удаляет ключ</td><td>ничего</td></tr><tr><td><code>data.pop(key)</code></td><td>удаляет ключ</td><td>его значение</td></tr><tr><td><code>data.popitem()</code></td><td>удаляет последнюю добавленную пару</td><td>кортеж <code>(key, value)</code></td></tr><tr><td><code>data.clear()</code></td><td>удаляет все пары</td><td><code>None</code></td></tr></tbody></table></div><figure class="code"><figcaption><span>main.py</span><span>pop возвращает удалённое</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
+role = user.pop(<span class="s">"role"</span>)
+<span class="f">print</span>(role, user)</pre></figure>
+<h2 id="s7"><span class="sec">§7</span>Оператор in проверяет ключи</h2><figure class="code"><figcaption><span>main.py</span><span>ключ и значение</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
+
+<span class="f">print</span>(<span class="s">"name"</span> <span class="k">in</span> user)
+<span class="f">print</span>(<span class="s">"Max"</span> <span class="k">in</span> user)
+<span class="f">print</span>(<span class="s">"Max"</span> <span class="k">in</span> user.values())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>по умолчанию — только ключи</span></figcaption><pre>True
+False
+True</pre></figure>
+<h2 id="s8"><span class="sec">§8</span>Перебор ключей, значений и пар</h2><figure class="code"><figcaption><span>main.py</span><span>три представления</span></figcaption><pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>}
+
+<span class="k">for</span> key <span class="k">in</span> prices:
+    <span class="f">print</span>(key)
+
+<span class="k">for</span> value <span class="k">in</span> prices.values():
+    <span class="f">print</span>(value)
+
+<span class="k">for</span> key, value <span class="k">in</span> prices.items():
+    <span class="f">print</span>(key, value)</pre></figure><p><code>keys()</code>, <code>values()</code> и <code>items()</code> подробнее разберём в следующих главах.</p>
+<h2 id="s9"><span class="sec">§9</span>Вложенный словарь описывает составной объект</h2><figure class="code"><figcaption><span>main.py</span><span>пользователи по идентификатору</span></figcaption><pre>users = {
+    <span class="n">101</span>: {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"active"</span>: <span class="k">True</span>},
+    <span class="n">102</span>: {<span class="s">"name"</span>: <span class="s">"Anna"</span>, <span class="s">"active"</span>: <span class="k">False</span>},
+}
+
+<span class="f">print</span>(users[<span class="n">101</span>][<span class="s">"name"</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два последовательных ключа</span></figcaption><pre>Max</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>Создание словаря из пар</h2><figure class="code"><figcaption><span>main.py</span><span>кортежи и zip</span></figcaption><pre>pairs = [(<span class="s">"a"</span>, <span class="n">1</span>), (<span class="s">"b"</span>, <span class="n">2</span>)]
+first = <span class="f">dict</span>(pairs)
+
+keys = [<span class="s">"x"</span>, <span class="s">"y"</span>]
+values = [<span class="n">10</span>, <span class="n">20</span>]
+second = <span class="f">dict</span>(<span class="f">zip</span>(keys, values))
+
+<span class="f">print</span>(first)
+<span class="f">print</span>(second)</pre></figure>
+<h2 id="s11"><span class="sec">§11</span>Поиск идёт через хеш ключа</h2><ol class="steps"><li>Python вычисляет <code>hash(key)</code>.</li><li>По хешу находит подходящую область внутренней таблицы.</li><li>Сверяет ключ и получает связанное значение.</li></ol><p>Поэтому доступ, добавление и проверка ключа работают в среднем за <code>O(1)</code>. Это средняя, а не безусловная гарантия для каждого отдельного случая.</p>
+<h2 id="s12"><span class="sec">§12</span>Практический пример: индекс товаров</h2><figure class="code"><figcaption><span>main.py</span><span>быстрый поиск по sku</span></figcaption><pre>products = [
+    {<span class="s">"sku"</span>: <span class="s">"A-10"</span>, <span class="s">"price"</span>: <span class="n">900</span>},
+    {<span class="s">"sku"</span>: <span class="s">"B-20"</span>, <span class="s">"price"</span>: <span class="n">120</span>},
+]
+
+by_sku = {product[<span class="s">"sku"</span>]: product <span class="k">for</span> product <span class="k">in</span> products}
+<span class="f">print</span>(by_sku[<span class="s">"B-20"</span>][<span class="s">"price"</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>цена по идентификатору</span></figcaption><pre>120</pre></figure>
+<h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>data["missing"]</code></td><td><code>KeyError</code>, если ключа нет</td><td><code>data.get("missing")</code> или предварительная проверка</td></tr><tr><td><code>{[1, 2]: "value"}</code></td><td><code>TypeError</code>: список не хешируется</td><td>использовать кортеж <code>{(1, 2): "value"}</code></td></tr><tr><td><code>"Max" in user</code></td><td>проверится ключ, а не значение</td><td><code>"Max" in user.values()</code></td></tr><tr><td>повторить один ключ в литерале</td><td>останется последнее значение</td><td>использовать уникальные ключи</td></tr><tr><td>менять размер словаря внутри <code>for key in data</code></td><td><code>RuntimeError</code></td><td>перебирать копию ключей или сначала собрать изменения</td></tr></tbody></table></div>
+<h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2><details><summary>Чем отличаются data[key] и data.get(key)?</summary><p>Скобки вызывают <code>KeyError</code> при отсутствии ключа. <code>get()</code> возвращает <code>None</code> или заданное значение по умолчанию.</p></details><details><summary>Что проверяет key in data?</summary><p>Наличие ключа. Для поиска среди значений нужно явно взять <code>data.values()</code>.</p></details><details><summary>Почему список нельзя использовать как ключ?</summary><p>Список изменяем и поэтому не имеет постоянного хеша, необходимого словарю.</p></details>
+<h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2><div class="cheat"><div><b>Создать</b><code>data = {"id": 101}</code><code>data = dict(id=101)</code></div><div><b>Прочитать</b><code>data["id"]</code><code>data.get("role", "guest")</code></div><div><b>Изменить</b><code>data["role"] = "admin"</code><code>del data["role"]</code></div><div><b>Перебрать</b><code>for key in data:</code><code>for key, value in data.items():</code></div></div>
+<h3>Итог главы</h3><p>Словарь хранит пары с уникальными хешируемыми ключами. Скобки дают строгий доступ, <code>get()</code> — доступ с запасным результатом, а присваивание по ключу добавляет или обновляет пару.</p>
+<div class="pager"><a href="../45-kortezhi/index.html">← 3.13 Кортежи</a><a href="../47-metody-slovarey-1/index.html">3.15 Методы словарей I →</a><a href="../../index.html">К содержанию справочника</a></div><div class="colophon"><span>Глава 3.14 · Словари · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>
