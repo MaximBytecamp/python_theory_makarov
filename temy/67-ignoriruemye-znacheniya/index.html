@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F2F1E9">
-  <title>4.11 Игнорируемые значения: _ · Справочник по Python</title>
+  <title>6.7 Игнорируемые значения: _ · Справочник по Python</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,15 +13,15 @@
 <body>
   <div class="book">
     <div class="book__body">
-      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <div class="spine"><span>Модуль 6 · Функции и модули</span></div>
       <main class="leaf">
         <div class="running">
-          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
-          <p class="running__folio">Глава 4.11</p>
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 6 · функции и модули</p>
+          <p class="running__folio">Глава 6.7</p>
         </div>
 
         <header class="chapter-head">
-          <span class="chapter-num">4.11</span>
+          <span class="chapter-num">6.7</span>
           <h1>Игнорируемые значения: <code>_</code></h1>
           <p class="lead">Подчёркивание — обычное имя переменной, которому по соглашению придан особый смысл: «это значение мне не нужно». Оно делает намерение видимым в местах, где часть данных приходится принять, но использовать не планируется.</p>
           <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
@@ -207,7 +207,7 @@ fruit_names = [fruit <span class="k">for</span> _, fruit <span class="k">in</spa
         <p>Во втором примере <code>_</code> подчёркивает главное: элемент один и тот же на каждом повторе, а <code>range()</code> задаёт только их количество.</p>
 
         <h2 id="s11"><span class="sec">§11</span>Звёздочка и остаток</h2>
-        <p>Подчёркивание сочетается со звёздочкой из главы 4.9. Запись <code>*_</code> отбрасывает не одно значение, а сразу весь остаток.</p>
+        <p>Подчёркивание сочетается со звёздочкой из главы 6.6. Запись <code>*_</code> отбрасывает не одно значение, а сразу весь остаток.</p>
         <figure class="code">
           <figcaption><span>main.py</span><span>нужен только край списка</span></figcaption>
 <pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
@@ -280,13 +280,9 @@ first, *_ = numbers
 
         <h3>Итог главы</h3>
         <p>Подчёркивание — обычное имя, которому соглашение придало смысл «значение не нужно». Оно применяется при распаковке, в циклах ради количества повторов, при разборе пар из <code>items()</code> и <code>enumerate()</code>, а вместе со звёздочкой отбрасывает целый остаток. Пользы от него ровно столько, сколько правды: если значение всё-таки используется, ему нужно нормальное имя.</p>
-        <div class="pager">
-          <a href="../66-annotacii-tipov/index.html">← 4.10 Аннотации типов</a>
-          <a href="../../index.html">К содержанию справочника</a>
-          <a href="../43-iteratory/index.html">5.1 Итераторы →</a>
-        </div>
+        <div class="pager"><a href="../42-raspakovka-argumentov/index.html">← 6.6 Распаковка * и **</a><a href="../../index.html">К содержанию справочника</a><a href="../35-funkcii-vysshego-poryadka/index.html">6.8 Функции высшего порядка →</a></div>
         <div class="colophon">
-          <span>Глава 4.11 · Игнорируемые значения: _ · Справочник по Python</span>
+          <span>Глава 6.7 · Игнорируемые значения: _ · Справочник по Python</span>
           <span class="author-line">Автор: Макаров Максим Николаевич</span>
         </div>
       </main>

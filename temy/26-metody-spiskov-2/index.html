@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F2F1E9">
-  <title>3.3 Методы списков: удаление, поиск и сортировка · Справочник по Python</title>
+  <title>3.11 Методы списков: удаление, поиск и сортировка · Справочник по Python</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,15 +13,15 @@
 <body>
   <div class="book">
     <div class="book__body">
-      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <div class="spine"><span>Модуль 3 · Списки и циклы</span></div>
       <main class="leaf">
         <div class="running">
-          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
-          <p class="running__folio">Глава 3.3</p>
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · списки и циклы</p>
+          <p class="running__folio">Глава 3.11</p>
         </div>
 
         <header class="chapter-head">
-          <span class="chapter-num">3.3</span>
+          <span class="chapter-num">3.11</span>
           <h1>Методы списков:<br>удаление, поиск, сортировка</h1>
           <p class="lead"><code>pop()</code> извлекает элемент, <code>clear()</code> очищает список, <code>index()</code> и <code>count()</code> исследуют содержимое, а <code>sort()</code> меняет порядок элементов.</p>
           <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
@@ -69,7 +69,7 @@ removed = numbers.pop()
         </figure>
         <figure class="code code--out"><figcaption><span>Вывод</span><span>список и извлечённое значение</span></figcaption><pre>[10, 20]
 30</pre></figure>
-        <p>Без аргумента удаляется последний элемент. Именно поэтому <code>removed = numbers.pop()</code> — правильная запись, в отличие от <code>numbers = numbers.append(...)</code> из главы 3.2.</p>
+        <p>Без аргумента удаляется последний элемент. Именно поэтому <code>removed = numbers.pop()</code> — правильная запись, в отличие от <code>numbers = numbers.append(...)</code> из главы 3.10.</p>
         <div class="margin-note">
           <b>Извлечь — не то же самое, что удалить</b>
           <p>Если извлечённое значение не нужно, результат можно не сохранять: <code>numbers.pop()</code> отдельной строкой просто удалит последний элемент.</p>
@@ -142,7 +142,7 @@ numbers.clear()
 0</pre></figure>
 
         <h2 id="s6"><span class="sec">§6</span>clear() или новый список</h2>
-        <p>На первый взгляд <code>numbers.clear()</code> и <code>numbers = []</code> делают одно и то же. Разница проявляется, когда у списка два имени — как в главе 3.2.</p>
+        <p>На первый взгляд <code>numbers.clear()</code> и <code>numbers = []</code> делают одно и то же. Разница проявляется, когда у списка два имени — как в главе 3.10.</p>
         <figure class="code">
           <figcaption><span>main.py</span><span>очистка общего списка</span></figcaption>
 <pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
@@ -262,7 +262,7 @@ names.sort()
 <span class="f">print</span>(names)</pre>
         </figure>
         <figure class="code code--out"><figcaption><span>Вывод</span><span>алфавитный порядок</span></figcaption><pre>['Анна', 'Борис', 'Вера']</pre></figure>
-        <p>Аргумент <code>key</code> задаёт, <b>по какому признаку</b> сравнивать элементы. Например, по длине строки:</p>
+        <p>Аргумент <code>key</code> — тема главы 6.10, но одну его форму удобно знать сразу. Он задаёт, <b>по какому признаку</b> сравнивать элементы. Например, по длине строки:</p>
         <figure class="code">
           <figcaption><span>main.py</span><span>сортировка по длине</span></figcaption>
 <pre>words = [<span class="s">"дом"</span>, <span class="s">"а"</span>, <span class="s">"книга"</span>]
@@ -396,13 +396,9 @@ kept = []
 
         <h3>Итог главы</h3>
         <p><code>pop()</code> удаляет и возвращает элемент, <code>clear()</code> очищает список, <code>index()</code> находит первую позицию, <code>count()</code> считает совпадения, а <code>sort()</code> сортирует исходный список. Для нового отсортированного списка используют <code>sorted()</code>. И главное правило безопасности: не менять длину списка, пока идёт цикл по нему.</p>
-        <div class="pager">
-          <a href="../25-metody-spiskov-1/index.html">← 3.2 Добавление и удаление</a>
-          <a href="../../index.html">К содержанию справочника</a>
-          <a href="../27-metody-spiskov-3/index.html">3.4 Порядок, копия и проверка →</a>
-        </div>
+        <div class="pager"><a href="../25-metody-spiskov-1/index.html">← 3.10 Методы списков: часть 1</a><a href="../../index.html">К содержанию справочника</a><a href="../27-metody-spiskov-3/index.html">3.12 Методы списков: часть 3 →</a></div>
         <div class="colophon">
-          <span>Глава 3.3 · Методы списков. Часть 2 · Справочник по Python</span>
+          <span>Глава 3.11 · Методы списков. Часть 2 · Справочник по Python</span>
           <span class="author-line">Автор: Макаров Максим Николаевич</span>
         </div>
       </main>

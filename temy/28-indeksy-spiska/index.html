@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F2F1E9">
-  <title>3.5 Перебор списка по индексам · Справочник по Python</title>
+  <title>3.6 Перебор списка по индексам · Справочник по Python</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,15 +13,15 @@
 <body>
   <div class="book">
     <div class="book__body">
-      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <div class="spine"><span>Модуль 3 · Списки и циклы</span></div>
       <main class="leaf">
         <div class="running">
-          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
-          <p class="running__folio">Глава 3.5</p>
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · списки и циклы</p>
+          <p class="running__folio">Глава 3.6</p>
         </div>
 
         <header class="chapter-head">
-          <span class="chapter-num">3.5</span>
+          <span class="chapter-num">3.6</span>
           <h1>Перебор списка<br>по индексам</h1>
           <p class="lead"><code>for index in range(len(items))</code> перебирает не элементы, а их позиции. Такой подход нужен для изменения списка, сравнения соседей и алгоритмов, зависящих от индекса.</p>
           <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
@@ -332,7 +332,7 @@ IndexError: list index out of range</pre>
             </tbody>
           </table>
         </div>
-        <p>Подробнее <code>enumerate()</code> разбирается в главе 3.7. Важно помнить, что переменная значения в нём ведёт себя так же, как в обычном цикле: присваивание в неё список не изменит — для этого всё равно нужна запись <code>colors[index] = ...</code>.</p>
+        <p>Подробнее <code>enumerate()</code> разбирается в главе 3.14. Важно помнить, что переменная значения в нём ведёт себя так же, как в обычном цикле: присваивание в неё список не изменит — для этого всё равно нужна запись <code>colors[index] = ...</code>.</p>
 
         <h2 id="s13"><span class="sec">§13</span>Когда нужны индексы</h2>
         <ul>
@@ -383,13 +383,9 @@ IndexError: list index out of range</pre>
 
         <h3>Итог главы</h3>
         <p><code>len()</code> даёт размер, <code>range()</code> превращает его в допустимые индексы, а <code>items[index]</code> получает или изменяет элемент. Ключевое отличие индексного перебора в том, что он адресует ячейку списка, а не копию значения, — поэтому только через него список можно менять на месте. Использовать его стоит тогда, когда задача действительно зависит от позиции.</p>
-        <div class="pager">
-          <a href="../27-metody-spiskov-3/index.html">← 3.4 Порядок, копия и проверка</a>
-          <a href="../../index.html">К содержанию справочника</a>
-          <a href="../29-vlozhennye-cikly/index.html">3.6 Вложенные циклы →</a>
-        </div>
+        <div class="pager"><a href="../23-praktika-for/index.html">← 3.5 Практика for in</a><a href="../../index.html">К содержанию справочника</a><a href="../29-vlozhennye-cikly/index.html">3.7 Вложенные циклы →</a></div>
         <div class="colophon">
-          <span>Глава 3.5 · Перебор списка по индексам · Справочник по Python</span>
+          <span>Глава 3.6 · Перебор списка по индексам · Справочник по Python</span>
           <span class="author-line">Автор: Макаров Максим Николаевич</span>
         </div>
       </main>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F2F1E9">
-  <title>3.4 Методы списков: порядок, копия и проверка · Справочник по Python</title>
+  <title>3.12 Методы списков: порядок, копия и проверка · Справочник по Python</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,15 +13,15 @@
 <body>
   <div class="book">
     <div class="book__body">
-      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <div class="spine"><span>Модуль 3 · Списки и циклы</span></div>
       <main class="leaf">
         <div class="running">
-          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
-          <p class="running__folio">Глава 3.4</p>
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · списки и циклы</p>
+          <p class="running__folio">Глава 3.12</p>
         </div>
 
         <header class="chapter-head">
-          <span class="chapter-num">3.4</span>
+          <span class="chapter-num">3.12</span>
           <h1>Методы списков:<br>порядок, копия, проверка</h1>
           <p class="lead"><code>reverse()</code> меняет порядок, <code>copy()</code> создаёт копию, <code>len()</code> считает элементы, <code>del</code> удаляет, а <code>in</code> проверяет наличие значения.</p>
           <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
@@ -95,7 +95,7 @@ backward = numbers[::-<span class="n">1</span>]
         <p><code>reversed()</code> удобен прямо в заголовке цикла: <code>for item in reversed(items)</code>. Чтобы получить из него именно список, его оборачивают в <code>list()</code>.</p>
 
         <h2 id="s3"><span class="sec">§3</span>copy(): поверхностная копия</h2>
-        <p><code>copy()</code> создаёт новый список с теми же элементами. Как показала глава 3.2, простое присваивание такого эффекта не даёт — оно лишь добавляет второе имя.</p>
+        <p><code>copy()</code> создаёт новый список с теми же элементами. Как показала глава 3.10, простое присваивание такого эффекта не даёт — оно лишь добавляет второе имя.</p>
         <figure class="code">
           <figcaption><span>main.py</span><span>изменение копии</span></figcaption>
 <pre>original = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
@@ -241,12 +241,12 @@ copied[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">100
           <figcaption><span>main.py</span><span>длина разных коллекций</span></figcaption>
 <pre><span class="f">print</span>(<span class="f">len</span>([<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]))
 <span class="f">print</span>(<span class="f">len</span>(<span class="s">"Python"</span>))
-<span class="f">print</span>(<span class="f">len</span>({<span class="s">"a"</span>: <span class="n">1</span>, <span class="s">"b"</span>: <span class="n">2</span>}))</pre>
+<span class="f">print</span>(<span class="f">len</span>([[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]))</pre>
         </figure>
-        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементы, символы, пары</span></figcaption><pre>3
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементы, символы, вложенные списки</span></figcaption><pre>3
 6
 2</pre></figure>
-        <p>Для вложенного списка <code>len()</code> считает только верхний уровень: у <code>[[1, 2], [3, 4]]</code> длина равна <code>2</code>. Записи <code>items.len()</code> не существует — это функция, а не метод.</p>
+        <p>Третий пример показывает важное: для вложенного списка <code>len()</code> считает только верхний уровень — в нём два элемента, и каждый из них список. Та же функция работает с кортежами, словарями и множествами из модуля 4. Записи <code>items.len()</code> не существует — это функция, а не метод.</p>
 
         <h2 id="s9"><span class="sec">§9</span>del: удаление</h2>
         <p><code>del</code> — оператор, а не метод, поэтому и записывается иначе: ключевое слово перед тем, что удаляют. Он может убрать элемент по индексу, целый срез или само имя переменной.</p>
@@ -379,13 +379,9 @@ value = <span class="n">99</span>
 
         <h3>Итог главы</h3>
         <p><code>reverse()</code> меняет порядок исходного списка, <code>copy()</code> создаёт поверхностную копию, <code>len()</code> считает элементы верхнего уровня, <code>del</code> удаляет по позиции или срезу, а <code>in</code> проверяет наличие отдельного элемента. Поверхностная копия защищает только внешний уровень: для вложенных структур нужен <code>deepcopy()</code>.</p>
-        <div class="pager">
-          <a href="../26-metody-spiskov-2/index.html">← 3.3 Удаление, поиск и сортировка</a>
-          <a href="../../index.html">К содержанию справочника</a>
-          <a href="../28-indeksy-spiska/index.html">3.5 Перебор по индексам →</a>
-        </div>
+        <div class="pager"><a href="../26-metody-spiskov-2/index.html">← 3.11 Методы списков: часть 2</a><a href="../../index.html">К содержанию справочника</a><a href="../39-dvumernye-spiski/index.html">3.13 Двумерные списки →</a></div>
         <div class="colophon">
-          <span>Глава 3.4 · Методы списков. Часть 3 · Справочник по Python</span>
+          <span>Глава 3.12 · Методы списков. Часть 3 · Справочник по Python</span>
           <span class="author-line">Автор: Макаров Максим Николаевич</span>
         </div>
       </main>

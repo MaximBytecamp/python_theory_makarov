@@ -13,10 +13,10 @@
 <body>
   <div class="book">
     <div class="book__body">
-      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <div class="spine"><span>Модуль 3 · Списки и циклы</span></div>
       <main class="leaf">
         <div class="running">
-          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · списки и циклы</p>
           <p class="running__folio">Глава 3.1</p>
         </div>
 
@@ -165,10 +165,10 @@ numbers[<span class="n">1</span>] = <span class="n">50</span>
 <span class="f">print</span>(numbers)</pre>
         </figure>
         <figure class="code code--out"><figcaption><span>Вывод</span><span>список изменён</span></figcaption><pre>[10, 50, 30]</pre></figure>
-        <p>Слева от знака <code>=</code> запись <code>numbers[1]</code> означает не «взять значение», а «указать ячейку для записи». Подробно этот механизм разбирается в главе 3.5.</p>
+        <p>Слева от знака <code>=</code> запись <code>numbers[1]</code> означает не «взять значение», а «указать ячейку для записи». Подробно этот механизм разбирается в главе 3.6.</p>
 
         <h2 id="s8"><span class="sec">§8</span>Перебор циклом</h2>
-        <p>Главная причина складывать данные в коллекцию — возможность обработать их одним циклом, независимо от количества.</p>
+        <p>Главная причина складывать данные в коллекцию — возможность обработать их одним циклом, независимо от количества. Сам цикл подробно разбирается в главах 3.2–3.4; здесь достаточно увидеть, ради чего он нужен.</p>
         <figure class="code">
           <figcaption><span>main.py</span><span>каждый элемент по очереди</span></figcaption>
 <pre>temperatures = [<span class="n">18</span>, <span class="n">21</span>, <span class="n">17</span>, <span class="n">23</span>]
@@ -181,7 +181,7 @@ numbers[<span class="n">1</span>] = <span class="n">50</span>
 17
 23</pre></figure>
         <p>Переменная цикла получает значение очередного элемента. Имя для неё берут в единственном числе — <code>temperature</code> при списке <code>temperatures</code>, — и код читается как фраза: «для каждой температуры из температур».</p>
-        <p>Если нужны не значения, а позиции, используют форму <code>for index in range(len(items))</code> — ей посвящена глава 3.5.</p>
+        <p>Если нужны не значения, а позиции, используют форму <code>for index in range(len(items))</code> — ей посвящена глава 3.6.</p>
 
         <h2 id="s9"><span class="sec">§9</span>Порядок и доступ</h2>
         <div class="table-scroll">
@@ -325,11 +325,7 @@ n
 
         <h3>Итог главы</h3>
         <p>Коллекции хранят группы данных под одним именем и потому позволяют обрабатывать любое количество значений одним циклом. Список изменяем и поддерживает доступ по позиции, кортеж неизменяем, множество хранит уникальные элементы, а словарь связывает ключи со значениями. Индексы начинаются с нуля, отрицательные отсчитывают с конца, а <code>len()</code> даёт количество элементов.</p>
-        <div class="pager">
-          <a href="../65-morzhovyy-operator/index.html">← 2.13 Оператор присваивания :=</a>
-          <a href="../../index.html">К содержанию справочника</a>
-          <a href="../25-metody-spiskov-1/index.html">3.2 Добавление и удаление →</a>
-        </div>
+        <div class="pager"><a href="../15-ternarnyy-operator/index.html">← 2.6 Тернарный оператор</a><a href="../../index.html">К содержанию справочника</a><a href="../20-while/index.html">3.2 Цикл while →</a></div>
         <div class="colophon">
           <span>Глава 3.1 · Коллекции в Python · Справочник по Python</span>
           <span class="author-line">Автор: Макаров Максим Николаевич</span>
