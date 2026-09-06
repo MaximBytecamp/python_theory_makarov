@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.10 Аннотации типов · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
+          <p class="running__folio">Глава 4.10</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.10</span>
+          <h1>Аннотации типов</h1>
+          <p class="lead">Аннотация указывает, какой тип ожидается у параметра, возвращаемого значения или переменной. На выполнение программы она не влияет: это документация, которую читают человек и анализатор кода.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Функции и типы</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Версия</dt><dd>Python 3.10+ для записи <code>int | str</code></dd></div>
+          <div><dt>Зачем это знать</dt><dd>Делать назначение функции понятным без чтения её тела</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем нужны аннотации</a></li>
+            <li><a href="#s2">Синтаксис</a></li>
+            <li><a href="#s3">Аннотация не проверяет тип</a></li>
+            <li><a href="#s4">Возвращаемое значение и None</a></li>
+            <li><a href="#s5">Коллекции в аннотациях</a></li>
+            <li><a href="#s6">Несколько типов через |</a></li>
+            <li><a href="#s7">Значение может отсутствовать</a></li>
+            <li><a href="#s8">Аннотации переменных</a></li>
+            <li><a href="#s9">Атрибут __annotations__</a></li>
+            <li><a href="#s10">Где аннотации не нужны</a></li>
+            <li><a href="#s11">Частые ошибки</a></li>
+            <li><a href="#s12">Проверьте себя</a></li>
+            <li><a href="#s13">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем нужны аннотации</h2>
+        <p>По заголовку функции без аннотаций не видно, с чем она работает. Строка <code>def add(a, b)</code> одинаково подходит и для чисел, и для строк, и для списков.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>один заголовок — разные ожидания</span></figcaption>
+<pre>def add(a, b)              что можно передать? неизвестно
+def add(a: int, b: int)    ожидаются целые числа</pre>
+        </figure>
+        <p><span class="term">Аннотация типа</span> — это пометка о том, какой тип значения ожидается. Она решает три задачи: документирует код, позволяет редактору подсказывать методы и даёт статическим анализаторам вроде <code>mypy</code> находить несоответствия до запуска программы.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Синтаксис</h2>
+        <p>Тип параметра пишут после имени через двоеточие, а тип результата — после стрелки <code>-&gt;</code> перед двоеточием заголовка.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>две позиции для аннотаций</span></figcaption>
+<pre>def add(a: int, b: int) -> int:
+           │       │       └ тип возвращаемого значения
+           └───────┴ типы параметров</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сложение двух целых</span></figcaption>
+<pre><span class="k">def</span> <span class="f">add</span>(a: <span class="f">int</span>, b: <span class="f">int</span>) -&gt; <span class="f">int</span>:
+    <span class="k">return</span> a + b
+
+<span class="f">print</span>(<span class="f">add</span>(<span class="n">2</span>, <span class="n">3</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обычный вызов</span></figcaption><pre>5</pre></figure>
+        <p>Использовать можно любые встроенные типы: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>list</code>, <code>dict</code> и другие. Имя типа пишется без кавычек и без скобок.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Аннотация не проверяет тип</h2>
+        <p>Это главное, что нужно понять про аннотации: Python их не исполняет. Функция с аннотацией <code>int</code> спокойно примет строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>переданы строки вместо чисел</span></figcaption>
+<pre><span class="k">def</span> <span class="f">add</span>(a: <span class="f">int</span>, b: <span class="f">int</span>) -&gt; <span class="f">int</span>:
+    <span class="k">return</span> a + b
+
+<span class="f">print</span>(<span class="f">add</span>(<span class="s">"Py"</span>, <span class="s">"thon"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ошибки нет, сработала конкатенация</span></figcaption><pre>Python</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>«Ошибка» здесь — это предупреждение</b>
+          <p>Редактор или <code>mypy</code> подчеркнут такой вызов, но программа от этого хуже работать не станет и не упадёт. Аннотация — обещание разработчика, а не проверка во время выполнения. Если проверка типа действительно нужна, её пишут явно: <code>if not isinstance(a, int): ...</code></p>
+        </div>
+        <p>Обратная сторона тоже верна: несоответствие типов может привести к настоящей ошибке позже — там, где значение не поддержит нужную операцию. Аннотации помогают заметить это заранее.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Возвращаемое значение и None</h2>
+        <p>Если функция ничего не возвращает, её результат — <code>None</code>, и это записывают явно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция только печатает</span></figcaption>
+<pre><span class="k">def</span> <span class="f">greet</span>(name: <span class="f">str</span>) -&gt; <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">"Привет,"</span>, name)
+
+<span class="f">greet</span>(<span class="s">"Аня"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результата нет, есть побочный эффект</span></figcaption><pre>Привет, Аня</pre></figure>
+        <p>Запись <code>-&gt; None</code> означает «возвращать нечего». Она отличает такую функцию от той, где программист просто забыл указать тип результата.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Коллекции в аннотациях</h2>
+        <p>Для коллекции полезно указать не только сам тип, но и тип элементов. Это делают квадратными скобками.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список целых на входе, дробное на выходе</span></figcaption>
+<pre><span class="k">def</span> <span class="f">average</span>(values: <span class="f">list</span>[<span class="f">int</span>]) -&gt; <span class="f">float</span>:
+    <span class="k">return</span> <span class="f">sum</span>(values) / <span class="f">len</span>(values)
+
+<span class="f">print</span>(<span class="f">average</span>([<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>деление всегда даёт float</span></figcaption><pre>2.0</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Аннотация</th><th>Что означает</th></tr></thead>
+            <tbody>
+              <tr><td><code>list[int]</code></td><td>список целых чисел</td></tr>
+              <tr><td><code>tuple[int, str]</code></td><td>кортеж из двух элементов: число и строка</td></tr>
+              <tr><td><code>dict[str, int]</code></td><td>словарь со строковыми ключами и целыми значениями</td></tr>
+              <tr><td><code>set[str]</code></td><td>множество строк</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="margin-note">
+          <b>Так было не всегда</b>
+          <p>Встроенные типы принимают квадратные скобки начиная с Python 3.9. До этого требовался модуль <code>typing</code>: <code>from typing import List</code> и затем <code>List[int]</code>. В коде для старых версий такая запись ещё встречается.</p>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>Несколько типов через |</h2>
+        <p>Когда допустимо несколько типов, их перечисляют через вертикальную черту.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>число или строка</span></figcaption>
+<pre><span class="k">def</span> <span class="f">process</span>(value: <span class="f">int</span> | <span class="f">str</span>) -&gt; <span class="k">None</span>:
+    <span class="k">if</span> <span class="f">isinstance</span>(value, <span class="f">int</span>):
+        <span class="f">print</span>(value * <span class="n">2</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(value.upper())
+
+<span class="f">process</span>(<span class="n">5</span>)
+<span class="f">process</span>(<span class="s">"код"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>разные ветки для разных типов</span></figcaption><pre>10
+КОД</pre></figure>
+        <p>Здесь аннотация и настоящая проверка работают вместе: <code>int | str</code> сообщает читателю о замысле, а <code>isinstance()</code> действительно разделяет случаи во время выполнения.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Значение может отсутствовать</h2>
+        <p>Частный, но очень частый случай — функция возвращает результат либо <code>None</code>, если ничего не нашла.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>поиск может не дать результата</span></figcaption>
+<pre><span class="k">def</span> <span class="f">find_city</span>(name: <span class="f">str</span>) -&gt; <span class="f">str</span> | <span class="k">None</span>:
+    cities = {<span class="s">"Аня"</span>: <span class="s">"Москва"</span>}
+    <span class="k">return</span> cities.get(name)
+
+<span class="f">print</span>(<span class="f">find_city</span>(<span class="s">"Аня"</span>))
+<span class="f">print</span>(<span class="f">find_city</span>(<span class="s">"Борис"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>во втором случае значения нет</span></figcaption><pre>Москва
+None</pre></figure>
+        <p>Такая аннотация — предупреждение вызывающему коду: результат нужно проверить перед использованием. В старых версиях то же самое записывали как <code>Optional[str]</code> из модуля <code>typing</code>.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Аннотации переменных</h2>
+        <p>Аннотировать можно не только функции. Переменной тип указывают так же — через двоеточие после имени.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>аннотации на уровне модуля</span></figcaption>
+<pre>x: <span class="f">int</span> = <span class="n">10</span>
+y: <span class="f">float</span> = <span class="n">5.5</span>
+z: <span class="f">str</span> = <span class="s">"Hello"</span>
+
+<span class="f">print</span>(x, y, z)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обычные переменные</span></figcaption><pre>10 5.5 Hello</pre></figure>
+        <p>То же работает внутри функции для локальных переменных: <code>count: int = 0</code>. Значение можно и не присваивать — запись <code>total: int</code> объявляет только тип, но саму переменную не создаёт, и обращение к ней вызовет <code>NameError</code>.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Атрибут __annotations__</h2>
+        <p>Аннотации не исчезают при запуске: Python складывает их в словарь <code>__annotations__</code>, где ключи — имена, а значения — типы.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>аннотации функции</span></figcaption>
+<pre><span class="k">def</span> <span class="f">add</span>(a: <span class="f">int</span>, b: <span class="f">int</span>) -&gt; <span class="f">int</span>:
+    <span class="k">return</span> a + b
+
+<span class="f">print</span>(<span class="f">add</span>.__annotations__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>параметры и результат</span></figcaption><pre>{'a': &lt;class 'int'&gt;, 'b': &lt;class 'int'&gt;, 'return': &lt;class 'int'&gt;}</pre></figure>
+        <p>Тип возвращаемого значения лежит под специальным ключом <code>'return'</code>. У классов есть свой такой словарь — по аннотациям атрибутов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>аннотации атрибутов класса</span></figcaption>
+<pre><span class="k">class</span> <span class="f">Point</span>:
+    x: <span class="f">int</span>
+    y: <span class="f">int</span>
+
+<span class="f">print</span>(Point.__annotations__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два объявленных атрибута</span></figcaption><pre>{'x': &lt;class 'int'&gt;, 'y': &lt;class 'int'&gt;}</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Где объявлены</th><th>Как получить</th></tr></thead>
+            <tbody>
+              <tr><td>параметры и результат функции</td><td><code>function.__annotations__</code></td></tr>
+              <tr><td>атрибуты класса</td><td><code>ClassName.__annotations__</code></td></tr>
+              <tr><td>переменные модуля</td><td><code>__annotations__</code> на уровне модуля</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>В повседневном коде этот словарь почти не нужен. Он важен библиотекам, которые строят поведение по аннотациям, — так работают, например, валидация данных в Pydantic и внедрение зависимостей в FastAPI.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Где аннотации не нужны</h2>
+        <p>Аннотации — инструмент, а не обязанность. Они окупаются там, где код читают другие или где типы неочевидны.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Стоит ли аннотировать</th></tr></thead>
+            <tbody>
+              <tr><td>функция в общем модуле проекта</td><td>да, это её документация</td></tr>
+              <tr><td>функция возвращает разные типы</td><td>да, обязательно — иначе неясно, что ожидать</td></tr>
+              <tr><td>короткий учебный скрипт</td><td>не обязательно</td></tr>
+              <tr><td><code>x: int = 10</code> для очевидного литерала</td><td>лишний шум, тип и так виден</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Аннотация, которая не соответствует действительности, хуже её отсутствия: она вводит в заблуждение. Если тип изменился — исправьте аннотацию.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>ожидать, что <code>a: int</code> запретит строку</td><td>значение другого типа пройдёт без ошибки</td><td>проверять через <code>isinstance()</code>, если нужна гарантия</td></tr>
+              <tr><td><code>def add(a: int, b: int) = int:</code></td><td><code>SyntaxError</code></td><td>тип результата пишут после <code>-&gt;</code></td></tr>
+              <tr><td><code>a: "int"</code> как обычная аннотация</td><td>в <code>__annotations__</code> попадёт строка, а не тип</td><td><code>a: int</code> без кавычек</td></tr>
+              <tr><td><code>list[int]</code> в Python 3.8</td><td><code>TypeError</code>: старые версии так не умеют</td><td><code>List[int]</code> из <code>typing</code> или обновить Python</td></tr>
+              <tr><td><code>int | None</code> в Python 3.9</td><td><code>TypeError</code></td><td><code>Optional[int]</code> из <code>typing</code> или Python 3.10+</td></tr>
+              <tr><td><code>total: int</code> и сразу <code>print(total)</code></td><td><code>NameError</code>: переменная не создана</td><td>присвоить значение: <code>total: int = 0</code></td></tr>
+              <tr><td>не обновить аннотацию после правки функции</td><td>документация начинает врать</td><td>менять аннотацию вместе с кодом</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2>
+        <details><summary>Остановит ли аннотация <code>a: int</code> передачу строки?</summary><p>Нет. Аннотации не проверяются во время выполнения — программа отработает как обычно, а несоответствие подчеркнёт только анализатор кода.</p></details>
+        <details><summary>Что означает <code>-&gt; None</code>?</summary><p>Функция ничего не возвращает: её результат — <code>None</code>.</p></details>
+        <details><summary>Как записать «строка или ничего»?</summary><p><code>str | None</code> начиная с Python 3.10; раньше — <code>Optional[str]</code> из модуля <code>typing</code>.</p></details>
+        <details><summary>Под каким ключом лежит тип результата в <code>__annotations__</code>?</summary><p>Под ключом <code>'return'</code>.</p></details>
+        <details><summary>Нужен ли <code>typing</code> для <code>list[int]</code>?</summary><p>Начиная с Python 3.9 — нет, встроенные типы принимают квадратные скобки сами.</p></details>
+
+        <h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Параметр</b><code>def f(a: int):</code></div>
+          <div><b>Результат</b><code>def f() -&gt; int:</code></div>
+          <div><b>Ничего не возвращает</b><code>-&gt; None</code></div>
+          <div><b>Коллекция</b><code>list[int]</code><code>dict[str, int]</code></div>
+          <div><b>Несколько типов</b><code>int | str</code></div>
+          <div><b>Может отсутствовать</b><code>str | None</code></div>
+          <div><b>Переменная</b><code>x: int = 10</code></div>
+          <div><b>Словарь аннотаций</b><code>f.__annotations__</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Аннотации описывают ожидаемые типы параметров, результата и переменных. Они не влияют на выполнение: программа с «неправильным» типом отработает как обычно. Ценность аннотаций в другом — они документируют замысел, помогают редактору и позволяют статическому анализатору находить несоответствия до запуска.</p>
+        <div class="pager">
+          <a href="../42-raspakovka-argumentov/index.html">← 4.9 Распаковка * и **</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../67-ignoriruemye-znacheniya/index.html">4.11 Игнорируемые значения →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.10 · Аннотации типов · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

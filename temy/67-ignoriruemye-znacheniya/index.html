@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.11 Игнорируемые значения: _ · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p>
+          <p class="running__folio">Глава 4.11</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.11</span>
+          <h1>Игнорируемые значения: <code>_</code></h1>
+          <p class="lead">Подчёркивание — обычное имя переменной, которому по соглашению придан особый смысл: «это значение мне не нужно». Оно делает намерение видимым в местах, где часть данных приходится принять, но использовать не планируется.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Соглашения и распаковка</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Распаковка, циклы, включения</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Показывать, какие значения не используются</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем помечать ненужное</a></li>
+            <li><a href="#s2">_ — это обычное имя</a></li>
+            <li><a href="#s3">Распаковка кортежа</a></li>
+            <li><a href="#s4">Вложенная распаковка</a></li>
+            <li><a href="#s5">Повторное использование _</a></li>
+            <li><a href="#s6">Цикл без переменной</a></li>
+            <li><a href="#s7">Часть пары в цикле</a></li>
+            <li><a href="#s8">Ключи и значения словаря</a></li>
+            <li><a href="#s9">Результат функции</a></li>
+            <li><a href="#s10">Включения</a></li>
+            <li><a href="#s11">Звёздочка и остаток</a></li>
+            <li><a href="#s12">Когда _ не подходит</a></li>
+            <li><a href="#s13">Частые ошибки</a></li>
+            <li><a href="#s14">Проверьте себя</a></li>
+            <li><a href="#s15">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем помечать ненужное</h2>
+        <p>Распаковка требует столько имён, сколько значений в коллекции. Даже если нужно одно, придумывать имена приходится всем.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>имя y создано и не используется</span></figcaption>
+<pre>data = (<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>)
+x, y, z = data
+
+<span class="f">print</span>(x, z)</pre>
+        </figure>
+        <p>Читатель кода видит переменную <code>y</code> и невольно ищет, где она понадобится. Соглашение с подчёркиванием снимает этот вопрос сразу.</p>
+        <ol class="steps">
+          <li><b>Читаемость.</b> Явно видно, что значение принято и намеренно отброшено.</li>
+          <li><b>Меньше имён.</b> Не приходится придумывать <code>tmp</code>, <code>unused</code> и подобные заглушки.</li>
+          <li><b>Меньше ошибок.</b> Ненужное значение не попадёт в расчёты по невнимательности.</li>
+        </ol>
+
+        <h2 id="s2"><span class="sec">§2</span>_ — это обычное имя</h2>
+        <p>Никакой магии в подчёркивании нет. Это допустимый идентификатор, и Python обращается с ним как с любой другой переменной.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>значение действительно сохраняется</span></figcaption>
+<pre>_ = <span class="n">5</span>
+<span class="f">print</span>(_)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обычная переменная</span></figcaption><pre>5</pre></figure>
+        <p>Особый смысл ему придают <b>люди</b>, а не интерпретатор. Отсюда практическое следствие: подчёркивание не экономит память и не отменяет присваивание — оно только сообщает о намерении.</p>
+        <div class="margin-note">
+          <b>Одно исключение</b>
+          <p>В интерактивной оболочке Python имя <code>_</code> занято: туда автоматически попадает результат последнего выражения. В обычном скрипте этого не происходит.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Распаковка кортежа</h2>
+        <p>Самое частое применение — пропустить позицию при распаковке.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>второе значение не нужно</span></figcaption>
+<pre>data = (<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>)
+x, _, z = data
+
+<span class="f">print</span>(x, z)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первое и третье значения</span></figcaption><pre>10 30</pre></figure>
+        <p>Количество имён слева по-прежнему должно совпадать с количеством значений справа: подчёркивание занимает позицию, а не пропускает её.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Вложенная распаковка</h2>
+        <p>Структуру слева можно повторить как угодно глубоко — подчёркивание работает на любом уровне.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>из каждой пары нужен только второй элемент</span></figcaption>
+<pre>data = ((<span class="n">1</span>, <span class="n">2</span>), (<span class="n">3</span>, <span class="n">4</span>), (<span class="n">5</span>, <span class="n">6</span>))
+(_, y1), (_, y2), (_, y3) = data
+
+<span class="f">print</span>(y1, y2, y3)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вторые элементы пар</span></figcaption><pre>2 4 6</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>дата и время: нужны только день и час</span></figcaption>
+<pre>datetime = ((<span class="n">5</span>, <span class="n">19</span>, <span class="n">2008</span>), (<span class="n">10</span>, <span class="n">30</span>, <span class="s">"am"</span>))
+(_, day, _), (hour, _, _) = datetime
+
+<span class="f">print</span>(day, hour)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два значения из шести</span></figcaption><pre>19 10</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Повторное использование _</h2>
+        <p>Предыдущий пример показывает важную деталь: подчёркивание встречается в одном присваивании пять раз, и это не ошибка.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>что происходит на самом деле</span></figcaption>
+<pre>(_, day, _), (hour, _, _) = datetime
+
+_ последовательно получает 5, 2008, 30, "am"
+и в итоге хранит последнее из них</pre>
+        </figure>
+        <p>Обычная переменная просто перезаписывается на каждом шаге. Именно поэтому подчёркивание годится только для того, что действительно не понадобится: после распаковки в нём осталось лишь последнее отброшенное значение.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Цикл без переменной</h2>
+        <p>Когда цикл нужен ради количества повторов, а номер шага не используется, переменную цикла тоже помечают подчёркиванием.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>повторить три раза</span></figcaption>
+<pre><span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
+    <span class="f">print</span>(<span class="s">"привет"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три одинаковые строки</span></figcaption><pre>привет
+привет
+привет</pre></figure>
+        <p>Это сигнал читателю: тело цикла не зависит от номера итерации. Если бы вместо <code>_</code> стояло <code>i</code>, пришлось бы просматривать тело, чтобы в этом убедиться.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Часть пары в цикле</h2>
+        <p>Функции вроде <code>enumerate()</code> выдают пару значений. Если нужна только одна половина, вторую отбрасывают.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>индекс не нужен</span></figcaption>
+<pre>colors = [<span class="s">"red"</span>, <span class="s">"green"</span>, <span class="s">"blue"</span>]
+
+<span class="k">for</span> _, color <span class="k">in</span> <span class="f">enumerate</span>(colors):
+    <span class="f">print</span>(color)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>только значения</span></figcaption><pre>red
+green
+blue</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Здесь <code>_</code> — признак лишнего кода</b>
+          <p>Если от <code>enumerate()</code> нужен только элемент, сам <code>enumerate()</code> не нужен: достаточно <code>for color in colors</code>. Подчёркивание уместно там, где пару выдаёт что-то неустранимое — например, <code>dict.items()</code> или готовая функция.</p>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Ключи и значения словаря</h2>
+        <p>Метод <code>items()</code> всегда возвращает обе части пары, и вот здесь отбросить ненужную — нормальный приём.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сначала без ключей, затем без значений</span></figcaption>
+<pre>data = {<span class="s">"a"</span>: <span class="n">1</span>, <span class="s">"b"</span>: <span class="n">2</span>, <span class="s">"c"</span>: <span class="n">3</span>}
+
+<span class="k">for</span> _, value <span class="k">in</span> data.items():
+    <span class="f">print</span>(value, end=<span class="s">" "</span>)
+
+<span class="f">print</span>()
+
+<span class="k">for</span> key, _ <span class="k">in</span> data.items():
+    <span class="f">print</span>(key, end=<span class="s">" "</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>значения, затем ключи</span></figcaption><pre>1 2 3
+a b c </pre></figure>
+        <p>У словаря для этих двух случаев есть и прямые методы — <code>data.values()</code> и <code>data.keys()</code>. Форма с <code>_</code> нужна, когда вместе с одной половиной пары используется что-то ещё, а вторая всё равно не пригодилась.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Результат функции</h2>
+        <p>Функция может возвращать несколько значений сразу. Принять придётся все, использовать — не обязательно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>возраст не нужен</span></figcaption>
+<pre><span class="k">def</span> <span class="f">get_user</span>():
+    <span class="k">return</span> <span class="s">"Аня"</span>, <span class="n">25</span>, <span class="s">"Москва"</span>
+
+name, _, city = <span class="f">get_user</span>()
+
+<span class="f">print</span>(name, city)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два значения из трёх</span></figcaption><pre>Аня Москва</pre></figure>
+        <p>Функция возвращает кортеж, и его распаковка подчиняется тем же правилам, что и в §3.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Включения</h2>
+        <p>Во включениях подчёркивание используют в обеих ролях — и как отброшенную часть пары, и как переменную-счётчик.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>из пар нужны только названия</span></figcaption>
+<pre>data = [(<span class="n">1</span>, <span class="s">"apple"</span>), (<span class="n">2</span>, <span class="s">"banana"</span>), (<span class="n">3</span>, <span class="s">"cherry"</span>)]
+fruit_names = [fruit <span class="k">for</span> _, fruit <span class="k">in</span> data]
+
+<span class="f">print</span>(fruit_names)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>номера отброшены</span></figcaption><pre>['apple', 'banana', 'cherry']</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пять нулей</span></figcaption>
+<pre>zeros = [<span class="n">0</span> <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>)]
+<span class="f">print</span>(zeros)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>значение не зависит от шага</span></figcaption><pre>[0, 0, 0, 0, 0]</pre></figure>
+        <p>Во втором примере <code>_</code> подчёркивает главное: элемент один и тот же на каждом повторе, а <code>range()</code> задаёт только их количество.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Звёздочка и остаток</h2>
+        <p>Подчёркивание сочетается со звёздочкой из главы 4.9. Запись <code>*_</code> отбрасывает не одно значение, а сразу весь остаток.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>нужен только край списка</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+
+first, *_ = numbers
+*_, last = numbers
+
+<span class="f">print</span>(first)
+<span class="f">print</span>(last)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первый и последний</span></figcaption><pre>1
+4</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что отбрасывает</th></tr></thead>
+            <tbody>
+              <tr><td><code>x, _, z = data</code></td><td>ровно одно значение в этой позиции</td></tr>
+              <tr><td><code>first, *_ = data</code></td><td>все значения после первого</td></tr>
+              <tr><td><code>*_, last = data</code></td><td>все значения до последнего</td></tr>
+              <tr><td><code>first, *_, last = data</code></td><td>всю середину</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для двух элементов это короче и понятнее, чем <code>numbers[0]</code> и <code>numbers[-1]</code> в отдельных строках, — хотя оба варианта допустимы.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Когда _ не подходит</h2>
+        <p>Соглашение полезно ровно до тех пор, пока оно правдиво. Три случая, где от него лучше отказаться:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Почему</th><th>Что делать</th></tr></thead>
+            <tbody>
+              <tr><td>значение всё-таки пригодится ниже</td><td>читатель уверен, что оно отброшено</td><td>дать осмысленное имя</td></tr>
+              <tr><td>отброшено больше половины значений</td><td>строка превращается в частокол подчёркиваний</td><td>обратиться по индексу или через срез</td></tr>
+              <tr><td>нужен именно счётчик шагов</td><td><code>_</code> обещает, что номер не используется</td><td><code>for index in range(n)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Отдельно стоит запомнить: <code>_</code> и <code>__</code> — разные имена, а <code>_name</code> с буквами — уже совсем другое соглашение, означающее «внутреннее, не для внешнего использования».</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>x, _ = (1, 2, 3)</code></td><td><code>ValueError</code>: значений больше, чем имён</td><td><code>x, _, _ = (1, 2, 3)</code> или <code>x, *_ = ...</code></td></tr>
+              <tr><td>использовать <code>_</code> после нескольких присваиваний</td><td>там осталось только последнее значение</td><td>дать имя тому, что нужно сохранить</td></tr>
+              <tr><td>ожидать, что <code>_</code> сэкономит память</td><td>значение всё равно присваивается</td><td>это соглашение, а не оптимизация</td></tr>
+              <tr><td><code>for _ in range(n)</code> и <code>print(_)</code> в теле</td><td>код работает, но противоречит заявленному намерению</td><td><code>for index in range(n)</code></td></tr>
+              <tr><td>полагаться на <code>_</code> из оболочки внутри скрипта</td><td><code>NameError</code>: автоматического результата там нет</td><td>сохранять результат в обычную переменную</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2>
+        <details><summary>Чем <code>_</code> отличается от обычной переменной?</summary><p>Технически — ничем. Это соглашение между разработчиками: имя сообщает, что значение не будет использовано.</p></details>
+        <details><summary>Можно ли использовать <code>_</code> несколько раз в одном присваивании?</summary><p>Да. Переменная просто перезаписывается, и в ней останется последнее из отброшенных значений.</p></details>
+        <details><summary>Что означает <code>for _ in range(5)</code>?</summary><p>Цикл выполнится пять раз, а номер шага в теле не используется.</p></details>
+        <details><summary>Чем <code>*_</code> отличается от <code>_</code>?</summary><p><code>_</code> отбрасывает одно значение в своей позиции, <code>*_</code> — весь оставшийся набор значений.</p></details>
+        <details><summary>Сколько имён нужно слева при распаковке кортежа из трёх элементов?</summary><p>Три — подчёркивание занимает позицию, а не пропускает её. Иначе <code>ValueError</code>.</p></details>
+
+        <h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Пропустить значение</b><code>x, _, z = data</code></div>
+          <div><b>Пропустить остаток</b><code>first, *_ = data</code></div>
+          <div><b>Повтор без счётчика</b><code>for _ in range(n):</code></div>
+          <div><b>Только значения словаря</b><code>for _, value in d.items():</code></div>
+          <div><b>Часть результата функции</b><code>name, _, city = get_user()</code></div>
+          <div><b>Во включении</b><code>[x for _, x in pairs]</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Подчёркивание — обычное имя, которому соглашение придало смысл «значение не нужно». Оно применяется при распаковке, в циклах ради количества повторов, при разборе пар из <code>items()</code> и <code>enumerate()</code>, а вместе со звёздочкой отбрасывает целый остаток. Пользы от него ровно столько, сколько правды: если значение всё-таки используется, ему нужно нормальное имя.</p>
+        <div class="pager">
+          <a href="../66-annotacii-tipov/index.html">← 4.10 Аннотации типов</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../43-iteratory/index.html">5.1 Итераторы →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.11 · Игнорируемые значения: _ · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
