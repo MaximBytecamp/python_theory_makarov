@@ -1,43 +1,336 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.2 Регистр строк: capitalize(), lower(), casefold() · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Строки</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p><p class="running__folio">Глава 5.2</p></div>
-<header class="chapter-head"><span class="chapter-num">5.2</span><h1>Регистр<br>строк</h1><p class="lead"><code>capitalize()</code>, <code>lower()</code> и <code>casefold()</code> возвращают новые строки. Первые два меняют форму текста, а <code>casefold()</code> предназначен прежде всего для сравнений без учёта регистра.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Unicode, сравнения, неизменяемость</dd></div><div><dt>Зачем это знать</dt><dd>Нормализовать текст для вывода и сравнения</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Строки неизменяемы</a></li><li><a href="#s2">capitalize</a></li><li><a href="#s3">Начальный пробел</a></li><li><a href="#s4">lower</a></li><li><a href="#s5">casefold</a></li><li><a href="#s6">lower или casefold</a></li><li><a href="#s7">Сравнение строк</a></li><li><a href="#s8">Цепочка методов</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Метод возвращает новую строку</h2><figure class="code"><figcaption><span>main.py</span><span>исходное значение сохраняется</span></figcaption><pre>source = <span class="s">"PyThOn"</span>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>5.2 Регистр строк: capitalize(), lower(), casefold() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 5 · Строки</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p>
+          <p class="running__folio">Глава 5.2</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">5.2</span>
+          <h1>Регистр<br>строк</h1>
+          <p class="lead"><code>capitalize()</code>, <code>lower()</code> и <code>casefold()</code> возвращают новые строки. Первые два меняют форму текста, а <code>casefold()</code> предназначен прежде всего для сравнений без учёта регистра — и делает это надёжнее, чем <code>lower()</code>.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Строковые методы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Unicode, сравнения, неизменяемость</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Нормализовать текст для вывода и сравнения</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем приводить регистр</a></li>
+            <li><a href="#s2">Метод возвращает новую строку</a></li>
+            <li><a href="#s3">capitalize(): первая позиция</a></li>
+            <li><a href="#s4">capitalize() понижает остальное</a></li>
+            <li><a href="#s5">Пробел в начале</a></li>
+            <li><a href="#s6">lower(): нижний регистр</a></li>
+            <li><a href="#s7">Что lower() не трогает</a></li>
+            <li><a href="#s8">Где lower() подводит</a></li>
+            <li><a href="#s9">casefold(): сравнение без регистра</a></li>
+            <li><a href="#s10">Греческая сигма</a></li>
+            <li><a href="#s11">lower() или casefold()</a></li>
+            <li><a href="#s12">Обе стороны сравнения</a></li>
+            <li><a href="#s13">Нормализовать — не значит хранить</a></li>
+            <li><a href="#s14">Порядок методов</a></li>
+            <li><a href="#s15">Регистр и сортировка</a></li>
+            <li><a href="#s16">Частые ошибки</a></li>
+            <li><a href="#s17">Проверьте себя</a></li>
+            <li><a href="#s18">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем приводить регистр</h2>
+        <p>Человек, набирающий текст, о регистре не думает. Пользователь введёт <code>PYTHON</code>, <code>Python</code> или <code>python</code> и будет считать, что написал одно и то же. Программа так не считает: для неё это три разные строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сравнение «как есть»</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"PYTHON"</span> == <span class="s">"Python"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строки различаются</span></figcaption><pre>False</pre></figure>
+        <p><span class="term">Нормализация регистра</span> убирает это расхождение: обе строки приводят к одной форме и сравнивают уже её. Методы этой главы решают две разные задачи — привести текст к нужному виду <b>для показа</b> и привести его к единой форме <b>для сравнения</b>. Путать их не стоит, и §13 объясняет почему.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Метод возвращает новую строку</h2>
+        <p>Строки в Python неизменяемы, поэтому ни один метод регистра не меняет исходную строку — все они создают новую.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>исходное значение сохраняется</span></figcaption>
+<pre>source = <span class="s">"PyThOn"</span>
 result = source.lower()
 
 <span class="f">print</span>(source)
-<span class="f">print</span>(result)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две строки</span></figcaption><pre>PyThOn
-python</pre></figure><p>Строки неизменяемы. Если преобразованный текст нужен дальше, результат метода следует сохранить или сразу передать другой операции.</p>
-<h2 id="s2"><span class="sec">§2</span>capitalize() меняет первую позицию и понижает остальные</h2><figure class="code"><figcaption><span>main.py</span><span>не только первая буква</span></figcaption><pre>title = <span class="s">"pYTHON API"</span>
-<span class="f">print</span>(title.capitalize())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>остальные буквы строчные</span></figcaption><pre>Python api</pre></figure><p>Метод приводит первый символ к верхнему регистру, если у него есть регистр, а все последующие буквенные символы — к нижнему.</p>
-<h2 id="s3"><span class="sec">§3</span>Пробел в начале остаётся первой позицией</h2><figure class="code"><figcaption><span>main.py</span><span>сначала очищаем края</span></figcaption><pre>text = <span class="s">"  pYTHON"</span>
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две разные строки</span></figcaption><pre>PyThOn
+python</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Самая частая ошибка темы</b>
+          <p>Строка <code>text.lower()</code> сама по себе не делает ничего: результат вычислен и выброшен. Нужно либо сохранить его — <code>text = text.lower()</code>, — либо сразу использовать в выражении. Ошибки при этом не будет, просто текст останется прежним. Это та же логика, что у методов списков в главе 3.10, только наоборот: там метод менял объект и возвращал <code>None</code>, здесь объект неизменяем и возвращается новый.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>capitalize(): первая позиция</h2>
+        <p><code>capitalize()</code> делает первый символ строки заглавным. Параметров у метода нет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>имя с маленькой буквы</span></figcaption>
+<pre>name = <span class="s">"иван"</span>
+<span class="f">print</span>(name.capitalize())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первая буква поднята</span></figcaption><pre>Иван</pre></figure>
+        <p>Если первый символ регистра не имеет — цифра, знак, пробел, — он остаётся как есть.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>строка начинается с цифр</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"123abc"</span>.capitalize())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>поднимать нечего</span></figcaption><pre>123abc</pre></figure>
+
+        <h2 id="s4"><span class="sec">§4</span>capitalize() понижает остальное</h2>
+        <p>Название метода описывает только половину работы. Вторая половина: все остальные буквы приводятся к <b>нижнему</b> регистру — независимо от того, какими они были.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>не только первая буква</span></figcaption>
+<pre>title = <span class="s">"pYTHON API"</span>
+<span class="f">print</span>(title.capitalize())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>аббревиатура API не уцелела</span></figcaption><pre>Python api</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>что происходит с каждой позицией</span></figcaption>
+<pre>p Y T H O N   A P I
+↑ └─────────────────┘
+│        всё это → нижний регистр
+└ первая позиция → верхний регистр</pre>
+        </figure>
+        <p>Поэтому <code>capitalize()</code> не годится для оформления заголовков и названий, где регистр внутри строки важен. Для «каждое слово с заглавной» есть отдельный метод <code>title()</code>, а для проверки такой формы — <code>istitle()</code> из главы 5.8.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Пробел в начале</h2>
+        <p>«Первая позиция» понимается буквально — это символ с индексом <code>0</code>, а не первая буква. Пробел в начале строки полностью меняет результат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сравнение двух порядков</span></figcaption>
+<pre>text = <span class="s">"  pYTHON"</span>
 
 <span class="f">print</span>(<span class="f">repr</span>(text.capitalize()))
-<span class="f">print</span>(<span class="f">repr</span>(text.strip().capitalize()))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>разный порядок методов</span></figcaption><pre>'  python'
-'Python'</pre></figure><p><code>capitalize()</code> не ищет первую букву после пробелов. Если края строки нужно удалить, сначала вызывают <code>strip()</code>.</p>
-<h2 id="s4"><span class="sec">§4</span>lower() приводит буквы к нижнему регистру</h2><figure class="code"><figcaption><span>main.py</span><span>Unicode и небуквенные символы</span></figcaption><pre>text = <span class="s">"ПРИВЕТ, Python 3.12!"</span>
-<span class="f">print</span>(text.lower())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>цифры и знаки не меняются</span></figcaption><pre>привет, python 3.12!</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>casefold() нормализует регистр для сравнения</h2><figure class="code"><figcaption><span>main.py</span><span>особенность немецкой ß</span></figcaption><pre>word = <span class="s">"Straße"</span>
+<span class="f">print</span>(<span class="f">repr</span>(text.strip().capitalize()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>в первом случае заглавной нет вовсе</span></figcaption><pre>'  python'
+'Python'</pre></figure>
+        <p>В первой строке первая позиция — пробел, поднимать нечего, а все буквы после неё попали под понижение. Метод не ищет первую букву после пробелов, поэтому края строки очищают заранее — <code>strip()</code> разбирается в главе 5.9.</p>
+        <div class="margin-note">
+          <b>Зачем здесь repr()</b>
+          <p>Обычный <code>print()</code> покажет <code>  python</code>, и ведущие пробелы легко не заметить. <code>repr()</code> выводит строку в кавычках, ровно так, как её записал бы Python, — при отладке текста это экономит много времени.</p>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>lower(): нижний регистр</h2>
+        <p><code>lower()</code> возвращает копию строки, где все буквы приведены к нижнему регистру. Параметров нет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>смешанный текст</span></figcaption>
+<pre>text = <span class="s">"ПРИВЕТ, Python 3.12!"</span>
+<span class="f">print</span>(text.lower())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обе алфавитные системы</span></figcaption><pre>привет, python 3.12!</pre></figure>
+        <p>Метод работает с Unicode, поэтому корректно понижает не только латиницу: кириллица, греческий, немецкий обрабатываются так же.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Что lower() не трогает</h2>
+        <p>В примере выше изменились только буквы. Цифры <code>3</code> и <code>12</code>, точка, запятая, пробел и восклицательный знак остались на месте — у них попросту нет регистра.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что в строке</th><th>Что делает lower()</th></tr></thead>
+            <tbody>
+              <tr><td>заглавные буквы</td><td>понижает</td></tr>
+              <tr><td>строчные буквы</td><td>оставляет как есть</td></tr>
+              <tr><td>цифры, знаки, пробелы</td><td>не меняет</td></tr>
+              <tr><td>эмодзи и символы</td><td>не меняет</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Отсюда полезное следствие: <code>lower()</code> безопасно применять к любому тексту — он не может испортить неалфавитную часть.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Где lower() подводит</h2>
+        <p>Пока речь о русском и английском, <code>lower()</code> достаточно. Проблема начинается там, где в языке одна буква записывается несколькими способами. Немецкая <code>ß</code> и сочетание <code>ss</code> — одно и то же слово, но разные символы.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>одно слово, две записи</span></figcaption>
+<pre>first = <span class="s">"Straße"</span>
+second = <span class="s">"STRASSE"</span>
+
+<span class="f">print</span>(first.lower())
+<span class="f">print</span>(second.lower())
+<span class="f">print</span>(first.lower() == second.lower())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>сравнение провалилось</span></figcaption><pre>straße
+strasse
+False</pre></figure>
+        <p><code>lower()</code> честно понизил обе строки, но <code>ß</code> так и осталась <code>ß</code>. Для человека это одно слово, для сравнения — разные строки. Именно эту задачу решает <code>casefold()</code>.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>casefold(): сравнение без регистра</h2>
+        <p><code>casefold()</code> тоже возвращает строку в нижнем регистре, но преобразует агрессивнее: он приводит к общей форме символы, которые в разных языках записываются по-разному.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тот же пример через casefold()</span></figcaption>
+<pre>first = <span class="s">"Straße"</span>
+second = <span class="s">"STRASSE"</span>
+
+<span class="f">print</span>(first.casefold())
+<span class="f">print</span>(second.casefold())
+<span class="f">print</span>(first.casefold() == second.casefold())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>теперь слова совпали</span></figcaption><pre>strasse
+strasse
+True</pre></figure>
+        <p>Обратите внимание на длину: <code>ß</code> превратилась в две буквы <code>ss</code>. Результат <code>casefold()</code> может быть <b>длиннее</b> исходной строки — для сравнения это не важно, а вот для показа пользователю уже важно.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Греческая сигма</h2>
+        <p>Немецкая <code>ß</code> — не единственный случай. В греческом одна и та же буква сигма пишется по-разному в конце слова и в середине.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две формы одной буквы</span></figcaption>
+<pre>word = <span class="s">"ΣΙΣΥΦΟΣ"</span>
 
 <span class="f">print</span>(word.lower())
-<span class="f">print</span>(word.casefold())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>casefold преобразует больше</span></figcaption><pre>straße
-strasse</pre></figure><p>Результат может изменить число символов. Поэтому <code>casefold()</code> применяют для сопоставления, а не для оформления текста.</p>
-<h2 id="s6"><span class="sec">§6</span>lower() и casefold() решают разные задачи</h2><div class="table-scroll"><table><thead><tr><th>Задача</th><th>Метод</th></tr></thead><tbody><tr><td>показать текст строчными буквами</td><td><code>lower()</code></td></tr><tr><td>сравнить пользовательский текст без учёта регистра</td><td><code>casefold()</code></td></tr><tr><td>сделать первую позицию заглавной</td><td><code>capitalize()</code></td></tr></tbody></table></div>
-<h2 id="s7"><span class="sec">§7</span>Для сравнения преобразуют обе стороны</h2><figure class="code"><figcaption><span>main.py</span><span>ввод и ожидаемое значение</span></figcaption><pre>entered = <span class="s">"PYTHON"</span>
+<span class="f">print</span>(word.casefold())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>разные последние символы</span></figcaption><pre>σισυφος
+σισυφοσ</pre></figure>
+        <p><code>lower()</code> поступает грамотно с точки зрения языка: в конце слова он ставит конечную сигму <code>ς</code>. <code>casefold()</code> поступает грамотно с точки зрения сравнения: обе формы приводит к обычной <code>σ</code>, чтобы слово совпало само с собой в любой записи.</p>
+        <p>Это и есть разница между двумя методами в одной фразе: <code>lower()</code> сохраняет правила языка, <code>casefold()</code> их намеренно стирает ради сопоставимости.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>lower() или casefold()</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Метод</th><th>Почему</th></tr></thead>
+            <tbody>
+              <tr><td>показать текст строчными буквами</td><td><code>lower()</code></td><td>сохраняет письменные нормы языка</td></tr>
+              <tr><td>сравнить ввод пользователя</td><td><code>casefold()</code></td><td>сводит варианты записи к одному</td></tr>
+              <tr><td>поиск по тексту без учёта регистра</td><td><code>casefold()</code></td><td>то же основание</td></tr>
+              <tr><td>сделать первую позицию заглавной</td><td><code>capitalize()</code></td><td>оформление, а не сравнение</td></tr>
+              <tr><td>записать логин или e-mail в базу</td><td><code>lower()</code></td><td>результат увидит человек</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Практическое правило: <b>текст для глаз — <code>lower()</code>, текст для <code>==</code> — <code>casefold()</code></b>. Для русского и английского они дают одинаковый результат, поэтому разница проявится не на ваших тестах, а на реальных данных.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Обе стороны сравнения</h2>
+        <p>Нормализация помогает, только если применена к обеим строкам. Одностороннее приведение оставляет ту же проблему.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>приведена только левая часть</span></figcaption>
+<pre>entered = <span class="s">"PYTHON"</span>
 expected = <span class="s">"Python"</span>
 
-<span class="f">print</span>(entered.casefold() == expected.casefold())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>регистр не влияет</span></figcaption><pre>True</pre></figure><p>Сохранять в базе автоматически изменённое имя пользователя не всегда допустимо. Часто исходный текст хранят отдельно, а нормализованный используют только для поиска.</p>
-<h2 id="s8"><span class="sec">§8</span>Порядок методов влияет на результат</h2><figure class="code"><figcaption><span>main.py</span><span>очистка, нормализация, оформление</span></figcaption><pre>raw = <span class="s">"  pYTHON API  "</span>
+<span class="f">print</span>(entered.casefold() == expected)
+<span class="f">print</span>(entered.casefold() == expected.casefold())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>работает только симметричная нормализация</span></figcaption><pre>False
+True</pre></figure>
+        <p>В первой строке слева <code>python</code>, справа <code>Python</code> — совпадения нет. Правило простое: один и тот же метод применяют к обеим сторонам сравнения.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Нормализовать — не значит хранить</h2>
+        <p>Соблазн понятен: привести имя пользователя к нижнему регистру один раз и хранить уже нормализованным. Но тогда исходная форма теряется навсегда.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>две роли одной строки</span></figcaption>
+<pre>что ввёл человек:   "Иван Петров"    → хранить и показывать
+для поиска:         "иван петров"    → сравнивать</pre>
+        </figure>
+        <p>Обычная практика — хранить исходный текст, а нормализованную форму использовать только для поиска и сравнения. Особенно это касается <code>casefold()</code>: он может изменить саму запись слова, и показывать пользователю <code>strasse</code> вместо введённого <code>Straße</code> уже неверно.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Порядок методов</h2>
+        <p>Методы вызывают цепочкой: каждый следующий работает с результатом предыдущего. Порядок при этом меняет результат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>очистка, нормализация, оформление</span></figcaption>
+<pre>raw = <span class="s">"  pYTHON API  "</span>
+
 clean = raw.strip().lower()
 label = clean.capitalize()
 
-<span class="f">print</span>(clean)
-<span class="f">print</span>(label)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два результата под разные задачи</span></figcaption><pre>python api
-Python api</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>text.lower()</code> без сохранения</td><td>имя <code>text</code> останется прежним</td><td><code>text = text.lower()</code></td></tr><tr><td>ожидать от <code>capitalize()</code> сохранения регистра остальных букв</td><td>они станут строчными</td><td>учитывать полное преобразование метода</td></tr><tr><td>ожидать заглавную букву после начальных пробелов</td><td>буквы после первой позиции станут строчными</td><td><code>text.strip().capitalize()</code></td></tr><tr><td>использовать <code>casefold()</code> для отображения имени</td><td>форма текста может измениться сильнее ожидаемого</td><td>оставить исходную форму для вывода</td></tr><tr><td>нормализовать только одну сторону сравнения</td><td>результат зависит от формы второй строки</td><td>применить один способ к обеим строкам</td></tr></tbody></table></div>
-<h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2><details><summary>Меняет ли lower() исходную строку?</summary><p>Нет. Он возвращает новую строку.</p></details><details><summary>Почему "  PYTHON".capitalize() не даёт "  Python"?</summary><p>Первый символ — пробел, а все буквенные символы после первой позиции приводятся к нижнему регистру.</p></details><details><summary>Когда casefold() предпочтительнее lower()?</summary><p>При сравнении текста без учёта регистра, особенно для Unicode-строк разных языков.</p></details>
-<h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2><div class="cheat"><div><b>Первая позиция</b><code>text.capitalize()</code></div><div><b>Нижний регистр</b><code>text.lower()</code></div><div><b>Сравнение</b><code>left.casefold() == right.casefold()</code></div><div><b>Очистка и регистр</b><code>text.strip().lower()</code></div></div>
-<h3>Итог главы</h3><p>Все три метода создают новые строки. <code>capitalize()</code> оформляет первую позицию, <code>lower()</code> даёт строчную форму, а <code>casefold()</code> нормализует Unicode-текст для сравнений.</p>
-<div class="pager"><a href="../55-unicode-ord-chr/index.html">← 5.1 Unicode, ord() и chr()</a><a href="../../index.html">К содержанию справочника</a><a href="../57-center-count/index.html">5.3 center() и count() →</a></div><div class="colophon"><span>Глава 5.2 · Регистр строк · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="f">print</span>(<span class="f">repr</span>(clean))
+<span class="f">print</span>(<span class="f">repr</span>(label))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два результата под разные задачи</span></figcaption><pre>'python api'
+'Python api'</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Шаг</th><th>Что на входе</th><th>Что на выходе</th></tr></thead>
+            <tbody>
+              <tr><td><code>raw</code></td><td>—</td><td><code>'  pYTHON API  '</code></td></tr>
+              <tr><td><code>.strip()</code></td><td><code>'  pYTHON API  '</code></td><td><code>'pYTHON API'</code></td></tr>
+              <tr><td><code>.lower()</code></td><td><code>'pYTHON API'</code></td><td><code>'python api'</code></td></tr>
+              <tr><td><code>.capitalize()</code></td><td><code>'python api'</code></td><td><code>'Python api'</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Общее правило цепочки: сначала убирают лишнее (<code>strip()</code>), затем приводят регистр, и только потом оформляют.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Регистр и сортировка</h2>
+        <p>Глава 5.1 показала, что <code>sorted()</code> сравнивает кодовые точки, из-за чего заглавные буквы оказываются раньше строчных. Методы этой главы дают решение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сортировка без учёта регистра</span></figcaption>
+<pre>words = [<span class="s">"Яблоко"</span>, <span class="s">"арбуз"</span>, <span class="s">"Ананас"</span>]
+
+<span class="f">print</span>(<span class="f">sorted</span>(words))
+<span class="f">print</span>(<span class="f">sorted</span>(words, key=<span class="f">str</span>.lower))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>второй порядок — привычный</span></figcaption><pre>['Ананас', 'Яблоко', 'арбуз']
+['Ананас', 'арбуз', 'Яблоко']</pre></figure>
+        <p>Аргумент <code>key</code> означает «сравнивать не сами слова, а результат <code>str.lower</code> от них». При этом в списке остаются исходные слова — меняется только правило сравнения. Подробно <code>key</code> разбирается в главе 6.10.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>text.lower()</code> отдельной строкой</td><td>результат выброшен, <code>text</code> прежний</td><td><code>text = text.lower()</code></td></tr>
+              <tr><td>ждать от <code>capitalize()</code> сохранения остальных букв</td><td>вся строка после первой позиции станет строчной</td><td>для заголовков — <code>title()</code></td></tr>
+              <tr><td><code>"  текст".capitalize()</code></td><td>заглавной не будет вовсе: первая позиция — пробел</td><td><code>text.strip().capitalize()</code></td></tr>
+              <tr><td><code>lower()</code> для сравнения многоязычного текста</td><td><code>"Straße"</code> и <code>"STRASSE"</code> не совпадут</td><td><code>casefold()</code> с обеих сторон</td></tr>
+              <tr><td><code>casefold()</code> для показа имени</td><td>запись слова может измениться</td><td>показывать исходную форму</td></tr>
+              <tr><td>нормализовать одну сторону сравнения</td><td>результат зависит от формы второй строки</td><td>применить метод к обеим</td></tr>
+              <tr><td><code>text.lower</code> без скобок</td><td>сравнение с методом, а не с текстом — всегда <code>False</code></td><td><code>text.lower()</code></td></tr>
+              <tr><td><code>capitalize()</code> с аргументом</td><td><code>TypeError</code>: метод не принимает параметров</td><td>вызывать с пустыми скобками</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s17"><span class="sec">§17</span>Проверьте себя</h2>
+        <details><summary>Меняет ли <code>lower()</code> исходную строку?</summary><p>Нет. Строки неизменяемы, метод возвращает новую строку — её нужно сохранить или сразу использовать.</p></details>
+        <details><summary>Почему <code>"pYTHON API".capitalize()</code> даёт <code>"Python api"</code>?</summary><p>Метод поднимает первый символ и одновременно понижает все остальные, независимо от их исходного регистра.</p></details>
+        <details><summary>Почему <code>"  PYTHON".capitalize()</code> не даёт <code>"  Python"</code>?</summary><p>Первая позиция — пробел, у него нет регистра. Буквы после неё попадают под понижение, и заглавной не остаётся.</p></details>
+        <details><summary>Когда <code>casefold()</code> обязателен, а <code>lower()</code> недостаточен?</summary><p>Когда в тексте возможны символы, записываемые по-разному: немецкая <code>ß</code> против <code>ss</code>, две формы греческой сигмы. Для сравнения нужна единая форма.</p></details>
+        <details><summary>Почему <code>casefold()</code> не стоит использовать для отображения?</summary><p>Он может изменить саму запись слова и даже его длину: <code>Straße</code> превращается в <code>strasse</code>.</p></details>
+        <details><summary>Что не так с <code>entered.casefold() == expected</code>?</summary><p>Нормализована только левая сторона. Метод нужно применить к обеим строкам.</p></details>
+
+        <h2 id="s18"><span class="sec">§18</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Первая позиция</b><code>text.capitalize()</code></div>
+          <div><b>Нижний регистр</b><code>text.lower()</code></div>
+          <div><b>Для сравнения</b><code>text.casefold()</code></div>
+          <div><b>Сравнить без регистра</b><code>a.casefold() == b.casefold()</code></div>
+          <div><b>Очистка и регистр</b><code>text.strip().lower()</code></div>
+          <div><b>Сортировка</b><code>sorted(words, key=str.lower)</code></div>
+          <div><b>Сохранить результат</b><code>text = text.lower()</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Все три метода создают новые строки и не меняют исходную. <code>capitalize()</code> поднимает первую позицию и понижает всё остальное, поэтому для заголовков не годится. <code>lower()</code> даёт строчную форму с сохранением языковых норм — это выбор для текста, который увидит человек. <code>casefold()</code> сводит разные записи одного символа к общей форме и потому надёжнее в сравнениях, но менять им текст для показа нельзя.</p>
+        <div class="pager">
+          <a href="../55-unicode-ord-chr/index.html">← 5.1 Unicode, ord() и chr()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../57-center-count/index.html">5.3 center() и count() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 5.2 · Регистр строк · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

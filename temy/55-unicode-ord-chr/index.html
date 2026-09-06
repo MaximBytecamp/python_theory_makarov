@@ -1,46 +1,343 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.1 Unicode, ord() и chr() · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Строки</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p><p class="running__folio">Глава 5.1</p></div>
-<header class="chapter-head"><span class="chapter-num">5.1</span><h1>Unicode, <code>ord()</code><br>и <code>chr()</code></h1><p class="lead">Строка Python хранит символы Unicode. Функция <code>ord()</code> получает кодовую точку одного символа, а <code>chr()</code> выполняет обратное преобразование.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Строки и Unicode</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Строки, числа, кодировки, сортировка</dd></div><div><dt>Зачем это знать</dt><dd>Связывать символы с числовыми кодовыми точками</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Символы Unicode</a></li><li><a href="#s2">Функция ord</a></li><li><a href="#s3">Функция chr</a></li><li><a href="#s4">Обратное преобразование</a></li><li><a href="#s5">Границы диапазона</a></li><li><a href="#s6">Escape-запись</a></li><li><a href="#s7">Перебор строки</a></li><li><a href="#s8">Сравнение строк</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Символу соответствует кодовая точка</h2><p><span class="term">Unicode</span> задаёт единое пространство кодовых точек для букв, цифр, знаков и множества других символов. Кодовая точка — целое число, например <code>U+0041</code> для латинской <code>A</code>.</p><div class="table-scroll"><table><thead><tr><th>Символ</th><th>Кодовая точка</th><th>Десятичное число</th></tr></thead><tbody><tr><td><code>A</code></td><td><code>U+0041</code></td><td>65</td></tr><tr><td><code>Я</code></td><td><code>U+042F</code></td><td>1071</td></tr><tr><td><code>€</code></td><td><code>U+20AC</code></td><td>8364</td></tr></tbody></table></div>
-<h2 id="s2"><span class="sec">§2</span>ord() принимает ровно один символ</h2><figure class="code"><figcaption><span>main.py</span><span>строка длиной один</span></figcaption><pre><span class="f">print</span>(<span class="f">ord</span>(<span class="s">"A"</span>))
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>5.1 Unicode, ord() и chr() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 5 · Строки</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p>
+          <p class="running__folio">Глава 5.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">5.1</span>
+          <h1>Unicode, <code>ord()</code><br>и <code>chr()</code></h1>
+          <p class="lead">Строка Python хранит символы Unicode, и у каждого символа есть номер — кодовая точка. <code>ord()</code> получает номер символа, <code>chr()</code> выполняет обратное преобразование. Через эти номера работают сравнение строк, сортировка и любые посимвольные вычисления.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Строки и Unicode</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Строки, числа, кодировки, сортировка</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Связывать символы с числовыми кодовыми точками</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем символу номер</a></li>
+            <li><a href="#s2">Символ и кодовая точка</a></li>
+            <li><a href="#s3">ord(): символ → число</a></li>
+            <li><a href="#s4">chr(): число → символ</a></li>
+            <li><a href="#s5">Обратимость преобразования</a></li>
+            <li><a href="#s6">Ровно один символ</a></li>
+            <li><a href="#s7">Допустимый диапазон chr()</a></li>
+            <li><a href="#s8">Кодовая точка в литерале</a></li>
+            <li><a href="#s9">Коды всей строки</a></li>
+            <li><a href="#s10">Сравнение строк</a></li>
+            <li><a href="#s11">Сортировка и регистр</a></li>
+            <li><a href="#s12">Арифметика по кодам</a></li>
+            <li><a href="#s13">Сдвиг символов</a></li>
+            <li><a href="#s14">Символ — это не байт</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем символу номер</h2>
+        <p>Компьютер не хранит буквы. Он хранит числа, а буква — это договорённость о том, какое число как показывать на экране. <span class="term">Unicode</span> и есть такая договорённость: единая таблица, где каждому символу мира назначен свой номер.</p>
+        <p>Знать этот номер нужно не из любопытства. Через него объясняются вещи, которые иначе выглядят необъяснимо:</p>
+        <ol class="steps">
+          <li>почему <code>"Я" &lt; "а"</code> даёт <code>True</code>, хотя «я» — последняя буква алфавита;</li>
+          <li>почему <code>sorted()</code> ставит слова с заглавной буквы раньше остальных;</li>
+          <li>как проверить, что символ — цифра, не сравнивая его с десятью вариантами;</li>
+          <li>почему у русской буквы <code>len()</code> равен единице, а в файле она занимает два байта.</li>
+        </ol>
+        <p>Все четыре ответа — в этой главе.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Символ и кодовая точка</h2>
+        <p><span class="term">Кодовая точка</span> — номер символа в таблице Unicode. Его записывают в двух видах: как <code>U+0041</code> (шестнадцатеричная запись, принятая в стандарте) и как обычное десятичное число <code>65</code>, с которым работает Python.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Символ</th><th>Кодовая точка</th><th>Десятичное число</th></tr></thead>
+            <tbody>
+              <tr><td><code>0</code></td><td><code>U+0030</code></td><td>48</td></tr>
+              <tr><td><code>A</code></td><td><code>U+0041</code></td><td>65</td></tr>
+              <tr><td><code>a</code></td><td><code>U+0061</code></td><td>97</td></tr>
+              <tr><td><code>Я</code></td><td><code>U+042F</code></td><td>1071</td></tr>
+              <tr><td><code>€</code></td><td><code>U+20AC</code></td><td>8364</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Обратите внимание на порядок: цифры идут раньше заглавных латинских букв, заглавные — раньше строчных, кириллица — заметно позже всей латиницы. Этот порядок и определяет результат любого сравнения строк.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>две функции — два направления</span></figcaption>
+<pre>       ord()
+"A"  ─────────→  65
+     ←─────────
+       chr()</pre>
+        </figure>
+
+        <h2 id="s3"><span class="sec">§3</span>ord(): символ → число</h2>
+        <p><code>ord(char)</code> принимает строку длиной один символ и возвращает её кодовую точку целым числом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три разных алфавита</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">ord</span>(<span class="s">"A"</span>))
 <span class="f">print</span>(<span class="f">ord</span>(<span class="s">"Я"</span>))
-<span class="f">print</span>(<span class="f">ord</span>(<span class="s">"€"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>целые числа</span></figcaption><pre>65
+<span class="f">print</span>(<span class="f">ord</span>(<span class="s">"€"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>целые числа</span></figcaption><pre>65
 1071
-8364</pre></figure><p>Аргумент должен иметь тип <code>str</code> и длину 1. Пустая строка и строка из нескольких символов вызывают <code>TypeError</code>.</p>
-<h2 id="s3"><span class="sec">§3</span>chr() получает символ по целому числу</h2><figure class="code"><figcaption><span>main.py</span><span>обратное направление</span></figcaption><pre><span class="f">print</span>(<span class="f">chr</span>(<span class="n">65</span>))
+8364</pre></figure>
+        <p>Название функции — от английского <i>ordinal</i>, «порядковый номер». Возвращается всегда <code>int</code>, с которым можно делать обычную арифметику.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>chr(): число → символ</h2>
+        <p><code>chr(number)</code> делает обратное: принимает целое число и возвращает строку из одного символа с таким номером.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обратное направление</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">chr</span>(<span class="n">65</span>))
 <span class="f">print</span>(<span class="f">chr</span>(<span class="n">1071</span>))
-<span class="f">print</span>(<span class="f">chr</span>(<span class="n">8364</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>строки длиной один</span></figcaption><pre>A
+<span class="f">print</span>(<span class="f">chr</span>(<span class="n">8364</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строки длиной один</span></figcaption><pre>A
 Я
 €</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>ord() и chr() обращают друг друга</h2><figure class="code"><figcaption><span>main.py</span><span>переход туда и обратно</span></figcaption><pre>symbol = <span class="s">"Ж"</span>
+        <p>Результат — именно строка, а не «символ»: отдельного типа для одного символа в Python нет. Поэтому к результату <code>chr()</code> применимы все строковые методы.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Обратимость преобразования</h2>
+        <p>Две функции строго обращают друг друга: <code>chr(ord(x))</code> всегда возвращает исходный символ.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>переход туда и обратно</span></figcaption>
+<pre>symbol = <span class="s">"Ж"</span>
 code_point = <span class="f">ord</span>(symbol)
 restored = <span class="f">chr</span>(code_point)
 
 <span class="f">print</span>(code_point)
 <span class="f">print</span>(restored)
-<span class="f">print</span>(restored == symbol)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>символ восстановлен</span></figcaption><pre>1046
+<span class="f">print</span>(restored == symbol)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>символ восстановлен без потерь</span></figcaption><pre>1046
 Ж
 True</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>Допустимый диапазон chr()</h2><p>Python принимает кодовые точки от <code>0</code> до <code>0x10FFFF</code>, то есть до <code>1_114_111</code> включительно. Число вне диапазона вызывает <code>ValueError</code>.</p><figure class="code"><figcaption><span>Ошибка</span><span>число слишком велико</span></figcaption><pre><span class="f">chr</span>(<span class="n">0x110000</span>)</pre></figure><figure class="code code--out"><figcaption><span>Исключение</span><span>вне Unicode</span></figcaption><pre>ValueError: chr() arg not in range(0x110000)</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>Кодовую точку можно записать внутри литерала</h2><figure class="code"><figcaption><span>main.py</span><span>escape-последовательности Unicode</span></figcaption><pre>latin = <span class="s">"\u0041"</span>
+        <div class="margin-note">
+          <b>Пара функций, а не одна</b>
+          <p>Легко перепутать направление. Подсказка в названиях: <code>ord</code> даёт <b>ord</b>inal — номер, значит на выходе число. <code>chr</code> даёт <b>chr</b>aracter — символ, значит на выходе строка.</p>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>Ровно один символ</h2>
+        <p>Требование «строка длиной 1» соблюдается строго. Ни пустая строка, ни строка из двух букв не подойдут.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>передано два символа</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">ord</span>(<span class="s">"AB"</span>))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>функция ждёт один символ</span></figcaption>
+<pre>Traceback (most recent call last):
+  File "main.py", line 1, in &lt;module&gt;
+    print(ord("AB"))
+          ^^^^^^^^^
+TypeError: ord() expected a character, but string of length 2 found</pre>
+        </figure>
+        <p>Пустая строка даёт то же исключение со словами <code>string of length 0</code>. Чтобы получить коды нескольких символов, строку перебирают — об этом §9.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Допустимый диапазон chr()</h2>
+        <p>Unicode охватывает кодовые точки от <code>0</code> до <code>0x10FFFF</code> — то есть до <code>1 114 111</code> включительно. Число за этой границей символа не обозначает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>на единицу больше предела</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">chr</span>(<span class="n">0x110000</span>))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>вне пространства Unicode</span></figcaption>
+<pre>ValueError: chr() arg not in range(0x110000)</pre>
+        </figure>
+        <p>Разница в типах исключений не случайна: <code>TypeError</code> означает «передано не то <b>что</b> нужно», <code>ValueError</code> — «тип верный, но <b>значение</b> недопустимо». Отрицательное число тоже даёт <code>ValueError</code>.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Кодовая точка в литерале</h2>
+        <p>Символ можно записать прямо в строке, не вызывая <code>chr()</code>, — через escape-последовательность с шестнадцатеричным кодом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>escape-последовательности Unicode</span></figcaption>
+<pre>latin = <span class="s">"\u0041"</span>
 cyrillic = <span class="s">"\u042f"</span>
 emoji = <span class="s">"\U0001F642"</span>
 
-<span class="f">print</span>(latin, cyrillic, emoji)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>готовые символы</span></figcaption><pre>A Я 🙂</pre></figure><p><code>\u</code> требует четыре шестнадцатеричные цифры, <code>\U</code> — восемь.</p>
-<h2 id="s7"><span class="sec">§7</span>Получение кодов всей строки требует перебора</h2><figure class="code"><figcaption><span>main.py</span><span>код каждой буквы</span></figcaption><pre>text = <span class="s">"Код"</span>
+<span class="f">print</span>(latin, cyrillic, emoji)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>готовые символы</span></figcaption><pre>A Я 🙂</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Сколько цифр</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><code>\u</code></td><td>ровно 4</td><td><code>"\u042F"</code> → <code>Я</code></td></tr>
+              <tr><td><code>\U</code></td><td>ровно 8</td><td><code>"\U0001F642"</code> → 🙂</td></tr>
+              <tr><td><code>\x</code></td><td>ровно 2</td><td><code>"\x41"</code> → <code>A</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Количество цифр обязательное: <code>"\u42F"</code> — синтаксическая ошибка, нужно <code>"Я"</code> с ведущим нулём. Регистр самих цифр значения не имеет.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Коды всей строки</h2>
+        <p><code>ord()</code> работает с одним символом, поэтому для строки её перебирают.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>код каждой буквы</span></figcaption>
+<pre>text = <span class="s">"Код"</span>
 codes = [<span class="f">ord</span>(symbol) <span class="k">for</span> symbol <span class="k">in</span> text]
 
-<span class="f">print</span>(codes)
-<span class="f">print</span>(<span class="s">""</span>.join(<span class="f">chr</span>(code) <span class="k">for</span> code <span class="k">in</span> codes))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>список и восстановленная строка</span></figcaption><pre>[1050, 1086, 1076]
-Код</pre></figure>
-<h2 id="s8"><span class="sec">§8</span>Строки сравниваются по кодовым точкам</h2><figure class="code"><figcaption><span>main.py</span><span>регистр влияет на порядок</span></figcaption><pre><span class="f">print</span>(<span class="s">"A"</span> &lt; <span class="s">"a"</span>)
-<span class="f">print</span>(<span class="f">ord</span>(<span class="s">"A"</span>), <span class="f">ord</span>(<span class="s">"a"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>65 меньше 97</span></figcaption><pre>True
-65 97</pre></figure><p>Это технический порядок символов, а не алфавитная сортировка конкретного языка.</p>
-<h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>ord("AB")</code></td><td><code>TypeError</code>: длина аргумента равна 2</td><td>передать один символ или перебрать строку</td></tr><tr><td><code>ord(65)</code></td><td><code>TypeError</code>: ожидается строка</td><td><code>chr(65)</code></td></tr><tr><td><code>chr("65")</code></td><td><code>TypeError</code>: ожидается целое число</td><td><code>chr(65)</code></td></tr><tr><td><code>chr(0x110000)</code></td><td><code>ValueError</code></td><td>использовать кодовую точку допустимого диапазона</td></tr><tr><td>считать кодовую точку байтом</td><td>теряется различие между символом и его кодировкой</td><td>для байтов применять <code>encode()</code></td></tr></tbody></table></div>
-<h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2><details><summary>Что возвращает ord()?</summary><p>Целое число — кодовую точку единственного символа Unicode.</p></details><details><summary>Как восстановить символ из результата ord()?</summary><p>Передать число в <code>chr()</code>.</p></details><details><summary>Почему ord("ab") вызывает ошибку?</summary><p>Функция принимает один символ, а переданная строка содержит два.</p></details>
-<h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2><div class="cheat"><div><b>Символ → число</b><code>ord("A")  # 65</code></div><div><b>Число → символ</b><code>chr(65)  # "A"</code></div><div><b>Коды строки</b><code>[ord(ch) for ch in text]</code></div><div><b>Литерал</b><code>"\u042F"  # "Я"</code></div></div>
-<h3>Итог главы</h3><p><code>ord()</code> переводит один символ в кодовую точку, <code>chr()</code> выполняет обратное преобразование. Для получения кодов нескольких символов строку нужно перебрать.</p>
-<div class="pager"><a href="../34-vlozhennye-vklyucheniya/index.html">← 4.11 Вложенные включения</a><a href="../../index.html">К содержанию справочника</a><a href="../56-registr-strok/index.html">5.2 Регистр строк →</a></div><div class="colophon"><span>Глава 5.1 · Unicode · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="f">print</span>(codes)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три кодовые точки</span></figcaption><pre>[1050, 1086, 1076]</pre></figure>
+        <p>Обратная сборка требует <code>join()</code>: <code>chr()</code> даёт отдельные строки, и их нужно склеить.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>из списка кодов обратно в строку</span></figcaption>
+<pre>codes = [<span class="n">1050</span>, <span class="n">1086</span>, <span class="n">1076</span>]
+<span class="f">print</span>(<span class="s">""</span>.join(<span class="f">chr</span>(code) <span class="k">for</span> code <span class="k">in</span> codes))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строка восстановлена</span></figcaption><pre>Код</pre></figure>
+        <p>Метод <code>join()</code> подробно разбирается в главе 5.9. Здесь достаточно знать, что он склеивает набор строк в одну.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Сравнение строк</h2>
+        <p>Теперь можно ответить на первый вопрос из §1. Операторы <code>&lt;</code> и <code>&gt;</code> сравнивают строки посимвольно, а каждую пару символов — по кодовым точкам.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>регистр решает исход</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"A"</span> &lt; <span class="s">"a"</span>)
+<span class="f">print</span>(<span class="f">ord</span>(<span class="s">"A"</span>), <span class="f">ord</span>(<span class="s">"a"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>65 меньше 97</span></figcaption><pre>True
+65 97</pre></figure>
+        <p>Никакой «алфавитности» здесь нет — есть только числа. Заглавная <code>A</code> меньше строчной <code>a</code> просто потому, что её номер меньше.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Сортировка и регистр</h2>
+        <p>Из того же правила следует поведение, которое регулярно принимают за ошибку сортировки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три слова по алфавиту</span></figcaption>
+<pre>words = [<span class="s">"Яблоко"</span>, <span class="s">"арбуз"</span>, <span class="s">"Ананас"</span>]
+<span class="f">print</span>(<span class="f">sorted</span>(words))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>«арбуз» оказался последним</span></figcaption><pre>['Ананас', 'Яблоко', 'арбуз']</pre></figure>
+        <p>Причина видна по кодам: <code>ord("А")</code> — 1040, <code>ord("Я")</code> — 1071, а <code>ord("а")</code> — уже 1072. Все заглавные кириллические буквы идут до всех строчных, поэтому «арбуз» с маленькой буквы проигрывает даже «Яблоку».</p>
+        <div class="margin-note margin-note--warn">
+          <b>Как получить привычный порядок</b>
+          <p>Сортировать по приведённой к одному регистру форме: <code>sorted(words, key=str.lower)</code>. Тогда сравниваются <code>ананас</code>, <code>арбуз</code>, <code>яблоко</code>, и результат совпадает с ожиданиями. Аргумент <code>key</code> — тема главы 6.10.</p>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>Арифметика по кодам</h2>
+        <p>Раз кодовые точки — числа, с ними работают обычные операции. Цифры в Unicode идут подряд от <code>0</code> (48) до <code>9</code> (57), и это даёт две полезные записи.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка и превращение цифры в число</span></figcaption>
+<pre>symbol = <span class="s">"7"</span>
+
+<span class="f">print</span>(<span class="f">ord</span>(<span class="s">"0"</span>) &lt;= <span class="f">ord</span>(symbol) &lt;= <span class="f">ord</span>(<span class="s">"9"</span>))
+<span class="f">print</span>(<span class="f">ord</span>(symbol) - <span class="f">ord</span>(<span class="s">"0"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>это цифра, её значение — 7</span></figcaption><pre>True
+7</pre></figure>
+        <p>Буквы алфавита тоже идут подряд, поэтому так же вычисляют номер буквы в алфавите.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>какая по счёту буква</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">ord</span>(<span class="s">"г"</span>) - <span class="f">ord</span>(<span class="s">"а"</span>) + <span class="n">1</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>«г» — четвёртая</span></figcaption><pre>4</pre></figure>
+        <p>В обычном коде для проверки цифры удобнее готовый метод <code>symbol.isdigit()</code> из главы 5.7. Приём с кодами нужен там, где важно само числовое расстояние между символами.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Буква «ё» стоит в стороне</b>
+          <p>В кириллице подряд идут только <code>а</code>–<code>я</code> (1072–1103). Буква <code>ё</code> имеет код 1105 и в этот ряд не попадает, поэтому формула «номер буквы» на ней ломается.</p>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Сдвиг символов</h2>
+        <p>Классическое применение пары функций — сдвинуть каждый символ на несколько позиций. На этом построен шифр Цезаря.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>каждый символ на одну позицию вперёд</span></figcaption>
+<pre>text = <span class="s">"abc"</span>
+result = <span class="s">""</span>
+
+<span class="k">for</span> symbol <span class="k">in</span> text:
+    result += <span class="f">chr</span>(<span class="f">ord</span>(symbol) + <span class="n">1</span>)
+
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>сдвиг на единицу</span></figcaption><pre>bcd</pre></figure>
+        <ol class="steps">
+          <li><code>ord(symbol)</code> переводит символ в число.</li>
+          <li>К числу прибавляется сдвиг — получается кодовая точка соседнего символа.</li>
+          <li><code>chr()</code> возвращает результат обратно в строку.</li>
+        </ol>
+        <p>Настоящий шифр Цезаря требует ещё и «заворачивания» алфавита: после <code>z</code> должна снова идти <code>a</code>, а не следующий по таблице символ <code>{</code>. Для этого сдвиг берут по остатку от деления на длину алфавита.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Символ — это не байт</h2>
+        <p>Последний вопрос из §1. Кодовая точка — номер символа в таблице, а не то, как символ лежит в файле или в сети. Хранение — отдельный шаг, и там один символ вполне может занимать несколько байтов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>один символ, два байта</span></figcaption>
+<pre>letter = <span class="s">"Я"</span>
+
+<span class="f">print</span>(<span class="f">len</span>(letter))
+<span class="f">print</span>(<span class="f">len</span>(letter.encode(<span class="s">"utf-8"</span>)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>длина в символах и в байтах</span></figcaption><pre>1
+2</pre></figure>
+        <p>Для Python это одна буква, для файла — два байта. Перевод символов в байты и обратно — тема главы 5.4.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>ord("AB")</code></td><td><code>TypeError</code>: длина аргумента равна 2</td><td>передать один символ или перебрать строку</td></tr>
+              <tr><td><code>ord("")</code></td><td><code>TypeError</code>: длина аргумента равна 0</td><td>проверить, что строка не пуста</td></tr>
+              <tr><td><code>ord(65)</code></td><td><code>TypeError</code>: ожидается строка</td><td><code>chr(65)</code> — направление перепутано</td></tr>
+              <tr><td><code>chr("65")</code></td><td><code>TypeError</code>: ожидается целое число</td><td><code>chr(65)</code> без кавычек</td></tr>
+              <tr><td><code>chr(0x110000)</code></td><td><code>ValueError</code>: вне Unicode</td><td>кодовая точка от <code>0</code> до <code>1 114 111</code></td></tr>
+              <tr><td><code>"\u42F"</code></td><td><code>SyntaxError</code>: нужно ровно четыре цифры</td><td><code>"\u042F"</code></td></tr>
+              <tr><td>ждать алфавитный порядок от <code>sorted()</code></td><td>заглавные окажутся раньше строчных</td><td><code>sorted(words, key=str.lower)</code></td></tr>
+              <tr><td>считать кодовую точку байтом</td><td>теряется различие между символом и его кодировкой</td><td>для байтов применять <code>encode()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Что возвращает <code>ord()</code>?</summary><p>Целое число — кодовую точку единственного переданного символа Unicode.</p></details>
+        <details><summary>Почему <code>ord("ab")</code> вызывает ошибку?</summary><p>Функция принимает ровно один символ, а в строке их два. Для строки нужен перебор.</p></details>
+        <details><summary>Почему <code>"Я" &lt; "а"</code> истинно?</summary><p>Сравниваются не буквы алфавита, а кодовые точки: у <code>Я</code> это 1071, у <code>а</code> — 1072. Все заглавные кириллические буквы идут раньше всех строчных.</p></details>
+        <details><summary>Чем <code>TypeError</code> у <code>ord()</code> отличается от <code>ValueError</code> у <code>chr()</code>?</summary><p><code>TypeError</code> означает, что передано не то, что нужно, а <code>ValueError</code> — что тип верный, но значение вне допустимого диапазона.</p></details>
+        <details><summary>Как получить числовое значение символа-цифры?</summary><p><code>ord(symbol) - ord("0")</code>: цифры идут в таблице подряд, поэтому разность даёт само число.</p></details>
+        <details><summary>Почему <code>len("Я")</code> равен 1, а в файле буква занимает два байта?</summary><p>Кодовая точка — номер символа в таблице, а не способ его хранения. Перевод в байты выполняет <code>encode()</code>.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Символ → число</b><code>ord("A")  # 65</code></div>
+          <div><b>Число → символ</b><code>chr(65)  # "A"</code></div>
+          <div><b>Коды строки</b><code>[ord(ch) for ch in text]</code></div>
+          <div><b>Обратно в строку</b><code>"".join(chr(c) for c in codes)</code></div>
+          <div><b>Литерал</b><code>"\u042F"  # "Я"</code></div>
+          <div><b>Цифра в число</b><code>ord(ch) - ord("0")</code></div>
+          <div><b>Сдвиг символа</b><code>chr(ord(ch) + 1)</code></div>
+          <div><b>Границы</b><code>0 … 1_114_111</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>ord()</code> переводит один символ в его кодовую точку, <code>chr()</code> выполняет обратное преобразование, и вместе они полностью обратимы. Через кодовые точки объясняется поведение сравнения и сортировки строк: Python сравнивает номера символов, а не буквы алфавита. Кодовая точка при этом описывает символ в таблице Unicode, но не способ его хранения — за это отвечают кодировки.</p>
+        <div class="pager">
+          <a href="../34-vlozhennye-vklyucheniya/index.html">← 4.11 Вложенные включения</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../56-registr-strok/index.html">5.2 Регистр строк →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 5.1 · Unicode · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

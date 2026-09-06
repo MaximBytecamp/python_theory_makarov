@@ -1,37 +1,323 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.3 center() и count() · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Строки</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p><p class="running__folio">Глава 5.3</p></div>
-<header class="chapter-head"><span class="chapter-num">5.3</span><h1><code>center()</code><br>и <code>count()</code></h1><p class="lead"><code>center()</code> строит строку заданной ширины, а <code>count()</code> считает непересекающиеся вхождения подстроки. Оба метода поддерживают точные параметры и не меняют исходный текст.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый</dd></div><div><dt>Связанные темы</dt><dd>Длина строки, срезы, поиск</dd></div><div><dt>Зачем это знать</dt><dd>Формировать текстовые поля и считать подстроки</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">center</a></li><li><a href="#s2">Символ заполнения</a></li><li><a href="#s3">Границы ширины</a></li><li><a href="#s4">count</a></li><li><a href="#s5">Диапазон поиска</a></li><li><a href="#s6">Непересекающиеся вхождения</a></li><li><a href="#s7">Регистр</a></li><li><a href="#s8">Пустая подстрока</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>center() дополняет строку до заданной ширины</h2><figure class="code"><figcaption><span>main.py</span><span>по умолчанию пробелы</span></figcaption><pre>label = <span class="s">"Python"</span>
-<span class="f">print</span>(<span class="s">"|"</span> + label.center(<span class="n">12</span>) + <span class="s">"|"</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>ширина внутренней строки равна 12</span></figcaption><pre>|   Python   |</pre></figure><p>Если свободных позиций нечётное число, один лишний символ заполнения оказывается справа.</p>
-<h2 id="s2"><span class="sec">§2</span>fillchar должен состоять из одного символа</h2><figure class="code"><figcaption><span>main.py</span><span>заполнение дефисами</span></figcaption><pre><span class="f">print</span>(<span class="s">"cat"</span>.center(<span class="n">8</span>, <span class="s">"-"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два слева и три справа</span></figcaption><pre>--cat---</pre></figure><p>Пустая строка и строка из нескольких символов в <code>fillchar</code> вызывают <code>TypeError</code>.</p>
-<h2 id="s3"><span class="sec">§3</span>Малая ширина не обрезает текст</h2><figure class="code"><figcaption><span>main.py</span><span>width меньше длины</span></figcaption><pre>text = <span class="s">"Python"</span>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>5.3 center() и count() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 5 · Строки</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p>
+          <p class="running__folio">Глава 5.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">5.3</span>
+          <h1><code>center()</code><br>и <code>count()</code></h1>
+          <p class="lead"><code>center()</code> строит строку заданной ширины, дополняя текст с обеих сторон. <code>count()</code> считает непересекающиеся вхождения подстроки и умеет ограничивать поиск диапазоном. Оба метода возвращают результат, не меняя исходный текст.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Строковые методы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Длина строки, срезы, поиск</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Формировать текстовые поля и считать подстроки</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Две задачи в одной главе</a></li>
+            <li><a href="#s2">center(): дополнение до ширины</a></li>
+            <li><a href="#s3">Куда идёт лишний символ</a></li>
+            <li><a href="#s4">Символ заполнения</a></li>
+            <li><a href="#s5">Ровно один символ</a></li>
+            <li><a href="#s6">Малая ширина не обрезает</a></li>
+            <li><a href="#s7">ljust() и rjust()</a></li>
+            <li><a href="#s8">Практика: ровные колонки</a></li>
+            <li><a href="#s9">count(): подсчёт вхождений</a></li>
+            <li><a href="#s10">Границы start и end</a></li>
+            <li><a href="#s11">Непересекающиеся вхождения</a></li>
+            <li><a href="#s12">count() учитывает регистр</a></li>
+            <li><a href="#s13">Пустая подстрока</a></li>
+            <li><a href="#s14">count() или in</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Две задачи в одной главе</h2>
+        <p>Методы <code>center()</code> и <code>count()</code> связаны только соседством в справочнике: первый оформляет текст, второй его исследует. Общего у них два свойства, важных для всех строковых методов.</p>
+        <ol class="steps">
+          <li>Ни один не меняет исходную строку — строки неизменяемы, возвращается новый результат.</li>
+          <li>Оба принимают дополнительные параметры со значениями по умолчанию, и именно в этих параметрах прячутся неожиданности.</li>
+        </ol>
+
+        <h2 id="s2"><span class="sec">§2</span>center(): дополнение до ширины</h2>
+        <p><code>center(width, fillchar=" ")</code> возвращает строку длиной <code>width</code>, в середине которой стоит исходный текст. Свободное место заполняется — по умолчанию пробелами.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ширина 12, текст из 6 символов</span></figcaption>
+<pre>label = <span class="s">"Python"</span>
+<span class="f">print</span>(<span class="s">"|"</span> + label.center(<span class="n">12</span>) + <span class="s">"|"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>по три пробела с каждой стороны</span></figcaption><pre>|   Python   |</pre></figure>
+        <p>Вертикальные черты добавлены только для наглядности: без них пробелы по краям не видно. Ширина <code>12</code> относится к результату целиком, а не к добавленному заполнению.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>из чего складывается ширина</span></figcaption>
+<pre>width = 12
+┌───┬────────┬───┐
+│ 3 │ Python │ 3 │   3 + 6 + 3 = 12
+└───┴────────┴───┘</pre>
+        </figure>
+
+        <h2 id="s3"><span class="sec">§3</span>Куда идёт лишний символ</h2>
+        <p>Если свободных позиций нечётное число, разделить их поровну нельзя. Python отдаёт лишний символ правой стороне.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пять свободных позиций на две стороны</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"cat"</span>.center(<span class="n">8</span>, <span class="s">"-"</span>))
+<span class="f">print</span>(<span class="s">"cats"</span>.center(<span class="n">8</span>, <span class="s">"-"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>2+3 и 2+2</span></figcaption><pre>--cat---
+--cats--</pre></figure>
+        <p>В первом случае свободных позиций пять: две слева и три справа. Во втором их четыре, и они делятся поровну. Значит, точной симметрии от <code>center()</code> ждать нельзя — она получается только при совпадении чётности ширины и длины текста.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Символ заполнения</h2>
+        <p>Второй параметр задаёт, чем заполнять свободное место. Он не обязателен, по умолчанию — пробел.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>заголовок отчёта</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Отчёт"</span>.center(<span class="n">20</span>, <span class="s">"="</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>готовый разделитель</span></figcaption><pre>=======Отчёт========</pre></figure>
+        <p>Это типичное применение метода: заголовки секций в текстовом выводе, разделители в логах, простые «рамки» в консольных программах.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Ровно один символ</h2>
+        <p><code>fillchar</code> должен состоять ровно из одного символа. Ни пустая строка, ни две буквы не подойдут.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>заполнение из двух символов</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"cat"</span>.center(<span class="n">8</span>, <span class="s">"--"</span>))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>ограничение на длину заполнителя</span></figcaption>
+<pre>TypeError: The fill character must be exactly one character long</pre>
+        </figure>
+        <p>Ограничение не произвольное: метод дополняет строку до точной ширины, а из двухсимвольных блоков произвольную ширину не собрать.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Малая ширина не обрезает</h2>
+        <p>Если <code>width</code> меньше длины строки, дополнять нечего — метод возвращает исходный текст целиком.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ширина меньше длины</span></figcaption>
+<pre>text = <span class="s">"Python"</span>
+
 <span class="f">print</span>(text.center(<span class="n">3</span>, <span class="s">"-"</span>))
-<span class="f">print</span>(<span class="s">""</span>.center(<span class="n">5</span>, <span class="s">"."</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>исходный текст и пять точек</span></figcaption><pre>Python
+<span class="f">print</span>(<span class="s">""</span>.center(<span class="n">5</span>, <span class="s">"."</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>текст не пострадал; пустая строка заполнена целиком</span></figcaption><pre>Python
 .....</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>count() считает вхождения подстроки</h2><figure class="code"><figcaption><span>main.py</span><span>точное совпадение</span></figcaption><pre>text = <span class="s">"python api python tests"</span>
+        <div class="margin-note margin-note--warn">
+          <b>center() не гарантирует ширину</b>
+          <p>Легко решить, что <code>text.center(10)</code> всегда даёт ровно десять символов, и построить на этом выравнивание таблицы. Для длинного текста результат окажется шире, и колонки поедут. Если ширина обязательна, длину нужно ограничивать срезом: <code>text[:10].center(10)</code>.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>ljust() и rjust()</h2>
+        <p>У <code>center()</code> есть два родственных метода с той же сигнатурой, но другим прижатием текста.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три способа занять десять позиций</span></figcaption>
+<pre>text = <span class="s">"Python"</span>
+
+<span class="f">print</span>(text.ljust(<span class="n">10</span>, <span class="s">"."</span>))
+<span class="f">print</span>(text.rjust(<span class="n">10</span>, <span class="s">"."</span>))
+<span class="f">print</span>(text.center(<span class="n">10</span>, <span class="s">"."</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>влево, вправо, по центру</span></figcaption><pre>Python....
+....Python
+..Python..</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Где текст</th><th>Типичное применение</th></tr></thead>
+            <tbody>
+              <tr><td><code>ljust(width)</code></td><td>прижат влево</td><td>названия, левая колонка таблицы</td></tr>
+              <tr><td><code>rjust(width)</code></td><td>прижат вправо</td><td>числа, суммы, правая колонка</td></tr>
+              <tr><td><code>center(width)</code></td><td>по середине</td><td>заголовки и разделители</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для чисел с ведущими нулями есть отдельный метод <code>zfill()</code> — он разбирается в главе 5.10.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Практика: ровные колонки</h2>
+        <p>Вместе эти методы дают простой способ вывести таблицу без внешних библиотек: названия прижимаем влево, числа — вправо.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две колонки фиксированной ширины</span></figcaption>
+<pre>rows = [(<span class="s">"кот"</span>, <span class="n">5</span>), (<span class="s">"собака"</span>, <span class="n">12</span>), (<span class="s">"ёж"</span>, <span class="n">3</span>)]
+
+<span class="k">for</span> name, count <span class="k">in</span> rows:
+    <span class="f">print</span>(name.ljust(<span class="n">10</span>, <span class="s">"."</span>) + <span class="f">str</span>(count).rjust(<span class="n">3</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>числа выровнены по правому краю</span></figcaption><pre>кот.......  5
+собака.... 12
+ёж........  3</pre></figure>
+        <p>Числа приходится переводить в строку через <code>str()</code>: методы выравнивания принадлежат строкам, у чисел их нет.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>count(): подсчёт вхождений</h2>
+        <p><code>count(substring)</code> возвращает, сколько раз подстрока встречается в строке. Если не встречается — <code>0</code>, а не ошибка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>есть и нет</span></figcaption>
+<pre>text = <span class="s">"python api python tests"</span>
 
 <span class="f">print</span>(text.count(<span class="s">"python"</span>))
-<span class="f">print</span>(text.count(<span class="s">"java"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>найдено два и ноль</span></figcaption><pre>2
+<span class="f">print</span>(text.count(<span class="s">"java"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два вхождения и ноль</span></figcaption><pre>2
 0</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>start и end ограничивают область подсчёта</h2><figure class="code"><figcaption><span>main.py</span><span>поиск внутри среза [7:20]</span></figcaption><pre>text = <span class="s">"red | red red | red"</span>
+        <p>Искать можно и один символ — это просто подстрока длиной один.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>слог и отдельная буква</span></figcaption>
+<pre>text = <span class="s">"мама мыла раму"</span>
+
+<span class="f">print</span>(text.count(<span class="s">"ма"</span>))
+<span class="f">print</span>(text.count(<span class="s">"а"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>слогов два, букв «а» четыре</span></figcaption><pre>2
+4</pre></figure>
+
+        <h2 id="s10"><span class="sec">§10</span>Границы start и end</h2>
+        <p>Полная форма — <code>count(substring, start, end)</code>. Дополнительные параметры ограничивают область поиска, работая ровно как границы среза: <code>start</code> включается, <code>end</code> — нет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>вся строка и её часть</span></figcaption>
+<pre>text = <span class="s">"red | red red | red"</span>
 
 <span class="f">print</span>(text.count(<span class="s">"red"</span>))
-<span class="f">print</span>(text.count(<span class="s">"red"</span>, <span class="n">7</span>, <span class="n">20</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>вся строка и ограниченная часть</span></figcaption><pre>4
-2</pre></figure><p>Правая граница <code>end</code> не включается, как в обычном срезе.</p>
-<h2 id="s6"><span class="sec">§6</span>Перекрывающиеся совпадения повторно не считаются</h2><figure class="code"><figcaption><span>main.py</span><span>aa внутри aaa</span></figcaption><pre><span class="f">print</span>(<span class="s">"aaa"</span>.count(<span class="s">"aa"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>только первое непересекающееся совпадение</span></figcaption><pre>1</pre></figure><p>После найденного фрагмента поиск продолжается за его концом. Для подсчёта перекрывающихся шаблонов нужен другой алгоритм.</p>
-<h2 id="s7"><span class="sec">§7</span>count() учитывает регистр</h2><figure class="code"><figcaption><span>main.py</span><span>нормализация обеих строк</span></figcaption><pre>text = <span class="s">"Python PYTHON python"</span>
+<span class="f">print</span>(text.count(<span class="s">"red"</span>, <span class="n">7</span>, <span class="n">20</span>))
+<span class="f">print</span>(<span class="f">repr</span>(text[<span class="n">7</span>:<span class="n">20</span>]))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>во втором случае ищем внутри среза</span></figcaption><pre>4
+2
+'ed red | red'</pre></figure>
+        <p>Третья строка показывает, что именно просматривается. Обратите внимание: первое <code>red</code> обрезано до <code>ed</code> и потому не считается, а вот <code>red</code> на границе <code>end</code> уместилось целиком. Запись <code>text.count(part, start, end)</code> равнозначна <code>text[start:end].count(part)</code>, но не создаёт промежуточную строку.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Непересекающиеся вхождения</h2>
+        <p>Метод считает только те совпадения, которые не накладываются друг на друга. Найдя вхождение, он продолжает поиск <b>за его концом</b>, а не со следующего символа.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сколько «aa» в «aaa»</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"aaa"</span>.count(<span class="s">"aa"</span>))
+<span class="f">print</span>(<span class="s">"aaaa"</span>.count(<span class="s">"aa"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>не 2 и не 3</span></figcaption><pre>1
+2</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>почему в «aaa» только одно</span></figcaption>
+<pre>a a a
+└─┘        найдено на позициях 0–1
+    ↑      поиск продолжается отсюда, слева одна «a» — не хватает
+
+человек насчитал бы два: 0–1 и 1–2, но они перекрываются</pre>
+        </figure>
+        <p>Для перекрывающихся совпадений <code>count()</code> не подходит — их считают циклом с <code>find()</code> из главы 5.5, сдвигая позицию на один символ.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>count() учитывает регистр</h2>
+        <p>Совпадение проверяется посимвольно, поэтому <code>Python</code> и <code>python</code> — разные подстроки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>точный и нормализованный подсчёт</span></figcaption>
+<pre>text = <span class="s">"Python PYTHON python"</span>
 needle = <span class="s">"python"</span>
 
 <span class="f">print</span>(text.count(needle))
-<span class="f">print</span>(text.casefold().count(needle.casefold()))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>точный и нормализованный поиск</span></figcaption><pre>1
+<span class="f">print</span>(text.casefold().count(needle.casefold()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>одно точное и три без учёта регистра</span></figcaption><pre>1
 3</pre></figure>
-<h2 id="s8"><span class="sec">§8</span>Пустая подстрока встречается между символами</h2><figure class="code"><figcaption><span>main.py</span><span>длина плюс один</span></figcaption><pre>text = <span class="s">"abc"</span>
-<span class="f">print</span>(text.count(<span class="s">""</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>до, между и после</span></figcaption><pre>4</pre></figure><p>У строки длиной 3 есть четыре границы: перед первым символом, две внутренние и после последнего.</p>
-<h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>text.center(10, "--")</code></td><td><code>TypeError</code>: заполнение длиннее одного символа</td><td><code>text.center(10, "-")</code></td></tr><tr><td>ожидать обрезку от <code>center(3)</code></td><td>длинная исходная строка вернётся целиком</td><td>для обрезки использовать срез</td></tr><tr><td><code>text.count("PYTHON")</code> для любого регистра</td><td>совпадут только символы того же регистра</td><td>нормализовать строку и подстроку</td></tr><tr><td>ожидать два вхождения <code>"aa"</code> в <code>"aaa"</code></td><td><code>count()</code> вернёт 1</td><td>учитывать непересекающийся подсчёт</td></tr><tr><td>считать правую границу включительной</td><td>символ по индексу <code>end</code> не войдёт</td><td>читать диапазон как срез <code>[start:end]</code></td></tr></tbody></table></div>
-<h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2><details><summary>Что произойдёт, если width меньше длины строки?</summary><p><code>center()</code> вернёт строку того же содержания без обрезки.</p></details><details><summary>Считает ли count() перекрывающиеся вхождения?</summary><p>Нет. После совпадения поиск продолжается за его концом.</p></details><details><summary>Почему "abc".count("") равно 4?</summary><p>Пустая строка находится на каждой границе: до трёх символов, между ними и после.</p></details>
-<h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2><div class="cheat"><div><b>Центрирование</b><code>text.center(width)</code><code>text.center(width, "-")</code></div><div><b>Все вхождения</b><code>text.count(part)</code></div><div><b>Часть строки</b><code>text.count(part, start, end)</code></div><div><b>Без регистра</b><code>text.casefold().count(part.casefold())</code></div></div>
-<h3>Итог главы</h3><p><code>center()</code> дополняет короткую строку до указанной ширины одним символом. <code>count()</code> считает непересекающиеся вхождения и может ограничить поиск границами <code>start</code> и <code>end</code>.</p>
-<div class="pager"><a href="../56-registr-strok/index.html">← 5.2 Регистр строк</a><a href="../../index.html">К содержанию справочника</a><a href="../58-encode-decode/index.html">5.4 encode() и decode() →</a></div><div class="colophon"><span>Глава 5.3 · center() и count() · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <p>Как и в главе 5.2, нормализовать нужно <b>обе</b> стороны: и строку, и искомую подстроку.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Пустая подстрока</h2>
+        <p>Пустая строка считается подстрокой, которая находится в каждом промежутке между символами, а также перед первым и после последнего.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сколько пустых строк в «abc»</span></figcaption>
+<pre>text = <span class="s">"abc"</span>
+<span class="f">print</span>(text.count(<span class="s">""</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>длина плюс один</span></figcaption><pre>4</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>четыре границы у трёх символов</span></figcaption>
+<pre>│ a │ b │ c │
+↑   ↑   ↑   ↑
+0   1   2   3</pre>
+        </figure>
+        <p>Результат всегда равен <code>len(text) + 1</code>. Практической пользы в этом нет, но знать стоит: если подстрока приходит из переменной и та случайно оказалась пустой, счётчик покажет неожиданно большое число вместо нуля.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>count() или in</h2>
+        <p>Если нужно только выяснить, есть ли подстрока, <code>count()</code> — избыточный инструмент: он дочитывает строку до конца, даже когда ответ уже известен.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Запись</th><th>Что делает</th></tr></thead>
+            <tbody>
+              <tr><td>есть ли вообще</td><td><code>part in text</code></td><td>останавливается на первом совпадении</td></tr>
+              <tr><td>сколько раз</td><td><code>text.count(part)</code></td><td>проходит строку целиком</td></tr>
+              <tr><td>на какой позиции</td><td><code>text.find(part)</code></td><td>возвращает индекс первого вхождения</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Запись <code>if text.count(part) &gt; 0</code> работает верно, но <code>if part in text</code> и короче, и быстрее. Для длинного текста разница становится заметной: <code>count()</code> всегда просматривает всю строку.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>text.center(10, "--")</code></td><td><code>TypeError</code>: заполнитель длиннее одного символа</td><td><code>text.center(10, "-")</code></td></tr>
+              <tr><td><code>text.center("10")</code></td><td><code>TypeError</code>: ширина должна быть числом</td><td><code>text.center(10)</code></td></tr>
+              <tr><td>ждать обрезки от <code>center(3)</code></td><td>длинная строка вернётся целиком</td><td><code>text[:3].center(3)</code></td></tr>
+              <tr><td>считать, что <code>center()</code> делит поровну всегда</td><td>лишний символ уходит вправо</td><td>учитывать чётность при точной вёрстке</td></tr>
+              <tr><td><code>text.center(10)</code> без сохранения</td><td>результат выброшен, строка не изменилась</td><td>строки неизменяемы — сохранить результат</td></tr>
+              <tr><td><code>text.count("PYTHON")</code> для любого регистра</td><td>совпадёт только точная запись</td><td>нормализовать обе стороны через <code>casefold()</code></td></tr>
+              <tr><td>ждать два вхождения <code>"aa"</code> в <code>"aaa"</code></td><td>вернётся <code>1</code>: совпадения перекрываются</td><td>считать циклом с <code>find()</code></td></tr>
+              <tr><td>считать <code>end</code> включительной границей</td><td>символ по индексу <code>end</code> не войдёт</td><td>читать диапазон как срез <code>[start:end]</code></td></tr>
+              <tr><td><code>if text.count(part) &gt; 0</code></td><td>лишний проход по всей строке</td><td><code>if part in text</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Что произойдёт, если <code>width</code> меньше длины строки?</summary><p><code>center()</code> вернёт исходную строку целиком, без обрезки. Гарантии ширины метод не даёт.</p></details>
+        <details><summary>Куда попадёт лишний символ заполнения?</summary><p>Вправо. При нечётном числе свободных позиций справа окажется на один символ больше.</p></details>
+        <details><summary>Чем <code>ljust()</code> отличается от <code>rjust()</code>?</summary><p>Прижатием текста: <code>ljust()</code> оставляет его слева и дополняет справа, <code>rjust()</code> — наоборот.</p></details>
+        <details><summary>Считает ли <code>count()</code> перекрывающиеся вхождения?</summary><p>Нет. После совпадения поиск продолжается за его концом, поэтому <code>"aaa".count("aa")</code> равно <code>1</code>.</p></details>
+        <details><summary>Почему <code>"abc".count("")</code> равно 4?</summary><p>Пустая строка находится на каждой границе: перед первым символом, между символами и после последнего. Всегда <code>len(text) + 1</code>.</p></details>
+        <details><summary>Когда вместо <code>count()</code> лучше <code>in</code>?</summary><p>Когда нужен только факт наличия. <code>in</code> останавливается на первом совпадении, а <code>count()</code> дочитывает строку до конца.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>По центру</b><code>text.center(width, "-")</code></div>
+          <div><b>Влево и вправо</b><code>text.ljust(w)</code><code>text.rjust(w)</code></div>
+          <div><b>Гарантия ширины</b><code>text[:w].center(w)</code></div>
+          <div><b>Все вхождения</b><code>text.count(part)</code></div>
+          <div><b>Часть строки</b><code>text.count(part, start, end)</code></div>
+          <div><b>Без регистра</b><code>text.casefold().count(part.casefold())</code></div>
+          <div><b>Просто проверить</b><code>part in text</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>center()</code> дополняет короткую строку до указанной ширины одним символом заполнения, отдавая лишнюю позицию правой стороне; ширину он при этом не гарантирует — длинный текст возвращается целиком. Вместе с <code>ljust()</code> и <code>rjust()</code> он позволяет верстать ровные колонки. <code>count()</code> считает непересекающиеся вхождения с учётом регистра и может ограничить поиск границами <code>start</code> и <code>end</code>, которые читаются как границы среза.</p>
+        <div class="pager">
+          <a href="../56-registr-strok/index.html">← 5.2 Регистр строк</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../58-encode-decode/index.html">5.4 encode() и decode() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 5.3 · center() и count() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
