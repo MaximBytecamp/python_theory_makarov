@@ -1,0 +1,65 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.29 Проверки содержимого строк · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Строки</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · строки</p><p class="running__folio">Глава 3.29</p></div>
+<header class="chapter-head"><span class="chapter-num">3.29</span><h1>Проверки содержимого строк</h1><p class="lead">Методы <code>isalpha()</code>, <code>isascii()</code>, <code>isdecimal()</code>, <code>isdigit()</code>, <code>isnumeric()</code> и <code>isidentifier()</code> отвечают на разные вопросы о символах строки. Важно выбрать проверку под формат данных, а не только получить <code>True</code>.</p><blockquote class="quote"><p>«Точная проверка начинается с точного вопроса.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый → средний</dd></div><div><dt>Связанные темы</dt><dd>Unicode, ввод данных, идентификаторы</dd></div><div><dt>Зачем это знать</dt><dd>Проверять текст до преобразования и обработки</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Общее правило</a></li><li><a href="#s2">isalpha</a></li><li><a href="#s3">isascii</a></li><li><a href="#s4">Три числовые проверки</a></li><li><a href="#s5">isdecimal</a></li><li><a href="#s6">isdigit</a></li><li><a href="#s7">isnumeric</a></li><li><a href="#s8">isidentifier</a></li><li><a href="#s9">Ключевые слова</a></li><li><a href="#s10">Практическая проверка</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>Методы возвращают bool и не изменяют строку</h2><figure class="code"><figcaption><span>main.py</span><span>четыре независимых вопроса</span></figcaption><pre>text = <span class="s">"Python3"</span>
+<span class="f">print</span>(text.isalpha())
+<span class="f">print</span>(text.isalnum())
+<span class="f">print</span>(text.isascii())
+<span class="f">print</span>(text)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>исходная строка не изменилась</span></figcaption><pre>False
+True
+True
+Python3</pre></figure>
+<h2 id="s2"><span class="sec">§2</span>isalpha() требует только буквы</h2><figure class="code"><figcaption><span>main.py</span><span>Unicode-буквы тоже учитываются</span></figcaption><pre><span class="f">print</span>(<span class="s">"Python"</span>.isalpha())
+<span class="f">print</span>(<span class="s">"Привет"</span>.isalpha())
+<span class="f">print</span>(<span class="s">"Python 3"</span>.isalpha())
+<span class="f">print</span>(<span class="s">""</span>.isalpha())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пробел, цифра и пустая строка не подходят</span></figcaption><pre>True
+True
+False
+False</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>isascii() проверяет диапазон кодов 0–127</h2><figure class="code"><figcaption><span>main.py</span><span>латиница и кириллица</span></figcaption><pre><span class="f">print</span>(<span class="s">"Python 3!"</span>.isascii())
+<span class="f">print</span>(<span class="s">"Питон"</span>.isascii())
+<span class="f">print</span>(<span class="s">""</span>.isascii())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пустая строка также состоит только из ASCII</span></figcaption><pre>True
+False
+True</pre></figure><p>В отличие от большинства методов вида <code>is...</code>, <code>isascii()</code> возвращает <code>True</code> для пустой строки: в ней нет символа вне ASCII.</p>
+<h2 id="s4"><span class="sec">§4</span>Числовые проверки образуют вложенные группы</h2><p><code>isdecimal()</code> — самая строгая проверка. <code>isdigit()</code> принимает ещё некоторые символы цифр. <code>isnumeric()</code> охватывает более широкий класс числовых символов, включая отдельные дроби.</p><figure class="code"><figcaption><span>main.py</span><span>одни символы дают разные ответы</span></figcaption><pre><span class="k">for</span> sample <span class="k">in</span> [<span class="s">"42"</span>, <span class="s">"²"</span>, <span class="s">"⅕"</span>]:
+    <span class="f">print</span>(sample, sample.isdecimal(), sample.isdigit(), sample.isnumeric())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>decimal → digit → numeric</span></figcaption><pre>42 True True True
+² False True True
+⅕ False False True</pre></figure>
+<h2 id="s5"><span class="sec">§5</span>isdecimal() подходит для записи целого числа цифрами</h2><figure class="code"><figcaption><span>main.py</span><span>знак и точка не являются цифрами</span></figcaption><pre><span class="f">print</span>(<span class="s">"2026"</span>.isdecimal())
+<span class="f">print</span>(<span class="s">"-12"</span>.isdecimal())
+<span class="f">print</span>(<span class="s">"3.14"</span>.isdecimal())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>проверяется каждый символ</span></figcaption><pre>True
+False
+False</pre></figure><p>Метод не проверяет синтаксис любого числа. Для знака, десятичной точки и других форм записи нужна отдельная логика или попытка преобразования.</p>
+<h2 id="s6"><span class="sec">§6</span>isdigit() шире, чем isdecimal()</h2><figure class="code"><figcaption><span>main.py</span><span>верхний индекс считается цифрой</span></figcaption><pre><span class="f">print</span>(<span class="s">"123"</span>.isdigit())
+<span class="f">print</span>(<span class="s">"²"</span>.isdigit())
+<span class="f">print</span>(<span class="s">"12 3"</span>.isdigit())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пробел нарушает проверку</span></figcaption><pre>True
+True
+False</pre></figure>
+<h2 id="s7"><span class="sec">§7</span>isnumeric() принимает широкий класс числовых символов</h2><figure class="code"><figcaption><span>main.py</span><span>целые цифры и символ дроби</span></figcaption><pre><span class="f">print</span>(<span class="s">"四"</span>.isnumeric())
+<span class="f">print</span>(<span class="s">"⅕"</span>.isnumeric())
+<span class="f">print</span>(<span class="s">"12.5"</span>.isnumeric())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>точка по-прежнему не числовой символ</span></figcaption><pre>True
+True
+False</pre></figure>
+<h2 id="s8"><span class="sec">§8</span>isidentifier() проверяет форму имени Python</h2><figure class="code"><figcaption><span>main.py</span><span>допустимые и недопустимые формы</span></figcaption><pre><span class="k">for</span> name <span class="k">in</span> [<span class="s">"total_sum"</span>, <span class="s">"имя2"</span>, <span class="s">"2name"</span>, <span class="s">"user-name"</span>]:
+    <span class="f">print</span>(name, name.isidentifier())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>цифра в начале и дефис запрещены</span></figcaption><pre>total_sum True
+имя2 True
+2name False
+user-name False</pre></figure>
+<h2 id="s9"><span class="sec">§9</span>Ключевое слово тоже проходит isidentifier()</h2><figure class="code"><figcaption><span>main.py</span><span>дополнительная проверка через keyword</span></figcaption><pre><span class="k">import</span> keyword
+
+name = <span class="s">"class"</span>
+<span class="f">print</span>(name.isidentifier())
+<span class="f">print</span>(keyword.iskeyword(name))
+<span class="f">print</span>(name.isidentifier() <span class="f">and not</span> keyword.iskeyword(name))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>форма верна, но имя занято языком</span></figcaption><pre>True
+True
+False</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>Проверка должна соответствовать задаче</h2><figure class="code"><figcaption><span>main.py</span><span>проверяем номер заказа из ASCII-цифр</span></figcaption><pre>order_id = <span class="s">"004217"</span>
+valid = order_id.isascii() <span class="k">and</span> order_id.isdecimal()
+<span class="f">print</span>(valid)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>оба требования выполнены</span></figcaption><pre>True</pre></figure>
+<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>"".isalpha()</code></td><td>вернётся <code>False</code></td><td>отдельно решить, допустима ли пустая строка</td></tr><tr><td><code>"-12".isdigit()</code></td><td>вернётся <code>False</code> из-за минуса</td><td>проверить формат или выполнить преобразование</td></tr><tr><td><code>"class".isidentifier()</code></td><td>вернётся <code>True</code></td><td>добавить <code>not keyword.iskeyword(name)</code></td></tr><tr><td>считать <code>isnumeric()</code> проверкой float</td><td>точка даст <code>False</code></td><td>проверять преобразованием в <code>float</code></td></tr><tr><td>считать <code>isascii()</code> проверкой латиницы</td><td>цифры и знаки тоже пройдут</td><td>формулировать требование точнее</td></tr></tbody></table></div>
+<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Почему "Python3".isalpha() возвращает False?</summary><p>Потому что цифра <code>3</code> не является буквой.</p></details><details><summary>Какая из трёх числовых проверок самая широкая?</summary><p><code>isnumeric()</code>.</p></details><details><summary>Достаточно ли isidentifier() для выбора имени переменной?</summary><p>Нет. Нужно также исключить ключевые слова через <code>keyword.iskeyword()</code>.</p></details>
+<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>Только буквы</b><code>text.isalpha()</code></div><div><b>Только ASCII</b><code>text.isascii()</code></div><div><b>Десятичные цифры</b><code>text.isdecimal()</code></div><div><b>Имя Python</b><code>text.isidentifier()</code></div></div><h3>Итог главы</h3><p>Методы <code>is...</code> проверяют свойства всех символов. Они не заменяют описание формата: сначала определите допустимые символы, затем выберите одну или несколько проверок.</p>
+<div class="pager"><a href="../60-format-strok/index.html">← 3.28 Форматирование строк</a><a href="../../index.html">К содержанию справочника</a><a href="../62-proverki-sostoyaniya-strok/index.html">3.30 Проверки состояния →</a></div><div class="colophon"><span>Глава 3.29 · Проверки содержимого строк · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

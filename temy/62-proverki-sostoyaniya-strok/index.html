@@ -1,0 +1,56 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.30 Проверки состояния строк · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Строки</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · строки</p><p class="running__folio">Глава 3.30</p></div>
+<header class="chapter-head"><span class="chapter-num">3.30</span><h1>Печатность, пробелы<br>и состояние регистра</h1><p class="lead"><code>isprintable()</code> и <code>isspace()</code> проверяют служебные свойства символов, а <code>islower()</code>, <code>isupper()</code> и <code>istitle()</code> — состояние буквенного регистра.</p><blockquote class="quote"><p>«Один ответ True ещё не объясняет, что именно было проверено.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый → средний</dd></div><div><dt>Связанные темы</dt><dd>Unicode, регистр, очистка строк</dd></div><div><dt>Зачем это знать</dt><dd>Различать видимый текст, пробелы и регистр букв</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">isprintable</a></li><li><a href="#s2">Пустая строка</a></li><li><a href="#s3">isspace</a></li><li><a href="#s4">Разные пробелы</a></li><li><a href="#s5">islower</a></li><li><a href="#s6">isupper</a></li><li><a href="#s7">Небуквенные символы</a></li><li><a href="#s8">istitle</a></li><li><a href="#s9">Проверка и преобразование</a></li><li><a href="#s10">Составное условие</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>isprintable() отвергает управляющие символы</h2><figure class="code"><figcaption><span>main.py</span><span>обычный текст, перевод строки и табуляция</span></figcaption><pre><span class="f">print</span>(<span class="s">"Отчёт №3"</span>.isprintable())
+<span class="f">print</span>(<span class="s">"Строка 1\nСтрока 2"</span>.isprintable())
+<span class="f">print</span>(<span class="s">"Имя\tБалл"</span>.isprintable())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>перевод строки и табуляция непечатны</span></figcaption><pre>True
+False
+False</pre></figure>
+<h2 id="s2"><span class="sec">§2</span>Пустая строка считается печатной</h2><figure class="code"><figcaption><span>main.py</span><span>в строке нет непечатных символов</span></figcaption><pre><span class="f">print</span>(<span class="s">""</span>.isprintable())
+<span class="f">print</span>(<span class="s">" "</span>.isprintable())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>обычный пробел печатный</span></figcaption><pre>True
+True</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>isspace() требует непустую строку из пробельных символов</h2><figure class="code"><figcaption><span>main.py</span><span>пробел, табуляция и перевод строки</span></figcaption><pre><span class="f">print</span>(<span class="s">" \t\n"</span>.isspace())
+<span class="f">print</span>(<span class="s">"  x  "</span>.isspace())
+<span class="f">print</span>(<span class="s">""</span>.isspace())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>символ x и пустая строка не подходят</span></figcaption><pre>True
+False
+False</pre></figure>
+<h2 id="s4"><span class="sec">§4</span>Пробельные символы не ограничены обычным пробелом</h2><figure class="code"><figcaption><span>main.py</span><span>неразрывный пробел Unicode</span></figcaption><pre>nbsp = <span class="s">"\u00a0"</span>
+<span class="f">print</span>(nbsp.isspace())
+<span class="f">print</span>(nbsp.isascii())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пробельный, но не ASCII</span></figcaption><pre>True
+False</pre></figure>
+<h2 id="s5"><span class="sec">§5</span>islower() проверяет только буквы</h2><figure class="code"><figcaption><span>main.py</span><span>цифры и знаки не мешают</span></figcaption><pre><span class="f">print</span>(<span class="s">"python 3!"</span>.islower())
+<span class="f">print</span>(<span class="s">"Python 3!"</span>.islower())
+<span class="f">print</span>(<span class="s">"123"</span>.islower())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>нужна хотя бы одна буква</span></figcaption><pre>True
+False
+False</pre></figure>
+<h2 id="s6"><span class="sec">§6</span>isupper() требует все буквы в верхнем регистре</h2><figure class="code"><figcaption><span>main.py</span><span>небуквенные символы игнорируются</span></figcaption><pre><span class="f">print</span>(<span class="s">"PYTHON 3!"</span>.isupper())
+<span class="f">print</span>(<span class="s">"PYthon"</span>.isupper())
+<span class="f">print</span>(<span class="s">"?!"</span>.isupper())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>в третьей строке нет букв</span></figcaption><pre>True
+False
+False</pre></figure>
+<h2 id="s7"><span class="sec">§7</span>Цифры и знаки не определяют регистр</h2><figure class="code"><figcaption><span>main.py</span><span>одна строчная и одна заглавная буква</span></figcaption><pre><span class="f">print</span>(<span class="s">"42a!"</span>.islower())
+<span class="f">print</span>(<span class="s">"42A!"</span>.isupper())
+<span class="f">print</span>(<span class="s">"42!"</span>.islower(), <span class="s">"42!"</span>.isupper())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>без букв обе проверки ложны</span></figcaption><pre>True
+True
+False False</pre></figure>
+<h2 id="s8"><span class="sec">§8</span>istitle() проверяет регистр слов</h2><figure class="code"><figcaption><span>main.py</span><span>каждая группа букв начинается с заглавной</span></figcaption><pre><span class="f">print</span>(<span class="s">"Python Для Всех"</span>.istitle())
+<span class="f">print</span>(<span class="s">"Python для всех"</span>.istitle())
+<span class="f">print</span>(<span class="s">"План-Отчёт"</span>.istitle())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>знак может разделять группы букв</span></figcaption><pre>True
+False
+True</pre></figure><p>Метод анализирует последовательности букв, а не лингвистические слова. Поэтому результат не всегда совпадает с правилами оформления настоящего заголовка.</p>
+<h2 id="s9"><span class="sec">§9</span>Проверка не выполняет преобразование</h2><figure class="code"><figcaption><span>main.py</span><span>upper создаёт новую строку, isupper отвечает на вопрос</span></figcaption><pre>text = <span class="s">"Python"</span>
+upper_text = text.upper()
+
+<span class="f">print</span>(text.isupper())
+<span class="f">print</span>(upper_text, upper_text.isupper())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два разных действия</span></figcaption><pre>False
+PYTHON True</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>Условия можно объединять</h2><figure class="code"><figcaption><span>main.py</span><span>непустое печатное имя без одних пробелов</span></figcaption><pre>name = <span class="s">"Анна"</span>
+valid = name.isprintable() <span class="f">and not</span> name.isspace() <span class="f">and bool</span>(name)
+<span class="f">print</span>(valid)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>все требования выполнены</span></figcaption><pre>True</pre></figure>
+<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>"".isprintable()</code></td><td>вернётся <code>True</code></td><td>проверить непустоту отдельно</td></tr><tr><td><code>"123".isupper()</code></td><td>вернётся <code>False</code></td><td>помнить: нужна хотя бы одна буква</td></tr><tr><td>считать <code>isspace()</code> проверкой одного пробела</td><td>табуляция и перевод строки тоже пройдут</td><td>учитывать пробельные символы Unicode</td></tr><tr><td>принимать <code>istitle()</code> за правила заголовка</td><td>пунктуация делит группы букв</td><td>использовать отдельные правила оформления</td></tr><tr><td>ждать изменения после <code>isupper()</code></td><td>строка останется прежней</td><td>для преобразования вызвать <code>upper()</code></td></tr></tbody></table></div>
+<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Почему "123".islower() возвращает False?</summary><p>В строке нет ни одной буквы, регистр которой можно проверить.</p></details><details><summary>Считает ли isprintable() перевод строки печатным?</summary><p>Нет.</p></details><details><summary>Что вернёт строка из пробела и табуляции при isspace()?</summary><p><code>True</code>: оба символа являются пробельными.</p></details>
+<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>Можно отобразить</b><code>text.isprintable()</code></div><div><b>Только пробелы</b><code>text.isspace()</code></div><div><b>Все буквы строчные</b><code>text.islower()</code></div><div><b>Титульный регистр</b><code>text.istitle()</code></div></div><h3>Итог главы</h3><p>Каждый метод отвечает на узкий вопрос. Для надёжной проверки обычно приходится соединять несколько условий и отдельно учитывать пустую строку.</p>
+<div class="pager"><a href="../61-proverki-soderzhimogo-strok/index.html">← 3.29 Проверки содержимого</a><a href="../../index.html">К содержанию справочника</a><a href="../63-join-strip-partition/index.html">3.31 Объединение и очистка →</a></div><div class="colophon"><span>Глава 3.30 · Проверки состояния строк · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

@@ -1,0 +1,59 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.27 Начало, окончание и поиск в строках · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Строки</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · строки</p><p class="running__folio">Глава 3.27</p></div>
+<header class="chapter-head"><span class="chapter-num">3.27</span><h1>Начало, окончание<br>и поиск в строках</h1><p class="lead"><code>startswith()</code> и <code>endswith()</code> отвечают на булев вопрос, а семейство <code>find()</code> и <code>index()</code> возвращает позицию найденной подстроки.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Строковый поиск</dd></div><div><dt>Уровень</dt><dd>Базовый → средний</dd></div><div><dt>Связанные темы</dt><dd>Срезы, кортежи, исключения, Unicode</dd></div><div><dt>Зачем это знать</dt><dd>Проверять формат текста и находить границы частей</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">startswith</a></li><li><a href="#s2">endswith</a></li><li><a href="#s3">Кортеж вариантов</a></li><li><a href="#s4">Границы поиска</a></li><li><a href="#s5">find</a></li><li><a href="#s6">index</a></li><li><a href="#s7">Поиск справа</a></li><li><a href="#s8">Оператор in</a></li><li><a href="#s9">Поиск без регистра</a></li><li><a href="#s10">expandtabs</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>startswith() проверяет начало</h2><figure class="code"><figcaption><span>main.py</span><span>префикс протокола</span></figcaption><pre>url = <span class="s">"https://example.com"</span>
+
+<span class="f">print</span>(url.startswith(<span class="s">"https://"</span>))
+<span class="f">print</span>(url.startswith(<span class="s">"http://"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два булевых значения</span></figcaption><pre>True
+False</pre></figure>
+<h2 id="s2"><span class="sec">§2</span>endswith() проверяет окончание</h2><figure class="code"><figcaption><span>main.py</span><span>расширение файла</span></figcaption><pre>filename = <span class="s">"report.csv"</span>
+
+<span class="f">print</span>(filename.endswith(<span class="s">".csv"</span>))
+<span class="f">print</span>(filename.endswith(<span class="s">".json"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>окончание совпало один раз</span></figcaption><pre>True
+False</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>Кортеж задаёт несколько допустимых вариантов</h2><figure class="code"><figcaption><span>main.py</span><span>одно из трёх расширений</span></figcaption><pre>filename = <span class="s">"photo.webp"</span>
+allowed = (<span class="s">".jpg"</span>, <span class="s">".png"</span>, <span class="s">".webp"</span>)
+
+<span class="f">print</span>(filename.endswith(allowed))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>найден один вариант</span></figcaption><pre>True</pre></figure><p>Оба метода принимают строку или кортеж строк. Список вместо кортежа вызывает <code>TypeError</code>.</p>
+<h2 id="s4"><span class="sec">§4</span>start и end ограничивают проверяемую часть</h2><figure class="code"><figcaption><span>main.py</span><span>префикс внутри диапазона [7:15]</span></figcaption><pre>text = <span class="s">"prefix:VALUE:suffix"</span>
+
+<span class="f">print</span>(text.startswith(<span class="s">"VALUE"</span>, <span class="n">7</span>, <span class="n">15</span>))
+<span class="f">print</span>(text.endswith(<span class="s">":"</span>, <span class="n">7</span>, <span class="n">13</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две проверки срезов</span></figcaption><pre>True
+True</pre></figure>
+<h2 id="s5"><span class="sec">§5</span>find() возвращает индекс или -1</h2><figure class="code"><figcaption><span>main.py</span><span>первое вхождение</span></figcaption><pre>text = <span class="s">"error: disk; error: network"</span>
+
+<span class="f">print</span>(text.find(<span class="s">"error"</span>))
+<span class="f">print</span>(text.find(<span class="s">"timeout"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>позиция и признак отсутствия</span></figcaption><pre>0
+-1</pre></figure><p>У метода также есть границы <code>start</code> и <code>end</code>, работающие как у <code>count()</code>.</p>
+<h2 id="s6"><span class="sec">§6</span>index() требует наличия подстроки</h2><div class="table-scroll"><table><thead><tr><th>Метод</th><th>Найдено</th><th>Не найдено</th></tr></thead><tbody><tr><td><code>find()</code></td><td>индекс</td><td><code>-1</code></td></tr><tr><td><code>index()</code></td><td>индекс</td><td><code>ValueError</code></td></tr></tbody></table></div><p><code>index()</code> подходит, когда отсутствие подстроки означает нарушение ожидаемого формата. <code>find()</code> удобен, когда отсутствие — обычный результат поиска.</p>
+<h2 id="s7"><span class="sec">§7</span>rfind() и rindex() начинают выбор с последнего вхождения</h2><figure class="code"><figcaption><span>main.py</span><span>последняя точка в имени</span></figcaption><pre>filename = <span class="s">"archive.tar.gz"</span>
+
+<span class="f">print</span>(filename.find(<span class="s">"."</span>))
+<span class="f">print</span>(filename.rfind(<span class="s">"."</span>))
+<span class="f">print</span>(filename[filename.rfind(<span class="s">"."</span>):])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>первая и последняя точки</span></figcaption><pre>7
+11
+.gz</pre></figure><p><code>rindex()</code> отличается от <code>rfind()</code> только поведением при отсутствии: он вызывает <code>ValueError</code>.</p>
+<h2 id="s8"><span class="sec">§8</span>Для простой проверки наличия достаточно in</h2><figure class="code"><figcaption><span>main.py</span><span>индекс не нужен</span></figcaption><pre>message = <span class="s">"payment accepted"</span>
+
+<span class="f">print</span>(<span class="s">"accepted"</span> <span class="k">in</span> message)
+<span class="f">print</span>(<span class="s">"declined"</span> <span class="k">not in</span> message)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>булевы проверки</span></figcaption><pre>True
+True</pre></figure><p>Запись <code>text.find(part) != -1</code> работает, но скрывает простой смысл «подстрока есть».</p>
+<h2 id="s9"><span class="sec">§9</span>Поиск учитывает регистр</h2><figure class="code"><figcaption><span>main.py</span><span>нормализация перед поиском</span></figcaption><pre>text = <span class="s">"Python Documentation"</span>
+query = <span class="s">"PYTHON"</span>
+
+<span class="f">print</span>(text.find(query))
+<span class="f">print</span>(text.casefold().find(query.casefold()))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>точный и нормализованный поиск</span></figcaption><pre>-1
+0</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>expandtabs() рассчитывает позиции табуляции</h2><figure class="code"><figcaption><span>main.py</span><span>границы через каждые четыре позиции</span></figcaption><pre>row = <span class="s">"id\tname\trole"</span>
+
+<span class="f">print</span>(row.expandtabs(<span class="n">4</span>))
+<span class="f">print</span>(<span class="f">repr</span>(row))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>табуляции заменены пробелами</span></figcaption><pre>id  name    role
+'id\tname\trole'</pre></figure><p>Метод дополняет текст до следующей позиции табуляции, поэтому один <code>\t</code> не всегда превращается ровно в <code>tabsize</code> пробелов.</p>
+<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>name.endswith([".jpg", ".png"])</code></td><td><code>TypeError</code></td><td>передать кортеж суффиксов</td></tr><tr><td><code>if text.find(part):</code></td><td>индекс 0 считается ложным, а -1 — истинным</td><td><code>if part in text:</code></td></tr><tr><td><code>text.index(part)</code> при допустимом отсутствии</td><td>возможен <code>ValueError</code></td><td><code>text.find(part)</code> или <code>part in text</code></td></tr><tr><td>ожидать нечувствительный к регистру поиск</td><td>совпадение может не найтись</td><td>нормализовать обе строки</td></tr><tr><td>считать <code>\t</code> фиксированным числом пробелов</td><td>выравнивание зависит от текущей позиции</td><td>учитывать табуляционные позиции <code>expandtabs()</code></td></tr></tbody></table></div>
+<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Почему if text.find(part) даёт ошибочную проверку?</summary><p>Индекс 0 преобразуется в <code>False</code>, а признак отсутствия -1 — в <code>True</code>.</p></details><details><summary>Когда index() уместнее find()?</summary><p>Когда подстрока обязана присутствовать и её отсутствие следует обработать как ошибку формата.</p></details><details><summary>Как проверить несколько расширений одним вызовом?</summary><p>Передать кортеж строк: <code>filename.endswith((".jpg", ".png"))</code>.</p></details>
+<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>Границы</b><code>text.startswith(prefix)</code><code>text.endswith(suffixes)</code></div><div><b>Первое вхождение</b><code>text.find(part)</code><code>text.index(part)</code></div><div><b>Последнее</b><code>text.rfind(part)</code><code>text.rindex(part)</code></div><div><b>Только наличие</b><code>part in text</code></div></div>
+<h3>Итог главы</h3><p><code>startswith()</code> и <code>endswith()</code> возвращают булев результат. <code>find()</code> и <code>rfind()</code> возвращают -1 при отсутствии, а строгие <code>index()</code> и <code>rindex()</code> вызывают <code>ValueError</code>.</p>
+<div class="pager"><a href="../58-encode-decode/index.html">← 3.26 encode() и decode()</a><a href="../../index.html">К содержанию справочника</a><a href="../60-format-strok/index.html">3.28 Форматирование строк →</a></div><div class="colophon"><span>Глава 3.27 · Поиск в строках · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>
