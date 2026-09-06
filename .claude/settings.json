@@ -3,7 +3,8 @@
     "allow": [
       "Bash(grep -n '^\\\\.c \\\\|^\\\\.c{\\\\|^\\\\.c,' styles.css)",
       "Bash(python3 c33.py)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(grep -v '^$')"
     ]
   }
 }
