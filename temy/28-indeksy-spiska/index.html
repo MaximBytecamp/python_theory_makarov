@@ -1,48 +1,399 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.5 Перебор списка по индексам · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.5</p></div><header class="chapter-head"><span class="chapter-num">3.5</span><h1>Перебор списка<br>по индексам</h1><p class="lead"><code>for index in range(len(items))</code> перебирает не элементы, а их позиции. Такой подход нужен для изменения списка, сравнения соседей и алгоритмов, зависящих от индекса.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Списки и циклы</dd></div><div><dt>Уровень</dt><dd>Начальный</dd></div><div><dt>Связанные темы</dt><dd>len(), range(), for, индексы</dd></div><div><dt>Зачем это знать</dt><dd>Изменять элементы и обращаться к соседним позициям</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Разбор конструкции</a></li><li><a href="#s2">Индекс и элемент</a></li><li><a href="#s3">Пошаговая работа</a></li><li><a href="#s4">Изменение элементов</a></li><li><a href="#s5">Соседние элементы</a></li><li><a href="#s6">Почему len() − 1</a></li><li><a href="#s7">Три способа перебора</a></li><li><a href="#s8">Когда нужны индексы</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>3.5 Перебор списка по индексам · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
+          <p class="running__folio">Глава 3.5</p>
+        </div>
 
-<h2 id="s1"><span class="sec">§1</span>Разбор конструкции</h2><p>Пусть <code>numbers = [10, 20, 30, 40]</code>. Выражение <code>len(numbers)</code> даёт <code>4</code>, а <code>range(4)</code> — индексы <code>0, 1, 2, 3</code>.</p>
-<figure class="code"><figcaption><span>Схема</span><span>три вложенных шага</span></figcaption><pre><span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers)):
+        <header class="chapter-head">
+          <span class="chapter-num">3.5</span>
+          <h1>Перебор списка<br>по индексам</h1>
+          <p class="lead"><code>for index in range(len(items))</code> перебирает не элементы, а их позиции. Такой подход нужен для изменения списка, сравнения соседей и алгоритмов, зависящих от индекса.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Списки и циклы</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>len(), range(), for, индексы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Изменять элементы и обращаться к соседним позициям</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем нужны индексы</a></li>
+            <li><a href="#s2">Разбор конструкции</a></li>
+            <li><a href="#s3">Индекс и элемент</a></li>
+            <li><a href="#s4">Пошаговое чтение</a></li>
+            <li><a href="#s5">Изменение элемента</a></li>
+            <li><a href="#s6">Трассировка изменения</a></li>
+            <li><a href="#s7">Почему обычный for не меняет список</a></li>
+            <li><a href="#s8">Соседние элементы</a></li>
+            <li><a href="#s9">Задача на соседей</a></li>
+            <li><a href="#s10">Обратный перебор</a></li>
+            <li><a href="#s11">Границы списка и IndexError</a></li>
+            <li><a href="#s12">enumerate(): индекс и значение</a></li>
+            <li><a href="#s13">Когда нужны индексы</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем нужны индексы</h2>
+        <p>Обычный цикл <code>for number in numbers</code> выдаёт значения элементов и ничего не сообщает об их позициях. Пока задача сводится к чтению — вывести, посчитать сумму, найти максимум — этого достаточно.</p>
+        <p>Но некоторые задачи формулируются именно через позицию: «заменить каждый элемент на удвоенный», «сравнить элемент со следующим», «поменять местами первый и последний». Для них нужна не копия значения, а сам номер ячейки.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>два разных цикла</span></figcaption>
+<pre>for number in numbers:   → 10, 20, 30, 40   (значения)
+for index  in range(4):  →  0,  1,  2,  3   (позиции)</pre>
+        </figure>
+        <p>Позиция ценна тем, что по ней можно вернуться к списку и не только прочитать элемент, но и записать в него новое значение.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Разбор конструкции</h2>
+        <p>Пусть <code>numbers = [10, 20, 30, 40]</code>. Выражение <code>len(numbers)</code> даёт <code>4</code>, а <code>range(4)</code> — индексы <code>0, 1, 2, 3</code>.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>три вложенных шага</span></figcaption>
+<pre><span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers)):
                          └ 4
                    └ range(4) → 0, 1, 2, 3
-    └ index по очереди получает каждую позицию</pre></figure>
+    └ index по очереди получает каждую позицию</pre>
+        </figure>
+        <p>Выражение читается изнутри наружу.</p>
+        <ol class="steps">
+          <li><code>len(numbers)</code> вычисляется первым и даёт количество элементов — <code>4</code>.</li>
+          <li><code>range(4)</code> превращает количество в набор позиций <code>0, 1, 2, 3</code>.</li>
+          <li>Цикл <code>for</code> перебирает этот набор и кладёт очередное число в переменную <code>index</code>.</li>
+        </ol>
+        <div class="margin-note">
+          <b>Почему именно len(), а не 4</b>
+          <p>Число <code>4</code> пришлось бы исправлять вручную при каждом изменении списка. <code>len(numbers)</code> вычисляется при запуске и подходит любому списку, включая пустой: тогда <code>range(0)</code> пуст, и тело цикла не выполнится ни разу.</p>
+        </div>
 
-<h2 id="s2"><span class="sec">§2</span>Индекс и элемент</h2><p><code>index</code> хранит позицию, а <code>numbers[index]</code> получает элемент на этой позиции.</p>
-<figure class="code"><figcaption><span>main.py</span><span>позиция рядом со значением</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>]
+        <h2 id="s3"><span class="sec">§3</span>Индекс и элемент</h2>
+        <p><code>index</code> хранит позицию, а <code>numbers[index]</code> получает элемент на этой позиции. Это два разных значения, и путать их — самая частая ошибка в теме.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>позиция рядом со значением</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>]
+
 <span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers)):
-    <span class="f">print</span>(index, numbers[index])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>индекс и элемент</span></figcaption><pre>0 10
+    <span class="f">print</span>(index, numbers[index])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>индекс и элемент</span></figcaption><pre>0 10
 1 20
 2 30
 3 40</pre></figure>
+        <p>В левом столбце — номера позиций, в правом — то, что в этих позициях лежит. Совпадать они не обязаны и обычно не совпадают.</p>
 
-<h2 id="s3"><span class="sec">§3</span>Пошаговая работа</h2><div class="table-scroll"><table><thead><tr><th>index</th><th>Выражение</th><th>Результат</th></tr></thead><tbody><tr><td><code>0</code></td><td><code>numbers[0]</code></td><td><code>10</code></td></tr><tr><td><code>1</code></td><td><code>numbers[1]</code></td><td><code>20</code></td></tr><tr><td><code>2</code></td><td><code>numbers[2]</code></td><td><code>30</code></td></tr><tr><td><code>3</code></td><td><code>numbers[3]</code></td><td><code>40</code></td></tr></tbody></table></div>
+        <h2 id="s4"><span class="sec">§4</span>Пошаговое чтение</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>index</th><th>Выражение</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>0</code></td><td><code>numbers[0]</code></td><td><code>10</code></td></tr>
+              <tr><td><code>1</code></td><td><code>numbers[1]</code></td><td><code>20</code></td></tr>
+              <tr><td><code>2</code></td><td><code>numbers[2]</code></td><td><code>30</code></td></tr>
+              <tr><td><code>3</code></td><td><code>numbers[3]</code></td><td><code>40</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Здесь список только читается и потому не меняется. Дальше начинается запись, и таблицу придётся дополнить состоянием списка.</p>
 
-<h2 id="s4"><span class="sec">§4</span>Изменение элементов</h2><p>При обычном переборе переменная получает значение. Для замены элемента нужно присваивание именно в позицию списка.</p>
-<figure class="code"><figcaption><span>main.py</span><span>удвоение на каждой позиции</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+        <h2 id="s5"><span class="sec">§5</span>Изменение элемента</h2>
+        <p>Главная строка всей главы выглядит так:</p>
+        <figure class="code">
+          <figcaption><span>Строка</span><span>чтение и запись в одной позиции</span></figcaption>
+<pre>numbers[index] = numbers[index] * <span class="n">2</span></pre>
+        </figure>
+        <p>Слева и справа стоит одна и та же запись <code>numbers[index]</code>, но работает она по-разному. Python вычисляет присваивание справа налево.</p>
+        <ol class="steps">
+          <li>Сначала полностью вычисляется <b>правая часть</b>. Запись <code>numbers[index]</code> справа означает «взять значение из ячейки»: при <code>index = 0</code> получится <code>1</code>.</li>
+          <li>Полученное значение умножается на <code>2</code> — получается <code>2</code>. Список в этот момент ещё не изменён.</li>
+          <li>Затем срабатывает <b>левая часть</b>. Запись <code>numbers[index]</code> слева означает «положить значение в ячейку» — результат записывается в позицию <code>0</code> списка.</li>
+        </ol>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>одна запись — две роли</span></figcaption>
+<pre>numbers[index] = numbers[index] * 2
+      │                  │
+      │                  └ ② прочитать значение из позиции
+      └ ③ записать результат в ту же позицию</pre>
+        </figure>
+        <p>Иначе говоря, квадратные скобки слева от знака <code>=</code> адресуют ячейку, а справа — достают её содержимое. Именно поэтому старое значение успевает поучаствовать в вычислении нового.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удвоение на каждой позиции</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+
 <span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers)):
     numbers[index] = numbers[index] * <span class="n">2</span>
-<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>исходный список изменён</span></figcaption><pre>[2, 4, 6, 8]</pre></figure>
 
-<h2 id="s5"><span class="sec">§5</span>Соседние элементы</h2><p>Индекс позволяет одновременно получить текущий и следующий элементы.</p>
-<figure class="code"><figcaption><span>main.py</span><span>соседние пары</span></figcaption><pre>numbers = [<span class="n">5</span>, <span class="n">8</span>, <span class="n">3</span>, <span class="n">10</span>]
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>исходный список изменён</span></figcaption><pre>[2, 4, 6, 8]</pre></figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Трассировка изменения</h2>
+        <p>Чтобы увидеть механику целиком, полезно расписать все четыре повтора и состояние списка после каждого из них.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>index</th><th>Прочитано справа</th><th>Вычислено</th><th>Список после шага</th></tr></thead>
+            <tbody>
+              <tr><td><code>0</code></td><td><code>1</code></td><td><code>1 * 2 = 2</code></td><td><code>[2, 2, 3, 4]</code></td></tr>
+              <tr><td><code>1</code></td><td><code>2</code></td><td><code>2 * 2 = 4</code></td><td><code>[2, 4, 3, 4]</code></td></tr>
+              <tr><td><code>2</code></td><td><code>3</code></td><td><code>3 * 2 = 6</code></td><td><code>[2, 4, 6, 4]</code></td></tr>
+              <tr><td><code>3</code></td><td><code>4</code></td><td><code>4 * 2 = 8</code></td><td><code>[2, 4, 6, 8]</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Список меняется постепенно, по одной ячейке за повтор. Новый список не создаётся: всё это время <code>numbers</code> указывает на одну и ту же коллекцию, у которой обновляется содержимое.</p>
+        <div class="margin-note">
+          <b>Сокращённая запись</b>
+          <p>Строку можно записать короче: <code>numbers[index] *= 2</code>. Результат тот же, порядок действий тот же. Начинающим полезнее сначала освоить полную форму, чтобы видеть чтение и запись явно.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Почему обычный for не меняет список</h2>
+        <p>Логично попробовать сделать то же самое без индексов. Такой код запускается, не выдаёт ошибок — и не работает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>попытка без индексов</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+
+<span class="k">for</span> number <span class="k">in</span> numbers:
+    number = number * <span class="n">2</span>
+
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список остался прежним</span></figcaption><pre>[1, 2, 3, 4]</pre></figure>
+        <p>Причина в том, что <code>number</code> — это отдельная переменная цикла, а не сама ячейка списка. На каждом повторе в неё копируется значение элемента.</p>
+        <div class="boxes">
+          <div><b>numbers[0]</b><i>→</i><span>1</span></div>
+          <div><b>number</b><i>→</i><span>1</span></div>
+        </div>
+        <p>Строка <code>number = number * 2</code> присваивает новое значение <b>имени</b> <code>number</code>. Связь между этим именем и позицией <code>0</code> при этом теряется: переменная начинает указывать на число <code>2</code>, а ячейка списка по-прежнему хранит <code>1</code>.</p>
+        <div class="boxes">
+          <div><b>numbers[0]</b><i>→</i><span>1</span></div>
+          <div><b>number</b><i>→</i><span>2</span></div>
+        </div>
+        <p>На следующем повторе <code>number</code> просто перезаписывается значением следующего элемента, и вычисленная двойка теряется бесследно. Чтобы изменение попало в список, адресовать нужно ячейку — то есть писать <code>numbers[index] = ...</code>.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Ошибки не будет — будет неверный результат</b>
+          <p>Это опасный случай: программа отрабатывает молча, вывод выглядит правдоподобно, и заметить проблему можно только по значениям. Если после цикла список «почему-то не изменился» — первым делом проверьте, присваиваете вы в переменную или в позицию списка.</p>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Соседние элементы</h2>
+        <p>Вторая причина использовать индексы: имея позицию, можно обратиться и к соседним — <code>index - 1</code> и <code>index + 1</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>соседние пары</span></figcaption>
+<pre>numbers = [<span class="n">5</span>, <span class="n">8</span>, <span class="n">3</span>, <span class="n">10</span>]
+
 <span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers) - <span class="n">1</span>):
-    <span class="f">print</span>(numbers[index], numbers[index + <span class="n">1</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три пары</span></figcaption><pre>5 8
+    <span class="f">print</span>(numbers[index], numbers[index + <span class="n">1</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три пары</span></figcaption><pre>5 8
 8 3
 3 10</pre></figure>
+        <p>Диапазон здесь сокращён на единицу, и это не случайность. В списке из четырёх элементов последний индекс равен <code>3</code>; для него выражение <code>numbers[index + 1]</code> потребовало бы несуществующий индекс <code>4</code>. Поэтому цикл останавливают на предпоследней позиции.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>у последнего элемента нет пары</span></figcaption>
+<pre>индексы:   0     1     2     3
+значения:  5     8     3    10
+пары:      └──┘  └──┘  └──┘  ✗ нет следующего</pre>
+        </figure>
+        <div class="margin-note">
+          <b>Общее правило</b>
+          <p>Если внутри используется смещение <code>index + k</code>, диапазон нужно сократить так, чтобы последний индекс со смещением оставался допустимым: <code>range(len(items) - k)</code>.</p>
+        </div>
 
-<h2 id="s6"><span class="sec">§6</span>Почему len() − 1</h2><p>В списке из четырёх элементов последний индекс равен <code>3</code>. Для него выражение <code>numbers[index + 1]</code> потребовало бы несуществующий индекс <code>4</code>. Поэтому цикл останавливают на предпоследней позиции.</p>
-<div class="margin-note"><b>Общее правило</b><p>Если внутри используется смещение <code>index + k</code>, диапазон нужно сократить так, чтобы последний индекс со смещением оставался допустимым.</p></div>
+        <h2 id="s9"><span class="sec">§9</span>Задача на соседей</h2>
+        <p>Приём с парами применяют там, где важна не сама величина, а изменение между соседними измерениями. Найдём максимальный скачок температуры между соседними днями.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>максимальный прирост</span></figcaption>
+<pre>temperatures = [<span class="n">12</span>, <span class="n">15</span>, <span class="n">21</span>, <span class="n">19</span>, <span class="n">26</span>]
+max_jump = <span class="n">0</span>
 
-<h2 id="s7"><span class="sec">§7</span>Три способа перебора</h2><div class="table-scroll"><table><thead><tr><th>Что нужно</th><th>Запись</th></tr></thead><tbody><tr><td>только элементы</td><td><code>for number in numbers:</code></td></tr><tr><td>индекс для изменения или соседей</td><td><code>for index in range(len(numbers)):</code></td></tr><tr><td>индекс и значение для чтения</td><td><code>for index, number in enumerate(numbers):</code></td></tr></tbody></table></div>
-<p><code>enumerate()</code> подробно разбирается в главе 3.7. Он удобнее, когда индекс нужно лишь вывести или проверить, но не использовать для изменения позиции.</p>
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(temperatures) - <span class="n">1</span>):
+    jump = temperatures[index + <span class="n">1</span>] - temperatures[index]
+    <span class="k">if</span> jump &gt; max_jump:
+        max_jump = jump
 
-<h2 id="s8"><span class="sec">§8</span>Когда нужны индексы</h2><ul><li>изменить элементы исходного списка;</li><li>обратиться к предыдущему или следующему элементу;</li><li>сравнить позиции в алгоритме сортировки или поиска;</li><li>обработать только определённый диапазон позиций.</li></ul><p>Если ни одна из этих причин не подходит, обычный перебор элементов читается проще.</p>
+<span class="f">print</span>(max_jump)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>наибольший прирост за день</span></figcaption><pre>7</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>index</th><th>Пара</th><th>jump</th><th>max_jump после шага</th></tr></thead>
+            <tbody>
+              <tr><td><code>0</code></td><td><code>12 → 15</code></td><td><code>3</code></td><td><code>3</code></td></tr>
+              <tr><td><code>1</code></td><td><code>15 → 21</code></td><td><code>6</code></td><td><code>6</code></td></tr>
+              <tr><td><code>2</code></td><td><code>21 → 19</code></td><td><code>-2</code></td><td><code>6</code></td></tr>
+              <tr><td><code>3</code></td><td><code>19 → 26</code></td><td><code>7</code></td><td><code>7</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Обычным перебором значений такую задачу не решить: на каждом шаге нужны сразу два элемента, а <code>for value in temperatures</code> выдаёт только один.</p>
 
-<h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>range(len(numbers) + 1)</code></td><td>последний индекс выйдет за границу</td><td><code>range(len(numbers))</code></td></tr><tr><td><code>numbers[index + 1]</code> при полном диапазоне</td><td><code>IndexError</code> на последнем элементе</td><td>использовать <code>range(len(numbers) - 1)</code></td></tr><tr><td><code>for number in numbers: number *= 2</code></td><td>исходный список не изменится</td><td>присваивать в <code>numbers[index]</code></td></tr><tr><td>индексный цикл без необходимости</td><td>код становится длиннее</td><td>перебирать элементы напрямую</td></tr></tbody></table></div>
-<h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2><details><summary>Что создаёт <code>range(len(numbers))</code>?</summary><p>Допустимые индексы списка от нуля до <code>len(numbers) - 1</code>.</p></details><details><summary>Зачем сокращать диапазон при обращении к <code>index + 1</code>?</summary><p>Чтобы для последней итерации следующий индекс продолжал существовать.</p></details><details><summary>Когда лучше обычный <code>for number in numbers</code>?</summary><p>Когда нужен только сам элемент и позиция не используется.</p></details>
-<h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2><div class="cheat"><div><b>Все индексы</b><code>range(len(items))</code></div><div><b>Текущий элемент</b><code>items[index]</code></div><div><b>Следующий</b><code>items[index + 1]</code></div><div><b>Соседние пары</b><code>range(len(items) - 1)</code></div></div>
-<h3>Итог главы</h3><p><code>len()</code> даёт размер, <code>range()</code> превращает его в допустимые индексы, а <code>items[index]</code> получает или изменяет элемент. Индексный перебор нужен не всегда: используйте его, когда задача действительно зависит от позиции.</p>
-<div class="pager"><a href="../27-metody-spiskov-3/index.html">← 3.4 Порядок, копия и проверка</a><a href="../../index.html">К содержанию справочника</a><a href="../29-vlozhennye-cikly/index.html">3.6 Вложенные циклы →</a></div><div class="colophon"><span>Глава 3.5 · Перебор списка по индексам · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <h2 id="s10"><span class="sec">§10</span>Обратный перебор</h2>
+        <p>Индексы позволяют идти по списку с конца. Для этого <code>range()</code> задают с отрицательным шагом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>от последней позиции к нулевой</span></figcaption>
+<pre>letters = [<span class="s">"a"</span>, <span class="s">"b"</span>, <span class="s">"c"</span>]
+
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(letters) - <span class="n">1</span>, -<span class="n">1</span>, -<span class="n">1</span>):
+    <span class="f">print</span>(index, letters[index])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>индексы убывают</span></figcaption><pre>2 c
+1 b
+0 a</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Аргумент</th><th>Значение</th><th>Смысл</th></tr></thead>
+            <tbody>
+              <tr><td><code>start</code></td><td><code>len(letters) - 1</code> → <code>2</code></td><td>последний допустимый индекс</td></tr>
+              <tr><td><code>stop</code></td><td><code>-1</code></td><td>граница не включается, поэтому <code>0</code> ещё обрабатывается</td></tr>
+              <tr><td><code>step</code></td><td><code>-1</code></td><td>движение к меньшим индексам</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Если нужны только значения и не нужны позиции, короче написать <code>for letter in reversed(letters)</code>. Индексная форма выигрывает тогда, когда с конца требуется ещё и что-то изменять.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Границы списка и IndexError</h2>
+        <p>Допустимые индексы списка идут от <code>0</code> до <code>len(items) - 1</code>. Обращение к позиции за этой границей останавливает программу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>выход за границу</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+<span class="f">print</span>(numbers[<span class="n">3</span>])</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>индекс 3 не существует</span></figcaption>
+<pre>Traceback (most recent call last):
+  File "main.py", line 2, in &lt;module&gt;
+    print(numbers[3])
+          ~~~~~~~^^^
+IndexError: list index out of range</pre>
+        </figure>
+        <p>Последняя строка называет тип ошибки, а стрелки под кодом показывают, какое именно обращение оказалось неверным. В списке из трёх элементов позиции — <code>0</code>, <code>1</code> и <code>2</code>; индекс <code>3</code> лежит уже за концом.</p>
+        <p>Отсчитывать с конца можно отрицательными индексами: <code>-1</code> — последний элемент, <code>-2</code> — предпоследний.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отсчёт с конца</span></figcaption>
+<pre>prices = [<span class="n">100</span>, <span class="n">250</span>, <span class="n">80</span>]
+
+<span class="f">print</span>(prices[-<span class="n">1</span>])
+<span class="f">print</span>(prices[<span class="f">len</span>(prices) - <span class="n">1</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две записи одного элемента</span></figcaption><pre>80
+80</pre></figure>
+        <p>Обе записи дают последний элемент. Форма <code>prices[-1]</code> короче и читается лучше, а <code>len(prices) - 1</code> нужна тогда, когда позиция участвует в вычислениях.</p>
+        <div class="margin-note margin-note--warn">
+          <b>range(len(items) + 1) — источник IndexError</b>
+          <p>Соблазн «дотянуться до последнего элемента» прибавлением единицы приводит к обратному: <code>range(len(items))</code> уже включает последний индекс, а <code>+ 1</code> добавляет несуществующий.</p>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>enumerate(): индекс и значение</h2>
+        <p>Если позиция нужна только для вывода или проверки, а не для записи, удобнее <code>enumerate()</code>. Он выдаёт сразу пару: индекс и элемент.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две переменные в заголовке цикла</span></figcaption>
+<pre>colors = [<span class="s">"red"</span>, <span class="s">"green"</span>, <span class="s">"blue"</span>]
+
+<span class="k">for</span> index, color <span class="k">in</span> <span class="f">enumerate</span>(colors):
+    <span class="f">print</span>(index, color)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>нумерация с нуля</span></figcaption><pre>0 red
+1 green
+2 blue</pre></figure>
+        <p>Для нумерованного списка на экране удобен аргумент <code>start</code>: он меняет только выводимые номера, но не позиции в списке.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>нумерация с единицы</span></figcaption>
+<pre><span class="k">for</span> number, color <span class="k">in</span> <span class="f">enumerate</span>(colors, start=<span class="n">1</span>):
+    <span class="f">print</span>(number, color)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>привычная нумерация пунктов</span></figcaption><pre>1 red
+2 green
+3 blue</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что нужно</th><th>Запись</th></tr></thead>
+            <tbody>
+              <tr><td>только элементы</td><td><code>for color in colors:</code></td></tr>
+              <tr><td>индекс для изменения или соседей</td><td><code>for index in range(len(colors)):</code></td></tr>
+              <tr><td>индекс и значение для чтения</td><td><code>for index, color in enumerate(colors):</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Подробнее <code>enumerate()</code> разбирается в главе 3.7. Важно помнить, что переменная значения в нём ведёт себя так же, как в обычном цикле: присваивание в неё список не изменит — для этого всё равно нужна запись <code>colors[index] = ...</code>.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Когда нужны индексы</h2>
+        <ul>
+          <li>изменить элементы исходного списка;</li>
+          <li>обратиться к предыдущему или следующему элементу;</li>
+          <li>сравнить позиции в алгоритме сортировки или поиска;</li>
+          <li>обработать только определённый диапазон позиций;</li>
+          <li>пройти список в обратном порядке и что-то в нём поменять;</li>
+          <li>работать одновременно с двумя списками одинаковой длины.</li>
+        </ul>
+        <p>Если ни одна из этих причин не подходит, обычный перебор элементов читается проще и ошибиться в нём почти невозможно.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>for number in numbers: number *= 2</code></td><td>исходный список не изменится, ошибки при этом не будет</td><td>присваивать в <code>numbers[index]</code></td></tr>
+              <tr><td><code>range(len(numbers) + 1)</code></td><td>последний индекс выйдет за границу, <code>IndexError</code></td><td><code>range(len(numbers))</code></td></tr>
+              <tr><td><code>numbers[index + 1]</code> при полном диапазоне</td><td><code>IndexError</code> на последнем элементе</td><td>использовать <code>range(len(numbers) - 1)</code></td></tr>
+              <tr><td><code>print(index)</code> вместо <code>print(numbers[index])</code></td><td>выведутся номера позиций, а не значения</td><td>обращаться к списку по индексу</td></tr>
+              <tr><td><code>for index in range(numbers)</code></td><td><code>TypeError</code>: <code>range()</code> ждёт число, а не список</td><td><code>range(len(numbers))</code></td></tr>
+              <tr><td><code>range(len(numbers), 0, -1)</code> для обратного перебора</td><td>первый же индекс выйдет за границу</td><td><code>range(len(numbers) - 1, -1, -1)</code></td></tr>
+              <tr><td>индексный цикл без необходимости</td><td>код становится длиннее и хуже читается</td><td>перебирать элементы напрямую</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Что создаёт <code>range(len(numbers))</code>?</summary><p>Допустимые индексы списка от нуля до <code>len(numbers) - 1</code>.</p></details>
+        <details><summary>Почему в строке <code>numbers[index] = numbers[index] * 2</code> одна и та же запись означает разное?</summary><p>Справа от знака <code>=</code> скобки читают значение из ячейки, слева — указывают ячейку для записи. Сначала вычисляется правая часть, затем результат кладётся в позицию.</p></details>
+        <details><summary>Почему <code>for number in numbers: number *= 2</code> не меняет список?</summary><p><code>number</code> — отдельная переменная, в которую скопировано значение. Присваивание перепривязывает имя, а ячейка списка остаётся прежней.</p></details>
+        <details><summary>Зачем сокращать диапазон при обращении к <code>index + 1</code>?</summary><p>Чтобы для последней итерации следующий индекс продолжал существовать.</p></details>
+        <details><summary>Как перебрать список от последнего элемента к первому?</summary><p><code>for index in range(len(items) - 1, -1, -1)</code>. Граница <code>-1</code> не включается, поэтому нулевая позиция обрабатывается.</p></details>
+        <details><summary>Когда лучше обычный <code>for number in numbers</code>?</summary><p>Когда нужен только сам элемент и позиция не используется.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Все индексы</b><code>range(len(items))</code></div>
+          <div><b>Текущий элемент</b><code>items[index]</code></div>
+          <div><b>Изменить элемент</b><code>items[index] = значение</code></div>
+          <div><b>Следующий</b><code>items[index + 1]</code></div>
+          <div><b>Соседние пары</b><code>range(len(items) - 1)</code></div>
+          <div><b>С конца</b><code>range(len(items) - 1, -1, -1)</code></div>
+          <div><b>Последний элемент</b><code>items[-1]</code></div>
+          <div><b>Индекс и значение</b><code>enumerate(items)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>len()</code> даёт размер, <code>range()</code> превращает его в допустимые индексы, а <code>items[index]</code> получает или изменяет элемент. Ключевое отличие индексного перебора в том, что он адресует ячейку списка, а не копию значения, — поэтому только через него список можно менять на месте. Использовать его стоит тогда, когда задача действительно зависит от позиции.</p>
+        <div class="pager">
+          <a href="../27-metody-spiskov-3/index.html">← 3.4 Порядок, копия и проверка</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../29-vlozhennye-cikly/index.html">3.6 Вложенные циклы →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 3.5 · Перебор списка по индексам · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
