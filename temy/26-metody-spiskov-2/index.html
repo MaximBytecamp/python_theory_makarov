@@ -1,76 +1,412 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.3 Методы списков: удаление, поиск и сортировка · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.3</p></div>
-<header class="chapter-head"><span class="chapter-num">3.3</span><h1>Методы списков:<br>удаление, поиск, сортировка</h1><p class="lead"><code>pop()</code> извлекает элемент, <code>clear()</code> очищает список, <code>index()</code> и <code>count()</code> исследуют содержимое, а <code>sort()</code> меняет порядок элементов.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Методы list</dd></div><div><dt>Уровень</dt><dd>Начальный</dd></div><div><dt>Связанные темы</dt><dd>Индексы, удаление, сравнение</dd></div><div><dt>Зачем это знать</dt><dd>Извлекать, искать, считать и сортировать элементы</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">pop(): удалить и вернуть</a></li><li><a href="#s2">Стек и очередь</a></li><li><a href="#s3">clear(): очистить список</a></li><li><a href="#s4">clear() или новый список</a></li><li><a href="#s5">index(): найти позицию</a></li><li><a href="#s6">count(): посчитать совпадения</a></li><li><a href="#s7">sort(): сортировать на месте</a></li><li><a href="#s8">sort() или sorted()</a></li><li><a href="#s9">Способы удаления</a></li><li><a href="#s10">Частые ошибки</a></li><li><a href="#s11">Проверьте себя</a></li><li><a href="#s12">Шпаргалка</a></li></ol></nav>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>3.3 Методы списков: удаление, поиск и сортировка · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
+          <p class="running__folio">Глава 3.3</p>
+        </div>
 
-<h2 id="s1"><span class="sec">§1</span>pop(): удалить и вернуть</h2><p><code>pop(index)</code> удаляет элемент по индексу и возвращает его. Без аргумента удаляется последний элемент.</p>
-<figure class="code"><figcaption><span>main.py</span><span>последний элемент</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+        <header class="chapter-head">
+          <span class="chapter-num">3.3</span>
+          <h1>Методы списков:<br>удаление, поиск, сортировка</h1>
+          <p class="lead"><code>pop()</code> извлекает элемент, <code>clear()</code> очищает список, <code>index()</code> и <code>count()</code> исследуют содержимое, а <code>sort()</code> меняет порядок элементов.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Методы list</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Индексы, удаление, сравнение</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Извлекать, искать, считать и сортировать элементы</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">pop(): удалить и вернуть</a></li>
+            <li><a href="#s2">pop() по индексу</a></li>
+            <li><a href="#s3">Список как стек</a></li>
+            <li><a href="#s4">Список как очередь</a></li>
+            <li><a href="#s5">clear(): очистить список</a></li>
+            <li><a href="#s6">clear() или новый список</a></li>
+            <li><a href="#s7">index(): найти позицию</a></li>
+            <li><a href="#s8">Все позиции значения</a></li>
+            <li><a href="#s9">count(): посчитать совпадения</a></li>
+            <li><a href="#s10">sort(): сортировать на месте</a></li>
+            <li><a href="#s11">Сортировка строк и ключ</a></li>
+            <li><a href="#s12">sort() или sorted()</a></li>
+            <li><a href="#s13">Удаление внутри цикла</a></li>
+            <li><a href="#s14">Способы удаления</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>pop(): удалить и вернуть</h2>
+        <p><code>pop()</code> отличается от всех методов предыдущей главы тем, что <b>возвращает значение</b>, а не <code>None</code>. Он удаляет элемент и отдаёт его программе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>последний элемент</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
 removed = numbers.pop()
-<span class="f">print</span>(numbers)
-<span class="f">print</span>(removed)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>список и извлечённое значение</span></figcaption><pre>[10, 20]
-30</pre></figure>
-<figure class="code"><figcaption><span>main.py</span><span>удаление по индексу 1</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
-removed = numbers.pop(<span class="n">1</span>)
-<span class="f">print</span>(removed, numbers)</pre></figure><p>Отрицательный индекс поддерживается: <code>pop(-1)</code> также извлекает последний элемент.</p>
 
-<h2 id="s2"><span class="sec">§2</span>Стек и очередь</h2><p>Пара <code>append()</code> и <code>pop()</code> позволяет использовать список как стек: последний добавленный элемент выходит первым.</p>
-<figure class="code"><figcaption><span>main.py</span><span>LIFO: последний вошёл — первый вышел</span></figcaption><pre>stack = []
+<span class="f">print</span>(numbers)
+<span class="f">print</span>(removed)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список и извлечённое значение</span></figcaption><pre>[10, 20]
+30</pre></figure>
+        <p>Без аргумента удаляется последний элемент. Именно поэтому <code>removed = numbers.pop()</code> — правильная запись, в отличие от <code>numbers = numbers.append(...)</code> из главы 3.2.</p>
+        <div class="margin-note">
+          <b>Извлечь — не то же самое, что удалить</b>
+          <p>Если извлечённое значение не нужно, результат можно не сохранять: <code>numbers.pop()</code> отдельной строкой просто удалит последний элемент.</p>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span>pop() по индексу</h2>
+        <p><code>pop(index)</code> удаляет элемент с указанной позиции. Элементы правее сдвигаются влево, и их индексы уменьшаются на единицу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удаление по индексу 1</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+removed = numbers.pop(<span class="n">1</span>)
+
+<span class="f">print</span>(removed)
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>двадцатка извлечена</span></figcaption><pre>20
+[10, 30]</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>сдвиг после удаления</span></figcaption>
+<pre>было:  10(0)  20(1)  30(2)
+стало: 10(0)  30(1)</pre>
+        </figure>
+        <p>Отрицательный индекс поддерживается: <code>pop(-1)</code> извлекает последний элемент. Если списка нет элемента с таким индексом — в том числе если список пуст, — возникает <code>IndexError</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Список как стек</h2>
+        <p>Пара <code>append()</code> и <code>pop()</code> превращает список в <span class="term">стек</span>: последний добавленный элемент выходит первым. Такой порядок называют LIFO — last in, first out.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>LIFO: последний вошёл — первый вышел</span></figcaption>
+<pre>stack = []
 stack.append(<span class="n">1</span>)
 stack.append(<span class="n">2</span>)
 stack.append(<span class="n">3</span>)
+
 <span class="f">print</span>(stack.pop())
-<span class="f">print</span>(stack)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>извлечена тройка</span></figcaption><pre>3
+<span class="f">print</span>(stack)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>извлечена тройка</span></figcaption><pre>3
 [1, 2]</pre></figure>
-<p><code>pop(0)</code> извлекает первый элемент, но сдвигает весь остаток списка. Для часто используемой очереди эффективнее <code>collections.deque</code>.</p>
+        <p>Так устроены отмена последнего действия, история переходов «назад» и разбор вложенных скобок: везде, где нужно вернуться к тому, что отложили последним.</p>
 
-<h2 id="s3"><span class="sec">§3</span>clear(): очистить список</h2><p><code>clear()</code> удаляет все элементы, сохраняя сам список.</p>
-<figure class="code"><figcaption><span>main.py</span><span>пустой исходный список</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
-numbers.clear()
-<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>элементов нет</span></figcaption><pre>[]</pre></figure>
+        <h2 id="s4"><span class="sec">§4</span>Список как очередь</h2>
+        <p><code>pop(0)</code> извлекает первый элемент — получается <span class="term">очередь</span>, где первым выходит тот, кто раньше пришёл (FIFO).</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>FIFO: первый вошёл — первый вышел</span></figcaption>
+<pre>queue = [<span class="s">"Анна"</span>, <span class="s">"Борис"</span>, <span class="s">"Вера"</span>]
+first = queue.pop(<span class="n">0</span>)
 
-<h2 id="s4"><span class="sec">§4</span>clear() или новый список</h2><p>Если два имени обозначают один список, <code>clear()</code> делает его пустым для обоих имён. Присваивание <code>numbers = []</code> связывает только имя <code>numbers</code> с новым пустым списком.</p>
-<figure class="code"><figcaption><span>main.py</span><span>очистка общего списка</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
-another = numbers
+<span class="f">print</span>(first)
+<span class="f">print</span>(queue)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первый обслужен</span></figcaption><pre>Анна
+['Борис', 'Вера']</pre></figure>
+        <p>Работает это корректно, но не бесплатно: после удаления нулевого элемента все остальные сдвигаются на одну позицию. Для списка из миллиона элементов каждый <code>pop(0)</code> — миллион перемещений, тогда как <code>pop()</code> с конца обходится без них.</p>
+        <div class="margin-note">
+          <b>Когда очередь длинная</b>
+          <p>Для больших очередей в стандартной библиотеке есть <code>collections.deque</code> с методом <code>popleft()</code>: он удаляет первый элемент без сдвига остальных. В учебных задачах на десятки элементов разница незаметна, и <code>pop(0)</code> вполне уместен.</p>
+        </div>
+
+        <h2 id="s5"><span class="sec">§5</span>clear(): очистить список</h2>
+        <p><code>clear()</code> удаляет все элементы, сохраняя сам список.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пустой исходный список</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
 numbers.clear()
+
 <span class="f">print</span>(numbers)
-<span class="f">print</span>(another)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>оба имени видят изменение</span></figcaption><pre>[]
-[]</pre></figure>
-<div class="margin-note"><b>Теперь важны связи имён и объектов</b><p>Ранее эта модель не требовалась. Для методов, меняющих коллекцию на месте, она объясняет разницу между очисткой существующего списка и созданием нового.</p></div>
-
-<h2 id="s5"><span class="sec">§5</span>index(): найти позицию</h2><p><code>index(value)</code> возвращает индекс первого вхождения. Если значения нет, возникает <code>ValueError</code>.</p>
-<figure class="code"><figcaption><span>main.py</span><span>первое вхождение числа 20</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">20</span>]
-<span class="f">print</span>(numbers.index(<span class="n">20</span>))
-<span class="f">print</span>(numbers.index(<span class="n">20</span>, <span class="n">2</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>поиск сначала и с позиции 2</span></figcaption><pre>1
-3</pre></figure>
-<p>Полная форма — <code>index(value, start, stop)</code>; правая граница <code>stop</code> не включается.</p>
-
-<h2 id="s6"><span class="sec">§6</span>count(): посчитать совпадения</h2><p><code>count(value)</code> проходит список и возвращает число равных элементов. Если совпадений нет, результатом будет <code>0</code>, а не ошибка.</p>
-<figure class="code"><figcaption><span>main.py</span><span>три двойки</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">2</span>]
-<span class="f">print</span>(numbers.count(<span class="n">2</span>))
-<span class="f">print</span>(numbers.count(<span class="n">9</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>совпадения и отсутствие</span></figcaption><pre>3
+<span class="f">print</span>(<span class="f">len</span>(numbers))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементов нет, список есть</span></figcaption><pre>[]
 0</pre></figure>
 
-<h2 id="s7"><span class="sec">§7</span>sort(): сортировать на месте</h2><p><code>sort()</code> меняет порядок элементов исходного списка и возвращает <code>None</code>. По умолчанию числа идут по возрастанию.</p>
-<figure class="code"><figcaption><span>main.py</span><span>два направления</span></figcaption><pre>numbers = [<span class="n">5</span>, <span class="n">2</span>, <span class="n">9</span>, <span class="n">1</span>]
+        <h2 id="s6"><span class="sec">§6</span>clear() или новый список</h2>
+        <p>На первый взгляд <code>numbers.clear()</code> и <code>numbers = []</code> делают одно и то же. Разница проявляется, когда у списка два имени — как в главе 3.2.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>очистка общего списка</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+another = numbers
+
+numbers.clear()
+
+<span class="f">print</span>(numbers)
+<span class="f">print</span>(another)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>оба имени видят изменение</span></figcaption><pre>[]
+[]</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>присваивание вместо очистки</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+another = numbers
+
+numbers = []
+
+<span class="f">print</span>(numbers)
+<span class="f">print</span>(another)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>старый список остался у another</span></figcaption><pre>[]
+[1, 2, 3]</pre></figure>
+        <p><code>clear()</code> опустошает сам объект — его видят все имена. Присваивание <code>numbers = []</code> создаёт новый пустой список и связывает с ним только имя <code>numbers</code>; прежний список продолжает жить под именем <code>another</code>.</p>
+        <div class="margin-note">
+          <b>Как выбрать</b>
+          <p>Нужно, чтобы изменение увидели все, кто работает с этим списком, — <code>clear()</code>. Нужно просто начать накопление заново в своей переменной — <code>= []</code>.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>index(): найти позицию</h2>
+        <p><code>index(value)</code> возвращает индекс первого вхождения значения.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первое вхождение числа 20</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">20</span>]
+
+<span class="f">print</span>(numbers.index(<span class="n">20</span>))
+<span class="f">print</span>(numbers.index(<span class="n">20</span>, <span class="n">2</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>поиск сначала и с позиции 2</span></figcaption><pre>1
+3</pre></figure>
+        <p>Второй аргумент задаёт позицию, с которой начинать поиск. Полная форма — <code>index(value, start, stop)</code>; правая граница <code>stop</code> не включается, как и в <code>range()</code>.</p>
+        <p>Если значения нет, возникает <code>ValueError</code>. Поэтому <code>index()</code> обычно ставят после проверки:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>безопасный поиск</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+value = <span class="n">99</span>
+
+<span class="k">if</span> value <span class="k">in</span> numbers:
+    <span class="f">print</span>(numbers.index(value))
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"значение не найдено"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ошибки нет</span></figcaption><pre>значение не найдено</pre></figure>
+
+        <h2 id="s8"><span class="sec">§8</span>Все позиции значения</h2>
+        <p><code>index()</code> находит только первое вхождение. Если нужны все, список перебирают по индексам и собирают подходящие позиции.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сбор всех позиций</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">20</span>]
+positions = []
+
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers)):
+    <span class="k">if</span> numbers[index] == <span class="n">20</span>:
+        positions.append(index)
+
+<span class="f">print</span>(positions)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>двадцатка встречается дважды</span></figcaption><pre>[1, 3]</pre></figure>
+        <p>Здесь соединяются приёмы двух глав: перебор по индексам из 3.5 и накопление через <code>append()</code> из 3.2. Такая пара решает большинство задач «найти все, что подходит под условие».</p>
+
+        <h2 id="s9"><span class="sec">§9</span>count(): посчитать совпадения</h2>
+        <p><code>count(value)</code> проходит список и возвращает число равных элементов. Если совпадений нет, результатом будет <code>0</code>, а не ошибка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три двойки</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">2</span>]
+
+<span class="f">print</span>(numbers.count(<span class="n">2</span>))
+<span class="f">print</span>(numbers.count(<span class="n">9</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>совпадения и отсутствие</span></figcaption><pre>3
+0</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Нужно узнать</th><th>Запись</th><th>Если значения нет</th></tr></thead>
+            <tbody>
+              <tr><td>есть ли значение</td><td><code>value in items</code></td><td><code>False</code></td></tr>
+              <tr><td>сколько раз встречается</td><td><code>items.count(value)</code></td><td><code>0</code></td></tr>
+              <tr><td>на какой позиции</td><td><code>items.index(value)</code></td><td><code>ValueError</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Из трёх способов проверки только <code>index()</code> может остановить программу — это и делает его самым опасным.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>sort(): сортировать на месте</h2>
+        <p><code>sort()</code> меняет порядок элементов исходного списка и возвращает <code>None</code>. По умолчанию числа идут по возрастанию.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два направления</span></figcaption>
+<pre>numbers = [<span class="n">5</span>, <span class="n">2</span>, <span class="n">9</span>, <span class="n">1</span>]
+
 numbers.sort()
 <span class="f">print</span>(numbers)
+
 numbers.sort(reverse=<span class="k">True</span>)
-<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>возрастание и убывание</span></figcaption><pre>[1, 2, 5, 9]
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>возрастание и убывание</span></figcaption><pre>[1, 2, 5, 9]
 [9, 5, 2, 1]</pre></figure>
-<p>Python использует устойчивый алгоритм Timsort со сложностью порядка <code>O(n log n)</code> для общего случая.</p>
+        <p>Аргумент <code>reverse=True</code> задаёт убывание. Python использует устойчивый алгоритм Timsort со сложностью порядка <code>O(n log n)</code> для общего случая: «устойчивый» означает, что равные элементы сохраняют исходный взаимный порядок.</p>
 
-<h2 id="s8"><span class="sec">§8</span>sort() или sorted()</h2><div class="table-scroll"><table><thead><tr><th>Запись</th><th>Исходный список</th><th>Результат</th></tr></thead><tbody><tr><td><code>numbers.sort()</code></td><td>изменяется</td><td><code>None</code></td></tr><tr><td><code>sorted(numbers)</code></td><td>не изменяется</td><td>новый отсортированный список</td></tr></tbody></table></div>
-<figure class="code"><figcaption><span>main.py</span><span>сохранение исходного порядка</span></figcaption><pre>numbers = [<span class="n">3</span>, <span class="n">1</span>, <span class="n">2</span>]
+        <h2 id="s11"><span class="sec">§11</span>Сортировка строк и ключ</h2>
+        <p>Строки сортируются по алфавиту — точнее, по кодам символов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>имена по алфавиту</span></figcaption>
+<pre>names = [<span class="s">"Вера"</span>, <span class="s">"Анна"</span>, <span class="s">"Борис"</span>]
+names.sort()
+<span class="f">print</span>(names)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>алфавитный порядок</span></figcaption><pre>['Анна', 'Борис', 'Вера']</pre></figure>
+        <p>Аргумент <code>key</code> задаёт, <b>по какому признаку</b> сравнивать элементы. Например, по длине строки:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сортировка по длине</span></figcaption>
+<pre>words = [<span class="s">"дом"</span>, <span class="s">"а"</span>, <span class="s">"книга"</span>]
+words.sort(key=<span class="f">len</span>)
+<span class="f">print</span>(words)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>от короткого к длинному</span></figcaption><pre>['а', 'дом', 'книга']</pre></figure>
+        <p>Обратите внимание: у <code>len</code> нет скобок. Передаётся сама функция, а вызывать её для каждого элемента будет уже <code>sort()</code>.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Заглавные буквы идут раньше строчных</b>
+          <p>Сравниваются коды символов, а не буквы «по-человечески». Поэтому <code>"Яблоко"</code> окажется раньше <code>"арбуз"</code>. Чтобы регистр не влиял, используют <code>names.sort(key=str.lower)</code>.</p>
+        </div>
+        <p>Смешивать несравнимые типы нельзя: <code>[1, "a"].sort()</code> вызовет <code>TypeError</code> — Python не знает, что больше, число или строка.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>sort() или sorted()</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Исходный список</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>numbers.sort()</code></td><td>изменяется</td><td><code>None</code></td></tr>
+              <tr><td><code>sorted(numbers)</code></td><td>не изменяется</td><td>новый отсортированный список</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сохранение исходного порядка</span></figcaption>
+<pre>numbers = [<span class="n">3</span>, <span class="n">1</span>, <span class="n">2</span>]
 ordered = <span class="f">sorted</span>(numbers)
+
 <span class="f">print</span>(numbers)
-<span class="f">print</span>(ordered)</pre></figure>
+<span class="f">print</span>(ordered)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два списка</span></figcaption><pre>[3, 1, 2]
+[1, 2, 3]</pre></figure>
+        <p>Разница та же, что между <code>reverse()</code> и <code>[::-1]</code> или между <code>clear()</code> и <code>= []</code>: метод меняет объект, функция строит новый. <code>sorted()</code> к тому же принимает любую коллекцию — строку, кортеж, множество — и всегда возвращает список.</p>
 
-<h2 id="s9"><span class="sec">§9</span>Способы удаления</h2><div class="table-scroll"><table><thead><tr><th>Запись</th><th>Что выбирает</th><th>Возвращает удалённое</th></tr></thead><tbody><tr><td><code>pop(index)</code></td><td>индекс, по умолчанию последний</td><td>да</td></tr><tr><td><code>remove(value)</code></td><td>первое равное значение</td><td>нет</td></tr><tr><td><code>del items[index]</code></td><td>индекс или срез</td><td>нет</td></tr><tr><td><code>clear()</code></td><td>все элементы</td><td>нет</td></tr></tbody></table></div>
+        <h2 id="s13"><span class="sec">§13</span>Удаление внутри цикла</h2>
+        <p>Есть ошибка, которую совершают почти все и которая не выдаёт никакого сообщения. Задача: убрать из списка все двойки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>так делать нельзя</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">2</span>]
 
-<h2 id="s10"><span class="sec">§10</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>items = items.sort()</code></td><td>в <code>items</code> попадёт <code>None</code></td><td><code>items.sort()</code></td></tr><tr><td><code>[].pop()</code></td><td><code>IndexError</code></td><td>проверить, что список не пуст</td></tr><tr><td><code>items.index(value)</code> без проверки</td><td><code>ValueError</code>, если значения нет</td><td>сначала проверить <code>value in items</code></td></tr><tr><td>ожидать все позиции от <code>index()</code></td><td>вернётся только первая</td><td>использовать цикл для всех совпадений</td></tr><tr><td>сортировать вместе числа и строки</td><td><code>TypeError</code></td><td>сравнивать совместимые значения</td></tr></tbody></table></div>
-<h2 id="s11"><span class="sec">§11</span>Проверьте себя</h2><details><summary>Чем <code>pop()</code> отличается от <code>remove()</code>?</summary><p><code>pop()</code> удаляет по индексу и возвращает элемент, а <code>remove()</code> удаляет первое совпавшее значение и возвращает <code>None</code>.</p></details><details><summary>Что вернёт <code>count()</code>, если совпадений нет?</summary><p>Число <code>0</code>.</p></details><details><summary>Как отсортировать, не меняя исходный список?</summary><p>Сохранить результат <code>sorted(numbers)</code> в новую переменную.</p></details>
-<h2 id="s12"><span class="sec">§12</span>Шпаргалка</h2><div class="cheat"><div><b>Извлечь</b><code>value = items.pop(index)</code></div><div><b>Очистить</b><code>items.clear()</code></div><div><b>Найти и посчитать</b><code>items.index(x)</code><code>items.count(x)</code></div><div><b>Сортировать</b><code>items.sort(reverse=True)</code></div></div>
-<h3>Итог главы</h3><p><code>pop()</code> удаляет и возвращает элемент, <code>clear()</code> очищает список, <code>index()</code> находит первую позицию, <code>count()</code> считает совпадения, а <code>sort()</code> сортирует исходный список. Для нового отсортированного списка используют <code>sorted()</code>.</p>
-<div class="pager"><a href="../25-metody-spiskov-1/index.html">← 3.2 Добавление и удаление</a><a href="../../index.html">К содержанию справочника</a><a href="../27-metody-spiskov-3/index.html">3.4 Порядок, копия и проверка →</a></div><div class="colophon"><span>Глава 3.3 · Методы списков. Часть 2 · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="k">for</span> number <span class="k">in</span> numbers:
+    <span class="k">if</span> number == <span class="n">2</span>:
+        numbers.remove(number)
+
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>одна двойка уцелела</span></figcaption><pre>[1, 3, 2]</pre></figure>
+        <p>Причина в том, что цикл идёт по позициям, а удаление сдвигает элементы влево. Внутренний счётчик цикла об этом не знает и продолжает увеличиваться, перепрыгивая через элементы.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Позиция цикла</th><th>Список сейчас</th><th>Взят элемент</th><th>Действие</th></tr></thead>
+            <tbody>
+              <tr><td><code>0</code></td><td><code>[1, 2, 2, 3, 2]</code></td><td><code>1</code></td><td>пропуск</td></tr>
+              <tr><td><code>1</code></td><td><code>[1, 2, 2, 3, 2]</code></td><td><code>2</code></td><td>удалена, список стал <code>[1, 2, 3, 2]</code></td></tr>
+              <tr><td><code>2</code></td><td><code>[1, 2, 3, 2]</code></td><td><code>3</code></td><td>вторая двойка пропущена: она сдвинулась на позицию 1</td></tr>
+              <tr><td><code>3</code></td><td><code>[1, 2, 3, 2]</code></td><td><code>2</code></td><td>удалена первая двойка, список стал <code>[1, 3, 2]</code></td></tr>
+              <tr><td><code>4</code></td><td><code>[1, 3, 2]</code></td><td>—</td><td>элементов больше нет, цикл заканчивается</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Надёжное решение — не удалять из того, что перебираешь, а собрать новый список из подходящих элементов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сборка нужного вместо удаления лишнего</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">2</span>]
+kept = []
+
+<span class="k">for</span> number <span class="k">in</span> numbers:
+    <span class="k">if</span> number != <span class="n">2</span>:
+        kept.append(number)
+
+<span class="f">print</span>(kept)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>все двойки убраны</span></figcaption><pre>[1, 3]</pre></figure>
+        <p>Второй вариант — перебирать копию, а удалять из оригинала: <code>for number in numbers.copy()</code>. Тогда цикл идёт по неизменяемому набору, и сдвиги ему не мешают.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Общее правило</b>
+          <p>Не изменяйте длину списка, пока перебираете его циклом. Ошибки при этом не будет — будет тихо неверный результат.</p>
+        </div>
+
+        <h2 id="s14"><span class="sec">§14</span>Способы удаления</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что выбирает</th><th>Возвращает удалённое</th><th>Если не найдено</th></tr></thead>
+            <tbody>
+              <tr><td><code>pop(index)</code></td><td>индекс, по умолчанию последний</td><td>да</td><td><code>IndexError</code></td></tr>
+              <tr><td><code>remove(value)</code></td><td>первое равное значение</td><td>нет</td><td><code>ValueError</code></td></tr>
+              <tr><td><code>del items[index]</code></td><td>индекс или срез</td><td>нет</td><td><code>IndexError</code></td></tr>
+              <tr><td><code>clear()</code></td><td>все элементы</td><td>нет</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Выбор простой: знаете позицию — <code>pop()</code> или <code>del</code>; знаете значение — <code>remove()</code>; нужно значение обратно — только <code>pop()</code>.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>items = items.sort()</code></td><td>в <code>items</code> попадёт <code>None</code></td><td><code>items.sort()</code></td></tr>
+              <tr><td>удалять элементы в цикле по тому же списку</td><td>часть элементов будет пропущена, ошибки не будет</td><td>собрать новый список или перебирать <code>items.copy()</code></td></tr>
+              <tr><td><code>[].pop()</code></td><td><code>IndexError</code></td><td>проверить, что список не пуст</td></tr>
+              <tr><td><code>items.index(value)</code> без проверки</td><td><code>ValueError</code>, если значения нет</td><td>сначала проверить <code>value in items</code></td></tr>
+              <tr><td>ожидать все позиции от <code>index()</code></td><td>вернётся только первая</td><td>использовать цикл для всех совпадений</td></tr>
+              <tr><td><code>items.sort(key=len())</code></td><td><code>TypeError</code>: функция вызвана вместо передачи</td><td><code>items.sort(key=len)</code></td></tr>
+              <tr><td>сортировать вместе числа и строки</td><td><code>TypeError</code>: их нельзя сравнить</td><td>сравнивать совместимые значения</td></tr>
+              <tr><td><code>numbers = []</code> для очистки общего списка</td><td>другие имена продолжат видеть старое содержимое</td><td><code>numbers.clear()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Чем <code>pop()</code> отличается от <code>remove()</code>?</summary><p><code>pop()</code> удаляет по индексу и возвращает элемент, а <code>remove()</code> удаляет первое совпавшее значение и возвращает <code>None</code>.</p></details>
+        <details><summary>Почему <code>pop(0)</code> медленнее, чем <code>pop()</code>?</summary><p>После удаления первого элемента все остальные сдвигаются на одну позицию, а удаление с конца сдвигов не требует.</p></details>
+        <details><summary>Чем <code>clear()</code> отличается от <code>numbers = []</code>?</summary><p><code>clear()</code> опустошает сам объект, и это видят все его имена. Присваивание создаёт новый пустой список только для одной переменной.</p></details>
+        <details><summary>Что вернёт <code>count()</code>, если совпадений нет?</summary><p>Число <code>0</code>. В отличие от <code>index()</code>, ошибки не будет.</p></details>
+        <details><summary>Почему нельзя удалять элементы прямо в цикле по этому же списку?</summary><p>Удаление сдвигает элементы влево, а счётчик цикла продолжает расти — часть элементов оказывается пропущена.</p></details>
+        <details><summary>Как отсортировать, не меняя исходный список?</summary><p>Сохранить результат <code>sorted(numbers)</code> в новую переменную.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Извлечь</b><code>value = items.pop(index)</code></div>
+          <div><b>Стек и очередь</b><code>items.pop()</code><code>items.pop(0)</code></div>
+          <div><b>Очистить</b><code>items.clear()</code></div>
+          <div><b>Найти и посчитать</b><code>items.index(x)</code><code>items.count(x)</code></div>
+          <div><b>Сортировать</b><code>items.sort(reverse=True)</code></div>
+          <div><b>По признаку</b><code>items.sort(key=len)</code></div>
+          <div><b>Новый отсортированный</b><code>ordered = sorted(items)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>pop()</code> удаляет и возвращает элемент, <code>clear()</code> очищает список, <code>index()</code> находит первую позицию, <code>count()</code> считает совпадения, а <code>sort()</code> сортирует исходный список. Для нового отсортированного списка используют <code>sorted()</code>. И главное правило безопасности: не менять длину списка, пока идёт цикл по нему.</p>
+        <div class="pager">
+          <a href="../25-metody-spiskov-1/index.html">← 3.2 Добавление и удаление</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../27-metody-spiskov-3/index.html">3.4 Порядок, копия и проверка →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 3.3 · Методы списков. Часть 2 · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

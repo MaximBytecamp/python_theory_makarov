@@ -1,76 +1,395 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.4 Методы списков: порядок, копия и проверка · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.4</p></div>
-<header class="chapter-head"><span class="chapter-num">3.4</span><h1>Методы списков:<br>порядок, копия, проверка</h1><p class="lead"><code>reverse()</code> меняет порядок, <code>copy()</code> создаёт копию, <code>len()</code> считает элементы, <code>del</code> удаляет, а <code>in</code> проверяет наличие значения.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Методы и операции коллекций</dd></div><div><dt>Уровень</dt><dd>Начальный</dd></div><div><dt>Связанные темы</dt><dd>Списки, вложенные структуры, индексы</dd></div><div><dt>Зачем это знать</dt><dd>Разворачивать, копировать и проверять коллекции</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">reverse(): изменить порядок</a></li><li><a href="#s2">Новый обратный список</a></li><li><a href="#s3">copy(): поверхностная копия</a></li><li><a href="#s4">Вложенные списки и deepcopy()</a></li><li><a href="#s5">len(): количество элементов</a></li><li><a href="#s6">del: удаление</a></li><li><a href="#s7">in и not in</a></li><li><a href="#s8">Подсписок как элемент</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>3.4 Методы списков: порядок, копия и проверка · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 3 · Коллекции</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p>
+          <p class="running__folio">Глава 3.4</p>
+        </div>
 
-<h2 id="s1"><span class="sec">§1</span>reverse(): изменить порядок</h2><p><code>reverse()</code> разворачивает исходный список на месте и возвращает <code>None</code>.</p>
-<figure class="code"><figcaption><span>main.py</span><span>обратный порядок</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+        <header class="chapter-head">
+          <span class="chapter-num">3.4</span>
+          <h1>Методы списков:<br>порядок, копия, проверка</h1>
+          <p class="lead"><code>reverse()</code> меняет порядок, <code>copy()</code> создаёт копию, <code>len()</code> считает элементы, <code>del</code> удаляет, а <code>in</code> проверяет наличие значения.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Методы и операции коллекций</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Списки, вложенные структуры, индексы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Разворачивать, копировать и проверять коллекции</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">reverse(): изменить порядок</a></li>
+            <li><a href="#s2">Новый обратный список</a></li>
+            <li><a href="#s3">copy(): поверхностная копия</a></li>
+            <li><a href="#s4">Три способа скопировать</a></li>
+            <li><a href="#s5">== и is</a></li>
+            <li><a href="#s6">Вложенные списки</a></li>
+            <li><a href="#s7">deepcopy(): все уровни</a></li>
+            <li><a href="#s8">len(): количество элементов</a></li>
+            <li><a href="#s9">del: удаление</a></li>
+            <li><a href="#s10">in и not in</a></li>
+            <li><a href="#s11">Подсписок как элемент</a></li>
+            <li><a href="#s12">in как защита от ошибок</a></li>
+            <li><a href="#s13">Метод, функция или оператор</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>reverse(): изменить порядок</h2>
+        <p><code>reverse()</code> разворачивает исходный список на месте и возвращает <code>None</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обратный порядок</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
 result = numbers.reverse()
+
 <span class="f">print</span>(numbers)
-<span class="f">print</span>(result)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>список изменён</span></figcaption><pre>[4, 3, 2, 1]
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список изменён</span></figcaption><pre>[4, 3, 2, 1]
 None</pre></figure>
-<p>Для сортировки по убыванию точнее писать <code>numbers.sort(reverse=True)</code>, а не сначала сортировать и затем разворачивать.</p>
+        <p>Метод не сортирует, а только переворачивает: элементы идут в обратном порядке относительно того, в каком лежали. Для сортировки по убыванию точнее писать <code>numbers.sort(reverse=True)</code>, а не сортировать и затем разворачивать.</p>
 
-<h2 id="s2"><span class="sec">§2</span>Новый обратный список</h2><p>Если исходный порядок нужно сохранить, можно использовать срез с шагом <code>-1</code> или функцию <code>reversed()</code>.</p>
-<figure class="code"><figcaption><span>main.py</span><span>срез создаёт новый список</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+        <h2 id="s2"><span class="sec">§2</span>Новый обратный список</h2>
+        <p>Если исходный порядок нужно сохранить, используют срез с шагом <code>-1</code>: он строит новый список, не трогая старый.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>срез создаёт новый список</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
 backward = numbers[::-<span class="n">1</span>]
+
 <span class="f">print</span>(numbers)
-<span class="f">print</span>(backward)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два разных списка</span></figcaption><pre>[1, 2, 3, 4]
+<span class="f">print</span>(backward)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два разных списка</span></figcaption><pre>[1, 2, 3, 4]
 [4, 3, 2, 1]</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Исходный список</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>items.reverse()</code></td><td>изменяется</td><td><code>None</code></td></tr>
+              <tr><td><code>items[::-1]</code></td><td>не изменяется</td><td>новый список</td></tr>
+              <tr><td><code>reversed(items)</code></td><td>не изменяется</td><td>объект для перебора, не список</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><code>reversed()</code> удобен прямо в заголовке цикла: <code>for item in reversed(items)</code>. Чтобы получить из него именно список, его оборачивают в <code>list()</code>.</p>
 
-<h2 id="s3"><span class="sec">§3</span>copy(): поверхностная копия</h2><p><code>copy()</code> создаёт новый внешний список. Для обычных значений его можно менять независимо от исходного.</p>
-<figure class="code"><figcaption><span>main.py</span><span>изменение копии</span></figcaption><pre>original = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+        <h2 id="s3"><span class="sec">§3</span>copy(): поверхностная копия</h2>
+        <p><code>copy()</code> создаёт новый список с теми же элементами. Как показала глава 3.2, простое присваивание такого эффекта не даёт — оно лишь добавляет второе имя.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>изменение копии</span></figcaption>
+<pre>original = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
 copied = original.copy()
+
 copied[<span class="n">0</span>] = <span class="n">100</span>
-<span class="f">print</span>(original)
-<span class="f">print</span>(copied)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>внешние списки независимы</span></figcaption><pre>[1, 2, 3]
-[100, 2, 3]</pre></figure>
 
-<h2 id="s4"><span class="sec">§4</span>Вложенные списки и deepcopy()</h2><p><span class="term">Поверхностная копия</span> копирует только внешний список. Вложенные изменяемые элементы остаются общими для оригинала и копии.</p>
-<figure class="code"><figcaption><span>main.py</span><span>общий внутренний список</span></figcaption><pre>original = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]
-copied = original.copy()
-copied[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">100</span>
 <span class="f">print</span>(original)
-<span class="f">print</span>(copied)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>внутренняя строка изменилась в обоих</span></figcaption><pre>[[100, 2], [3, 4]]
+<span class="f">print</span>(copied)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>внешние списки независимы</span></figcaption><pre>[1, 2, 3]
+[100, 2, 3]</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>присваивание и копия</span></figcaption>
+<pre>b = a          a ─┐
+               b ─┴─→ [1, 2, 3]      один объект
+
+b = a.copy()   a ───→ [1, 2, 3]
+               b ───→ [1, 2, 3]      два объекта</pre>
+        </figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Три способа скопировать</h2>
+        <p>Одинаковый результат дают три разные записи. Выбор между ними — вопрос привычки и читаемости.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>одно и то же</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+
+<span class="f">print</span>(numbers.copy())
+<span class="f">print</span>(<span class="f">list</span>(numbers))
+<span class="f">print</span>(numbers[:])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три независимых списка</span></figcaption><pre>[1, 2, 3, 4]
+[1, 2, 3, 4]
+[1, 2, 3, 4]</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Особенность</th></tr></thead>
+            <tbody>
+              <tr><td><code>items.copy()</code></td><td>самая явная, читается как «копия»</td></tr>
+              <tr><td><code>list(items)</code></td><td>работает с любой коллекцией, не только со списком</td></tr>
+              <tr><td><code>items[:]</code></td><td>короткая, но неочевидная для начинающих</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Все три создают <span class="term">поверхностную копию</span> — новый внешний список с теми же самыми элементами внутри. Что это значит на практике, показывают §6 и §7.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>== и is</h2>
+        <p>Есть два разных вопроса: «одинаковое ли содержимое?» и «один ли это объект?». Для них существуют два разных оператора.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>равенство и тождественность</span></figcaption>
+<pre>a = [<span class="n">1</span>, <span class="n">2</span>]
+b = a.copy()
+c = a
+
+<span class="f">print</span>(a == b)
+<span class="f">print</span>(a <span class="k">is</span> b)
+<span class="f">print</span>(a <span class="k">is</span> c)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>содержимое совпало, объекты разные</span></figcaption><pre>True
+False
+True</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Оператор</th><th>Что проверяет</th><th>Когда использовать</th></tr></thead>
+            <tbody>
+              <tr><td><code>==</code></td><td>совпадает ли содержимое</td><td>почти всегда</td></tr>
+              <tr><td><code>is</code></td><td>это один и тот же объект</td><td>проверить, копия перед вами или второе имя</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Строка <code>a is c</code> даёт <code>True</code> — это и есть признак того, что <code>c = a</code> копией не было. Оператор <code>is</code> в обычном коде нужен редко; его основное штатное применение — проверка <code>if value is None</code>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Вложенные списки</h2>
+        <p>Поверхностная копия копирует только внешний список. Элементы в неё переносятся как есть — а если элемент сам является списком, обе коллекции продолжают ссылаться на один и тот же вложенный объект.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>внешние списки разные, внутренние общие</span></figcaption>
+<pre>original ──→ [ • , • ]
+                │   │
+                ▼   ▼
+             [1,2] [3,4]      ← общие
+                ▲   ▲
+                │   │
+copied   ──→ [ • , • ]</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>изменение вложенного элемента</span></figcaption>
+<pre>original = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]
+copied = original.copy()
+
+copied[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">100</span>
+
+<span class="f">print</span>(original)
+<span class="f">print</span>(copied)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>изменились оба</span></figcaption><pre>[[100, 2], [3, 4]]
 [[100, 2], [3, 4]]</pre></figure>
-<p>Для независимого копирования всех уровней используют <code>deepcopy()</code>.</p><figure class="code"><figcaption><span>main.py</span><span>глубокая копия</span></figcaption><pre><span class="k">import</span> copy
+        <p>При этом внешние списки всё-таки независимы. Добавление элемента в копию оригинала не касается:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>изменение внешнего уровня</span></figcaption>
+<pre>copied.append([<span class="n">9</span>, <span class="n">9</span>])
+
+<span class="f">print</span>(original)
+<span class="f">print</span>(copied)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>новый элемент только в копии</span></figcaption><pre>[[100, 2], [3, 4]]
+[[100, 2], [3, 4], [9, 9]]</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Где именно проходит граница</b>
+          <p>Копия защищает от изменений <b>первого уровня</b>: <code>copied[0] = ...</code>, <code>copied.append(...)</code>, <code>copied.remove(...)</code>. Изменения <b>внутри</b> элементов — <code>copied[0][0] = ...</code>, <code>copied[0].append(...)</code> — видны в обеих коллекциях.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>deepcopy(): все уровни</h2>
+        <p>Когда нужна независимость на всех уровнях вложенности, берут <code>deepcopy()</code> из модуля <code>copy</code>. Он проходит структуру целиком и создаёт новые объекты для каждого уровня.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>глубокая копия</span></figcaption>
+<pre><span class="k">import</span> copy
+
 original = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]
 copied = copy.deepcopy(original)
-copied[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">100</span>
-<span class="f">print</span>(original)
-<span class="f">print</span>(copied)</pre></figure>
 
-<h2 id="s5"><span class="sec">§5</span>len(): количество элементов</h2><p><code>len(collection)</code> — встроенная функция, а не метод списка. Она возвращает количество элементов и работает со строками, кортежами, словарями и множествами.</p>
-<figure class="code"><figcaption><span>main.py</span><span>длина разных коллекций</span></figcaption><pre><span class="f">print</span>(<span class="f">len</span>([<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]))
+copied[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">100</span>
+
+<span class="f">print</span>(original)
+<span class="f">print</span>(copied)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>оригинал не пострадал</span></figcaption><pre>[[1, 2], [3, 4]]
+[[100, 2], [3, 4]]</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Способ</th><th>Внешний список</th><th>Вложенные списки</th></tr></thead>
+            <tbody>
+              <tr><td><code>copied = original</code></td><td>общий</td><td>общие</td></tr>
+              <tr><td><code>copied = original.copy()</code></td><td>новый</td><td>общие</td></tr>
+              <tr><td><code>copied = copy.deepcopy(original)</code></td><td>новый</td><td>новые</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для плоского списка чисел или строк <code>copy()</code> достаточно: числа и строки неизменяемы, и «поделиться» ими безопасно. <code>deepcopy()</code> нужен там, где внутри лежат списки, словари или другие изменяемые объекты.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>len(): количество элементов</h2>
+        <p><code>len(collection)</code> — встроенная функция, а не метод списка. Она возвращает количество элементов и работает со строками, кортежами, словарями и множествами.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>длина разных коллекций</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">len</span>([<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]))
 <span class="f">print</span>(<span class="f">len</span>(<span class="s">"Python"</span>))
-<span class="f">print</span>(<span class="f">len</span>({<span class="s">"a"</span>: <span class="n">1</span>, <span class="s">"b"</span>: <span class="n">2</span>}))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>элементы, символы, пары</span></figcaption><pre>3
+<span class="f">print</span>(<span class="f">len</span>({<span class="s">"a"</span>: <span class="n">1</span>, <span class="s">"b"</span>: <span class="n">2</span>}))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементы, символы, пары</span></figcaption><pre>3
 6
 2</pre></figure>
+        <p>Для вложенного списка <code>len()</code> считает только верхний уровень: у <code>[[1, 2], [3, 4]]</code> длина равна <code>2</code>. Записи <code>items.len()</code> не существует — это функция, а не метод.</p>
 
-<h2 id="s6"><span class="sec">§6</span>del: удаление</h2><p><code>del</code> — оператор. Он может удалить элемент по индексу, срез или само имя переменной.</p>
-<figure class="code"><figcaption><span>main.py</span><span>элемент и срез</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+        <h2 id="s9"><span class="sec">§9</span>del: удаление</h2>
+        <p><code>del</code> — оператор, а не метод, поэтому и записывается иначе: ключевое слово перед тем, что удаляют. Он может убрать элемент по индексу, целый срез или само имя переменной.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>элемент и срез</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+
 <span class="k">del</span> numbers[<span class="n">1</span>]
-<span class="k">del</span> numbers[<span class="n">1</span>:<span class="n">3</span>]
-<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>после двух удалений</span></figcaption><pre>[1, 5]</pre></figure>
-<p><code>del numbers</code> удаляет имя. Если тот же список доступен через другое имя, он остаётся доступным через него. Отдельные элементы строк и кортежей удалить нельзя, потому что эти типы неизменяемы.</p>
+<span class="f">print</span>(numbers)
 
-<h2 id="s7"><span class="sec">§7</span>in и not in</h2><p><code>in</code> проверяет наличие равного элемента, а <code>not in</code> — его отсутствие. Результат всегда логический.</p>
-<figure class="code"><figcaption><span>main.py</span><span>проверка списка и строки</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+<span class="k">del</span> numbers[<span class="n">1</span>:<span class="n">3</span>]
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>после каждого удаления</span></figcaption><pre>[1, 3, 4, 5]
+[1, 5]</pre></figure>
+        <p>Второе удаление работает уже с изменённым списком: срез <code>1:3</code> убирает из <code>[1, 3, 4, 5]</code> элементы <code>3</code> и <code>4</code>. Правая граница среза не включается — как и в <code>range()</code>.</p>
+        <p><code>del numbers</code> без индекса удаляет само имя. Если тот же список доступен под другим именем, он остаётся доступным через него. Отдельные элементы строк и кортежей удалить нельзя: эти типы неизменяемы.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>in и not in</h2>
+        <p><code>in</code> проверяет наличие равного элемента, а <code>not in</code> — его отсутствие. Результат всегда логический, поэтому его удобно ставить прямо в условие.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка списка и строки</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+
 <span class="f">print</span>(<span class="n">20</span> <span class="k">in</span> numbers)
 <span class="f">print</span>(<span class="n">50</span> <span class="k">not in</span> numbers)
-<span class="f">print</span>(<span class="s">"th"</span> <span class="k">in</span> <span class="s">"Python"</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три истинные проверки</span></figcaption><pre>True
+<span class="f">print</span>(<span class="s">"th"</span> <span class="k">in</span> <span class="s">"Python"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три истинные проверки</span></figcaption><pre>True
 True
 True</pre></figure>
+        <p>Третья строка показывает важное различие: для <b>строки</b> оператор <code>in</code> ищет непрерывный фрагмент, а не отдельный символ. Для списка правило другое — о нём следующий параграф.</p>
 
-<h2 id="s8"><span class="sec">§8</span>Подсписок как элемент</h2><p>Для списка оператор <code>in</code> не ищет непрерывный фрагмент. Он сравнивает проверяемое значение с каждым отдельным элементом.</p>
-<figure class="code"><figcaption><span>main.py</span><span>два разных случая</span></figcaption><pre><span class="f">print</span>([<span class="n">2</span>, <span class="n">3</span>] <span class="k">in</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>])
-<span class="f">print</span>([<span class="n">2</span>, <span class="n">3</span>] <span class="k">in</span> [<span class="n">1</span>, [<span class="n">2</span>, <span class="n">3</span>], <span class="n">4</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>фрагмент и отдельный элемент</span></figcaption><pre>False
+        <h2 id="s11"><span class="sec">§11</span>Подсписок как элемент</h2>
+        <p>Для списка <code>in</code> не ищет непрерывный фрагмент. Он сравнивает проверяемое значение с каждым отдельным элементом целиком.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два разных случая</span></figcaption>
+<pre><span class="f">print</span>([<span class="n">2</span>, <span class="n">3</span>] <span class="k">in</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>])
+<span class="f">print</span>([<span class="n">2</span>, <span class="n">3</span>] <span class="k">in</span> [<span class="n">1</span>, [<span class="n">2</span>, <span class="n">3</span>], <span class="n">4</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>фрагмент и отдельный элемент</span></figcaption><pre>False
 True</pre></figure>
+        <p>В первом случае элементы списка — числа <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, и ни один из них не равен списку <code>[2, 3]</code>. Во втором случае такой элемент действительно есть.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Проверка</th><th>Что ищет <code>in</code></th></tr></thead>
+            <tbody>
+              <tr><td><code>"th" in "Python"</code></td><td>непрерывную подстроку</td></tr>
+              <tr><td><code>[2, 3] in [1, 2, 3]</code></td><td>элемент, равный списку <code>[2, 3]</code></td></tr>
+            </tbody>
+          </table>
+        </div>
 
-<h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>items = items.reverse()</code></td><td>в переменную попадёт <code>None</code></td><td><code>items.reverse()</code></td></tr><tr><td>ожидать полной независимости от <code>nested.copy()</code></td><td>изменение внутреннего списка видно в обеих коллекциях</td><td>использовать <code>copy.deepcopy()</code>, когда нужны независимые уровни</td></tr><tr><td><code>items.len()</code></td><td><code>AttributeError</code></td><td><code>len(items)</code></td></tr><tr><td><code>del text[0]</code></td><td><code>TypeError</code>: строка неизменяема</td><td>создать новую строку</td></tr><tr><td><code>[2, 3] in [1, 2, 3, 4]</code></td><td>получится <code>False</code></td><td>помнить, что список ищет целый элемент</td></tr></tbody></table></div>
-<h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2><details><summary>Меняет ли <code>reverse()</code> исходный список?</summary><p>Да. Метод работает на месте и возвращает <code>None</code>.</p></details><details><summary>Почему вложенный список меняется и в поверхностной копии?</summary><p>Новый только внешний список; вложенный изменяемый объект остаётся общим.</p></details><details><summary>Является ли <code>len()</code> методом списка?</summary><p>Нет, это встроенная функция: <code>len(items)</code>.</p></details>
-<h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2><div class="cheat"><div><b>Развернуть на месте</b><code>items.reverse()</code></div><div><b>Поверхностная копия</b><code>copied = items.copy()</code></div><div><b>Длина</b><code>len(items)</code></div><div><b>Наличие</b><code>value in items</code></div></div>
-<h3>Итог главы</h3><p><code>reverse()</code> меняет порядок исходного списка, <code>copy()</code> создаёт поверхностную копию, <code>len()</code> считает элементы, <code>del</code> удаляет по позиции, а <code>in</code> проверяет наличие отдельного элемента.</p>
-<div class="pager"><a href="../26-metody-spiskov-2/index.html">← 3.3 Удаление, поиск и сортировка</a><a href="../../index.html">К содержанию справочника</a><a href="../28-indeksy-spiska/index.html">3.5 Перебор по индексам →</a></div><div class="colophon"><span>Глава 3.4 · Методы списков. Часть 3 · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <h2 id="s12"><span class="sec">§12</span>in как защита от ошибок</h2>
+        <p>Проверка <code>in</code> — стандартный способ не дать программе упасть там, где методы выбрасывают исключение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка перед удалением и поиском</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+value = <span class="n">99</span>
+
+<span class="k">if</span> value <span class="k">in</span> numbers:
+    numbers.remove(value)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"нечего удалять"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вместо ValueError</span></figcaption><pre>нечего удалять</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Опасная запись</th><th>Что случится</th><th>Проверка перед ней</th></tr></thead>
+            <tbody>
+              <tr><td><code>items.remove(value)</code></td><td><code>ValueError</code></td><td><code>if value in items:</code></td></tr>
+              <tr><td><code>items.index(value)</code></td><td><code>ValueError</code></td><td><code>if value in items:</code></td></tr>
+              <tr><td><code>items.pop()</code></td><td><code>IndexError</code></td><td><code>if len(items) &gt; 0:</code></td></tr>
+              <tr><td><code>items[index]</code></td><td><code>IndexError</code></td><td><code>if index &lt; len(items):</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Метод, функция или оператор</h2>
+        <p>За три главы набралось три разные формы записи. Различать их полезно: от формы зависит и синтаксис, и то, меняется ли исходная коллекция.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Форма</th><th>Как выглядит</th><th>Примеры</th></tr></thead>
+            <tbody>
+              <tr><td>метод</td><td><code>items.действие()</code></td><td><code>append()</code>, <code>sort()</code>, <code>reverse()</code>, <code>copy()</code></td></tr>
+              <tr><td>функция</td><td><code>действие(items)</code></td><td><code>len()</code>, <code>sum()</code>, <code>sorted()</code>, <code>reversed()</code></td></tr>
+              <tr><td>оператор</td><td>ключевое слово или знак</td><td><code>del</code>, <code>in</code>, <code>not in</code>, <code>+</code>, <code>is</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Закономерность почти без исключений: методы списка меняют его на месте и возвращают <code>None</code>, а функции ничего не меняют и возвращают новый результат. Пара <code>sort()</code> / <code>sorted()</code> — самая наглядная иллюстрация этого правила.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>items = items.reverse()</code></td><td>в переменную попадёт <code>None</code></td><td><code>items.reverse()</code></td></tr>
+              <tr><td><code>copied = original</code> как копия</td><td>оба имени указывают на один список</td><td><code>copied = original.copy()</code></td></tr>
+              <tr><td>ожидать полной независимости от <code>nested.copy()</code></td><td>изменение внутреннего списка видно в обеих коллекциях</td><td><code>copy.deepcopy()</code>, когда нужны независимые уровни</td></tr>
+              <tr><td><code>deepcopy(items)</code> без импорта</td><td><code>NameError</code></td><td><code>import copy</code> и <code>copy.deepcopy(items)</code></td></tr>
+              <tr><td><code>items.len()</code></td><td><code>AttributeError</code></td><td><code>len(items)</code></td></tr>
+              <tr><td><code>items.del(0)</code></td><td><code>SyntaxError</code>: <code>del</code> — оператор</td><td><code>del items[0]</code></td></tr>
+              <tr><td><code>del text[0]</code></td><td><code>TypeError</code>: строка неизменяема</td><td>создать новую строку</td></tr>
+              <tr><td><code>[2, 3] in [1, 2, 3, 4]</code></td><td>получится <code>False</code></td><td>помнить, что список ищет целый элемент</td></tr>
+              <tr><td><code>a is b</code> для сравнения содержимого</td><td>у равных списков получится <code>False</code></td><td><code>a == b</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Меняет ли <code>reverse()</code> исходный список?</summary><p>Да. Метод работает на месте и возвращает <code>None</code>. Новый список даёт срез <code>items[::-1]</code>.</p></details>
+        <details><summary>В чём разница между <code>==</code> и <code>is</code>?</summary><p><code>==</code> сравнивает содержимое, <code>is</code> проверяет, что это один и тот же объект. У копии содержимое равно, а объект другой.</p></details>
+        <details><summary>Почему вложенный список меняется и в поверхностной копии?</summary><p>Новый создаётся только внешний список; вложенные изменяемые объекты остаются общими.</p></details>
+        <details><summary>Когда <code>copy()</code> достаточно, а когда нужен <code>deepcopy()</code>?</summary><p><code>copy()</code> хватает для плоских списков из чисел и строк. <code>deepcopy()</code> нужен, если внутри лежат списки, словари или другие изменяемые объекты.</p></details>
+        <details><summary>Чему равна <code>len([[1, 2], [3, 4]])</code>?</summary><p><code>2</code>: считается только верхний уровень.</p></details>
+        <details><summary>Является ли <code>len()</code> методом списка?</summary><p>Нет, это встроенная функция: <code>len(items)</code>.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Развернуть на месте</b><code>items.reverse()</code></div>
+          <div><b>Новый обратный</b><code>items[::-1]</code></div>
+          <div><b>Поверхностная копия</b><code>copied = items.copy()</code></div>
+          <div><b>Глубокая копия</b><code>copy.deepcopy(items)</code></div>
+          <div><b>Один ли объект</b><code>a is b</code></div>
+          <div><b>Длина</b><code>len(items)</code></div>
+          <div><b>Удалить по позиции</b><code>del items[index]</code></div>
+          <div><b>Наличие</b><code>value in items</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>reverse()</code> меняет порядок исходного списка, <code>copy()</code> создаёт поверхностную копию, <code>len()</code> считает элементы верхнего уровня, <code>del</code> удаляет по позиции или срезу, а <code>in</code> проверяет наличие отдельного элемента. Поверхностная копия защищает только внешний уровень: для вложенных структур нужен <code>deepcopy()</code>.</p>
+        <div class="pager">
+          <a href="../26-metody-spiskov-2/index.html">← 3.3 Удаление, поиск и сортировка</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../28-indeksy-spiska/index.html">3.5 Перебор по индексам →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 3.4 · Методы списков. Часть 3 · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
