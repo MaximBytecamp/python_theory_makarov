@@ -7,7 +7,17 @@
       "Bash(grep -v '^$')",
       "Bash(sort -t- -k1 -n)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(python3 /private/tmp/claude-501/-Users-makarovmn-python-theory-makarov/b4b246a0-19af-4d1d-8054-3a5d745b0668/scratchpad/renumber.py)",
+      "Bash(python3 /private/tmp/claude-501/-Users-makarovmn-python-theory-makarov/b4b246a0-19af-4d1d-8054-3a5d745b0668/scratchpad/renumber.py --apply)",
+      "Bash(git checkout *)",
+      "Bash(grep -o '.\\\\{40\\\\}\\(<span class=\"n\">[0-9]*</span>, <span class=\"n\">[0-9]*</span>\\)' temy/22-range/index.html)",
+      "Bash(grep -n -o 'slice можно передать в функцию.\\\\{0,120\\\\}' temy/54-imenovannye-srezy/index.html)",
+      "Bash(grep -n -o 'StopIteration.\\\\{0,80\\\\}' temy/43-iteratory/index.html)",
+      "Bash(python3 /private/tmp/claude-501/-Users-makarovmn-python-theory-makarov/b4b246a0-19af-4d1d-8054-3a5d745b0668/scratchpad/check.py temy/55-unicode-ord-chr/index.html temy/56-registr-strok/index.html)",
+      "Bash(python3 /private/tmp/claude-501/-Users-makarovmn-python-theory-makarov/b4b246a0-19af-4d1d-8054-3a5d745b0668/scratchpad/check.py temy/57-center-count/index.html)",
+      "Bash(python3 /private/tmp/claude-501/-Users-makarovmn-python-theory-makarov/b4b246a0-19af-4d1d-8054-3a5d745b0668/scratchpad/check.py temy/59-poisk-v-strokah/index.html)",
+      "Bash(python3 /private/tmp/claude-501/-Users-makarovmn-python-theory-makarov/b4b246a0-19af-4d1d-8054-3a5d745b0668/scratchpad/check.py temy/55-unicode-ord-chr/index.html temy/56-registr-strok/index.html temy/57-center-count/index.html temy/58-encode-decode/index.html temy/59-poisk-v-strokah/index.html)"
     ]
   }
 }
