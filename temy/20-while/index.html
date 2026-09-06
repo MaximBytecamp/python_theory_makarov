@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.7 Цикл while с предусловием · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.7</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.7</span>
+          <h1>Цикл <code>while</code><br>с предусловием</h1>
+          <p class="lead"><code>while</code> повторяет блок, пока условие остаётся истинным. Такой цикл нужен, когда количество повторений заранее неизвестно.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Циклы и управление выполнением</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Условия, break, continue</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Повторять действия до изменения условия</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что делает while</a></li>
+            <li><a href="#s2">Проверка перед каждым повтором</a></li>
+            <li><a href="#s3">Цикл со счётчиком</a></li>
+            <li><a href="#s4">Когда число повторений неизвестно</a></li>
+            <li><a href="#s5">Бесконечный цикл</a></li>
+            <li><a href="#s6">Досрочный выход: break</a></li>
+            <li><a href="#s7">Пропуск шага: continue</a></li>
+            <li><a href="#s8">Блок else у цикла</a></li>
+            <li><a href="#s9">Квадраты до границы</a></li>
+            <li><a href="#s10">Анализ цифр числа</a></li>
+            <li><a href="#s11">while или for</a></li>
+            <li><a href="#s12">Частые ошибки</a></li>
+            <li><a href="#s13">Проверьте себя</a></li>
+            <li><a href="#s14">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что делает while</h2>
+        <p><span class="term">Цикл</span> повторяет один блок кода несколько раз. В конструкции <code>while</code> повторение продолжается, пока условие даёт <code>True</code>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>общая форма</span></figcaption>
+<pre><span class="k">while</span> условие:
+    тело_цикла</pre>
+        </figure>
+        <p>После условия ставится двоеточие, а тело цикла записывается с отступом. Строки без этого отступа выполняются уже после завершения цикла.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Проверка перед каждым повтором</h2>
+        <p><code>while</code> называют циклом с предусловием, потому что условие проверяется до входа в тело — в том числе перед самым первым повтором.</p>
+        <ol class="steps">
+          <li>Python вычисляет условие после <code>while</code>.</li>
+          <li>Если результат <code>True</code>, выполняется всё тело цикла.</li>
+          <li>После тела программа возвращается к условию и вычисляет его заново.</li>
+          <li>Если результат <code>False</code>, цикл заканчивается.</li>
+        </ol>
+        <div class="margin-note">
+          <b>Ноль повторений — тоже результат</b>
+          <p>Если условие ложно при первой проверке, тело <code>while</code> не выполнится ни разу.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Цикл со счётчиком</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>числа от 1 до 5</span></figcaption>
+<pre>number = <span class="n">1</span>
+
+<span class="k">while</span> number &lt;= <span class="n">5</span>:
+    <span class="f">print</span>(number)
+    number += <span class="n">1</span></pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пять повторений</span></figcaption><pre>1
+2
+3
+4
+5</pre></figure>
+        <p>Переменная <code>number</code> начинается с <code>1</code>. В конце каждого повторения она увеличивается, поэтому после вывода числа <code>5</code> условие становится ложным.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Когда число повторений неизвестно</h2>
+        <p>Один из типичных сценариев — принимать значения, пока пользователь не введёт специальный сигнал завершения. В примере таким сигналом служит ноль.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сумма и количество до нуля</span></figcaption>
+<pre>total = <span class="n">0</span>
+count = <span class="n">0</span>
+
+<span class="k">while</span> <span class="k">True</span>:
+    number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите число: "</span>))
+
+    <span class="k">if</span> number == <span class="n">0</span>:
+        <span class="k">break</span>
+
+    total += number
+    count += <span class="n">1</span>
+
+<span class="f">print</span>(<span class="s">"Сумма:"</span>, total)
+<span class="f">print</span>(<span class="s">"Количество:"</span>, count)</pre>
+        </figure>
+        <p>Заранее неизвестно, сколько чисел будет введено. Поэтому цикл удобно завершить в тот момент, когда получен ноль.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Бесконечный цикл</h2>
+        <p>Если условие никогда не станет ложным, повторения не закончатся. Например, у следующего фрагмента нет пути к завершению:</p>
+        <figure class="code">
+          <figcaption><span>Опасный фрагмент</span><span>не запускайте без необходимости</span></figcaption>
+<pre><span class="k">while</span> <span class="k">True</span>:
+    <span class="f">print</span>(<span class="s">"Повторение"</span>)</pre>
+        </figure>
+        <p>Сам по себе бесконечный цикл не является ошибкой синтаксиса: постоянно работающие программы действительно его используют. Но внутри должен существовать управляемый способ ожидания или завершения. В учебной задаче чаще всего нужен <code>break</code> либо изменение переменной в условии.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Досрочный выход: break</h2>
+        <p><code>break</code> немедленно завершает ближайший цикл независимо от его условия.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>остановка на числе 5</span></figcaption>
+<pre>number = <span class="n">1</span>
+
+<span class="k">while</span> <span class="k">True</span>:
+    <span class="f">print</span>(number)
+
+    <span class="k">if</span> number == <span class="n">5</span>:
+        <span class="k">break</span>
+
+    number += <span class="n">1</span></pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>break завершил цикл</span></figcaption><pre>1
+2
+3
+4
+5</pre></figure>
+
+        <h2 id="s7"><span class="sec">§7</span>Пропуск шага: continue</h2>
+        <p><code>continue</code> прекращает только текущее повторение и сразу возвращает программу к следующей проверке условия.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>число 3 пропущено</span></figcaption>
+<pre>number = <span class="n">0</span>
+
+<span class="k">while</span> number &lt; <span class="n">5</span>:
+    number += <span class="n">1</span>
+
+    <span class="k">if</span> number == <span class="n">3</span>:
+        <span class="k">continue</span>
+
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>без числа 3</span></figcaption><pre>1
+2
+4
+5</pre></figure>
+        <p>Счётчик увеличивается до <code>continue</code>. Если перенести <code>number += 1</code> ниже, то при значении <code>3</code> программа будет бесконечно пропускать строку увеличения.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Блок else у цикла</h2>
+        <p><code>else</code> после <code>while</code> выполняется при обычном завершении: когда условие стало ложным. Если цикл прерван через <code>break</code>, блок <code>else</code> пропускается.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>условие стало ложным</span></figcaption>
+<pre>number = <span class="n">1</span>
+
+<span class="k">while</span> number &lt;= <span class="n">3</span>:
+    <span class="f">print</span>(number)
+    number += <span class="n">1</span>
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Цикл завершён без break"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>else выполнился</span></figcaption><pre>1
+2
+3
+Цикл завершён без break</pre></figure>
+
+        <h2 id="s9"><span class="sec">§9</span>Квадраты до границы</h2>
+        <p><b>Задача:</b> вывести квадраты натуральных чисел, которые не превышают заданное значение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>для границы 30</span></figcaption>
+<pre>limit = <span class="n">30</span>
+number = <span class="n">1</span>
+
+<span class="k">while</span> number * number &lt;= limit:
+    <span class="f">print</span>(number * number)
+    number += <span class="n">1</span></pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>следующий квадрат уже больше 30</span></figcaption><pre>1
+4
+9
+16
+25</pre></figure>
+
+        <h2 id="s10"><span class="sec">§10</span>Анализ цифр числа</h2>
+        <p><b>Задача:</b> узнать, сколько раз в натуральном числе встречается цифра <code>3</code> и сколько раз повторяется его последняя цифра.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перебор цифр справа налево</span></figcaption>
+<pre>number = <span class="n">31333</span>
+
+last_digit = number % <span class="n">10</span>
+count_three = <span class="n">0</span>
+count_last = <span class="n">0</span>
+
+<span class="k">while</span> number &gt; <span class="n">0</span>:
+    digit = number % <span class="n">10</span>
+
+    <span class="k">if</span> digit == <span class="n">3</span>:
+        count_three += <span class="n">1</span>
+
+    <span class="k">if</span> digit == last_digit:
+        count_last += <span class="n">1</span>
+
+    number //= <span class="n">10</span>
+
+<span class="f">print</span>(<span class="s">"Цифр 3:"</span>, count_three)
+<span class="f">print</span>(<span class="s">"Последняя цифра встречается:"</span>, count_last)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>number = 31333</span></figcaption><pre>Цифр 3: 4
+Последняя цифра встречается: 4</pre></figure>
+        <p>Выражение <code>number % 10</code> получает последнюю цифру, а <code>number //= 10</code> удаляет её. Без удаления цифры условие <code>number &gt; 0</code> не изменялось бы.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>while или for</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Цикл</th><th>Когда выбирать</th><th>Пример задачи</th></tr></thead>
+            <tbody>
+              <tr><td><code>while</code></td><td>завершение зависит от условия, число повторений заранее неизвестно</td><td>читать числа до ввода нуля</td></tr>
+              <tr><td><code>for</code></td><td>нужно перебрать готовую последовательность значений</td><td>обработать каждый символ строки</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Следующая глава подробно разбирает цикл <code>for</code>. Многие задачи можно решить обоими способами, но подходящий цикл делает условие завершения заметнее.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>while number &lt; 5</code></td><td><code>SyntaxError</code>: нет двоеточия</td><td><code>while number &lt; 5:</code></td></tr>
+              <tr><td>счётчик внутри цикла не изменяется</td><td>условие может навсегда остаться истинным</td><td>изменять данные, от которых зависит условие</td></tr>
+              <tr><td><code>continue</code> стоит раньше изменения счётчика</td><td>цикл может застрять на одном значении</td><td>обновить счётчик до <code>continue</code></td></tr>
+              <tr><td>ожидать <code>else</code> после <code>break</code></td><td>блок <code>else</code> будет пропущен</td><td>помнить: <code>else</code> означает завершение без <code>break</code></td></tr>
+              <tr><td>тело цикла без отступа</td><td><code>IndentationError</code></td><td>добавить отступ в четыре пробела</td></tr>
+              <tr><td>лишний <code>while True</code> без выхода</td><td>программа не перейдёт к следующей строке</td><td>добавить понятное условие или управляемый <code>break</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2>
+        <details><summary>Может ли тело <code>while</code> не выполниться ни разу?</summary><p>Да. Условие проверяется до первого входа в тело. Если оно сразу ложно, цикл пропускается.</p></details>
+        <details><summary>Чем отличаются <code>break</code> и <code>continue</code>?</summary><p><code>break</code> завершает весь цикл, а <code>continue</code> пропускает остаток только текущего повторения.</p></details>
+        <details><summary>Когда выполнится <code>else</code> после <code>while</code>?</summary><p>Когда цикл завершился обычным способом, потому что условие стало ложным. После <code>break</code> этот блок не выполняется.</p></details>
+
+        <h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Повторять по условию</b><code>while condition:</code><code>    action</code></div>
+          <div><b>Завершить цикл</b><code>break</code></div>
+          <div><b>Пропустить шаг</b><code>continue</code></div>
+          <div><b>Обычное завершение</b><code>while ...:</code><code>    ...</code><code>else:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>while</code> проверяет условие перед каждым повторением и работает, пока оно истинно. Чтобы цикл завершился, его условие должно измениться или должен выполниться <code>break</code>. <code>continue</code> пропускает один шаг, а <code>else</code> отмечает завершение без <code>break</code>.</p>
+        <div class="pager">
+          <a href="../15-ternarnyy-operator/index.html">← 2.6 Тернарный оператор</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../21-for-in/index.html">2.8 Цикл for in →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.7 · Цикл while с предусловием · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

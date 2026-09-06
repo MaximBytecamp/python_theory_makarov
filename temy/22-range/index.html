@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.9 Функция range() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.9</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.9</span>
+          <h1>Функция <code>range()</code></h1>
+          <p class="lead"><code>range()</code> задаёт последовательность целых чисел. Начало включается, правая граница не включается, а шаг определяет направление и расстояние между соседними значениями.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Числовые диапазоны</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>for, целые числа, индексы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Управлять количеством повторений и шагом цикла</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что создаёт range()</a></li>
+            <li><a href="#s2">Граница stop не включается</a></li>
+            <li><a href="#s3">Форма range(stop)</a></li>
+            <li><a href="#s4">Форма range(start, stop)</a></li>
+            <li><a href="#s5">Форма range(start, stop, step)</a></li>
+            <li><a href="#s6">Обратный диапазон</a></li>
+            <li><a href="#s7">Направление шага</a></li>
+            <li><a href="#s8">range — не готовый список</a></li>
+            <li><a href="#s9">Перебор индексов</a></li>
+            <li><a href="#s10">Частые ошибки</a></li>
+            <li><a href="#s11">Проверьте себя</a></li>
+            <li><a href="#s12">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что создаёт range()</h2>
+        <p><code>range()</code> создаёт объект диапазона целых чисел. Чаще всего этот объект передают циклу <code>for</code>, чтобы выполнить действие для каждого числа.</p>
+        <figure class="code">
+          <figcaption><span>Сигнатура</span><span>начало, граница и шаг</span></figcaption>
+<pre><span class="f">range</span>(start, stop, step)</pre>
+        </figure>
+        <ul>
+          <li><code>start</code> — первое значение диапазона, оно включается;</li>
+          <li><code>stop</code> — граница, при достижении которой диапазон заканчивается, она не включается;</li>
+          <li><code>step</code> — величина изменения, по умолчанию равна <code>1</code>.</li>
+        </ul>
+
+        <h2 id="s2"><span class="sec">§2</span>Граница stop не включается</h2>
+        <p>Главное правило <code>range()</code>: значение <code>stop</code> не попадает в диапазон. Поэтому <code>range(2, 6)</code> заканчивается числом <code>5</code>.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>левая граница входит, правая — нет</span></figcaption>
+<pre><span class="f">range</span>(<span class="n">2</span>, <span class="n">6</span>) → 2, 3, 4, 5
+          start ┘        └ stop</pre>
+        </figure>
+        <div class="margin-note">
+          <b>Чтобы включить число n</b>
+          <p>При шаге <code>1</code> правую границу часто записывают как <code>n + 1</code>. Например, числа от <code>1</code> до <code>5</code> задаются выражением <code>range(1, 6)</code>.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Форма range(stop)</h2>
+        <p>Если передан один аргумент, <code>start</code> считается равным <code>0</code>, а шаг — <code>1</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пять значений</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>):
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>от 0 до 4</span></figcaption><pre>0
+1
+2
+3
+4</pre></figure>
+        <p>Количество значений равно <code>5</code>, но последнее значение равно <code>4</code>, потому что отсчёт начался с нуля.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Форма range(start, stop)</h2>
+        <p>Два аргумента позволяют задать первое значение и невключаемую правую границу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>от 2 до 5</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>, <span class="n">6</span>):
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>6 не включается</span></figcaption><pre>2
+3
+4
+5</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Форма range(start, stop, step)</h2>
+        <p>Третий аргумент задаёт шаг. После каждого значения к нему прибавляется <code>step</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>чётные числа меньше 10</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">0</span>, <span class="n">10</span>, <span class="n">2</span>):
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>шаг равен 2</span></figcaption><pre>0
+2
+4
+6
+8</pre></figure>
+        <p>Последнее значение не обязано быть на единицу меньше <code>stop</code>. Диапазон заканчивается перед первым значением, которое достигло бы границы или перешло через неё.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Обратный диапазон</h2>
+        <p>Для движения вниз нужен отрицательный шаг. При шаге <code>-1</code> каждое следующее значение уменьшается на единицу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обратный отсчёт</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>, <span class="n">0</span>, -<span class="n">1</span>):
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>0 не включается</span></figcaption><pre>5
+4
+3
+2
+1</pre></figure>
+
+        <h2 id="s7"><span class="sec">§7</span>Направление шага</h2>
+        <p>Знак шага должен вести от <code>start</code> к <code>stop</code>. Иначе диапазон окажется пустым, и тело цикла не выполнится.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Диапазон</th><th>Результат</th><th>Почему</th></tr></thead>
+            <tbody>
+              <tr><td><code>range(1, 5, 1)</code></td><td><code>1, 2, 3, 4</code></td><td>положительный шаг ведёт к большей границе</td></tr>
+              <tr><td><code>range(5, 1, -1)</code></td><td><code>5, 4, 3, 2</code></td><td>отрицательный шаг ведёт к меньшей границе</td></tr>
+              <tr><td><code>range(1, 5, -1)</code></td><td>пусто</td><td>отрицательный шаг уводит от границы</td></tr>
+              <tr><td><code>range(5, 1, 1)</code></td><td>пусто</td><td>положительный шаг уводит от границы</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>range — не готовый список</h2>
+        <p>Объект <code>range</code> хранит правила диапазона, а не создаёт заранее обычный список со всеми числами.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>объект и список</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">range</span>(<span class="n">5</span>))
+<span class="f">print</span>(<span class="f">list</span>(<span class="f">range</span>(<span class="n">5</span>)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два представления</span></figcaption><pre>range(0, 5)
+[0, 1, 2, 3, 4]</pre></figure>
+        <p>Для цикла преобразование в список не требуется: <code>for</code> умеет перебирать объект <code>range</code> напрямую.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Перебор индексов</h2>
+        <p>Если нужен номер позиции, можно создать диапазон от нуля до длины списка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>индекс и элемент</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(numbers)):
+    <span class="f">print</span>(index, numbers[index])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три позиции</span></figcaption><pre>0 10
+1 20
+2 30</pre></figure>
+        <p>Если индекс не используется, проще перебирать сами элементы: <code>for number in numbers</code>. Специальный способ одновременно получать индекс и значение будет рассмотрен вместе с коллекциями.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>range(1, 5)</code> для чисел от 1 до 5</td><td>число <code>5</code> не войдёт</td><td><code>range(1, 6)</code></td></tr>
+              <tr><td><code>range(5, 0)</code> для обратного отсчёта</td><td>получится пустой диапазон</td><td><code>range(5, 0, -1)</code></td></tr>
+              <tr><td><code>range(0, 10, 0)</code></td><td><code>ValueError</code>: шаг не может быть нулём</td><td>указать положительный или отрицательный шаг</td></tr>
+              <tr><td><code>range(0, 5, 0.5)</code></td><td><code>TypeError</code>: <code>range()</code> работает с целыми числами</td><td>использовать целочисленные аргументы</td></tr>
+              <tr><td><code>print(range(5))</code> и ожидание пяти строк</td><td>выведется представление объекта <code>range(0, 5)</code></td><td>перебрать диапазон или преобразовать его в список</td></tr>
+              <tr><td><code>range(len(numbers) + 1)</code></td><td>последний индекс выйдет за границы списка</td><td><code>range(len(numbers))</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s11"><span class="sec">§11</span>Проверьте себя</h2>
+        <details><summary>Какие значения создаёт <code>range(3, 8)</code>?</summary><p><code>3, 4, 5, 6, 7</code>. Значение <code>8</code> является границей и не включается.</p></details>
+        <details><summary>Почему <code>range(5, 0)</code> пуст?</summary><p>Шаг по умолчанию равен <code>1</code> и ведёт вверх, а от <code>5</code> к <code>0</code> нужно двигаться вниз с отрицательным шагом.</p></details>
+        <details><summary>Нужно ли писать <code>list(range(100))</code> перед циклом?</summary><p>Нет. Цикл <code>for</code> умеет работать с объектом <code>range</code> напрямую.</p></details>
+
+        <h2 id="s12"><span class="sec">§12</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>От нуля</b><code>range(stop)</code></div>
+          <div><b>С начала</b><code>range(start, stop)</code></div>
+          <div><b>С шагом</b><code>range(start, stop, step)</code></div>
+          <div><b>Обратно</b><code>range(5, 0, -1)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>range()</code> задаёт последовательность целых чисел. <code>start</code> включается, <code>stop</code> не включается, а <code>step</code> задаёт величину и направление изменения. Для обратного диапазона нужен отрицательный шаг.</p>
+        <div class="pager">
+          <a href="../21-for-in/index.html">← 2.8 Цикл for in</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../23-praktika-for/index.html">2.10 Практика for →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.9 · Функция range() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

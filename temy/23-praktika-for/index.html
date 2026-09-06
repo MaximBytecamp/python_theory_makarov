@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.10 Практические примеры по for in · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.10</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.10</span>
+          <h1>Практические примеры<br>по <code>for in</code></h1>
+          <p class="lead">Пятнадцать задач показывают основные схемы цикла: вывести каждое значение, накопить результат, отобрать элементы, найти максимум и завершить поиск через <code>break</code>.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Практика циклов</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>for, range(), условия, строки</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Узнавать типовые схемы решения задач</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Как разбирать задачи</a></li>
+            <li><a href="#s2">Числа и квадраты</a></li>
+            <li><a href="#s3">Накопление суммы</a></li>
+            <li><a href="#s4">Фильтрация по условию</a></li>
+            <li><a href="#s5">Накопление произведения</a></li>
+            <li><a href="#s6">Перебор символов</a></li>
+            <li><a href="#s7">Сумма цифр</a></li>
+            <li><a href="#s8">Поиск максимума</a></li>
+            <li><a href="#s9">Подсчёт подходящих элементов</a></li>
+            <li><a href="#s10">Таблица умножения</a></li>
+            <li><a href="#s11">Построение новой строки</a></li>
+            <li><a href="#s12">Поиск с break и else</a></li>
+            <li><a href="#s13">Диапазон с шагом</a></li>
+            <li><a href="#s14">Подсчёт гласных</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Как разбирать задачи</h2>
+        <p>Перед написанием цикла ответьте на три вопроса: какие значения перебираются, что происходит с одним значением и нужен ли общий результат после завершения.</p>
+        <ol class="steps">
+          <li>Выберите последовательность: строку, список или <code>range()</code>.</li>
+          <li>Дайте переменной цикла имя одного элемента.</li>
+          <li>Если нужен итог, создайте переменную-накопитель до цикла.</li>
+          <li>После цикла выведите или используйте накопленный результат.</li>
+        </ol>
+
+        <h2 id="s2"><span class="sec">§2</span>Числа и квадраты</h2>
+        <p><b>Задача 1:</b> вывести числа от <code>1</code> до <code>5</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>последовательный вывод</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пять значений</span></figcaption><pre>1
+2
+3
+4
+5</pre></figure>
+        <p><b>Задача 2:</b> рядом с каждым числом вывести его квадрат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>вычисление на каждом повторении</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+    <span class="f">print</span>(number, number * number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>число и квадрат</span></figcaption><pre>1 1
+2 4
+3 9
+4 16
+5 25</pre></figure>
+
+        <h2 id="s3"><span class="sec">§3</span>Накопление суммы</h2>
+        <p><b>Задача 3:</b> найти сумму чисел от <code>1</code> до <code>5</code>. Накопитель начинается с нуля, потому что прибавление нуля не меняет сумму.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сумма в переменной total</span></figcaption>
+<pre>total = <span class="n">0</span>
+
+<span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+    total += number
+
+<span class="f">print</span>(total)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>1 + 2 + 3 + 4 + 5</span></figcaption><pre>15</pre></figure>
+        <p><code>print()</code> стоит без отступа, поэтому выполняется один раз после завершения цикла.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Фильтрация по условию</h2>
+        <p><b>Задача 4:</b> вывести только чётные числа от <code>1</code> до <code>10</code>. Условие внутри цикла решает, какие значения подходят.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка каждого числа</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">11</span>):
+    <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span>:
+        <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>только подходящие значения</span></figcaption><pre>2
+4
+6
+8
+10</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Накопление произведения</h2>
+        <p><b>Задача 5:</b> вычислить факториал числа <code>5</code>, то есть произведение <code>1 · 2 · 3 · 4 · 5</code>. Для произведения накопитель начинается с единицы.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>факториал числа 5</span></figcaption>
+<pre>number = <span class="n">5</span>
+result = <span class="n">1</span>
+
+<span class="k">for</span> factor <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, number + <span class="n">1</span>):
+    result *= factor
+
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>1 · 2 · 3 · 4 · 5</span></figcaption><pre>120</pre></figure>
+        <p>Если начать с нуля, первое же умножение превратит весь результат в ноль.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Перебор символов</h2>
+        <p><b>Задача 6:</b> вручную подсчитать количество символов. Счётчик увеличивается один раз для каждого символа.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>подсчёт повторений</span></figcaption>
+<pre>text = <span class="s">"Python"</span>
+count = <span class="n">0</span>
+
+<span class="k">for</span> letter <span class="k">in</span> text:
+    count += <span class="n">1</span>
+
+<span class="f">print</span>(count)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>шесть символов</span></figcaption><pre>6</pre></figure>
+        <p><b>Задача 7:</b> вывести каждый символ строки отдельно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перебор строки Code</span></figcaption>
+<pre>text = <span class="s">"Code"</span>
+
+<span class="k">for</span> letter <span class="k">in</span> text:
+    <span class="f">print</span>(letter)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>по одному символу</span></figcaption><pre>C
+o
+d
+e</pre></figure>
+
+        <h2 id="s7"><span class="sec">§7</span>Сумма цифр</h2>
+        <p><b>Задача 8:</b> найти сумму цифр положительного целого числа. После преобразования числа в строку цикл получает символы, а <code>int()</code> превращает каждый символ обратно в число.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>цифры числа 12345</span></figcaption>
+<pre>number = <span class="n">12345</span>
+total = <span class="n">0</span>
+
+<span class="k">for</span> digit <span class="k">in</span> <span class="f">str</span>(number):
+    total += <span class="f">int</span>(digit)
+
+<span class="f">print</span>(total)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>1 + 2 + 3 + 4 + 5</span></figcaption><pre>15</pre></figure>
+        <p>Для отрицательного числа строка содержит знак <code>-</code>, который нельзя преобразовать в целое число. Такой случай требует отдельной обработки, например <code>str(abs(number))</code>.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Поиск максимума</h2>
+        <p><b>Задача 9:</b> найти наибольшее число без функции <code>max()</code>. Первое значение берётся как начальный кандидат, затем каждый элемент сравнивается с ним.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обновление лучшего результата</span></figcaption>
+<pre>numbers = [<span class="n">5</span>, <span class="n">8</span>, <span class="n">2</span>, <span class="n">10</span>, <span class="n">3</span>]
+largest = numbers[<span class="n">0</span>]
+
+<span class="k">for</span> number <span class="k">in</span> numbers:
+    <span class="k">if</span> number &gt; largest:
+        largest = number
+
+<span class="f">print</span>(largest)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>наибольший элемент</span></figcaption><pre>10</pre></figure>
+        <p>Алгоритм предполагает, что список не пуст. Иначе элемента с индексом <code>0</code> не существует.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Подсчёт подходящих элементов</h2>
+        <p><b>Задача 10:</b> подсчитать чётные числа в списке. Здесь соединяются фильтрация условием и счётчик.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>счётчик меняется только для чётных</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">4</span>, <span class="n">7</span>, <span class="n">10</span>, <span class="n">12</span>, <span class="n">3</span>]
+count = <span class="n">0</span>
+
+<span class="k">for</span> number <span class="k">in</span> numbers:
+    <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span>:
+        count += <span class="n">1</span>
+
+<span class="f">print</span>(count)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>4, 10 и 12</span></figcaption><pre>3</pre></figure>
+
+        <h2 id="s10"><span class="sec">§10</span>Таблица умножения</h2>
+        <p><b>Задача 11:</b> вывести таблицу умножения для числа <code>3</code>. Переменная цикла задаёт второй множитель.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>десять строк таблицы</span></figcaption>
+<pre>number = <span class="n">3</span>
+
+<span class="k">for</span> multiplier <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">11</span>):
+    <span class="f">print</span>(number, <span class="s">"*"</span>, multiplier, <span class="s">"="</span>, number * multiplier)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>от 1 до 10</span></figcaption><pre>3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+3 * 4 = 12
+3 * 5 = 15
+3 * 6 = 18
+3 * 7 = 21
+3 * 8 = 24
+3 * 9 = 27
+3 * 10 = 30</pre></figure>
+
+        <h2 id="s11"><span class="sec">§11</span>Построение новой строки</h2>
+        <p><b>Задача 12:</b> перевернуть строку. Каждый новый символ добавляется не в конец, а перед уже собранной частью.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>добавление символа слева</span></figcaption>
+<pre>text = <span class="s">"Python"</span>
+result = <span class="s">""</span>
+
+<span class="k">for</span> letter <span class="k">in</span> text:
+    result = letter + result
+
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обратный порядок</span></figcaption><pre>nohtyP</pre></figure>
+        <p>После первых трёх повторений накопитель меняется так: <code>"P" → "yP" → "tyP"</code>.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Поиск с break и else</h2>
+        <p><b>Задача 13:</b> проверить, является ли число простым. Если найден делитель, цикл завершается через <code>break</code>. Иначе после полного перебора выполняется <code>else</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>делители числа 7</span></figcaption>
+<pre>number = <span class="n">7</span>
+
+<span class="k">for</span> divisor <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>, number):
+    <span class="k">if</span> number % divisor == <span class="n">0</span>:
+        <span class="f">print</span>(<span class="s">"Не простое"</span>)
+        <span class="k">break</span>
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Простое"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>делитель не найден</span></figcaption><pre>Простое</pre></figure>
+        <p>Пример рассчитан на целое число не меньше <code>2</code>. Проверку остальных значений нужно добавить до цикла.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Диапазон с шагом</h2>
+        <p><b>Задача 14:</b> вывести числа от <code>0</code> до <code>20</code> с шагом <code>5</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>правая граница 21 включает число 20</span></figcaption>
+<pre><span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">0</span>, <span class="n">21</span>, <span class="n">5</span>):
+    <span class="f">print</span>(number)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>шаг равен 5</span></figcaption><pre>0
+5
+10
+15
+20</pre></figure>
+
+        <h2 id="s14"><span class="sec">§14</span>Подсчёт гласных</h2>
+        <p><b>Задача 15:</b> подсчитать английские гласные. Оператор <code>in</code> внутри условия проверяет, входит ли текущий символ в строку <code>"aeiou"</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>гласные в слове programming</span></figcaption>
+<pre>text = <span class="s">"programming"</span>
+vowels = <span class="s">"aeiou"</span>
+count = <span class="n">0</span>
+
+<span class="k">for</span> letter <span class="k">in</span> text:
+    <span class="k">if</span> letter <span class="k">in</span> vowels:
+        count += <span class="n">1</span>
+
+<span class="f">print</span>(count)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>o, a и i</span></figcaption><pre>3</pre></figure>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>накопитель создан внутри цикла</td><td>на каждом повторении прежний результат теряется</td><td>создать <code>total</code>, <code>count</code> или <code>result</code> до цикла</td></tr>
+              <tr><td><code>result = 0</code> перед накоплением произведения</td><td>результат всегда останется нулём</td><td>начать произведение с <code>1</code></td></tr>
+              <tr><td><code>print(total)</code> находится внутри цикла</td><td>будут показаны все промежуточные суммы</td><td>убрать отступ, если нужен только итог</td></tr>
+              <tr><td><code>range(1, 5)</code> для чисел от 1 до 5</td><td>число <code>5</code> не обработается</td><td><code>range(1, 6)</code></td></tr>
+              <tr><td>максимум начинается с <code>0</code></td><td>для списка отрицательных чисел получится неверный ответ</td><td>начать с первого элемента непустого списка</td></tr>
+              <tr><td>сумма цифр отрицательного числа через <code>str(number)</code></td><td>знак <code>-</code> вызовет ошибку при <code>int()</code></td><td>перебирать <code>str(abs(number))</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Почему накопитель суммы начинается с нуля, а произведения — с единицы?</summary><p>Ноль не меняет сумму при сложении, а единица не меняет произведение при умножении.</p></details>
+        <details><summary>Где должен находиться вывод итогового результата?</summary><p>Без отступа после цикла, если результат нужно вывести один раз. Внутри цикла выводятся промежуточные значения.</p></details>
+        <details><summary>Зачем в поиске простого числа нужен <code>else</code> цикла?</summary><p>Он выполняется, только если цикл перебрал все возможные делители и не завершился через <code>break</code>.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Сумма</b><code>total = 0</code><code>total += value</code></div>
+          <div><b>Количество</b><code>count = 0</code><code>count += 1</code></div>
+          <div><b>Произведение</b><code>result = 1</code><code>result *= value</code></div>
+          <div><b>Поиск</b><code>if found:</code><code>    break</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Большинство начальных задач с <code>for</code> строятся из нескольких схем: выполнить действие для каждого элемента, накопить сумму или произведение, увеличить счётчик по условию, обновить лучший результат либо завершить поиск через <code>break</code>. Узнавание схемы упрощает решение новой задачи.</p>
+        <div class="pager">
+          <a href="../22-range/index.html">← 2.9 Функция range()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.10 · Практические примеры по for in · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
