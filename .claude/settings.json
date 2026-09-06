@@ -4,7 +4,10 @@
       "Bash(grep -n '^\\\\.c \\\\|^\\\\.c{\\\\|^\\\\.c,' styles.css)",
       "Bash(python3 c33.py)",
       "Bash(python3 -c ' *)",
-      "Bash(grep -v '^$')"
+      "Bash(grep -v '^$')",
+      "Bash(sort -t- -k1 -n)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }
