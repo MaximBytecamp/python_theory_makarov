@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.9 round() и форматирование .2f · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.9</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.9</span>
+          <h1>Функция round()<br>и форматирование .2f</h1>
+          <p class="lead">Дробное число можно округлить для дальнейших вычислений или только аккуратно показать пользователю. Эти задачи похожи внешне, но решаются разными инструментами.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Числа и форматирование</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>float, print(), f-строки, деление</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Не путать изменение числа с оформлением вывода</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Две разные задачи</a></li>
+            <li><a href="#s2">Функция round()</a></li>
+            <li><a href="#s3">Округление до целого</a></li>
+            <li><a href="#s4">Правило для половин</a></li>
+            <li><a href="#s5">Формат .2f</a></li>
+            <li><a href="#s6">Число и строка</a></li>
+            <li><a href="#s7">Практический пример</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Две разные задачи</h2>
+        <p>После деления часто получается длинная дробь. Перед выбором инструмента задайте вопрос: округлённое число нужно <strong>использовать дальше</strong> или его нужно только <strong>показать на экране</strong>?</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Инструмент</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td>получить округлённое число</td><td><code>round(value, 2)</code></td><td>число <code>float</code></td></tr>
+              <tr><td>вывести ровно два знака</td><td><code>f"{value:.2f}"</code></td><td>строка <code>str</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span>Функция round()</h2>
+        <p><code>round()</code> принимает число и количество знаков после десятичной точки.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>round(число, знаки)</span></figcaption>
+<pre>pi = <span class="n">3.14159</span>
+result = <span class="f">round</span>(pi, <span class="n">2</span>)
+
+<span class="f">print</span>(result)        <span class="c"># 3.14</span>
+<span class="f">print</span>(<span class="f">type</span>(result))  <span class="c"># &lt;class 'float'&gt;</span></pre>
+        </figure>
+        <p>Исходная переменная <code>pi</code> не меняется. <code>round()</code> возвращает новое значение, поэтому результат нужно сохранить или сразу передать в <code>print()</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Округление до целого</h2>
+        <p>Если второй аргумент не указан, <code>round()</code> возвращает целое число.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>без второго аргумента</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">round</span>(<span class="n">3.4</span>))  <span class="c"># 3</span>
+<span class="f">print</span>(<span class="f">round</span>(<span class="n">3.6</span>))  <span class="c"># 4</span>
+<span class="f">print</span>(<span class="f">type</span>(<span class="f">round</span>(<span class="n">3.6</span>)))  <span class="c"># &lt;class 'int'&gt;</span></pre>
+        </figure>
+        <p>Запись <code>round(value, 0)</code> выглядит похоже, но возвращает <code>float</code>: например, <code>round(3.6, 0)</code> даёт <code>4.0</code>.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Правило для половин</h2>
+        <p>Значения ровно посередине Python округляет к ближайшему чётному числу. Это уменьшает накопление ошибки при большом количестве округлений.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>половина — к чётному</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">round</span>(<span class="n">2.5</span>))  <span class="c"># 2</span>
+<span class="f">print</span>(<span class="f">round</span>(<span class="n">3.5</span>))  <span class="c"># 4</span>
+<span class="f">print</span>(<span class="f">round</span>(<span class="n">4.5</span>))  <span class="c"># 4</span></pre>
+        </figure>
+        <div class="margin-note">
+          <b>Почему иногда результат удивляет</b>
+          <p>Дробные числа хранятся приближённо, поэтому значение, которое выглядит как точная половина, внутри программы может быть немного меньше или больше неё. Для учебных задач достаточно помнить это свойство и проверять пограничные примеры.</p>
+        </div>
+
+        <h2 id="s5"><span class="sec">§5</span>Формат .2f</h2>
+        <p>В f-строке запись <code>.2f</code> требует вывести число в формате <code>float</code> с двумя знаками после точки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>фиксированное число знаков</span></figcaption>
+<pre>price = <span class="n">12.5</span>
+pi = <span class="n">3.14159</span>
+
+<span class="f">print</span>(<span class="s">f"Цена: {price:.2f} руб."</span>)  <span class="c"># 12.50</span>
+<span class="f">print</span>(<span class="s">f"π ≈ {pi:.2f}"</span>)             <span class="c"># 3.14</span></pre>
+        </figure>
+        <p>Формат дописывает нули, если цифр не хватает. Это удобно для цен, процентов и таблиц, где числа должны выглядеть одинаково.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Число и строка</h2>
+        <p><code>round()</code> возвращает число, а f-строка — текст. Внешне результаты могут совпадать, но использовать их можно по-разному.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>проверка типа</span></figcaption>
+<pre>value = <span class="n">3.14159</span>
+rounded = <span class="f">round</span>(value, <span class="n">2</span>)
+formatted = <span class="s">f"{value:.2f}"</span>
+
+<span class="f">print</span>(rounded + <span class="n">1</span>)       <span class="c"># 4.14</span>
+<span class="f">print</span>(formatted + <span class="s">" м"</span>) <span class="c"># 3.14 м</span></pre>
+        </figure>
+        <p>Нельзя прибавить число к <code>formatted</code>, пока строка не преобразована обратно. Поэтому форматирование обычно оставляют на последний шаг — вывод пользователю.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Практический пример</h2>
+        <p>Посчитаем среднюю стоимость одной покупки и выведем отчёт.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>расчёт и вывод</span></figcaption>
+<pre>total = <span class="n">1250</span>
+orders = <span class="n">6</span>
+average = total / orders
+
+<span class="c"># В вычислениях остаётся полное значение average.</span>
+with_discount = average * <span class="n">0.9</span>
+
+<span class="f">print</span>(<span class="s">f"Средний чек: {average:.2f} руб."</span>)
+<span class="f">print</span>(<span class="s">f"После скидки: {with_discount:.2f} руб."</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод</span><span>результат запуска</span></figcaption>
+<pre>Средний чек: 208.33 руб.
+После скидки: 187.50 руб.</pre>
+        </figure>
+        <p>Промежуточные значения не округляются. Так ошибка округления не накапливается, а пользователь всё равно видит аккуратные суммы.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>round(x, 2)</code> без сохранения</td><td>переменная <code>x</code> не изменится</td><td><code>x = round(x, 2)</code>, если нужен новый результат</td></tr>
+              <tr><td><code>f"{price.2f}"</code></td><td><code>SyntaxError</code>: пропущено двоеточие</td><td><code>f"{price:.2f}"</code></td></tr>
+              <tr><td><code>round(12.5, "2")</code></td><td><code>TypeError</code>: количество знаков записано строкой</td><td><code>round(12.5, 2)</code></td></tr>
+              <tr><td><code>round(2.5)</code>, ожидая <code>3</code></td><td>получится <code>2</code> по правилу ближайшего чётного</td><td>учитывать правило на половинах</td></tr>
+              <tr><td>округлять после каждого действия</td><td>ошибка постепенно накапливается</td><td>округлять итог или форматировать только вывод</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Чем <code>round(value, 2)</code> отличается от <code>f"{value:.2f}"</code>?</summary><p><code>round()</code> возвращает число, пригодное для вычислений. F-строка создаёт текст для вывода и всегда показывает два знака.</p></details>
+        <details><summary>Что выведет <code>print(f"{12.5:.2f}")</code>?</summary><p><code>12.50</code>. Формат допишет ноль до двух знаков после точки.</p></details>
+        <details><summary>Почему лучше не округлять каждый промежуточный результат?</summary><p>Каждое округление теряет часть точности. Если таких шагов много, потери складываются.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Число до n знаков</b><code>round(value, n)</code></div>
+          <div><b>До целого</b><code>round(value)</code></div>
+          <div><b>Два знака в выводе</b><code>f"{value:.2f}"</code></div>
+          <div><b>Три знака в выводе</b><code>f"{value:.3f}"</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>round()</code> нужен, когда программе требуется округлённое числовое значение. Формат <code>.2f</code> нужен, когда число следует показать с фиксированным количеством знаков. В вычислениях сохраняйте точность, а оформление выполняйте перед выводом.</p>
+        <div class="pager">
+          <a href="../08-operacii-deleniya/index.html">← 1.8 Операции деления</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../10-logicheskiy-tip/index.html">2.1 Логический тип →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 1.9 · round() и форматирование .2f · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

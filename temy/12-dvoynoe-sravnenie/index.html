@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.3 Двойное сравнение и диапазоны · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.3</span>
+          <h1>Двойное сравнение.<br>Проверка диапазона</h1>
+          <p class="lead">Чтобы проверить, находится ли значение между двумя границами, Python позволяет собрать два сравнения в одну цепочку. Такая запись короче и читается почти как математическое неравенство.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Условия и сравнения</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Операторы сравнения, and, координаты</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Проверять интервалы без повторения переменной</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Цепочка сравнений</a></li>
+            <li><a href="#s2">Включённые границы</a></li>
+            <li><a href="#s3">Строгие границы</a></li>
+            <li><a href="#s4">Правильный порядок</a></li>
+            <li><a href="#s5">Точка в прямоугольнике</a></li>
+            <li><a href="#s6">Полная программа</a></li>
+            <li><a href="#s7">Когда одной цепочки мало</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Цепочка сравнений</h2>
+        <p>Запись <code>a &lt;= x &lt;= b</code> проверяет сразу две границы: <code>x</code> не меньше <code>a</code> и не больше <code>b</code>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>две равносильные записи</span></figcaption>
+<pre>a &lt;= x &lt;= b
+
+<span class="c"># то же условие в развёрнутом виде</span>
+a &lt;= x and x &lt;= b</pre>
+        </figure>
+        <p>Python проверяет оба сравнения. Результат будет <code>True</code>, только если значение проходит левую и правую границу.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Включённые границы</h2>
+        <p>Знаки <code>&lt;=</code> и <code>&gt;=</code> включают крайние значения в диапазон.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>диапазон от 1 до 3 включительно</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">1</span> &lt;= <span class="n">1</span> &lt;= <span class="n">3</span>)  <span class="c"># True</span>
+<span class="f">print</span>(<span class="n">1</span> &lt;= <span class="n">2</span> &lt;= <span class="n">3</span>)  <span class="c"># True</span>
+<span class="f">print</span>(<span class="n">1</span> &lt;= <span class="n">3</span> &lt;= <span class="n">3</span>)  <span class="c"># True</span>
+<span class="f">print</span>(<span class="n">1</span> &lt;= <span class="n">4</span> &lt;= <span class="n">3</span>)  <span class="c"># False</span></pre>
+        </figure>
+        <p>Так проверяют возраст, допустимую температуру, координату, процент выполнения и любое значение с нижней и верхней границами.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Строгие границы</h2>
+        <p>Знак <code>&lt;</code> исключает границу. Знаки в одной цепочке можно комбинировать.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Какие значения подходят</th><th>Границы</th></tr></thead>
+            <tbody>
+              <tr><td><code>1 &lt;= x &lt;= 3</code></td><td>от 1 до 3</td><td>обе включены</td></tr>
+              <tr><td><code>1 &lt; x &lt; 3</code></td><td>между 1 и 3</td><td>обе исключены</td></tr>
+              <tr><td><code>1 &lt;= x &lt; 3</code></td><td>от 1 до 3</td><td>1 включено, 3 исключено</td></tr>
+              <tr><td><code>1 &lt; x &lt;= 3</code></td><td>от 1 до 3</td><td>1 исключено, 3 включено</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>Правильный порядок</h2>
+        <p>Удобнее записывать границы слева направо по возрастанию: меньшая граница, переменная, большая граница.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>читается слева направо</span></figcaption>
+<pre>minimum &lt;= value &lt;= maximum</pre>
+        </figure>
+        <p>Запись <code>maximum &gt;= value &gt;= minimum</code> тоже работает, но читать её труднее. Не смешивайте направления: условие <code>1 &lt;= x &gt;= 3</code> означает «<code>x</code> не меньше обеих границ», а не «между 1 и 3».</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Точка в прямоугольнике</h2>
+        <p>Точка <code>(x, y)</code> находится в заштрихованной области, если её координата <code>x</code> попадает от 1 до 3, а <code>y</code> — от −3 до 1. Границы входят в область.</p>
+        <figure class="illustration">
+          <img src="assets/rectangle-range.png" alt="Прямоугольная область: x от 1 до 3, y от минус 3 до 1">
+          <figcaption>Диапазоны координат заштрихованной области</figcaption>
+        </figure>
+        <figure class="code">
+          <figcaption><span>Python</span><span>условие для двух координат</span></figcaption>
+<pre><span class="n">1</span> &lt;= x &lt;= <span class="n">3</span> and -<span class="n">3</span> &lt;= y &lt;= <span class="n">1</span></pre>
+        </figure>
+        <p>Здесь две цепочки сравнений соединены оператором <code>and</code>: точка должна одновременно подходить и по горизонтали, и по вертикали.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Полная программа</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка точки</span></figcaption>
+<pre>x = <span class="n">2</span>
+y = <span class="n">0</span>
+
+inside_x = <span class="n">1</span> &lt;= x &lt;= <span class="n">3</span>
+inside_y = -<span class="n">3</span> &lt;= y &lt;= <span class="n">1</span>
+inside_area = inside_x and inside_y
+
+<span class="f">print</span>(inside_area)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод</span><span>результат запуска</span></figcaption>
+<pre>True</pre>
+        </figure>
+        <p>Имена <code>inside_x</code> и <code>inside_y</code> показывают, какая именно координата прошла проверку. Это особенно удобно при поиске ошибки.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Когда одной цепочки мало</h2>
+        <p>Цепочка описывает один непрерывный диапазон. Если подходят два раздельных диапазона, нужны два условия и <code>or</code>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>вне центрального диапазона</span></figcaption>
+<pre>temperature = -<span class="n">12</span>
+is_extreme = temperature &lt; -<span class="n">10</span> or temperature &gt; <span class="n">35</span>
+
+<span class="f">print</span>(is_extreme)  <span class="c"># True</span></pre>
+        </figure>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>1 &lt;= x &gt;= 3</code></td><td>проверяется, что <code>x</code> не меньше обеих границ</td><td><code>1 &lt;= x &lt;= 3</code></td></tr>
+              <tr><td><code>x &gt;= 1 or x &lt;= 3</code></td><td>условие истинно почти для любого числа</td><td><code>x &gt;= 1 and x &lt;= 3</code> или цепочка</td></tr>
+              <tr><td><code>1 &lt; x &lt; 3</code>, когда края подходят</td><td>значения <code>1</code> и <code>3</code> будут исключены</td><td><code>1 &lt;= x &lt;= 3</code></td></tr>
+              <tr><td><code>1 &lt;= x &lt;= 3 and -3 &lt;= 1</code></td><td>во второй проверке потеряна переменная <code>y</code></td><td><code>1 &lt;= x &lt;= 3 and -3 &lt;= y &lt;= 1</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Что означает <code>0 &lt;= score &lt;= 100</code>?</summary><p>Значение <code>score</code> находится от 0 до 100 включительно.</p></details>
+        <details><summary>Как проверить диапазон от 10 включительно до 20 не включительно?</summary><p><code>10 &lt;= value &lt; 20</code>.</p></details>
+        <details><summary>Попадает ли точка <code>(3, -3)</code> в область из примера?</summary><p>Да. Обе координаты лежат на включённых границах.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Обе границы включены</b><code>a &lt;= x &lt;= b</code></div>
+          <div><b>Обе исключены</b><code>a &lt; x &lt; b</code></div>
+          <div><b>Только левая включена</b><code>a &lt;= x &lt; b</code></div>
+          <div><b>Две координаты</b><code>a &lt;= x &lt;= b and c &lt;= y &lt;= d</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Цепочка сравнений проверяет нижнюю и верхнюю границы одной записью. Знаки <code>&lt;</code> и <code>&lt;=</code> определяют, входят ли края в диапазон. Для двух независимых величин, например координат, составьте две цепочки и соедините их через <code>and</code>.</p>
+        <div class="pager">
+          <a href="../11-sostavnye-usloviya/index.html">← 2.2 Составление условий</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../13-if-elif-else/index.html">2.4 if, elif, else →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.3 · Двойное сравнение и диапазоны · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

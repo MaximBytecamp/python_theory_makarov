@@ -233,6 +233,29 @@ p code, li code, td code {
   font-size: .9em;
 }
 
+figure.illustration {
+  margin: 22px 0;
+  border: 3px solid var(--ink);
+  background: #fff;
+  box-shadow: 6px 6px 0 var(--ink);
+  overflow: hidden;
+}
+figure.illustration img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+}
+figure.illustration figcaption {
+  padding: 9px 14px;
+  border-top: 2px solid var(--ink);
+  background: var(--light);
+  color: var(--ink-soft);
+  font: 600 10px/1.4 var(--pixel);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
 /* ── Заметка на полях ────────────────────────────────────────── */
 .margin-note {
   margin: 24px 0;

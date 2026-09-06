@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.6 Тернарный условный оператор · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.6</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.6</span>
+          <h1>Тернарный<br>условный оператор</h1>
+          <p class="lead">Когда условие выбирает одно из двух значений, конструкцию <code>if / else</code> можно записать выражением в одной строке. Главное ограничение — строка должна оставаться понятной.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Условные выражения</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>if, else, присваивание</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Кратко выбирать одно из двух значений</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">От if / else к выражению</a></li>
+            <li><a href="#s2">Порядок частей</a></li>
+            <li><a href="#s3">Пример с текстом</a></li>
+            <li><a href="#s4">Пример с числами</a></li>
+            <li><a href="#s5">Выражение прямо в print()</a></li>
+            <li><a href="#s6">Когда применять</a></li>
+            <li><a href="#s7">Когда оставить обычный if</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>От if / else к выражению</h2>
+        <p>Обычная конструкция выбирает, какое значение записать в переменную:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>четыре строки</span></figcaption>
+<pre><span class="k">if</span> x &gt; <span class="n">5</span>:
+    result = <span class="s">"Больше"</span>
+<span class="k">else</span>:
+    result = <span class="s">"Меньше или равно"</span></pre>
+        </figure>
+        <p>Условное выражение делает тот же выбор в одной строке:</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>одно выражение</span></figcaption>
+<pre>result = <span class="s">"Больше"</span> <span class="k">if</span> x &gt; <span class="n">5</span> <span class="k">else</span> <span class="s">"Меньше или равно"</span></pre>
+        </figure>
+        <p>Эту форму часто называют тернарным оператором, потому что в ней участвуют три части: два возможных значения и условие.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Порядок частей</h2>
+        <figure class="code">
+          <figcaption><span>Шаблон</span><span>читайте от условия</span></figcaption>
+<pre>значение_если_True <span class="k">if</span> условие <span class="k">else</span> значение_если_False</pre>
+        </figure>
+        <p>Чтобы разобрать строку, сначала найдите условие после <code>if</code>. При <code>True</code> выбирается значение слева, при <code>False</code> — значение после <code>else</code>.</p>
+        <ol class="steps">
+          <li>Вычислить условие.</li>
+          <li>При <code>True</code> взять левое значение.</li>
+          <li>При <code>False</code> взять правое значение.</li>
+        </ol>
+
+        <h2 id="s3"><span class="sec">§3</span>Пример с текстом</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сообщение по возрасту</span></figcaption>
+<pre>age = <span class="n">20</span>
+message = <span class="s">"Доступ разрешён"</span> <span class="k">if</span> age &gt;= <span class="n">18</span> <span class="k">else</span> <span class="s">"Доступ закрыт"</span>
+
+<span class="f">print</span>(message)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>age = 20</span></figcaption><pre>Доступ разрешён</pre></figure>
+        <p>В переменную <code>message</code> попадает только одна строка. Само условное выражение ничего не печатает.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Пример с числами</h2>
+        <p>Выбираться могут не только строки, но и числа.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>скидка по сумме</span></figcaption>
+<pre>total = <span class="n">6200</span>
+discount = <span class="n">10</span> <span class="k">if</span> total &gt;= <span class="n">5000</span> <span class="k">else</span> <span class="n">0</span>
+final_total = total * (<span class="n">100</span> - discount) / <span class="n">100</span>
+
+<span class="f">print</span>(<span class="s">f"Скидка: {discount}%"</span>)
+<span class="f">print</span>(<span class="s">f"К оплате: {final_total:.2f} руб."</span>)</pre>
+        </figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Выражение прямо в print()</h2>
+        <p>Условное выражение возвращает значение, поэтому его можно передать функции.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>вывод без промежуточной переменной</span></figcaption>
+<pre>number = <span class="n">7</span>
+<span class="f">print</span>(<span class="s">"Чётное"</span> <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span> <span class="k">else</span> <span class="s">"Нечётное"</span>)</pre>
+        </figure>
+        <p>Для короткого сообщения такая запись читается нормально. Если выражение становится длинным, отдельная переменная помогает назвать результат.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Когда применять</h2>
+        <p>Условное выражение подходит, когда выполняются три условия:</p>
+        <ul>
+          <li>есть ровно два возможных значения;</li>
+          <li>выбор помещается в одну короткую строку;</li>
+          <li>в ветках нет отдельных действий, нужен только результат.</li>
+        </ul>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Подходящая запись</th></tr></thead>
+            <tbody>
+              <tr><td>выбрать подпись</td><td><code>"Да" if ready else "Нет"</code></td></tr>
+              <tr><td>выбрать ставку</td><td><code>0.1 if is_member else 0.2</code></td></tr>
+              <tr><td>выполнить несколько команд</td><td>обычный <code>if / else</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Когда оставить обычный if</h2>
+        <p>Если каждая ветка содержит несколько действий, условное выражение применять не нужно.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>несколько действий в ветке</span></figcaption>
+<pre><span class="k">if</span> score &gt;= <span class="n">90</span>:
+    grade = <span class="s">"A"</span>
+    message = <span class="s">"Отличный результат"</span>
+<span class="k">else</span>:
+    grade = <span class="s">"B"</span>
+    message = <span class="s">"Продолжайте практику"</span></pre>
+        </figure>
+        <p>Также избегайте вложенных тернарных выражений. Цепочка из нескольких <code>if</code> и <code>else</code> в одной строке требует слишком много внимания при чтении.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>result = if x &gt; 5 "Да" else "Нет"</code></td><td><code>SyntaxError</code>: нарушен порядок частей</td><td><code>result = "Да" if x &gt; 5 else "Нет"</code></td></tr>
+              <tr><td><code>"Да" if ready</code></td><td><code>SyntaxError</code>: отсутствует ветка <code>else</code></td><td><code>"Да" if ready else "Нет"</code></td></tr>
+              <tr><td><code>print("Да") if ready else print("Нет")</code></td><td>код сработает, но действия внутри выражения затрудняют чтение</td><td>использовать обычный <code>if / else</code></td></tr>
+              <tr><td>несколько тернарных выражений в одной строке</td><td>порядок выбора трудно проследить</td><td>развернуть в <code>if / elif / else</code></td></tr>
+              <tr><td><code>value = "10" if ready else 0</code></td><td>переменная получает разные типы в разных ветках</td><td>по возможности выбирать значения одного типа</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Как читается <code>status = "on" if enabled else "off"</code>?</summary><p>Если <code>enabled</code> истинно, в <code>status</code> записывается <code>"on"</code>, иначе — <code>"off"</code>.</p></details>
+        <details><summary>Обязательна ли часть <code>else</code>?</summary><p>Да. Условное выражение всегда должно вернуть одно из двух значений.</p></details>
+        <details><summary>Когда лучше использовать обычный <code>if</code>?</summary><p>Когда ветки выполняют действия, содержат несколько строк или когда однострочная запись стала трудной для чтения.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Шаблон</b><code>true_value if condition else false_value</code></div>
+          <div><b>Текст</b><code>"Да" if ready else "Нет"</code></div>
+          <div><b>Число</b><code>10 if total &gt;= 5000 else 0</code></div>
+          <div><b>Ограничение</b><code>одно короткое выражение</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Тернарный условный оператор выбирает одно из двух значений по схеме <code>значение if условие else другое_значение</code>. Он подходит для короткого присваивания или вывода. Если ветки содержат действия или строка перестала читаться сразу, используйте обычный <code>if / else</code>.</p>
+        <div class="pager">
+          <a href="../14-vlozhennye-usloviya/index.html">← 2.5 Вложенные условия</a>
+          <a href="../../index.html">К содержанию справочника</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.6 · Тернарный условный оператор · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

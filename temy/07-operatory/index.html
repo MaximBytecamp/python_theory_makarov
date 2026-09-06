@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>1.7 Операторы в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 1 · данные и имена</p>
+          <p class="running__folio">Глава 1.7</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">1.7</span>
+          <h1>Операторы<br>в Python</h1>
+          <p class="lead">Операторы задают действие: сложить числа, сравнить значения, изменить переменную. Соберём уже знакомые знаки в систему и научимся читать выражение в том порядке, в котором его вычисляет Python.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Синтаксис и базовые концепции</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>Типы данных, присваивание, сравнения</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Читать выражения и выбирать подходящее действие</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Оператор и операнды</a></li>
+            <li><a href="#s2">Арифметические операторы</a></li>
+            <li><a href="#s3">Операторы сравнения</a></li>
+            <li><a href="#s4">Операторы присваивания</a></li>
+            <li><a href="#s5">Унарные операторы</a></li>
+            <li><a href="#s6">Приоритет и скобки</a></li>
+            <li><a href="#s7">Какие группы будут дальше</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Оператор и операнды</h2>
+        <p><span class="term">Оператор</span> — знак или слово, которое указывает Python, какое действие выполнить. Данные, над которыми выполняется действие, называются <span class="term">операндами</span>.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>оператор между операндами</span></figcaption>
+<pre>price + delivery
+      <span class="c"># + — оператор</span>
+<span class="c"># price и delivery — операнды</span></pre>
+        </figure>
+        <p>Один и тот же оператор может работать по-разному с разными типами. <code>2 + 3</code> складывает числа, а <code>"Py" + "thon"</code> соединяет строки. Поэтому при чтении выражения смотрите не только на знак, но и на тип значений рядом с ним.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Арифметические операторы</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Оператор</th><th>Действие</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><code>+</code></td><td>сложение</td><td><code>10 + 3</code> → <code>13</code></td></tr>
+              <tr><td><code>-</code></td><td>вычитание</td><td><code>10 - 3</code> → <code>7</code></td></tr>
+              <tr><td><code>*</code></td><td>умножение</td><td><code>10 * 3</code> → <code>30</code></td></tr>
+              <tr><td><code>/</code></td><td>обычное деление</td><td><code>10 / 3</code> → <code>3.333…</code></td></tr>
+              <tr><td><code>//</code></td><td>деление без дробной части</td><td><code>10 // 3</code> → <code>3</code></td></tr>
+              <tr><td><code>%</code></td><td>остаток от деления</td><td><code>10 % 3</code> → <code>1</code></td></tr>
+              <tr><td><code>**</code></td><td>возведение в степень</td><td><code>10 ** 3</code> → <code>1000</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>арифметика</span></figcaption>
+<pre>a = <span class="n">10</span>
+b = <span class="n">3</span>
+
+<span class="f">print</span>(a + b)   <span class="c"># 13</span>
+<span class="f">print</span>(a / b)   <span class="c"># 3.3333333333333335</span>
+<span class="f">print</span>(a ** b)  <span class="c"># 1000</span></pre>
+        </figure>
+        <p>Три вида деления требуют отдельного разбора, поэтому следующая глава целиком посвящена операторам <code>/</code>, <code>//</code> и <code>%</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Операторы сравнения</h2>
+        <p>Сравнение не изменяет значения. Оно отвечает на вопрос и возвращает <code>True</code> или <code>False</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Оператор</th><th>Вопрос</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><code>==</code></td><td>равны ли значения?</td><td><code>5 == 5</code> → <code>True</code></td></tr>
+              <tr><td><code>!=</code></td><td>различаются ли значения?</td><td><code>5 != 3</code> → <code>True</code></td></tr>
+              <tr><td><code>&gt;</code>, <code>&lt;</code></td><td>больше или меньше?</td><td><code>7 &gt; 4</code> → <code>True</code></td></tr>
+              <tr><td><code>&gt;=</code>, <code>&lt;=</code></td><td>включается ли граница?</td><td><code>18 &gt;= 18</code> → <code>True</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="margin-note margin-note--warn">
+          <b>Не путайте = и ==</b>
+          <p><code>=</code> присваивает значение переменной, а <code>==</code> сравнивает два значения. В вопросе «равно ли?» всегда два знака равенства.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>Операторы присваивания</h2>
+        <p>Составное присваивание берёт текущее значение переменной, выполняет действие и записывает результат обратно.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>короткая запись</span></figcaption>
+<pre>score = <span class="n">10</span>
+score += <span class="n">5</span>   <span class="c"># score = score + 5</span>
+score *= <span class="n">2</span>   <span class="c"># score = score * 2</span>
+score -= <span class="n">3</span>   <span class="c"># score = score - 3</span>
+
+<span class="f">print</span>(score)  <span class="c"># 27</span></pre>
+        </figure>
+        <p>Такие формы существуют для основных арифметических операций: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>//=</code>, <code>%=</code> и <code>**=</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Унарные операторы</h2>
+        <p>Большинство операторов стоят между двумя значениями. Унарный оператор работает с одним: <code>-</code> меняет знак числа, а <code>+</code> оставляет его положительным.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>один операнд</span></figcaption>
+<pre>temperature = <span class="n">7</span>
+
+<span class="f">print</span>(-temperature)  <span class="c"># -7</span>
+<span class="f">print</span>(+temperature)  <span class="c"># 7</span></pre>
+        </figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Приоритет и скобки</h2>
+        <p>Python соблюдает привычный порядок: сначала скобки, затем степень, умножение и деление, после них сложение и вычитание. Операторы одного уровня выполняются слева направо, кроме степени.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>порядок вычисления</span></figcaption>
+<pre><span class="f">print</span>(<span class="n">2</span> + <span class="n">3</span> * <span class="n">4</span>)    <span class="c"># 14</span>
+<span class="f">print</span>((<span class="n">2</span> + <span class="n">3</span>) * <span class="n">4</span>)  <span class="c"># 20</span>
+<span class="f">print</span>(<span class="n">2</span> ** <span class="n">3</span> ** <span class="n">2</span>) <span class="c"># 512: 2 ** (3 ** 2)</span></pre>
+        </figure>
+        <p>Если порядок трудно увидеть сразу, добавьте скобки. Они не только управляют вычислением, но и показывают читателю замысел формулы.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Какие группы будут дальше</h2>
+        <p>В Python есть и другие группы операторов. Их полезно узнавать, но применять будем после соответствующей теории.</p>
+        <ul>
+          <li><code>and</code>, <code>or</code>, <code>not</code> объединяют логические проверки;</li>
+          <li><code>in</code> и <code>not in</code> проверяют наличие элемента в коллекции;</li>
+          <li><code>&amp;</code>, <code>|</code>, <code>^</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code> работают с двоичной записью чисел;</li>
+          <li>условное выражение <code>значение if условие else другое_значение</code> выбирает одно из двух значений.</li>
+        </ul>
+        <p>Сейчас достаточно арифметики, сравнений и присваивания. Остальные группы получат собственные главы.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>x = 5</code> вместо сравнения</td><td>значение будет присвоено, вопрос не получится</td><td><code>x == 5</code></td></tr>
+              <tr><td><code>2 ^ 3</code> для степени</td><td>получится <code>1</code>: знак <code>^</code> означает другую операцию</td><td>степень записывается как <code>2 ** 3</code></td></tr>
+              <tr><td><code>10 / 0</code></td><td><code>ZeroDivisionError</code></td><td>проверить делитель до операции</td></tr>
+              <tr><td><code>2 + 3 * 4</code>, ожидая <code>20</code></td><td>получится <code>14</code>: умножение выполняется первым</td><td><code>(2 + 3) * 4</code></td></tr>
+              <tr><td><code>"5" + 2</code></td><td><code>TypeError</code>: строку и число сложить нельзя</td><td><code>int("5") + 2</code> или <code>"5" + str(2)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Что в записи <code>total = price + delivery</code> является оператором?</summary><p><code>=</code> — оператор присваивания, <code>+</code> — оператор сложения. <code>total</code>, <code>price</code> и <code>delivery</code> — имена переменных.</p></details>
+        <details><summary>Что выведет <code>print(3 + 2 ** 2)</code>?</summary><p><code>7</code>. Сначала выполняется степень <code>2 ** 2</code>, затем сложение.</p></details>
+        <details><summary>Как увеличить <code>count</code> на единицу?</summary><p><code>count += 1</code>. Это сокращение для <code>count = count + 1</code>.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Арифметика</b><code>+  -  *  /  //  %  **</code></div>
+          <div><b>Сравнение</b><code>==  !=  &gt;  &lt;  &gt;=  &lt;=</code></div>
+          <div><b>Присваивание</b><code>=  +=  -=  *=  /=  //=  %=  **=</code></div>
+          <div><b>Приоритет</b><code>() → ** → * / // % → + -</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Оператор задаёт действие над данными. Для первых программ нужны три основные группы: арифметические операторы вычисляют, операторы сравнения отвечают <code>True</code> или <code>False</code>, а операторы присваивания записывают результат в переменную. Порядком вычисления управляет приоритет, а явные скобки делают формулу понятнее.</p>
+
+        <div class="pager">
+          <a href="../06-mnozhestvennoe-prisvaivanie/index.html">← 1.6 Множественное присваивание</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../08-operacii-deleniya/index.html">1.8 Операции деления →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 1.7 · Операторы в Python · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

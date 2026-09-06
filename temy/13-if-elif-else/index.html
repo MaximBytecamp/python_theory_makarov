@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.4 Операторы ветвления: if, elif, else · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.4</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.4</span>
+          <h1>Операторы ветвления:<br>if, elif, else</h1>
+          <p class="lead">До сих пор программа выполняла каждую строку сверху вниз. Ветвление меняет ход работы: условие определяет, какой блок будет выполнен, а какой пропущен.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Управление выполнением</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>bool, сравнения, составные условия</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Выполнять разные действия в разных ситуациях</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что такое ветвление</a></li>
+            <li><a href="#s2">Оператор if</a></li>
+            <li><a href="#s3">Двоеточие и отступ</a></li>
+            <li><a href="#s4">Ветка else</a></li>
+            <li><a href="#s5">Дополнительные ветки elif</a></li>
+            <li><a href="#s6">Порядок проверок</a></li>
+            <li><a href="#s7">Полный пример</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что такое ветвление</h2>
+        <p><span class="term">Ветвление</span> — конструкция, которая выбирает действия по результату условия. Если условие равно <code>True</code>, выполняется один блок; если <code>False</code>, этот блок пропускается или выбирается другая ветка.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>условие выбирает путь</span></figcaption>
+<pre>условие → True  → выполнить действие
+        → False → пропустить или выбрать другое</pre>
+        </figure>
+        <p>Условием может быть любое выражение, которое даёт логический результат: <code>age &gt;= 18</code>, <code>password == expected</code>, <code>is_ready</code>.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Оператор if</h2>
+        <p><code>if</code> переводится как «если». Блок под ним выполняется только при истинном условии.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>одна ветка</span></figcaption>
+<pre>temperature = <span class="n">28</span>
+
+<span class="k">if</span> temperature &gt; <span class="n">25</span>:
+    <span class="f">print</span>(<span class="s">"Сегодня жарко"</span>)
+
+<span class="f">print</span>(<span class="s">"Проверка завершена"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод</span><span>temperature = 28</span></figcaption>
+<pre>Сегодня жарко
+Проверка завершена</pre>
+        </figure>
+        <p>Последний <code>print()</code> стоит без отступа, поэтому не относится к <code>if</code> и выполняется при любом результате проверки.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Двоеточие и отступ</h2>
+        <p>После условия ставится двоеточие. Все строки выбранного блока имеют одинаковый отступ — обычно четыре пробела.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>границы блока задаёт отступ</span></figcaption>
+<pre><span class="k">if</span> balance &gt;= price:
+    balance -= price
+    <span class="f">print</span>(<span class="s">"Покупка оплачена"</span>)
+
+<span class="f">print</span>(<span class="s">"Текущий баланс:"</span>, balance)</pre>
+        </figure>
+        <div class="margin-note margin-note--warn">
+          <b>Отступ — часть синтаксиса</b>
+          <p>В Python отступ не украшает код, а показывает, какие строки входят в блок. Случайный лишний или пропущенный отступ меняет логику либо вызывает ошибку.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>Ветка else</h2>
+        <p><code>else</code> означает «иначе» и выполняется, когда условие <code>if</code> ложно. У <code>else</code> нет собственного условия.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два возможных пути</span></figcaption>
+<pre>age = <span class="n">17</span>
+
+<span class="k">if</span> age &gt;= <span class="n">18</span>:
+    <span class="f">print</span>(<span class="s">"Доступ разрешён"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Доступ закрыт"</span>)</pre>
+        </figure>
+        <p>В конструкции <code>if / else</code> выполняется ровно одна ветка: обе одновременно выполниться не могут.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Дополнительные ветки elif</h2>
+        <p><code>elif</code> означает «иначе, если». Он добавляет ещё одну проверку между <code>if</code> и необязательным <code>else</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>несколько вариантов</span></figcaption>
+<pre>grade = <span class="n">85</span>
+
+<span class="k">if</span> grade &gt;= <span class="n">90</span>:
+    <span class="f">print</span>(<span class="s">"Отлично"</span>)
+<span class="k">elif</span> grade &gt;= <span class="n">80</span>:
+    <span class="f">print</span>(<span class="s">"Хорошо"</span>)
+<span class="k">elif</span> grade &gt;= <span class="n">70</span>:
+    <span class="f">print</span>(<span class="s">"Удовлетворительно"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Нужно повторить тему"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>grade = 85</span></figcaption><pre>Хорошо</pre></figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Порядок проверок</h2>
+        <p>Python проверяет ветки сверху вниз и останавливается на первой истинной. Поэтому частные или более строгие условия ставят раньше общих.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>сначала высокая граница</span></figcaption>
+<pre><span class="k">if</span> score &gt;= <span class="n">90</span>:
+    grade = <span class="s">"A"</span>
+<span class="k">elif</span> score &gt;= <span class="n">80</span>:
+    grade = <span class="s">"B"</span>
+<span class="k">elif</span> score &gt;= <span class="n">70</span>:
+    grade = <span class="s">"C"</span></pre>
+        </figure>
+        <p>Если начать с <code>score &gt;= 70</code>, то значение <code>95</code> попадёт в первую ветку и до проверки на <code>90</code> программа не дойдёт.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Полный пример</h2>
+        <p>Определим стоимость доставки по сумме заказа.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тариф доставки</span></figcaption>
+<pre>order_total = <span class="n">3200</span>
+
+<span class="k">if</span> order_total &gt;= <span class="n">5000</span>:
+    delivery = <span class="n">0</span>
+<span class="k">elif</span> order_total &gt;= <span class="n">2000</span>:
+    delivery = <span class="n">250</span>
+<span class="k">else</span>:
+    delivery = <span class="n">500</span>
+
+final_total = order_total + delivery
+<span class="f">print</span>(<span class="s">f"Доставка: {delivery} руб."</span>)
+<span class="f">print</span>(<span class="s">f"К оплате: {final_total} руб."</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Доставка: 250 руб.
+К оплате: 3450 руб.</pre></figure>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>if age &gt;= 18</code></td><td><code>SyntaxError</code>: нет двоеточия</td><td><code>if age &gt;= 18:</code></td></tr>
+              <tr><td><code>if age = 18:</code></td><td><code>SyntaxError</code>: присваивание вместо сравнения</td><td><code>if age == 18:</code></td></tr>
+              <tr><td>строка после <code>if</code> без отступа</td><td><code>IndentationError</code></td><td>сделать отступ в четыре пробела</td></tr>
+              <tr><td><code>else age &lt; 18:</code></td><td><code>SyntaxError</code>: у <code>else</code> нет условия</td><td><code>elif age &lt; 18:</code> или просто <code>else:</code></td></tr>
+              <tr><td>сначала <code>score &gt;= 70</code>, потом <code>&gt;= 90</code></td><td>высокие оценки попадут в первую ветку</td><td>расположить границы от большей к меньшей</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Что выполнится, если условие после <code>if</code> равно <code>False</code> и ветки <code>else</code> нет?</summary><p>Блок <code>if</code> будет пропущен, затем программа продолжит работу со строки без отступа после конструкции.</p></details>
+        <details><summary>Сколько веток выполнится в одной цепочке <code>if / elif / else</code>?</summary><p>Не более одной: первой, условие которой истинно. Если ни одно условие не подошло, выполнится <code>else</code>, если он есть.</p></details>
+        <details><summary>Обязателен ли <code>else</code>?</summary><p>Нет. Можно использовать только <code>if</code> или цепочку <code>if / elif</code>.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Одна проверка</b><code>if condition:</code><code>    action</code></div>
+          <div><b>Два пути</b><code>if condition:</code><code>    action_a</code><code>else:</code><code>    action_b</code></div>
+          <div><b>Несколько путей</b><code>if ...:</code><code>elif ...:</code><code>else:</code></div>
+          <div><b>Правило</b><code>первая истинная ветка</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>if</code> начинает проверку, <code>elif</code> добавляет варианты, <code>else</code> обрабатывает оставшийся случай. Двоеточие открывает блок, а отступ показывает его границы. Цепочка просматривается сверху вниз и выполняет не более одной ветки.</p>
+        <div class="pager">
+          <a href="../12-dvoynoe-sravnenie/index.html">← 2.3 Двойное сравнение</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../14-vlozhennye-usloviya/index.html">2.5 Вложенные условия →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.4 · Операторы ветвления: if, elif, else · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

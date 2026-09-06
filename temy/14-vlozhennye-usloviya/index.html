@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>2.5 Вложенные условия · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 2 · Ход выполнения</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 2 · ход выполнения</p>
+          <p class="running__folio">Глава 2.5</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">2.5</span>
+          <h1>Вложенные условия<br>(nested if)</h1>
+          <p class="lead">Иногда вторую проверку имеет смысл выполнять только после успешной первой. Тогда один <code>if</code> помещают внутрь другого и получают два уровня решения.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Управление выполнением</dd></div>
+          <div><dt>Уровень</dt><dd>Начальный</dd></div>
+          <div><dt>Связанные темы</dt><dd>if, else, составные условия</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Строить последовательные зависимые проверки</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зависимые проверки</a></li>
+            <li><a href="#s2">Общий синтаксис</a></li>
+            <li><a href="#s3">Как выполняется код</a></li>
+            <li><a href="#s4">К какому if относится else</a></li>
+            <li><a href="#s5">Полный пример</a></li>
+            <li><a href="#s6">Вложение или and</a></li>
+            <li><a href="#s7">Как не запутаться в отступах</a></li>
+            <li><a href="#s8">Частые ошибки</a></li>
+            <li><a href="#s9">Проверьте себя</a></li>
+            <li><a href="#s10">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зависимые проверки</h2>
+        <p><span class="term">Вложенное условие</span> — это <code>if</code> внутри блока другого <code>if</code>. Внутренняя проверка запускается только тогда, когда программа вошла во внешнюю ветку.</p>
+        <p>Например, билет имеет смысл проверять только после проверки возраста. Если возраст не подходит, до вопроса о билете программа не доходит.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Общий синтаксис</h2>
+        <figure class="code">
+          <figcaption><span>Python</span><span>два уровня</span></figcaption>
+<pre><span class="k">if</span> условие_1:
+    <span class="k">if</span> условие_2:
+        действие</pre>
+        </figure>
+        <p>Второй <code>if</code> находится внутри первого блока и получает ещё один уровень отступа. Действие внутри второго <code>if</code> имеет восемь пробелов относительно начала строки.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Как выполняется код</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>доступ по возрасту и билету</span></figcaption>
+<pre>age = <span class="n">20</span>
+has_ticket = <span class="k">True</span>
+
+<span class="k">if</span> age &gt;= <span class="n">18</span>:
+    <span class="k">if</span> has_ticket:
+        <span class="f">print</span>(<span class="s">"Вход разрешён"</span>)</pre>
+        </figure>
+        <ol class="steps">
+          <li>Проверяется <code>age &gt;= 18</code>.</li>
+          <li>Если результат <code>True</code>, проверяется <code>has_ticket</code>.</li>
+          <li>Сообщение выводится, только если обе проверки истинны.</li>
+        </ol>
+        <p>При <code>age = 17</code> внутренняя проверка не запускается. При <code>age = 20</code> и <code>has_ticket = False</code> она запускается, но её блок пропускается.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>К какому if относится else</h2>
+        <p><code>else</code> относится к тому <code>if</code>, с которым стоит на одном уровне отступа.</p>
+        <figure class="code">
+          <figcaption><span>Python</span><span>else внутреннего условия</span></figcaption>
+<pre><span class="k">if</span> age &gt;= <span class="n">18</span>:
+    <span class="k">if</span> has_ticket:
+        <span class="f">print</span>(<span class="s">"Вход разрешён"</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(<span class="s">"Нет билета"</span>)</pre>
+        </figure>
+        <p>Здесь <code>else</code> выровнен со вторым <code>if</code>, поэтому сообщает об отсутствии билета. Он ничего не делает для случая неподходящего возраста.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Полный пример</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>все варианты ответа</span></figcaption>
+<pre>age = <span class="n">20</span>
+has_ticket = <span class="k">False</span>
+
+<span class="k">if</span> age &gt;= <span class="n">18</span>:
+    <span class="k">if</span> has_ticket:
+        <span class="f">print</span>(<span class="s">"Вход разрешён"</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(<span class="s">"Нет билета"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Вход закрыт по возрасту"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Нет билета</pre></figure>
+        <p>Внешний <code>else</code> выровнен с первым <code>if</code>, а внутренний — со вторым. По отступам видно, какую проверку дополняет каждая ветка.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Вложение или and</h2>
+        <p>Если действие одно и обе проверки равноправны, вложение можно заменить оператором <code>and</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Вложение</th><th>Составное условие</th></tr></thead>
+            <tbody>
+              <tr><td><code>if age &gt;= 18:<br>&nbsp;&nbsp;&nbsp;&nbsp;if has_ticket:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Вход")</code></td><td><code>if age &gt;= 18 and has_ticket:<br>&nbsp;&nbsp;&nbsp;&nbsp;print("Вход")</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Вложение нужно, когда после первой проверки появляются отдельные действия или разные ответы. Если требуется только один общий результат, составное условие обычно читается проще.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Как не запутаться в отступах</h2>
+        <ul>
+          <li>каждый новый уровень <code>if</code> добавляет четыре пробела;</li>
+          <li><code>else</code> выравнивается с тем <code>if</code>, который он дополняет;</li>
+          <li>не смешивайте табуляцию и пробелы;</li>
+          <li>если уровней стало больше двух-трёх, разделите задачу на более простые проверки.</li>
+        </ul>
+        <div class="margin-note">
+          <b>Читайте по уровням</b>
+          <p>Сначала закройте рукой внутренний блок и поймите внешнюю проверку. Затем разберите только тот путь, по которому программа вошла внутрь.</p>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>внутренний <code>if</code> без дополнительного отступа</td><td>он станет отдельной проверкой, не зависящей от внешней</td><td>добавить четыре пробела</td></tr>
+              <tr><td><code>else</code> выровнен не с тем <code>if</code></td><td>сообщение появится для другого случая</td><td>проверить уровни отступов</td></tr>
+              <tr><td>нет действия внутри второго <code>if</code></td><td><code>IndentationError</code></td><td>добавить блок или временно написать <code>pass</code></td></tr>
+              <tr><td>четыре-пять уровней вложения</td><td>путь выполнения трудно проследить</td><td>разделить условие или вынести части в отдельные функции позже</td></tr>
+              <tr><td>два вложенных <code>if</code> для одного действия</td><td>код длиннее необходимого</td><td>рассмотреть условие с <code>and</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверьте себя</h2>
+        <details><summary>Когда проверяется внутренний <code>if</code>?</summary><p>Только после того, как программа вошла в блок внешнего <code>if</code>.</p></details>
+        <details><summary>Как определить, к какому <code>if</code> относится <code>else</code>?</summary><p>По отступу: <code>else</code> стоит на одном уровне со своим <code>if</code>.</p></details>
+        <details><summary>Можно ли заменить два вложенных условия одним <code>and</code>?</summary><p>Да, если нужно выполнить одно действие только при истинности обеих проверок. Если после первой проверки есть отдельная логика, вложение сохраняют.</p></details>
+
+        <h2 id="s10"><span class="sec">§10</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Второй уровень</b><code>if first:</code><code>    if second:</code></div>
+          <div><b>Внутренний else</b><code>    if second:</code><code>        ...</code><code>    else:</code></div>
+          <div><b>Внешний else</b><code>if first:</code><code>    ...</code><code>else:</code></div>
+          <div><b>Одно действие</b><code>if first and second:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Вложенный <code>if</code> создаёт зависимую проверку: внутреннее условие рассматривается только после успешного внешнего. Уровни задаются отступами, а каждый <code>else</code> относится к <code>if</code> на той же позиции. Для одного общего действия два условия часто можно соединить через <code>and</code>.</p>
+        <div class="pager">
+          <a href="../13-if-elif-else/index.html">← 2.4 if, elif, else</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../15-ternarnyy-operator/index.html">2.6 Тернарный оператор →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 2.5 · Вложенные условия · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
