@@ -1,36 +1,323 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.10 Замена и разбиение строк · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Строки</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p><p class="running__folio">Глава 5.10</p></div>
-<header class="chapter-head"><span class="chapter-num">5.10</span><h1>Замена, разбиение<br>и преобразование строк</h1><p class="lead"><code>replace()</code>, <code>split()</code>, <code>rsplit()</code> и <code>splitlines()</code> меняют структуру текста, а <code>swapcase()</code>, <code>upper()</code> и <code>zfill()</code> создают его новое представление.</p><blockquote class="quote"><p>«Хорошая обработка текста состоит из маленьких преобразований с понятным результатом.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый → средний</dd></div><div><dt>Связанные темы</dt><dd>Списки, строки, форматирование</dd></div><div><dt>Зачем это знать</dt><dd>Нормализовать ввод и разбирать текстовые записи</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">replace</a></li><li><a href="#s2">Предел замен</a></li><li><a href="#s3">split без аргумента</a></li><li><a href="#s4">Явный разделитель</a></li><li><a href="#s5">maxsplit</a></li><li><a href="#s6">rsplit</a></li><li><a href="#s7">splitlines</a></li><li><a href="#s8">keepends</a></li><li><a href="#s9">Регистр</a></li><li><a href="#s10">zfill</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>replace() заменяет найденные подстроки</h2><figure class="code"><figcaption><span>main.py</span><span>все вхождения по умолчанию</span></figcaption><pre>text = <span class="s">"кот, кот и ещё кот"</span>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>5.10 Замена и разбиение строк · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 5 · Строки</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p>
+          <p class="running__folio">Глава 5.10</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">5.10</span>
+          <h1>Замена, разбиение<br>и преобразование строк</h1>
+          <p class="lead"><code>replace()</code> заменяет подстроки, <code>split()</code> превращает строку в список частей, <code>splitlines()</code> понимает границы строк, а <code>upper()</code>, <code>swapcase()</code> и <code>zfill()</code> создают новое представление текста. Это последняя группа строковых методов и самая используемая на практике.</p>
+          <blockquote class="quote"><p>«Хорошая обработка текста состоит из маленьких преобразований с понятным результатом.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Строковые методы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Списки, строки, форматирование</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Нормализовать ввод и разбирать текстовые записи</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">replace(): все вхождения</a></li>
+            <li><a href="#s2">Ограничение числа замен</a></li>
+            <li><a href="#s3">Удаление через replace()</a></li>
+            <li><a href="#s4">split(): строка в список</a></li>
+            <li><a href="#s5">split() без аргумента</a></li>
+            <li><a href="#s6">split() против split(" ")</a></li>
+            <li><a href="#s7">Пустая строка</a></li>
+            <li><a href="#s8">maxsplit</a></li>
+            <li><a href="#s9">rsplit()</a></li>
+            <li><a href="#s10">splitlines() против split()</a></li>
+            <li><a href="#s11">keepends</a></li>
+            <li><a href="#s12">Практика: разбор записи</a></li>
+            <li><a href="#s13">upper(), swapcase(), title()</a></li>
+            <li><a href="#s14">zfill()</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>replace(): все вхождения</h2>
+        <p><code>replace(old, new)</code> возвращает строку, где каждое вхождение подстроки заменено на другую.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три вхождения сразу</span></figcaption>
+<pre>text = <span class="s">"кот, кот и ещё кот"</span>
 updated = text.replace(<span class="s">"кот"</span>, <span class="s">"пёс"</span>)
-<span class="f">print</span>(updated)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три замены</span></figcaption><pre>пёс, пёс и ещё пёс</pre></figure><p>Исходная строка не меняется: метод возвращает новую.</p>
-<h2 id="s2"><span class="sec">§2</span>Третий аргумент ограничивает число замен</h2><figure class="code"><figcaption><span>main.py</span><span>заменяем только первые два дефиса</span></figcaption><pre>date = <span class="s">"2026-09-06-extra"</span>
-<span class="f">print</span>(date.replace(<span class="s">"-"</span>, <span class="s">"/"</span>, <span class="n">2</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>последний дефис сохранён</span></figcaption><pre>2026/09/06-extra</pre></figure>
-<h2 id="s3"><span class="sec">§3</span>split() без аргумента работает по сериям пробелов</h2><figure class="code"><figcaption><span>main.py</span><span>пробелы, табуляция и перевод строки</span></figcaption><pre>text = <span class="s">"  Python\tдля\nвсех  "</span>
-<span class="f">print</span>(text.split())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пустых элементов нет</span></figcaption><pre>['Python', 'для', 'всех']</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>Явный разделитель сохраняет пустые части</h2><figure class="code"><figcaption><span>main.py</span><span>два соседних разделителя</span></figcaption><pre>row = <span class="s">"Анна;;95"</span>
-<span class="f">print</span>(row.split(<span class="s">";"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>между точками с запятой пустое поле</span></figcaption><pre>['Анна', '', '95']</pre></figure><p><code>split()</code> и <code>split(" ")</code> работают по-разному: первый объединяет серии пробельных символов, второй ищет каждый обычный пробел.</p>
-<h2 id="s5"><span class="sec">§5</span>maxsplit ограничивает количество разбиений</h2><figure class="code"><figcaption><span>main.py</span><span>остаток остаётся последним элементом</span></figcaption><pre>record = <span class="s">"INFO:2026-09-06:Сервер запущен"</span>
-<span class="f">print</span>(record.split(<span class="s">":"</span>, <span class="n">2</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>не более трёх частей</span></figcaption><pre>['INFO', '2026-09-06', 'Сервер запущен']</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>rsplit() начинает ограниченное разбиение справа</h2><figure class="code"><figcaption><span>main.py</span><span>отделяем расширение от полного имени</span></figcaption><pre>filename = <span class="s">"archive.report.final.txt"</span>
-<span class="f">print</span>(filename.rsplit(<span class="s">"."</span>, <span class="n">1</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две части</span></figcaption><pre>['archive.report.final', 'txt']</pre></figure><p>Без ограничения <code>split()</code> и <code>rsplit()</code> возвращают одинаковый список.</p>
-<h2 id="s7"><span class="sec">§7</span>splitlines() понимает границы строк</h2><figure class="code"><figcaption><span>main.py</span><span>три распространённых окончания</span></figcaption><pre>text = <span class="s">"первая\nвторая\r\nтретья"</span>
-<span class="f">print</span>(text.splitlines())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>окончания удалены</span></figcaption><pre>['первая', 'вторая', 'третья']</pre></figure>
-<h2 id="s8"><span class="sec">§8</span>keepends=True сохраняет окончания строк</h2><figure class="code"><figcaption><span>main.py</span><span>repr делает управляющие символы видимыми</span></figcaption><pre>text = <span class="s">"первая\nвторая\n"</span>
-<span class="f">print</span>(text.splitlines(keepends=<span class="f">True</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>символы \n входят в элементы</span></figcaption><pre>['первая\n', 'вторая\n']</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>upper() и swapcase() создают строки с другим регистром</h2><figure class="code"><figcaption><span>main.py</span><span>два вида преобразования</span></figcaption><pre>text = <span class="s">"Python 3"</span>
+
+<span class="f">print</span>(text)
+<span class="f">print</span>(updated)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>исходная строка не изменилась</span></figcaption><pre>кот, кот и ещё кот
+пёс, пёс и ещё пёс</pre></figure>
+        <p>По умолчанию заменяются <b>все</b> вхождения — этим метод отличается от <code>remove()</code> у списков из главы 3.10, который убирал только первое. Если подстрока не найдена, возвращается копия исходной строки без ошибки.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Ограничение числа замен</h2>
+        <p>Третий аргумент задаёт максимальное количество замен, считая слева.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>только первые два дефиса</span></figcaption>
+<pre>date = <span class="s">"2026-09-06-extra"</span>
+<span class="f">print</span>(date.replace(<span class="s">"-"</span>, <span class="s">"/"</span>, <span class="n">2</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>третий дефис уцелел</span></figcaption><pre>2026/09/06-extra</pre></figure>
+        <p>Это нужно, когда одинаковые символы играют в строке разные роли: здесь первые два дефиса разделяют дату, а третий отделяет примечание.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Удаление через replace()</h2>
+        <p>Если заменить подстроку на пустую строку, она просто исчезнет. Это стандартный способ удалить символы <b>внутри</b> строки — там, где <code>strip()</code> из главы 5.9 бессилен.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>убрать все пробелы</span></figcaption>
+<pre>phone = <span class="s">"+7 900 123 45 67"</span>
+<span class="f">print</span>(phone.replace(<span class="s">" "</span>, <span class="s">""</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>номер собран в одну строку</span></figcaption><pre>+79001234567</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Метод</th></tr></thead>
+            <tbody>
+              <tr><td>убрать пробелы по краям</td><td><code>strip()</code></td></tr>
+              <tr><td>убрать все пробелы</td><td><code>replace(" ", "")</code></td></tr>
+              <tr><td>убрать слово с конца</td><td><code>removesuffix()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>split(): строка в список</h2>
+        <p><code>split(sep)</code> разбивает строку по разделителю и возвращает список частей. Сам разделитель в результат не попадает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>запись с точками с запятой</span></figcaption>
+<pre>row = <span class="s">"Анна;;95"</span>
+<span class="f">print</span>(row.split(<span class="s">";"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>между разделителями пустое поле</span></figcaption><pre>['Анна', '', '95']</pre></figure>
+        <p>Пустая строка в середине — не ошибка, а точное отражение данных: между двумя точками с запятой действительно ничего нет. Для таблиц это правильное поведение, потому что число полей сохраняется.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>split() без аргумента</h2>
+        <p>Без аргумента метод ведёт себя иначе: он делит по <b>сериям</b> любых пробельных символов и отбрасывает пустые части по краям.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пробелы, табуляция и перевод строки вперемешку</span></figcaption>
+<pre>text = "  Python\tдля\nвсех  "
+<span class="f">print</span>(text.split())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ровно три слова</span></figcaption><pre>['Python', 'для', 'всех']</pre></figure>
+        <p>Это готовый способ разбить текст на слова: не нужно ни очищать края, ни думать о двойных пробелах.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>split() против split(" ")</h2>
+        <p>Разница между вызовом без аргумента и с пробелом выглядит косметической, но поведение у них разное.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>двойной пробел в середине</span></figcaption>
+<pre>text = <span class="s">"a b  c"</span>
+
+<span class="f">print</span>(text.split())
+<span class="f">print</span>(text.split(<span class="s">" "</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>во втором случае появилась пустая часть</span></figcaption><pre>['a', 'b', 'c']
+['a', 'b', '', 'c']</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th><code>split()</code></th><th><code>split(" ")</code></th></tr></thead>
+            <tbody>
+              <tr><td>что считает разделителем</td><td>серию любых пробельных</td><td>ровно один пробел</td></tr>
+              <tr><td>двойной пробел</td><td>один разделитель</td><td>два, между ними пусто</td></tr>
+              <tr><td>табуляция и перевод строки</td><td>тоже разделители</td><td>обычные символы</td></tr>
+              <tr><td>края строки</td><td>пустые части отбрасываются</td><td>сохраняются</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Практическое правило: разбиваете <b>текст на слова</b> — <code>split()</code> без аргумента; разбираете <b>структурированную запись</b> с фиксированными полями — явный разделитель.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Пустая строка</h2>
+        <p>Та же разница проявляется на пустой строке, и это регулярно ломает обработку данных.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>разбиваем пустую строку</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">""</span>.split())
+<span class="f">print</span>(<span class="s">""</span>.split(<span class="s">","</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пустой список и список из пустой строки</span></figcaption><pre>[]
+['']</pre></figure>
+        <p>Длина результатов разная — <code>0</code> и <code>1</code>. Цикл по первому не выполнится ни разу, по второму выполнится один раз с пустым значением. Если данные приходят из файла, где встречаются пустые строки, эту разницу нужно учитывать явно.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>maxsplit</h2>
+        <p>Второй аргумент ограничивает число разбиений. Всё, что осталось, попадает в последний элемент целиком.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>в сообщении тоже есть двоеточия</span></figcaption>
+<pre>record = <span class="s">"INFO:2026-09-06:Сервер запущен"</span>
+<span class="f">print</span>(record.split(<span class="s">":"</span>, <span class="n">2</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>не больше трёх частей</span></figcaption><pre>['INFO', '2026-09-06', 'Сервер запущен']</pre></figure>
+        <p>Приём незаменим при разборе логов: уровень и дату нужно отделить, а текст сообщения — сохранить как есть, даже если в нём встретится разделитель.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>rsplit()</h2>
+        <p><code>rsplit()</code> отсчитывает разбиения справа. Без <code>maxsplit</code> результат совпадает с <code>split()</code> — разница появляется только вместе с ограничением.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отделяем расширение</span></figcaption>
+<pre>filename = <span class="s">"archive.report.final.txt"</span>
+
+<span class="f">print</span>(filename.split(<span class="s">"."</span>, <span class="n">1</span>))
+<span class="f">print</span>(filename.rsplit(<span class="s">"."</span>, <span class="n">1</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>слева и справа — разные точки</span></figcaption><pre>['archive', 'report.final.txt']
+['archive.report.final', 'txt']</pre></figure>
+        <p>Логика та же, что у <code>rfind()</code> и <code>rpartition()</code> из глав 5.5 и 5.9: приставка <code>r</code> всегда означает «с конца».</p>
+
+        <h2 id="s10"><span class="sec">§10</span>splitlines() против split()</h2>
+        <p>Для разбиения на строки есть отдельный метод, и он не равнозначен <code>split()</code> с переводом строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>текст заканчивается переводом строки</span></figcaption>
+<pre>text = "первая\nвторая\n"
+
+<span class="f">print</span>(text.split("\n"))
+<span class="f">print</span>(text.splitlines())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>у split() появился лишний пустой элемент</span></figcaption><pre>['первая', 'вторая', '']
+['первая', 'вторая']</pre></figure>
+        <p>Файлы почти всегда заканчиваются переводом строки, поэтому <code>split("\n")</code> регулярно даёт «лишнюю пустую строку в конце». <code>splitlines()</code> этой проблемы лишён — он понимает, что последний перевод завершает строку, а не начинает новую.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>разные окончания строк вперемешку</span></figcaption>
+<pre>text = "первая\nвторая\r\nтретья"
+<span class="f">print</span>(text.splitlines())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>оба вида окончаний распознаны</span></figcaption><pre>['первая', 'вторая', 'третья']</pre></figure>
+        <p>Второе преимущество: <code>\r\n</code> — окончание строк в Windows — распознаётся как одна граница. С <code>split("\n")</code> символ <code>\r</code> остался бы в конце каждой части и портил бы сравнения.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>keepends</h2>
+        <p>Если окончания строк нужно сохранить, передают <code>keepends=True</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>repr показывает управляющие символы</span></figcaption>
+<pre>text = "первая\nвторая\n"
+<span class="f">print</span>(text.splitlines(keepends=<span class="k">True</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>переводы строк вошли в элементы</span></figcaption><pre>['первая\n', 'вторая\n']</pre></figure>
+        <p>Это нужно, когда текст разбирают, что-то в нём меняют и собирают обратно: с сохранёнными окончаниями достаточно склеить части через <code>"".join()</code>, и исходное форматирование не пострадает.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Практика: разбор записи</h2>
+        <p><code>split()</code> вместе с распаковкой из главы 6.6 разбирает строку данных в одну строку кода.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>строка CSV в три переменные</span></figcaption>
+<pre>csv_line = <span class="s">"Анна,25,Москва"</span>
+name, age, city = csv_line.split(<span class="s">","</span>)
+
+<span class="f">print</span>(name)
+<span class="f">print</span>(city)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>поля разложены по именам</span></figcaption><pre>Анна
+Москва</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Распаковка требует точного числа полей</b>
+          <p>Если в записи окажется не три поля, а два или четыре, будет <code>ValueError</code>. Для данных из внешнего источника надёжнее сохранить результат в список и проверить его длину — либо задать <code>maxsplit</code>, чтобы число частей было предсказуемым.</p>
+        </div>
+        <p>И ещё одно: <code>split(",")</code> не понимает кавычек, поэтому значение вида <code>"Москва, Россия"</code> он разорвёт. Для настоящих CSV-файлов есть модуль <code>csv</code> — он разбирается в модуле 8.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>upper(), swapcase(), title()</h2>
+        <p>К методам регистра из главы 5.2 добавляются ещё три.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три преобразования одной строки</span></figcaption>
+<pre>text = <span class="s">"Python для всех"</span>
+
 <span class="f">print</span>(text.upper())
-<span class="f">print</span>(text.swapcase())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>цифра и пробел не изменились</span></figcaption><pre>PYTHON 3
-pYTHON 3</pre></figure>
-<h2 id="s10"><span class="sec">§10</span>zfill() дополняет строку нулями слева</h2><figure class="code"><figcaption><span>main.py</span><span>знак остаётся перед нулями</span></figcaption><pre><span class="f">print</span>(<span class="s">"42"</span>.zfill(<span class="n">5</span>))
+<span class="f">print</span>(text.swapcase())
+<span class="f">print</span>(text.title())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>цифры и пробелы не меняются</span></figcaption><pre>PYTHON ДЛЯ ВСЕХ
+pYTHON ДЛЯ ВСЕХ
+Python Для Всех</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Что делает</th><th>Парная проверка</th></tr></thead>
+            <tbody>
+              <tr><td><code>upper()</code></td><td>все буквы заглавные</td><td><code>isupper()</code></td></tr>
+              <tr><td><code>lower()</code></td><td>все буквы строчные</td><td><code>islower()</code></td></tr>
+              <tr><td><code>title()</code></td><td>каждое слово с заглавной</td><td><code>istitle()</code></td></tr>
+              <tr><td><code>swapcase()</code></td><td>меняет регистр на противоположный</td><td>нет</td></tr>
+              <tr><td><code>capitalize()</code></td><td>первая позиция заглавная</td><td>нет</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>У <code>title()</code> те же особенности, что у <code>istitle()</code> из главы 5.8: словом считается любая группа букв, поэтому <code>"o'brien"</code> превратится в <code>"O'Brien"</code>. И помните: <code>swapcase()</code> дважды подряд не всегда возвращает исходную строку — там, где регистр не взаимно однозначен, как у немецкой <code>ß</code>.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>zfill()</h2>
+        <p><code>zfill(width)</code> дополняет строку нулями слева до нужной длины. Название — от <i>zero fill</i>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>число, знак и слишком длинная строка</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"42"</span>.zfill(<span class="n">5</span>))
 <span class="f">print</span>(<span class="s">"-42"</span>.zfill(<span class="n">5</span>))
-<span class="f">print</span>(<span class="s">"123456"</span>.zfill(<span class="n">5</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>достаточно длинная строка не меняется</span></figcaption><pre>00042
+<span class="f">print</span>(<span class="s">"123456"</span>.zfill(<span class="n">5</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>знак остался впереди, длинная строка не обрезана</span></figcaption><pre>00042
 -0042
 123456</pre></figure>
-<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>text.split("")</code></td><td><code>ValueError</code>: пустой разделитель</td><td>для отдельных символов использовать <code>list(text)</code></td></tr><tr><td><code>text.split(" ")</code> для любого пробела</td><td>табуляции не разделят строку</td><td>вызвать <code>text.split()</code> без аргумента</td></tr><tr><td>ожидать изменения исходной строки</td><td>метод вернёт новый объект</td><td>сохранить результат в переменную</td></tr><tr><td>применять <code>zfill()</code> как арифметику</td><td>обрабатываются символы, а не число</td><td>использовать метод только для текстового представления</td></tr><tr><td>ждать список символов от <code>split()</code></td><td>пустой разделитель запрещён</td><td><code>list(text)</code></td></tr></tbody></table></div>
-<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Чем split() отличается от split(" ")?</summary><p><code>split()</code> делит по сериям любых пробельных символов и не создаёт пустые крайние части. <code>split(" ")</code> ищет каждый обычный пробел.</p></details><details><summary>Когда нужен rsplit()?</summary><p>Когда количество разбиений ограничено и искать разделители нужно с правого края.</p></details><details><summary>Изменит ли text.upper() переменную text?</summary><p>Нет. Метод вернёт новую строку.</p></details>
-<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>Заменить</b><code>text.replace(old, new)</code></div><div><b>Разбить слева</b><code>text.split(sep, maxsplit)</code></div><div><b>Разбить справа</b><code>text.rsplit(sep, maxsplit)</code></div><div><b>Дополнить нулями</b><code>text.zfill(width)</code></div></div><h3>Итог главы</h3><p>Выбирайте метод по границе работы: <code>replace()</code> ищет подстроки, <code>split()</code> строит список частей, <code>splitlines()</code> понимает окончания строк, а методы регистра и <code>zfill()</code> меняют представление текста.</p>
-<div class="pager"><a href="../63-join-strip-partition/index.html">← 5.9 join(), strip() и partition()</a><a href="../../index.html">К содержанию справочника</a><a href="../16-abs-max-min/index.html">6.1 abs(), max() и min() →</a></div><div class="colophon"><span>Глава 5.10 · Замена и разбиение строк · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <p>Метод специально умеет обращаться со знаком: он ставит нули <b>после</b> <code>-</code> или <code>+</code>, а не перед ним. Этим он отличается от <code>rjust(5, "0")</code> из главы 5.3, который сдвинул бы знак вправо и дал бы неверное <code>00-42</code>.</p>
+        <p>Как и <code>center()</code>, метод не обрезает: если строка уже длиннее <code>width</code>, она возвращается целиком.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>text.replace(old, new)</code> без сохранения</td><td>результат выброшен: строки неизменяемы</td><td><code>text = text.replace(old, new)</code></td></tr>
+              <tr><td><code>text.split("")</code></td><td><code>ValueError</code>: пустой разделитель</td><td><code>list(text)</code> для списка символов</td></tr>
+              <tr><td><code>text.split(" ")</code> для любого пробела</td><td>табуляции не разделят, двойной пробел даст пустую часть</td><td><code>text.split()</code> без аргумента</td></tr>
+              <tr><td><code>text.split("\n")</code> для строк файла</td><td>в конце появится лишний пустой элемент</td><td><code>text.splitlines()</code></td></tr>
+              <tr><td>ждать от <code>"".split(",")</code> пустого списка</td><td>вернётся <code>['']</code> — один пустой элемент</td><td>проверять строку до разбиения</td></tr>
+              <tr><td><code>a, b, c = line.split(",")</code> для чужих данных</td><td><code>ValueError</code> при другом числе полей</td><td>сохранить в список и проверить длину</td></tr>
+              <tr><td><code>split(",")</code> для настоящего CSV</td><td>значение в кавычках с запятой разорвётся</td><td>модуль <code>csv</code></td></tr>
+              <tr><td><code>"-42".rjust(5, "0")</code></td><td>получится <code>00-42</code></td><td><code>"-42".zfill(5)</code></td></tr>
+              <tr><td>применять <code>zfill()</code> к числу</td><td><code>AttributeError</code>: это метод строки</td><td><code>str(number).zfill(5)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Сколько вхождений заменит <code>replace(old, new)</code>?</summary><p>Все. Чтобы ограничить количество, передают третий аргумент.</p></details>
+        <details><summary>Чем <code>split()</code> отличается от <code>split(" ")</code>?</summary><p><code>split()</code> делит по сериям любых пробельных символов и отбрасывает пустые края. <code>split(" ")</code> ищет каждый одиночный пробел, из-за чего двойной пробел даёт пустую часть.</p></details>
+        <details><summary>Почему <code>"".split()</code> и <code>"".split(",")</code> дают разные результаты?</summary><p>Первый возвращает пустой список, второй — список из одной пустой строки. Их длины <code>0</code> и <code>1</code>, и цикл по ним поведёт себя по-разному.</p></details>
+        <details><summary>Когда нужен <code>rsplit()</code>?</summary><p>Когда число разбиений ограничено, а искать разделители нужно с конца — например, чтобы отделить расширение файла.</p></details>
+        <details><summary>Почему для строк файла лучше <code>splitlines()</code>?</summary><p>Он не создаёт лишний пустой элемент из завершающего перевода строки и распознаёт <code>\r\n</code> как одну границу.</p></details>
+        <details><summary>Чем <code>zfill(5)</code> лучше <code>rjust(5, "0")</code> для чисел?</summary><p><code>zfill()</code> ставит нули после знака: <code>-42</code> станет <code>-0042</code>, а не <code>00-42</code>.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Заменить</b><code>text.replace(old, new)</code></div>
+          <div><b>Удалить внутри</b><code>text.replace(" ", "")</code></div>
+          <div><b>На слова</b><code>text.split()</code></div>
+          <div><b>По разделителю</b><code>text.split(",")</code></div>
+          <div><b>Ограничить</b><code>text.split(":", 2)</code></div>
+          <div><b>С конца</b><code>text.rsplit(".", 1)</code></div>
+          <div><b>На строки</b><code>text.splitlines()</code></div>
+          <div><b>Нули слева</b><code>str(n).zfill(5)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>replace()</code> заменяет все вхождения, если не ограничить их третьим аргументом, и заменой на пустую строку удаляет символы внутри текста. У <code>split()</code> две разные повадки: без аргумента он режет по сериям пробельных символов и годится для разбиения на слова, с явным разделителем — сохраняет пустые поля и годится для структурированных записей. Для строк текста нужен <code>splitlines()</code>: он не оставляет лишнего пустого элемента в конце и понимает окончания строк Windows. <code>zfill()</code> дополняет нулями, аккуратно обходясь со знаком числа.</p>
+        <div class="pager">
+          <a href="../63-join-strip-partition/index.html">← 5.9 join(), strip() и partition()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../16-abs-max-min/index.html">6.1 abs(), max() и min() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 5.10 · Замена и разбиение строк · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,48 +1,354 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.6 format(), format_map() и isalnum() · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Строки</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p><p class="running__folio">Глава 5.6</p></div>
-<header class="chapter-head"><span class="chapter-num">5.6</span><h1>Форматирование строк<br>и <code>isalnum()</code></h1><p class="lead"><code>format()</code> подставляет аргументы в шаблон, <code>format_map()</code> берёт значения из отображения, а <code>isalnum()</code> проверяет, состоит ли непустая строка только из букв и числовых символов.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый → средний</dd></div><div><dt>Связанные темы</dt><dd>f-строки, словари, аргументы, Unicode</dd></div><div><dt>Зачем это знать</dt><dd>Строить текст из данных и проверять состав идентификатора</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">format</a></li><li><a href="#s2">Позиции</a></li><li><a href="#s3">Имена</a></li><li><a href="#s4">Спецификация формата</a></li><li><a href="#s5">Фигурные скобки</a></li><li><a href="#s6">format_map</a></li><li><a href="#s7">Отсутствующий ключ</a></li><li><a href="#s8">f-строки и format</a></li><li><a href="#s9">isalnum</a></li><li><a href="#s10">Unicode и пустая строка</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>format() подставляет аргументы в шаблон</h2><figure class="code"><figcaption><span>main.py</span><span>поля заполняются по порядку</span></figcaption><pre>template = <span class="s">"Товар: {}, цена: {} ₽"</span>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>5.6 format(), format_map() и isalnum() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 5 · Строки</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p>
+          <p class="running__folio">Глава 5.6</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">5.6</span>
+          <h1>Форматирование строк<br>и <code>isalnum()</code></h1>
+          <p class="lead"><code>format()</code> подставляет аргументы в шаблон, <code>format_map()</code> берёт значения из готового словаря, а спецификация после двоеточия задаёт ширину, точность и вид числа. <code>isalnum()</code> проверяет, состоит ли непустая строка только из букв и числовых символов.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Строковые методы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>f-строки, словари, аргументы, Unicode</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Строить текст из данных и проверять состав идентификатора</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Шаблон отдельно от значений</a></li>
+            <li><a href="#s2">format(): подстановка по порядку</a></li>
+            <li><a href="#s3">Номер поля</a></li>
+            <li><a href="#s4">Имя поля</a></li>
+            <li><a href="#s5">Спецификация формата</a></li>
+            <li><a href="#s6">Ширина и выравнивание</a></li>
+            <li><a href="#s7">Форматы для чисел</a></li>
+            <li><a href="#s8">Двойные скобки</a></li>
+            <li><a href="#s9">format_map(): словарь целиком</a></li>
+            <li><a href="#s10">format_map() или format(**data)</a></li>
+            <li><a href="#s11">Отсутствующий ключ</a></li>
+            <li><a href="#s12">f-строка или format()</a></li>
+            <li><a href="#s13">isalnum(): состав строки</a></li>
+            <li><a href="#s14">isalnum() и Unicode</a></li>
+            <li><a href="#s15">Чего isalnum() не проверяет</a></li>
+            <li><a href="#s16">Частые ошибки</a></li>
+            <li><a href="#s17">Проверьте себя</a></li>
+            <li><a href="#s18">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Шаблон отдельно от значений</h2>
+        <p>Строку с подставленными значениями умеет собирать f-строка, знакомая с первого модуля. У неё есть одно ограничение: шаблон и значения записаны в одном месте и в один момент.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>когда f-строка не подходит</span></figcaption>
+<pre>f"Привет, {name}"      значения нужны здесь и сейчас
+
+template = "Привет, {}"   шаблон можно хранить в переменной,
+template.format(name)     файле настроек или словаре переводов</pre>
+        </figure>
+        <p>Отсюда и роль <code>format()</code>: он нужен, когда шаблон приходит откуда-то извне, а значения появляются позже. Типичные случаи — тексты сообщений в конфиге, переводы на разные языки, шаблоны писем.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>format(): подстановка по порядку</h2>
+        <p>Места подстановки обозначаются фигурными скобками. Пустые скобки заполняются аргументами по порядку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два поля, два аргумента</span></figcaption>
+<pre>template = <span class="s">"Товар: {}, цена: {} ₽"</span>
 message = template.format(<span class="s">"книга"</span>, <span class="n">900</span>)
 
-<span class="f">print</span>(message)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>готовая строка</span></figcaption><pre>Товар: книга, цена: 900 ₽</pre></figure>
-<h2 id="s2"><span class="sec">§2</span>Номер поля выбирает позиционный аргумент</h2><figure class="code"><figcaption><span>main.py</span><span>повторное использование аргумента</span></figcaption><pre>template = <span class="s">"{0} изучает {1}. {0} пишет практику."</span>
-<span class="f">print</span>(template.format(<span class="s">"Макс"</span>, <span class="s">"Python"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>поле 0 встречается дважды</span></figcaption><pre>Макс изучает Python. Макс пишет практику.</pre></figure><p>В одном шаблоне не следует смешивать автоматическую нумерацию <code>{}</code> и ручную <code>{0}</code>.</p>
-<h2 id="s3"><span class="sec">§3</span>Имя поля выбирает именованный аргумент</h2><figure class="code"><figcaption><span>main.py</span><span>значение связано с названием</span></figcaption><pre>template = <span class="s">"{name}: {score} баллов"</span>
-<span class="f">print</span>(template.format(name=<span class="s">"Анна"</span>, score=<span class="n">95</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два именованных поля</span></figcaption><pre>Анна: 95 баллов</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>После двоеточия задаётся формат значения</h2><figure class="code"><figcaption><span>main.py</span><span>два знака и ширина</span></figcaption><pre>price = <span class="n">1234.5</span>
+<span class="f">print</span>(message)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>готовая строка</span></figcaption><pre>Товар: книга, цена: 900 ₽</pre></figure>
+        <p>Число <code>900</code> подставилось без всякого <code>str()</code>: <code>format()</code> сам приводит аргументы к строке. Метод, как и все в этой главе, возвращает новую строку и не меняет шаблон — его можно использовать многократно.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Номер поля</h2>
+        <p>Внутри скобок можно указать номер аргумента. Это позволяет менять порядок подстановки и использовать одно значение несколько раз.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>поле 0 встречается дважды</span></figcaption>
+<pre>template = <span class="s">"{0} изучает {1}. {0} пишет практику."</span>
+<span class="f">print</span>(template.format(<span class="s">"Макс"</span>, <span class="s">"Python"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>имя подставлено два раза</span></figcaption><pre>Макс изучает Python. Макс пишет практику.</pre></figure>
+        <p>Нумерация начинается с нуля — как у индексов списка. Смешивать в одном шаблоне пустые скобки и номера нельзя.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>автоматическая и ручная нумерация вместе</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"{} {0}"</span>.format(<span class="s">"a"</span>, <span class="s">"b"</span>))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>два способа в одном шаблоне</span></figcaption>
+<pre>ValueError: cannot switch from automatic field numbering to manual field specification</pre>
+        </figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Имя поля</h2>
+        <p>Вместо номера удобнее указывать имя — тогда шаблон читается сам по себе, без сверки с порядком аргументов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>именованные аргументы</span></figcaption>
+<pre>template = <span class="s">"{name}: {score} баллов"</span>
+<span class="f">print</span>(template.format(name=<span class="s">"Анна"</span>, score=<span class="n">95</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>порядок аргументов больше не важен</span></figcaption><pre>Анна: 95 баллов</pre></figure>
+        <p>Для шаблона, который правит не программист — переводчик или редактор, — именованные поля единственно разумный вариант: перепутать <code>{name}</code> и <code>{score}</code> местами безопасно, а <code>{0}</code> и <code>{1}</code> — нет.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Спецификация формата</h2>
+        <p>После двоеточия внутри скобок указывают, <b>как</b> показать значение. Это отдельный мини-язык, общий для <code>format()</code> и f-строк.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>устройство поля подстановки</span></figcaption>
+<pre>{name:&gt;10.2f}
+ │    │ │ │ └ тип: f — дробное, d — целое, s — строка
+ │    │ │ └ точность: два знака после запятой
+ │    │ └ ширина: минимум 10 позиций
+ │    └ выравнивание: &lt; влево, &gt; вправо, ^ по центру
+ └ имя или номер поля</pre>
+        </figure>
+        <p>Все части необязательны и записываются именно в этом порядке.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ширина с точностью и проценты</span></figcaption>
+<pre>price = <span class="n">1234.5</span>
 ratio = <span class="n">0.873</span>
 
 <span class="f">print</span>(<span class="s">"Цена: {:10.2f}"</span>.format(price))
-<span class="f">print</span>(<span class="s">"Готово: {:.1%}"</span>.format(ratio))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>ширина, точность и проценты</span></figcaption><pre>Цена:    1234.50
+<span class="f">print</span>(<span class="s">"Готово: {:.1%}"</span>.format(ratio))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>число дополнено слева пробелами</span></figcaption><pre>Цена:    1234.50
 Готово: 87.3%</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>Двойные скобки выводят фигурную скобку</h2><figure class="code"><figcaption><span>main.py</span><span>литеральные скобки вокруг значения</span></figcaption><pre><span class="f">print</span>(<span class="s">"Настройки: {{theme: {}}}"</span>.format(<span class="s">"dark"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>внешние скобки не являются полями</span></figcaption><pre>Настройки: {theme: dark}</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>format_map() получает одно отображение</h2><figure class="code"><figcaption><span>main.py</span><span>словарь заполняет именованные поля</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Макс"</span>, <span class="s">"role"</span>: <span class="s">"teacher"</span>}
+        <p>Тип <code>%</code> не просто дописывает знак процента: он умножает значение на 100. Поэтому <code>0.873</code> превращается в <code>87.3%</code>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Ширина и выравнивание</h2>
+        <p>Эта часть спецификации решает ту же задачу, что <code>ljust()</code>, <code>rjust()</code> и <code>center()</code> из главы 5.3, — но прямо внутри шаблона.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три направления выравнивания</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"|{:&lt;10}|"</span>.format(<span class="s">"лево"</span>))
+<span class="f">print</span>(<span class="s">"|{:&gt;10}|"</span>.format(<span class="s">"право"</span>))
+<span class="f">print</span>(<span class="s">"|{:^10}|"</span>.format(<span class="s">"центр"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ширина поля — десять позиций</span></figcaption><pre>|лево      |
+|     право|
+|  центр   |</pre></figure>
+        <p>Разница с методами главы 5.3 в том, что здесь ширина задаётся вместе с текстом шаблона, а не отдельным вызовом. Для таблицы из нескольких колонок это заметно короче.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Форматы для чисел</h2>
+        <p>Чаще всего спецификация нужна именно для чисел — привести их к читаемому виду.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>четыре типичных случая</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"{:,}"</span>.format(<span class="n">1234567</span>))
+<span class="f">print</span>(<span class="s">"{:.3f}"</span>.format(<span class="n">2</span> / <span class="n">3</span>))
+<span class="f">print</span>(<span class="s">"{:+d}"</span>.format(<span class="n">5</span>))
+<span class="f">print</span>(<span class="s">"{:05d}"</span>.format(<span class="n">42</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>разделители, точность, знак, нули</span></figcaption><pre>1,234,567
+0.667
++5
+00042</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что делает</th><th>Пример результата</th></tr></thead>
+            <tbody>
+              <tr><td><code>{:,}</code></td><td>разделяет тысячи запятыми</td><td><code>1,234,567</code></td></tr>
+              <tr><td><code>{:.3f}</code></td><td>три знака после запятой</td><td><code>0.667</code></td></tr>
+              <tr><td><code>{:+d}</code></td><td>всегда показывает знак</td><td><code>+5</code></td></tr>
+              <tr><td><code>{:05d}</code></td><td>дополняет нулями до ширины</td><td><code>00042</code></td></tr>
+              <tr><td><code>{:.1%}</code></td><td>проценты с одним знаком</td><td><code>87.3%</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Округление через <code>{:.2f}</code> относится только к показу: само число не меняется. Это та же логика, что у <code>round()</code> из главы 1.9, но применённая к выводу.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Двойные скобки</h2>
+        <p>Раз фигурные скобки означают поле подстановки, вывести саму скобку можно только удвоением.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>литеральные скобки вокруг значения</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Настройки: {{theme: {}}}"</span>.format(<span class="s">"dark"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>внешние скобки полями не стали</span></figcaption><pre>Настройки: {theme: dark}</pre></figure>
+        <p>То же правило действует и в f-строках. Оно чаще всего нужно, когда программа сама печатает код, JSON или шаблон.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>format_map(): словарь целиком</h2>
+        <p>Если значения уже собраны в словарь, их не нужно перечислять по одному — <code>format_map()</code> принимает словарь как есть.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ключи словаря совпадают с именами полей</span></figcaption>
+<pre>user = {<span class="s">"name"</span>: <span class="s">"Макс"</span>, <span class="s">"role"</span>: <span class="s">"teacher"</span>}
 template = <span class="s">"{name} — {role}"</span>
 
-<span class="f">print</span>(template.format_map(user))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два ключа словаря</span></figcaption><pre>Макс — teacher</pre></figure><p><code>format_map(data)</code> близок к <code>format(**data)</code>, но принимает отображение напрямую и поддерживает его специальное поведение при поиске ключей.</p>
-<h2 id="s7"><span class="sec">§7</span>Отсутствующий ключ вызывает KeyError</h2><figure class="code"><figcaption><span>Ошибка</span><span>поля age нет в словаре</span></figcaption><pre>template = <span class="s">"{name}, {age}"</span>
-template.format_map({<span class="s">"name"</span>: <span class="s">"Макс"</span>})</pre></figure><figure class="code code--out"><figcaption><span>Исключение</span><span>не хватает данных</span></figcaption><pre>KeyError: 'age'</pre></figure><p>Перед форматированием следует проверить обязательные поля или применять отображение с явно определённым поведением для отсутствующих ключей.</p>
-<h2 id="s8"><span class="sec">§8</span>f-строка удобна, когда значения уже имеют имена</h2><figure class="code"><figcaption><span>main.py</span><span>одинаковый результат</span></figcaption><pre>name = <span class="s">"Макс"</span>
+<span class="f">print</span>(template.format_map(user))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>оба поля заполнены</span></figcaption><pre>Макс — teacher</pre></figure>
+        <p>Имена полей в шаблоне должны совпадать с ключами словаря. Словари разбирались в главе 4.2.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>format_map() или format(**data)</h2>
+        <p>Тот же результат даёт распаковка словаря из главы 6.6.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две записи, один результат</span></figcaption>
+<pre>user = {<span class="s">"name"</span>: <span class="s">"Макс"</span>, <span class="s">"role"</span>: <span class="s">"teacher"</span>}
+
+<span class="f">print</span>(<span class="s">"{name} — {role}"</span>.format_map(user))
+<span class="f">print</span>(<span class="s">"{name} — {role}"</span>.format(**user))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строки совпали</span></figcaption><pre>Макс — teacher
+Макс — teacher</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что происходит со словарём</th></tr></thead>
+            <tbody>
+              <tr><td><code>format_map(data)</code></td><td>передаётся напрямую, копия не создаётся</td></tr>
+              <tr><td><code>format(**data)</code></td><td>распаковывается в отдельные аргументы</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для обычного словаря разница незаметна. Она проявляется на больших словарях, где лишняя распаковка стоит времени, и на словарях с особым поведением при отсутствии ключа — о них следующий параграф.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Отсутствующий ключ</h2>
+        <p>Если в словаре нет ключа, названного в шаблоне, форматирование прерывается.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>поля age в словаре нет</span></figcaption>
+<pre>template = <span class="s">"{name}, {age}"</span>
+<span class="f">print</span>(template.format_map({<span class="s">"name"</span>: <span class="s">"Макс"</span>}))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>не хватает данных</span></figcaption>
+<pre>KeyError: 'age'</pre>
+        </figure>
+        <p>Это тот же <code>KeyError</code>, что при обращении <code>user["age"]</code> из главы 4.2. Обычное решение — заполнить недостающие ключи заранее, воспользовавшись методом <code>get()</code> или подготовив словарь со значениями по умолчанию.</p>
+        <div class="margin-note">
+          <b>Словарь, который не падает</b>
+          <p>Главное преимущество <code>format_map()</code> перед <code>format(**data)</code> в том, что ему можно передать словарь с собственным поведением для отсутствующих ключей — например, подставляющий прочерк вместо ошибки. Такие словари создают через наследование, и это тема модуля 9.</p>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>f-строка или format()</h2>
+        <p>Для локальной сборки строки f-строка короче и читается лучше: значения видны прямо в тексте.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>одинаковый результат</span></figcaption>
+<pre>name = <span class="s">"Макс"</span>
 score = <span class="n">91</span>
 
 <span class="f">print</span>(<span class="s">f"{name}: {score}"</span>)
-<span class="f">print</span>(<span class="s">"{}: {}"</span>.format(name, score))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две строки совпали</span></figcaption><pre>Макс: 91
-Макс: 91</pre></figure><p>Для локальной сборки строки f-строка обычно читается короче. <code>format()</code> полезен, когда шаблон хранится отдельно от значений, а <code>format_map()</code> — когда данные уже собраны в отображение.</p>
-<h2 id="s9"><span class="sec">§9</span>isalnum() требует только буквы и числовые символы</h2><figure class="code"><figcaption><span>main.py</span><span>разный состав строк</span></figcaption><pre><span class="f">print</span>(<span class="s">"Python312"</span>.isalnum())
+<span class="f">print</span>(<span class="s">"{}: {}"</span>.format(name, score))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две одинаковые строки</span></figcaption><pre>Макс: 91
+Макс: 91</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Что выбрать</th></tr></thead>
+            <tbody>
+              <tr><td>значения рядом, в тех же строках кода</td><td>f-строка</td></tr>
+              <tr><td>шаблон хранится в файле или переменной</td><td><code>format()</code></td></tr>
+              <tr><td>значения уже лежат в словаре</td><td><code>format_map()</code></td></tr>
+              <tr><td>шаблон приходит от пользователя</td><td>ни то ни другое — это опасно</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка важна: шаблон, полученный извне, — это исполняемая инструкция, и через неё можно добраться до данных программы. Форматировать чужие шаблоны без специальной подготовки не следует.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>isalnum(): состав строки</h2>
+        <p>Метод возвращает <code>True</code>, если строка непуста и все её символы — буквы или числовые знаки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три похожие строки</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Python312"</span>.isalnum())
 <span class="f">print</span>(<span class="s">"Python 312"</span>.isalnum())
-<span class="f">print</span>(<span class="s">"Python-312"</span>.isalnum())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пробел и дефис не подходят</span></figcaption><pre>True
+<span class="f">print</span>(<span class="s">"Python-312"</span>.isalnum())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пробел и дефис не подходят</span></figcaption><pre>True
 False
 False</pre></figure>
-<h2 id="s10"><span class="sec">§10</span>Проверка учитывает Unicode и требует символ</h2><figure class="code"><figcaption><span>main.py</span><span>кириллица, арабские цифры и пустая строка</span></figcaption><pre><span class="f">print</span>(<span class="s">"Курс2026"</span>.isalnum())
+        <p>Условие проверяется для <b>каждого</b> символа: один неподходящий делает результат ложным. Пустая строка тоже даёт <code>False</code> — «все символы подходят» не считается выполненным, когда символов нет вовсе.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>isalnum() и Unicode</h2>
+        <p>Метод работает со всем Unicode, а не только с латиницей и цифрами <code>0</code>–<code>9</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>кириллица, арабские цифры, пустая строка</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Курс2026"</span>.isalnum())
 <span class="f">print</span>(<span class="s">"مرحبا١٢٣"</span>.isalnum())
-<span class="f">print</span>(<span class="s">""</span>.isalnum())</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два непустых совпадения</span></figcaption><pre>True
+<span class="f">print</span>(<span class="s">""</span>.isalnum())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>оба непустых варианта подошли</span></figcaption><pre>True
 True
-False</pre></figure><p><code>isalnum()</code> не означает «только латинские буквы и цифры 0–9». Для такого формата нужны дополнительные условия.</p>
-<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>"{} {0}".format(a, b)</code></td><td><code>ValueError</code> из-за смешения нумерации</td><td>использовать только <code>{}</code> или только номера</td></tr><tr><td><code>"{age}".format_map(user)</code> без age</td><td><code>KeyError</code></td><td>проверить данные до форматирования</td></tr><tr><td>одинарные скобки для вывода <code>{</code></td><td>они будут восприняты как поле</td><td>писать <code>{{</code> и <code>}}</code></td></tr><tr><td><code>"user_name".isalnum()</code></td><td>вернётся <code>False</code> из-за подчёркивания</td><td>проверять разрешённый формат отдельно</td></tr><tr><td>считать пустую строку буквенно-цифровой</td><td><code>isalnum()</code> вернёт <code>False</code></td><td>учитывать требование хотя бы одного символа</td></tr></tbody></table></div>
-<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Когда format_map() удобнее format()?</summary><p>Когда значения уже собраны в словарь или другое отображение и поля шаблона совпадают с его ключами.</p></details><details><summary>Как вывести фигурную скобку внутри шаблона?</summary><p>Удвоить её: <code>{{</code> или <code>}}</code>.</p></details><details><summary>Вернёт ли "abc_123".isalnum() значение True?</summary><p>Нет, потому что знак подчёркивания не относится ни к буквам, ни к числовым символам.</p></details>
-<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>По порядку</b><code>"{}".format(value)</code></div><div><b>По имени</b><code>"{name}".format(name=value)</code></div><div><b>Из отображения</b><code>"{name}".format_map(data)</code></div><div><b>Буквы и числа</b><code>text.isalnum()</code></div></div>
-<h3>Итог главы</h3><p><code>format()</code> работает с позиционными и именованными аргументами, <code>format_map()</code> получает отображение целиком. <code>isalnum()</code> проверяет непустую строку на состав из букв и числовых символов Unicode.</p>
-<div class="pager"><a href="../59-poisk-v-strokah/index.html">← 5.5 Поиск в строках</a><a href="../../index.html">К содержанию справочника</a><a href="../61-proverki-soderzhimogo-strok/index.html">5.7 Проверки содержимого →</a></div><div class="colophon"><span>Глава 5.6 · Форматирование строк · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+False</pre></figure>
+        <p>Более того, «числовым символом» считаются и такие знаки, как дробь <code>½</code> или римская цифра <code>Ⅻ</code>, — обе строки дадут <code>True</code>. Подробности о разнице между <code>isdigit()</code>, <code>isdecimal()</code> и <code>isnumeric()</code> — в главе 5.7.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Чего isalnum() не проверяет</h2>
+        <p>Метод часто пытаются использовать для проверки логина или идентификатора, и здесь его легко понять неправильно.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Строка</th><th>isalnum()</th><th>Почему</th></tr></thead>
+            <tbody>
+              <tr><td><code>"user_name"</code></td><td><code>False</code></td><td>подчёркивание не буква и не цифра</td></tr>
+              <tr><td><code>"Курс2026"</code></td><td><code>True</code></td><td>кириллица тоже буквы</td></tr>
+              <tr><td><code>"½"</code></td><td><code>True</code></td><td>дробь считается числовым символом</td></tr>
+              <tr><td><code>""</code></td><td><code>False</code></td><td>требуется хотя бы один символ</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Если нужен именно формат «латиница и цифры», <code>isalnum()</code> недостаточно: он пропустит и кириллицу, и экзотические числовые знаки. Для проверки имени переменной есть отдельный метод <code>isidentifier()</code> из главы 5.7 — он как раз разрешает подчёркивание.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>"{} {0}".format(a, b)</code></td><td><code>ValueError</code>: смешаны два вида нумерации</td><td>только <code>{}</code> или только номера</td></tr>
+              <tr><td><code>"{age}".format_map(user)</code> без ключа</td><td><code>KeyError</code></td><td>заполнить недостающие ключи заранее</td></tr>
+              <tr><td>одинарные скобки для вывода <code>{</code></td><td>они будут приняты за поле подстановки</td><td>писать <code>{{</code> и <code>}}</code></td></tr>
+              <tr><td><code>"{:2f}"</code> вместо <code>"{:.2f}"</code></td><td>это ширина 2, а не два знака после запятой</td><td>точность пишется после точки</td></tr>
+              <tr><td><code>template.format(...)</code> без сохранения</td><td>результат выброшен: строки неизменяемы</td><td>сохранить или сразу использовать</td></tr>
+              <tr><td>форматировать шаблон от пользователя</td><td>через шаблон доступны данные программы</td><td>не подставлять чужие шаблоны</td></tr>
+              <tr><td><code>"user_name".isalnum()</code></td><td><code>False</code> из-за подчёркивания</td><td><code>isidentifier()</code> или своя проверка</td></tr>
+              <tr><td>считать пустую строку буквенно-цифровой</td><td><code>isalnum()</code> вернёт <code>False</code></td><td>нужен хотя бы один символ</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s17"><span class="sec">§17</span>Проверьте себя</h2>
+        <details><summary>Когда <code>format()</code> нужнее f-строки?</summary><p>Когда шаблон хранится отдельно от значений — в переменной, файле настроек или словаре переводов.</p></details>
+        <details><summary>Почему <code>"{} {0}".format(a, b)</code> вызывает ошибку?</summary><p>В одном шаблоне нельзя смешивать автоматическую нумерацию полей и явные номера.</p></details>
+        <details><summary>Что означает <code>{:10.2f}</code>?</summary><p>Минимальная ширина поля — десять позиций, два знака после запятой, тип — дробное число.</p></details>
+        <details><summary>Как вывести фигурную скобку внутри шаблона?</summary><p>Удвоить её: <code>{{</code> или <code>}}</code>. То же правило работает в f-строках.</p></details>
+        <details><summary>Чем <code>format_map()</code> отличается от <code>format(**data)</code>?</summary><p>Словарь передаётся напрямую, без распаковки. Это позволяет использовать словари с собственным поведением при отсутствии ключа.</p></details>
+        <details><summary>Вернёт ли <code>"abc_123".isalnum()</code> значение <code>True</code>?</summary><p>Нет: подчёркивание не относится ни к буквам, ни к числовым символам.</p></details>
+
+        <h2 id="s18"><span class="sec">§18</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>По порядку</b><code>"{}".format(value)</code></div>
+          <div><b>По номеру</b><code>"{0} и {0}".format(x)</code></div>
+          <div><b>По имени</b><code>"{name}".format(name=x)</code></div>
+          <div><b>Из словаря</b><code>"{name}".format_map(data)</code></div>
+          <div><b>Дробное</b><code>"{:.2f}"</code></div>
+          <div><b>Ширина</b><code>"{:&gt;10}"</code></div>
+          <div><b>Скобка</b><code>"{{"</code></div>
+          <div><b>Буквы и числа</b><code>text.isalnum()</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>format()</code> подставляет позиционные и именованные аргументы в шаблон, который может храниться отдельно от данных, — это его главное отличие от f-строки. Спецификация после двоеточия задаёт ширину, выравнивание, точность и вид числа, и тот же язык работает внутри f-строк. <code>format_map()</code> принимает готовый словарь целиком. <code>isalnum()</code> проверяет, что строка непуста и состоит только из букв и числовых символов Unicode, — а значит, для проверки логина его одного мало.</p>
+        <div class="pager">
+          <a href="../59-poisk-v-strokah/index.html">← 5.5 Поиск в строках</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../61-proverki-soderzhimogo-strok/index.html">5.7 Проверки содержимого →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 5.6 · Форматирование строк · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

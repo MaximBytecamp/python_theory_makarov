@@ -1,43 +1,328 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.9 join(), strip() и partition() · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Строки</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p><p class="running__folio">Глава 5.9</p></div>
-<header class="chapter-head"><span class="chapter-num">5.9</span><h1>Объединение, очистка<br>и разделение строки</h1><p class="lead"><code>join()</code> собирает строку из частей, <code>strip()</code> удаляет символы по краям, а <code>partition()</code> делит строку ровно в одном найденном месте.</p><blockquote class="quote"><p>«У каждого метода есть граница работы: между частями, по краям или в первой точке разделения.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Строковые методы</dd></div><div><dt>Уровень</dt><dd>Базовый → средний</dd></div><div><dt>Связанные темы</dt><dd>Списки, кортежи, распаковка</dd></div><div><dt>Зачем это знать</dt><dd>Собирать текст и разбирать записи с разделителем</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">join</a></li><li><a href="#s2">Только строки</a></li><li><a href="#s3">Пустой разделитель</a></li><li><a href="#s4">strip</a></li><li><a href="#s5">lstrip и rstrip</a></li><li><a href="#s6">Параметр chars</a></li><li><a href="#s7">Удаление префикса</a></li><li><a href="#s8">partition</a></li><li><a href="#s9">Разделитель не найден</a></li><li><a href="#s10">rpartition</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>join() вставляет строку-разделитель между элементами</h2><figure class="code"><figcaption><span>main.py</span><span>список слов превращается в строку</span></figcaption><pre>words = [<span class="s">"изучаем"</span>, <span class="s">"методы"</span>, <span class="s">"строк"</span>]
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>5.9 join(), strip() и partition() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 5 · Строки</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · строки</p>
+          <p class="running__folio">Глава 5.9</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">5.9</span>
+          <h1>Объединение, очистка<br>и разделение строки</h1>
+          <p class="lead"><code>join()</code> собирает строку из частей, <code>strip()</code> удаляет символы по краям, а <code>partition()</code> делит строку ровно в одном месте и всегда возвращает три части. У каждого метода своя граница работы — и своя ловушка.</p>
+          <blockquote class="quote"><p>«У каждого метода есть граница работы: между частями, по краям или в первой точке разделения.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Строковые методы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Списки, кортежи, распаковка</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Собирать текст и разбирать записи с разделителем</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Три границы</a></li>
+            <li><a href="#s2">join(): сборка строки</a></li>
+            <li><a href="#s3">Почему метод у разделителя</a></li>
+            <li><a href="#s4">Только строки</a></li>
+            <li><a href="#s5">Пустой разделитель</a></li>
+            <li><a href="#s6">join() вместо склейки в цикле</a></li>
+            <li><a href="#s7">strip(): очистка краёв</a></li>
+            <li><a href="#s8">lstrip() и rstrip()</a></li>
+            <li><a href="#s9">Аргумент — это набор символов</a></li>
+            <li><a href="#s10">Ловушка strip(".csv")</a></li>
+            <li><a href="#s11">removeprefix() и removesuffix()</a></li>
+            <li><a href="#s12">partition(): три части</a></li>
+            <li><a href="#s13">Разделителя нет</a></li>
+            <li><a href="#s14">rpartition()</a></li>
+            <li><a href="#s15">partition() или split()</a></li>
+            <li><a href="#s16">Частые ошибки</a></li>
+            <li><a href="#s17">Проверьте себя</a></li>
+            <li><a href="#s18">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Три границы</h2>
+        <p>Три метода этой главы работают в трёх разных местах строки, и это единственное, что нужно запомнить о них сразу.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>где именно работает каждый метод</span></figcaption>
+<pre>join()        между частями:   "a" + сеп + "b" + сеп + "c"
+strip()       по краям:        ␣␣␣текст␣␣␣
+partition()   в одной точке:   до | разделитель | после</pre>
+        </figure>
+        <p>Все три возвращают новый результат и не меняют исходную строку — строки неизменяемы.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>join(): сборка строки</h2>
+        <p><code>join()</code> собирает одну строку из набора частей, вставляя разделитель между ними.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список слов превращается в предложение</span></figcaption>
+<pre>words = [<span class="s">"изучаем"</span>, <span class="s">"методы"</span>, <span class="s">"строк"</span>]
 sentence = <span class="s">" "</span>.join(words)
-<span class="f">print</span>(sentence)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пробел появился только между словами</span></figcaption><pre>изучаем методы строк</pre></figure><p>Метод вызывается у разделителя. Выражение читается так: «соединить элементы <code>words</code> строкой-пробелом».</p>
-<h2 id="s2"><span class="sec">§2</span>Все элементы для join() должны быть строками</h2><figure class="code"><figcaption><span>main.py</span><span>числа заранее преобразуются</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
-text = <span class="s">", "</span>.join(<span class="f">map</span>(<span class="f">str</span>, numbers))
-<span class="f">print</span>(text)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>готовая строка</span></figcaption><pre>10, 20, 30</pre></figure>
-<h2 id="s3"><span class="sec">§3</span>Пустой разделитель склеивает части</h2><figure class="code"><figcaption><span>main.py</span><span>список символов</span></figcaption><pre>letters = [<span class="s">"P"</span>, <span class="s">"y"</span>, <span class="s">"t"</span>, <span class="s">"h"</span>, <span class="s">"o"</span>, <span class="s">"n"</span>]
-<span class="f">print</span>(<span class="s">""</span>.join(letters))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>между символами ничего нет</span></figcaption><pre>Python</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>strip() удаляет пробельные символы по краям</h2><figure class="code"><figcaption><span>main.py</span><span>середина строки сохраняется</span></figcaption><pre>raw = <span class="s">"  Python курс \n"</span>
-clean = raw.strip()
-<span class="f">print</span>(<span class="s">f"[{clean}]"</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>краевые пробелы исчезли</span></figcaption><pre>[Python курс]</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>lstrip() и rstrip() работают с одной стороны</h2><figure class="code"><figcaption><span>main.py</span><span>показываем границы квадратными скобками</span></figcaption><pre>text = <span class="s">"  Python  "</span>
-<span class="f">print</span>(<span class="s">f"[{text.lstrip()}]"</span>)
-<span class="f">print</span>(<span class="s">f"[{text.rstrip()}]"</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>левая и правая очистка</span></figcaption><pre>[Python  ]
-[  Python]</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>chars — это набор отдельных символов</h2><figure class="code"><figcaption><span>main.py</span><span>удаляются P, y и !, пока они стоят с краю</span></figcaption><pre>text = <span class="s">"!!PyPython!!"</span>
-<span class="f">print</span>(text.strip(<span class="s">"Py!"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>порядок символов в аргументе не важен</span></figcaption><pre>thon</pre></figure><p><code>strip("Py!")</code> не ищет цельную строку <code>"Py!"</code>. Он удаляет любые символы из этого набора с обоих краёв до первого неподходящего символа.</p>
-<h2 id="s7"><span class="sec">§7</span>Для точного префикса и суффикса есть отдельные методы</h2><figure class="code"><figcaption><span>main.py</span><span>удаляется цельная последовательность</span></figcaption><pre>filename = <span class="s">"report.csv"</span>
-<span class="f">print</span>(filename.removesuffix(<span class="s">".csv"</span>))
-<span class="f">print</span>(<span class="s">"unhappy"</span>.removeprefix(<span class="s">"un"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>точное удаление с края</span></figcaption><pre>report
+
+<span class="f">print</span>(sentence)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пробел появился только между словами</span></figcaption><pre>изучаем методы строк</pre></figure>
+        <p>Разделитель вставляется <b>между</b> элементами, а не после каждого: для трёх слов его копий будет две. По краям строки его нет.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Почему метод у разделителя</h2>
+        <p>Запись <code>" ".join(words)</code> поначалу выглядит вывернутой наизнанку: логичнее ждать <code>words.join(" ")</code>. Причина в том, что <code>join()</code> — метод <b>строки</b>, а соединять он умеет любую коллекцию.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>один разделитель, разные коллекции</span></figcaption>
+<pre>separator = <span class="s">", "</span>
+
+<span class="f">print</span>(separator.join([<span class="s">"a"</span>, <span class="s">"b"</span>]))
+<span class="f">print</span>(separator.join((<span class="s">"c"</span>, <span class="s">"d"</span>)))
+<span class="f">print</span>(separator.join(<span class="s">"xyz"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список, кортеж и строка</span></figcaption><pre>a, b
+c, d
+x, y, z</pre></figure>
+        <p>Будь <code>join()</code> методом списка, его пришлось бы отдельно определять для кортежа, множества и всего остального. Третья строка показывает побочный эффект: строка тоже коллекция, и она разберётся на символы.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Только строки</h2>
+        <p>Все элементы должны быть строками. Числа <code>join()</code> сам не преобразует.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>в списке числа</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">", "</span>.join([<span class="n">1</span>, <span class="n">2</span>]))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>указан индекс проблемного элемента</span></figcaption>
+<pre>TypeError: sequence item 0: expected str instance, int found</pre>
+        </figure>
+        <p>Числа переводят в строки заранее — включением из главы 4.10 или функцией <code>map()</code> из главы 6.8.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>преобразование перед сборкой</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+
+<span class="f">print</span>(<span class="s">", "</span>.join(<span class="f">str</span>(number) <span class="k">for</span> number <span class="k">in</span> numbers))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>готовая строка</span></figcaption><pre>10, 20, 30</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Пустой разделитель</h2>
+        <p>Разделитель может быть пустым — тогда части просто склеиваются.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>из символов обратно в слово</span></figcaption>
+<pre>letters = [<span class="s">"P"</span>, <span class="s">"y"</span>, <span class="s">"t"</span>, <span class="s">"h"</span>, <span class="s">"o"</span>, <span class="s">"n"</span>]
+<span class="f">print</span>(<span class="s">""</span>.join(letters))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>между символами ничего нет</span></figcaption><pre>Python</pre></figure>
+        <p>Эта форма уже встречалась в главе 5.1, когда список кодов превращали обратно в текст.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>join() вместо склейки в цикле</h2>
+        <p>Ту же строку можно собрать сложением в цикле. Результат совпадёт, но способ хуже.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>два способа собрать строку</span></figcaption>
+<pre>result = ""
+for part in parts:
+    result += part          на каждом шаге создаётся новая строка
+
+result = "".join(parts)     строка создаётся один раз</pre>
+        </figure>
+        <p>Причина в неизменяемости: <code>result += part</code> не дописывает символы, а строит новую строку из старой и добавки. Для сотни частей это сто промежуточных строк. <code>join()</code> сначала считает итоговую длину, затем заполняет результат один раз.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>strip(): очистка краёв</h2>
+        <p>Без аргументов <code>strip()</code> удаляет пробельные символы с обоих краёв — все те, что проверяет <code>isspace()</code> из главы 5.8.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пробелы, табуляция и перевод строки</span></figcaption>
+<pre>raw = "\t\n Python курс \n"
+<span class="f">print</span>(<span class="f">repr</span>(raw.strip()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>края очищены, середина цела</span></figcaption><pre>'Python курс'</pre></figure>
+        <p>Пробел между словами остался: метод работает только по краям и внутрь не заглядывает. Это первое, что нужно делать с текстом из <code>input()</code> или из файла.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>lstrip() и rstrip()</h2>
+        <p>Если чистить нужно только одну сторону, есть отдельные методы.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>левая и правая очистка</span></figcaption>
+<pre>text = <span class="s">"  Python  "</span>
+
+<span class="f">print</span>(<span class="f">repr</span>(text.lstrip()))
+<span class="f">print</span>(<span class="f">repr</span>(text.rstrip()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обрезано с одной стороны</span></figcaption><pre>'Python  '
+'  Python'</pre></figure>
+        <p>Буквы в названиях — от <i>left</i> и <i>right</i>, та же логика, что у <code>rfind()</code> из главы 5.5.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Аргумент — это набор символов</h2>
+        <p>Методу можно передать строку с символами, которые нужно удалять. И вот здесь начинается главное недоразумение темы: аргумент — <b>не подстрока</b>, а <b>набор символов</b>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удаляются P, y и ! в любом порядке</span></figcaption>
+<pre>text = <span class="s">"!!PyPython!!"</span>
+<span class="f">print</span>(text.strip(<span class="s">"Py!"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>съедено всё, что нашлось с краёв</span></figcaption><pre>thon</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>как метод идёт от края</span></figcaption>
+<pre>! ! P y P y t h o n ! !
+└─────────┘             удаляю: ! ! P y P y — все из набора
+            └──┘        стоп: "t" в набор не входит
+                  └───┘ с правого края: ! !</pre>
+        </figure>
+        <p>Метод движется с каждого края внутрь и удаляет символы, пока они входят в набор. Порядок символов в аргументе не имеет значения: <code>"Py!"</code>, <code>"!yP"</code> и <code>"y!P"</code> сработают одинаково.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Ловушка strip(".csv")</h2>
+        <p>Самое частое применение этого недоразумения — попытка убрать расширение файла.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>кажется, что работает</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"report.csv"</span>.strip(<span class="s">".csv"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат верный — но случайно</span></figcaption><pre>report</pre></figure>
+        <p>Код проходит проверку, попадает в проект и ломается на первом же файле, чьё имя начинается или заканчивается «неудачными» буквами.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>то же самое с другим именем</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"mycsv.csv"</span>.strip(<span class="s">".csv"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>от имени осталось две буквы</span></figcaption><pre>my</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Почему это опасно</b>
+          <p>Набор <code>".csv"</code> — это символы <code>.</code>, <code>c</code>, <code>s</code>, <code>v</code>. С левого края у <code>mycsv.csv</code> они не встретились сразу (<code>m</code> не в наборе), зато с правого метод съел <code>.csv</code>, затем <code>v</code>, <code>s</code>, <code>c</code> из самого имени и остановился только на <code>y</code>. Ошибка не проявляется на удобных примерах — и потому доживает до продакшена.</p>
+        </div>
+
+        <h2 id="s11"><span class="sec">§11</span>removeprefix() и removesuffix()</h2>
+        <p>Для удаления именно подстроки существуют отдельные методы. Они появились в Python 3.9 ровно из-за ловушки выше.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удаляется цельная последовательность</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"mycsv.csv"</span>.removesuffix(<span class="s">".csv"</span>))
+<span class="f">print</span>(<span class="s">"unhappy"</span>.removeprefix(<span class="s">"un"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>снято ровно то, что просили</span></figcaption><pre>mycsv
 happy</pre></figure>
-<h2 id="s8"><span class="sec">§8</span>partition() всегда возвращает кортеж из трёх строк</h2><figure class="code"><figcaption><span>main.py</span><span>часть до, разделитель и часть после</span></figcaption><pre>record = <span class="s">"language=Python"</span>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Вызов для <code>"mycsv.csv"</code></th><th>Результат</th><th>Что делает</th></tr></thead>
+            <tbody>
+              <tr><td><code>strip(".csv")</code></td><td><code>"my"</code></td><td>удаляет символы набора с краёв</td></tr>
+              <tr><td><code>removesuffix(".csv")</code></td><td><code>"mycsv"</code></td><td>удаляет подстроку с конца, один раз</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Если подстроки нет, <code>removesuffix()</code> просто возвращает строку без изменений — ошибки не будет. Правило простое: <b>убираете символы — <code>strip()</code>, убираете слово — <code>removeprefix()</code> или <code>removesuffix()</code></b>.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>partition(): три части</h2>
+        <p><code>partition()</code> делит строку по первому вхождению разделителя и возвращает кортеж ровно из трёх строк: до, сам разделитель, после.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>разбор пары «ключ и значение»</span></figcaption>
+<pre>record = <span class="s">"language=Python"</span>
 left, separator, right = record.partition(<span class="s">"="</span>)
-<span class="f">print</span>(left)
-<span class="f">print</span>(separator)
-<span class="f">print</span>(right)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>разделитель сохранён</span></figcaption><pre>language
-=
-Python</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>Если разделителя нет, две части будут пустыми</h2><figure class="code"><figcaption><span>main.py</span><span>результат остаётся тройкой</span></figcaption><pre><span class="f">print</span>(<span class="s">"Python"</span>.partition(<span class="s">":"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>вся строка находится слева</span></figcaption><pre>('Python', '', '')</pre></figure>
-<h2 id="s10"><span class="sec">§10</span>rpartition() ищет последнее вхождение</h2><figure class="code"><figcaption><span>main.py</span><span>разные точки разделения</span></figcaption><pre>path = <span class="s">"archive/report/final.txt"</span>
+
+<span class="f">print</span>(<span class="f">repr</span>(left))
+<span class="f">print</span>(<span class="f">repr</span>(separator))
+<span class="f">print</span>(<span class="f">repr</span>(right))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>разделитель сохранён отдельной частью</span></figcaption><pre>'language'
+'='
+'Python'</pre></figure>
+        <p>Это готовая замена приёму с <code>find()</code> из главы 5.5: не нужно ни считать индексы, ни прибавлять единицу. Важно, что делится строка только по <b>первому</b> вхождению.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>знаков равенства несколько</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"url=http://x?a=1"</span>.partition(<span class="s">"="</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>второй знак остался в значении</span></figcaption><pre>('url', '=', 'http://x?a=1')</pre></figure>
+        <p>Для разбора настроек это именно то, что нужно: ключ отделён, а значение осталось целым.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Разделителя нет</h2>
+        <p>Даже когда разделитель не найден, результат остаётся тройкой — меняется лишь её наполнение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>двоеточия в строке нет</span></figcaption>
+<pre><span class="f">print</span>(<span class="s">"Python"</span>.partition(<span class="s">":"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две части пусты</span></figcaption><pre>('Python', '', '')</pre></figure>
+        <p>Постоянная длина результата — главное достоинство метода: распаковка в три переменные не сломается никогда. Проверять наличие разделителя удобно по средней части — если она пуста, разделителя не было.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>rpartition()</h2>
+        <p>Как и у <code>find()</code>, есть версия, ищущая с конца.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первый и последний разделитель</span></figcaption>
+<pre>path = <span class="s">"archive/report/final.txt"</span>
+
 <span class="f">print</span>(path.partition(<span class="s">"/"</span>))
-<span class="f">print</span>(path.rpartition(<span class="s">"/"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>первый и последний слеш</span></figcaption><pre>('archive', '/', 'report/final.txt')
+<span class="f">print</span>(path.rpartition(<span class="s">"/"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>разные точки разделения</span></figcaption><pre>('archive', '/', 'report/final.txt')
 ('archive/report', '/', 'final.txt')</pre></figure>
-<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>", ".join([1, 2])</code></td><td><code>TypeError</code>: элементы не строки</td><td>сначала применить <code>str</code> к элементам</td></tr><tr><td><code>text.strip(".csv")</code></td><td>удаляются символы из набора, а не суффикс</td><td><code>text.removesuffix(".csv")</code></td></tr><tr><td>ждать очистки внутри строки</td><td><code>strip()</code> работает только по краям</td><td>выбрать <code>replace()</code> или другую обработку</td></tr><tr><td>распаковать <code>partition()</code> в две переменные</td><td><code>ValueError</code></td><td>принять три части</td></tr><tr><td><code>partition("")</code></td><td><code>ValueError</code>: пустой разделитель</td><td>указать непустую строку</td></tr></tbody></table></div>
-<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Где находится разделитель в выражении "-".join(words)?</summary><p>Перед точкой: строка <code>"-"</code> вставляется между соседними элементами.</p></details><details><summary>Удалит ли strip("ab") точную подстроку "ab"?</summary><p>Нет. Он удаляет с краёв любые идущие подряд символы <code>a</code> и <code>b</code>.</p></details><details><summary>Сколько элементов возвращает partition()?</summary><p>Всегда три строки.</p></details>
-<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>Собрать</b><code>", ".join(parts)</code></div><div><b>Очистить края</b><code>text.strip()</code></div><div><b>Убрать суффикс</b><code>text.removesuffix(suffix)</code></div><div><b>Разделить один раз</b><code>text.partition(sep)</code></div></div><h3>Итог главы</h3><p><code>join()</code> отвечает за сборку, методы <code>strip</code> — за края, а <code>partition()</code> и <code>rpartition()</code> — за одно предсказуемое разделение с сохранением разделителя.</p>
-<div class="pager"><a href="../62-proverki-sostoyaniya-strok/index.html">← 5.8 Проверки состояния</a><a href="../../index.html">К содержанию справочника</a><a href="../64-zamena-i-razbienie-strok/index.html">5.10 Замена и разбиение строк →</a></div><div class="colophon"><span>Глава 5.9 · Объединение, очистка и разделение · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <p>Для пути к файлу нужен именно <code>rpartition()</code>: он отделяет имя файла от каталогов.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>partition() или split()</h2>
+        <p>Разделять строку умеет и <code>split()</code> из главы 5.10. Выбирают по тому, сколько частей ожидается.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th><code>partition(sep)</code></th><th><code>split(sep)</code></th></tr></thead>
+            <tbody>
+              <tr><td>сколько частей</td><td>всегда 3</td><td>сколько получится</td></tr>
+              <tr><td>разделитель в результате</td><td>да, отдельной частью</td><td>нет, отбрасывается</td></tr>
+              <tr><td>если не найден</td><td>тройка с двумя пустыми</td><td>список из одного элемента</td></tr>
+              <tr><td>тип результата</td><td>кортеж</td><td>список</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Правило: делите <b>надвое по первому разделителю</b> — <code>partition()</code>, потому что распаковка предсказуема. Делите <b>на все части</b> — <code>split()</code>.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>words.join(" ")</code></td><td><code>AttributeError</code>: у списка нет такого метода</td><td><code>" ".join(words)</code></td></tr>
+              <tr><td><code>", ".join([1, 2])</code></td><td><code>TypeError</code>: элементы не строки</td><td><code>", ".join(str(n) for n in numbers)</code></td></tr>
+              <tr><td><code>text.strip(".csv")</code></td><td>удалит символы набора: <code>mycsv.csv</code> станет <code>my</code></td><td><code>text.removesuffix(".csv")</code></td></tr>
+              <tr><td>ждать очистки внутри строки</td><td><code>strip()</code> работает только по краям</td><td><code>replace()</code> из главы 5.10</td></tr>
+              <tr><td><code>text.strip()</code> без сохранения</td><td>результат выброшен: строки неизменяемы</td><td><code>text = text.strip()</code></td></tr>
+              <tr><td><code>a, b = text.partition("=")</code></td><td><code>ValueError</code>: частей всегда три</td><td>принимать три значения</td></tr>
+              <tr><td><code>text.partition("")</code></td><td><code>ValueError</code>: пустой разделитель</td><td>указать непустую строку</td></tr>
+              <tr><td><code>partition()</code> там, где частей много</td><td>всё после первого разделителя останется одной строкой</td><td><code>split()</code></td></tr>
+              <tr><td>склейка строк <code>+=</code> в длинном цикле</td><td>на каждом шаге создаётся новая строка</td><td>собрать список и вызвать <code>join()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s17"><span class="sec">§17</span>Проверьте себя</h2>
+        <details><summary>Почему <code>join()</code> вызывается у разделителя, а не у списка?</summary><p>Это метод строки, и он умеет соединять любую коллекцию — список, кортеж, множество. Иначе его пришлось бы определять для каждого типа отдельно.</p></details>
+        <details><summary>Удалит ли <code>strip("ab")</code> подстроку <code>"ab"</code>?</summary><p>Нет. Аргумент — набор символов: с краёв удаляются любые идущие подряд <code>a</code> и <code>b</code> в любом порядке.</p></details>
+        <details><summary>Что вернёт <code>"mycsv.csv".strip(".csv")</code>?</summary><p><code>"my"</code>. С правого края съедены <code>.csv</code>, а затем <code>v</code>, <code>s</code>, <code>c</code> из самого имени. Нужен <code>removesuffix()</code>.</p></details>
+        <details><summary>Сколько элементов возвращает <code>partition()</code>?</summary><p>Всегда три, даже если разделитель не найден — тогда две части пусты.</p></details>
+        <details><summary>Как отделить имя файла от пути?</summary><p><code>rpartition("/")</code>: он делит по последнему разделителю.</p></details>
+        <details><summary>Чем <code>partition()</code> лучше <code>split()</code> для разбора <code>ключ=значение</code>?</summary><p>Результат всегда из трёх частей, поэтому распаковка не сломается, а знак <code>=</code> внутри значения не разорвёт строку лишний раз.</p></details>
+
+        <h2 id="s18"><span class="sec">§18</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Собрать</b><code>", ".join(parts)</code></div>
+          <div><b>Собрать числа</b><code>",".join(str(n) for n in nums)</code></div>
+          <div><b>Очистить края</b><code>text.strip()</code></div>
+          <div><b>Одна сторона</b><code>text.lstrip()</code><code>text.rstrip()</code></div>
+          <div><b>Убрать суффикс</b><code>text.removesuffix(".csv")</code></div>
+          <div><b>Разделить один раз</b><code>text.partition("=")</code></div>
+          <div><b>По последнему</b><code>path.rpartition("/")</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>join()</code> вызывается у разделителя и требует, чтобы все части были строками, — так он умеет собирать любую коллекцию и делает это за один проход, в отличие от склейки в цикле. <code>strip()</code> удаляет с краёв <b>набор символов</b>, а не подстроку: для удаления слова есть <code>removeprefix()</code> и <code>removesuffix()</code>. <code>partition()</code> делит по первому вхождению и всегда возвращает три части, поэтому распаковка его результата безопасна.</p>
+        <div class="pager">
+          <a href="../62-proverki-sostoyaniya-strok/index.html">← 5.8 Проверки состояния</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../64-zamena-i-razbienie-strok/index.html">5.10 Замена и разбиение строк →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 5.9 · Объединение, очистка и разделение · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
