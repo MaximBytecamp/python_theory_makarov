@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>3.9 Функция sum() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+  <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.9</p></div>
+  <header class="chapter-head"><span class="chapter-num">3.9</span><h1>Функция <code>sum()</code></h1><p class="lead"><code>sum()</code> последовательно складывает числовые элементы итерируемого объекта. Она заменяет ручной цикл с накоплением суммы и хорошо сочетается с выражениями, которые создают числа по одному.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+  <dl class="passport"><div><dt>Категория</dt><dd>Встроенные функции</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>Коллекции, циклы, логические значения</dd></div><div><dt>Зачем это знать</dt><dd>Суммировать и считать без ручного накопителя</dd></div></dl>
+  <nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Назначение и синтаксис</a></li><li><a href="#s2">Обычная сумма</a></li><li><a href="#s3">Параметр start</a></li><li><a href="#s4">Разные коллекции</a></li><li><a href="#s5">Пустая коллекция</a></li><li><a href="#s6">Подсчёт по условию</a></li><li><a href="#s7">Сумма преобразований</a></li><li><a href="#s8">Списки и строки</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
+
+  <h2 id="s1"><span class="sec">§1</span>Назначение и синтаксис</h2>
+  <p><code>sum(iterable, start=0)</code> складывает элементы <code>iterable</code>, начиная со значения <code>start</code>. Второй аргумент необязателен.</p>
+  <div class="table-scroll"><table><thead><tr><th>Параметр</th><th>Что передаём</th><th>По умолчанию</th></tr></thead><tbody><tr><td><code>iterable</code></td><td>объект, который выдаёт складываемые значения</td><td>обязателен</td></tr><tr><td><code>start</code></td><td>значение, прибавляемое до элементов</td><td><code>0</code></td></tr></tbody></table></div>
+
+  <h2 id="s2"><span class="sec">§2</span>Обычная сумма</h2>
+  <figure class="code"><figcaption><span>main.py</span><span>сумма списка</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+result = <span class="f">sum</span>(numbers)
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>1 + 2 + 3 + 4</span></figcaption><pre>10</pre></figure>
+  <p>Ручной цикл дал бы тот же результат, но потребовал бы отдельно создать переменную-накопитель и обновлять её на каждой итерации.</p>
+
+  <h2 id="s3"><span class="sec">§3</span>Параметр start</h2>
+  <p>Начальное значение не заменяет первый элемент. Оно прибавляется к сумме всех элементов.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>10 + 1 + 2 + 3</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+result = <span class="f">sum</span>(numbers, <span class="n">10</span>)
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>начали с десяти</span></figcaption><pre>16</pre></figure>
+
+  <h2 id="s4"><span class="sec">§4</span>Разные итерируемые объекты</h2>
+  <p><code>sum()</code> принимает не только список. Важно не название типа, а возможность получить из объекта складываемые значения.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>кортеж, множество и range</span></figcaption><pre>values = (<span class="n">5</span>, <span class="n">10</span>, <span class="n">15</span>)
+unique = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>}
+<span class="f">print</span>(<span class="f">sum</span>(values))
+<span class="f">print</span>(<span class="f">sum</span>(unique))
+<span class="f">print</span>(<span class="f">sum</span>(<span class="f">range</span>(<span class="n">5</span>)))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>три суммы</span></figcaption><pre>30
+10
+10</pre></figure>
+
+  <h2 id="s5"><span class="sec">§5</span>Пустая коллекция</h2>
+  <p>Без элементов результат равен начальному значению. Поэтому <code>sum([])</code> возвращает <code>0</code>, а не вызывает ошибку.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>значение start становится ответом</span></figcaption><pre><span class="f">print</span>(<span class="f">sum</span>([]))
+<span class="f">print</span>(<span class="f">sum</span>([], <span class="n">100</span>))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>два начальных значения</span></figcaption><pre>0
+100</pre></figure>
+
+  <h2 id="s6"><span class="sec">§6</span>Подсчёт элементов по условию</h2>
+  <p>В арифметике Python <code>True</code> ведёт себя как <code>1</code>, а <code>False</code> — как <code>0</code>. Поэтому сумма результатов проверок равна количеству выполненных условий.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>сколько чисел больше двух</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+checks = [number &gt; <span class="n">2</span> <span class="k">for</span> number <span class="k">in</span> numbers]
+<span class="f">print</span>(checks)
+<span class="f">print</span>(<span class="f">sum</span>(checks))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>три значения True</span></figcaption><pre>[False, False, True, True, True]
+3</pre></figure>
+
+  <h2 id="s7"><span class="sec">§7</span>Сумма преобразованных значений</h2>
+  <p>Внутри <code>sum()</code> можно формировать каждое слагаемое. Такая запись не требует заранее создавать отдельный список квадратов.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>сумма квадратов</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+result = <span class="f">sum</span>(number ** <span class="n">2</span> <span class="k">for</span> number <span class="k">in</span> numbers)
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>1 + 4 + 9</span></figcaption><pre>14</pre></figure>
+  <p>Конструкцию внутри скобок подробно разберём в следующей главе. Пока достаточно читать её как «квадрат каждого числа из <code>numbers</code>».</p>
+
+  <h2 id="s8"><span class="sec">§8</span>Объединение списков и строк</h2>
+  <p><code>sum(lists, [])</code> способен объединить небольшие списки, но многократно создаёт промежуточные списки. Для крупных данных лучше использовать специализированные способы.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>небольшой учебный пример</span></figcaption><pre>groups = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>], [<span class="n">5</span>, <span class="n">6</span>]]
+<span class="f">print</span>(<span class="f">sum</span>(groups, []))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>один плоский список</span></figcaption><pre>[1, 2, 3, 4, 5, 6]</pre></figure>
+  <div class="margin-note margin-note--warn"><b>Строки складывать нельзя</b><p><code>sum(["Hello", "World"], "")</code> вызывает <code>TypeError</code>. Для объединения строк используйте <code>" ".join(words)</code>.</p></div>
+  <figure class="code"><figcaption><span>main.py</span><span>объединение через join()</span></figcaption><pre>words = [<span class="s">"Hello"</span>, <span class="s">"World"</span>]
+result = <span class="s">" "</span>.join(words)
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>строка с пробелом</span></figcaption><pre>Hello World</pre></figure>
+
+  <h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2>
+  <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>sum(1, 2, 3)</code></td><td><code>TypeError</code>: первым аргументом должен быть один итерируемый объект</td><td><code>sum([1, 2, 3])</code></td></tr><tr><td><code>sum([1, 2, "3"])</code></td><td><code>TypeError</code>: число и строку нельзя сложить</td><td>преобразовать данные к числам заранее</td></tr><tr><td><code>sum(words, "")</code></td><td><code>TypeError</code>: <code>sum()</code> запрещает строковый <code>start</code></td><td><code>"".join(words)</code></td></tr><tr><td><code>sum(numbers, 10)</code> считают заменой первого числа</td><td><code>10</code> прибавится ко всем элементам</td><td>читать <code>start</code> как начальное значение накопителя</td></tr><tr><td>объединять через <code>sum()</code> тысячи списков</td><td>создаётся много промежуточных списков</td><td>выбрать способ без повторного копирования данных</td></tr></tbody></table></div>
+
+  <h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2>
+  <details><summary>Чему равно <code>sum([], 7)</code>?</summary><p><code>7</code>: элементов нет, поэтому результатом остаётся начальное значение.</p></details>
+  <details><summary>Что означает второй аргумент <code>sum()</code>?</summary><p>Начальное значение, к которому прибавляются все элементы.</p></details>
+  <details><summary>Как объединить список строк?</summary><p>Методом <code>separator.join(words)</code>, например <code>" ".join(words)</code>.</p></details>
+
+  <h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2>
+  <div class="cheat"><div><b>Сумма</b><code>sum(numbers)</code></div><div><b>Начальное значение</b><code>sum(numbers, start)</code></div><div><b>Количество истинных</b><code>sum(checks)</code></div><div><b>Строки</b><code>separator.join(words)</code></div></div>
+  <h3>Итог главы</h3><p><code>sum()</code> складывает значения из одного итерируемого объекта. Необязательный <code>start</code> задаёт начальное значение, пустая коллекция возвращает именно его, а сумма логических результатов позволяет подсчитать выполненные условия. Для строк используется <code>join()</code>.</p>
+  <div class="pager"><a href="../31-srezy/index.html">← 3.8 Срезы</a><a href="../../index.html">К содержанию справочника</a><a href="../33-vklyucheniya/index.html">3.10 Включения →</a></div>
+  <div class="colophon"><span>Глава 3.9 · Функция sum() · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

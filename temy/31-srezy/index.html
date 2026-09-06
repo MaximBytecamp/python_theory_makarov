@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>3.8 Срезы в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+  <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.8</p></div>
+  <header class="chapter-head"><span class="chapter-num">3.8</span><h1>Срезы в Python</h1><p class="lead">Срез выбирает сразу несколько элементов последовательности. Три позиции — начало, граница и шаг — позволяют получить диапазон, каждый второй элемент или последовательность в обратном порядке.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+  <dl class="passport"><div><dt>Категория</dt><dd>Последовательности</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>Списки, строки, индексы</dd></div><div><dt>Зачем это знать</dt><dd>Выбирать, заменять и копировать части данных</dd></div></dl>
+  <nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что такое срез</a></li><li><a href="#s2">start и stop</a></li><li><a href="#s3">Шаг</a></li><li><a href="#s4">Отрицательные индексы</a></li><li><a href="#s5">Обратный порядок</a></li><li><a href="#s6">Границы последовательности</a></li><li><a href="#s7">Изменение списка</a></li><li><a href="#s8">Удаление элементов</a></li><li><a href="#s9">Копирование списка</a></li><li><a href="#s10">Строки и кортежи</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
+
+  <h2 id="s1"><span class="sec">§1</span>Что такое срез</h2>
+  <p><span class="term">Срез</span> — выбор части последовательности по записи <code>sequence[start:stop:step]</code>. Обычный срез создаёт новую последовательность и не меняет исходную.</p>
+  <div class="table-scroll"><table><thead><tr><th>Часть</th><th>Смысл</th><th>По умолчанию</th></tr></thead><tbody><tr><td><code>start</code></td><td>индекс первого выбранного элемента</td><td>начало последовательности</td></tr><tr><td><code>stop</code></td><td>граница, которая не входит в результат</td><td>конец последовательности</td></tr><tr><td><code>step</code></td><td>шаг между элементами</td><td><code>1</code></td></tr></tbody></table></div>
+
+  <h2 id="s2"><span class="sec">§2</span>Начало входит, граница не входит</h2>
+  <p>В срезе <code>[1:4]</code> элемент с индексом <code>1</code> попадёт в результат, а элемент с индексом <code>4</code> уже нет.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>индексы 1, 2 и 3</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>, <span class="n">50</span>]
+result = numbers[<span class="n">1</span>:<span class="n">4</span>]
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>три элемента</span></figcaption><pre>[20, 30, 40]</pre></figure>
+
+  <h2 id="s3"><span class="sec">§3</span>Шаг среза</h2>
+  <p>Третья позиция задаёт расстояние между выбранными элементами. Пропущенные <code>start</code> и <code>stop</code> означают всю последовательность.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>каждый второй элемент</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]
+<span class="f">print</span>(numbers[::<span class="n">2</span>])
+<span class="f">print</span>(numbers[<span class="n">1</span>::<span class="n">2</span>])</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>чётные и нечётные позиции</span></figcaption><pre>[1, 3, 5]
+[2, 4, 6]</pre></figure>
+
+  <h2 id="s4"><span class="sec">§4</span>Отрицательные индексы</h2>
+  <p>Отрицательные индексы отсчитываются с конца: <code>-1</code> — последний элемент, <code>-2</code> — предпоследний. Срез <code>[-3:]</code> выбирает последние три элемента.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>хвост списка</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>, <span class="n">50</span>]
+<span class="f">print</span>(numbers[-<span class="n">3</span>:])</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>последние три</span></figcaption><pre>[30, 40, 50]</pre></figure>
+
+  <h2 id="s5"><span class="sec">§5</span>Обратный порядок</h2>
+  <p>Отрицательный шаг идёт справа налево. Запись <code>[::-1]</code> создаёт перевёрнутую копию всей последовательности.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>исходный список сохранён</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+reversed_numbers = numbers[::-<span class="n">1</span>]
+<span class="f">print</span>(reversed_numbers)
+<span class="f">print</span>(numbers)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>новая и исходная последовательности</span></figcaption><pre>[5, 4, 3, 2, 1]
+[1, 2, 3, 4, 5]</pre></figure>
+
+  <h2 id="s6"><span class="sec">§6</span>Выход за границы</h2>
+  <p>Один индекс вне диапазона вызывает <code>IndexError</code>, а срез спокойно ограничивается доступными элементами.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>stop больше длины</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+<span class="f">print</span>(numbers[<span class="n">0</span>:<span class="n">10</span>])</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>все доступные элементы</span></figcaption><pre>[1, 2, 3]</pre></figure>
+
+  <h2 id="s7"><span class="sec">§7</span>Изменение части списка</h2>
+  <p>Слева от <code>=</code> срез обозначает участок исходного списка. Количество новых элементов может отличаться, поэтому список способен стать длиннее или короче.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>замена двух элементов</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+numbers[<span class="n">1</span>:<span class="n">3</span>] = [<span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>]
+<span class="f">print</span>(numbers)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>список стал длиннее</span></figcaption><pre>[1, 20, 30, 40, 4, 5]</pre></figure>
+  <div class="margin-note"><b>Два разных действия</b><p><code>part = numbers[1:3]</code> создаёт новую последовательность. <code>numbers[1:3] = values</code> изменяет исходный список.</p></div>
+
+  <h2 id="s8"><span class="sec">§8</span>Удаление через срез</h2>
+  <p><code>del</code> удаляет обозначенный срез из изменяемого списка.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>удаляем индексы 1–3</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+<span class="k">del</span> numbers[<span class="n">1</span>:<span class="n">4</span>]
+<span class="f">print</span>(numbers)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>остались края</span></figcaption><pre>[1, 5]</pre></figure>
+
+  <h2 id="s9"><span class="sec">§9</span>Копирование списка</h2>
+  <p>Полный срез <code>items[:]</code> создаёт новый внешний список. То же делают <code>items.copy()</code> и <code>list(items)</code>.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>независимые внешние списки</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+copy_numbers = numbers[:]
+copy_numbers[<span class="n">0</span>] = <span class="n">100</span>
+<span class="f">print</span>(numbers)
+<span class="f">print</span>(copy_numbers)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>оригинал не изменился</span></figcaption><pre>[1, 2, 3]
+[100, 2, 3]</pre></figure>
+  <div class="margin-note margin-note--warn"><b>Поверхностная копия</b><p>Если внутри лежат другие изменяемые списки, полный срез не копирует каждый вложенный список отдельно. Глубокое копирование — отдельная тема.</p></div>
+
+  <h2 id="s10"><span class="sec">§10</span>Строки и кортежи</h2>
+  <p>Синтаксис одинаков для разных последовательностей. Строка возвращает строку, кортеж — кортеж, список — список.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>тип результата сохраняется</span></figcaption><pre>text = <span class="s">"Python"</span>
+point = (<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>)
+<span class="f">print</span>(text[<span class="n">1</span>:<span class="n">4</span>])
+<span class="f">print</span>(point[<span class="n">2</span>:])</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>строка и кортеж</span></figcaption><pre>yth
+(30, 40)</pre></figure>
+
+  <h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2>
+  <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>numbers[1:4]</code> и ожидание четырёх элементов</td><td>индекс <code>4</code> не входит в результат</td><td>читать диапазон как индексы <code>1, 2, 3</code></td></tr><tr><td><code>numbers[::0]</code></td><td><code>ValueError</code>: шаг не может быть нулём</td><td>использовать положительный или отрицательный ненулевой шаг</td></tr><tr><td><code>numbers[5:2]</code> при шаге <code>1</code></td><td>получится пустой список</td><td>для движения назад указать отрицательный шаг</td></tr><tr><td><code>copy_numbers = numbers</code></td><td>новый список не создаётся; оба имени обозначают один список</td><td><code>copy_numbers = numbers[:]</code></td></tr><tr><td><code>text[1:3] = "ab"</code></td><td><code>TypeError</code>: строку нельзя изменять</td><td>создать новую строку из частей</td></tr></tbody></table></div>
+
+  <h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2>
+  <details><summary>Какие индексы выберет <code>items[2:5]</code>?</summary><p><code>2</code>, <code>3</code> и <code>4</code>: начало входит, граница <code>5</code> — нет.</p></details>
+  <details><summary>Меняет ли <code>items[::-1]</code> исходный список?</summary><p>Нет. Выражение возвращает новую последовательность в обратном порядке.</p></details>
+  <details><summary>Чем получение среза отличается от присваивания в срез?</summary><p>Получение возвращает новую последовательность, а присваивание заменяет часть исходного списка.</p></details>
+
+  <h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2>
+  <div class="cheat"><div><b>Диапазон</b><code>items[start:stop]</code></div><div><b>С шагом</b><code>items[start:stop:step]</code></div><div><b>Копия</b><code>items[:]</code></div><div><b>Обратный порядок</b><code>items[::-1]</code></div></div>
+  <h3>Итог главы</h3><p>Срез выбирает часть последовательности по правилу <code>[start:stop:step]</code>. Начало входит в результат, граница не входит, а шаг управляет направлением и частотой выбора. Получение среза создаёт новую последовательность; присваивание и <code>del</code> со срезом изменяют список.</p>
+  <div class="pager"><a href="../30-funkcii-kollekciy/index.html">← 3.7 Функции коллекций</a><a href="../../index.html">К содержанию справочника</a><a href="../32-sum/index.html">3.9 Функция sum() →</a></div>
+  <div class="colophon"><span>Глава 3.8 · Срезы · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

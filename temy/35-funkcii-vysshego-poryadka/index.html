@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.5 Функции высшего порядка · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Функции и модули</span></div><main class="leaf">
+  <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p><p class="running__folio">Глава 4.5</p></div>
+  <header class="chapter-head"><span class="chapter-num">4.5</span><h1>Функции<br>высшего порядка</h1><p class="lead">Функцию можно передать другой функции как обычное значение. Благодаря этому одна общая операция получает разное поведение: преобразует, отбирает или сортирует элементы по переданному правилу.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+  <dl class="passport"><div><dt>Категория</dt><dd>Функции</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>def, return, коллекции, итераторы</dd></div><div><dt>Зачем это знать</dt><dd>Передавать программе правило обработки данных</dd></div></dl>
+  <nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что значит «высшего порядка»</a></li><li><a href="#s2">Передача функции</a></li><li><a href="#s3">Возврат функции</a></li><li><a href="#s4">map(): преобразование</a></li><li><a href="#s5">Ленивый результат map()</a></li><li><a href="#s6">Несколько источников</a></li><li><a href="#s7">filter(): отбор</a></li><li><a href="#s8">filter(None, ...)</a></li><li><a href="#s9">sorted() и key</a></li><li><a href="#s10">map/filter или включение</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
+
+  <h2 id="s1"><span class="sec">§1</span>Что значит «высшего порядка»</h2>
+  <p><span class="term">Функция высшего порядка</span> принимает другую функцию как аргумент или возвращает функцию как результат. Переданная функция описывает не готовое значение, а правило вычисления.</p>
+  <figure class="code"><figcaption><span>Схема</span><span>данные и правило отдельно</span></figcaption><pre>общая_операция(правило, данные)
+                │        └─ что обрабатывать
+                └────────── как обрабатывать</pre></figure>
+
+  <h2 id="s2"><span class="sec">§2</span>Передача функции без вызова</h2>
+  <p>Скобки вызывают функцию. Поэтому <code>apply_twice(double, 5)</code> передаёт саму функцию <code>double</code>, а внутри <code>apply_twice</code> она вызывается два раза.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>функция в аргументе</span></figcaption><pre><span class="k">def</span> <span class="f">double</span>(number):
+    <span class="k">return</span> number * <span class="n">2</span>
+
+<span class="k">def</span> <span class="f">apply_twice</span>(operation, value):
+    <span class="k">return</span> operation(operation(value))
+
+<span class="f">print</span>(<span class="f">apply_twice</span>(double, <span class="n">5</span>))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>5 → 10 → 20</span></figcaption><pre>20</pre></figure>
+
+  <h2 id="s3"><span class="sec">§3</span>Функция как результат</h2>
+  <p>Внешняя функция может подготовить и вернуть внутреннюю функцию. Возвращаемое правило запоминает выбранный множитель.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>создаём две операции</span></figcaption><pre><span class="k">def</span> <span class="f">make_multiplier</span>(factor):
+    <span class="k">def</span> <span class="f">multiply</span>(number):
+        <span class="k">return</span> number * factor
+    <span class="k">return</span> multiply
+
+double = <span class="f">make_multiplier</span>(<span class="n">2</span>)
+triple = <span class="f">make_multiplier</span>(<span class="n">3</span>)
+<span class="f">print</span>(<span class="f">double</span>(<span class="n">5</span>), <span class="f">triple</span>(<span class="n">5</span>))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>разные сохранённые множители</span></figcaption><pre>10 15</pre></figure>
+
+  <h2 id="s4"><span class="sec">§4</span>map(): преобразование элементов</h2>
+  <p><code>map(function, iterable)</code> вызывает функцию для каждого элемента и выдаёт результаты в том же порядке.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>квадрат каждого числа</span></figcaption><pre><span class="k">def</span> <span class="f">square</span>(number):
+    <span class="k">return</span> number ** <span class="n">2</span>
+
+numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+result = <span class="f">map</span>(square, numbers)
+<span class="f">print</span>(<span class="f">list</span>(result))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>четыре результата</span></figcaption><pre>[1, 4, 9, 16]</pre></figure>
+  <p>Другой практический пример — преобразование строк в числа: <code>list(map(int, ["1", "2", "3"]))</code>.</p>
+
+  <h2 id="s5"><span class="sec">§5</span>map() возвращает итератор</h2>
+  <p><code>map()</code> не создаёт готовый список. Он выдаёт значения по мере перебора и после полного чтения исчерпывается.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>второй проход пуст</span></figcaption><pre><span class="k">def</span> <span class="f">double</span>(number):
+    <span class="k">return</span> number * <span class="n">2</span>
+
+result = <span class="f">map</span>(double, [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>])
+<span class="f">print</span>(<span class="f">list</span>(result))
+<span class="f">print</span>(<span class="f">list</span>(result))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>итератор уже прочитан</span></figcaption><pre>[2, 4, 6]
+[]</pre></figure>
+
+  <h2 id="s6"><span class="sec">§6</span>Несколько источников в map()</h2>
+  <p>Если передать несколько итерируемых объектов, функция получит по одному аргументу из каждого. Перебор закончится вместе с самым коротким источником.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>попарное сложение</span></figcaption><pre><span class="k">def</span> <span class="f">add</span>(left, right):
+    <span class="k">return</span> left + right
+
+left = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+right = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+<span class="f">print</span>(<span class="f">list</span>(<span class="f">map</span>(add, left, right)))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>три суммы</span></figcaption><pre>[11, 22, 33]</pre></figure>
+
+  <h2 id="s7"><span class="sec">§7</span>filter(): отбор элементов</h2>
+  <p><code>filter(function, iterable)</code> сохраняет исходный элемент, если функция вернула истинное значение.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>только чётные</span></figcaption><pre><span class="k">def</span> <span class="f">is_even</span>(number):
+    <span class="k">return</span> number % <span class="n">2</span> == <span class="n">0</span>
+
+numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+result = <span class="f">filter</span>(is_even, numbers)
+<span class="f">print</span>(<span class="f">list</span>(result))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>проверка истинна дважды</span></figcaption><pre>[2, 4]</pre></figure>
+  <div class="table-scroll"><table><thead><tr><th>Функция</th><th>Что делает</th><th>Длина результата</th></tr></thead><tbody><tr><td><code>map()</code></td><td>заменяет каждый элемент результатом функции</td><td>обычно равна длине источника</td></tr><tr><td><code>filter()</code></td><td>оставляет подходящие исходные элементы</td><td>не больше длины источника</td></tr></tbody></table></div>
+
+  <h2 id="s8"><span class="sec">§8</span>filter(None, ...)</h2>
+  <p>Если вместо функции передать <code>None</code>, останутся только истинные элементы. Ноль, пустая строка, <code>False</code> и <code>None</code> будут удалены.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>убираем ложные значения</span></figcaption><pre>data = [<span class="n">0</span>, <span class="n">1</span>, <span class="k">False</span>, <span class="n">2</span>, <span class="s">""</span>, <span class="n">3</span>, <span class="k">None</span>]
+<span class="f">print</span>(<span class="f">list</span>(<span class="f">filter</span>(<span class="k">None</span>, data)))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>только истинные элементы</span></figcaption><pre>[1, 2, 3]</pre></figure>
+
+  <h2 id="s9"><span class="sec">§9</span>sorted() и функция key</h2>
+  <p><code>sorted(iterable, key=function)</code> вызывает <code>key</code> для каждого элемента и сравнивает полученные ключи. Сами элементы остаются в результате целиком.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>сортировка слов по длине</span></figcaption><pre>words = [<span class="s">"python"</span>, <span class="s">"go"</span>, <span class="s">"java"</span>]
+result = <span class="f">sorted</span>(words, key=<span class="f">len</span>)
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>от короткого к длинному</span></figcaption><pre>['go', 'java', 'python']</pre></figure>
+
+  <h2 id="s10"><span class="sec">§10</span>map(), filter() или включение</h2>
+  <p>Одинаковую задачу часто можно записать несколькими способами. Включение удобно, когда преобразование или условие короткое. <code>map()</code> и <code>filter()</code> выразительны, когда уже существует хорошо названная функция.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>два равных результата</span></figcaption><pre><span class="k">def</span> <span class="f">is_even</span>(number):
+    <span class="k">return</span> number % <span class="n">2</span> == <span class="n">0</span>
+
+numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+through_filter = <span class="f">list</span>(<span class="f">filter</span>(is_even, numbers))
+through_comp = [number <span class="k">for</span> number <span class="k">in</span> numbers <span class="k">if</span> <span class="f">is_even</span>(number)]
+<span class="f">print</span>(through_filter == through_comp)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>способ отличается, данные нет</span></figcaption><pre>True</pre></figure>
+
+  <h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2>
+  <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>map(square(), numbers)</code></td><td>функция вызывается без аргумента ещё до работы <code>map()</code></td><td><code>map(square, numbers)</code></td></tr><tr><td><code>print(map(square, numbers))</code></td><td>выведется представление объекта <code>map</code>, не готовые числа</td><td><code>print(list(map(square, numbers)))</code></td></tr><tr><td>читать один объект <code>map</code> дважды</td><td>после первого полного прохода он исчерпан</td><td>сразу сохранить <code>list(result)</code> или создать <code>map()</code> заново</td></tr><tr><td>ожидать от <code>filter()</code> результатов функции</td><td>функция возвращает исходные подходящие элементы</td><td>для преобразования использовать <code>map()</code></td></tr><tr><td>передать в <code>map()</code> функцию с неподходящим числом параметров</td><td><code>TypeError</code> во время перебора</td><td>сопоставить параметры функции с количеством источников</td></tr></tbody></table></div>
+
+  <h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2>
+  <details><summary>Почему в <code>map(square, numbers)</code> после <code>square</code> нет скобок?</summary><p>Нужно передать саму функцию; вызывать её для элементов будет <code>map()</code>.</p></details>
+  <details><summary>Чем отличаются <code>map()</code> и <code>filter()</code>?</summary><p><code>map()</code> преобразует каждый элемент, а <code>filter()</code> оставляет исходные элементы, прошедшие проверку.</p></details>
+  <details><summary>Что делает параметр <code>key</code> у <code>sorted()</code>?</summary><p>Задаёт функцию, результат которой используется как ключ сравнения каждого элемента.</p></details>
+
+  <h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2>
+  <div class="cheat"><div><b>Преобразование</b><code>map(function, iterable)</code></div><div><b>Отбор</b><code>filter(predicate, iterable)</code></div><div><b>Истинные элементы</b><code>filter(None, iterable)</code></div><div><b>Ключ сортировки</b><code>sorted(items, key=function)</code></div></div>
+  <h3>Итог главы</h3><p>Функции высшего порядка принимают или возвращают функции. <code>map()</code> применяет правило к каждому элементу, <code>filter()</code> оставляет элементы по условию, а <code>sorted(..., key=...)</code> вычисляет ключ сортировки. <code>map()</code> и <code>filter()</code> возвращают исчерпаемые итераторы.</p>
+  <div class="pager"><a href="../19-moduli-import/index.html">← 4.4 Модули</a><a href="../../index.html">К содержанию справочника</a><a href="../36-lambda/index.html">4.6 Lambda-функции →</a></div>
+  <div class="colophon"><span>Глава 4.5 · Функции высшего порядка · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

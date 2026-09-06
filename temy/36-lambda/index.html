@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.6 Lambda-функции · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Функции и модули</span></div><main class="leaf">
+  <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · функции и модули</p><p class="running__folio">Глава 4.6</p></div>
+  <header class="chapter-head"><span class="chapter-num">4.6</span><h1>Lambda-функции</h1><p class="lead"><code>lambda</code> создаёт короткую функцию из одного выражения. Обычно её передают прямо в <code>sorted()</code>, <code>map()</code> или <code>filter()</code>, когда отдельное имя не сделает код понятнее.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+  <dl class="passport"><div><dt>Категория</dt><dd>Функции</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>def, return, map, filter, sorted</dd></div><div><dt>Зачем это знать</dt><dd>Кратко передавать простое правило вычисления</dd></div></dl>
+  <nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что создаёт lambda</a></li><li><a href="#s2">Синтаксис</a></li><li><a href="#s3">Сравнение с def</a></li><li><a href="#s4">Несколько параметров</a></li><li><a href="#s5">Прямой вызов</a></li><li><a href="#s6">Сортировка по ключу</a></li><li><a href="#s7">С map()</a></li><li><a href="#s8">С filter()</a></li><li><a href="#s9">Условное выражение</a></li><li><a href="#s10">Ограничения</a></li><li><a href="#s11">Когда выбрать def</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
+
+  <h2 id="s1"><span class="sec">§1</span>Что создаёт lambda</h2>
+  <p><span class="term">Lambda-функция</span> — функция без имени в самой записи. Ключевое слово <code>lambda</code> перечисляет параметры, а выражение после двоеточия становится возвращаемым результатом.</p>
+  <p>Название происходит от λ-исчисления — математической системы для описания функций. Для использования синтаксиса Python знать её не требуется.</p>
+
+  <h2 id="s2"><span class="sec">§2</span>Синтаксис</h2>
+  <figure class="code"><figcaption><span>Схема</span><span>return пишется неявно</span></figcaption><pre><span class="k">lambda</span> параметры: выражение
+       │             └─ результат функции
+       └─────────────── входные значения</pre></figure>
+  <p>После двоеточия допускается одно выражение. Его значение автоматически возвращается вызывающему коду.</p>
+
+  <h2 id="s3"><span class="sec">§3</span>Сравнение с def</h2>
+  <figure class="code"><figcaption><span>main.py</span><span>две одинаковые функции</span></figcaption><pre><span class="k">def</span> <span class="f">square_def</span>(number):
+    <span class="k">return</span> number ** <span class="n">2</span>
+
+square_lambda = <span class="k">lambda</span> number: number ** <span class="n">2</span>
+
+<span class="f">print</span>(<span class="f">square_def</span>(<span class="n">4</span>))
+<span class="f">print</span>(<span class="f">square_lambda</span>(<span class="n">4</span>))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>одинаковый результат</span></figcaption><pre>16
+16</pre></figure>
+  <div class="margin-note"><b>Именованная функция</b><p>Если функции всё равно нужно имя и она используется повторно, запись через <code>def</code> обычно читается лучше. Основная польза <code>lambda</code> — передача короткой функции прямо в место использования.</p></div>
+
+  <h2 id="s4"><span class="sec">§4</span>Несколько параметров</h2>
+  <p>До двоеточия можно перечислить несколько параметров через запятую.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>сложение двух аргументов</span></figcaption><pre>add = <span class="k">lambda</span> left, right: left + right
+<span class="f">print</span>(<span class="f">add</span>(<span class="n">3</span>, <span class="n">4</span>))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>3 + 4</span></figcaption><pre>7</pre></figure>
+
+  <h2 id="s5"><span class="sec">§5</span>Прямой вызов</h2>
+  <p>Lambda-выражение можно заключить в скобки и сразу вызвать. Такой пример показывает, что конструкция действительно создаёт функцию, хотя в обычной программе чаще встречается передача функции аргументом.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>создание и вызов на месте</span></figcaption><pre><span class="f">print</span>((<span class="k">lambda</span> number: number * <span class="n">2</span>)(<span class="n">5</span>))</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>удвоенное число</span></figcaption><pre>10</pre></figure>
+
+  <h2 id="s6"><span class="sec">§6</span>Сортировка по ключу</h2>
+  <p>Lambda удобна, когда ключ нужно извлечь из сложного элемента. В примере функция получает кортеж и возвращает его второй элемент.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>сортировка по баллу</span></figcaption><pre>results = [(<span class="s">"Анна"</span>, <span class="n">3</span>), (<span class="s">"Борис"</span>, <span class="n">5</span>), (<span class="s">"Вера"</span>, <span class="n">4</span>)]
+ordered = <span class="f">sorted</span>(results, key=<span class="k">lambda</span> item: item[<span class="n">1</span>], reverse=<span class="k">True</span>)
+<span class="f">print</span>(ordered)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>по убыванию второго элемента</span></figcaption><pre>[('Борис', 5), ('Вера', 4), ('Анна', 3)]</pre></figure>
+
+  <h2 id="s7"><span class="sec">§7</span>Lambda с map()</h2>
+  <p><code>map()</code> вызывает переданную lambda-функцию для каждого числа.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>удвоение элементов</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+result = <span class="f">list</span>(<span class="f">map</span>(<span class="k">lambda</span> number: number * <span class="n">2</span>, numbers))
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>четыре преобразования</span></figcaption><pre>[2, 4, 6, 8]</pre></figure>
+  <p>Здесь включение <code>[number * 2 for number in numbers]</code> короче. Lambda становится полезнее, когда интерфейс функции явно ожидает вызываемый аргумент.</p>
+
+  <h2 id="s8"><span class="sec">§8</span>Lambda с filter()</h2>
+  <p>Для <code>filter()</code> выражение должно отвечать, оставлять ли элемент.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>значения больше десяти</span></figcaption><pre>numbers = [<span class="n">5</span>, <span class="n">10</span>, <span class="n">15</span>, <span class="n">20</span>]
+result = <span class="f">list</span>(<span class="f">filter</span>(<span class="k">lambda</span> number: number &gt; <span class="n">10</span>, numbers))
+<span class="f">print</span>(result)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>два элемента прошли условие</span></figcaption><pre>[15, 20]</pre></figure>
+
+  <h2 id="s9"><span class="sec">§9</span>Условное выражение внутри lambda</h2>
+  <p>Обычные операторы <code>if</code> и <code>else</code> требуют блоков кода и не помещаются в lambda. Тернарное выражение остаётся одним выражением, поэтому допустимо.</p>
+  <figure class="code"><figcaption><span>main.py</span><span>классификация букв</span></figcaption><pre>letters = <span class="s">"python"</span>
+types = <span class="f">list</span>(<span class="f">map</span>(
+    <span class="k">lambda</span> letter: <span class="s">"гласная"</span> <span class="k">if</span> letter <span class="k">in</span> <span class="s">"aeiou"</span> <span class="k">else</span> <span class="s">"согласная"</span>,
+    letters,
+))
+<span class="f">print</span>(types)</pre></figure>
+  <figure class="code code--out"><figcaption><span>Вывод</span><span>результат для каждой буквы</span></figcaption><pre>['согласная', 'согласная', 'согласная', 'гласная', 'согласная', 'согласная']</pre></figure>
+
+  <h2 id="s10"><span class="sec">§10</span>Ограничения lambda</h2>
+  <ul><li>После двоеточия находится только одно выражение.</li><li>Нельзя записать несколько инструкций, присваивание или обычный многострочный <code>if</code>.</li><li>Сложные вложенные условия быстро ухудшают читаемость.</li><li>Для длинной логики нельзя добавить понятные промежуточные шаги.</li></ul>
+  <p>Одно выражение может переноситься на несколько строк внутри скобок, но от этого lambda не превращается в многооператорную функцию.</p>
+
+  <h2 id="s11"><span class="sec">§11</span>Когда выбрать def</h2>
+  <div class="table-scroll"><table><thead><tr><th>Ситуация</th><th>Выбор</th><th>Причина</th></tr></thead><tbody><tr><td>короткий ключ сортировки используется один раз</td><td><code>lambda</code></td><td>правило видно рядом с вызовом</td></tr><tr><td>функция вызывается в нескольких местах</td><td><code>def</code></td><td>есть понятное имя и одно место для изменений</td></tr><tr><td>нужны несколько действий или проверки</td><td><code>def</code></td><td>можно использовать блок кода</td></tr><tr><td>нужны описание и аннотации</td><td><code>def</code></td><td>сигнатура и документация читаются яснее</td></tr></tbody></table></div>
+
+  <h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2>
+  <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>lambda x = x + 1</code></td><td><code>SyntaxError</code>: между параметрами и выражением нужно двоеточие</td><td><code>lambda x: x + 1</code></td></tr><tr><td><code>lambda x: return x + 1</code></td><td><code>SyntaxError</code>: <code>return</code> внутри lambda не пишется</td><td><code>lambda x: x + 1</code></td></tr><tr><td><code>lambda x: y = x + 1</code></td><td><code>SyntaxError</code>: присваивание не является допустимым выражением</td><td>создать обычную функцию через <code>def</code></td></tr><tr><td><code>sorted(data, lambda x: x[1])</code></td><td><code>TypeError</code>: <code>key</code> — именованный аргумент</td><td><code>sorted(data, key=lambda x: x[1])</code></td></tr><tr><td>длинная lambda с несколькими вложенными условиями</td><td>правило трудно прочитать и проверить</td><td>дать функции имя и записать через <code>def</code></td></tr></tbody></table></div>
+
+  <h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2>
+  <details><summary>Что возвращает lambda-функция?</summary><p>Значение единственного выражения после двоеточия; слово <code>return</code> не пишется.</p></details>
+  <details><summary>Почему в <code>key=lambda item: item[1]</code> нет вызова lambda?</summary><p><code>sorted()</code> получает функцию и самостоятельно вызывает её для каждого элемента.</p></details>
+  <details><summary>Когда лучше заменить lambda на def?</summary><p>Когда функция повторно используется, содержит сложную логику или нуждается в понятном имени и документации.</p></details>
+
+  <h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2>
+  <div class="cheat"><div><b>Один параметр</b><code>lambda x: expression</code></div><div><b>Несколько параметров</b><code>lambda x, y: expression</code></div><div><b>Ключ сортировки</b><code>sorted(items, key=lambda x: ...)</code></div><div><b>Условный результат</b><code>lambda x: a if test else b</code></div></div>
+  <h3>Итог главы</h3><p><code>lambda</code> создаёт функцию из одного выражения и автоматически возвращает его значение. Она удобна для короткого одноразового правила рядом с <code>sorted()</code>, <code>map()</code> или <code>filter()</code>. Повторно используемую и сложную логику лучше оформлять через <code>def</code>.</p>
+  <div class="pager"><a href="../35-funkcii-vysshego-poryadka/index.html">← 4.5 Функции высшего порядка</a><a href="../../index.html">К содержанию справочника</a></div>
+  <div class="colophon"><span>Глава 4.6 · Lambda-функции · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>
