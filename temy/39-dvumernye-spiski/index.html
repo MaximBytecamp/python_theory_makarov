@@ -1,0 +1,73 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.12 Двумерные списки · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.12</p></div>
+<header class="chapter-head"><span class="chapter-num">3.12</span><h1>Двумерные списки</h1><p class="lead">Двумерный список — список строк, где каждая строка тоже является списком. Такая структура представляет таблицу, игровое поле или матрицу и требует двух индексов: строки и столбца.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Вложенные коллекции</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>Списки, индексы, вложенные циклы, включения</dd></div><div><dt>Зачем это знать</dt><dd>Хранить и обрабатывать табличные данные</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Список списков</a></li><li><a href="#s2">Два индекса</a></li><li><a href="#s3">Перебор значений</a></li><li><a href="#s4">Перебор по индексам</a></li><li><a href="#s5">Создание матрицы</a></li><li><a href="#s6">Ошибка с умножением</a></li><li><a href="#s7">Изменение строк</a></li><li><a href="#s8">Срезы</a></li><li><a href="#s9">Копирование</a></li><li><a href="#s10">Больше измерений</a></li><li><a href="#s11">Применение</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>Список, элементы которого — списки</h2><figure class="code"><figcaption><span>main.py</span><span>таблица 3 × 3</span></figcaption><pre>matrix = [
+    [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>],
+    [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>],
+    [<span class="n">7</span>, <span class="n">8</span>, <span class="n">9</span>],
+]
+<span class="f">print</span>(<span class="f">len</span>(matrix))
+<span class="f">print</span>(<span class="f">len</span>(matrix[<span class="n">0</span>]))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три строки и три столбца</span></figcaption><pre>3
+3</pre></figure><p>Внешний список хранит строки. Число столбцов определяется длиной конкретной строки; Python не требует, чтобы все строки имели одинаковую длину.</p>
+<h2 id="s2"><span class="sec">§2</span>Доступ через два индекса</h2><p><code>matrix[row][column]</code> выполняется слева направо: сначала выбирается список-строка, затем значение внутри него.</p><figure class="code"><figcaption><span>main.py</span><span>строка 1, столбец 2</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>], [<span class="n">7</span>, <span class="n">8</span>, <span class="n">9</span>]]
+<span class="f">print</span>(matrix[<span class="n">1</span>])
+<span class="f">print</span>(matrix[<span class="n">1</span>][<span class="n">2</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>сначала строка, затем число</span></figcaption><pre>[4, 5, 6]
+6</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>Перебор значений</h2><p>Внешний цикл получает строки, внутренний — значения выбранной строки.</p><figure class="code"><figcaption><span>main.py</span><span>табличный вывод</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
+<span class="k">for</span> row <span class="k">in</span> matrix:
+    <span class="k">for</span> value <span class="k">in</span> row:
+        <span class="f">print</span>(value, end=<span class="s">" "</span>)
+    <span class="f">print</span>()</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две строки</span></figcaption><pre>1 2 3
+4 5 6</pre></figure>
+<h2 id="s4"><span class="sec">§4</span>Перебор по индексам</h2><p>Индексы нужны, если важно изменить ячейки или узнать их координаты. Длина внутреннего <code>range()</code> берётся у текущей строки.</p><figure class="code"><figcaption><span>main.py</span><span>координаты каждой ячейки</span></figcaption><pre>matrix = [[<span class="n">10</span>, <span class="n">20</span>], [<span class="n">30</span>, <span class="n">40</span>]]
+<span class="k">for</span> row_index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(matrix)):
+    <span class="k">for</span> column_index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(matrix[row_index])):
+        <span class="f">print</span>(row_index, column_index, matrix[row_index][column_index])</pre></figure>
+<h2 id="s5"><span class="sec">§5</span>Создание матрицы</h2><p>Цикл создаёт новый список для каждой строки. Включение записывает ту же схему компактнее.</p><figure class="code"><figcaption><span>main.py</span><span>два независимых варианта</span></figcaption><pre>rows = <span class="n">2</span>
+columns = <span class="n">3</span>
+
+through_loop = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(rows):
+    through_loop.append([<span class="n">0</span>] * columns)
+
+through_comp = [[<span class="n">0</span>] * columns <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(rows)]
+<span class="f">print</span>(through_loop)
+<span class="f">print</span>(through_comp)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две матрицы 2 × 3</span></figcaption><pre>[[0, 0, 0], [0, 0, 0]]
+[[0, 0, 0], [0, 0, 0]]</pre></figure>
+<h2 id="s6"><span class="sec">§6</span>Почему [[0] * columns] * rows опасно</h2><p>Умножение внешнего списка повторяет одну и ту же внутреннюю строку. Поэтому изменение одной ячейки проявляется во всех строках.</p><figure class="code"><figcaption><span>main.py</span><span>общая строка и независимые строки</span></figcaption><pre>wrong = [[<span class="n">0</span>] * <span class="n">3</span>] * <span class="n">3</span>
+wrong[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">1</span>
+
+correct = [[<span class="n">0</span>] * <span class="n">3</span> <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)]
+correct[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">1</span>
+
+<span class="f">print</span>(wrong)
+<span class="f">print</span>(correct)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>сравните строки</span></figcaption><pre>[[1, 0, 0], [1, 0, 0], [1, 0, 0]]
+[[1, 0, 0], [0, 0, 0], [0, 0, 0]]</pre></figure>
+<h2 id="s7"><span class="sec">§7</span>Изменение структуры</h2><figure class="code"><figcaption><span>main.py</span><span>ячейка, добавление и удаление строки</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]
+matrix[<span class="n">1</span>][<span class="n">1</span>] = <span class="n">40</span>
+matrix.append([<span class="n">5</span>, <span class="n">6</span>])
+<span class="k">del</span> matrix[<span class="n">0</span>]
+<span class="f">print</span>(matrix)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две оставшиеся строки</span></figcaption><pre>[[3, 40], [5, 6]]</pre></figure>
+<h2 id="s8"><span class="sec">§8</span>Срезы двумерного списка</h2><p>Срез внешнего списка выбирает целые строки. Срез одной строки выбирает столбцы только в этой строке.</p><figure class="code"><figcaption><span>main.py</span><span>строки и часть строки</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>], [<span class="n">7</span>, <span class="n">8</span>, <span class="n">9</span>]]
+<span class="f">print</span>(matrix[:<span class="n">2</span>])
+<span class="f">print</span>(matrix[<span class="n">1</span>][<span class="n">1</span>:])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две строки и два значения</span></figcaption><pre>[[1, 2, 3], [4, 5, 6]]
+[5, 6]</pre></figure>
+<h2 id="s9"><span class="sec">§9</span>Поверхностная и глубокая копия</h2><p><code>matrix.copy()</code> создаёт новый внешний список, но внутренние строки остаются общими. Для полной независимости всех уровней применяется <code>copy.deepcopy()</code>.</p><figure class="code"><figcaption><span>main.py</span><span>полностью независимая матрица</span></figcaption><pre><span class="k">import</span> copy
+
+matrix = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]
+cloned = copy.deepcopy(matrix)
+cloned[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">100</span>
+<span class="f">print</span>(matrix)
+<span class="f">print</span>(cloned)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>оригинал сохранён</span></figcaption><pre>[[1, 2], [3, 4]]
+[[100, 2], [3, 4]]</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>Три и больше измерений</h2><p>Каждый дополнительный уровень списка добавляет индекс: <code>cube[layer][row][column]</code>. Используйте такую структуру только когда смысл каждого уровня понятен.</p><figure class="code"><figcaption><span>main.py</span><span>слой 1, строка 0, столбец 1</span></figcaption><pre>cube = [[[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]], [[<span class="n">5</span>, <span class="n">6</span>], [<span class="n">7</span>, <span class="n">8</span>]]]
+<span class="f">print</span>(cube[<span class="n">1</span>][<span class="n">0</span>][<span class="n">1</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>значение из второго слоя</span></figcaption><pre>6</pre></figure>
+<h2 id="s11"><span class="sec">§11</span>Где применяются двумерные списки</h2><ul><li>таблицы и небольшие матрицы;</li><li>игровые поля и карты;</li><li>пиксели небольшого изображения;</li><li>строки табличного файла;</li><li>расписания и сетки значений.</li></ul><p>Для крупных числовых матриц и векторных операций обычно выбирают специализированную библиотеку вроде NumPy; обычный список остаётся удобным универсальным контейнером.</p>
+<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>matrix[column][row]</code></td><td>координаты поменяются местами</td><td>соблюдать выбранную схему <code>matrix[row][column]</code></td></tr><tr><td><code>[[0] * columns] * rows</code></td><td>все позиции внешнего списка содержат одну общую строку</td><td><code>[[0] * columns for _ in range(rows)]</code></td></tr><tr><td><code>range(len(matrix[0]))</code> для всех строк</td><td>на строках разной длины возможен <code>IndexError</code></td><td>использовать <code>len(matrix[row_index])</code></td></tr><tr><td><code>copy_matrix = matrix.copy()</code> считают полной копией</td><td>изменения внутри общей строки видны в обеих матрицах</td><td>создать строки отдельно или применить <code>copy.deepcopy()</code></td></tr><tr><td><code>matrix[1, 2]</code></td><td><code>TypeError</code>: список принимает один индекс за раз</td><td><code>matrix[1][2]</code></td></tr></tbody></table></div>
+<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Что сначала выбирает <code>matrix[2][1]</code>?</summary><p>Строку с индексом <code>2</code>, затем элемент этой строки с индексом <code>1</code>.</p></details><details><summary>Почему нельзя создавать строки выражением <code>[[0] * 3] * 3</code>?</summary><p>Внешний список повторяет одну внутреннюю строку, поэтому её изменение видно во всех позициях.</p></details><details><summary>Чем поверхностная копия отличается от глубокой?</summary><p>Поверхностная копирует только внешний контейнер; глубокая рекурсивно создаёт независимые вложенные объекты.</p></details>
+<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Ячейка</b><code>matrix[row][column]</code></div><div><b>Перебор</b><code>for row in matrix:</code><code>    for value in row:</code></div><div><b>Создание</b><code>[[0] * columns for _ in range(rows)]</code></div><div><b>Глубокая копия</b><code>copy.deepcopy(matrix)</code></div></div>
+<h3>Итог главы</h3><p>Двумерный список хранит списки-строки. Доступ к ячейке требует двух последовательных индексов, а полный перебор — двух циклов. Каждую строку при создании нужно формировать отдельно; для полной копии вложенной структуры используется глубокое копирование.</p>
+<div class="pager"><a href="../34-vlozhennye-vklyucheniya/index.html">← 3.11 Вложенные включения</a><a href="../../index.html">К содержанию справочника</a><a href="../16-abs-max-min/index.html">4.1 Встроенные функции →</a></div><div class="colophon"><span>Глава 3.12 · Двумерные списки · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

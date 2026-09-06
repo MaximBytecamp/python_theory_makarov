@@ -1,0 +1,81 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>5.2 Генераторы в Python · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 5 · Итераторы и генераторы</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 5 · итераторы и генераторы</p><p class="running__folio">Глава 5.2</p></div>
+<header class="chapter-head"><span class="chapter-num">5.2</span><h1>Генераторы<br>в Python</h1><p class="lead">Генератор вычисляет значения по запросу и сохраняет место остановки между вызовами <code>next()</code>. Его создают функцией с <code>yield</code> или генераторным выражением в круглых скобках.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Ленивые вычисления</dd></div><div><dt>Уровень</dt><dd>Продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Итераторы, функции, включения, yield</dd></div><div><dt>Зачем это знать</dt><dd>Обрабатывать большие и потоковые данные по частям</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что такое генератор</a></li><li><a href="#s2">Функция с yield</a></li><li><a href="#s3">Когда начинается выполнение</a></li><li><a href="#s4">Как работает yield</a></li><li><a href="#s5">Генератор в for</a></li><li><a href="#s6">Генераторное выражение</a></li><li><a href="#s7">Список и генератор</a></li><li><a href="#s8">Одноразовый проход</a></li><li><a href="#s9">Бесконечный генератор</a></li><li><a href="#s10">Генераторы с функциями</a></li><li><a href="#s11">Построчная обработка</a></li><li><a href="#s12">return и yield</a></li><li><a href="#s13">Частые ошибки</a></li><li><a href="#s14">Проверьте себя</a></li><li><a href="#s15">Шпаргалка</a></li></ol></nav>
+<h2 id="s1"><span class="sec">§1</span>Генератор — разновидность итератора</h2><p><span class="term">Генератор</span> выдаёт очередное значение только тогда, когда его запрашивают. Он поддерживает <code>iter()</code>, <code>next()</code> и заканчивается через <code>StopIteration</code>, поэтому полностью следует протоколу итератора.</p><div class="table-scroll"><table><thead><tr><th>Способ</th><th>Синтаксис</th><th>Когда удобен</th></tr></thead><tbody><tr><td>генераторная функция</td><td><code>def ...: yield value</code></td><td>несколько шагов, циклы и условия</td></tr><tr><td>генераторное выражение</td><td><code>(expr for item in data)</code></td><td>одно короткое преобразование</td></tr></tbody></table></div>
+<h2 id="s2"><span class="sec">§2</span>Генераторная функция</h2><p>Наличие <code>yield</code> меняет поведение функции: её вызов возвращает генератор, а значения появляются при переборе.</p><figure class="code"><figcaption><span>main.py</span><span>три значения по запросу</span></figcaption><pre><span class="k">def</span> <span class="f">numbers</span>():
+    <span class="k">yield</span> <span class="n">1</span>
+    <span class="k">yield</span> <span class="n">2</span>
+    <span class="k">yield</span> <span class="n">3</span>
+
+generator = <span class="f">numbers</span>()
+<span class="f">print</span>(<span class="f">next</span>(generator))
+<span class="f">print</span>(<span class="f">next</span>(generator))
+<span class="f">print</span>(<span class="f">next</span>(generator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три остановки yield</span></figcaption><pre>1
+2
+3</pre></figure>
+<h2 id="s3"><span class="sec">§3</span>Тело не выполняется при создании</h2><p>Вызов генераторной функции лишь создаёт генератор. Первая строка тела выполняется при первом запросе значения.</p><figure class="code"><figcaption><span>main.py</span><span>запуск откладывается</span></figcaption><pre><span class="k">def</span> <span class="f">demo</span>():
+    <span class="f">print</span>(<span class="s">"начало"</span>)
+    <span class="k">yield</span> <span class="n">10</span>
+
+generator = <span class="f">demo</span>()
+<span class="f">print</span>(<span class="s">"создан"</span>)
+<span class="f">print</span>(<span class="f">next</span>(generator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>начало появляется после создан</span></figcaption><pre>создан
+начало
+10</pre></figure>
+<h2 id="s4"><span class="sec">§4</span>yield возвращает значение и ставит паузу</h2><p>После <code>yield</code> локальные переменные и текущая позиция сохраняются. Следующий <code>next()</code> продолжает выполнение со строки после предыдущего <code>yield</code>.</p><figure class="code"><figcaption><span>main.py</span><span>состояние между остановками</span></figcaption><pre><span class="k">def</span> <span class="f">count_up</span>(limit):
+    current = <span class="n">0</span>
+    <span class="k">while</span> current &lt; limit:
+        <span class="k">yield</span> current
+        current += <span class="n">1</span>
+
+generator = <span class="f">count_up</span>(<span class="n">3</span>)
+<span class="f">print</span>(<span class="f">next</span>(generator))
+<span class="f">print</span>(<span class="f">next</span>(generator))
+<span class="f">print</span>(<span class="f">next</span>(generator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>current продолжает расти</span></figcaption><pre>0
+1
+2</pre></figure>
+<h2 id="s5"><span class="sec">§5</span>Обычный способ чтения — цикл for</h2><p>Цикл сам запрашивает значения и останавливается в конце генератора.</p><figure class="code"><figcaption><span>main.py</span><span>квадраты до limit</span></figcaption><pre><span class="k">def</span> <span class="f">squares</span>(limit):
+    <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(limit):
+        <span class="k">yield</span> number ** <span class="n">2</span>
+
+<span class="k">for</span> value <span class="k">in</span> <span class="f">squares</span>(<span class="n">5</span>):
+    <span class="f">print</span>(value)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пять значений</span></figcaption><pre>0
+1
+4
+9
+16</pre></figure>
+<h2 id="s6"><span class="sec">§6</span>Генераторное выражение</h2><p>Оно похоже на списковое включение, но использует круглые скобки.</p><figure class="code"><figcaption><span>main.py</span><span>значения вычисляются при list()</span></figcaption><pre>squares = (number ** <span class="n">2</span> <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>))
+<span class="f">print</span>(<span class="f">list</span>(squares))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>готовый список после чтения</span></figcaption><pre>[0, 1, 4, 9, 16]</pre></figure>
+<h2 id="s7"><span class="sec">§7</span>Список и генераторное выражение</h2><div class="table-scroll"><table><thead><tr><th>Свойство</th><th>Список <code>[...]</code></th><th>Генератор <code>(...)</code></th></tr></thead><tbody><tr><td>вычисление</td><td>все элементы сразу</td><td>по мере запросов</td></tr><tr><td>хранение результатов</td><td>все элементы</td><td>состояние вычисления и текущие данные</td></tr><tr><td>повторный перебор</td><td>возможен</td><td>после исчерпания пуст</td></tr><tr><td>индекс</td><td><code>items[0]</code></td><td>не поддерживается</td></tr></tbody></table></div><p>Генератор обычно расходует меньше памяти для длинной последовательности, но это не означает, что каждую задачу нужно переписывать на генераторы. Маленький список удобнее, если данные нужны несколько раз или по индексу.</p>
+<h2 id="s8"><span class="sec">§8</span>Генератор исчерпывается</h2><figure class="code"><figcaption><span>main.py</span><span>второй проход пуст</span></figcaption><pre>generator = (number <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>))
+<span class="f">print</span>(<span class="f">list</span>(generator))
+<span class="f">print</span>(<span class="f">list</span>(generator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>возврата в начало нет</span></figcaption><pre>[0, 1, 2]
+[]</pre></figure>
+<h2 id="s9"><span class="sec">§9</span>Потенциально бесконечный генератор</h2><p>Генератор может описывать последовательность без заранее известного конца. Потребитель обязан сам ограничить чтение.</p><figure class="code"><figcaption><span>main.py</span><span>берём только первые четыре</span></figcaption><pre><span class="k">def</span> <span class="f">natural_numbers</span>():
+    number = <span class="n">1</span>
+    <span class="k">while</span> <span class="k">True</span>:
+        <span class="k">yield</span> number
+        number += <span class="n">1</span>
+
+generator = <span class="f">natural_numbers</span>()
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">4</span>):
+    <span class="f">print</span>(<span class="f">next</span>(generator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>генератор мог продолжаться</span></figcaption><pre>1
+2
+3
+4</pre></figure>
+<h2 id="s10"><span class="sec">§10</span>Передача генератора функции</h2><p>Если функция сразу перебирает значения, промежуточный список часто не нужен.</p><figure class="code"><figcaption><span>main.py</span><span>сумма квадратов без списка</span></figcaption><pre>result = <span class="f">sum</span>(number ** <span class="n">2</span> <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">10</span>))
+<span class="f">print</span>(result)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>от 0² до 9²</span></figcaption><pre>285</pre></figure><p>Если генераторное выражение — единственный аргумент функции, его собственные круглые скобки можно не дублировать.</p>
+<h2 id="s11"><span class="sec">§11</span>Построчная обработка файлов</h2><p>Файловый объект уже итерируется по строкам. Генераторная функция может очищать и отбирать их, не загружая весь файл целиком.</p><figure class="code"><figcaption><span>Схема</span><span>файл передаётся открытым</span></figcaption><pre><span class="k">def</span> <span class="f">non_empty_lines</span>(file):
+    <span class="k">for</span> line <span class="k">in</span> file:
+        cleaned = line.strip()
+        <span class="k">if</span> cleaned:
+            <span class="k">yield</span> cleaned</pre></figure><p>Открывать файл лучше через <code>with</code>, чтобы он гарантированно закрылся после обработки. Полную работу с файлами разберём в отдельном модуле.</p>
+<h2 id="s12"><span class="sec">§12</span>return и yield</h2><div class="table-scroll"><table><thead><tr><th><code>return</code></th><th><code>yield</code></th></tr></thead><tbody><tr><td>возвращает итог обычного вызова</td><td>выдаёт очередное значение генератора</td></tr><tr><td>завершает функцию</td><td>приостанавливает её</td></tr><tr><td>следующий код функции не выполняется</td><td>следующий <code>next()</code> продолжает после остановки</td></tr></tbody></table></div><p><code>return</code> без значения внутри генераторной функции завершает последовательность.</p>
+<h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td>ожидать выполнение тела сразу после <code>generator()</code></td><td>вызов только создаёт объект генератора</td><td>начать перебор или вызвать <code>next()</code></td></tr><tr><td><code>generator[0]</code></td><td><code>TypeError</code>: генератор не поддерживает индексы</td><td><code>next(generator)</code> или материализовать небольшой список</td></tr><tr><td>перебирать один генератор второй раз</td><td>после исчерпания элементов не будет</td><td>создать генератор заново</td></tr><tr><td><code>list(infinite_generator)</code></td><td>программа будет бесконечно получать значения и расходовать память</td><td>ограничить количество элементов</td></tr><tr><td>заменить <code>yield</code> на <code>return</code> внутри цикла</td><td>функция завершится на первом значении</td><td>использовать <code>yield</code> для последовательной выдачи</td></tr></tbody></table></div>
+<h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2><details><summary>Когда начинает выполняться тело генераторной функции?</summary><p>При первом запросе значения, а не во время создания генератора.</p></details><details><summary>Что сохраняет yield?</summary><p>Позицию выполнения и локальное состояние функции, чтобы следующий запрос продолжился с нужного места.</p></details><details><summary>Когда генератор лучше списка?</summary><p>Когда данные велики или поступают потоком, обрабатываются один раз по порядку и не нужны целиком одновременно.</p></details>
+<h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2><div class="cheat"><div><b>Генераторная функция</b><code>def generate():</code><code>    yield value</code></div><div><b>Выражение</b><code>(expr for item in data)</code></div><div><b>Следующее значение</b><code>next(generator)</code></div><div><b>Обычное чтение</b><code>for value in generator:</code></div></div>
+<h3>Итог главы</h3><p>Генератор — итератор, создаваемый функцией с <code>yield</code> или генераторным выражением. Он начинает вычисления при запросе, сохраняет состояние между значениями и исчерпывается после одного полного прохода. Это удобно для больших, потоковых и даже бесконечных последовательностей.</p>
+<div class="pager"><a href="../43-iteratory/index.html">← 5.1 Итераторы</a><a href="../../index.html">К содержанию справочника</a></div><div class="colophon"><span>Глава 5.2 · Генераторы · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>
