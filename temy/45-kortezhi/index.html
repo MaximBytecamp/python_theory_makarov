@@ -1,74 +1,418 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>4.1 Кортежи в Python · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.1</p></div>
-<header class="chapter-head"><span class="chapter-num">4.1</span><h1>Кортежи<br>в Python</h1><p class="lead">Кортеж хранит упорядоченную последовательность, как список, но не позволяет заменить, добавить или удалить элемент после создания.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Структуры данных</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Списки, срезы, распаковка, словари</dd></div><div><dt>Зачем это знать</dt><dd>Хранить фиксированные записи и возвращать несколько результатов</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Список и кортеж</a></li><li><a href="#s2">Создание</a></li><li><a href="#s3">Один элемент</a></li><li><a href="#s4">Чтение и срезы</a></li><li><a href="#s5">Неизменяемость</a></li><li><a href="#s6">Операции</a></li><li><a href="#s7">Преобразование</a></li><li><a href="#s8">Возврат значений</a></li><li><a href="#s9">Распаковка</a></li><li><a href="#s10">Словари и сортировка</a></li><li><a href="#s11">Методы</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Список можно менять, кортеж — нельзя</h2><p><span class="term">Кортеж</span> (<code>tuple</code>) — упорядоченная неизменяемая последовательность. У элементов остаются позиции, индексы и срезы, но сама последовательность после создания фиксирована.</p><div class="table-scroll"><table><thead><tr><th>Свойство</th><th><code>list</code></th><th><code>tuple</code></th></tr></thead><tbody><tr><td>порядок элементов</td><td>сохраняется</td><td>сохраняется</td></tr><tr><td>доступ по индексу</td><td>есть</td><td>есть</td></tr><tr><td>изменение элемента</td><td>есть</td><td>нет</td></tr><tr><td>запись</td><td><code>[10, 20]</code></td><td><code>(10, 20)</code></td></tr></tbody></table></div>
-<h2 id="s2"><span class="sec">§2</span>Создание кортежа</h2><figure class="code"><figcaption><span>main.py</span><span>три способа</span></figcaption><pre>point = (<span class="n">10</span>, <span class="n">20</span>)
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.1 Кортежи в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.1</span>
+          <h1>Кортежи<br>в Python</h1>
+          <p class="lead">Кортеж хранит упорядоченную последовательность, как список, но не позволяет заменить, добавить или удалить элемент после создания. Из этой неизменяемости следует главное его свойство — кортеж может быть ключом словаря и элементом множества, а список не может.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Структуры данных</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Списки, срезы, распаковка, словари</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Хранить фиксированные записи и возвращать несколько результатов</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем нужен неизменяемый список</a></li>
+            <li><a href="#s2">Список и кортеж</a></li>
+            <li><a href="#s3">Создание кортежа</a></li>
+            <li><a href="#s4">Кортеж создаёт запятая</a></li>
+            <li><a href="#s5">Индексы и срезы</a></li>
+            <li><a href="#s6">Неизменяемость</a></li>
+            <li><a href="#s7">Что именно неизменяемо</a></li>
+            <li><a href="#s8">Хешируемость</a></li>
+            <li><a href="#s9">Составной ключ словаря</a></li>
+            <li><a href="#s10">Операции над кортежами</a></li>
+            <li><a href="#s11">Преобразование коллекций</a></li>
+            <li><a href="#s12">Несколько результатов функции</a></li>
+            <li><a href="#s13">Распаковка</a></li>
+            <li><a href="#s14">Пары словаря</a></li>
+            <li><a href="#s15">Два метода кортежа</a></li>
+            <li><a href="#s16">Когда кортеж, когда список</a></li>
+            <li><a href="#s17">Частые ошибки</a></li>
+            <li><a href="#s18">Проверьте себя</a></li>
+            <li><a href="#s19">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем нужен неизменяемый список</h2>
+        <p>Первая реакция на кортеж обычно такая: зачем нужен список, который нельзя менять? Ответ в том, что запрет — это не ограничение, а гарантия, и она даёт три вещи, которых у списка нет.</p>
+        <ol class="steps">
+          <li><b>Защита от случайной правки.</b> Координаты точки, дата, размер экрана — данные, которые меняться не должны. Кортеж делает это невозможным, а не «нежелательным».</li>
+          <li><b>Сигнал читателю.</b> Круглые скобки сообщают: здесь фиксированная запись из нескольких полей, а не набор однотипных элементов.</li>
+          <li><b>Возможность быть ключом.</b> Из неизменяемости следует хешируемость — только благодаря ей кортеж можно положить в словарь или множество. Это §8, и это главная причина, по которой кортеж вообще существует.</li>
+        </ol>
+
+        <h2 id="s2"><span class="sec">§2</span>Список и кортеж</h2>
+        <p><span class="term">Кортеж</span> (<code>tuple</code>) — упорядоченная неизменяемая последовательность. У элементов остаются позиции, индексы и срезы, но сам набор позиций после создания зафиксирован.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Свойство</th><th><code>list</code></th><th><code>tuple</code></th></tr></thead>
+            <tbody>
+              <tr><td>порядок элементов</td><td>сохраняется</td><td>сохраняется</td></tr>
+              <tr><td>доступ по индексу</td><td>есть</td><td>есть</td></tr>
+              <tr><td>срезы</td><td>есть</td><td>есть</td></tr>
+              <tr><td>изменение элемента</td><td>есть</td><td>нет</td></tr>
+              <tr><td>методы <code>append()</code>, <code>pop()</code></td><td>есть</td><td>нет</td></tr>
+              <tr><td>может быть ключом словаря</td><td>нет</td><td>да</td></tr>
+              <tr><td>запись</td><td><code>[10, 20]</code></td><td><code>(10, 20)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Всё, что в главах 3.1–3.8 говорилось про чтение списка — индексы с нуля, отрицательные индексы, срезы, <code>len()</code>, перебор циклом, — работает и для кортежа без изменений. Отличается только вторая половина: всё, что связано с изменением.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Создание кортежа</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три способа</span></figcaption>
+<pre>point = (<span class="n">10</span>, <span class="n">20</span>)
 empty = ()
 letters = <span class="f">tuple</span>(<span class="s">"abc"</span>)
 
 <span class="f">print</span>(point)
 <span class="f">print</span>(empty)
-<span class="f">print</span>(letters)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>кортежи</span></figcaption><pre>(10, 20)
+<span class="f">print</span>(letters)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три кортежа</span></figcaption><pre>(10, 20)
 ()
-('a', 'b', 'c')</pre></figure><p><code>tuple()</code> принимает любой итерируемый объект и получает из его элементов новый кортеж.</p>
-<h2 id="s3"><span class="sec">§3</span>Кортеж из одного элемента определяет запятая</h2><figure class="code"><figcaption><span>main.py</span><span>скобок недостаточно</span></figcaption><pre>number = (<span class="n">5</span>)
+('a', 'b', 'c')</pre></figure>
+        <p><code>tuple()</code> принимает любой итерируемый объект — список, строку, множество — и строит из его элементов новый кортеж.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Кортеж создаёт запятая</h2>
+        <p>Здесь скрыта деталь, на которой спотыкаются почти все: кортеж создают <b>не скобки, а запятая</b>. Скобки лишь группируют выражение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>скобок недостаточно</span></figcaption>
+<pre>number = (<span class="n">5</span>)
 singleton = (<span class="n">5</span>,)
 
 <span class="f">print</span>(<span class="f">type</span>(number))
-<span class="f">print</span>(<span class="f">type</span>(singleton))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>разные типы</span></figcaption><pre>&lt;class 'int'&gt;
-&lt;class 'tuple'&gt;</pre></figure><aside class="margin-note"><b>Главная деталь</b><p>Кортеж создаёт запятая. Скобки помогают сгруппировать запись, но выражение <code>(5)</code> остаётся числом.</p></aside>
-<h2 id="s4"><span class="sec">§4</span>Индексы и срезы работают как у списка</h2><figure class="code"><figcaption><span>main.py</span><span>чтение кортежа</span></figcaption><pre>colors = (<span class="s">"red"</span>, <span class="s">"green"</span>, <span class="s">"blue"</span>, <span class="s">"white"</span>)
+<span class="f">print</span>(<span class="f">type</span>(singleton))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первое — обычное число</span></figcaption><pre>&lt;class 'int'&gt;
+&lt;class 'tuple'&gt;</pre></figure>
+        <p>Обратное тоже верно: без скобок кортеж прекрасно создаётся.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>скобок нет вовсе</span></figcaption>
+<pre>values = <span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>
+
+<span class="f">print</span>(values)
+<span class="f">print</span>(<span class="f">type</span>(values))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>это кортеж</span></figcaption><pre>(1, 2, 3)
+&lt;class 'tuple'&gt;</pre></figure>
+        <div class="margin-note">
+          <b>Где это встречается</b>
+          <p>Именно поэтому <code>return x, y</code> из §12 возвращает кортеж, а <code>a, b = b, a</code> меняет значения местами: справа от знака <code>=</code> собирается кортеж, слева он распаковывается. Обмен значениями из главы 1.6 устроен именно так.</p>
+        </div>
+
+        <h2 id="s5"><span class="sec">§5</span>Индексы и срезы</h2>
+        <p>Чтение кортежа ничем не отличается от чтения списка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>элемент, последний и срез</span></figcaption>
+<pre>colors = (<span class="s">"red"</span>, <span class="s">"green"</span>, <span class="s">"blue"</span>, <span class="s">"white"</span>)
 
 <span class="f">print</span>(colors[<span class="n">0</span>])
 <span class="f">print</span>(colors[-<span class="n">1</span>])
-<span class="f">print</span>(colors[<span class="n">1</span>:<span class="n">3</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>элемент, последний и срез</span></figcaption><pre>red
+<span class="f">print</span>(colors[<span class="n">1</span>:<span class="n">3</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>срез кортежа — тоже кортеж</span></figcaption><pre>red
 white
 ('green', 'blue')</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>Нельзя изменить структуру кортежа</h2><p>Присваивание по индексу завершится <code>TypeError</code>. У кортежа также нет методов <code>append()</code>, <code>remove()</code> и <code>pop()</code>.</p><figure class="code"><figcaption><span>Ошибка</span><span>замена элемента</span></figcaption><pre>point = (<span class="n">10</span>, <span class="n">20</span>)
-point[<span class="n">0</span>] = <span class="n">99</span></pre></figure><figure class="code code--out"><figcaption><span>Исключение</span><span>структура фиксирована</span></figcaption><pre>TypeError: 'tuple' object does not support item assignment</pre></figure><p>Неизменяемость относится к позициям кортежа. Если внутри лежит список, сам список всё ещё можно менять.</p><figure class="code"><figcaption><span>main.py</span><span>изменяемый объект внутри</span></figcaption><pre>record = (<span class="s">"Max"</span>, [<span class="s">"Python"</span>])
+        <p>Обратите внимание на последнюю строку: срез списка даёт список, срез кортежа — кортеж. Тип сохраняется.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Неизменяемость</h2>
+        <p>Попытка заменить элемент завершается ошибкой.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>присваивание по индексу</span></figcaption>
+<pre>point = (<span class="n">10</span>, <span class="n">20</span>)
+point[<span class="n">0</span>] = <span class="n">99</span></pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>позиции зафиксированы</span></figcaption>
+<pre>TypeError: 'tuple' object does not support item assignment</pre>
+        </figure>
+        <p>Методов, меняющих коллекцию, у кортежа нет вовсе — обращение к ним даёт другую ошибку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>метода append() не существует</span></figcaption>
+<pre>(<span class="n">1</span>, <span class="n">2</span>).append(<span class="n">3</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>такого метода у типа нет</span></figcaption>
+<pre>AttributeError: 'tuple' object has no attribute 'append'</pre>
+        </figure>
+        <p>Разница в типах исключений отражает разницу причин: в первом случае операция существует, но запрещена, во втором — метода нет как такового.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Что именно неизменяемо</h2>
+        <p>Неизменяемость кортежа относится к его <b>позициям</b>, а не к содержимому этих позиций. Если внутри лежит список, он сохраняет собственную изменяемость.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>изменяемый объект внутри кортежа</span></figcaption>
+<pre>record = (<span class="s">"Max"</span>, [<span class="s">"Python"</span>])
 record[<span class="n">1</span>].append(<span class="s">"SQL"</span>)
-<span class="f">print</span>(record)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>позиции те же, список изменился</span></figcaption><pre>('Max', ['Python', 'SQL'])</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>Объединение, повторение и проверка наличия</h2><figure class="code"><figcaption><span>main.py</span><span>операции создают новые значения</span></figcaption><pre>left = (<span class="n">1</span>, <span class="n">2</span>)
+
+<span class="f">print</span>(record)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>позиции те же, список изменился</span></figcaption><pre>('Max', ['Python', 'SQL'])</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>граница неизменяемости</span></figcaption>
+<pre>record ──→ ( "Max" , • )
+                     │
+                     └──→ ["Python", "SQL"]   этот объект менять можно
+
+менять нельзя: какие объекты лежат в позициях кортежа
+менять можно:  внутреннее состояние этих объектов</pre>
+        </figure>
+        <p>Это ровно та же граница, что у поверхностной копии в главе 3.12: внешний уровень защищён, внутренний — нет.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Хешируемость</h2>
+        <p>Теперь главное следствие. Чтобы значение можно было использовать как ключ словаря или элемент множества, Python должен уметь вычислить от него <span class="term">хеш</span> — число, по которому объект быстро находят. А вычислять хеш имеет смысл только у того, что не меняется: изменился объект — изменился бы и хеш, и найти его стало бы невозможно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список хешировать нельзя</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">hash</span>((<span class="n">1</span>, <span class="n">2</span>)) == <span class="f">hash</span>((<span class="n">1</span>, <span class="n">2</span>)))
+<span class="f">print</span>(<span class="f">hash</span>([<span class="n">1</span>, <span class="n">2</span>]))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод и ошибка</span><span>у кортежа хеш есть, у списка нет</span></figcaption>
+<pre>True
+TypeError: unhashable type: 'list'</pre>
+        </figure>
+        <p>Слово <code>unhashable</code> в сообщении об ошибке — самое частое, что видит начинающий при работе со словарями и множествами. Означает оно всегда одно: вы пытаетесь использовать изменяемый объект там, где нужен неизменяемый.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Тип</th><th>Изменяемый</th><th>Хешируемый</th><th>Годится в ключи</th></tr></thead>
+            <tbody>
+              <tr><td><code>int</code>, <code>str</code>, <code>bool</code></td><td>нет</td><td>да</td><td>да</td></tr>
+              <tr><td><code>tuple</code></td><td>нет</td><td>да, если внутри нет изменяемых</td><td>да</td></tr>
+              <tr><td><code>list</code>, <code>dict</code>, <code>set</code></td><td>да</td><td>нет</td><td>нет</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Средняя строка содержит оговорку, и она важна: кортеж со списком внутри тоже не хешируется — ведь его содержимое может измениться, как показал §7.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>кортеж со списком внутри</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">hash</span>((<span class="n">1</span>, [<span class="n">2</span>])))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>виноват вложенный список</span></figcaption>
+<pre>TypeError: unhashable type: 'list'</pre>
+        </figure>
+
+        <h2 id="s9"><span class="sec">§9</span>Составной ключ словаря</h2>
+        <p>Практическая польза хешируемости — ключ, состоящий из нескольких частей.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>город и время суток вместе</span></figcaption>
+<pre>temperatures = {
+    (<span class="s">"Москва"</span>, <span class="s">"утро"</span>): -<span class="n">3</span>,
+    (<span class="s">"Москва"</span>, <span class="s">"вечер"</span>): -<span class="n">7</span>,
+}
+
+<span class="f">print</span>(temperatures[(<span class="s">"Москва"</span>, <span class="s">"вечер"</span>)])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>значение по составному ключу</span></figcaption><pre>-7</pre></figure>
+        <p>Со списком та же запись невозможна.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список в роли ключа</span></figcaption>
+<pre>data = {[<span class="s">"Москва"</span>, <span class="s">"утро"</span>]: -<span class="n">3</span>}</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>ключ должен быть неизменяемым</span></figcaption>
+<pre>TypeError: unhashable type: 'list'</pre>
+        </figure>
+        <p>По той же причине кортежи можно класть в множество, а списки нельзя, — об этом глава 4.5.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Операции над кортежами</h2>
+        <p>Кортежи поддерживают те же операторы, что списки, — и все они создают новый объект, не трогая исходный.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>объединение, повторение, проверка</span></figcaption>
+<pre>left = (<span class="n">1</span>, <span class="n">2</span>)
 right = (<span class="n">3</span>, <span class="n">4</span>)
 
 <span class="f">print</span>(left + right)
 <span class="f">print</span>((<span class="s">"A"</span>,) * <span class="n">3</span>)
-<span class="f">print</span>(<span class="n">2</span> <span class="k">in</span> left)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три результата</span></figcaption><pre>(1, 2, 3, 4)
+<span class="f">print</span>(<span class="n">2</span> <span class="k">in</span> left)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три результата</span></figcaption><pre>(1, 2, 3, 4)
 ('A', 'A', 'A')
-True</pre></figure><p>Операторы <code>+</code> и <code>*</code> не меняют исходный кортеж: они создают новый.</p>
-<h2 id="s7"><span class="sec">§7</span>Преобразование между коллекциями</h2><figure class="code"><figcaption><span>main.py</span><span>список ↔ кортеж</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+True</pre></figure>
+        <p>Отсюда способ «изменить» кортеж: собрать новый и связать с тем же именем.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>добавление элемента</span></figcaption>
+<pre>point = (<span class="n">10</span>, <span class="n">20</span>)
+point = point + (<span class="n">30</span>,)
+
+<span class="f">print</span>(point)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>это другой объект с тем же именем</span></figcaption><pre>(10, 20, 30)</pre></figure>
+        <p>Старый кортеж при этом не изменился — он просто перестал быть нужен. Если такие «изменения» нужны часто, значит выбран не тот тип: возьмите список.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Преобразование коллекций</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список в кортеж и обратно</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+
 fixed = <span class="f">tuple</span>(numbers)
 editable = <span class="f">list</span>(fixed)
 
 <span class="f">print</span>(fixed)
-<span class="f">print</span>(editable)</pre></figure><p>При преобразовании множества порядок результата нельзя считать заранее известным: у множества нет позиционного порядка.</p>
-<h2 id="s8"><span class="sec">§8</span>Несколько результатов функции — один кортеж</h2><figure class="code"><figcaption><span>main.py</span><span>координаты точки</span></figcaption><pre><span class="k">def</span> <span class="f">get_point</span>():
+<span class="f">print</span>(editable)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>содержимое то же, типы разные</span></figcaption><pre>(10, 20, 30)
+[10, 20, 30]</pre></figure>
+        <p>Приём с двойным преобразованием решает типичную задачу: получить изменённый вариант неизменяемых данных. Кортеж превращают в список, меняют, собирают обратно.</p>
+        <p>При преобразовании множества порядок результата заранее неизвестен: у множества позиционного порядка нет.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Несколько результатов функции</h2>
+        <p>Функция возвращает ровно одно значение. Когда результатов несколько, они автоматически собираются в кортеж — благодаря правилу из §4.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два числа через запятую</span></figcaption>
+<pre><span class="k">def</span> <span class="f">get_point</span>():
     <span class="k">return</span> <span class="n">10</span>, <span class="n">20</span>
 
 result = <span class="f">get_point</span>()
+
 <span class="f">print</span>(result)
-<span class="f">print</span>(<span class="f">type</span>(result))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>один объект tuple</span></figcaption><pre>(10, 20)
+<span class="f">print</span>(<span class="f">type</span>(result))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>один объект tuple</span></figcaption><pre>(10, 20)
 &lt;class 'tuple'&gt;</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>Распаковка связывает позиции с именами</h2><figure class="code"><figcaption><span>main.py</span><span>обычная и расширенная распаковка</span></figcaption><pre>name, age, role = (<span class="s">"Max"</span>, <span class="n">20</span>, <span class="s">"admin"</span>)
+        <p>Скобки в <code>return</code> писать не обязательно — их роль играет запятая. Это самое частое место, где кортеж появляется в коде, даже если о нём не думали.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Распаковка</h2>
+        <p>Обратная операция — разложить кортеж по именам. Разбиралась она в главе 6.6, здесь важно, что источником обычно служит именно кортеж.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обычная и расширенная распаковка</span></figcaption>
+<pre>name, age, role = (<span class="s">"Max"</span>, <span class="n">20</span>, <span class="s">"admin"</span>)
 first, *middle, last = (<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>)
 
 <span class="f">print</span>(name, role)
-<span class="f">print</span>(first, middle, last)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>middle всегда список</span></figcaption><pre>Max admin
+<span class="f">print</span>(first, middle, last)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>middle всегда список</span></figcaption><pre>Max admin
 10 [20, 30] 40</pre></figure>
-<h2 id="s10"><span class="sec">§10</span>Пары словаря приходят как кортежи</h2><figure class="code"><figcaption><span>main.py</span><span>распаковка key, value</span></figcaption><pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>}
+        <p>Число имён слева должно совпадать с числом элементов, иначе <code>ValueError</code>. Форма со звёздочкой снимает это требование для середины.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Пары словаря</h2>
+        <p>Метод <code>items()</code> выдаёт пары «ключ и значение», и каждая такая пара — кортеж. Поэтому привычная запись цикла по словарю на самом деле распаковывает кортежи.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>распаковка прямо в заголовке цикла</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>}
 
 <span class="k">for</span> name, price <span class="k">in</span> prices.items():
-    <span class="f">print</span>(name, price)</pre></figure><p>Каждый элемент <code>items()</code> — пара вида <code>(ключ, значение)</code>. Кортеж из неизменяемых элементов также можно использовать как составной ключ: <code>visits[(user_id, date)]</code>.</p><figure class="code"><figcaption><span>main.py</span><span>составной ключ</span></figcaption><pre>temperatures = {
-    (<span class="s">"Москва"</span>, <span class="s">"утро"</span>): -<span class="n">3</span>,
-    (<span class="s">"Москва"</span>, <span class="s">"вечер"</span>): -<span class="n">7</span>,
-}
-<span class="f">print</span>(temperatures[(<span class="s">"Москва"</span>, <span class="s">"вечер"</span>)])</pre></figure>
-<h2 id="s11"><span class="sec">§11</span>У кортежа два собственных метода</h2><div class="table-scroll"><table><thead><tr><th>Метод</th><th>Результат</th><th>Пример</th></tr></thead><tbody><tr><td><code>count(value)</code></td><td>число совпадений</td><td><code>(1, 1, 2).count(1) == 2</code></td></tr><tr><td><code>index(value)</code></td><td>индекс первого совпадения</td><td><code>(10, 20).index(20) == 1</code></td></tr></tbody></table></div><p>Кроме того, с кортежами работают универсальные функции: <code>len()</code>, <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>sorted()</code>, <code>enumerate()</code> и другие.</p>
-<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>item = (5)</code></td><td>получится <code>int</code>, а не кортеж</td><td><code>item = (5,)</code></td></tr><tr><td><code>point[0] = 7</code></td><td><code>TypeError</code></td><td>создать новый кортеж</td></tr><tr><td><code>a, b = (1, 2, 3)</code></td><td><code>ValueError</code>: число имён не совпало</td><td>добавить имя или использовать <code>*rest</code></td></tr><tr><td>считать вложенный список неизменяемым</td><td>его методы продолжат менять список</td><td>учитывать изменяемость каждого вложенного объекта</td></tr><tr><td>ожидать, что <code>sorted(tuple)</code> вернёт tuple</td><td>результатом будет список</td><td><code>tuple(sorted(data))</code>, если нужен кортеж</td></tr></tbody></table></div>
-<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Что именно создаёт кортеж из одного элемента?</summary><p>Запятая: <code>(value,)</code>. Одни скобки лишь группируют выражение.</p></details><details><summary>Может ли кортеж содержать изменяемый список?</summary><p>Да. Нельзя заменить позицию кортежа, но вложенный список сохраняет собственную изменяемость.</p></details><details><summary>Что возвращает функция с записью return x, y?</summary><p>Один кортеж <code>(x, y)</code>, который затем можно распаковать.</p></details>
-<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Создать</b><code>point = (10, 20)</code><code>single = (5,)</code></div><div><b>Прочитать</b><code>point[0]</code><code>point[1:]</code></div><div><b>Распаковать</b><code>x, y = point</code><code>first, *rest = data</code></div><div><b>Методы</b><code>data.count(value)</code><code>data.index(value)</code></div></div>
-<h3>Итог главы</h3><p>Кортеж сохраняет порядок, поддерживает индексы и срезы, но фиксирует набор позиций. Он особенно полезен для небольших структурированных записей, возврата нескольких результатов, распаковки и составных ключей словаря.</p>
-<div class="pager"><a href="../38-logicheskie-znacheniya-i-none/index.html">← 3.17 and, or и None</a><a href="../../index.html">К содержанию справочника</a><a href="../46-slovari/index.html">4.2 Словари →</a></div><div class="colophon"><span>Глава 4.1 · Кортежи · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+    <span class="f">print</span>(name, price)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две пары</span></figcaption><pre>book 900
+pen 120</pre></figure>
+        <p>То же самое с <code>enumerate()</code> из главы 3.14: он тоже выдаёт кортежи из индекса и значения. Словари подробно разбираются в следующей главе.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Два метода кортежа</h2>
+        <p>Собственных методов у кортежа всего два — оба только читают.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Результат</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><code>count(value)</code></td><td>число совпадений</td><td><code>(1, 1, 2).count(1)</code> → <code>2</code></td></tr>
+              <tr><td><code>index(value)</code></td><td>индекс первого совпадения</td><td><code>(10, 20).index(20)</code> → <code>1</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Сравните со списком, у которого методов больше десятка: разница ровно в том, что все остальные меняли коллекцию. Зато универсальные функции работают одинаково — <code>len()</code>, <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>sorted()</code>, <code>enumerate()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>sorted() возвращает список</span></figcaption>
+<pre>data = (<span class="n">3</span>, <span class="n">1</span>, <span class="n">2</span>)
+
+<span class="f">print</span>(<span class="f">sorted</span>(data))
+<span class="f">print</span>(<span class="f">tuple</span>(<span class="f">sorted</span>(data)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>чтобы получить кортеж, нужно преобразование</span></figcaption><pre>[1, 2, 3]
+(1, 2, 3)</pre></figure>
+
+        <h2 id="s16"><span class="sec">§16</span>Когда кортеж, когда список</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Тип</th><th>Почему</th></tr></thead>
+            <tbody>
+              <tr><td>координаты, дата, размер</td><td><code>tuple</code></td><td>фиксированная запись, меняться не должна</td></tr>
+              <tr><td>несколько результатов функции</td><td><code>tuple</code></td><td>получается сам собой</td></tr>
+              <tr><td>ключ словаря из нескольких частей</td><td><code>tuple</code></td><td>список не хешируется</td></tr>
+              <tr><td>список товаров, который пополняется</td><td><code>list</code></td><td>нужны <code>append()</code> и <code>remove()</code></td></tr>
+              <tr><td>результат, который будут сортировать на месте</td><td><code>list</code></td><td>у кортежа нет <code>sort()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Практическое правило: элементы <b>однородные и их количество меняется</b> — список; поля <b>разного смысла и их набор постоянен</b> — кортеж. В <code>(10, 20)</code> первое число не «такое же, как» второе: это x и y.</p>
+
+        <h2 id="s17"><span class="sec">§17</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>item = (5)</code></td><td>получится <code>int</code>, а не кортеж</td><td><code>item = (5,)</code></td></tr>
+              <tr><td><code>point[0] = 7</code></td><td><code>TypeError</code>: присваивание запрещено</td><td>собрать новый кортеж</td></tr>
+              <tr><td><code>data.append(x)</code> для кортежа</td><td><code>AttributeError</code>: метода нет</td><td><code>data = data + (x,)</code> или взять список</td></tr>
+              <tr><td><code>{[1, 2]: "a"}</code></td><td><code>TypeError: unhashable type: 'list'</code></td><td><code>{(1, 2): "a"}</code></td></tr>
+              <tr><td>ключ-кортеж со списком внутри</td><td>та же ошибка: вложенный список не хешируется</td><td>сделать все уровни неизменяемыми</td></tr>
+              <tr><td><code>a, b = (1, 2, 3)</code></td><td><code>ValueError</code>: число имён не совпало</td><td>добавить имя или <code>a, *rest = ...</code></td></tr>
+              <tr><td>считать вложенный список неизменяемым</td><td>его методы продолжат его менять</td><td>помнить: защищены только позиции</td></tr>
+              <tr><td>ждать кортеж от <code>sorted()</code></td><td>вернётся список</td><td><code>tuple(sorted(data))</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s18"><span class="sec">§18</span>Проверьте себя</h2>
+        <details><summary>Что именно создаёт кортеж из одного элемента?</summary><p>Запятая: <code>(5,)</code>. Скобки только группируют выражение, поэтому <code>(5)</code> — обычное число.</p></details>
+        <details><summary>Почему кортеж может быть ключом словаря, а список — нет?</summary><p>Ключ должен быть хешируемым, а хеш имеет смысл только у неизменяемого объекта: у изменяемого он менялся бы вместе с содержимым, и найти значение стало бы невозможно.</p></details>
+        <details><summary>Может ли кортеж содержать изменяемый список?</summary><p>Да. Заменить позицию нельзя, но вложенный список сохраняет свою изменяемость — и из-за него такой кортеж перестаёт быть хешируемым.</p></details>
+        <details><summary>Что возвращает функция с записью <code>return x, y</code>?</summary><p>Один кортеж <code>(x, y)</code> — его собирает запятая. Дальше его обычно распаковывают.</p></details>
+        <details><summary>Как «добавить» элемент в кортеж?</summary><p>Никак — можно только создать новый: <code>data = data + (x,)</code>. Если это нужно часто, подходящий тип — список.</p></details>
+        <details><summary>Какой тип вернёт срез кортежа?</summary><p>Кортеж. Срез сохраняет тип исходной последовательности.</p></details>
+
+        <h2 id="s19"><span class="sec">§19</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Создать</b><code>point = (10, 20)</code></div>
+          <div><b>Один элемент</b><code>single = (5,)</code></div>
+          <div><b>Без скобок</b><code>values = 1, 2, 3</code></div>
+          <div><b>Прочитать</b><code>point[0]</code><code>point[1:]</code></div>
+          <div><b>Распаковать</b><code>x, y = point</code></div>
+          <div><b>«Добавить»</b><code>point = point + (30,)</code></div>
+          <div><b>Составной ключ</b><code>data[(city, time)]</code></div>
+          <div><b>Методы</b><code>data.count(x)</code><code>data.index(x)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Кортеж сохраняет порядок, поддерживает индексы и срезы, но фиксирует набор позиций: заменить элемент нельзя, а методов изменения у него попросту нет. Создаёт кортеж запятая, а не скобки, — отсюда и <code>return x, y</code>, и обмен значениями <code>a, b = b, a</code>. Неизменяемость даёт хешируемость, и потому кортеж годится в ключи словаря и элементы множества — но только если внутри у него нет изменяемых объектов.</p>
+        <div class="pager">
+          <a href="../38-logicheskie-znacheniya-i-none/index.html">← 3.17 and, or и None</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../46-slovari/index.html">4.2 Словари →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.1 · Кортежи · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,70 +1,350 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>4.3 Методы словарей: часть 1 · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.3</p></div>
-<header class="chapter-head"><span class="chapter-num">4.3</span><h1>Методы словарей:<br>часть 1</h1><p class="lead">Сначала разберём функции, которые принимают словарь как коллекцию, а затем — собственные методы <code>fromkeys()</code>, <code>get()</code> и <code>items()</code>.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Обработка словарей</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Функции коллекций, сортировка, циклы</dd></div><div><dt>Зачем это знать</dt><dd>Считать, сортировать и безопасно читать пары</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Функции и методы</a></li><li><a href="#s2">len</a></li><li><a href="#s3">min и max</a></li><li><a href="#s4">sum</a></li><li><a href="#s5">sorted</a></li><li><a href="#s6">all и any</a></li><li><a href="#s7">enumerate и reversed</a></li><li><a href="#s8">zip</a></li><li><a href="#s9">fromkeys</a></li><li><a href="#s10">get</a></li><li><a href="#s11">items</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Функция принимает словарь, метод принадлежит ему</h2><div class="table-scroll"><table><thead><tr><th>Форма</th><th>Пример</th><th>Смысл</th></tr></thead><tbody><tr><td>универсальная функция</td><td><code>len(data)</code></td><td>работает со многими коллекциями</td></tr><tr><td>метод словаря</td><td><code>data.get(key)</code></td><td>описывает операцию именно словаря</td></tr></tbody></table></div><p>При прямой передаче словаря большинство универсальных функций перебирает его <strong>ключи</strong>. Если нужны значения или пары, это нужно указать через <code>values()</code> или <code>items()</code>.</p>
-<h2 id="s2"><span class="sec">§2</span>len() считает пары</h2><figure class="code"><figcaption><span>main.py</span><span>три ключа — три пары</span></figcaption><pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
-<span class="f">print</span>(<span class="f">len</span>(prices))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>число пар</span></figcaption><pre>3</pre></figure>
-<h2 id="s3"><span class="sec">§3</span>min() и max(): сначала выбираем область</h2><figure class="code"><figcaption><span>main.py</span><span>ключи, значения и ключ по значению</span></figcaption><pre>scores = {<span class="s">"Max"</span>: <span class="n">82</span>, <span class="s">"Anna"</span>: <span class="n">95</span>, <span class="s">"Oleg"</span>: <span class="n">74</span>}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.3 Методы словарей: часть 1 · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.3</span>
+          <h1>Методы словарей:<br>часть 1</h1>
+          <p class="lead">Сначала — универсальные функции, которые принимают словарь как коллекцию. Главное при их использовании: решить, что именно обрабатывать — ключи, значения или пары. По умолчанию всегда берутся ключи, и это источник большинства ошибок.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Словари</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Функции коллекций, сортировка, кортежи</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Считать, сортировать и преобразовывать содержимое словаря</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Функция или метод</a></li>
+            <li><a href="#s2">По умолчанию — ключи</a></li>
+            <li><a href="#s3">len(): число пар</a></li>
+            <li><a href="#s4">min() и max()</a></li>
+            <li><a href="#s5">Ключ с наибольшим значением</a></li>
+            <li><a href="#s6">sum()</a></li>
+            <li><a href="#s7">sorted(): три варианта</a></li>
+            <li><a href="#s8">Сортировка по значению</a></li>
+            <li><a href="#s9">all() и any()</a></li>
+            <li><a href="#s10">enumerate() и reversed()</a></li>
+            <li><a href="#s11">zip(): из двух списков</a></li>
+            <li><a href="#s12">map() и filter()</a></li>
+            <li><a href="#s13">dict.fromkeys()</a></li>
+            <li><a href="#s14">Ловушка общего значения</a></li>
+            <li><a href="#s15">get() не создаёт ключ</a></li>
+            <li><a href="#s16">items() — представление</a></li>
+            <li><a href="#s17">Частые ошибки</a></li>
+            <li><a href="#s18">Проверьте себя</a></li>
+            <li><a href="#s19">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Функция или метод</h2>
+        <p>Со словарём работают два вида инструментов, и различать их полезно по форме записи — как в главе 3.12.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Форма</th><th>Пример</th><th>Смысл</th></tr></thead>
+            <tbody>
+              <tr><td>универсальная функция</td><td><code>len(data)</code></td><td>работает со многими коллекциями</td></tr>
+              <tr><td>метод словаря</td><td><code>data.get(key)</code></td><td>описывает операцию именно словаря</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Функций из первой строки вы уже знаете почти все — они разбирались в главе 3.14 для списков. Со словарём они работают так же, но с одной оговоркой, которой посвящён следующий параграф.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>По умолчанию — ключи</h2>
+        <p>Когда словарь передают функции напрямую, перебираются его <b>ключи</b>. Не значения и не пары.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>три разных набора данных из одного словаря</span></figcaption>
+<pre>prices = {"book": 900, "pen": 120}
+
+prices            → "book", "pen"                ключи
+prices.values()   → 900, 120                     значения
+prices.items()    → ("book", 900), ("pen", 120)  пары</pre>
+        </figure>
+        <p>Это правило действует везде: в <code>for</code>, в <code>sorted()</code>, в <code>max()</code>, в <code>sum()</code>, в <code>list()</code>. Прежде чем вызвать любую функцию, стоит задать себе один вопрос: с чем она должна работать — и дописать <code>.values()</code> или <code>.items()</code>, если ответ не «с ключами».</p>
+
+        <h2 id="s3"><span class="sec">§3</span>len(): число пар</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три ключа — три пары</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
+<span class="f">print</span>(<span class="f">len</span>(prices))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>число пар, а не отдельных значений</span></figcaption><pre>3</pre></figure>
+        <p>Здесь двусмысленности нет: ключей и значений поровну, поэтому <code>len(prices)</code>, <code>len(prices.values())</code> и <code>len(prices.items())</code> дадут одно и то же.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>min() и max()</h2>
+        <p>А вот здесь выбор области решает всё.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два разных вопроса</span></figcaption>
+<pre>scores = {<span class="s">"Max"</span>: <span class="n">82</span>, <span class="s">"Anna"</span>: <span class="n">95</span>, <span class="s">"Oleg"</span>: <span class="n">74</span>}
 
 <span class="f">print</span>(<span class="f">max</span>(scores))
-<span class="f">print</span>(<span class="f">max</span>(scores.values()))
-<span class="f">print</span>(<span class="f">max</span>(scores, key=scores.get))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>лексикографический ключ, балл, победитель</span></figcaption><pre>Oleg
-95
-Anna</pre></figure><p><code>max(scores)</code> сравнивает строки-ключи. В третьей строке кандидаты всё ещё ключи, но параметр <code>key</code> сообщает: сравнивай их по соответствующим баллам.</p>
-<h2 id="s4"><span class="sec">§4</span>sum() обычно применяют к значениям</h2><figure class="code"><figcaption><span>main.py</span><span>сумма числовых значений</span></figcaption><pre>cart = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
-total = <span class="f">sum</span>(cart.values())
-<span class="f">print</span>(total)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>общая стоимость</span></figcaption><pre>3420</pre></figure><p><code>sum(cart)</code> попытался бы складывать строковые ключи и завершился бы <code>TypeError</code>.</p>
-<h2 id="s5"><span class="sec">§5</span>sorted() возвращает новый список</h2><figure class="code"><figcaption><span>main.py</span><span>сортировка пар по цене</span></figcaption><pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
+<span class="f">print</span>(<span class="f">max</span>(scores.values()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>последнее имя по алфавиту и наибольший балл</span></figcaption><pre>Oleg
+95</pre></figure>
+        <p>Первая строка сравнивает строки-ключи по правилам главы 5.1 — то есть по кодовым точкам, и «Oleg» побеждает просто потому, что <code>O</code> идёт после <code>A</code> и <code>M</code>. К баллам это отношения не имеет. Вторая строка даёт максимальный балл, но уже не говорит, чей он.</p>
 
-by_name = <span class="f">sorted</span>(prices)
-by_price = <span class="f">sorted</span>(prices.items(), key=<span class="k">lambda</span> item: item[<span class="n">1</span>])
+        <h2 id="s5"><span class="sec">§5</span>Ключ с наибольшим значением</h2>
+        <p>Обычно нужен именно третий вариант: не имя и не балл по отдельности, а <b>имя того, у кого балл наибольший</b>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>кандидаты — ключи, сравнение — по значениям</span></figcaption>
+<pre>scores = {<span class="s">"Max"</span>: <span class="n">82</span>, <span class="s">"Anna"</span>: <span class="n">95</span>, <span class="s">"Oleg"</span>: <span class="n">74</span>}
 
-<span class="f">print</span>(by_name)
-<span class="f">print</span>(by_price)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два порядка</span></figcaption><pre>['bag', 'book', 'pen']
-[('pen', 120), ('book', 900), ('bag', 2400)]</pre></figure><p>Исходный словарь не меняется. В <code>item[1]</code> находится значение пары <code>(ключ, значение)</code>.</p>
-<h2 id="s6"><span class="sec">§6</span>all() и any() сворачивают проверки</h2><figure class="code"><figcaption><span>main.py</span><span>состояния заданий</span></figcaption><pre>completed = {<span class="s">"theory"</span>: <span class="k">True</span>, <span class="s">"practice"</span>: <span class="k">False</span>, <span class="s">"test"</span>: <span class="k">True</span>}
+<span class="f">print</span>(<span class="f">max</span>(scores, key=scores.get))
+<span class="f">print</span>(<span class="f">min</span>(scores, key=scores.get))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>лучший и худший результат</span></figcaption><pre>Anna
+Oleg</pre></figure>
+        <p>Разберём запись. Перебираются по-прежнему ключи, но параметр <code>key</code> сообщает: «сравнивай их не напрямую, а по результату <code>scores.get</code> от каждого». Метод <code>get</code> передаётся <b>без скобок</b> — как значение, а не как вызов. Подробно этот приём разбирается в главе 6.10.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что вернёт</th></tr></thead>
+            <tbody>
+              <tr><td><code>max(scores)</code></td><td>наибольший ключ</td></tr>
+              <tr><td><code>max(scores.values())</code></td><td>наибольшее значение</td></tr>
+              <tr><td><code>max(scores, key=scores.get)</code></td><td>ключ, у которого наибольшее значение</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>sum()</h2>
+        <p>Складывать имеет смысл значения, поэтому <code>values()</code> здесь обязателен.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>стоимость корзины</span></figcaption>
+<pre>cart = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
+<span class="f">print</span>(<span class="f">sum</span>(cart.values()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>общая сумма</span></figcaption><pre>3420</pre></figure>
+        <p>Забытый <code>values()</code> здесь как раз заметен сразу — Python попытается складывать строки с числом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сложение ключей</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">sum</span>(cart))</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>sum() начинает с нуля и прибавляет ключи</span></figcaption>
+<pre>TypeError: unsupported operand type(s) for +: 'int' and 'str'</pre>
+        </figure>
+        <p>Повезло не всегда: если ключи числовые, ошибки не будет — просто сложатся не те числа.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>sorted(): три варианта</h2>
+        <p>Функция возвращает <b>список</b> и не меняет словарь. Что окажется в списке — снова зависит от области.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ключи, значения и пары</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
+
+<span class="f">print</span>(<span class="f">sorted</span>(prices))
+<span class="f">print</span>(<span class="f">sorted</span>(prices.values()))
+<span class="f">print</span>(<span class="f">sorted</span>(prices.items()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три разных списка</span></figcaption><pre>['bag', 'book', 'pen']
+[120, 900, 2400]
+[('bag', 2400), ('book', 900), ('pen', 120)]</pre></figure>
+        <p>Третья строка сортирует пары, а кортежи сравниваются по первому элементу — то есть по ключу. Чтобы упорядочить по значению, нужен <code>key</code>.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Сортировка по значению</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два способа получить один порядок</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
+
+<span class="f">print</span>(<span class="f">sorted</span>(prices, key=prices.get))
+<span class="f">print</span>(<span class="f">sorted</span>(prices.items(), key=<span class="k">lambda</span> item: item[<span class="n">1</span>]))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ключи по возрастанию цены и полные пары</span></figcaption><pre>['pen', 'book', 'bag']
+[('pen', 120), ('book', 900), ('bag', 2400)]</pre></figure>
+        <p>Первый способ короче, но даёт только ключи. Второй сохраняет и значение: <code>item</code> — это пара <code>(ключ, значение)</code>, а <code>item[1]</code> — её значение. Запись <code>lambda</code> разбирается в главе 6.9; пока достаточно читать её как «взять из пары второй элемент».</p>
+
+        <h2 id="s9"><span class="sec">§9</span>all() и any()</h2>
+        <p>Эти функции сворачивают набор проверок в одно значение и почти всегда применяются к <code>values()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>состояния заданий</span></figcaption>
+<pre>completed = {<span class="s">"theory"</span>: <span class="k">True</span>, <span class="s">"practice"</span>: <span class="k">False</span>, <span class="s">"test"</span>: <span class="k">True</span>}
 
 <span class="f">print</span>(<span class="f">all</span>(completed.values()))
-<span class="f">print</span>(<span class="f">any</span>(completed.values()))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>не все, но хотя бы одно</span></figcaption><pre>False
-True</pre></figure><p><code>all()</code> требует истинности всех элементов, <code>any()</code> — хотя бы одного. Для пустой последовательности результаты равны <code>True</code> и <code>False</code> соответственно.</p>
-<h2 id="s7"><span class="sec">§7</span>enumerate() и reversed() работают с порядком</h2><figure class="code"><figcaption><span>main.py</span><span>нумерация ключей в обратном порядке</span></figcaption><pre>stages = {<span class="s">"draft"</span>: <span class="n">1</span>, <span class="s">"review"</span>: <span class="n">2</span>, <span class="s">"done"</span>: <span class="n">3</span>}
+<span class="f">print</span>(<span class="f">any</span>(completed.values()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>не всё сделано, но хоть что-то — да</span></figcaption><pre>False
+True</pre></figure>
+        <p>Истинность считается по правилам главы 3.16, поэтому годятся не только <code>True</code> и <code>False</code>: пустая строка, ноль и пустой список тоже ложны. У пустой коллекции результаты запоминают отдельно: <code>all([])</code> — <code>True</code>, <code>any([])</code> — <code>False</code>.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>enumerate() и reversed()</h2>
+        <p>Обе функции опираются на порядок добавления пар, который словарь сохраняет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>нумерация ключей с конца</span></figcaption>
+<pre>stages = {<span class="s">"draft"</span>: <span class="n">1</span>, <span class="s">"review"</span>: <span class="n">2</span>, <span class="s">"done"</span>: <span class="n">3</span>}
 
 <span class="k">for</span> number, key <span class="k">in</span> <span class="f">enumerate</span>(<span class="f">reversed</span>(stages), start=<span class="n">1</span>):
-    <span class="f">print</span>(number, key)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>обратный порядок добавления</span></figcaption><pre>1 done
+    <span class="f">print</span>(number, key)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обратный порядок добавления</span></figcaption><pre>1 done
 2 review
 3 draft</pre></figure>
-<h2 id="s8"><span class="sec">§8</span>zip() соединяет ключи со значениями</h2><figure class="code"><figcaption><span>main.py</span><span>два списка → словарь</span></figcaption><pre>names = [<span class="s">"Max"</span>, <span class="s">"Anna"</span>, <span class="s">"Oleg"</span>]
+        <p>Здесь снова перебираются ключи: <code>reversed(stages)</code> разворачивает именно их. Для пар в обратном порядке нужен <code>reversed(stages.items())</code>.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>zip(): из двух списков</h2>
+        <p>Самый частый способ построить словарь из параллельных данных.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>имена и баллы лежали отдельно</span></figcaption>
+<pre>names = [<span class="s">"Max"</span>, <span class="s">"Anna"</span>, <span class="s">"Oleg"</span>]
 scores = [<span class="n">82</span>, <span class="n">95</span>, <span class="n">74</span>]
 
-result = <span class="f">dict</span>(<span class="f">zip</span>(names, scores))
-<span class="f">print</span>(result)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три пары</span></figcaption><pre>{'Max': 82, 'Anna': 95, 'Oleg': 74}</pre></figure><p><code>zip()</code> заканчивает работу вместе с самой короткой входной последовательностью.</p>
-<h3>map() и filter() получают выбранное представление</h3><p>Эти функции тоже перебирают переданный объект. Поэтому для преобразования значений передают <code>values()</code>, а для фильтрации пар — <code>items()</code>.</p><figure class="code"><figcaption><span>main.py</span><span>скидка и отбор дорогих товаров</span></figcaption><pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
+<span class="f">print</span>(<span class="f">dict</span>(<span class="f">zip</span>(names, scores)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три пары</span></figcaption><pre>{'Max': 82, 'Anna': 95, 'Oleg': 74}</pre></figure>
+        <p><code>zip()</code> заканчивает работу вместе с самой короткой последовательностью — лишние элементы молча отбрасываются. Если списки должны быть одинаковой длины, это стоит проверить заранее.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>map() и filter()</h2>
+        <p>Эти функции тоже перебирают переданный объект, поэтому и здесь нужно указать область.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>скидка на значения и отбор пар</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>, <span class="s">"bag"</span>: <span class="n">2400</span>}
 
 discounted = <span class="f">list</span>(<span class="f">map</span>(<span class="k">lambda</span> price: price * <span class="n">0.9</span>, prices.values()))
 expensive = <span class="f">dict</span>(<span class="f">filter</span>(<span class="k">lambda</span> item: item[<span class="n">1</span>] &gt;= <span class="n">500</span>, prices.items()))
 
 <span class="f">print</span>(discounted)
-<span class="f">print</span>(expensive)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>список значений и новый словарь</span></figcaption><pre>[810.0, 108.0, 2160.0]
+<span class="f">print</span>(expensive)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список значений и новый словарь</span></figcaption><pre>[810.0, 108.0, 2160.0]
 {'book': 900, 'bag': 2400}</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>dict.fromkeys() создаёт одинаковые начальные значения</h2><figure class="code"><figcaption><span>main.py</span><span>статусы для трёх ключей</span></figcaption><pre>fields = (<span class="s">"name"</span>, <span class="s">"email"</span>, <span class="s">"phone"</span>)
+        <p>Обратите внимание на разницу: <code>map()</code> по значениям теряет ключи, поэтому результат — список. <code>filter()</code> по парам их сохраняет, и результат можно снова свернуть в словарь. Ту же работу короче делает словарное включение из главы 4.10.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>dict.fromkeys()</h2>
+        <p>Метод создаёт словарь из набора ключей с одинаковым начальным значением.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>заготовка формы</span></figcaption>
+<pre>fields = (<span class="s">"name"</span>, <span class="s">"email"</span>, <span class="s">"phone"</span>)
 form = <span class="f">dict</span>.fromkeys(fields, <span class="k">None</span>)
-<span class="f">print</span>(form)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>одно начальное значение</span></figcaption><pre>{'name': None, 'email': None, 'phone': None}</pre></figure><aside class="margin-note margin-note--warn"><b>Общий изменяемый объект</b><p><code>dict.fromkeys(keys, [])</code> поставит во все пары один и тот же список. Для независимых списков используйте включение: <code>{key: [] for key in keys}</code>.</p></aside>
-<h2 id="s10"><span class="sec">§10</span>get() читает без KeyError</h2><figure class="code"><figcaption><span>main.py</span><span>подсчёт слов через get</span></figcaption><pre>counts = {}
 
-<span class="k">for</span> word <span class="k">in</span> [<span class="s">"python"</span>, <span class="s">"sql"</span>, <span class="s">"python"</span>]:
-    counts[word] = counts.get(word, <span class="n">0</span>) + <span class="n">1</span>
+<span class="f">print</span>(form)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три ключа, значения пусты</span></figcaption><pre>{'name': None, 'email': None, 'phone': None}</pre></figure>
+        <p>Второй аргумент необязателен: без него все значения станут <code>None</code>. Обратите внимание на форму записи — <code>dict.fromkeys()</code> вызывается у самого типа, а не у существующего словаря.</p>
 
-<span class="f">print</span>(counts)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>частоты</span></figcaption><pre>{'python': 2, 'sql': 1}</pre></figure><p><code>get()</code> не добавляет отсутствующий ключ. Он только возвращает запасное значение для текущего выражения.</p>
-<h2 id="s11"><span class="sec">§11</span>items() выдаёт пары для перебора</h2><figure class="code"><figcaption><span>main.py</span><span>каждая пара распаковывается</span></figcaption><pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>}
+        <h2 id="s14"><span class="sec">§14</span>Ловушка общего значения</h2>
+        <p>Метод ставит во все пары <b>один и тот же объект</b>. Для <code>None</code> и чисел это незаметно — они неизменяемы. Для списка последствия наглядны.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>добавляем в один ключ</span></figcaption>
+<pre>groups = <span class="f">dict</span>.fromkeys([<span class="s">"a"</span>, <span class="s">"b"</span>], [])
+groups[<span class="s">"a"</span>].append(<span class="n">1</span>)
 
-<span class="k">for</span> name, price <span class="k">in</span> prices.items():
-    <span class="f">print</span>(<span class="s">f"{name}: {price} ₽"</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две пары</span></figcaption><pre>book: 900 ₽
-pen: 120 ₽</pre></figure><p><code>items()</code> возвращает динамическое представление, связанное со словарём, а не готовый список. Если список действительно нужен, используйте <code>list(prices.items())</code>.</p>
-<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>sum(prices)</code> при строковых ключах</td><td><code>TypeError</code></td><td><code>sum(prices.values())</code></td></tr><tr><td><code>max(scores)</code> для лучшего балла</td><td>сравнятся ключи</td><td><code>max(scores, key=scores.get)</code></td></tr><tr><td><code>prices.items()[0]</code></td><td>представление не поддерживает индекс</td><td><code>list(prices.items())[0]</code>, если это необходимо</td></tr><tr><td><code>dict.fromkeys(keys, [])</code></td><td>все ключи разделят один список</td><td><code>{key: [] for key in keys}</code></td></tr><tr><td>ожидать, что <code>get()</code> создаст ключ</td><td>словарь не изменится</td><td>присвоить значение или применить <code>setdefault()</code></td></tr></tbody></table></div>
-<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Что перебирает функция sorted(data), если data — словарь?</summary><p>Ключи. Для пар используют <code>sorted(data.items())</code>, для значений — <code>sorted(data.values())</code>.</p></details><details><summary>Меняет ли get() словарь?</summary><p>Нет. Метод только читает существующее значение или возвращает запасное.</p></details><details><summary>Почему fromkeys(keys, []) опасен?</summary><p>Все ключи получают один и тот же изменяемый список, поэтому изменение через один ключ видно через остальные.</p></details>
-<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Размер и сумма</b><code>len(data)</code><code>sum(data.values())</code></div><div><b>Экстремум</b><code>max(data.values())</code><code>max(data, key=data.get)</code></div><div><b>Пары</b><code>data.items()</code><code>for key, value in data.items():</code></div><div><b>Создание и чтение</b><code>dict.fromkeys(keys)</code><code>data.get(key, default)</code></div></div>
-<h3>Итог главы</h3><p>Перед универсальной функцией важно выбрать, что именно обрабатывать: ключи, значения или пары. Методы <code>fromkeys()</code>, <code>get()</code> и <code>items()</code> решают отдельные задачи создания, безопасного чтения и перебора словаря.</p>
-<div class="pager"><a href="../46-slovari/index.html">← 4.2 Словари</a><a href="../../index.html">К содержанию справочника</a><a href="../48-metody-slovarey-2/index.html">4.4 Методы словарей: часть 2 →</a></div><div class="colophon"><span>Глава 4.3 · Методы словарей I · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="f">print</span>(groups)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>изменились оба</span></figcaption><pre>{'a': [1], 'b': [1]}</pre></figure>
+        <p>Это та же история, что с двумя именами одного списка из главы 3.10: список создан один раз, а ссылок на него теперь две. Решение — словарное включение, которое создаёт новый список на каждом шаге.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>независимые списки</span></figcaption>
+<pre>groups = {key: [] <span class="k">for</span> key <span class="k">in</span> [<span class="s">"a"</span>, <span class="s">"b"</span>]}
+groups[<span class="s">"a"</span>].append(<span class="n">1</span>)
+
+<span class="f">print</span>(groups)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>затронут только один ключ</span></figcaption><pre>{'a': [1], 'b': []}</pre></figure>
+
+        <h2 id="s15"><span class="sec">§15</span>get() не создаёт ключ</h2>
+        <p>Метод <code>get()</code> разбирался в главе 4.2, но одну его особенность стоит подчеркнуть отдельно: он только читает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>после чтения словарь прежний</span></figcaption>
+<pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>}
+user.get(<span class="s">"age"</span>, <span class="n">0</span>)
+
+<span class="f">print</span>(user)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ключ age не появился</span></figcaption><pre>{'name': 'Max'}</pre></figure>
+        <p>Запасное значение существует только внутри выражения. Поэтому счётчик из главы 4.2 и записывают в две операции: <code>counts[word] = counts.get(word, 0) + 1</code> — сначала прочитать, потом присвоить. Метод, который читает и сразу создаёт ключ, называется <code>setdefault()</code> и разбирается в главе 4.4.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>items() — представление</h2>
+        <p><code>items()</code> возвращает не список, а <span class="term">представление</span> — динамическое окно в словарь.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обращение по индексу</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>}
+<span class="f">print</span>(prices.items()[<span class="n">0</span>])</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>это не список</span></figcaption>
+<pre>TypeError: 'dict_items' object is not subscriptable</pre>
+        </figure>
+        <p>Для перебора циклом представления достаточно, и это самый частый случай.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обычный перебор пар</span></figcaption>
+<pre><span class="k">for</span> name, price <span class="k">in</span> prices.items():
+    <span class="f">print</span>(<span class="s">f"{name}: {price} ₽"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две пары</span></figcaption><pre>book: 900 ₽
+pen: 120 ₽</pre></figure>
+        <p>Если нужен именно список — с индексами и срезами, — представление оборачивают: <code>list(prices.items())</code>. Чем «динамическое» отличается от обычного и почему это важно, разбирается в главе 4.4.</p>
+
+        <h2 id="s17"><span class="sec">§17</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>sum(prices)</code> при строковых ключах</td><td><code>TypeError</code>: складываются ключи</td><td><code>sum(prices.values())</code></td></tr>
+              <tr><td><code>sum(prices)</code> при числовых ключах</td><td>ошибки нет, сложатся не те числа</td><td>всегда указывать область явно</td></tr>
+              <tr><td><code>max(scores)</code> для лучшего балла</td><td>сравнятся имена по алфавиту</td><td><code>max(scores, key=scores.get)</code></td></tr>
+              <tr><td><code>max(scores, key=scores.get())</code></td><td><code>TypeError</code>: метод вызван, а не передан</td><td><code>key=scores.get</code> без скобок</td></tr>
+              <tr><td><code>sorted(prices.items())</code> для порядка по цене</td><td>отсортируется по ключам</td><td>добавить <code>key=lambda item: item[1]</code></td></tr>
+              <tr><td><code>prices.items()[0]</code></td><td><code>TypeError</code>: представление не индексируется</td><td><code>list(prices.items())[0]</code></td></tr>
+              <tr><td><code>dict.fromkeys(keys, [])</code></td><td>все ключи разделят один список</td><td><code>{key: [] for key in keys}</code></td></tr>
+              <tr><td>ждать, что <code>get()</code> создаст ключ</td><td>словарь не изменится</td><td>присвоить значение или <code>setdefault()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s18"><span class="sec">§18</span>Проверьте себя</h2>
+        <details><summary>Что перебирает <code>sorted(data)</code>, если <code>data</code> — словарь?</summary><p>Ключи. Для значений нужен <code>sorted(data.values())</code>, для пар — <code>sorted(data.items())</code>.</p></details>
+        <details><summary>Чем <code>max(scores)</code> отличается от <code>max(scores, key=scores.get)</code>?</summary><p>Первое сравнивает сами ключи и вернёт последний по алфавиту. Второе тоже перебирает ключи, но сравнивает их по значениям, и вернёт ключ с наибольшим значением.</p></details>
+        <details><summary>Почему <code>key=scores.get</code> пишется без скобок?</summary><p>Передаётся сама функция, а вызывать её для каждого элемента будет <code>max()</code>. Со скобками метод выполнился бы сразу и без аргумента.</p></details>
+        <details><summary>Меняет ли <code>get()</code> словарь?</summary><p>Нет. Метод только читает существующее значение или возвращает запасное — новый ключ при этом не появляется.</p></details>
+        <details><summary>Почему <code>dict.fromkeys(keys, [])</code> опасен?</summary><p>Все ключи получают один и тот же список, поэтому изменение через один ключ видно через остальные.</p></details>
+        <details><summary>Почему <code>prices.items()[0]</code> не работает?</summary><p><code>items()</code> возвращает представление, а не список: у него нет индексов. Нужен <code>list(prices.items())[0]</code>.</p></details>
+
+        <h2 id="s19"><span class="sec">§19</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Размер</b><code>len(data)</code></div>
+          <div><b>Сумма значений</b><code>sum(data.values())</code></div>
+          <div><b>Максимум значения</b><code>max(data.values())</code></div>
+          <div><b>Ключ максимума</b><code>max(data, key=data.get)</code></div>
+          <div><b>По значению</b><code>sorted(data, key=data.get)</code></div>
+          <div><b>Из двух списков</b><code>dict(zip(keys, values))</code></div>
+          <div><b>Заготовка</b><code>dict.fromkeys(keys, 0)</code></div>
+          <div><b>Список пар</b><code>list(data.items())</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Универсальные функции работают со словарём так же, как со списком, но по умолчанию перебирают ключи — и решение «ключи, значения или пары» нужно принимать перед каждым вызовом. Параметр <code>key</code> позволяет перебирать одно, а сравнивать по другому: так находят ключ с наибольшим значением и сортируют словарь по значениям. <code>dict.fromkeys()</code> кладёт во все пары один и тот же объект, поэтому для изменяемых значений нужно включение, а <code>get()</code> только читает и ключей не создаёт.</p>
+        <div class="pager">
+          <a href="../46-slovari/index.html">← 4.2 Словари</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../48-metody-slovarey-2/index.html">4.4 Методы словарей: часть 2 →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.3 · Методы словарей I · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
