@@ -1,0 +1,71 @@
+<!doctype html><html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.2 Методы списков: добавление и удаление · Справочник по Python</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css">
+</head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.2</p></div>
+<header class="chapter-head"><span class="chapter-num">3.2</span><h1>Методы списков:<br>добавление и удаление</h1><p class="lead"><code>append()</code>, <code>extend()</code>, <code>insert()</code> и <code>remove()</code> изменяют исходный список: добавляют один элемент, расширяют набор, вставляют по позиции или удаляют по значению.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Методы list</dd></div><div><dt>Уровень</dt><dd>Начальный</dd></div><div><dt>Связанные темы</dt><dd>Списки, индексы, for</dd></div><div><dt>Зачем это знать</dt><dd>Управлять содержимым списка</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что такое метод</a></li><li><a href="#s2">append(): один элемент</a></li><li><a href="#s3">append() и результат None</a></li><li><a href="#s4">extend(): несколько элементов</a></li><li><a href="#s5">append() или extend()</a></li><li><a href="#s6">insert(): вставка по индексу</a></li><li><a href="#s7">remove(): удаление значения</a></li><li><a href="#s8">Изменение на месте</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li></ol></nav>
+
+<h2 id="s1"><span class="sec">§1</span>Что такое метод</h2><p><span class="term">Метод</span> — действие, принадлежащее объекту. Сначала пишется список, затем точка и вызов метода: <code>список.метод(аргументы)</code>.</p>
+<figure class="code"><figcaption><span>Схема</span><span>объект, точка, метод</span></figcaption><pre>numbers.append(4)
+│       │      └ аргумент
+│       └ метод списка
+└ список</pre></figure>
+
+<h2 id="s2"><span class="sec">§2</span>append(): один элемент</h2><p><code>append(value)</code> добавляет один объект в конец списка.</p>
+<figure class="code"><figcaption><span>main.py</span><span>добавление числа</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+numbers.append(<span class="n">4</span>)
+<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>новый последний элемент</span></figcaption><pre>[1, 2, 3, 4]</pre></figure>
+<p>Аргумент может быть списком, строкой, словарём или другим объектом. В любом случае добавляется ровно один элемент.</p>
+<figure class="code"><figcaption><span>main.py</span><span>вложенный список — один элемент</span></figcaption><pre>data = [<span class="n">1</span>, <span class="n">2</span>]
+data.append([<span class="n">10</span>, <span class="n">20</span>])
+<span class="f">print</span>(data)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>длина списка стала равна 3</span></figcaption><pre>[1, 2, [10, 20]]</pre></figure>
+
+<h2 id="s3"><span class="sec">§3</span>append() и результат None</h2><p><code>append()</code> меняет список и не возвращает новый. Результат вызова равен <code>None</code>.</p>
+<figure class="code"><figcaption><span>main.py</span><span>метод работает на месте</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>]
+result = numbers.append(<span class="n">3</span>)
+<span class="f">print</span>(numbers)
+<span class="f">print</span>(result)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>изменение и возвращаемое значение</span></figcaption><pre>[1, 2, 3]
+None</pre></figure>
+<p>Частый сценарий — постепенно строить список в цикле.</p><figure class="code"><figcaption><span>main.py</span><span>список квадратов</span></figcaption><pre>squares = []
+<span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+    squares.append(number * number)
+<span class="f">print</span>(squares)</pre></figure>
+
+<h2 id="s4"><span class="sec">§4</span>extend(): несколько элементов</h2><p><code>extend(iterable)</code> перебирает переданный объект и добавляет каждый его элемент отдельно.</p>
+<figure class="code"><figcaption><span>main.py</span><span>расширение другим списком</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+numbers.extend([<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>])
+<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>три новых элемента</span></figcaption><pre>[1, 2, 3, 4, 5, 6]</pre></figure>
+<p>Строка тоже итерируема, поэтому <code>extend("abc")</code> добавит три отдельных символа.</p>
+
+<h2 id="s5"><span class="sec">§5</span>append() или extend()</h2>
+<div class="table-scroll"><table><thead><tr><th>Вызов</th><th>Что добавляется</th><th>Результат</th></tr></thead><tbody><tr><td><code>items.append([3, 4])</code></td><td>один вложенный список</td><td><code>[1, 2, [3, 4]]</code></td></tr><tr><td><code>items.extend([3, 4])</code></td><td>два отдельных элемента</td><td><code>[1, 2, 3, 4]</code></td></tr><tr><td><code>items.append("ab")</code></td><td>одна строка</td><td><code>[1, 2, "ab"]</code></td></tr><tr><td><code>items.extend("ab")</code></td><td>два символа</td><td><code>[1, 2, "a", "b"]</code></td></tr></tbody></table></div>
+
+<h2 id="s6"><span class="sec">§6</span>insert(): вставка по индексу</h2><p><code>insert(index, value)</code> вставляет один элемент перед указанной позицией.</p>
+<figure class="code"><figcaption><span>main.py</span><span>вставка между 1 и 2</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+numbers.insert(<span class="n">1</span>, <span class="n">100</span>)
+<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>остальные элементы сдвинулись</span></figcaption><pre>[1, 100, 2, 3]</pre></figure>
+<p><code>insert(0, value)</code> добавляет в начало. Слишком большой положительный индекс приводит к вставке в конец. Отрицательные индексы отсчитывают позицию с конца.</p>
+
+<h2 id="s7"><span class="sec">§7</span>remove(): удаление значения</h2><p><code>remove(value)</code> ищет и удаляет только первое равное значение.</p>
+<figure class="code"><figcaption><span>main.py</span><span>первое вхождение числа 2</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">2</span>]
+numbers.remove(<span class="n">2</span>)
+<span class="f">print</span>(numbers)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>вторая двойка осталась</span></figcaption><pre>[1, 3, 2]</pre></figure>
+<p>Если значения нет, возникает <code>ValueError</code>. Когда отсутствие допустимо, сначала используют проверку <code>in</code>.</p><figure class="code"><figcaption><span>main.py</span><span>безопасное удаление</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+value = <span class="n">10</span>
+<span class="k">if</span> value <span class="k">in</span> numbers:
+    numbers.remove(value)
+<span class="f">print</span>(numbers)</pre></figure>
+
+<h2 id="s8"><span class="sec">§8</span>Изменение на месте</h2><p>Все четыре метода меняют исходный список и обычно возвращают <code>None</code>. В отличие от них выражение <code>numbers + [4]</code> создаёт новый список.</p>
+<div class="margin-note"><b>Не присваивайте результат обратно</b><p>Запись <code>numbers = numbers.append(4)</code> сначала изменит список, а затем заменит переменную значением <code>None</code>.</p></div>
+
+<h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody>
+<tr><td><code>numbers = numbers.append(4)</code></td><td>в <code>numbers</code> попадёт <code>None</code></td><td><code>numbers.append(4)</code></td></tr><tr><td><code>numbers.append(4, 5)</code></td><td><code>TypeError</code>: передано два значения</td><td><code>numbers.extend([4, 5])</code></td></tr><tr><td><code>letters.extend("abc")</code> для одной строки</td><td>строка разделится на символы</td><td><code>letters.append("abc")</code></td></tr><tr><td><code>numbers.remove(10)</code>, когда десятки нет</td><td><code>ValueError</code></td><td>сначала проверить <code>10 in numbers</code></td></tr><tr><td>ожидать, что <code>remove(2)</code> удалит все двойки</td><td>удалится только первая</td><td>повторить удаление или построить новый список</td></tr>
+</tbody></table></div>
+<h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2><details><summary>Чем <code>append()</code> отличается от <code>extend()</code>?</summary><p><code>append()</code> добавляет один объект, а <code>extend()</code> добавляет отдельно все элементы переданного итерируемого объекта.</p></details><details><summary>Что возвращает <code>insert()</code>?</summary><p><code>None</code>: метод меняет список на месте.</p></details><details><summary>Что удаляет <code>remove(value)</code>?</summary><p>Первое вхождение указанного значения.</p></details>
+<h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2><div class="cheat"><div><b>В конец</b><code>items.append(value)</code></div><div><b>Расширить</b><code>items.extend(values)</code></div><div><b>По позиции</b><code>items.insert(index, value)</code></div><div><b>По значению</b><code>items.remove(value)</code></div></div>
+<h3>Итог главы</h3><p><code>append()</code> добавляет один объект, <code>extend()</code> — элементы итерируемого объекта, <code>insert()</code> вставляет по индексу, а <code>remove()</code> удаляет первое совпавшее значение. Все методы изменяют список на месте.</p>
+<div class="pager"><a href="../24-kollekcii/index.html">← 3.1 Коллекции</a><a href="../../index.html">К содержанию справочника</a><a href="../26-metody-spiskov-2/index.html">3.3 Удаление, поиск и сортировка →</a></div><div class="colophon"><span>Глава 3.2 · Методы списков. Часть 1 · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

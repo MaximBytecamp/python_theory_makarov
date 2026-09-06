@@ -1,0 +1,71 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>3.6 Вложенные циклы · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.6</p></div><header class="chapter-head"><span class="chapter-num">3.6</span><h1>Вложенные циклы<br>(nested loops)</h1><p class="lead">Во вложенной конструкции полный внутренний цикл выполняется заново для каждого значения внешнего. Так обрабатывают таблицы, матрицы и пары элементов.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
+<dl class="passport"><div><dt>Категория</dt><dd>Циклы и двумерные данные</dd></div><div><dt>Уровень</dt><dd>Начальный</dd></div><div><dt>Связанные темы</dt><dd>for, range(), вложенные списки</dd></div><div><dt>Зачем это знать</dt><dd>Обрабатывать строки таблиц и сочетания значений</dd></div></dl>
+<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Общая схема</a></li><li><a href="#s2">Пошаговое выполнение</a></li><li><a href="#s3">Количество повторений</a></li><li><a href="#s4">Таблица умножения</a></li><li><a href="#s5">Матрица</a></li><li><a href="#s6">Поиск совпадений</a></li><li><a href="#s7">break во вложенном цикле</a></li><li><a href="#s8">continue во вложенном цикле</a></li><li><a href="#s9">Сложность</a></li><li><a href="#s10">Частые ошибки</a></li><li><a href="#s11">Проверьте себя</a></li><li><a href="#s12">Шпаргалка</a></li></ol></nav>
+
+<h2 id="s1"><span class="sec">§1</span>Общая схема</h2><figure class="code"><figcaption><span>Python</span><span>два уровня повторения</span></figcaption><pre><span class="k">for</span> outer <span class="k">in</span> outer_values:
+    <span class="k">for</span> inner <span class="k">in</span> inner_values:
+        action</pre></figure><p>Внутренний <code>for</code> находится в теле внешнего. Поэтому каждый новый <code>outer</code> запускает весь перебор <code>inner</code> сначала.</p>
+
+<h2 id="s2"><span class="sec">§2</span>Пошаговое выполнение</h2><figure class="code"><figcaption><span>main.py</span><span>все пары от 0 до 2</span></figcaption><pre><span class="k">for</span> row <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
+    <span class="k">for</span> column <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
+        <span class="f">print</span>(row, column)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>девять сочетаний</span></figcaption><pre>0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2</pre></figure><p>При <code>row = 0</code> внутренний цикл получает <code>0, 1, 2</code>. Затем <code>row</code> становится равен <code>1</code>, и внутренний диапазон снова начинается с нуля.</p>
+
+<h2 id="s3"><span class="sec">§3</span>Количество повторений</h2><p>Если внешний цикл делает <code>N</code> повторений, а внутренний — <code>M</code> для каждого внешнего, самое глубокое действие выполняется <code>N × M</code> раз.</p><figure class="code"><figcaption><span>Схема</span><span>произведение размеров</span></figcaption><pre>3 внешних × 3 внутренних = 9 вызовов print()
+4 внешних × 5 внутренних = 20 действий</pre></figure>
+
+<h2 id="s4"><span class="sec">§4</span>Таблица умножения</h2><figure class="code"><figcaption><span>main.py</span><span>таблица 5 × 5</span></figcaption><pre><span class="k">for</span> row <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+    <span class="k">for</span> column <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+        <span class="f">print</span>(row * column, end=<span class="s">" "</span>)
+    <span class="f">print</span>()</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>новая строка после внутреннего цикла</span></figcaption><pre>1 2 3 4 5
+2 4 6 8 10
+3 6 9 12 15
+4 8 12 16 20
+5 10 15 20 25</pre></figure><p><code>print()</code> без аргументов выровнен с внутренним циклом, поэтому выполняется после каждой готовой строки.</p>
+
+<h2 id="s5"><span class="sec">§5</span>Матрица</h2><p>Матрицу можно представить списком строк. Внешний цикл получает строку, внутренний — элементы этой строки.</p><figure class="code"><figcaption><span>main.py</span><span>обход двумерного списка</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>], [<span class="n">7</span>, <span class="n">8</span>, <span class="n">9</span>]]
+<span class="k">for</span> row <span class="k">in</span> matrix:
+    <span class="k">for</span> element <span class="k">in</span> row:
+        <span class="f">print</span>(element)</pre></figure>
+
+<h2 id="s6"><span class="sec">§6</span>Поиск совпадений</h2><p>Вложенные циклы позволяют сравнить каждый элемент первого списка с каждым элементом второго.</p><figure class="code"><figcaption><span>main.py</span><span>общие значения</span></figcaption><pre>first = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+second = [<span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+<span class="k">for</span> left <span class="k">in</span> first:
+    <span class="k">for</span> right <span class="k">in</span> second:
+        <span class="k">if</span> left == right:
+            <span class="f">print</span>(<span class="s">"Совпадение:"</span>, left)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>два совпадения</span></figcaption><pre>Совпадение: 2
+Совпадение: 3</pre></figure>
+
+<h2 id="s7"><span class="sec">§7</span>break во вложенном цикле</h2><p><code>break</code> завершает только ближайший цикл — тот, внутри которого написан.</p><figure class="code"><figcaption><span>main.py</span><span>внутренний цикл останавливается на 2</span></figcaption><pre><span class="k">for</span> outer <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
+    <span class="k">for</span> inner <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>):
+        <span class="k">if</span> inner == <span class="n">2</span>:
+            <span class="k">break</span>
+        <span class="f">print</span>(outer, inner)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>внешний цикл продолжился</span></figcaption><pre>0 0
+0 1
+1 0
+1 1
+2 0
+2 1</pre></figure>
+
+<h2 id="s8"><span class="sec">§8</span>continue во вложенном цикле</h2><p><code>continue</code> пропускает текущий шаг ближайшего цикла. Внешнее значение при этом не меняется.</p><figure class="code"><figcaption><span>main.py</span><span>внутреннее значение 1 пропущено</span></figcaption><pre><span class="k">for</span> outer <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
+    <span class="k">for</span> inner <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
+        <span class="k">if</span> inner == <span class="n">1</span>:
+            <span class="k">continue</span>
+        <span class="f">print</span>(outer, inner)</pre></figure>
+
+<h2 id="s9"><span class="sec">§9</span>Сложность</h2><p>Два полных цикла по <code>n</code> элементов выполняют около <code>n²</code> сравнений. Для <code>100</code> элементов это <code>10 000</code>, а для <code>10 000</code> — уже <code>100 000 000</code>.</p><div class="margin-note"><b>Сначала правильность, затем масштаб</b><p>Вложение удобно и понятно для небольших таблиц. При больших наборах проверьте, можно ли заменить полный перебор множеством, словарём или другим алгоритмом.</p></div>
+
+<h2 id="s10"><span class="sec">§10</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td>внутренний <code>for</code> без отступа</td><td>получатся два независимых цикла</td><td>поместить внутренний цикл в тело внешнего</td></tr><tr><td>ожидать, что внутренний цикл продолжится с прошлого значения</td><td>расчёт шагов будет неверным</td><td>помнить: он начинается заново для каждого внешнего значения</td></tr><tr><td><code>break</code> внутри внутреннего цикла</td><td>внешний цикл продолжит работу</td><td>отдельно управлять выходом из обоих уровней</td></tr><tr><td>перепутать отступ итогового <code>print()</code></td><td>строки таблицы объединятся или будут разбиты неверно</td><td>выровнять его после внутреннего цикла</td></tr><tr><td>полный двойной перебор больших списков</td><td>число операций быстро растёт</td><td>оценить <code>N × M</code> до запуска</td></tr></tbody></table></div>
+<h2 id="s11"><span class="sec">§11</span>Проверьте себя</h2><details><summary>Сколько раз выполнится действие при диапазонах 4 и 5?</summary><p><code>4 × 5 = 20</code> раз.</p></details><details><summary>Какой цикл завершит <code>break</code> внутри внутреннего тела?</summary><p>Только ближайший внутренний цикл.</p></details><details><summary>Почему внутренний цикл запускается повторно?</summary><p>Потому что его полный перебор является телом каждой итерации внешнего цикла.</p></details>
+<h2 id="s12"><span class="sec">§12</span>Шпаргалка</h2><div class="cheat"><div><b>Два уровня</b><code>for row in rows:</code><code>    for item in row:</code></div><div><b>Число действий</b><code>N × M</code></div><div><b>break</b><code>завершает ближайший цикл</code></div><div><b>continue</b><code>пропускает шаг ближайшего</code></div></div>
+<h3>Итог главы</h3><p>Для каждого значения внешнего цикла внутренний цикл проходит все свои значения. Глубокое действие выполняется <code>N × M</code> раз. <code>break</code> и <code>continue</code> управляют только ближайшим циклом.</p>
+<div class="pager"><a href="../28-indeksy-spiska/index.html">← 3.5 Перебор по индексам</a><a href="../../index.html">К содержанию справочника</a><a href="../30-funkcii-kollekciy/index.html">3.7 Функции коллекций →</a></div><div class="colophon"><span>Глава 3.6 · Вложенные циклы · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+</main></div></div></body></html>

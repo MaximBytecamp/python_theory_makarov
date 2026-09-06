@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9">
+  <title>3.1 Коллекции в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head><body><div class="book"><div class="book__body">
+  <div class="spine"><span>Модуль 3 · Коллекции</span></div><main class="leaf">
+    <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 3 · коллекции</p><p class="running__folio">Глава 3.1</p></div>
+    <header class="chapter-head"><span class="chapter-num">3.1</span><h1>Коллекции в Python</h1>
+      <p class="lead">Коллекция хранит группу значений. Выбор между списком, кортежем, множеством и словарём зависит от того, важны ли порядок, изменение, уникальность и обращение по ключу.</p>
+      <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+    </header>
+    <dl class="passport"><div><dt>Категория</dt><dd>Структуры данных</dd></div><div><dt>Уровень</dt><dd>Начальный</dd></div><div><dt>Связанные темы</dt><dd>Типы данных, for, индексы</dd></div><div><dt>Зачем это знать</dt><dd>Хранить и обрабатывать группы значений</dd></div></dl>
+    <nav class="contents"><b>В этой главе</b><ol>
+      <li><a href="#s1">Что такое коллекция</a></li><li><a href="#s2">Четыре основных вида</a></li><li><a href="#s3">Список и индексы</a></li><li><a href="#s4">Изменение списка</a></li><li><a href="#s5">Порядок и доступ</a></li><li><a href="#s6">Изменяемость</a></li><li><a href="#s7">Разные типы элементов</a></li><li><a href="#s8">Вложенные коллекции</a></li><li><a href="#s9">Частые ошибки</a></li><li><a href="#s10">Проверьте себя</a></li><li><a href="#s11">Шпаргалка</a></li>
+    </ol></nav>
+
+    <h2 id="s1"><span class="sec">§1</span>Что такое коллекция</h2>
+    <p><span class="term">Коллекция</span> — структура для хранения нескольких элементов. С коллекцией можно добавлять и удалять значения, искать их, изменять и перебирать циклом — конкретные возможности зависят от её типа.</p>
+    <figure class="code"><figcaption><span>Схема</span><span>одно имя — группа данных</span></figcaption><pre>одно значение: temperature = 18
+группа значений: temperatures = [18, 21, 17, 23]</pre></figure>
+
+    <h2 id="s2"><span class="sec">§2</span>Четыре основных вида</h2>
+    <div class="table-scroll"><table><thead><tr><th>Тип</th><th>Запись</th><th>Главная особенность</th></tr></thead><tbody>
+      <tr><td><code>list</code></td><td><code>[10, 20, 30]</code></td><td>упорядоченный изменяемый список</td></tr>
+      <tr><td><code>tuple</code></td><td><code>(10, 20, 30)</code></td><td>упорядоченная неизменяемая последовательность</td></tr>
+      <tr><td><code>set</code></td><td><code>{10, 20, 30}</code></td><td>неупорядоченный набор уникальных элементов</td></tr>
+      <tr><td><code>dict</code></td><td><code>{"name": "Alex"}</code></td><td>пары «ключ — значение»</td></tr>
+    </tbody></table></div>
+    <p>Дополнительные структуры, например <code>deque</code> и <code>namedtuple</code>, находятся в стандартной библиотеке и изучаются после основных коллекций.</p>
+
+    <h2 id="s3"><span class="sec">§3</span>Список и индексы</h2>
+    <p><span class="term">Список</span> — упорядоченная изменяемая коллекция. Каждый элемент занимает позицию с числовым индексом, а первый индекс равен нулю.</p>
+    <figure class="code"><figcaption><span>Схема</span><span>нулевая индексация</span></figcaption><pre>numbers = [10, 20, 30, 40]
+индекс:     0   1   2   3</pre></figure>
+    <figure class="code"><figcaption><span>main.py</span><span>доступ по индексу</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, <span class="n">40</span>]
+<span class="f">print</span>(numbers[<span class="n">0</span>])
+<span class="f">print</span>(numbers[<span class="n">2</span>])</pre></figure>
+    <figure class="code code--out"><figcaption><span>Вывод</span><span>первый и третий элементы</span></figcaption><pre>10
+30</pre></figure>
+
+    <h2 id="s4"><span class="sec">§4</span>Изменение списка</h2>
+    <p>Элемент списка можно заменить по индексу. Сам список после этого остаётся той же коллекцией, но его содержимое меняется.</p>
+    <figure class="code"><figcaption><span>main.py</span><span>замена второго элемента</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+numbers[<span class="n">1</span>] = <span class="n">50</span>
+<span class="f">print</span>(numbers)</pre></figure>
+    <figure class="code code--out"><figcaption><span>Вывод</span><span>список изменён</span></figcaption><pre>[10, 50, 30]</pre></figure>
+
+    <h2 id="s5"><span class="sec">§5</span>Порядок и доступ</h2>
+    <div class="table-scroll"><table><thead><tr><th>Коллекция</th><th>Порядок</th><th>Как обращаются к элементу</th></tr></thead><tbody>
+      <tr><td><code>list</code>, <code>tuple</code>, <code>str</code></td><td>позиции идут последовательно</td><td>по числовому индексу</td></tr>
+      <tr><td><code>dict</code></td><td>сохраняет порядок добавления</td><td>по ключу, а не по позиции</td></tr>
+      <tr><td><code>set</code></td><td>порядок не предназначен для позиционного доступа</td><td>обычного индекса нет</td></tr>
+    </tbody></table></div>
+    <p>У словаря порядок добавления сохраняется, но запись <code>dictionary[0]</code> означает поиск ключа <code>0</code>, а не первого элемента.</p>
+
+    <h2 id="s6"><span class="sec">§6</span>Изменяемость</h2>
+    <p>Изменяемые коллекции можно обновлять после создания. Неизменяемые нельзя менять по частям — для другого содержимого создают новый объект.</p>
+    <div class="table-scroll"><table><thead><tr><th>Изменяемые</th><th>Неизменяемые</th></tr></thead><tbody><tr><td><code>list</code>, <code>dict</code>, <code>set</code>, <code>deque</code></td><td><code>tuple</code>, <code>str</code>, <code>frozenset</code></td></tr></tbody></table></div>
+    <figure class="code"><figcaption><span>main.py</span><span>кортеж не меняется по индексу</span></figcaption><pre>point = (<span class="n">10</span>, <span class="n">20</span>)
+<span class="f">print</span>(point[<span class="n">0</span>])</pre></figure>
+
+    <h2 id="s7"><span class="sec">§7</span>Разные типы элементов</h2>
+    <p>Список может хранить значения разных типов одновременно.</p>
+    <figure class="code"><figcaption><span>main.py</span><span>смешанный список</span></figcaption><pre>data = [<span class="n">10</span>, <span class="s">"Python"</span>, <span class="k">True</span>, <span class="n">3.14</span>]
+<span class="f">print</span>(data)</pre></figure>
+    <figure class="code code--out"><figcaption><span>Вывод</span><span>типы сохранены</span></figcaption><pre>[10, 'Python', True, 3.14]</pre></figure>
+    <p>Это допустимо, но однородный список обычно проще обрабатывать: например, все температуры или все имена.</p>
+
+    <h2 id="s8"><span class="sec">§8</span>Вложенные коллекции</h2>
+    <p>Элементом списка может быть другая коллекция. Так представляют таблицы и составные записи.</p>
+    <figure class="code"><figcaption><span>main.py</span><span>список строк матрицы</span></figcaption><pre>matrix = [
+    [<span class="n">1</span>, <span class="n">2</span>],
+    [<span class="n">3</span>, <span class="n">4</span>]
+]
+
+<span class="f">print</span>(matrix[<span class="n">1</span>][<span class="n">0</span>])</pre></figure>
+    <figure class="code code--out"><figcaption><span>Вывод</span><span>строка 1, элемент 0</span></figcaption><pre>3</pre></figure>
+
+    <h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2>
+    <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody>
+      <tr><td><code>numbers[1]</code> называют первым элементом</td><td>будет взят второй элемент</td><td>помнить, что первый индекс равен <code>0</code></td></tr>
+      <tr><td><code>numbers[4]</code> для списка из четырёх элементов</td><td><code>IndexError</code></td><td>использовать индексы от <code>0</code> до <code>3</code></td></tr>
+      <tr><td><code>point[0] = 5</code> для кортежа</td><td><code>TypeError</code>: кортеж неизменяем</td><td>создать новый кортеж или выбрать список</td></tr>
+      <tr><td>ожидать постоянный порядок множества</td><td>вывод может идти не в порядке добавления</td><td>не использовать <code>set</code> для позиционных данных</td></tr>
+      <tr><td><code>{}</code> считают пустым множеством</td><td>создастся пустой словарь</td><td>для пустого множества писать <code>set()</code></td></tr>
+    </tbody></table></div>
+
+    <h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2>
+    <details><summary>Как получить первый элемент списка <code>items</code>?</summary><p><code>items[0]</code>, потому что индексация начинается с нуля.</p></details>
+    <details><summary>Какая коллекция хранит только уникальные элементы?</summary><p>Множество <code>set</code>.</p></details>
+    <details><summary>Можно ли заменить элемент кортежа по индексу?</summary><p>Нет. Кортеж неизменяем; для другого содержимого нужно создать новый кортеж.</p></details>
+
+    <h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2>
+    <div class="cheat"><div><b>Список</b><code>[1, 2, 3]</code></div><div><b>Кортеж</b><code>(1, 2, 3)</code></div><div><b>Множество</b><code>{1, 2, 3}</code></div><div><b>Словарь</b><code>{"key": "value"}</code></div></div>
+    <h3>Итог главы</h3><p>Коллекции хранят группы данных. Список изменяем и поддерживает доступ по позиции, кортеж неизменяем, множество хранит уникальные элементы, а словарь связывает ключи со значениями. Тип коллекции выбирают по нужным операциям.</p>
+    <div class="pager"><a href="../23-praktika-for/index.html">← 2.10 Практика for</a><a href="../../index.html">К содержанию справочника</a><a href="../25-metody-spiskov-1/index.html">3.2 Добавление и удаление →</a></div>
+    <div class="colophon"><span>Глава 3.1 · Коллекции в Python · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
+  </main>
+</div></div></body></html>
