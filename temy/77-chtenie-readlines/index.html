@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.10 Чтение: readlines() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.10</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.10</span>
+          <h1>Чтение:<br><code>readlines()</code></h1>
+          <p class="lead">Метод возвращает список всех строк файла — каждую вместе с завершающим переводом строки. Это удобно, когда нужен именно список: с индексами, сортировкой и повторными проходами. Плата — весь файл оказывается в памяти.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Списки, строки, память</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Получить строки файла как обычный список</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Список строк</a></li>
+            <li><a href="#s2">Переводы строк сохраняются</a></li>
+            <li><a href="#s3">Убрать переводы</a></li>
+            <li><a href="#s4">Зачем нужен список</a></li>
+            <li><a href="#s5">Аргумент sizehint</a></li>
+            <li><a href="#s6">Как работает sizehint</a></li>
+            <li><a href="#s7">Пустой файл</a></li>
+            <li><a href="#s8">Позиция после чтения</a></li>
+            <li><a href="#s9">Пара с writelines()</a></li>
+            <li><a href="#s10">readlines() или перебор</a></li>
+            <li><a href="#s11">Три способа получить строки</a></li>
+            <li><a href="#s12">Частые ошибки</a></li>
+            <li><a href="#s13">Проверьте себя</a></li>
+            <li><a href="#s14">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Список строк</h2>
+        <p><code>readlines()</code> читает файл до конца и возвращает список, в котором каждый элемент — одна строка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл из трёх строк</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    lines = file.readlines()
+
+<span class="f">print</span>(lines)
+<span class="f">print</span>(<span class="f">len</span>(lines))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обычный список из главы 3.1</span></figcaption><pre>['первая строка\n', 'вторая строка\n', 'третья строка\n']
+3</pre></figure>
+        <p>Дальше это самый обычный список: доступен по индексу, поддерживает срезы, сортировку и всё остальное из модуля 3.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Переводы строк сохраняются</h2>
+        <p>Как и <code>readline()</code>, метод оставляет <code>\n</code> в конце каждого элемента. Это регулярно портит сравнения.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сравнение с ожидаемым текстом</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    lines = file.readlines()
+
+<span class="f">print</span>(lines[<span class="n">0</span>] == <span class="s">"первая строка"</span>)
+<span class="f">print</span>(lines[<span class="n">0</span>].strip() == <span class="s">"первая строка"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>без очистки совпадения нет</span></figcaption><pre>False
+True</pre></figure>
+
+        <h2 id="s3"><span class="sec">§3</span>Убрать переводы</h2>
+        <p>Есть два способа получить список без <code>\n</code>, и второй короче.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>включение и splitlines()</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    first = [line.strip() <span class="k">for</span> line <span class="k">in</span> file.readlines()]
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    second = file.read().splitlines()
+
+<span class="f">print</span>(first)
+<span class="f">print</span>(second)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результаты совпали</span></figcaption><pre>['первая строка', 'вторая строка', 'третья строка']
+['первая строка', 'вторая строка', 'третья строка']</pre></figure>
+        <p>Разница есть в деталях: <code>strip()</code> из главы 5.9 убирает и пробелы по краям, а <code>splitlines()</code> из главы 5.10 — только переводы строк. Если ведущие пробелы значимы, подходит второй способ.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Зачем нужен список</h2>
+        <p>Построчный перебор из главы 8.9 экономнее, но список умеет то, чего перебор не может.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обращение по индексу и с конца</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    lines = file.readlines()
+
+<span class="f">print</span>(lines[<span class="n">0</span>].strip())
+<span class="f">print</span>(lines[-<span class="n">1</span>].strip())
+<span class="f">print</span>(<span class="f">len</span>(lines))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первая, последняя и количество</span></figcaption><pre>первая строка
+третья строка
+3</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Нужно</th><th>Список подходит</th></tr></thead>
+            <tbody>
+              <tr><td>количество строк</td><td><code>len(lines)</code></td></tr>
+              <tr><td>последняя строка</td><td><code>lines[-1]</code></td></tr>
+              <tr><td>пройти файл дважды</td><td>да, список не «кончается»</td></tr>
+              <tr><td>отсортировать строки</td><td><code>sorted(lines)</code></td></tr>
+              <tr><td>смотреть на соседние строки</td><td><code>lines[i]</code> и <code>lines[i + 1]</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка таблицы — приём из главы 3.6: сравнение соседей требует доступа по индексу, а при построчном переборе предыдущая строка уже потеряна.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Аргумент sizehint</h2>
+        <p>Необязательный аргумент ограничивает объём чтения — но работает не так, как можно подумать.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ограничение в десять символов</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.readlines(<span class="n">10</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строка вернулась целиком, хотя она длиннее</span></figcaption><pre>['первая строка\n']</pre></figure>
+        <p>Обратите внимание: в строке тринадцать символов, а лимит был десять. Метод не обрезает строки — он только решает, читать ли <b>следующую</b>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Как работает sizehint</h2>
+        <ol class="steps">
+          <li>Метод читает очередную строку целиком.</li>
+          <li>Складывает её длину с уже прочитанным.</li>
+          <li>Если сумма достигла <code>sizehint</code> — останавливается.</li>
+          <li>Иначе читает следующую строку.</li>
+        </ol>
+        <p>Отсюда и название: это <b>подсказка</b> (<i>hint</i>), а не жёсткая граница. Даже <code>readlines(1)</code> вернёт одну целую строку — метод никогда не отдаёт обрезанные строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>минимально возможный лимит</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.readlines(<span class="n">1</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>всё равно целая строка</span></figcaption><pre>['первая строка\n']</pre></figure>
+        <p>Этим <code>sizehint</code> отличается от <code>size</code> у <code>read()</code> и <code>readline()</code>: те обрезают ровно по счёту.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Пустой файл</h2>
+        <p>Для пустого файла метод возвращает пустой список — не <code>None</code> и не ошибку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл без содержимого</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"empty.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>):
+    <span class="k">pass</span>
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"empty.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.readlines())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пустой список</span></figcaption><pre>[]</pre></figure>
+        <p>Цикл по такому списку просто не выполнится ни разу — проверять отдельно обычно не требуется.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Позиция после чтения</h2>
+        <p><code>readlines()</code> дочитывает файл до конца, поэтому позиция оказывается в конце — со всеми последствиями из главы 8.8.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>второй вызов</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    first = file.readlines()
+    second = file.readlines()
+
+<span class="f">print</span>(<span class="f">len</span>(first), <span class="f">len</span>(second))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>во второй раз читать нечего</span></figcaption><pre>3 0</pre></figure>
+        <p>Впрочем, повторное чтение здесь и не нужно: полученный список можно перебирать сколько угодно раз — в этом и смысл.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Пара с writelines()</h2>
+        <p>Теперь становится понятно, почему <code>writelines()</code> из главы 8.7 не добавляет переводы строк: два метода образуют пару.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>прочитали и записали обратно</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> source:
+    lines = source.readlines()
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"copy.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> target:
+    target.writelines(lines)
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"copy.txt"</span>, encoding=<span class="s">"utf-8"</span>).read() == <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>файл воспроизведён точь-в-точь</span></figcaption><pre>True</pre></figure>
+        <p>Переводы строк уже внутри элементов — добавь их <code>writelines()</code> сам, копия получилась бы с двойными интервалами.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>readlines() или перебор</h2>
+        <p>Главный недостаток — память: список держит весь файл целиком, да ещё и с накладными расходами на сам список.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th><code>readlines()</code></th><th><code>for line in file</code></th></tr></thead>
+            <tbody>
+              <tr><td>память</td><td>весь файл</td><td>одна строка</td></tr>
+              <tr><td>доступ по индексу</td><td>есть</td><td>нет</td></tr>
+              <tr><td>повторный проход</td><td>есть</td><td>нет</td></tr>
+              <tr><td><code>len()</code></td><td>есть</td><td>нет</td></tr>
+              <tr><td>файл в гигабайты</td><td>опасно</td><td>безопасно</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Правило: если нужен именно <b>список</b> — брать <code>readlines()</code>. Если нужно просто пройти по строкам — перебор.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Три способа получить строки</h2>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>одна задача, три записи</span></figcaption>
+<pre>file.readlines()              список строк С переводами
+file.read().splitlines()      список строк БЕЗ переводов
+for line in file:             по одной, с переводами</pre>
+        </figure>
+        <p>Первые два одинаково расходуют память — оба читают файл целиком. Выбор между ними определяется только тем, нужны ли символы <code>\n</code> в элементах.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>lines[0] == "текст"</code></td><td><code>False</code> из-за <code>\n</code> в конце</td><td><code>lines[0].strip() == "текст"</code></td></tr>
+              <tr><td><code>readlines()</code> для файла в гигабайты</td><td>весь файл окажется в памяти</td><td><code>for line in file</code></td></tr>
+              <tr><td>ждать от <code>readlines(10)</code> ровно десять символов</td><td>строки не обрезаются</td><td>это подсказка, а не лимит</td></tr>
+              <tr><td>второй <code>readlines()</code> того же файла</td><td>вернётся пустой список</td><td>перебирать полученный список</td></tr>
+              <tr><td><code>readlines()</code> после блока <code>with</code></td><td><code>ValueError</code>: файл закрыт</td><td>читать внутри блока</td></tr>
+              <tr><td><code>print(lines)</code> для показа пользователю</td><td>выведется список с <code>\n</code> и кавычками</td><td><code>print("".join(lines))</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2>
+        <details><summary>Что возвращает <code>readlines()</code>?</summary><p>Список строк файла, каждая — вместе с завершающим переводом строки.</p></details>
+        <details><summary>Как получить список без <code>\n</code>?</summary><p><code>file.read().splitlines()</code> или включение со <code>strip()</code> по результату <code>readlines()</code>.</p></details>
+        <details><summary>Обрежет ли <code>readlines(10)</code> длинную строку?</summary><p>Нет. Метод дочитывает строку целиком и только потом решает, читать ли следующую. Это подсказка, а не жёсткая граница.</p></details>
+        <details><summary>Почему <code>writelines()</code> не добавляет переводы строк?</summary><p>Он парный к <code>readlines()</code>, который их сохраняет. Иначе при обратной записи переводов стало бы вдвое больше.</p></details>
+        <details><summary>Когда <code>readlines()</code> предпочтительнее перебора?</summary><p>Когда нужен именно список: доступ по индексу, длина, сортировка, сравнение соседних строк или повторный проход.</p></details>
+        <details><summary>Что вернёт метод для пустого файла?</summary><p>Пустой список <code>[]</code>. Ни ошибки, ни <code>None</code>.</p></details>
+
+        <h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Список строк</b><code>lines = file.readlines()</code></div>
+          <div><b>Без переводов</b><code>file.read().splitlines()</code></div>
+          <div><b>Количество</b><code>len(lines)</code></div>
+          <div><b>Последняя</b><code>lines[-1].strip()</code></div>
+          <div><b>Записать обратно</b><code>target.writelines(lines)</code></div>
+          <div><b>Большой файл</b><code>for line in file:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>readlines()</code> возвращает список всех строк файла вместе с переводами — и потому образует пару с <code>writelines()</code>, позволяя воспроизвести файл точь-в-точь. Список даёт то, чего не даёт построчный перебор: длину, индексы, сортировку и повторные проходы. Аргумент <code>sizehint</code> ограничивает объём, но строки не обрезает — это подсказка, а не лимит. Цена всего этого — весь файл в памяти, поэтому для больших файлов остаётся перебор.</p>
+        <div class="pager">
+          <a href="../76-chtenie-readline/index.html">← 8.9 Чтение: readline()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../78-seek-i-tell/index.html">8.11 seek() и tell() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.10 · Чтение: readlines() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

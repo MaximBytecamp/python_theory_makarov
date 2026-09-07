@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.6 Запись в файл: write() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.6</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.6</span>
+          <h1>Запись в файл:<br><code>write()</code></h1>
+          <p class="lead">Метод записывает строку в текущую позицию и не делает ничего сверх этого: не добавляет перевод строки, не преобразует числа, не спрашивает подтверждения. Два следствия — самые частые сюрпризы темы: всё слипается в одну строку, а режим <code>"w"</code> стирает файл при открытии.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Строки, режимы открытия, кодировки</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Сохранять данные в файл и не потерять существующие</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Последовательная запись</a></li>
+            <li><a href="#s2">Режимы для записи</a></li>
+            <li><a href="#s3">Метод write()</a></li>
+            <li><a href="#s4">Что возвращает write()</a></li>
+            <li><a href="#s5">Перевод строки не добавляется</a></li>
+            <li><a href="#s6">Режим w стирает файл</a></li>
+            <li><a href="#s7">Режим a дописывает</a></li>
+            <li><a href="#s8">Запись нескольких строк</a></li>
+            <li><a href="#s9">Только строки</a></li>
+            <li><a href="#s10">Запись чисел</a></li>
+            <li><a href="#s11">Двоичный режим</a></li>
+            <li><a href="#s12">Зачем нужен двоичный формат</a></li>
+            <li><a href="#s13">Режим w+</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Последовательная запись</h2>
+        <p><span class="term">Последовательный доступ</span> из главы 8.4 означает, что данные пишутся подряд: каждая новая порция ложится в текущую позицию, а позиция сдвигается вперёд. Перескочить к произвольному месту нельзя — этим занимается <code>seek()</code> из главы 8.11.</p>
+        <p>Для записи файл открывают в подходящем режиме, и выбор режима здесь важнее, чем при чтении: ошибка стоит потерянных данных.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Режимы для записи</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Режим</th><th>Что делает</th><th>Существующее содержимое</th></tr></thead>
+            <tbody>
+              <tr><td><code>"w"</code></td><td>открывает для записи</td><td><b>удаляется</b></td></tr>
+              <tr><td><code>"a"</code></td><td>открывает для дозаписи</td><td>сохраняется, запись идёт в конец</td></tr>
+              <tr><td><code>"wb"</code></td><td>двоичная запись</td><td>удаляется</td></tr>
+              <tr><td><code>"w+"</code></td><td>запись и чтение</td><td>удаляется</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Во всех четырёх случаях файл будет создан, если его нет. Разница только в судьбе существующего содержимого.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Метод write()</h2>
+        <p><code>write(string)</code> записывает строку в текущую позицию файла.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>простейшая запись</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"Привет"</span>)
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ровно то, что записали</span></figcaption><pre>'Привет'</pre></figure>
+        <p>Никаких добавлений: ни пробела, ни перевода строки, ни кавычек. Что передали — то и оказалось в файле.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Что возвращает write()</h2>
+        <p>Метод возвращает количество записанных символов — в отличие от методов изменения коллекций из модуля 3, которые возвращали <code>None</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сохраняем результат</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    count = file.write(<span class="s">"Привет"</span>)
+
+<span class="f">print</span>(count)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>шесть символов</span></figcaption><pre>6</pre></figure>
+        <p>Обратите внимание: <b>символов, а не байтов</b>. В UTF-8 эти шесть букв займут на диске двенадцать байтов — разница из главы 5.4. В двоичном режиме метод вернёт именно число байтов.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Перевод строки не добавляется</h2>
+        <p>Самая частая неожиданность: два вызова подряд не создают двух строк.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>без символа перевода строки</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"первая"</span>)
+    file.write(<span class="s">"вторая"</span>)
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>всё слиплось</span></figcaption><pre>'перваявторая'</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перевод строки добавлен вручную</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write("первая\n")
+    file.write("вторая\n")
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две строки</span></figcaption><pre>'первая\nвторая\n'</pre></figure>
+        <p>Это отличает <code>write()</code> от <code>print()</code>, который перевод строки добавляет сам — параметр <code>end</code> из главы 1.4. Здесь такого умолчания нет.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Режим w стирает файл</h2>
+        <p>Второе важное свойство, и оно разрушительное: содержимое удаляется <b>в момент открытия</b>, ещё до первого <code>write()</code>.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>что происходит с файлом</span></figcaption>
+<pre>до запуска:   строка 1
+              строка 2
+
+open(path, "w")   ← файл стал пустым уже здесь
+
+file.write("новое")
+
+после:        новое</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>прежние данные не сохранились</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"новое"</span>)
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>от двух прежних строк не осталось следа</span></figcaption><pre>'новое'</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>При каждом запуске файл обнуляется</b>
+          <p>Программа, которая ведёт журнал в режиме <code>"w"</code>, при каждом запуске теряет весь предыдущий журнал. Ошибка не проявляется на первом запуске — она проявляется на втором, когда терять уже есть что.</p>
+        </div>
+
+        <h2 id="s7"><span class="sec">§7</span>Режим a дописывает</h2>
+        <p>Когда существующее содержимое нужно сохранить, берут режим <code>"a"</code> — от <i>append</i>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>дозапись в конец</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"a"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">" ещё"</span>)
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>прежнее «новое» на месте</span></figcaption><pre>'новое ещё'</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Режим</th></tr></thead>
+            <tbody>
+              <tr><td>создать отчёт заново</td><td><code>"w"</code></td></tr>
+              <tr><td>вести журнал событий</td><td><code>"a"</code></td></tr>
+              <tr><td>сохранить настройки</td><td><code>"w"</code></td></tr>
+              <tr><td>копить измерения</td><td><code>"a"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Запись нескольких строк</h2>
+        <p>Чтобы записать список строк, <code>write()</code> вызывают в цикле, добавляя перевод строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три строки из списка</span></figcaption>
+<pre>lines = [<span class="s">"строка 1"</span>, <span class="s">"строка 2"</span>, <span class="s">"строка 3"</span>]
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="k">for</span> line <span class="k">in</span> lines:
+        file.write(line + "\n")
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>каждая строка со своим переводом</span></figcaption><pre>'строка 1\nстрока 2\nстрока 3\n'</pre></figure>
+        <p>Для этой задачи есть и специальный метод <code>writelines()</code> — ему посвящена глава 8.7. Забегая вперёд: перевод строки он тоже не добавляет.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Только строки</h2>
+        <p>Аргумент должен быть строкой. Число метод не примет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>попытка записать число</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="n">42</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>преобразования не происходит</span></figcaption>
+<pre>TypeError: write() argument must be str, not int</pre>
+        </figure>
+        <p>Это снова отличие от <code>print()</code>, который приводит к строке что угодно. Здесь преобразование нужно делать самому.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Запись чисел</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три способа записать число</span></figcaption>
+<pre>value = <span class="n">42</span>
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="f">str</span>(value) + "\n")
+    file.write(<span class="s">f"значение: {value}\n"</span>)
+    file.write(<span class="s">"итого: {}\n"</span>.format(value))
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>число стало текстом</span></figcaption><pre>42
+значение: 42
+итого: 42</pre></figure>
+        <p>Помните вывод главы 8.4: в текстовом файле лежат символы, а не числа. При чтении обратное преобразование делают через <code>int()</code> или <code>float()</code>.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Двоичный режим</h2>
+        <p>В режиме <code>"wb"</code> метод принимает не строку, а байты — тип <code>bytes</code> из главы 5.4.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>строку нужно закодировать</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.bin"</span>, <span class="s">"wb"</span>) <span class="k">as</span> file:
+    count = file.write(<span class="s">"Привет"</span>.encode(<span class="s">"utf-8"</span>))
+
+<span class="f">print</span>(count)
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"demo.bin"</span>, <span class="s">"rb"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>двенадцать байтов на шесть букв</span></figcaption><pre>12
+b'\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82'</pre></figure>
+        <p>Здесь видна разница из §4: символов было шесть, байтов записано двенадцать. Попытка передать обычную строку в двоичный файл даёт <code>TypeError: a bytes-like object is required, not 'str'</code>. Аргумент <code>encoding</code> в двоичном режиме не указывают — кодирование выполняется вручную.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Зачем нужен двоичный формат</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Причина</th><th>В чём выигрыш</th></tr></thead>
+            <tbody>
+              <tr><td>компактность</td><td>число занимает меньше места, чем его текстовая запись</td></tr>
+              <tr><td>скорость</td><td>не нужно кодировать и разбирать текст</td></tr>
+              <tr><td>точность</td><td>дробные числа сохраняются без округления при выводе</td></tr>
+              <tr><td>нетекстовые данные</td><td>изображения, звук, архивы текстом не выразить</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Плата — нечитаемость: такой файл не открыть Блокнотом и не поправить руками. Поэтому настройки и журналы обычно хранят текстом, а данные большого объёма — в двоичном виде.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Режим w+</h2>
+        <p>Плюс к режиму означает «и чтение, и запись через один объект».</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>записали и тут же прочитали</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w+"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"abc"</span>)
+    file.seek(<span class="n">0</span>)
+    <span class="f">print</span>(file.read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>чтение из того же объекта</span></figcaption><pre>abc</pre></figure>
+        <p>Вызов <code>seek(0)</code> обязателен: после записи позиция стоит в конце файла, и чтение вернуло бы пустую строку. Работа с позицией разбирается в главе 8.11. Режим <code>"w+"</code>, как и <code>"w"</code>, стирает файл при открытии — для чтения существующего с возможностью правки берут <code>"r+"</code>.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>"w"</code> вместо <code>"a"</code> для журнала</td><td>при каждом запуске файл обнуляется</td><td>режим <code>"a"</code></td></tr>
+              <tr><td>два <code>write()</code> подряд без <code>\n</code></td><td>текст слипнется в одну строку</td><td>добавлять <code>"\n"</code> самому</td></tr>
+              <tr><td><code>file.write(42)</code></td><td><code>TypeError</code>: нужна строка</td><td><code>file.write(str(42))</code></td></tr>
+              <tr><td><code>file.write("текст")</code> в режиме <code>"wb"</code></td><td><code>TypeError</code>: нужны байты</td><td><code>"текст".encode("utf-8")</code></td></tr>
+              <tr><td>считать возврат <code>write()</code> байтами</td><td>в текстовом режиме это символы</td><td>для байтов открыть в <code>"wb"</code></td></tr>
+              <tr><td>читать после записи без <code>seek(0)</code></td><td>вернётся пустая строка</td><td>перевести позицию в начало</td></tr>
+              <tr><td>открыть <code>"w"</code>, чтобы «посмотреть» файл</td><td>файл будет очищен</td><td>режим <code>"r"</code></td></tr>
+              <tr><td>писать без <code>encoding</code></td><td>на другой машине файл прочитается иначе</td><td><code>encoding="utf-8"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Когда режим <code>"w"</code> удаляет содержимое файла?</summary><p>В момент открытия — ещё до первого вызова <code>write()</code>. Даже если запись не состоится, файл уже пуст.</p></details>
+        <details><summary>Добавляет ли <code>write()</code> перевод строки?</summary><p>Нет. В отличие от <code>print()</code>, символ <code>\n</code> нужно дописывать самому.</p></details>
+        <details><summary>Что возвращает <code>write()</code>?</summary><p>Количество записанных символов в текстовом режиме и количество байтов — в двоичном.</p></details>
+        <details><summary>Почему <code>file.write(42)</code> — ошибка?</summary><p>Метод принимает только строку и ничего не преобразует. Нужен <code>str(42)</code> или f-строка.</p></details>
+        <details><summary>Чем <code>"a"</code> отличается от <code>"w"</code>?</summary><p><code>"a"</code> сохраняет существующее содержимое и пишет в конец, <code>"w"</code> очищает файл при открытии.</p></details>
+        <details><summary>Зачем <code>seek(0)</code> в режиме <code>"w+"</code>?</summary><p>После записи позиция стоит в конце файла, и чтение вернуло бы пустую строку. <code>seek(0)</code> возвращает её в начало.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Записать</b><code>file.write("текст\n")</code></div>
+          <div><b>Создать заново</b><code>open(path, "w", encoding="utf-8")</code></div>
+          <div><b>Дописать</b><code>open(path, "a", encoding="utf-8")</code></div>
+          <div><b>Число</b><code>file.write(f"{value}\n")</code></div>
+          <div><b>Список строк</b><code>for line in lines: file.write(line + "\n")</code></div>
+          <div><b>Байты</b><code>file.write(text.encode("utf-8"))</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>write()</code> записывает строку в текущую позицию и возвращает число записанных символов. Он не добавляет перевод строки и не преобразует числа — обе привычки достались от <code>print()</code> и здесь не работают. Режим определяет судьбу существующего содержимого: <code>"w"</code> стирает файл уже при открытии, <code>"a"</code> дописывает в конец. В двоичном режиме метод принимает <code>bytes</code>, и строку приходится кодировать вручную.</p>
+        <div class="pager">
+          <a href="../72-kontekstnyy-menedzher-with/index.html">← 8.5 Контекстный менеджер with</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../74-zapis-writelines/index.html">8.7 Запись: writelines() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.6 · Запись в файл: write() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

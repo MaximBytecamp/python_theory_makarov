@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.7 Запись: writelines() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.7</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.7</span>
+          <h1>Запись:<br><code>writelines()</code></h1>
+          <p class="lead">Метод записывает целую последовательность строк за один вызов. Название обманчиво: «lines» здесь не значит «строки файла» — переводы строк <code>writelines()</code> не добавляет, ровно как и <code>write()</code>.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Списки, генераторы, join()</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Записывать коллекцию строк одним вызовом</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что делает метод</a></li>
+            <li><a href="#s2">Ловушка названия</a></li>
+            <li><a href="#s3">Переводы строк вручную</a></li>
+            <li><a href="#s4">Что возвращает</a></li>
+            <li><a href="#s5">Принимает любую последовательность</a></li>
+            <li><a href="#s6">Только строки</a></li>
+            <li><a href="#s7">Генератор вместо списка</a></li>
+            <li><a href="#s8">writelines() или join()</a></li>
+            <li><a href="#s9">writelines() или цикл</a></li>
+            <li><a href="#s10">Как выбрать</a></li>
+            <li><a href="#s11">Частые ошибки</a></li>
+            <li><a href="#s12">Проверьте себя</a></li>
+            <li><a href="#s13">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что делает метод</h2>
+        <p><code>writelines(lines)</code> принимает последовательность строк и записывает их подряд. По сути это цикл из главы 8.6, свёрнутый в один вызов.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>эквивалентные записи</span></figcaption>
+<pre>for line in lines:        то же самое, что
+    file.write(line)      file.writelines(lines)</pre>
+        </figure>
+        <p>Обратите внимание на правую часть схемы: в цикле не было <code>+ "\n"</code>. Это и есть источник главного недоразумения.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Ловушка названия</h2>
+        <p>Название подсказывает, что метод пишет «строки файла» — то есть разделяет их. Это не так.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три элемента списка</span></figcaption>
+<pre>lines = [<span class="s">"первая"</span>, <span class="s">"вторая"</span>, <span class="s">"третья"</span>]
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.writelines(lines)
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>всё в одной строке</span></figcaption><pre>'перваявтораятретья'</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Почему так</b>
+          <p>Метод задуман как обратный к <code>readlines()</code> из главы 8.10. Тот возвращает строки <b>вместе</b> с символами перевода, и если их сразу записать обратно через <code>writelines()</code>, файл восстановится точь-в-точь. Добавляй метод переводы сам — при таком круговом сценарии их стало бы вдвое больше.</p>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Переводы строк вручную</h2>
+        <p>Чтобы получить настоящие строки файла, символ добавляют к каждому элементу — включением из главы 4.10.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перевод строки дописан заранее</span></figcaption>
+<pre>lines = [<span class="s">"первая"</span>, <span class="s">"вторая"</span>, <span class="s">"третья"</span>]
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.writelines([line + "\n" <span class="k">for</span> line <span class="k">in</span> lines])
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три строки</span></figcaption><pre>'первая\nвторая\nтретья\n'</pre></figure>
+        <p>Заметьте: перевод строки оказался и после последнего элемента. Обычно это правильно — текстовые файлы принято завершать переводом строки.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Что возвращает</h2>
+        <p>В отличие от <code>write()</code>, который возвращал число символов, этот метод не возвращает ничего.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>результат вызова</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    result = file.writelines([<span class="s">"a"</span>, <span class="s">"b"</span>])
+
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>None, как у методов изменения из модуля 3</span></figcaption><pre>None</pre></figure>
+        <p>Если нужно знать объём записанного, его считают заранее: <code>sum(len(line) for line in lines)</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Принимает любую последовательность</h2>
+        <p>Аргументом может быть не только список — подойдёт любая итерируемая коллекция.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>кортеж вместо списка</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.writelines((<span class="s">"a"</span>, <span class="s">"b"</span>))
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>кортеж принят так же</span></figcaption><pre>'ab'</pre></figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Только строки</h2>
+        <p>Элементы должны быть строками — ограничение то же, что у <code>write()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>в списке числа</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.writelines([<span class="n">1</span>, <span class="n">2</span>])</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>сообщение от внутреннего write()</span></figcaption>
+<pre>TypeError: write() argument must be str, not int</pre>
+        </figure>
+        <p>Текст ошибки упоминает <code>write()</code>, хотя вызывали <code>writelines()</code>, — потому что метод внутри и вызывает <code>write()</code> для каждого элемента.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Генератор вместо списка</h2>
+        <p>Раз подойдёт любая итерируемая коллекция, годится и генераторное выражение из главы 4.10 — тогда промежуточный список не создаётся.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>числа превращаются в строки на лету</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.writelines(<span class="f">str</span>(n) + "\n" <span class="k">for</span> n <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>))
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>и преобразование, и перевод строки</span></figcaption><pre>'0\n1\n2\n'</pre></figure>
+        <p>Для больших объёмов это существенно: миллион строк не придётся держать в памяти целиком.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>writelines() или join()</h2>
+        <p>Тот же результат даёт <code>join()</code> из главы 5.9 в паре с обычным <code>write()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>склеиваем заранее</span></figcaption>
+<pre>lines = [<span class="s">"первая"</span>, <span class="s">"вторая"</span>, <span class="s">"третья"</span>]
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write("\n".join(lines) + "\n")
+
+<span class="f">print</span>(<span class="f">repr</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>тот же результат, что в §3</span></figcaption><pre>'первая\nвторая\nтретья\n'</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th><code>writelines()</code></th><th><code>write()</code> + <code>join()</code></th></tr></thead>
+            <tbody>
+              <tr><td>переводы строк</td><td>к каждому элементу</td><td>между элементами</td></tr>
+              <tr><td>память</td><td>можно писать по одной</td><td>вся строка собирается целиком</td></tr>
+              <tr><td>завершающий <code>\n</code></td><td>есть сам собой</td><td>нужно дописать</td></tr>
+              <tr><td>подходит для</td><td>больших объёмов</td><td>небольших списков</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Разница в разделителе тонкая: <code>join()</code> ставит перевод <b>между</b> строками, поэтому в конце его приходится добавлять отдельно.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>writelines() или цикл</h2>
+        <p>Третий вариант — обычный цикл из главы 8.6. Он выигрывает, когда каждую строку нужно ещё и обработать.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>когда цикл понятнее</span></figcaption>
+<pre>for line in lines:                  можно фильтровать, считать,
+    if line.strip():                 логировать — что угодно
+        file.write(line + "\n")
+
+file.writelines(lines)              только запись, ничего больше</pre>
+        </figure>
+        <p>Если в теле цикла ничего, кроме <code>write()</code>, — <code>writelines()</code> короче. Как только появляется условие или счётчик, цикл читается лучше.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Как выбрать</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Что использовать</th></tr></thead>
+            <tbody>
+              <tr><td>строки уже с переводами (из <code>readlines()</code>)</td><td><code>writelines(lines)</code></td></tr>
+              <tr><td>небольшой список без переводов</td><td><code>write("\n".join(lines))</code></td></tr>
+              <tr><td>очень много строк</td><td><code>writelines()</code> с генератором</td></tr>
+              <tr><td>нужна фильтрация или обработка</td><td>цикл с <code>write()</code></td></tr>
+              <tr><td>одна строка</td><td><code>write()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>writelines(lines)</code> для строк без <code>\n</code></td><td>всё слипнется в одну строку</td><td>добавить перевод к каждому элементу</td></tr>
+              <tr><td><code>result = file.writelines(...)</code></td><td>в переменной окажется <code>None</code></td><td>метод ничего не возвращает</td></tr>
+              <tr><td><code>writelines([1, 2])</code></td><td><code>TypeError</code>: нужны строки</td><td>преобразовать через <code>str()</code></td></tr>
+              <tr><td><code>writelines("текст")</code></td><td>запишется посимвольно: строка тоже коллекция</td><td><code>write("текст")</code></td></tr>
+              <tr><td><code>write("\n".join(lines))</code> без хвоста</td><td>файл без завершающего перевода</td><td>добавить <code>+ "\n"</code></td></tr>
+              <tr><td>строить список ради миллиона строк</td><td>лишний расход памяти</td><td>передать генератор</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2>
+        <details><summary>Добавляет ли <code>writelines()</code> переводы строк?</summary><p>Нет. Несмотря на название, элементы записываются подряд без разделителей.</p></details>
+        <details><summary>Почему метод устроен именно так?</summary><p>Он парный к <code>readlines()</code>, который возвращает строки вместе с переводами. При обратной записи добавлять их ещё раз было бы неверно.</p></details>
+        <details><summary>Что вернёт <code>writelines()</code>?</summary><p><code>None</code>, в отличие от <code>write()</code>, который возвращает число записанных символов.</p></details>
+        <details><summary>Что случится при <code>writelines("текст")</code>?</summary><p>Строка сама является последовательностью символов, поэтому запишется посимвольно — результат тот же, но намерение неясно. Нужен <code>write()</code>.</p></details>
+        <details><summary>Чем передача генератора лучше списка?</summary><p>Строки не хранятся в памяти целиком: они создаются и записываются по одной.</p></details>
+        <details><summary>Когда лучше обычный цикл?</summary><p>Когда кроме записи нужно что-то ещё — отфильтровать строки, посчитать их, что-то залогировать.</p></details>
+
+        <h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Записать список</b><code>file.writelines(lines)</code></div>
+          <div><b>С переводами</b><code>file.writelines(l + "\n" for l in lines)</code></div>
+          <div><b>Через join</b><code>file.write("\n".join(lines) + "\n")</code></div>
+          <div><b>Числа</b><code>file.writelines(f"{n}\n" for n in nums)</code></div>
+          <div><b>Возвращает</b><code>None</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>writelines()</code> записывает последовательность строк одним вызовом и, вопреки названию, переводов строк не добавляет — так задумано ради симметрии с <code>readlines()</code>. Метод принимает любую итерируемую коллекцию, включая генератор, и потому подходит для больших объёмов. Возвращает он <code>None</code>. Для небольших списков нагляднее пара <code>write()</code> и <code>join()</code>, а если строки нужно ещё и обрабатывать — обычный цикл.</p>
+        <div class="pager">
+          <a href="../73-zapis-write/index.html">← 8.6 Запись в файл: write()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../75-chtenie-read/index.html">8.8 Чтение: read() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.7 · Запись: writelines() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

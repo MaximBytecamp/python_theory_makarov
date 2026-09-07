@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.3 Иерархия исключений · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.3</span>
+          <h1>Иерархия<br>исключений</h1>
+          <p class="lead">Встроенных исключений больше шестидесяти, а со стандартной библиотекой — несколько сотен. Запоминать их по одному бессмысленно: они объединены в дерево наследования, и перехват родителя ловит всех потомков. Знание нескольких узлов этого дерева заменяет знание сотен имён.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Обработка ошибок</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Наследование, типы ошибок, отладка</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Выбирать правильную широту перехвата</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Проблема количества</a></li>
+            <li><a href="#s2">Родитель ловит потомков</a></li>
+            <li><a href="#s3">Пример: LookupError</a></li>
+            <li><a href="#s4">Общее дерево</a></li>
+            <li><a href="#s5">BaseException и Exception</a></li>
+            <li><a href="#s6">Почему не except BaseException</a></li>
+            <li><a href="#s7">ArithmeticError</a></li>
+            <li><a href="#s8">LookupError</a></li>
+            <li><a href="#s9">OSError</a></li>
+            <li><a href="#s10">ValueError и UnicodeError</a></li>
+            <li><a href="#s11">Одиночные исключения</a></li>
+            <li><a href="#s12">Исключения потока выполнения</a></li>
+            <li><a href="#s13">Как узнать предков</a></li>
+            <li><a href="#s14">Выбор широты перехвата</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Проблема количества</h2>
+        <p>Обработка исключений кажется хаотичной, и на то есть причины. Только встроенных исключений больше шестидесяти. Заранее определить, какие из них возможны в конкретном месте, обычно нельзя: типы исключений не указываются в сигнатуре функции, и никакой инструмент не проверит, что вы обработали всё нужное.</p>
+        <p>Выход не в том, чтобы выучить список, а в том, чтобы понять его устройство. Исключения — это классы, связанные наследованием, и <b>перехват родителя ловит всех его потомков</b>. Значит, вместо десятка конкретных типов часто достаточно одной категории.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Родитель ловит потомков</h2>
+        <p>Задача: достать элемент из контейнера, который может оказаться и списком, и словарём. Ошибки будут разные — <code>IndexError</code> или <code>KeyError</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два обработчика для одной задачи</span></figcaption>
+<pre><span class="k">try</span>:
+    item = items[index]
+<span class="k">except</span> IndexError:
+    <span class="c"># выдаётся, если items — последовательность</span>
+    ...
+<span class="k">except</span> KeyError:
+    <span class="c"># выдаётся, если items — отображение</span>
+    ...</pre>
+        </figure>
+        <p>Оба типа наследуют от общего родителя, поэтому запись сокращается вдвое.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>один обработчик вместо двух</span></figcaption>
+<pre><span class="k">try</span>:
+    item = items[index]
+<span class="k">except</span> LookupError:
+    ...</pre>
+        </figure>
+        <p><code>LookupError</code> — категория «ошибка выборки из контейнера». Она достаточно широка, чтобы покрыть оба случая, и достаточно узка, чтобы не поймать что-то постороннее.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Пример: LookupError</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обе ошибки перехвачены одинаково</span></figcaption>
+<pre>values = [<span class="n">1</span>, <span class="n">2</span>]
+mapping = {<span class="s">"a"</span>: <span class="n">1</span>}
+
+<span class="k">for</span> get <span class="k">in</span> (<span class="k">lambda</span>: values[<span class="n">10</span>], <span class="k">lambda</span>: mapping[<span class="s">"z"</span>]):
+    <span class="k">try</span>:
+        <span class="f">get</span>()
+    <span class="k">except</span> LookupError <span class="k">as</span> e:
+        <span class="f">print</span>(<span class="f">type</span>(e).__name__, <span class="s">"-"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>тип разный, обработчик один</span></figcaption><pre>IndexError - list index out of range
+KeyError - 'z'</pre></figure>
+        <p>Запись <code>type(e).__name__</code> показывает настоящий тип пойманного исключения — родитель ловит, но не подменяет.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Общее дерево</h2>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>основные узлы иерархии</span></figcaption>
+<pre>BaseException
+├── SystemExit            выход из программы
+├── KeyboardInterrupt     нажатие Ctrl+C
+└── Exception             все обычные ошибки программы
+    ├── ArithmeticError   → ZeroDivisionError, OverflowError
+    ├── ImportError       → ModuleNotFoundError
+    ├── LookupError       → IndexError, KeyError
+    ├── OSError           → FileNotFoundError, PermissionError
+    ├── ValueError        → UnicodeError → UnicodeDecodeError
+    ├── StopIteration     завершение перебора
+    ├── TypeError, NameError, AttributeError, RuntimeError …</pre>
+        </figure>
+        <p>Восемь узлов сверху — это почти всё, что нужно помнить. Остальные сотни исключений висят на них листьями.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>BaseException и Exception</h2>
+        <p>Корень дерева — <code>BaseException</code>. От него наследует всё, но напрямую — только три особых исключения, которые управляют ходом программы, а не сообщают об ошибке.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Класс</th><th>Что означает</th><th>Ловить?</th></tr></thead>
+            <tbody>
+              <tr><td><code>BaseException</code></td><td>корень всей иерархии</td><td>практически никогда</td></tr>
+              <tr><td><code>SystemExit</code></td><td>намеренное завершение программы</td><td>нет</td></tr>
+              <tr><td><code>KeyboardInterrupt</code></td><td>пользователь нажал Ctrl+C</td><td>нет</td></tr>
+              <tr><td><code>Exception</code></td><td>все обычные ошибки</td><td>да, если нужен общий перехват</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Отсюда практическое правило: <b>ловят <code>Exception</code>, а не <code>BaseException</code></b>. Все ошибки, относящиеся к работе программы, наследуют от <code>Exception</code>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Почему не except BaseException</h2>
+        <p>Разница на первый взгляд формальная, но последствия ощутимые.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>Ctrl+C не является ошибкой программы</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">issubclass</span>(KeyboardInterrupt, Exception))
+<span class="f">print</span>(<span class="f">issubclass</span>(KeyboardInterrupt, BaseException))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>наследует от корня, но не от Exception</span></figcaption><pre>False
+True</pre></figure>
+        <p>Если написать <code>except BaseException</code> в длинном цикле, программа перестанет реагировать на Ctrl+C: нажатие превратится в перехваченное исключение, и цикл продолжит работу. То же с <code>SystemExit</code> — программа не сможет завершиться. Именно поэтому голый <code>except:</code> из главы 8.1 плох: он равнозначен <code>except BaseException</code>.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>ArithmeticError</h2>
+        <p>Категория математических ошибок: <code>ZeroDivisionError</code>, <code>OverflowError</code>, <code>FloatingPointError</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>деление на ноль как частный случай</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="n">1</span> / <span class="n">0</span>
+<span class="k">except</span> ArithmeticError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="f">type</span>(e).__name__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>поймано по родителю</span></figcaption><pre>ZeroDivisionError</pre></figure>
+
+        <h2 id="s8"><span class="sec">§8</span>LookupError</h2>
+        <p>Категория ошибок выборки из контейнера — та самая из §2. Потомков всего два, зато встречаются они постоянно.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Исключение</th><th>Когда</th></tr></thead>
+            <tbody>
+              <tr><td><code>IndexError</code></td><td>индекс за границами списка, кортежа, строки</td></tr>
+              <tr><td><code>KeyError</code></td><td>ключа нет в словаре или множестве</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Категория намеренно узкая: она не включает ошибки, не связанные с выборкой значений. Это и делает её удобной — перехват не поймает лишнего.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>OSError</h2>
+        <p>Самая широкая из категорий: всё, что приходит от операционной системы, — файлы, сетевые подключения, права доступа, каналы, тайм-ауты.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файла не существует</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="f">open</span>(<span class="s">"нет-такого.txt"</span>)
+<span class="k">except</span> OSError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="f">type</span>(e).__name__)
+    <span class="f">print</span>(e.errno, e.filename)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>у OSError есть дополнительные атрибуты</span></figcaption><pre>FileNotFoundError
+2 нет-такого.txt</pre></figure>
+        <p>Это то самое исключение, о котором говорилось в главе 8.2: его <code>args</code> содержат не только текст. Атрибуты <code>errno</code> и <code>filename</code> позволяют разобраться, что именно не получилось. Работа с файлами начинается со следующей главы, и <code>OSError</code> там будет постоянным спутником. Старое имя <code>EnvironmentError</code> — синоним <code>OSError</code>.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>ValueError и UnicodeError</h2>
+        <p><code>ValueError</code> означает «тип аргумента верный, но само значение недопустимо» — с ним встречались, начиная с главы 1.5.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>цепочка наследования</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">issubclass</span>(UnicodeError, ValueError))
+<span class="f">print</span>(<span class="f">issubclass</span>(UnicodeDecodeError, UnicodeError))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три уровня вложенности</span></figcaption><pre>True
+True</pre></figure>
+        <p><code>UnicodeError</code> объединяет ошибки кодирования и декодирования из главы 5.4 — включая <code>UnicodeDecodeError</code>, который возникал при чтении байтов не той кодировкой. То, что он наследует от <code>ValueError</code>, логично: байты имеют верный тип, но недопустимы для выбранной кодировки.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Одиночные исключения</h2>
+        <p>Часть распространённых исключений наследует прямо от <code>Exception</code> и в крупные группы не входит.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Исключение</th><th>Когда возникает</th></tr></thead>
+            <tbody>
+              <tr><td><code>TypeError</code></td><td>операция применена к объекту неверного типа</td></tr>
+              <tr><td><code>NameError</code></td><td>имя не найдено в пространстве имён</td></tr>
+              <tr><td><code>UnboundLocalError</code></td><td>локальная переменная использована до присваивания</td></tr>
+              <tr><td><code>AttributeError</code></td><td>у объекта нет такого атрибута или метода</td></tr>
+              <tr><td><code>RuntimeError</code></td><td>обобщённое «произошло что-то плохое»</td></tr>
+              <tr><td><code>NotImplementedError</code></td><td>возможность не реализована</td></tr>
+              <tr><td><code>AssertionError</code></td><td>неудачная проверка <code>assert</code></td></tr>
+              <tr><td><code>MemoryError</code></td><td>нехватка памяти</td></tr>
+              <tr><td><code>EOFError</code></td><td>конец файла при чтении</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Почти все они встречались в предыдущих модулях: <code>AttributeError</code> — при вызове <code>append()</code> у кортежа, <code>NameError</code> — при обращении к переменной включения из главы 4.10.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Исключения потока выполнения</h2>
+        <p>Три исключения используются не для ошибок, а для управления ходом программы.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Исключение</th><th>Назначение</th><th>Наследует от</th></tr></thead>
+            <tbody>
+              <tr><td><code>SystemExit</code></td><td>завершить программу</td><td><code>BaseException</code></td></tr>
+              <tr><td><code>KeyboardInterrupt</code></td><td>прерывание с клавиатуры</td><td><code>BaseException</code></td></tr>
+              <tr><td><code>StopIteration</code></td><td>перебор закончился</td><td><code>Exception</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><code>SystemExit</code> принимает код завершения или строку: строка выводится в поток ошибок, и программа завершается с кодом 1. <code>KeyboardInterrupt</code> необычно тем, что возникает <b>асинхронно</b> — почти в любой момент и на любой строке. <code>StopIteration</code> — часть протокола итераций из главы 7.1; обратите внимание, что он единственный из трёх наследует от <code>Exception</code>, потому что возникает в обычном ходе работы.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Как узнать предков</h2>
+        <p>Запоминать дерево целиком не нужно — его можно спросить у самого Python.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>цепочка наследования FileNotFoundError</span></figcaption>
+<pre>cls = FileNotFoundError
+chain = []
+
+<span class="k">while</span> cls <span class="k">is not</span> <span class="f">object</span>:
+    chain.append(cls.__name__)
+    cls = cls.__bases__[<span class="n">0</span>]
+
+<span class="f">print</span>(<span class="s">" ← "</span>.join(chain))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>путь до корня</span></figcaption><pre>FileNotFoundError ← OSError ← Exception ← BaseException</pre></figure>
+        <p>Проверить конкретную связь ещё проще: <code>issubclass(FileNotFoundError, OSError)</code> вернёт <code>True</code>. Это тот же инструмент, что <code>isinstance()</code> из главы 6.11, но для классов.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Выбор широты перехвата</h2>
+        <p>Иерархия даёт свободу: одну и ту же ошибку можно поймать на любом уровне. Выбор зависит от того, что обработчик собирается делать.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Ловит</th><th>Когда уместно</th></tr></thead>
+            <tbody>
+              <tr><td><code>except FileNotFoundError</code></td><td>только отсутствие файла</td><td>есть конкретное решение: создать файл</td></tr>
+              <tr><td><code>except OSError</code></td><td>любую системную проблему</td><td>реакция одна на все сбои ввода-вывода</td></tr>
+              <tr><td><code>except Exception</code></td><td>все ошибки программы</td><td>верхний уровень: залогировать и сообщить</td></tr>
+              <tr><td><code>except BaseException</code></td><td>ещё и Ctrl+C</td><td>практически никогда</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Принцип: <b>ловить настолько узко, насколько позволяет обработчик</b>. Если реакция — «попробовать другой путь к файлу», нужен конкретный тип. Если «записать в журнал и продолжить» — годится <code>Exception</code>.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>except BaseException</code></td><td>перехватится и Ctrl+C, и выход из программы</td><td><code>except Exception</code></td></tr>
+              <tr><td>голый <code>except:</code></td><td>то же самое: это <code>BaseException</code></td><td>указать тип явно</td></tr>
+              <tr><td><code>except Exception</code> перед <code>except OSError</code></td><td>второй блок недостижим</td><td>от частного к общему</td></tr>
+              <tr><td>перечислять <code>IndexError</code> и <code>KeyError</code></td><td>лишний код</td><td><code>except LookupError</code></td></tr>
+              <tr><td><code>except Exception</code> ради одной ожидаемой ошибки</td><td>скроются и посторонние сбои</td><td>указать конкретный тип</td></tr>
+              <tr><td>ловить <code>StopIteration</code> вручную в цикле</td><td>цикл <code>for</code> делает это сам</td><td>не перехватывать</td></tr>
+              <tr><td>считать <code>EnvironmentError</code> отдельным типом</td><td>это просто синоним <code>OSError</code></td><td>использовать <code>OSError</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Почему перехват <code>LookupError</code> заменяет два блока?</summary><p><code>IndexError</code> и <code>KeyError</code> наследуют от него, а перехват родителя ловит всех потомков.</p></details>
+        <details><summary>Чем <code>Exception</code> отличается от <code>BaseException</code>?</summary><p><code>Exception</code> — все обычные ошибки программы. <code>BaseException</code> дополнительно включает <code>SystemExit</code> и <code>KeyboardInterrupt</code>, которые управляют ходом выполнения и перехватывать которые не нужно.</p></details>
+        <details><summary>Что случится, если написать <code>except BaseException</code> в длинном цикле?</summary><p>Программа перестанет реагировать на Ctrl+C: нажатие превратится в перехваченное исключение, и цикл продолжится.</p></details>
+        <details><summary>Почему <code>UnicodeError</code> наследует от <code>ValueError</code>?</summary><p>Байты имеют верный тип, но недопустимы для выбранной кодировки — это ровно тот случай, который описывает <code>ValueError</code>.</p></details>
+        <details><summary>Как узнать, от кого наследует незнакомое исключение?</summary><p>Пройти по <code>__bases__</code> до <code>object</code> или проверить связь через <code>issubclass()</code>.</p></details>
+        <details><summary>По какому принципу выбирать широту перехвата?</summary><p>Настолько узко, насколько позволяет обработчик: тип должен соответствовать тому, что этот обработчик действительно умеет чинить.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Общий перехват</b><code>except Exception as e:</code></div>
+          <div><b>Контейнеры</b><code>except LookupError:</code></div>
+          <div><b>Файлы и сеть</b><code>except OSError as e:</code></div>
+          <div><b>Математика</b><code>except ArithmeticError:</code></div>
+          <div><b>Проверить связь</b><code>issubclass(A, B)</code></div>
+          <div><b>Тип пойманного</b><code>type(e).__name__</code></div>
+          <div><b>Не ловить</b><code>BaseException</code><code>except:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Исключения образуют дерево наследования, и перехват родителя ловит всех потомков — поэтому вместо десятков имён достаточно помнить несколько узлов: <code>ArithmeticError</code>, <code>LookupError</code>, <code>OSError</code>, <code>ValueError</code>. Корень <code>BaseException</code> включает <code>SystemExit</code> и <code>KeyboardInterrupt</code>, которые ошибками не являются, — поэтому общий перехват пишут как <code>except Exception</code>, а голый <code>except:</code> не используют вовсе. Широту перехвата выбирают по тому, что обработчик реально способен сделать.</p>
+        <div class="pager">
+          <a href="../69-raise-i-cepochki/index.html">← 8.2 raise и цепочки исключений</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../71-fayly-osnovy/index.html">8.4 Файлы: основные понятия →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.3 · Иерархия исключений · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.1 Исключения: try, except, else, finally · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.1</span>
+          <h1>Исключения: <code>try</code>,<br><code>except</code>, <code>else</code>, <code>finally</code></h1>
+          <p class="lead">Исключение прерывает нормальный ход программы. Блок <code>try</code> отмечает участок, где ошибка возможна, <code>except</code> её обрабатывает, <code>else</code> выполняется при успехе, а <code>finally</code> — в любом случае. Вместе они превращают аварийную остановку в предусмотренный сценарий.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Обработка ошибок</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Типы ошибок, ввод данных, файлы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Не давать программе падать на предсказуемых ошибках</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что такое исключение</a></li>
+            <li><a href="#s2">try и except</a></li>
+            <li><a href="#s3">Что делает except</a></li>
+            <li><a href="#s4">as: сам объект ошибки</a></li>
+            <li><a href="#s5">Несколько блоков except</a></li>
+            <li><a href="#s6">Один блок на несколько типов</a></li>
+            <li><a href="#s7">Порядок блоков важен</a></li>
+            <li><a href="#s8">Область видимости переменной</a></li>
+            <li><a href="#s9">Блок else</a></li>
+            <li><a href="#s10">Блок finally</a></li>
+            <li><a href="#s11">Полный порядок выполнения</a></li>
+            <li><a href="#s12">finally при непойманной ошибке</a></li>
+            <li><a href="#s13">Что не стоит ловить</a></li>
+            <li><a href="#s14">Практика: надёжный ввод</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что такое исключение</h2>
+        <p><span class="term">Исключение</span> — событие во время выполнения программы, которое сообщает об ошибке и прерывает нормальный ход выполнения. Такие события встречались во всех предыдущих модулях.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Причина</th><th>Исключение</th><th>Где разбиралось</th></tr></thead>
+            <tbody>
+              <tr><td>деление на ноль</td><td><code>ZeroDivisionError</code></td><td>глава 1.8</td></tr>
+              <tr><td>обращение к несуществующему элементу</td><td><code>IndexError</code></td><td>глава 3.1</td></tr>
+              <tr><td>обращение к несуществующему ключу</td><td><code>KeyError</code></td><td>глава 4.2</td></tr>
+              <tr><td>неверный тип данных</td><td><code>TypeError</code></td><td>глава 1.2</td></tr>
+              <tr><td>верный тип, недопустимое значение</td><td><code>ValueError</code></td><td>глава 5.1</td></tr>
+              <tr><td>ошибка ввода-вывода</td><td><code>OSError</code></td><td>глава 8.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>До сих пор любое из них означало конец работы: программа печатала трейсбек и останавливалась. Эта глава про то, как перехватить событие и продолжить.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>try и except</h2>
+        <p>Основная конструкция состоит из двух блоков: в <code>try</code> помещают код, который может вызвать ошибку, в <code>except</code> — то, что делать, если она произошла.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>деление на введённое число</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="c"># код, который может вызвать исключение</span>
+    number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите целое число: "</span>))
+    result = <span class="n">10</span> / number
+<span class="k">except</span> ValueError:
+    <span class="c"># обработка ошибки преобразования</span>
+    <span class="f">print</span>(<span class="s">"Ошибка: пожалуйста, введите корректное целое число!"</span>)
+<span class="k">except</span> ZeroDivisionError:
+    <span class="c"># обработка ошибки деления на ноль</span>
+    <span class="f">print</span>(<span class="s">"Ошибка: деление на ноль!"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод при вводе «текст»</span><span>программа не упала</span></figcaption><pre>Ошибка: пожалуйста, введите корректное целое число!</pre></figure>
+        <p>Здесь предусмотрены оба сценария: строка вместо числа даёт <code>ValueError</code> внутри <code>int()</code>, а ноль — <code>ZeroDivisionError</code> при делении.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Что делает except</h2>
+        <p>Важно понимать механику, а не только синтаксис.</p>
+        <ol class="steps">
+          <li>Строки блока <code>try</code> выполняются как обычно, сверху вниз.</li>
+          <li>Как только возникает исключение, <b>остаток блока <code>try</code> пропускается</b> — даже если там оставались строки.</li>
+          <li>Python ищет подходящий <code>except</code>: тот, чей тип совпадает с типом ошибки.</li>
+          <li>Найденный блок выполняется, и программа продолжается со строки после всей конструкции.</li>
+          <li>Если подходящего <code>except</code> нет, исключение уходит дальше и программа останавливается.</li>
+        </ol>
+        <p>Пункт 2 объясняет, почему в примере из §2 переменная <code>result</code> может остаться несозданной: если <code>int()</code> выбросил ошибку, до деления дело не дошло.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>as: сам объект ошибки</h2>
+        <p>Ключевое слово <code>as</code> связывает исключение с переменной — тогда доступно его сообщение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>печатаем и своё пояснение, и текст ошибки</span></figcaption>
+<pre><span class="k">try</span>:
+    number = <span class="f">int</span>(<span class="s">"N/A"</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: неверный ввод!"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>после запятой — сообщение самого Python</span></figcaption><pre>Ошибка: неверный ввод! invalid literal for int() with base 10: 'N/A'</pre></figure>
+        <p>Сообщение из исключения полезно в логах: оно точно называет причину. Пользователю обычно показывают своё пояснение, а исходный текст записывают в журнал.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Несколько блоков except</h2>
+        <p>Блоков может быть сколько угодно — сработает <b>первый подходящий</b>, остальные будут пропущены.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>у каждой ошибки своё сообщение</span></figcaption>
+<pre><span class="k">try</span>:
+    number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите целое число: "</span>))
+    result = <span class="n">10</span> / number
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: неверный ввод!"</span>, e)
+<span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: деление на ноль!"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод при вводе «0»</span><span>сработал второй блок</span></figcaption><pre>Ошибка: деление на ноль! division by zero</pre></figure>
+        <p>Раздельные блоки нужны, когда на разные ошибки реакция разная: одну можно исправить повторным вводом, другую — только сообщением администратору.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Один блок на несколько типов</h2>
+        <p>Если реакция одинаковая, типы перечисляют в кортеже.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обе ошибки обрабатываются вместе</span></figcaption>
+<pre><span class="k">try</span>:
+    result = <span class="n">10</span> / <span class="n">0</span>
+<span class="k">except</span> (ValueError, ZeroDivisionError) <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Произошла ошибка:"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>один блок на два типа</span></figcaption><pre>Произошла ошибка: division by zero</pre></figure>
+        <p>Скобки обязательны — это кортеж из главы 4.1. Без них запись будет синтаксически неверной.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Порядок блоков важен</h2>
+        <p>Раз срабатывает первый подходящий блок, порядок решает исход. Общий тип, поставленный первым, перехватит всё и не даст сработать частным.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>две записи с разным результатом</span></figcaption>
+<pre>except ValueError:      сначала частный случай  ✓
+except Exception:       потом общий
+
+except Exception:       общий перехватит всё
+except ValueError:      сюда управление не попадёт никогда  ✗</pre>
+        </figure>
+        <p>Правило: <b>от частного к общему</b>. Почему <code>Exception</code> перехватывает и <code>ValueError</code>, и почти всё остальное, объясняет глава 8.3 — там разбирается иерархия типов исключений.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Область видимости переменной</h2>
+        <p>Переменная из <code>as</code> живёт только внутри своего блока <code>except</code>. После выхода из него имя удаляется.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обращение к e после блока</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="f">int</span>(<span class="s">"N/A"</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Failed:"</span>, e)
+
+<span class="f">print</span>(e)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод и ошибка</span><span>имя уже не существует</span></figcaption>
+<pre>Failed: invalid literal for int() with base 10: 'N/A'
+NameError: name 'e' is not defined</pre>
+        </figure>
+        <p>Это сделано намеренно: объект исключения хранит ссылки на весь контекст ошибки, и Python освобождает их сразу. Если сообщение нужно дальше, его сохраняют в свою переменную: <code>message = str(e)</code>.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Блок else</h2>
+        <p><code>else</code> выполняется, только если в <code>try</code> <b>не было</b> исключений.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>результат печатается только при успехе</span></figcaption>
+<pre><span class="k">try</span>:
+    number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите целое число: "</span>))
+    result = <span class="n">10</span> / number
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: неверный ввод!"</span>, e)
+<span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: деление на ноль!"</span>, e)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Результат деления:"</span>, result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод при вводе «2»</span><span>ошибок не было</span></figcaption><pre>Результат деления: 5.0</pre></figure>
+        <p>Возникает вопрос: зачем <code>else</code>, если эту строку можно было оставить внутри <code>try</code>? Затем, что <code>try</code> должен содержать <b>только то, что может упасть</b>. Если <code>print()</code> оставить внутри, а он сам вызовет ошибку, её случайно перехватит блок <code>except</code>, написанный совсем для другого случая.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Блок finally</h2>
+        <p><code>finally</code> выполняется <b>в любом случае</b> — и при успехе, и при ошибке, и даже если ошибка не была перехвачена.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>полная конструкция из четырёх блоков</span></figcaption>
+<pre><span class="k">try</span>:
+    number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите целое число: "</span>))
+    result = <span class="n">10</span> / number
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: неверный ввод!"</span>, e)
+<span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка: деление на ноль!"</span>, e)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Результат деления:"</span>, result)
+<span class="k">finally</span>:
+    <span class="f">print</span>(<span class="s">"Операция завершена."</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод при вводе «0»</span><span>finally сработал после except</span></figcaption><pre>Ошибка: деление на ноль! division by zero
+Операция завершена.</pre></figure>
+        <p>Назначение блока — освободить ресурсы: закрыть файл, разорвать соединение с базой, убрать временные данные. Это должно произойти независимо от того, чем закончилась работа.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Полный порядок выполнения</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что случилось в try</th><th>except</th><th>else</th><th>finally</th></tr></thead>
+            <tbody>
+              <tr><td>ошибок не было</td><td>пропускается</td><td>выполняется</td><td>выполняется</td></tr>
+              <tr><td>ошибка перехвачена</td><td>выполняется</td><td>пропускается</td><td>выполняется</td></tr>
+              <tr><td>ошибка не перехвачена</td><td>пропускается</td><td>пропускается</td><td>выполняется, затем программа падает</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Обязателен только <code>try</code> и хотя бы один из <code>except</code> или <code>finally</code>. Блок <code>else</code> без <code>except</code> не бывает.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>finally при непойманной ошибке</h2>
+        <p>Третья строка таблицы — самая показательная. Даже когда обработчика нет и программа обречена упасть, <code>finally</code> успевает отработать.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>except отсутствует вовсе</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">raise</span> <span class="f">ValueError</span>(<span class="s">"наружу"</span>)
+<span class="k">finally</span>:
+    <span class="f">print</span>(<span class="s">"finally всё равно выполнен"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод и ошибка</span><span>сначала уборка, потом падение</span></figcaption>
+<pre>finally всё равно выполнен
+ValueError: наружу</pre>
+        </figure>
+        <p>Именно на этом свойстве построен контекстный менеджер <code>with</code> из главы 8.5: он гарантирует закрытие файла даже при аварии. Оператор <code>raise</code> разбирается в главе 8.2.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Что не стоит ловить</h2>
+        <p>Обработка ошибок легко превращается в их сокрытие. Три записи, которых стоит избегать.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Чем плоха</th></tr></thead>
+            <tbody>
+              <tr><td><code>except:</code> без типа</td><td>перехватывает вообще всё, включая прерывание с клавиатуры</td></tr>
+              <tr><td><code>except Exception: pass</code></td><td>ошибка исчезает бесследно, причина не видна</td></tr>
+              <tr><td>огромный блок <code>try</code></td><td>непонятно, какая именно строка упала</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Правило: ловить <b>конкретный</b> тип и <b>минимальный</b> участок кода. Обработчик должен знать, что именно он чинит; всё остальное лучше пропустить наверх, чтобы ошибка стала видна.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Практика: надёжный ввод</h2>
+        <p>Классическое применение — не дать программе упасть на неверном вводе, а попросить ввести заново.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>цикл повторяется до корректного значения</span></figcaption>
+<pre><span class="k">while</span> <span class="k">True</span>:
+    <span class="k">try</span>:
+        age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Введите возраст: "</span>))
+    <span class="k">except</span> ValueError:
+        <span class="f">print</span>(<span class="s">"Нужно целое число, попробуйте ещё раз."</span>)
+    <span class="k">else</span>:
+        <span class="k">break</span>
+
+<span class="f">print</span>(<span class="s">"Возраст:"</span>, age)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод при вводе «abc», затем «30»</span><span>цикл вышел после успеха</span></figcaption><pre>Нужно целое число, попробуйте ещё раз.
+Возраст: 30</pre></figure>
+        <p>Здесь <code>else</code> работает по назначению: <code>break</code> должен сработать только при успешном преобразовании. Внутри <code>try</code> его ставить не стоит — блок <code>try</code> держат минимальным.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>except Exception</code> перед <code>except ValueError</code></td><td>второй блок недостижим</td><td>от частного к общему</td></tr>
+              <tr><td><code>except ValueError, ZeroDivisionError:</code></td><td><code>SyntaxError</code></td><td>заключить в скобки как кортеж</td></tr>
+              <tr><td>обращение к <code>e</code> после блока <code>except</code></td><td><code>NameError</code></td><td>сохранить <code>str(e)</code> в свою переменную</td></tr>
+              <tr><td><code>except Exception: pass</code></td><td>ошибка исчезает бесследно</td><td>хотя бы записать её в лог</td></tr>
+              <tr><td>весь код программы внутри одного <code>try</code></td><td>непонятно, что именно упало</td><td>оборачивать минимальный участок</td></tr>
+              <tr><td>полезный код в <code>try</code> вместо <code>else</code></td><td>его ошибки перехватит чужой обработчик</td><td>перенести в <code>else</code></td></tr>
+              <tr><td>ждать, что <code>finally</code> отменит ошибку</td><td>исключение всё равно уйдёт дальше</td><td>для перехвата нужен <code>except</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Что происходит с остатком блока <code>try</code> после ошибки?</summary><p>Он пропускается целиком: управление сразу переходит к поиску подходящего <code>except</code>.</p></details>
+        <details><summary>Зачем нужен <code>as e</code>?</summary><p>Чтобы получить сам объект исключения и его сообщение — это точное описание причины, полезное в логах.</p></details>
+        <details><summary>Почему порядок блоков <code>except</code> важен?</summary><p>Срабатывает первый подходящий. Общий тип, поставленный раньше частного, перехватит всё и сделает следующие блоки недостижимыми.</p></details>
+        <details><summary>Чем <code>else</code> лучше, чем те же строки внутри <code>try</code>?</summary><p>В <code>try</code> должно быть только то, что может упасть. Иначе ошибка из «мирного» кода случайно попадёт в обработчик, написанный для другого случая.</p></details>
+        <details><summary>Выполнится ли <code>finally</code>, если исключение никто не перехватил?</summary><p>Да. Он отработает, и только потом программа остановится.</p></details>
+        <details><summary>Чем плоха запись <code>except Exception: pass</code>?</summary><p>Ошибка исчезает бесследно: программа продолжает работу с неверными данными, а причину найти невозможно.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Основа</b><code>try: ... except ValueError: ...</code></div>
+          <div><b>Объект ошибки</b><code>except ValueError as e:</code></div>
+          <div><b>Несколько типов</b><code>except (A, B) as e:</code></div>
+          <div><b>При успехе</b><code>else:</code></div>
+          <div><b>Всегда</b><code>finally:</code></div>
+          <div><b>Порядок</b><code>частное → общее</code></div>
+          <div><b>Сохранить текст</b><code>message = str(e)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Исключение прерывает выполнение, и остаток блока <code>try</code> пропускается. <code>except</code> перехватывает ошибку по типу, срабатывая первым подходящим блоком, — поэтому частные типы пишут раньше общих. <code>as</code> даёт доступ к объекту ошибки, но только внутри своего блока. <code>else</code> отделяет код, который должен идти при успехе, и позволяет держать <code>try</code> минимальным, а <code>finally</code> выполняется всегда — на нём построено надёжное освобождение ресурсов.</p>
+        <div class="pager">
+          <a href="../44-generatory/index.html">← 7.2 Генераторы</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../69-raise-i-cepochki/index.html">8.2 raise и цепочки исключений →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.1 · Исключения: try, except, else, finally · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

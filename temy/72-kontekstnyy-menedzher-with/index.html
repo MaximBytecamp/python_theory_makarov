@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.5 Контекстный менеджер with · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.5</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.5</span>
+          <h1>Контекстный<br>менеджер <code>with</code></h1>
+          <p class="lead">Предыдущая глава закончилась проблемой: <code>close()</code> не выполнится, если между открытием и закрытием произошла ошибка. <code>with</code> решает её на уровне языка — ресурс освобождается при любом выходе из блока, включая аварийный.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы и ресурсы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Исключения, finally, файлы, классы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Гарантированно освобождать ресурсы</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Проблема, которую решает with</a></li>
+            <li><a href="#s2">Синтаксис</a></li>
+            <li><a href="#s3">Закрытие при ошибке</a></li>
+            <li><a href="#s4">with не перехватывает</a></li>
+            <li><a href="#s5">Что делает Python</a></li>
+            <li><a href="#s6">Метод __enter__</a></li>
+            <li><a href="#s7">Метод __exit__</a></li>
+            <li><a href="#s8">Свой контекстный менеджер</a></li>
+            <li><a href="#s9">Исключение внутри блока</a></li>
+            <li><a href="#s10">Подавление исключения</a></li>
+            <li><a href="#s11">Несколько ресурсов сразу</a></li>
+            <li><a href="#s12">Где ещё применяется</a></li>
+            <li><a href="#s13">with или try/finally</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Проблема, которую решает with</h2>
+        <p>Ручное управление файлом требует дисциплины и всё равно ненадёжно.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>три подхода к одной задаче</span></figcaption>
+<pre>file = open(path)          close() не выполнится при ошибке
+...
+file.close()
+
+file = open(path)          работает, но многословно
+try:
+    ...
+finally:
+    file.close()
+
+with open(path) as file:   то же самое, три слова
+    ...</pre>
+        </figure>
+        <p><span class="term">Контекстный менеджер</span> — объект, который умеет сам подготовить ресурс при входе в блок и освободить при выходе. Файл — самый частый его пример, но не единственный.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Синтаксис</h2>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>устройство конструкции</span></figcaption>
+<pre>with open("file.txt", "r") as file:
+     └────────┬────────┘    └─┬┘
+      контекстный менеджер   имя, под которым
+                             он доступен в блоке
+    тело блока               ← здесь ресурс открыт
+
+# здесь уже закрыт</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>запись и автоматическое закрытие</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"данные"</span>)
+
+<span class="f">print</span>(file.closed)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>файл закрыт после выхода из блока</span></figcaption><pre>True</pre></figure>
+        <p>Переменная <code>file</code> после блока остаётся доступной — исчезает не она, а открытый ресурс. Обращаться к закрытому файлу нельзя, но проверить <code>closed</code> можно.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Закрытие при ошибке</h2>
+        <p>Главное свойство: файл закроется, даже если блок прервался исключением.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ошибка посреди работы с файлом</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+        file.write(<span class="s">"данные"</span>)
+        <span class="n">1</span> / <span class="n">0</span>
+<span class="k">except</span> ZeroDivisionError:
+    <span class="f">print</span>(<span class="s">"исключение поймано снаружи"</span>)
+
+<span class="f">print</span>(<span class="s">"файл закрыт:"</span>, file.closed)
+<span class="f">print</span>(<span class="s">"содержимое:"</span>, <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>данные записаны, ресурс освобождён</span></figcaption><pre>исключение поймано снаружи
+файл закрыт: True
+содержимое: данные</pre></figure>
+        <p>Обратите внимание: записанное <b>попало на диск</b>. Закрытие сбрасывает буфер, о котором пойдёт речь в главе 8.12, — без него данные могли бы потеряться.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>with не перехватывает</h2>
+        <p>Частое заблуждение: раз <code>with</code> «обрабатывает исключения», он их и глушит. Это не так — в примере выше ошибка вышла наружу и была поймана внешним <code>try</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Конструкция</th><th>Освобождает ресурс</th><th>Перехватывает ошибку</th></tr></thead>
+            <tbody>
+              <tr><td><code>with</code></td><td>да</td><td>нет</td></tr>
+              <tr><td><code>try / finally</code></td><td>да, если написать</td><td>нет</td></tr>
+              <tr><td><code>try / except</code></td><td>нет</td><td>да</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><code>with</code> — это <code>finally</code>, а не <code>except</code>. Если ошибку нужно ещё и обработать, конструкции сочетают: <code>with</code> внутри <code>try</code>, как в примере §3.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Что делает Python</h2>
+        <p>За <code>with</code> стоит простой протокол из двух методов.</p>
+        <ol class="steps">
+          <li>Вычисляется выражение после <code>with</code> — получается объект-менеджер.</li>
+          <li>У него вызывается <code>__enter__()</code>. Возвращённое значение связывается с именем после <code>as</code>.</li>
+          <li>Выполняется тело блока.</li>
+          <li>При выходе — любом: обычном, через <code>return</code>, <code>break</code> или из-за исключения — вызывается <code>__exit__()</code>.</li>
+        </ol>
+        <p>Никакой магии здесь нет: любой объект с этими двумя методами можно использовать в <code>with</code>. У файлового объекта <code>__enter__()</code> возвращает сам файл, а <code>__exit__()</code> вызывает <code>close()</code>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Метод __enter__</h2>
+        <p>Вызывается при входе в блок. Он готовит ресурс и возвращает то, что попадёт в переменную после <code>as</code>.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>откуда берётся file</span></figcaption>
+<pre>with open("f.txt") as file:
+
+     open(...)          создаёт файловый объект
+     .__enter__()       возвращает его же
+     file = результат   ← вот что попадает в переменную</pre>
+        </figure>
+        <p>Возвращать можно что угодно — не обязательно сам менеджер. Это позволяет, например, отдать в блок уже подготовленное соединение или курсор базы данных.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Метод __exit__</h2>
+        <p>Вызывается при выходе и получает три аргумента — сведения об исключении, если оно было.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Аргумент</th><th>Если ошибки не было</th><th>Если была</th></tr></thead>
+            <tbody>
+              <tr><td><code>exc_type</code></td><td><code>None</code></td><td>класс исключения</td></tr>
+              <tr><td><code>exc_value</code></td><td><code>None</code></td><td>сам объект ошибки</td></tr>
+              <tr><td><code>traceback</code></td><td><code>None</code></td><td>объект трассировки</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Это те же данные, что в главе 8.2 лежали в атрибутах исключения. Проверка <code>if exc_type is not None</code> — стандартный способ узнать, штатно ли завершился блок.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Свой контекстный менеджер</h2>
+        <p>Чтобы протокол стал наглядным, его удобно увидеть на собственном классе. Классы разбираются в модуле 9, здесь достаточно понимать, что <code>def</code> внутри <code>class</code> — это метод объекта.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>менеджер, который печатает свои шаги</span></figcaption>
+<pre><span class="k">class</span> <span class="f">MyContextManager</span>:
+    <span class="k">def</span> <span class="f">__enter__</span>(self):
+        <span class="f">print</span>(<span class="s">"Вход в контекст"</span>)
+        <span class="k">return</span> self
+
+    <span class="k">def</span> <span class="f">__exit__</span>(self, exc_type, exc_value, traceback):
+        <span class="f">print</span>(<span class="s">"Выход из контекста"</span>)
+        <span class="k">if</span> exc_type <span class="k">is not</span> <span class="k">None</span>:
+            <span class="f">print</span>(<span class="s">"Было исключение:"</span>, exc_value)
+        <span class="k">return</span> <span class="k">False</span>
+
+<span class="k">with</span> <span class="f">MyContextManager</span>() <span class="k">as</span> manager:
+    <span class="f">print</span>(<span class="s">"тело блока"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>порядок вызовов виден целиком</span></figcaption><pre>Вход в контекст
+тело блока
+Выход из контекста</pre></figure>
+
+        <h2 id="s9"><span class="sec">§9</span>Исключение внутри блока</h2>
+        <p>Тот же менеджер, но теперь блок падает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ошибка в теле with</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">with</span> <span class="f">MyContextManager</span>() <span class="k">as</span> manager:
+        <span class="k">raise</span> <span class="f">ValueError</span>(<span class="s">"Это ошибка для теста"</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"наружу:"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>__exit__ отработал, ошибка ушла дальше</span></figcaption><pre>Вход в контекст
+Выход из контекста
+Было исключение: Это ошибка для теста
+наружу: Это ошибка для теста</pre></figure>
+        <p>Видно ровно то, что описано в §4: <code>__exit__()</code> получил сведения об ошибке, выполнил уборку, но исключение продолжило путь наверх.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Подавление исключения</h2>
+        <p>Продолжить путь наверх ошибка может не всегда. Возвращаемое значение <code>__exit__()</code> решает её судьбу.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th><code>__exit__</code> вернул</th><th>Что происходит с исключением</th></tr></thead>
+            <tbody>
+              <tr><td><code>False</code> или <code>None</code></td><td>уходит дальше, как обычно</td></tr>
+              <tr><td><code>True</code></td><td>подавляется, программа продолжает работу</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>менеджер, который гасит ошибки</span></figcaption>
+<pre><span class="k">class</span> <span class="f">Suppress</span>:
+    <span class="k">def</span> <span class="f">__enter__</span>(self):
+        <span class="k">return</span> self
+
+    <span class="k">def</span> <span class="f">__exit__</span>(self, exc_type, exc_value, traceback):
+        <span class="f">print</span>(<span class="s">"подавляю:"</span>, exc_value)
+        <span class="k">return</span> <span class="k">True</span>
+
+<span class="k">with</span> <span class="f">Suppress</span>():
+    <span class="k">raise</span> <span class="f">ValueError</span>(<span class="s">"исчезнет"</span>)
+
+<span class="f">print</span>(<span class="s">"после блока — программа жива"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>исключение не вышло наружу</span></figcaption><pre>подавляю: исчезнет
+после блока — программа жива</pre></figure>
+        <p>Отсюда важное следствие: явный <code>return False</code> в <code>__exit__()</code> — не формальность. Забытый <code>return</code> вернёт <code>None</code>, что тоже означает «не подавлять», но писать намерение явно надёжнее.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Несколько ресурсов сразу</h2>
+        <p>В одном <code>with</code> можно открыть несколько ресурсов — они перечисляются через запятую и закрываются в обратном порядке.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>копирование файла</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> src, \
+     <span class="f">open</span>(<span class="s">"copy.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> dst:
+    dst.write(src.read())
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"copy.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>содержимое скопировано</span></figcaption><pre>данные</pre></figure>
+        <p>Если второй файл не откроется, первый всё равно будет корректно закрыт. Вложенные <code>with</code> дали бы тот же результат, но запись через запятую короче.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Где ещё применяется</h2>
+        <p>Файлы — самый частый случай, но протокол общий. Он применим везде, где ресурс нужно освободить.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ресурс</th><th>Что делает выход из блока</th></tr></thead>
+            <tbody>
+              <tr><td>файл</td><td>сбрасывает буфер и закрывает</td></tr>
+              <tr><td>сетевое соединение</td><td>разрывает соединение</td></tr>
+              <tr><td>соединение с базой данных</td><td>фиксирует или откатывает транзакцию</td></tr>
+              <tr><td>блокировка</td><td>снимает блокировку</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Общий признак: всё, что нужно «взять и обязательно вернуть». Если в документации библиотеки объект предлагают использовать через <code>with</code> — значит, у него есть что освобождать.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>with или try/finally</h2>
+        <p>Обе конструкции гарантируют уборку. Разница в том, кто за неё отвечает.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>одно и то же двумя способами</span></figcaption>
+<pre>file = open(path)          уборку пишет тот, кто использует
+try:
+    ...
+finally:
+    file.close()
+
+with open(path) as file:   уборку знает сам объект
+    ...</pre>
+        </figure>
+        <p>Практическое правило: <b>если у объекта есть контекстный менеджер — использовать его</b>. <code>try/finally</code> остаётся для случаев, когда менеджера нет или уборка нестандартная.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>обращение к файлу после блока <code>with</code></td><td><code>ValueError: I/O operation on closed file</code></td><td>работать внутри блока</td></tr>
+              <tr><td>ждать, что <code>with</code> перехватит ошибку</td><td>исключение уйдёт наружу</td><td>обернуть <code>with</code> в <code>try</code></td></tr>
+              <tr><td><code>file.close()</code> внутри <code>with</code></td><td>лишнее: закрытие произойдёт само</td><td>убрать</td></tr>
+              <tr><td><code>with open(path)</code> без <code>as</code></td><td>файл откроется, но обратиться к нему нельзя</td><td>добавить <code>as file</code></td></tr>
+              <tr><td>два вложенных <code>with</code> ради двух файлов</td><td>лишний уровень отступа</td><td>перечислить через запятую</td></tr>
+              <tr><td><code>return True</code> в <code>__exit__()</code> по невнимательности</td><td>все ошибки в блоке исчезнут</td><td><code>return False</code></td></tr>
+              <tr><td>открывать файл в цикле без <code>with</code></td><td>накапливаются незакрытые файлы</td><td><code>with</code> внутри цикла</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Что гарантирует <code>with</code>?</summary><p>Что ресурс будет освобождён при любом выходе из блока — обычном, через <code>return</code> или из-за исключения.</p></details>
+        <details><summary>Перехватывает ли <code>with</code> исключения?</summary><p>Нет. Он ведёт себя как <code>finally</code>, а не как <code>except</code>: уборку делает, ошибку пропускает наверх.</p></details>
+        <details><summary>Какие два метода образуют протокол?</summary><p><code>__enter__()</code> готовит ресурс и возвращает то, что попадёт в переменную после <code>as</code>. <code>__exit__()</code> выполняет уборку и получает сведения об исключении.</p></details>
+        <details><summary>Как <code>__exit__()</code> может подавить исключение?</summary><p>Вернув <code>True</code>. Значение <code>False</code> или <code>None</code> означает «пропустить ошибку дальше».</p></details>
+        <details><summary>Доступна ли переменная после блока <code>with</code>?</summary><p>Да, но ресурс уже освобождён: у файла <code>closed</code> будет <code>True</code>, и работать с ним нельзя.</p></details>
+        <details><summary>Когда всё-таки нужен <code>try/finally</code>?</summary><p>Когда у объекта нет контекстного менеджера или уборка нестандартная. Если менеджер есть — используют его.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Файл</b><code>with open(path) as f:</code></div>
+          <div><b>Два файла</b><code>with open(a) as x, open(b) as y:</code></div>
+          <div><b>С обработкой</b><code>try: with ... except ...</code></div>
+          <div><b>Свой менеджер</b><code>__enter__</code><code>__exit__</code></div>
+          <div><b>Подавить ошибку</b><code>return True</code> в <code>__exit__</code></div>
+          <div><b>Пропустить дальше</b><code>return False</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>with</code> освобождает ресурс при любом выходе из блока и потому заменяет пару <code>open()</code> и <code>close()</code>, которая ломается на первом же исключении. При этом он не перехватывает ошибки — ведёт себя как <code>finally</code>, а не как <code>except</code>. За конструкцией стоит протокол из двух методов: <code>__enter__()</code> готовит ресурс и отдаёт значение для <code>as</code>, <code>__exit__()</code> убирает за собой и может подавить исключение, вернув <code>True</code>. Дальше в модуле все примеры работы с файлами используют только эту форму.</p>
+        <div class="pager">
+          <a href="../71-fayly-osnovy/index.html">← 8.4 Файлы: основные понятия</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../73-zapis-write/index.html">8.6 Запись в файл: write() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.5 · Контекстный менеджер with · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.4 Файлы: основные понятия · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.4</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.4</span>
+          <h1>Файлы: основные<br>понятия</h1>
+          <p class="lead">Файл — способ сохранить данные между запусками программы. Работа с ним начинается с файлового объекта, который создаёт функция <code>open()</code>, и определяется двумя решениями: каким режимом открыть и как получать доступ к данным — последовательно или напрямую.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Кодировки, исключения, строки</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Сохранять данные, которые переживут завершение программы</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем программе файлы</a></li>
+            <li><a href="#s2">Запись и чтение</a></li>
+            <li><a href="#s3">Текстовые и двоичные</a></li>
+            <li><a href="#s4">Последовательный и прямой доступ</a></li>
+            <li><a href="#s5">Файловый объект</a></li>
+            <li><a href="#s6">Функция open()</a></li>
+            <li><a href="#s7">Режимы открытия</a></li>
+            <li><a href="#s8">Кодировка при открытии</a></li>
+            <li><a href="#s9">Атрибуты файлового объекта</a></li>
+            <li><a href="#s10">Закрытие файла</a></li>
+            <li><a href="#s11">Ошибки при открытии</a></li>
+            <li><a href="#s12">Почему close() ненадёжен</a></li>
+            <li><a href="#s13">Частые ошибки</a></li>
+            <li><a href="#s14">Проверьте себя</a></li>
+            <li><a href="#s15">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем программе файлы</h2>
+        <p>Всё, что программа держала в переменных, исчезает при её завершении. Оперативная память освобождается, и данные пропадают. Если бы не файлы, пользователю пришлось бы вводить всю информацию заново при каждом запуске.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Программа</th><th>Что хранит в файлах</th></tr></thead>
+            <tbody>
+              <tr><td>текстовый редактор</td><td>документы (<code>.txt</code>, <code>.docx</code>)</td></tr>
+              <tr><td>графический редактор</td><td>изображения (<code>.png</code>, <code>.jpg</code>)</td></tr>
+              <tr><td>электронные таблицы</td><td>данные и формулы (<code>.csv</code>, <code>.xlsx</code>)</td></tr>
+              <tr><td>игра</td><td>прогресс, настройки, ресурсы (<code>.sav</code>, <code>.json</code>)</td></tr>
+              <tr><td>браузер</td><td>кеш и куки: сеансы, предпочтения</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Файл делает данные <span class="term">постоянными</span> — они переживают завершение программы, перезагрузку и переезд на другой компьютер.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Запись и чтение</h2>
+        <p>Две операции описываются симметрично, и разница между ними — в направлении копирования.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>куда движутся данные</span></figcaption>
+<pre>ЗАПИСЬ    переменная в ОЗУ  ──→  файл на диске     «файл вывода»
+ЧТЕНИЕ    файл на диске     ──→  переменная в ОЗУ  «файл ввода»</pre>
+        </figure>
+        <p>Термины «файл вывода» и «файл ввода» описывают роль файла с точки зрения программы: в первый она помещает выходные данные, из второго извлекает входные. Один и тот же файл может быть тем и другим в разное время.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Текстовые и двоичные</h2>
+        <p>Файлы делятся на два типа, и от этого зависит, как их открывать.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th>Текстовый файл</th><th>Двоичный файл</th></tr></thead>
+            <tbody>
+              <tr><td>содержимое</td><td>символы, закодированные по схеме вроде UTF-8</td><td>данные без преобразования в текст</td></tr>
+              <tr><td>можно открыть Блокнотом</td><td>да</td><td>нет</td></tr>
+              <tr><td>числа хранятся</td><td>как набор символов</td><td>в машинном представлении</td></tr>
+              <tr><td>примеры</td><td><code>.txt</code>, <code>.csv</code>, <code>.json</code>, исходный код</td><td>изображения, аудио, архивы</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Важная деталь: даже если текстовый файл содержит число <code>18.65</code>, внутри лежат пять <b>символов</b>, а не число. Это прямое следствие главы 5.4 — переход между текстом и байтами выполняет кодировка.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Последовательный и прямой доступ</h2>
+        <p>Второе фундаментальное деление — способ добраться до нужного места.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Доступ</th><th>Как работает</th><th>Аналогия</th></tr></thead>
+            <tbody>
+              <tr><td>последовательный</td><td>от начала файла к концу, пропустить нельзя</td><td>магнитофонная кассета</td></tr>
+              <tr><td>прямой (произвольный)</td><td>переход сразу к нужной позиции</td><td>трек на диске или в плеере</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Чтобы прочитать данные из конца файла последовательно, придётся прочитать всё, что идёт перед ними. Прямой доступ позволяет перескочить к любому месту — этим занимаются методы <code>seek()</code> и <code>tell()</code> из главы 8.11. Большинство задач решается последовательным чтением, и с него начинаются следующие главы.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Файловый объект</h2>
+        <p>Программа не работает с диском напрямую. Чтобы обратиться к файлу, она создаёт в оперативной памяти <span class="term">файловый объект</span> — посредника, через которого идут все операции.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>три уровня</span></figcaption>
+<pre>переменная  ──→  файловый объект  ──→  файл на диске
+   file            в оперативной          "data.txt"
+                       памяти</pre>
+        </figure>
+        <p>Файловый объект хранит не содержимое файла, а сведения о нём: путь, режим, кодировку и текущую позицию чтения. Именно он предоставляет методы <code>read()</code>, <code>write()</code>, <code>close()</code> и остальные.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Функция open()</h2>
+        <p>Файловый объект создаёт функция <code>open()</code>. Минимально ей нужно имя файла, обычно указывают также режим и кодировку.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>основные аргументы</span></figcaption>
+<pre>open("data.txt", "w", encoding="utf-8")
+      └───┬──┘   └┬┘   └──────┬──────┘
+     имя файла  режим     кодировка
+                          (для текстовых файлов)</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>создание файлового объекта</span></figcaption>
+<pre>file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+
+<span class="f">print</span>(<span class="f">type</span>(file).__name__)
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>тип файлового объекта</span></figcaption><pre>TextIOWrapper</pre></figure>
+        <p>Имя <code>TextIOWrapper</code> говорит о том, что это «обёртка» над потоком байтов, которая сама занимается кодированием. Для двоичного режима тип будет другим.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Режимы открытия</h2>
+        <p>Второй аргумент задаёт, что именно программа собирается делать с файлом.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Режим</th><th>Что делает</th><th>Если файла нет</th><th>Если файл есть</th></tr></thead>
+            <tbody>
+              <tr><td><code>"r"</code></td><td>чтение (по умолчанию)</td><td><code>FileNotFoundError</code></td><td>читает</td></tr>
+              <tr><td><code>"w"</code></td><td>запись</td><td>создаёт</td><td><b>стирает содержимое</b></td></tr>
+              <tr><td><code>"a"</code></td><td>дозапись в конец</td><td>создаёт</td><td>дописывает</td></tr>
+              <tr><td><code>"x"</code></td><td>создание</td><td>создаёт</td><td><code>FileExistsError</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>К режиму добавляется буква <code>b</code> для двоичного файла: <code>"rb"</code>, <code>"wb"</code>. Строчка <code>"w"</code> в таблице выделена не зря — это самая разрушительная операция в теме, и ей посвящена глава 8.6. Режим <code>"x"</code> подробно разбирается в главе 8.13.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Кодировка при открытии</h2>
+        <p>Для текстового файла кодировку указывают явно — тем же аргументом <code>encoding</code>, о котором шла речь в главе 5.4.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>один файл, два взгляда</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"rb"</span>) <span class="k">as</span> binary:
+    <span class="f">print</span>(binary.read())
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"r"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> text:
+    <span class="f">print</span>(<span class="f">repr</span>(text.read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>для файла со словом «строка»</span></figcaption><pre>b'\xd1\x81\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0\n'
+'строка\n'</pre></figure>
+        <p>Двоичный режим отдаёт сырые байты, текстовый — уже декодированную строку. Без явного <code>encoding</code> Python возьмёт кодировку системы, и на другом компьютере файл прочитается иначе.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Атрибуты файлового объекта</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>что объект знает о себе</span></figcaption>
+<pre>file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+
+<span class="f">print</span>(file.name)
+<span class="f">print</span>(file.mode)
+<span class="f">print</span>(file.encoding)
+<span class="f">print</span>(file.closed)
+
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>путь, режим, кодировка, состояние</span></figcaption><pre>demo.txt
+w
+utf-8
+False</pre></figure>
+        <p>Атрибут <code>closed</code> пригодится в отладке: он отвечает на вопрос «файл ещё открыт?». Сразу после <code>open()</code> он равен <code>False</code>.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Закрытие файла</h2>
+        <p>Открытый файл занимает ресурс операционной системы, и его нужно освободить. Это делает метод <code>close()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>работа с закрытым файлом</span></figcaption>
+<pre>file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+file.close()
+
+<span class="f">print</span>(file.closed)
+file.write(<span class="s">"ещё"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Вывод и ошибка</span><span>объект существует, но нерабочий</span></figcaption>
+<pre>True
+ValueError: I/O operation on closed file.</pre>
+        </figure>
+        <p>Закрытие важно и по другой причине: записанные данные могут какое-то время оставаться в буфере и попасть на диск только при закрытии. Подробно про буфер — глава 8.12.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Ошибки при открытии</h2>
+        <p><code>open()</code> — операция, зависящая от внешнего мира, поэтому она может не удаться. Все такие ошибки наследуют от <code>OSError</code> из главы 8.3.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файла не существует</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="f">open</span>(<span class="s">"нет.txt"</span>)
+<span class="k">except</span> FileNotFoundError <span class="k">as</span> e:
+    <span class="f">print</span>(e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Ошибка</span><span>код и имя файла в сообщении</span></figcaption><pre>[Errno 2] No such file or directory: 'нет.txt'</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Исключение</th><th>Причина</th></tr></thead>
+            <tbody>
+              <tr><td><code>FileNotFoundError</code></td><td>файла нет, а режим требует его наличия</td></tr>
+              <tr><td><code>PermissionError</code></td><td>нет прав на чтение или запись</td></tr>
+              <tr><td><code>IsADirectoryError</code></td><td>по указанному пути каталог, а не файл</td></tr>
+              <tr><td><code>FileExistsError</code></td><td>режим <code>"x"</code>, а файл уже существует</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Все четыре — потомки <code>OSError</code>, поэтому <code>except OSError</code> перехватит любую из них.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Почему close() ненадёжен</h2>
+        <p>Пара <code>open()</code> и <code>close()</code> выглядит достаточной. Проблема в том, что между ними может произойти ошибка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>close() не выполнится</span></figcaption>
+<pre>file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+
+file.write(<span class="s">"начало"</span>)
+result = <span class="n">10</span> / <span class="n">0</span>          <span class="c"># исключение</span>
+
+file.close()               <span class="c"># сюда управление не дойдёт</span></pre>
+        </figure>
+        <p>Исключение прерывает выполнение, и файл остаётся открытым. Записанное может не попасть на диск, а ресурс не освободится. Формально это чинится через <code>finally</code> из главы 8.1, но в Python есть более короткое и надёжное решение — контекстный менеджер <code>with</code>, которому посвящена следующая глава. Именно поэтому в примерах выше уже встречалась запись <code>with open(...) as file</code>.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>open(path, "w")</code> для чтения</td><td>файл будет очищен</td><td><code>open(path, "r")</code></td></tr>
+              <tr><td><code>open(path)</code> без <code>encoding</code></td><td>на другой машине текст прочитается иначе</td><td><code>encoding="utf-8"</code></td></tr>
+              <tr><td>работа с файлом после <code>close()</code></td><td><code>ValueError: I/O operation on closed file</code></td><td>открыть заново</td></tr>
+              <tr><td>забыть <code>close()</code></td><td>данные могут не попасть на диск</td><td>использовать <code>with</code></td></tr>
+              <tr><td><code>close()</code> после кода, который может упасть</td><td>при ошибке не выполнится</td><td><code>with</code> или <code>finally</code></td></tr>
+              <tr><td>читать двоичный файл в текстовом режиме</td><td><code>UnicodeDecodeError</code></td><td>режим <code>"rb"</code></td></tr>
+              <tr><td>ждать от текстового файла хранения чисел</td><td>там символы, а не числа</td><td>преобразовывать через <code>int()</code> при чтении</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2>
+        <details><summary>Что такое файловый объект?</summary><p>Посредник в оперативной памяти между программой и файлом на диске. Он хранит путь, режим, кодировку и текущую позицию, а также предоставляет методы чтения и записи.</p></details>
+        <details><summary>Чем текстовый файл отличается от двоичного?</summary><p>В текстовом данные закодированы как символы и читаются любым редактором. В двоичном они хранятся в машинном представлении и предназначены только для программы.</p></details>
+        <details><summary>Чем последовательный доступ отличается от прямого?</summary><p>Последовательный требует прочитать всё, что идёт перед нужным местом. Прямой позволяет перейти к любой позиции сразу.</p></details>
+        <details><summary>Что произойдёт при <code>open(path, "w")</code>, если файл существует?</summary><p>Его содержимое будет стёрто. Для дозаписи нужен режим <code>"a"</code>.</p></details>
+        <details><summary>Зачем указывать <code>encoding</code> явно?</summary><p>Без него берётся кодировка системы, и на другом компьютере тот же файл прочитается иначе — вплоть до испорченного текста.</p></details>
+        <details><summary>Почему пары <code>open()</code> и <code>close()</code> недостаточно?</summary><p>Исключение между ними прервёт выполнение, и <code>close()</code> не сработает: файл останется открытым, а данные могут не попасть на диск.</p></details>
+
+        <h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Открыть на чтение</b><code>open(path, "r", encoding="utf-8")</code></div>
+          <div><b>На запись</b><code>open(path, "w", encoding="utf-8")</code></div>
+          <div><b>Дозапись</b><code>open(path, "a", encoding="utf-8")</code></div>
+          <div><b>Двоичный</b><code>open(path, "rb")</code></div>
+          <div><b>Закрыть</b><code>file.close()</code></div>
+          <div><b>Состояние</b><code>file.closed</code><code>file.name</code></div>
+          <div><b>Ошибки открытия</b><code>except OSError as e:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Файл делает данные постоянными: они переживают завершение программы. Работа с ним идёт через файловый объект, который создаёт <code>open()</code> и который хранит путь, режим, кодировку и позицию. Режим определяет и права, и разрушительность операции: <code>"w"</code> стирает существующее содержимое. Кодировку для текстовых файлов указывают явно, иначе результат зависит от настроек машины. Открытый файл нужно закрывать, но <code>close()</code> не выполнится при исключении — надёжное решение даёт следующая глава.</p>
+        <div class="pager">
+          <a href="../70-ierarhiya-isklyucheniy/index.html">← 8.3 Иерархия исключений</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../72-kontekstnyy-menedzher-with/index.html">8.5 Контекстный менеджер with →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.4 · Файлы: основные понятия · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.2 raise и цепочки исключений · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.2</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.2</span>
+          <h1><code>raise</code> и цепочки<br>исключений</h1>
+          <p class="lead">Исключения не только ловят — их выбрасывают сами. <code>raise</code> сигнализирует об ошибке из глубины кода, необработанное исключение поднимается вверх по стеку вызовов, а конструкция <code>from</code> связывает новую ошибку с исходной, сохраняя причину.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Обработка ошибок</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Функции, стек вызовов, отладка</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Сообщать об ошибке там, где она обнаружена, не теряя причину</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем выбрасывать ошибку</a></li>
+            <li><a href="#s2">Синтаксис raise</a></li>
+            <li><a href="#s3">Проверка аргументов</a></li>
+            <li><a href="#s4">raise в условии</a></li>
+            <li><a href="#s5">Распространение по стеку</a></li>
+            <li><a href="#s6">Где ставить обработчик</a></li>
+            <li><a href="#s7">Повторный выброс</a></li>
+            <li><a href="#s8">Атрибут args</a></li>
+            <li><a href="#s9">from: явная причина</a></li>
+            <li><a href="#s10">__context__: неявная связь</a></li>
+            <li><a href="#s11">cause и context вместе</a></li>
+            <li><a href="#s12">from None</a></li>
+            <li><a href="#s13">Атрибут __traceback__</a></li>
+            <li><a href="#s14">Когда raise уместен</a></li>
+            <li><a href="#s15">Частые ошибки</a></li>
+            <li><a href="#s16">Проверьте себя</a></li>
+            <li><a href="#s17">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем выбрасывать ошибку</h2>
+        <p>Функция обнаружила недопустимые данные. Что ей делать? Вернуть <code>None</code> — вызывающий код может не проверить и продолжит работать с пустотой. Напечатать сообщение — функция не знает, есть ли вообще экран у программы.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>три реакции на неверный аргумент</span></figcaption>
+<pre>return None            вызывающий может не заметить
+print("ошибка")        сообщение уйдёт в пустоту, работа продолжится
+raise ValueError(...)  выполнение прервано, причина названа</pre>
+        </figure>
+        <p>Оператор <code>raise</code> решает задачу: место, где ошибка <b>обнаружена</b>, отделяется от места, где принимается решение, что с ней делать. Функция сообщает о проблеме, а вызывающий код решает — перехватить или пропустить дальше.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Синтаксис raise</h2>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>общая форма</span></figcaption>
+<pre>raise ТипИсключения("сообщение об ошибке")
+      └────┬─────┘   └────────┬────────┘
+     ValueError,          необязательный
+     TypeError и т. д.    текст причины</pre>
+        </figure>
+        <p>Тип берут из встроенных — <code>ValueError</code>, <code>TypeError</code>, <code>ZeroDivisionError</code> и другие из главы 8.3. Сообщение необязательно, но без него отладка становится гаданием.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Проверка аргументов</h2>
+        <p>Самое частое применение — проверить входные данные в начале функции.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция сама защищается от нуля</span></figcaption>
+<pre><span class="k">def</span> <span class="f">divide</span>(a, b):
+    <span class="k">if</span> b == <span class="n">0</span>:
+        <span class="k">raise</span> <span class="f">ZeroDivisionError</span>(<span class="s">"Деление на ноль недопустимо!"</span>)
+    <span class="k">return</span> a / b
+
+<span class="k">try</span>:
+    result = <span class="f">divide</span>(<span class="n">10</span>, <span class="n">0</span>)
+<span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Ошибка:"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>сообщение своё, а не системное</span></figcaption><pre>Ошибка: Деление на ноль недопустимо!</pre></figure>
+        <p>Обратите внимание: <code>raise</code> прерывает функцию сразу — строка <code>return a / b</code> не выполнится. Это делает <code>else</code> ненужным, проверки просто пишут в начале.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>raise в условии</h2>
+        <p><code>raise</code> уместен везде, где логика программы обнаружила недопустимое состояние — не только при делении.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка возраста</span></figcaption>
+<pre><span class="k">def</span> <span class="f">set_age</span>(age):
+    <span class="k">if</span> age &lt; <span class="n">0</span>:
+        <span class="k">raise</span> <span class="f">ValueError</span>(<span class="s">"возраст не может быть отрицательным"</span>)
+    <span class="k">return</span> age
+
+<span class="k">try</span>:
+    <span class="f">set_age</span>(-<span class="n">5</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>своё правило, свой текст</span></figcaption><pre>возраст не может быть отрицательным</pre></figure>
+        <p>Выбор типа не произволен: <code>ValueError</code> означает «тип верный, значение недопустимое» — именно этот случай. Для «передан не тот тип» берут <code>TypeError</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Распространение по стеку</h2>
+        <p>Если в функции исключение не перехвачено, оно не исчезает — оно поднимается к тому, кто её вызвал. И так далее, пока не найдётся обработчик.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>путь исключения вверх</span></figcaption>
+<pre>divide()      ← здесь возникло, обработчика нет
+   ↑
+main()        ← есть except ZeroDivisionError — перехвачено здесь
+   ↑
+верхний уровень   ← сюда уже не дойдёт</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два уровня обработчиков</span></figcaption>
+<pre><span class="k">def</span> <span class="f">divide</span>(a, b):
+    <span class="k">return</span> a / b
+
+<span class="k">def</span> <span class="f">main</span>():
+    <span class="k">try</span>:
+        <span class="f">divide</span>(<span class="n">10</span>, <span class="n">0</span>)
+    <span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+        <span class="f">print</span>(<span class="s">"Ошибка в main:"</span>, e)
+
+<span class="k">try</span>:
+    <span class="f">main</span>()
+<span class="k">except</span> Exception <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Общая ошибка:"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>внешний блок не сработал</span></figcaption><pre>Ошибка в main: division by zero</pre></figure>
+        <p>Внешний <code>try</code> остался незадействованным: ошибку перехватили раньше. Если бы в <code>main()</code> обработчика не было, исключение поднялось бы выше и вывелось бы «Общая ошибка».</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Где ставить обработчик</h2>
+        <p>Распространение по стеку — не побочный эффект, а инструмент проектирования. Оно позволяет обрабатывать ошибку там, где известно, <b>что с ней делать</b>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Уровень</th><th>Что он знает</th><th>Что может сделать</th></tr></thead>
+            <tbody>
+              <tr><td>функция вычисления</td><td>что данные неверны</td><td>сообщить об этом через <code>raise</code></td></tr>
+              <tr><td>функция сценария</td><td>какая операция сорвалась</td><td>попробовать иначе или отменить шаг</td></tr>
+              <tr><td>верхний уровень</td><td>есть ли пользователь и лог</td><td>показать сообщение, записать в журнал</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Поэтому низкоуровневые функции обычно <b>не ловят</b> ошибки — они их выбрасывают. Обработчик ставят там, где есть контекст для решения.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Повторный выброс</h2>
+        <p>Иногда ошибку нужно записать в лог, но обработать её здесь нельзя. Тогда её перехватывают и выбрасывают снова — <code>raise</code> без аргументов.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>залогировали и передали дальше</span></figcaption>
+<pre><span class="k">def</span> <span class="f">process</span>(a, b):
+    <span class="k">try</span>:
+        <span class="k">return</span> a / b
+    <span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+        <span class="f">print</span>(<span class="s">"Логируем и пробрасываем:"</span>, e)
+        <span class="k">raise</span>
+
+<span class="k">try</span>:
+    <span class="f">process</span>(<span class="n">10</span>, <span class="n">0</span>)
+<span class="k">except</span> ZeroDivisionError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Поймали снаружи:"</span>, e)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ошибка обработана дважды</span></figcaption><pre>Логируем и пробрасываем: division by zero
+Поймали снаружи: division by zero</pre></figure>
+        <p>Голый <code>raise</code> внутри <code>except</code> повторяет <b>то же самое</b> исключение вместе с исходным трейсбеком. Если написать <code>raise e</code>, объект будет тот же, но часть истории вызовов потеряется — поэтому предпочитают короткую форму.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Атрибут args</h2>
+        <p>Исключение — обычный объект, и у него есть атрибуты. Первый из них — кортеж аргументов, переданных при создании.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два аргумента вместо одного</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">raise</span> <span class="f">ValueError</span>(<span class="s">"плохое значение"</span>, <span class="n">42</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(e.args)
+    <span class="f">print</span>(e.args[<span class="n">1</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>кортеж из главы 4.1</span></figcaption><pre>('плохое значение', 42)
+42</pre></figure>
+        <p>Обычно в <code>args</code> лежит одна строка с описанием. Но некоторые исключения — например, <code>OSError</code> из главы 8.4 — передают в нём и код ошибки, и имя файла.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>from: явная причина</h2>
+        <p>Частая ситуация: низкоуровневая ошибка не должна «протекать» наружу, и вместо неё выбрасывают более понятную. Но и терять исходную причину нельзя.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>связываем новую ошибку с исходной</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">try</span>:
+        x = <span class="f">int</span>(<span class="s">"abc"</span>)
+    <span class="k">except</span> ValueError <span class="k">as</span> e:
+        <span class="k">raise</span> <span class="f">RuntimeError</span>(<span class="s">"Произошла ошибка!"</span>) <span class="k">from</span> e
+<span class="k">except</span> RuntimeError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Текущее исключение:"</span>, e)
+    <span class="f">print</span>(<span class="s">"Предыдущее исключение:"</span>, e.__cause__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>обе ошибки доступны</span></figcaption><pre>Текущее исключение: Произошла ошибка!
+Предыдущее исключение: invalid literal for int() with base 10: 'abc'</pre></figure>
+        <p>Конструкция <code>from</code> записывает исходное исключение в атрибут <code>__cause__</code>. В трейсбеке это выглядит как строка «The above exception was the direct cause of the following exception» — то есть Python прямо говорит, что одна ошибка вызвала другую.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>__context__: неявная связь</h2>
+        <p>Если новое исключение возникло <b>во время обработки</b> другого, но связь не указана явно, Python всё равно её запоминает — в атрибуте <code>__context__</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ошибка внутри обработчика ошибки</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">try</span>:
+        x = <span class="n">1</span> / <span class="n">0</span>
+    <span class="k">except</span> ZeroDivisionError:
+        <span class="f">int</span>(<span class="s">"abc"</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    <span class="f">print</span>(<span class="s">"Текущее исключение:"</span>, e)
+    <span class="f">print</span>(<span class="s">"Контекст исключения:"</span>, e.__context__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>виден и второй сбой, и первый</span></figcaption><pre>Текущее исключение: invalid literal for int() with base 10: 'abc'
+Контекст исключения: division by zero</pre></figure>
+        <p>Здесь <code>from</code> никто не писал: связь установилась сама, потому что вторая ошибка случилась внутри блока <code>except</code>. В трейсбеке это даёт формулировку «During handling of the above exception, another exception occurred».</p>
+
+        <h2 id="s11"><span class="sec">§11</span>cause и context вместе</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Атрибут</th><th>Когда заполняется</th><th>Формулировка в трейсбеке</th></tr></thead>
+            <tbody>
+              <tr><td><code>__cause__</code></td><td>только при <code>raise ... from e</code></td><td>прямая причина</td></tr>
+              <tr><td><code>__context__</code></td><td>автоматически, если ошибка внутри обработчика</td><td>возникла при обработке другой</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Разница по смыслу: <code>__cause__</code> означает «я выбросил это <b>потому что</b>», <code>__context__</code> — «это случилось, <b>пока</b> я разбирался с другим». Первое — намерение разработчика, второе — фиксация обстоятельств. При <code>from</code> заполняются оба атрибута; без него — только <code>__context__</code>.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>from None</h2>
+        <p>Иногда исходная ошибка — деталь реализации, и показывать её наружу не нужно. Тогда цепочку подавляют явно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>скрываем внутреннюю причину</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">try</span>:
+        <span class="f">int</span>(<span class="s">"abc"</span>)
+    <span class="k">except</span> ValueError:
+        <span class="k">raise</span> <span class="f">RuntimeError</span>(<span class="s">"не удалось разобрать настройки"</span>) <span class="k">from</span> <span class="k">None</span>
+<span class="k">except</span> RuntimeError <span class="k">as</span> e:
+    <span class="f">print</span>(e)
+    <span class="f">print</span>(<span class="s">"cause:"</span>, e.__cause__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>трейсбек покажет только новую ошибку</span></figcaption><pre>не удалось разобрать настройки
+cause: None</pre></figure>
+        <p>Пользоваться этим стоит осторожно: подавленная причина усложняет отладку. Оправдано, когда внутренняя ошибка ничего не говорит тому, кто читает сообщение.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Атрибут __traceback__</h2>
+        <p>Третий атрибут хранит объект трассировки — сведения о том, через какие вызовы прошло исключение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>читаемый вывод через модуль traceback</span></figcaption>
+<pre><span class="k">import</span> traceback
+
+<span class="k">try</span>:
+    <span class="f">int</span>(<span class="s">"abc"</span>)
+<span class="k">except</span> ValueError <span class="k">as</span> e:
+    traceback.print_exception(e)</pre>
+        </figure>
+        <p>Печатать сам <code>e.__traceback__</code> бессмысленно — это служебный объект. Для читаемого вывода есть модуль <code>traceback</code> из стандартной библиотеки: он выводит ту же картину, что Python печатает при аварийной остановке, но программа при этом продолжает работать.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Когда raise уместен</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Решение</th></tr></thead>
+            <tbody>
+              <tr><td>аргумент функции недопустим</td><td><code>raise ValueError(...)</code></td></tr>
+              <tr><td>аргумент не того типа</td><td><code>raise TypeError(...)</code></td></tr>
+              <tr><td>нужно залогировать и передать дальше</td><td><code>raise</code> без аргументов</td></tr>
+              <tr><td>заменить техническую ошибку понятной</td><td><code>raise ... from e</code></td></tr>
+              <tr><td>ожидаемая ситуация, а не ошибка</td><td>вернуть значение, не выбрасывать</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка важна: исключение — для <b>исключительного</b>. «Пользователь не найден» в поиске — обычный исход, для него достаточно вернуть <code>None</code>. А вот «файл настроек повреждён» — уже причина прервать работу.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>raise ValueError</code> без сообщения</td><td>ошибка без пояснения причины</td><td>добавить текст в скобках</td></tr>
+              <tr><td><code>raise "текст"</code></td><td><code>TypeError</code>: строка не исключение</td><td><code>raise ValueError("текст")</code></td></tr>
+              <tr><td><code>raise</code> вне блока <code>except</code></td><td><code>RuntimeError: No active exception to reraise</code></td><td>указать тип исключения явно</td></tr>
+              <tr><td><code>raise e</code> вместо <code>raise</code></td><td>часть трейсбека теряется</td><td>голый <code>raise</code> внутри <code>except</code></td></tr>
+              <tr><td><code>raise RuntimeError(...)</code> без <code>from e</code></td><td>причина не видна в сообщении</td><td>добавить <code>from e</code></td></tr>
+              <tr><td>ловить и выбрасывать заново без причины</td><td>лишний шум в коде</td><td>не перехватывать вовсе</td></tr>
+              <tr><td><code>raise</code> для обычных исходов</td><td>вызывающий код обрастает <code>try</code></td><td>вернуть значение</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s16"><span class="sec">§16</span>Проверьте себя</h2>
+        <details><summary>Чем <code>raise</code> лучше, чем вернуть <code>None</code> при ошибке?</summary><p><code>None</code> можно не проверить и продолжить работу с пустотой. Исключение прерывает выполнение и называет причину, и его нельзя случайно проигнорировать.</p></details>
+        <details><summary>Что происходит, если в функции исключение не перехвачено?</summary><p>Оно поднимается к вызвавшему коду и дальше по стеку, пока не найдётся обработчик. Если его нет нигде — программа останавливается.</p></details>
+        <details><summary>Чем голый <code>raise</code> отличается от <code>raise e</code>?</summary><p>Голый повторяет то же исключение с исходным трейсбеком целиком. При <code>raise e</code> часть истории вызовов теряется.</p></details>
+        <details><summary>Чем <code>__cause__</code> отличается от <code>__context__</code>?</summary><p><code>__cause__</code> заполняется только через <code>from</code> и означает «выбросил потому что». <code>__context__</code> заполняется сам, если ошибка возникла внутри обработчика другой.</p></details>
+        <details><summary>Зачем нужен <code>from None</code>?</summary><p>Чтобы скрыть внутреннюю причину, которая ничего не скажет читателю сообщения. Пользоваться осторожно: отладка усложняется.</p></details>
+        <details><summary>Всегда ли ошибку нужно выбрасывать?</summary><p>Нет. Исключения — для исключительных ситуаций. «Ничего не найдено» в поиске — обычный исход, достаточно вернуть <code>None</code>.</p></details>
+
+        <h2 id="s17"><span class="sec">§17</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Выбросить</b><code>raise ValueError("причина")</code></div>
+          <div><b>Проверка аргумента</b><code>if x &lt; 0: raise ValueError(...)</code></div>
+          <div><b>Пробросить дальше</b><code>raise</code></div>
+          <div><b>Связать с причиной</b><code>raise RuntimeError(...) from e</code></div>
+          <div><b>Скрыть причину</b><code>raise ... from None</code></div>
+          <div><b>Аргументы ошибки</b><code>e.args</code></div>
+          <div><b>Читаемый трейсбек</b><code>traceback.print_exception(e)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>raise</code> позволяет функции сообщить об ошибке там, где та обнаружена, не решая, что с ней делать. Необработанное исключение поднимается по стеку вызовов, и это даёт свободу ставить обработчик на том уровне, где есть контекст для решения. Голый <code>raise</code> внутри <code>except</code> пробрасывает ошибку дальше с сохранением трейсбека, а <code>from</code> связывает новое исключение с исходным через <code>__cause__</code> — в отличие от <code>__context__</code>, который заполняется автоматически.</p>
+        <div class="pager">
+          <a href="../68-isklyucheniya-try-except/index.html">← 8.1 Исключения: try, except, else, finally</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../70-ierarhiya-isklyucheniy/index.html">8.3 Иерархия исключений →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.2 · raise и цепочки исключений · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

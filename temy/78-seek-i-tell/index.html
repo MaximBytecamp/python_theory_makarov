@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.11 Произвольный доступ: seek() и tell() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.11</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.11</span>
+          <h1>Произвольный доступ:<br><code>seek()</code> и <code>tell()</code></h1>
+          <p class="lead">До сих пор файл читался только от начала к концу. <code>seek()</code> позволяет перейти к любой позиции, а <code>tell()</code> — узнать текущую. В текстовом режиме у обоих есть жёсткие ограничения, и понять их проще всего через разницу между символами и байтами.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Средний → продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Кодировки, байты, режимы открытия</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Работать с частями файла, не читая его целиком</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что даёт произвольный доступ</a></li>
+            <li><a href="#s2">tell(): где мы сейчас</a></li>
+            <li><a href="#s3">seek(): переход к позиции</a></li>
+            <li><a href="#s4">Параметр whence</a></li>
+            <li><a href="#s5">Ограничения текстового режима</a></li>
+            <li><a href="#s6">Почему так</a></li>
+            <li><a href="#s7">Позиция в байтах, чтение в символах</a></li>
+            <li><a href="#s8">Правило работы с текстом</a></li>
+            <li><a href="#s9">Двоичный режим без ограничений</a></li>
+            <li><a href="#s10">Размер файла через seek</a></li>
+            <li><a href="#s11">Запись по позиции</a></li>
+            <li><a href="#s12">Режим a игнорирует seek</a></li>
+            <li><a href="#s13">Где это применяется</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что даёт произвольный доступ</h2>
+        <p>Глава 8.4 разделила два способа работы с файлом. Все предыдущие главы использовали последовательный: данные шли подряд, от начала к концу. <span class="term">Произвольный доступ</span> снимает это ограничение.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Возможность</th><th>Зачем нужна</th></tr></thead>
+            <tbody>
+              <tr><td>переход к любой позиции</td><td>прочитать середину файла, не читая начало</td></tr>
+              <tr><td>работа с частями большого файла</td><td>файл не помещается в память целиком</td></tr>
+              <tr><td>запись в середину</td><td>обновить запись, не переписывая файл</td></tr>
+              <tr><td>повторное чтение</td><td>вернуться в начало и прочитать заново</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка — самая частая на практике: именно ради неё в главах 8.6 и 8.8 встречался вызов <code>seek(0)</code>.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>tell(): где мы сейчас</h2>
+        <p>Метод возвращает текущую позицию — то место, откуда пойдёт следующее чтение или запись.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл из двадцати символов ASCII</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"0123456789ABCDEFGHIJ"</span>)
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.tell())
+    file.read(<span class="n">3</span>)
+    <span class="f">print</span>(file.tell())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>позиция сдвинулась на три</span></figcaption><pre>0
+3</pre></figure>
+        <p>Здесь всё совпало с интуицией только потому, что символы латинские. С кириллицей картина изменится — §7.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>seek(): переход к позиции</h2>
+        <p><code>seek(offset)</code> перемещает позицию на указанное число байтов от начала файла.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>читаем с одиннадцатого символа</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.seek(<span class="n">10</span>)
+    <span class="f">print</span>(file.read(<span class="n">5</span>))
+    <span class="f">print</span>(file.tell())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>начало файла пропущено</span></figcaption><pre>ABCDE
+15</pre></figure>
+        <p>Метод возвращает новую позицию, поэтому <code>print(file.seek(10))</code> напечатал бы <code>10</code>. Часто этот результат просто игнорируют.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Параметр whence</h2>
+        <p>Второй аргумент задаёт точку отсчёта.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th><code>whence</code></th><th>Отсчёт от</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><code>0</code> (по умолчанию)</td><td>начала файла</td><td><code>seek(10)</code> — на десятый байт</td></tr>
+              <tr><td><code>1</code></td><td>текущей позиции</td><td><code>seek(5, 1)</code> — на пять байт вперёд</td></tr>
+              <tr><td><code>2</code></td><td>конца файла</td><td><code>seek(-10, 2)</code> — за десять байт до конца</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Смещение может быть отрицательным — для <code>whence=1</code> это движение назад, для <code>whence=2</code> иначе и не бывает.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Ограничения текстового режима</h2>
+        <p>Таблица выше описывает двоичный режим. В текстовом работает только часть возможностей.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>попытка сместиться от текущей позиции</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.read(<span class="n">3</span>)
+    file.seek(<span class="n">5</span>, <span class="n">1</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>в текстовом режиме так нельзя</span></figcaption>
+<pre>io.UnsupportedOperation: can't do nonzero cur-relative seeks</pre>
+        </figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Вызов</th><th>Текстовый режим</th><th>Двоичный режим</th></tr></thead>
+            <tbody>
+              <tr><td><code>seek(n)</code></td><td>можно</td><td>можно</td></tr>
+              <tr><td><code>seek(0, 1)</code></td><td>можно</td><td>можно</td></tr>
+              <tr><td><code>seek(n, 1)</code></td><td><b>ошибка</b></td><td>можно</td></tr>
+              <tr><td><code>seek(0, 2)</code></td><td>можно</td><td>можно</td></tr>
+              <tr><td><code>seek(-n, 2)</code></td><td><b>ошибка</b></td><td>можно</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Разрешены только два безопасных случая: переход к позиции, полученной от <code>tell()</code>, и перемещение в конец файла нулевым смещением.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Почему так</h2>
+        <p>Ограничение выглядит произвольным, но у него простая причина — кодировка. В UTF-8 символы занимают разное число байтов, и сдвиг «на пять байт вперёд» может попасть в середину символа.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>что случится при сдвиге на нечётное число</span></figcaption>
+<pre>"привет"  в UTF-8:
+
+  п      р      и      в      е      т
+d0 bf  d1 80  d0 b8  d0 b2  d0 b5  d1 82
+      ↑
+      seek(1) — середина символа, декодировать нечем</pre>
+        </figure>
+        <p>Python не может проверить заранее, попадёт ли произвольное смещение на границу символа, поэтому просто запрещает такие переходы в текстовом режиме. В двоичном проверять нечего — там байты и есть единица работы.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Позиция в байтах, чтение в символах</h2>
+        <p>Отсюда же главное недоразумение темы: <code>read()</code> считает символы, а <code>tell()</code> — байты.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три кириллических символа</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"привет мир"</span>)
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.read(<span class="n">3</span>)
+    <span class="f">print</span>(file.tell())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>прочитано три символа, позиция шесть</span></figcaption><pre>6</pre></figure>
+        <p>Это то же расхождение, что в главе 5.4: три кириллических символа занимают шесть байтов. Вычислять позицию вручную по числу символов нельзя — для латиницы совпадёт, для кириллицы нет.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Правило работы с текстом</h2>
+        <p>Единственный надёжный способ вернуться к месту в текстовом файле — сохранить позицию, полученную от <code>tell()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>закладка в файле</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.read(<span class="n">3</span>)
+    bookmark = file.tell()
+
+    file.seek(<span class="n">0</span>)
+    file.seek(bookmark)
+
+    <span class="f">print</span>(file.read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>чтение продолжилось с закладки</span></figcaption><pre>вет мир</pre></figure>
+        <p>Значение <code>tell()</code> в текстовом режиме — <b>непрозрачное число</b>: его не нужно понимать, складывать или уменьшать. Его только сохраняют и передают обратно в <code>seek()</code>.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Двоичный режим без ограничений</h2>
+        <p>В режиме <code>"rb"</code> доступны все формы <code>seek()</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три вида перехода</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"0123456789ABCDEFGHIJ"</span>)
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"rb"</span>) <span class="k">as</span> file:
+    file.seek(<span class="n">10</span>)
+    <span class="f">print</span>(file.read(<span class="n">5</span>))
+
+    file.seek(-<span class="n">4</span>, <span class="n">2</span>)
+    <span class="f">print</span>(file.read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>от начала и от конца</span></figcaption><pre>b'ABCDE'
+b'GHIJ'</pre></figure>
+        <p>Поэтому произвольный доступ — в первую очередь инструмент для двоичных файлов и записей фиксированной длины, где позиция вычисляется арифметикой.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Размер файла через seek</h2>
+        <p>Переход в конец с нулевым смещением возвращает размер файла в байтах — и это работает в обоих режимах.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>узнаём размер, не читая содержимое</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"rb"</span>) <span class="k">as</span> file:
+    size = file.seek(<span class="n">0</span>, <span class="n">2</span>)
+
+<span class="f">print</span>(size)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>двадцать байтов</span></figcaption><pre>20</pre></figure>
+        <p>Приём удобен, когда файл уже открыт. Если он ещё не открыт, проще <code>os.path.getsize(path)</code> — функция из стандартной библиотеки.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Запись по позиции</h2>
+        <p><code>seek()</code> действует и на запись. Но запись не «вставляет» данные, а <b>перезаписывает</b> то, что было на этом месте.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два символа поверх существующих</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"0123456789"</span>)
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"r+"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.seek(<span class="n">3</span>)
+    file.write(<span class="s">"XX"</span>)
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>цифры 3 и 4 заменены</span></figcaption><pre>012XX56789</pre></figure>
+        <p>Режим <code>"r+"</code> открывает файл на чтение и запись, не стирая содержимое, — в отличие от <code>"w+"</code> из главы 8.6. Вставить данные в середину без сдвига остального нельзя: для этого файл переписывают целиком.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Режим a игнорирует seek</h2>
+        <p>Отдельная ловушка: в режиме дозаписи любая запись идёт в конец, куда бы ни поставили позицию.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>seek(0) перед записью</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"a"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.seek(<span class="n">0</span>)
+    file.write(<span class="s">"!"</span>)
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>восклицательный знак оказался в конце</span></figcaption><pre>012XX56789!</pre></figure>
+        <p>Это не ошибка и не недоработка: режим <code>"a"</code> по определению означает «всегда в конец». Ошибки не будет — просто данные окажутся не там, где ожидалось.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Где это применяется</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Как используется</th></tr></thead>
+            <tbody>
+              <tr><td>перечитать файл</td><td><code>seek(0)</code> и повторное чтение</td></tr>
+              <tr><td>прочитать конец большого журнала</td><td><code>seek(-n, 2)</code> в двоичном режиме</td></tr>
+              <tr><td>записи фиксированной длины</td><td><code>seek(номер * длина)</code></td></tr>
+              <tr><td>заголовок двоичного формата</td><td>прочитать первые байты и перейти к данным</td></tr>
+              <tr><td>обновить поле на месте</td><td><code>seek()</code> и <code>write()</code> в режиме <code>"r+"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>В обычной работе с текстом произвольный доступ нужен редко: файл либо читают целиком, либо построчно. Его область — двоичные форматы и структуры с известным устройством.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>seek(5, 1)</code> в текстовом режиме</td><td><code>UnsupportedOperation</code></td><td>открыть в <code>"rb"</code> или сохранить <code>tell()</code></td></tr>
+              <tr><td><code>seek(-10, 2)</code> в текстовом режиме</td><td>то же исключение</td><td>двоичный режим</td></tr>
+              <tr><td>считать <code>tell()</code> числом символов</td><td>для кириллицы значение вдвое больше</td><td>это байты, и в тексте — непрозрачные</td></tr>
+              <tr><td>вычислять позицию арифметикой в тексте</td><td>попадание в середину символа</td><td>только значения из <code>tell()</code></td></tr>
+              <tr><td><code>seek()</code> в режиме <code>"a"</code> перед записью</td><td>данные всё равно уйдут в конец</td><td>режим <code>"r+"</code></td></tr>
+              <tr><td>ждать вставки от <code>write()</code> после <code>seek()</code></td><td>существующие данные будут перезаписаны</td><td>переписать файл целиком</td></tr>
+              <tr><td><code>seek()</code> без повторного чтения</td><td>ничего не изменится: метод только двигает позицию</td><td>после <code>seek()</code> вызвать <code>read()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>В каких единицах работает <code>seek()</code>?</summary><p>В байтах — в обоих режимах. При этом <code>read()</code> в текстовом режиме считает символы, и совпадать эти числа не обязаны.</p></details>
+        <details><summary>Почему <code>seek(5, 1)</code> запрещён в текстовом режиме?</summary><p>Произвольное смещение может попасть в середину многобайтового символа, а проверить это заранее Python не может.</p></details>
+        <details><summary>Какие формы <code>seek()</code> разрешены в текстовом режиме?</summary><p>Переход к абсолютной позиции, <code>seek(0, 1)</code> и <code>seek(0, 2)</code>. Остальное — только в двоичном.</p></details>
+        <details><summary>Как надёжно вернуться к месту в текстовом файле?</summary><p>Сохранить значение <code>tell()</code> и передать его в <code>seek()</code>. Вычислять позицию самому нельзя.</p></details>
+        <details><summary>Что делает <code>write()</code> после <code>seek()</code>?</summary><p>Перезаписывает данные с этой позиции, а не вставляет. Существующие символы будут заменены.</p></details>
+        <details><summary>Почему <code>seek()</code> не работает в режиме <code>"a"</code>?</summary><p>Режим дозаписи всегда пишет в конец файла независимо от позиции. Ошибки при этом нет.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>В начало</b><code>file.seek(0)</code></div>
+          <div><b>К позиции</b><code>file.seek(offset)</code></div>
+          <div><b>Текущая позиция</b><code>pos = file.tell()</code></div>
+          <div><b>Вернуться</b><code>file.seek(pos)</code></div>
+          <div><b>Размер файла</b><code>file.seek(0, 2)</code></div>
+          <div><b>От конца</b><code>file.seek(-n, 2)</code> — только <code>"rb"</code></div>
+          <div><b>Правка на месте</b><code>open(path, "r+")</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>seek()</code> переводит позицию в файле, <code>tell()</code> её возвращает, и оба работают в байтах. В текстовом режиме разрешены только абсолютный переход и нулевые смещения — потому что произвольный сдвиг может разорвать многобайтовый символ. Значение <code>tell()</code> для текста стоит считать непрозрачным: его сохраняют и возвращают в <code>seek()</code>, но не вычисляют. Запись после перехода перезаписывает данные, а в режиме <code>"a"</code> позиция вовсе игнорируется.</p>
+        <div class="pager">
+          <a href="../77-chtenie-readlines/index.html">← 8.10 Чтение: readlines()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../79-bufer-i-buferizaciya/index.html">8.12 Буфер и буферизация →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.11 · Произвольный доступ: seek() и tell() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

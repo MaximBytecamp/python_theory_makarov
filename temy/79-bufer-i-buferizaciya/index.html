@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.12 Буфер и буферизация · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.12</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.12</span>
+          <h1>Буфер и<br>буферизация</h1>
+          <p class="lead">Вызов <code>write()</code> не означает, что данные оказались на диске. Они попадают в буфер — область памяти, откуда переносятся большими блоками. Это ускоряет работу в разы, но объясняет, почему незакрытый файл может остаться пустым.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Запись в файл, with, производительность</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Понимать, когда данные действительно попадают на диск</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что такое буфер</a></li>
+            <li><a href="#s2">Зачем он нужен</a></li>
+            <li><a href="#s3">Данные не на диске</a></li>
+            <li><a href="#s4">Когда буфер сбрасывается</a></li>
+            <li><a href="#s5">Метод flush()</a></li>
+            <li><a href="#s6">Автоматический сброс</a></li>
+            <li><a href="#s7">Параметр buffering</a></li>
+            <li><a href="#s8">Построчная буферизация</a></li>
+            <li><a href="#s9">Без буферизации</a></li>
+            <li><a href="#s10">Буферизация при чтении</a></li>
+            <li><a href="#s11">Почему это важно для with</a></li>
+            <li><a href="#s12">Когда вмешиваться</a></li>
+            <li><a href="#s13">Частые ошибки</a></li>
+            <li><a href="#s14">Проверьте себя</a></li>
+            <li><a href="#s15">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что такое буфер</h2>
+        <p><span class="term">Буфер</span> — временная область оперативной памяти, где данные накапливаются по пути между программой и устройством. Программа пишет в буфер, а на диск данные уходят потом, большими блоками.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>путь данных при записи</span></figcaption>
+<pre>программа  ──write()──→  БУФЕР  ──блоками──→  диск
+                        (в ОЗУ)
+                                  ↑
+                          перенос происходит,
+                          когда буфер заполнен
+                          или файл закрыт</pre>
+        </figure>
+        <p>То же самое происходит и при чтении, только в обратную сторону: с диска считывается блок, а программа берёт из него по кусочку.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Зачем он нужен</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Что даёт буфер</th></tr></thead>
+            <tbody>
+              <tr><td>меньше обращений к устройству</td><td>тысяча <code>write()</code> превращается в одну запись на диск</td></tr>
+              <tr><td>программа не ждёт</td><td>управление возвращается сразу, не дожидаясь диска</td></tr>
+              <tr><td>согласование скоростей</td><td>процессор быстрее диска и сети — буфер сглаживает разницу</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Разница в скорости огромна: обращение к оперативной памяти в тысячи раз быстрее обращения к диску. Без буферизации запись файла построчно означала бы отдельную операцию ввода-вывода на каждую строку.</p>
+        <p>Тот же принцип работает и вне файлов: буферизация видео при просмотре — это накопление кадров, чтобы воспроизведение не прерывалось при неровной скорости сети.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Данные не на диске</h2>
+        <p>Главное практическое следствие: после <code>write()</code> файл на диске может быть ещё пуст.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверяем размер файла до закрытия</span></figcaption>
+<pre><span class="k">import</span> os
+
+file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+file.write(<span class="s">"данные в буфере"</span>)
+
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))
+
+file.close()
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>до закрытия файл пуст</span></figcaption><pre>0
+28</pre></figure>
+        <p>Двадцать восемь байтов — это пятнадцать символов в UTF-8. Пока файл не закрыт, их на диске нет.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Когда буфер сбрасывается</h2>
+        <p><span class="term">Сброс</span> буфера — перенос накопленного на устройство. Происходит он в четырёх случаях.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Событие</th><th>Комментарий</th></tr></thead>
+            <tbody>
+              <tr><td>буфер заполнился</td><td>размер по умолчанию — 8192 байта</td></tr>
+              <tr><td>вызван <code>close()</code></td><td>в том числе автоматически через <code>with</code></td></tr>
+              <tr><td>вызван <code>flush()</code></td><td>принудительно, в любой момент</td></tr>
+              <tr><td>программа завершилась штатно</td><td>Python закрывает открытые файлы</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Четвёртая строка объясняет, почему забытый <code>close()</code> обычно всё-таки не приводит к потере данных. «Обычно» — ключевое слово: при аварийном завершении процесса содержимое буфера пропадает.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Метод flush()</h2>
+        <p>Метод сбрасывает буфер немедленно, не закрывая файл.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>принудительный сброс</span></figcaption>
+<pre><span class="k">import</span> os
+
+file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+file.write(<span class="s">"данные в буфере"</span>)
+
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))
+file.flush()
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))
+
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>данные на диске, файл ещё открыт</span></figcaption><pre>0
+28</pre></figure>
+        <p>Применение одно: файл должен долго оставаться открытым, а данные — быть доступны немедленно. Типичный случай — журнал работающей программы, который читают в реальном времени.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Автоматический сброс</h2>
+        <p>Если данных много, буфер переполняется и сбрасывается сам — вмешательства не требуется.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>десять тысяч символов</span></figcaption>
+<pre><span class="k">import</span> os
+
+file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>)
+file.write(<span class="s">"x"</span> * <span class="n">10000</span>)
+
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>буфер переполнился и сбросился</span></figcaption><pre>10000</pre></figure>
+        <p>Стандартный размер буфера — <code>io.DEFAULT_BUFFER_SIZE</code>, обычно 8192 байта. Десять тысяч символов его превысили, и часть данных ушла на диск ещё до закрытия.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Параметр buffering</h2>
+        <p>Поведение буфера задаётся при открытии файла — аргументом <code>buffering</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Значение</th><th>Что означает</th><th>Где допустимо</th></tr></thead>
+            <tbody>
+              <tr><td><code>-1</code> (по умолчанию)</td><td>буфер обычного размера</td><td>везде</td></tr>
+              <tr><td><code>0</code></td><td>без буферизации</td><td>только двоичный режим</td></tr>
+              <tr><td><code>1</code></td><td>построчная буферизация</td><td>только текстовый режим</td></tr>
+              <tr><td>больше <code>1</code></td><td>буфер указанного размера в байтах</td><td>везде</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>Построчная буферизация</h2>
+        <p>При <code>buffering=1</code> сброс происходит на каждом переводе строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перевод строки запускает сброс</span></figcaption>
+<pre><span class="k">import</span> os
+
+file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>, buffering=<span class="n">1</span>)
+
+file.write(<span class="s">"строка без перевода"</span>)
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))
+
+file.write("\n")
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.txt"</span>))
+
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>до перевода строки на диске пусто</span></figcaption><pre>0
+37</pre></figure>
+        <p>Это разумный компромисс для журналов: каждая завершённая строка сразу оказывается на диске, но отдельная операция ввода-вывода на каждый <code>write()</code> не выполняется.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Без буферизации</h2>
+        <p>Значение <code>0</code> отключает буфер полностью — данные уходят на устройство сразу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>только для двоичного режима</span></figcaption>
+<pre><span class="k">import</span> os
+
+file = <span class="f">open</span>(<span class="s">"demo.bin"</span>, <span class="s">"wb"</span>, buffering=<span class="n">0</span>)
+file.write(<span class="s">b"abc"</span>)
+
+<span class="f">print</span>(os.path.getsize(<span class="s">"demo.bin"</span>))
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>данные на диске немедленно</span></figcaption><pre>3</pre></figure>
+        <p>В текстовом режиме так нельзя: попытка даёт <code>ValueError: can't have unbuffered text I/O</code>. Причина — кодирование само по себе требует промежуточного накопления.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Буферизация при чтении</h2>
+        <p>При чтении буфер работает так же, только незаметно. Вызов <code>read(1)</code> не означает обращения к диску за одним байтом: система считывает целый блок и отдаёт из него по запросу.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>откуда приходят данные</span></figcaption>
+<pre>диск  ──блок 8192 байта──→  БУФЕР  ──read(1)──→  программа
+                                   ──read(1)──→
+                                   ──read(1)──→
+                          следующее обращение к диску —
+                          только когда буфер исчерпан</pre>
+        </figure>
+        <p>Поэтому чтение по одному символу в цикле работает не настолько медленно, как кажется. Но памяти это всё равно не экономит по сравнению с чтением строками, а кода требует больше.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Почему это важно для with</h2>
+        <p>Теперь становится понятнее гарантия из главы 8.5. <code>with</code> закрывает файл, а закрытие сбрасывает буфер — значит, данные точно попадут на диск даже при исключении.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>что произойдёт с данными</span></figcaption>
+<pre>file = open(path, "w")     при исключении close() не выполнится,
+file.write(data)           буфер не сброшен — данные потеряны
+1 / 0
+file.close()
+
+with open(path, "w") as f: __exit__ вызовет close(),
+    f.write(data)          буфер сброшен — данные на диске
+    1 / 0</pre>
+        </figure>
+        <p>Именно поэтому в главе 8.5 записанное «данные» оказалось в файле, несмотря на деление на ноль. Без <code>with</code> файл остался бы пустым.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Когда вмешиваться</h2>
+        <p>В подавляющем большинстве задач буферизацию настраивать не нужно — умолчание подобрано верно.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Что делать</th></tr></thead>
+            <tbody>
+              <tr><td>обычная запись файла</td><td>ничего, <code>with</code> достаточно</td></tr>
+              <tr><td>журнал, который читают на ходу</td><td><code>buffering=1</code> или <code>flush()</code></td></tr>
+              <tr><td>долгий процесс, важна каждая запись</td><td><code>flush()</code> после ключевых операций</td></tr>
+              <tr><td>обмен с внешним устройством</td><td><code>buffering=0</code> в двоичном режиме</td></tr>
+              <tr><td>«файл пустой, хотя я писал»</td><td>проверить, закрыт ли файл</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка — самый частый повод вспомнить эту главу. Ответ почти всегда один: файл ещё открыт, и данные лежат в буфере.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>читать файл, пока он открыт на запись</td><td>прочитается пусто или частично</td><td>закрыть файл или вызвать <code>flush()</code></td></tr>
+              <tr><td>писать без <code>with</code> и без <code>close()</code></td><td>при аварии данные потеряются</td><td><code>with</code></td></tr>
+              <tr><td><code>flush()</code> после каждой строки</td><td>теряется весь выигрыш буферизации</td><td><code>buffering=1</code></td></tr>
+              <tr><td><code>buffering=0</code> в текстовом режиме</td><td><code>ValueError</code></td><td>двоичный режим или <code>buffering=1</code></td></tr>
+              <tr><td>считать, что <code>write()</code> уже записал на диск</td><td>данные пока только в памяти</td><td>помнить о сбросе</td></tr>
+              <tr><td>вызывать <code>flush()</code> перед <code>close()</code></td><td>лишнее: закрытие сбрасывает само</td><td>убрать</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2>
+        <details><summary>Оказываются ли данные на диске сразу после <code>write()</code>?</summary><p>Нет. Они попадают в буфер и переносятся на диск при заполнении буфера, при <code>flush()</code> или при закрытии файла.</p></details>
+        <details><summary>Зачем нужна буферизация?</summary><p>Она сокращает число обращений к медленному устройству, не заставляет программу ждать и сглаживает разницу в скоростях.</p></details>
+        <details><summary>Чем <code>flush()</code> отличается от <code>close()</code>?</summary><p><code>flush()</code> сбрасывает буфер, оставляя файл открытым. <code>close()</code> делает то же самое и закрывает файл.</p></details>
+        <details><summary>Что делает <code>buffering=1</code>?</summary><p>Включает построчную буферизацию: сброс происходит на каждом переводе строки. Доступно только в текстовом режиме.</p></details>
+        <details><summary>Почему <code>buffering=0</code> нельзя в текстовом режиме?</summary><p>Кодирование символов в байты само требует промежуточного накопления, поэтому полностью небуферизованный текстовый ввод-вывод невозможен.</p></details>
+        <details><summary>Как связаны буфер и гарантия <code>with</code>?</summary><p><code>with</code> вызывает <code>close()</code> при любом выходе из блока, а закрытие сбрасывает буфер — поэтому данные попадают на диск даже при исключении.</p></details>
+
+        <h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Сбросить сейчас</b><code>file.flush()</code></div>
+          <div><b>Построчно</b><code>open(path, "w", buffering=1)</code></div>
+          <div><b>Без буфера</b><code>open(path, "wb", buffering=0)</code></div>
+          <div><b>Свой размер</b><code>open(path, "w", buffering=4096)</code></div>
+          <div><b>Размер по умолчанию</b><code>io.DEFAULT_BUFFER_SIZE</code></div>
+          <div><b>Надёжно</b><code>with open(...) as f:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Данные при записи попадают не на диск, а в буфер — область памяти, откуда переносятся большими блоками. Это ускоряет работу, но означает, что до закрытия файла его содержимое на диске может отсутствовать. Сброс происходит при заполнении буфера, вызове <code>flush()</code>, закрытии файла и штатном завершении программы. Параметр <code>buffering</code> позволяет выбрать построчный режим или отключить буфер вовсе, но в обычных задачах настраивать его не нужно — достаточно <code>with</code>, который гарантирует сброс.</p>
+        <div class="pager">
+          <a href="../78-seek-i-tell/index.html">← 8.11 seek() и tell()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../80-rezhim-x/index.html">8.13 Режим x →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.12 · Буфер и буферизация · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

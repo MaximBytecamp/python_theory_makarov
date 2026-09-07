@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.8 Чтение: read() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.8</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.8</span>
+          <h1>Чтение:<br><code>read()</code></h1>
+          <p class="lead">Метод возвращает содержимое файла одной строкой. Без аргумента — целиком, с числом — указанное количество символов. Ключ к пониманию всех методов чтения — позиция в файле: она сдвигается при каждом вызове и объясняет, почему повторный <code>read()</code> возвращает пустоту.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Строки, позиция в файле, память</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Получать содержимое файла в переменную</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">read() без аргумента</a></li>
+            <li><a href="#s2">Позиция в файле</a></li>
+            <li><a href="#s3">Повторный вызов</a></li>
+            <li><a href="#s4">read(size)</a></li>
+            <li><a href="#s5">Чтение порциями</a></li>
+            <li><a href="#s6">Символы, а не байты</a></li>
+            <li><a href="#s7">Пустой файл и конец файла</a></li>
+            <li><a href="#s8">Переводы строк в результате</a></li>
+            <li><a href="#s9">Разбить на строки</a></li>
+            <li><a href="#s10">Когда read() не подходит</a></li>
+            <li><a href="#s11">Двоичное чтение</a></li>
+            <li><a href="#s12">Ошибки при чтении</a></li>
+            <li><a href="#s13">Частые ошибки</a></li>
+            <li><a href="#s14">Проверьте себя</a></li>
+            <li><a href="#s15">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>read() без аргумента</h2>
+        <p>Вызов без аргументов возвращает всё содержимое файла как одну строку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл из трёх строк</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    content = file.read()
+
+<span class="f">print</span>(<span class="f">repr</span>(content))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>одна строка с переводами внутри</span></figcaption><pre>'первая строка\nвторая строка\nтретья строка\n'</pre></figure>
+        <p>Результат — обычная строка со всеми свойствами из модуля 5: к ней применимы срезы, <code>split()</code>, <code>find()</code> и остальные методы.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Позиция в файле</h2>
+        <p>У открытого файла есть <span class="term">позиция</span> — место, откуда пойдёт следующее чтение. Сразу после открытия она равна нулю, а любое чтение её сдвигает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>позиция до и после чтения</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.tell())
+    file.read(<span class="n">5</span>)
+    <span class="f">print</span>(file.tell())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>после чтения пяти символов</span></figcaption><pre>0
+10</pre></figure>
+        <p>Число <code>10</code> вместо ожидаемых <code>5</code> — не ошибка: <code>tell()</code> считает <b>байты</b>, а пять кириллических символов занимают в UTF-8 десять байт. Подробно об этом — глава 8.11.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Повторный вызов</h2>
+        <p>Из механики позиции следует поведение, которое ставит в тупик каждого второго новичка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>второй read() того же файла</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    first = file.read()
+    second = file.read()
+
+<span class="f">print</span>(<span class="f">len</span>(first))
+<span class="f">print</span>(<span class="f">repr</span>(second))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>второй раз читать уже нечего</span></figcaption><pre>42
+''</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Файл читается один раз</b>
+          <p>После первого <code>read()</code> позиция стоит в конце, и всё последующее чтение возвращает пустоту. Ошибки при этом нет — программа спокойно работает с пустой строкой. Если содержимое нужно дважды, его сохраняют в переменную или возвращают позицию через <code>seek(0)</code>.</p>
+        </div>
+
+        <h2 id="s4"><span class="sec">§4</span>read(size)</h2>
+        <p>С аргументом метод читает не больше указанного числа символов и сдвигает позицию ровно на столько.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два чтения по пять символов</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(<span class="f">repr</span>(file.read(<span class="n">5</span>)))
+    <span class="f">print</span>(<span class="f">repr</span>(file.read(<span class="n">5</span>)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>второй вызов продолжил с места остановки</span></figcaption><pre>'перва'
+'я стр'</pre></figure>
+        <p>Границы слов метод не учитывает — он отсчитывает символы. Если до конца файла осталось меньше запрошенного, вернётся столько, сколько есть.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Чтение порциями</h2>
+        <p>Отсюда стандартный приём для больших файлов: читать блоками в цикле, пока не вернётся пустая строка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обработка по десять символов</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="k">while</span> <span class="k">True</span>:
+        chunk = file.read(<span class="n">10</span>)
+        <span class="k">if</span> <span class="k">not</span> chunk:
+            <span class="k">break</span>
+        <span class="f">print</span>(<span class="f">repr</span>(chunk))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>файл прочитан кусками</span></figcaption><pre>'первая стр'
+'ока\nвторая'
+' строка\nтр'
+'етья строк'
+'а\n'</pre></figure>
+        <p>Проверка <code>if not chunk</code> опирается на истинность из главы 3.16: пустая строка ложна. Так файл любого размера обрабатывается при фиксированном расходе памяти.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Символы, а не байты</h2>
+        <p>В текстовом режиме аргумент <code>size</code> задаётся <b>в символах</b>. Это важно для кириллицы, где символ занимает два байта.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Режим</th><th><code>read(5)</code> вернёт</th><th><code>tell()</code> покажет</th></tr></thead>
+            <tbody>
+              <tr><td>текстовый</td><td>5 символов</td><td>число байтов</td></tr>
+              <tr><td>двоичный <code>"rb"</code></td><td>5 байтов</td><td>число байтов</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Несовпадение единиц в одной строке таблицы — источник путаницы при работе с позицией, и глава 8.11 разбирает его отдельно.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Пустой файл и конец файла</h2>
+        <p>Ни то ни другое ошибкой не считается — просто возвращается пустая строка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл без содержимого</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"empty.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>):
+    <span class="k">pass</span>
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"empty.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(<span class="f">repr</span>(file.read()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пустая строка вместо исключения</span></figcaption><pre>''</pre></figure>
+        <p>Пустая строка — универсальный признак «читать больше нечего». Именно на нём построен цикл из §5.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Переводы строк в результате</h2>
+        <p><code>read()</code> возвращает текст как есть, вместе с символами <code>\n</code>. Обычный <code>print()</code> их выведет как настоящие переносы, и структура станет незаметной.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тот же текст двумя способами</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    content = file.read()
+
+<span class="f">print</span>(content)
+<span class="f">print</span>(<span class="f">repr</span>(content))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>во втором случае видна структура</span></figcaption><pre>первая строка
+вторая строка
+третья строка
+
+'первая строка\nвторая строка\nтретья строка\n'</pre></figure>
+        <p>Пустая строка после третьей — след завершающего <code>\n</code>. При отладке файлов <code>repr()</code> из главы 5.2 незаменим.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Разбить на строки</h2>
+        <p>Если нужен список строк, прочитанное разбивают методом <code>splitlines()</code> из главы 5.10.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>из одной строки в список</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    lines = file.read().splitlines()
+
+<span class="f">print</span>(lines)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>переводы строк убраны</span></figcaption><pre>['первая строка', 'вторая строка', 'третья строка']</pre></figure>
+        <p>Именно <code>splitlines()</code>, а не <code>split("\n")</code>: последний оставил бы лишний пустой элемент из-за завершающего перевода. Есть и готовый метод <code>readlines()</code> — глава 8.10, — но он сохраняет символы <code>\n</code>.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Когда read() не подходит</h2>
+        <p>Метод загружает файл в память целиком. Для файла в несколько гигабайт это означает несколько гигабайт оперативной памяти.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Способ</th></tr></thead>
+            <tbody>
+              <tr><td>небольшой файл целиком</td><td><code>read()</code></td></tr>
+              <tr><td>файл любого размера, построчно</td><td>перебор <code>for line in file</code></td></tr>
+              <tr><td>файл любого размера, блоками</td><td><code>read(size)</code> в цикле</td></tr>
+              <tr><td>первая строка</td><td><code>readline()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Вторая строка — самый частый вариант в реальном коде: файловый объект сам по себе итерируемый и выдаёт строки по одной, не загружая всё сразу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>перебор файла как коллекции</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="k">for</span> line <span class="k">in</span> file:
+        <span class="f">print</span>(<span class="f">repr</span>(line))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строки приходят с переводами</span></figcaption><pre>'первая строка\n'
+'вторая строка\n'
+'третья строка\n'</pre></figure>
+
+        <h2 id="s11"><span class="sec">§11</span>Двоичное чтение</h2>
+        <p>В режиме <code>"rb"</code> метод возвращает <code>bytes</code>, а не строку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первые четыре байта</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"rb"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.read(<span class="n">4</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два кириллических символа</span></figcaption><pre>b'\xd0\xbf\xd0\xb5'</pre></figure>
+        <p>Двоичное чтение опасно для текста: если прочитать нечётное число байтов, символ разорвётся пополам, и декодировать такой кусок будет нечем. Для текстовых файлов берут текстовый режим.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Ошибки при чтении</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Исключение</th></tr></thead>
+            <tbody>
+              <tr><td>файла нет</td><td><code>FileNotFoundError</code></td></tr>
+              <tr><td>нет прав на чтение</td><td><code>PermissionError</code></td></tr>
+              <tr><td>файл открыт в режиме <code>"w"</code></td><td><code>UnsupportedOperation</code></td></tr>
+              <tr><td>двоичные данные в текстовом режиме</td><td><code>UnicodeDecodeError</code></td></tr>
+              <tr><td>файл уже закрыт</td><td><code>ValueError</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Первые три наследуют от <code>OSError</code> из главы 8.3, четвёртая — от <code>ValueError</code> через <code>UnicodeError</code>. Значит, <code>except OSError</code> покроет проблемы доступа, но не проблемы кодировки — их ловят отдельно.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>второй <code>read()</code> того же файла</td><td>вернётся пустая строка</td><td>сохранить результат или <code>seek(0)</code></td></tr>
+              <tr><td><code>read()</code> для файла в гигабайты</td><td>всё окажется в памяти</td><td>перебор <code>for line in file</code></td></tr>
+              <tr><td><code>file.read()</code> после блока <code>with</code></td><td><code>ValueError</code>: файл закрыт</td><td>читать внутри блока</td></tr>
+              <tr><td><code>read().split("\n")</code></td><td>лишний пустой элемент в конце</td><td><code>splitlines()</code></td></tr>
+              <tr><td>ждать <code>read(5)</code> ровно пять байт</td><td>в текстовом режиме это символы</td><td>для байтов — режим <code>"rb"</code></td></tr>
+              <tr><td>читать двоичный файл без <code>"b"</code></td><td><code>UnicodeDecodeError</code></td><td>режим <code>"rb"</code></td></tr>
+              <tr><td>ждать исключение в конце файла</td><td>вернётся пустая строка</td><td>проверять <code>if not chunk</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2>
+        <details><summary>Почему второй <code>read()</code> возвращает пустую строку?</summary><p>После первого чтения позиция стоит в конце файла. Ошибки нет — просто читать больше нечего.</p></details>
+        <details><summary>В чём измеряется аргумент <code>read(size)</code>?</summary><p>В текстовом режиме — в символах, в двоичном — в байтах. При этом <code>tell()</code> всегда показывает байты.</p></details>
+        <details><summary>Как понять, что файл закончился?</summary><p>По пустой строке в результате. Исключения при достижении конца не возникает.</p></details>
+        <details><summary>Почему <code>splitlines()</code> лучше, чем <code>split("\n")</code>?</summary><p>Файлы обычно заканчиваются переводом строки, и <code>split()</code> добавил бы лишний пустой элемент.</p></details>
+        <details><summary>Когда <code>read()</code> использовать не стоит?</summary><p>Когда файл большой: метод загружает его в память целиком. Для таких случаев есть построчный перебор и чтение блоками.</p></details>
+        <details><summary>Что вернёт <code>read()</code> в режиме <code>"rb"</code>?</summary><p>Объект <code>bytes</code>, а не строку. Кодировка при этом не применяется.</p></details>
+
+        <h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Всё содержимое</b><code>text = file.read()</code></div>
+          <div><b>Порция</b><code>chunk = file.read(1024)</code></div>
+          <div><b>Список строк</b><code>file.read().splitlines()</code></div>
+          <div><b>Построчно</b><code>for line in file:</code></div>
+          <div><b>Вернуться в начало</b><code>file.seek(0)</code></div>
+          <div><b>Конец файла</b><code>if not chunk: break</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>read()</code> без аргумента возвращает весь файл одной строкой, с аргументом — не больше указанного числа символов. Всё поведение объясняется позицией: она сдвигается при чтении, поэтому повторный вызов возвращает пустую строку, а не содержимое заново. Конец файла — не ошибка, а пустая строка, и на этом строится чтение блоками. Для больших файлов вместо <code>read()</code> берут построчный перебор, который не загружает всё в память.</p>
+        <div class="pager">
+          <a href="../74-zapis-writelines/index.html">← 8.7 Запись: writelines()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../76-chtenie-readline/index.html">8.9 Чтение: readline() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.8 · Чтение: read() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

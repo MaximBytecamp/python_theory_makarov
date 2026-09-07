@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.13 Режим x: создание нового файла · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.13</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.13</span>
+          <h1>Режим <code>x</code>:<br>создание файла</h1>
+          <p class="lead">Режим создаёт новый файл и отказывается работать, если такой уже есть. Это защита от того самого сценария главы 8.6, где <code>"w"</code> молча стирает существующие данные: вместо тихой потери — явное исключение.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Режимы открытия, исключения</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Гарантированно не перезаписать существующий файл</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Проблема режима w</a></li>
+            <li><a href="#s2">Как работает режим x</a></li>
+            <li><a href="#s3">Файл уже существует</a></li>
+            <li><a href="#s4">Обработка исключения</a></li>
+            <li><a href="#s5">Двоичный вариант</a></li>
+            <li><a href="#s6">Сравнение режимов</a></li>
+            <li><a href="#s7">Чем лучше проверки exists()</a></li>
+            <li><a href="#s8">Где применяется</a></li>
+            <li><a href="#s9">Частые ошибки</a></li>
+            <li><a href="#s10">Проверьте себя</a></li>
+            <li><a href="#s11">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Проблема режима w</h2>
+        <p>Глава 8.6 показала: <code>open(path, "w")</code> стирает содержимое в момент открытия. Если программа создаёт файл отчёта, а такой файл уже есть, прежние данные исчезнут — без предупреждения и без возможности вернуть.</p>
+        <p>Иногда это и нужно. Но когда файл должен быть именно <b>новым</b>, требуется другое поведение: не молчаливая перезапись, а отказ.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Как работает режим x</h2>
+        <p>Режим <code>"x"</code> — от <i>exclusive creation</i>, «исключительное создание». Он создаёт файл и открывает его на запись.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файла ещё не было</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"newfile.txt"</span>, <span class="s">"x"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"создан"</span>)
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"newfile.txt"</span>, encoding=<span class="s">"utf-8"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>работает как обычная запись</span></figcaption><pre>создан</pre></figure>
+        <p>Пока файла нет, режим ведёт себя точно как <code>"w"</code>. Разница проявляется во втором запуске.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Файл уже существует</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тот же код запускаем повторно</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"newfile.txt"</span>, <span class="s">"x"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">"второй раз"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>файл не тронут</span></figcaption>
+<pre>FileExistsError: [Errno 17] File exists: 'newfile.txt'</pre>
+        </figure>
+        <p>Существующее содержимое осталось нетронутым: исключение возникает при открытии, до всякой записи. Именно это и требовалось — потерять данные невозможно.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Обработка исключения</h2>
+        <p><code>FileExistsError</code> — потомок <code>OSError</code> из главы 8.3, и обрабатывается как любое другое исключение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сообщаем вместо аварии</span></figcaption>
+<pre><span class="k">try</span>:
+    <span class="k">with</span> <span class="f">open</span>(<span class="s">"newfile.txt"</span>, <span class="s">"x"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+        file.write(<span class="s">"данные"</span>)
+<span class="k">except</span> FileExistsError:
+    <span class="f">print</span>(<span class="s">"Файл уже существует, перезапись отменена."</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>программа продолжает работу</span></figcaption><pre>Файл уже существует, перезапись отменена.</pre></figure>
+        <p>Дальше решение принимает программа: предложить другое имя, добавить к имени номер или спросить пользователя.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Двоичный вариант</h2>
+        <p>Как и остальные режимы, <code>"x"</code> сочетается с буквой <code>b</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>создание двоичного файла</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"data.bin"</span>, <span class="s">"xb"</span>) <span class="k">as</span> file:
+    file.write(<span class="s">b"bin"</span>)
+
+<span class="f">print</span>(<span class="f">open</span>(<span class="s">"data.bin"</span>, <span class="s">"rb"</span>).read())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>правила двоичного режима те же</span></figcaption><pre>b'bin'</pre></figure>
+        <p>Есть и форма <code>"x+"</code> — создание с возможностью чтения, по аналогии с <code>"w+"</code> из главы 8.6.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Сравнение режимов</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Режим</th><th>Файла нет</th><th>Файл есть</th><th>Смысл</th></tr></thead>
+            <tbody>
+              <tr><td><code>"w"</code></td><td>создаёт</td><td>стирает содержимое</td><td>«мне нужен файл с этим содержимым»</td></tr>
+              <tr><td><code>"a"</code></td><td>создаёт</td><td>дописывает в конец</td><td>«добавь к тому, что есть»</td></tr>
+              <tr><td><code>"x"</code></td><td>создаёт</td><td><code>FileExistsError</code></td><td>«файл должен быть новым»</td></tr>
+              <tr><td><code>"r"</code></td><td><code>FileNotFoundError</code></td><td>читает</td><td>«файл должен существовать»</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последние две строки зеркальны: <code>"x"</code> требует отсутствия файла, <code>"r"</code> — его наличия. Оба сообщают о несоответствии исключением, а не молча.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Чем лучше проверки exists()</h2>
+        <p>Тот же результат кажется достижимым проверкой перед открытием.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>две попытки не перезаписать файл</span></figcaption>
+<pre>import os                          между проверкой и открытием
+                                   файл может появиться —
+if not os.path.exists(path):       и тогда он будет стёрт
+    with open(path, "w") as f:
+        ...
+
+with open(path, "x") as f:         проверка и создание —
+    ...                            одна неделимая операция</pre>
+        </figure>
+        <p>Разница не теоретическая: если файл создаёт другая программа или другой процесс той же программы, между проверкой и открытием проходит время, и в этот промежуток файл может появиться. Режим <code>"x"</code> выполняет проверку и создание одним действием на уровне операционной системы, поэтому такого промежутка не возникает.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Где применяется</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Почему <code>"x"</code></th></tr></thead>
+            <tbody>
+              <tr><td>создать файл-метку о запуске</td><td>вторая копия программы получит ошибку и не запустится</td></tr>
+              <tr><td>сохранить результат под новым именем</td><td>случайно не затереть прошлый результат</td></tr>
+              <tr><td>первичная настройка проекта</td><td>не испортить существующий конфиг</td></tr>
+              <tr><td>выгрузка с датой в имени</td><td>обнаружить повторный запуск за тот же день</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Общий признак: файл создаётся один раз, и его повторное создание — признак ошибки в сценарии работы, о которой лучше узнать.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>"x"</code> там, где файл перезаписывается регулярно</td><td>второй запуск упадёт</td><td>режим <code>"w"</code></td></tr>
+              <tr><td><code>"x"</code> без обработки исключения</td><td>программа остановится при повторном запуске</td><td><code>try / except FileExistsError</code></td></tr>
+              <tr><td>проверка <code>os.path.exists()</code> перед <code>"w"</code></td><td>между проверкой и записью файл может появиться</td><td>режим <code>"x"</code></td></tr>
+              <tr><td>ждать дозаписи от <code>"x"</code></td><td>к существующему файлу он не откроется вовсе</td><td>режим <code>"a"</code></td></tr>
+              <tr><td>ловить <code>FileNotFoundError</code> вместо <code>FileExistsError</code></td><td>исключение не будет перехвачено</td><td>они противоположны по смыслу</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s10"><span class="sec">§10</span>Проверьте себя</h2>
+        <details><summary>Что делает режим <code>"x"</code>, если файл уже есть?</summary><p>Вызывает <code>FileExistsError</code> при открытии, не изменяя существующий файл.</p></details>
+        <details><summary>Чем <code>"x"</code> отличается от <code>"w"</code>?</summary><p>Оба создают файл, если его нет. Но <code>"w"</code> стирает существующий, а <code>"x"</code> отказывается работать.</p></details>
+        <details><summary>Почему <code>"x"</code> надёжнее проверки <code>os.path.exists()</code>?</summary><p>Проверка и создание выполняются одной операцией, поэтому файл не может появиться в промежутке между ними.</p></details>
+        <details><summary>От какого класса наследует <code>FileExistsError</code>?</summary><p>От <code>OSError</code> — как и остальные ошибки работы с файлами из главы 8.3.</p></details>
+        <details><summary>Можно ли использовать <code>"x"</code> для двоичных файлов?</summary><p>Да, режим записывается как <code>"xb"</code>. Есть и <code>"x+"</code> для создания с возможностью чтения.</p></details>
+
+        <h2 id="s11"><span class="sec">§11</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Создать новый</b><code>open(path, "x", encoding="utf-8")</code></div>
+          <div><b>Двоичный</b><code>open(path, "xb")</code></div>
+          <div><b>С обработкой</b><code>except FileExistsError:</code></div>
+          <div><b>Перезаписать</b><code>open(path, "w")</code></div>
+          <div><b>Дописать</b><code>open(path, "a")</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Режим <code>"x"</code> создаёт файл только при его отсутствии, а иначе вызывает <code>FileExistsError</code> — существующие данные при этом не страдают. Он зеркален режиму <code>"r"</code>, который требует, чтобы файл был. Главное его преимущество перед проверкой <code>os.path.exists()</code> в том, что проверка и создание выполняются одной неделимой операцией, и файл не может появиться в промежутке. Этим завершается разбор режимов открытия и всего модуля о файлах.</p>
+        <div class="pager">
+          <a href="../79-bufer-i-buferizaciya/index.html">← 8.12 Буфер и буферизация</a>
+          <a href="../../index.html">К содержанию справочника</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.13 · Режим x · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

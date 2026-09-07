@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.9 Чтение: readline() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.9</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.9</span>
+          <h1>Чтение:<br><code>readline()</code></h1>
+          <p class="lead">Метод читает файл по одной строке за вызов и возвращает её вместе с завершающим переводом строки. Конец файла обозначается пустой строкой — и отличать её от пустой строки <b>внутри</b> файла нужно аккуратно.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Файлы</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Строки, позиция в файле, циклы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Читать файл построчно, не загружая его целиком</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Одна строка за вызов</a></li>
+            <li><a href="#s2">Перевод строки сохраняется</a></li>
+            <li><a href="#s3">Последняя строка и конец файла</a></li>
+            <li><a href="#s4">Признак конца файла</a></li>
+            <li><a href="#s5">Цикл по строкам</a></li>
+            <li><a href="#s6">readline(size)</a></li>
+            <li><a href="#s7">Ограничение внутри строки</a></li>
+            <li><a href="#s8">readline() или перебор файла</a></li>
+            <li><a href="#s9">Практика: заголовок и данные</a></li>
+            <li><a href="#s10">Двоичный режим</a></li>
+            <li><a href="#s11">Сравнение методов чтения</a></li>
+            <li><a href="#s12">Частые ошибки</a></li>
+            <li><a href="#s13">Проверьте себя</a></li>
+            <li><a href="#s14">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Одна строка за вызов</h2>
+        <p><code>readline()</code> читает от текущей позиции до ближайшего перевода строки и возвращает прочитанное. Позиция сдвигается на начало следующей строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два вызова подряд</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(<span class="f">repr</span>(file.readline()))
+    <span class="f">print</span>(<span class="f">repr</span>(file.readline()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вторая строка продолжила с места остановки</span></figcaption><pre>'первая строка\n'
+'вторая строка\n'</pre></figure>
+        <p>Это тот же механизм позиции, что в главе 8.8, только шаг определяется не числом символов, а разделителем строк.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Перевод строки сохраняется</h2>
+        <p>Символ <code>\n</code> входит в результат — это часть прочитанной строки, а не служебная метка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>печать без repr() скрывает деталь</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    line = file.readline()
+
+<span class="f">print</span>(line)
+<span class="f">print</span>(<span class="s">"конец"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>лишняя пустая строка от двух переводов</span></figcaption><pre>первая строка
+
+конец</pre></figure>
+        <p>Один перевод пришёл из файла, второй добавил <code>print()</code>. Чтобы этого избежать, строку очищают методом <code>strip()</code> из главы 5.9 или печатают с <code>end=""</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Последняя строка и конец файла</h2>
+        <p>Если файл не заканчивается переводом строки, последняя строка вернётся без него. А когда читать больше нечего — возвращается пустая строка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>четыре вызова на файл из трёх строк</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">4</span>):
+        <span class="f">print</span>(<span class="f">repr</span>(file.readline()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>четвёртый вызов вернул пустоту</span></figcaption><pre>'первая строка\n'
+'вторая строка\n'
+'третья строка\n'
+''</pre></figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Признак конца файла</h2>
+        <p>Пустая строка и есть сигнал остановки — исключения не будет. Но здесь кроется тонкость.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что вернулось</th><th>Что это значит</th></tr></thead>
+            <tbody>
+              <tr><td><code>'текст\n'</code></td><td>обычная строка</td></tr>
+              <tr><td><code>'\n'</code></td><td>пустая строка <b>в файле</b> — читать ещё есть что</td></tr>
+              <tr><td><code>''</code></td><td>файл закончился</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Различие между второй и третьей строками принципиально: <code>'\n'</code> — это непустая строка длиной один символ. Поэтому проверка <code>if not line</code> работает верно, а вот <code>if not line.strip()</code> оборвёт чтение на первой же пустой строке файла.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Цикл по строкам</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>чтение до конца файла</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="k">while</span> <span class="k">True</span>:
+        line = file.readline()
+        <span class="k">if</span> <span class="k">not</span> line:
+            <span class="k">break</span>
+        <span class="f">print</span>(line.strip())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>strip() убрал переводы</span></figcaption><pre>первая строка
+вторая строка
+третья строка</pre></figure>
+        <p>Конструкция знакома по главе 8.8 — там так же читали блоками. Разница только в том, что порция здесь определяется концом строки.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>readline(size)</h2>
+        <p>Аргумент ограничивает длину: метод вернёт не больше указанного числа символов, даже если строка длиннее.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ограничение в пять символов</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(<span class="f">repr</span>(file.readline(<span class="n">5</span>)))
+    <span class="f">print</span>(<span class="f">repr</span>(file.readline(<span class="n">5</span>)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строка обрезана, перевод не достигнут</span></figcaption><pre>'перва'
+'я стр'</pre></figure>
+        <p>Результат совпал с <code>read(5)</code> из главы 8.8 — и это не совпадение: пока до перевода строки далеко, оба метода ведут себя одинаково.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Ограничение внутри строки</h2>
+        <p>Разница проявляется, когда перевод строки встречается раньше лимита.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что раньше</th><th><code>readline(size)</code> вернёт</th></tr></thead>
+            <tbody>
+              <tr><td>перевод строки</td><td>строку целиком, включая <code>\n</code></td></tr>
+              <tr><td>лимит <code>size</code></td><td>ровно <code>size</code> символов без <code>\n</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Значит, по наличию <code>\n</code> в конце можно понять, дочитана строка или обрезана. Аргумент нужен как защита от файлов с аномально длинными строками: без него одна строка на гигабайт попадёт в память целиком.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>readline() или перебор файла</h2>
+        <p>В главе 8.8 упоминался более короткий способ читать построчно — перебор самого файлового объекта.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>один результат, две записи</span></figcaption>
+<pre>while True:                   for line in file:
+    line = file.readline()        print(line.strip())
+    if not line:
+        break
+    print(line.strip())</pre>
+        </figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Способ</th><th>Когда предпочесть</th></tr></thead>
+            <tbody>
+              <tr><td><code>for line in file</code></td><td>обычное чтение всех строк подряд</td></tr>
+              <tr><td><code>readline()</code></td><td>нужно прочитать <b>ровно одну</b> строку</td></tr>
+              <tr><td><code>readline()</code></td><td>строки читаются неравномерно, по условию</td></tr>
+              <tr><td><code>readline(size)</code></td><td>защита от слишком длинных строк</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Практическое правило: если нужно просто пройти по всем строкам — <code>for</code>. <code>readline()</code> берут там, где чтением управляют вручную.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Практика: заголовок и данные</h2>
+        <p>Задача, где <code>readline()</code> уместнее перебора: первая строка файла — заголовок, остальные — данные.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>шапка читается отдельно</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"table.txt"</span>, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    file.write("имя;балл\nАнна;95\nМакс;82\n")
+
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"table.txt"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+    header = file.readline().strip()
+    <span class="f">print</span>(<span class="s">"колонки:"</span>, header.split(<span class="s">";"</span>))
+
+    <span class="k">for</span> line <span class="k">in</span> file:
+        name, score = line.strip().split(<span class="s">";"</span>)
+        <span class="f">print</span>(name, score)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>заголовок не попал в данные</span></figcaption><pre>колонки: ['имя', 'балл']
+Анна 95
+Макс 82</pre></figure>
+        <p>Приём работает потому, что оба способа чтения используют одну и ту же позицию: <code>readline()</code> сдвинул её на вторую строку, и цикл продолжил оттуда.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Двоичный режим</h2>
+        <p>В режиме <code>"rb"</code> метод возвращает <code>bytes</code> и ищет байт <code>0x0A</code> — тот самый <code>\n</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>первая строка как байты</span></figcaption>
+<pre><span class="k">with</span> <span class="f">open</span>(<span class="s">"demo.txt"</span>, <span class="s">"rb"</span>) <span class="k">as</span> file:
+    <span class="f">print</span>(file.readline())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>перевод строки в конце виден как \n</span></figcaption><pre>b'\xd0\xbf\xd0\xb5\xd1\x80\xd0\xb2\xd0\xb0\xd1\x8f \xd1\x81\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0\n'</pre></figure>
+        <p>Здесь <code>size</code> считается в байтах, и обрезка может разорвать символ пополам — та же опасность, что в главе 8.8.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Сравнение методов чтения</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Возвращает</th><th>Память</th></tr></thead>
+            <tbody>
+              <tr><td><code>read()</code></td><td>весь файл одной строкой</td><td>весь файл</td></tr>
+              <tr><td><code>read(size)</code></td><td>порцию символов</td><td>одна порция</td></tr>
+              <tr><td><code>readline()</code></td><td>одну строку с <code>\n</code></td><td>одна строка</td></tr>
+              <tr><td><code>readlines()</code></td><td>список всех строк</td><td>весь файл</td></tr>
+              <tr><td><code>for line in file</code></td><td>строки по одной</td><td>одна строка</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Правая колонка объясняет выбор для больших файлов: безопасны только те способы, где в памяти держится одна порция. <code>readlines()</code> разбирается в следующей главе.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>print(file.readline())</code></td><td>лишняя пустая строка в выводе</td><td><code>.strip()</code> или <code>end=""</code></td></tr>
+              <tr><td><code>if not line.strip(): break</code></td><td>чтение оборвётся на пустой строке файла</td><td><code>if not line: break</code></td></tr>
+              <tr><td>сравнивать строку с <code>"текст"</code> без <code>strip()</code></td><td>не совпадёт из-за <code>\n</code></td><td>очистить перед сравнением</td></tr>
+              <tr><td><code>readline()</code> в цикле <code>for line in file</code></td><td>строки будут пропускаться</td><td>выбрать один способ</td></tr>
+              <tr><td><code>while file.readline():</code> с обработкой внутри</td><td>строка прочитана, но потеряна</td><td>сохранять результат в переменную</td></tr>
+              <tr><td>читать построчно файл без переводов строк</td><td>весь файл окажется одной строкой</td><td><code>readline(size)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2>
+        <details><summary>Входит ли <code>\n</code> в результат <code>readline()</code>?</summary><p>Да, если строка в файле им заканчивалась. Последняя строка файла может вернуться без него.</p></details>
+        <details><summary>Как отличить конец файла от пустой строки в файле?</summary><p>Конец файла — это <code>''</code>, пустая строка в файле — <code>'\n'</code>, то есть один символ. Проверять нужно <code>if not line</code>, без <code>strip()</code>.</p></details>
+        <details><summary>Что делает аргумент <code>size</code>?</summary><p>Ограничивает длину результата. Если перевод строки встретится раньше, вернётся строка целиком; если позже — ровно <code>size</code> символов без <code>\n</code>.</p></details>
+        <details><summary>Когда <code>readline()</code> лучше перебора <code>for line in file</code>?</summary><p>Когда нужно прочитать ровно одну строку — например, заголовок — или когда чтением управляют вручную.</p></details>
+        <details><summary>Почему после <code>readline()</code> цикл <code>for</code> продолжает со второй строки?</summary><p>Оба способа используют одну позицию в файле, и <code>readline()</code> её уже сдвинул.</p></details>
+        <details><summary>Сколько памяти занимает <code>readline()</code>?</summary><p>Одну строку. Поэтому он, как и построчный перебор, безопасен для файлов любого размера.</p></details>
+
+        <h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Одна строка</b><code>line = file.readline()</code></div>
+          <div><b>Без перевода</b><code>file.readline().strip()</code></div>
+          <div><b>Конец файла</b><code>if not line: break</code></div>
+          <div><b>С ограничением</b><code>file.readline(1024)</code></div>
+          <div><b>Заголовок и данные</b><code>header = file.readline()</code></div>
+          <div><b>Все строки</b><code>for line in file:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>readline()</code> возвращает одну строку вместе с завершающим <code>\n</code> и сдвигает позицию к следующей. Конец файла обозначается пустой строкой, и отличать её от пустой строки <b>внутри</b> файла нужно без <code>strip()</code>: там будет <code>'\n'</code>, а не <code>''</code>. Аргумент <code>size</code> ограничивает длину и защищает от аномально длинных строк. Для обычного прохода по всем строкам короче перебор файлового объекта, а <code>readline()</code> берут, когда чтением управляют вручную.</p>
+        <div class="pager">
+          <a href="../75-chtenie-read/index.html">← 8.8 Чтение: read()</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../77-chtenie-readlines/index.html">8.10 Чтение: readlines() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.9 · Чтение: readline() · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
