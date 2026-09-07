@@ -1,71 +1,368 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>4.4 Методы словарей: часть 2 · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.4</p></div>
-<header class="chapter-head"><span class="chapter-num">4.4</span><h1>Методы словарей:<br>часть 2</h1><p class="lead">Эта глава завершает рабочий набор <code>dict</code>: динамические представления, безопасное удаление, создание значения при отсутствии ключа и пакетное обновление.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Обработка словарей</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Словари, кортежи, циклы, распаковка</dd></div><div><dt>Зачем это знать</dt><dd>Обновлять словари без лишних проверок и дублирования кода</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">keys</a></li><li><a href="#s2">Живое представление</a></li><li><a href="#s3">values</a></li><li><a href="#s4">items</a></li><li><a href="#s5">pop</a></li><li><a href="#s6">del и pop</a></li><li><a href="#s7">popitem</a></li><li><a href="#s8">setdefault</a></li><li><a href="#s9">Группировка</a></li><li><a href="#s10">update</a></li><li><a href="#s11">Объединение |</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>keys() даёт представление ключей</h2><figure class="code"><figcaption><span>main.py</span><span>ключи без преобразования</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.4 Методы словарей: часть 2 · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.4</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.4</span>
+          <h1>Методы словарей:<br>часть 2</h1>
+          <p class="lead">Эта глава завершает рабочий набор <code>dict</code>: динамические представления, которые ведут себя как множества, безопасное удаление, создание значения при отсутствии ключа и пакетное обновление.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Словари</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Представления, множества, группировка</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Изменять словарь безопасно и сравнивать словари между собой</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Представление, а не список</a></li>
+            <li><a href="#s2">keys(): ключи</a></li>
+            <li><a href="#s3">Представление живое</a></li>
+            <li><a href="#s4">values() и items()</a></li>
+            <li><a href="#s5">Представления как множества</a></li>
+            <li><a href="#s6">Практика: что изменилось</a></li>
+            <li><a href="#s7">pop(): удалить и забрать</a></li>
+            <li><a href="#s8">del или pop</a></li>
+            <li><a href="#s9">popitem()</a></li>
+            <li><a href="#s10">setdefault(): прочитать или создать</a></li>
+            <li><a href="#s11">get() или setdefault()</a></li>
+            <li><a href="#s12">Группировка</a></li>
+            <li><a href="#s13">update(): пакетное обновление</a></li>
+            <li><a href="#s14">Оператор |</a></li>
+            <li><a href="#s15">update() или |</a></li>
+            <li><a href="#s16">Частые ошибки</a></li>
+            <li><a href="#s17">Проверьте себя</a></li>
+            <li><a href="#s18">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Представление, а не список</h2>
+        <p>Три метода — <code>keys()</code>, <code>values()</code> и <code>items()</code> — возвращают <span class="term">представление</span>: живое окно в словарь. Это не копия и не список, и путаница здесь стоит времени.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Свойство</th><th>Список</th><th>Представление</th></tr></thead>
+            <tbody>
+              <tr><td>доступ по индексу</td><td>есть</td><td>нет</td></tr>
+              <tr><td>перебор циклом</td><td>есть</td><td>есть</td></tr>
+              <tr><td><code>len()</code> и <code>in</code></td><td>есть</td><td>есть</td></tr>
+              <tr><td>отражает изменения словаря</td><td>нет</td><td>да</td></tr>
+              <tr><td>занимает память под копию</td><td>да</td><td>нет</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s2"><span class="sec">§2</span>keys(): ключи</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>что именно возвращается</span></figcaption>
+<pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
 keys = user.keys()
 
 <span class="f">print</span>(keys)
-<span class="f">print</span>(<span class="s">"role"</span> <span class="k">in</span> keys)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>dict_keys</span></figcaption><pre>dict_keys(['name', 'role'])
-True</pre></figure><p>Для обычного перебора запись <code>for key in user</code> короче и даёт те же ключи. Явный <code>keys()</code> полезен, когда нужно подчеркнуть область операции или сохранить представление.</p>
-<h2 id="s2"><span class="sec">§2</span>Представление связано с исходным словарём</h2><figure class="code"><figcaption><span>main.py</span><span>изменение видно без повторного keys()</span></figcaption><pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>}
+<span class="f">print</span>(<span class="s">"role"</span> <span class="k">in</span> keys)
+<span class="f">print</span>(<span class="f">len</span>(keys))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>объект dict_keys</span></figcaption><pre>dict_keys(['name', 'role'])
+True
+2</pre></figure>
+        <p>Для обычного перебора <code>keys()</code> не нужен: <code>for key in user</code> даёт то же самое и короче. Метод полезен, когда область нужно назвать явно или когда представление сохраняют в переменную.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Представление живое</h2>
+        <p>Главное отличие от списка: представление не запоминает содержимое, а смотрит в словарь в момент обращения.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>keys() вызван до добавления пары</span></figcaption>
+<pre>user = {<span class="s">"name"</span>: <span class="s">"Max"</span>}
 keys = user.keys()
 
 user[<span class="s">"role"</span>] = <span class="s">"admin"</span>
-<span class="f">print</span>(keys)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>представление обновилось</span></figcaption><pre>dict_keys(['name', 'role'])</pre></figure><p><code>dict_keys</code>, <code>dict_values</code> и <code>dict_items</code> — динамические представления. Они не являются списками и не поддерживают доступ по индексу.</p>
-<h2 id="s3"><span class="sec">§3</span>values() даёт представление значений</h2><figure class="code"><figcaption><span>main.py</span><span>агрегация значений</span></figcaption><pre>stock = {<span class="s">"books"</span>: <span class="n">12</span>, <span class="s">"pens"</span>: <span class="n">30</span>, <span class="s">"bags"</span>: <span class="n">4</span>}
+
+<span class="f">print</span>(keys)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>новый ключ появился сам</span></figcaption><pre>dict_keys(['name', 'role'])</pre></figure>
+        <p>Это удобно, когда представление нужно один раз завести и дальше сверяться с ним. И это же объясняет <code>RuntimeError</code> из главы 4.2: цикл идёт по живому представлению, поэтому добавление пары ломает перебор. Чтобы зафиксировать состояние, делают снимок: <code>list(user.keys())</code>.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>values() и items()</h2>
+        <p>Два других представления устроены так же и отличаются только содержимым.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>агрегация значений</span></figcaption>
+<pre>stock = {<span class="s">"books"</span>: <span class="n">12</span>, <span class="s">"pens"</span>: <span class="n">30</span>, <span class="s">"bags"</span>: <span class="n">4</span>}
 
 <span class="f">print</span>(<span class="f">sum</span>(stock.values()))
-<span class="f">print</span>(<span class="f">min</span>(stock.values()))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>общее число и минимум</span></figcaption><pre>46
+<span class="f">print</span>(<span class="f">min</span>(stock.values()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>всего штук и наименьший остаток</span></figcaption><pre>46
 4</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>items() даёт представление пар</h2><figure class="code"><figcaption><span>main.py</span><span>фильтрация по значению</span></figcaption><pre>stock = {<span class="s">"books"</span>: <span class="n">12</span>, <span class="s">"pens"</span>: <span class="n">30</span>, <span class="s">"bags"</span>: <span class="n">4</span>}
-
-<span class="k">for</span> product, amount <span class="k">in</span> stock.items():
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отбор по значению</span></figcaption>
+<pre><span class="k">for</span> product, amount <span class="k">in</span> stock.items():
     <span class="k">if</span> amount &lt; <span class="n">10</span>:
-        <span class="f">print</span>(product, amount)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>остаток ниже десяти</span></figcaption><pre>bags 4</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>pop() удаляет ключ и возвращает значение</h2><figure class="code"><figcaption><span>main.py</span><span>безопасное извлечение</span></figcaption><pre>payload = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"password"</span>: <span class="s">"secret"</span>}
+        <span class="f">print</span>(product, amount)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>заканчивается только одна позиция</span></figcaption><pre>bags 4</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Представления как множества</h2>
+        <p>Неочевидная возможность: <code>keys()</code> и <code>items()</code> поддерживают операции множеств из главы 4.7. Ключи ведь уникальны — значит, ведут себя как множество.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сравнение двух словарей по ключам</span></figcaption>
+<pre>a = {<span class="s">"x"</span>: <span class="n">1</span>, <span class="s">"y"</span>: <span class="n">2</span>}
+b = {<span class="s">"y"</span>: <span class="n">2</span>, <span class="s">"z"</span>: <span class="n">3</span>}
+
+<span class="f">print</span>(a.keys() &amp; b.keys())
+<span class="f">print</span>(a.keys() - b.keys())
+<span class="f">print</span>(<span class="f">sorted</span>(a.keys() | b.keys()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>общие, только свои и все ключи</span></figcaption><pre>{'y'}
+{'x'}
+['x', 'y', 'z']</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Операция</th><th>Что даёт</th></tr></thead>
+            <tbody>
+              <tr><td><code>a.keys() &amp; b.keys()</code></td><td>ключи, которые есть в обоих</td></tr>
+              <tr><td><code>a.keys() - b.keys()</code></td><td>ключи только первого словаря</td></tr>
+              <tr><td><code>a.keys() | b.keys()</code></td><td>все ключи обоих</td></tr>
+              <tr><td><code>a.items() - b.items()</code></td><td>пары, которых нет во втором</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>С <code>values()</code> так не выйдет — значения не уникальны, и множеством их считать нельзя. Попытка даёт <code>TypeError: unsupported operand type(s) for &amp;</code>.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Практика: что изменилось</h2>
+        <p>Из предыдущего параграфа получается готовый способ сравнить две версии настроек — без единого цикла.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>какие пары изменились или исчезли</span></figcaption>
+<pre>old = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"user"</span>}
+new = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"role"</span>: <span class="s">"admin"</span>}
+
+<span class="f">print</span>(old.items() - new.items())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>роль была другой</span></figcaption><pre>{('role', 'user')}</pre></figure>
+        <p>Пара <code>("name", "Max")</code> есть в обоих словарях и потому в разность не попала. Работает это только тогда, когда значения хешируемы: пара со списком внутри вызовет знакомую ошибку из главы 4.1.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>pop(): удалить и забрать</h2>
+        <p>Метод удаляет пару и возвращает её значение — в отличие от <code>del</code>, который просто удаляет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>вынуть пароль из данных запроса</span></figcaption>
+<pre>payload = {<span class="s">"name"</span>: <span class="s">"Max"</span>, <span class="s">"password"</span>: <span class="s">"secret"</span>}
 password = payload.pop(<span class="s">"password"</span>, <span class="k">None</span>)
 
 <span class="f">print</span>(password)
-<span class="f">print</span>(payload)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>значение отдельно, пары больше нет</span></figcaption><pre>secret
-{'name': 'Max'}</pre></figure><p>Без второго аргумента отсутствующий ключ вызывает <code>KeyError</code>. С запасным значением метод безопасно возвращает его и не меняет словарь.</p>
-<h2 id="s6"><span class="sec">§6</span>del и pop решают разные варианты удаления</h2><div class="table-scroll"><table><thead><tr><th>Инструмент</th><th>Когда удобен</th><th>Если ключа нет</th></tr></thead><tbody><tr><td><code>del data[key]</code></td><td>нужно только удалить</td><td><code>KeyError</code></td></tr><tr><td><code>data.pop(key)</code></td><td>нужно забрать удалённое значение</td><td><code>KeyError</code></td></tr><tr><td><code>data.pop(key, default)</code></td><td>ключ может отсутствовать</td><td>вернётся <code>default</code></td></tr></tbody></table></div>
-<h2 id="s7"><span class="sec">§7</span>popitem() снимает последнюю добавленную пару</h2><figure class="code"><figcaption><span>main.py</span><span>результат — кортеж</span></figcaption><pre>tasks = {<span class="s">"first"</span>: <span class="s">"done"</span>, <span class="s">"second"</span>: <span class="s">"ready"</span>}
+<span class="f">print</span>(payload)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>значение получено, пара удалена</span></figcaption><pre>secret
+{'name': 'Max'}</pre></figure>
+        <p>Второй аргумент — запасное значение. С ним отсутствие ключа перестаёт быть ошибкой.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ключа нет</span></figcaption>
+<pre>data = {<span class="s">"name"</span>: <span class="s">"Max"</span>}
+<span class="f">print</span>(data.pop(<span class="s">"nope"</span>, <span class="s">"запасное"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вместо KeyError</span></figcaption><pre>запасное</pre></figure>
+
+        <h2 id="s8"><span class="sec">§8</span>del или pop</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Инструмент</th><th>Когда удобен</th><th>Если ключа нет</th></tr></thead>
+            <tbody>
+              <tr><td><code>del data[key]</code></td><td>нужно только удалить</td><td><code>KeyError</code></td></tr>
+              <tr><td><code>data.pop(key)</code></td><td>нужно забрать значение</td><td><code>KeyError</code></td></tr>
+              <tr><td><code>data.pop(key, default)</code></td><td>ключ может отсутствовать</td><td>вернётся <code>default</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Это та же тройка, что у списков в главе 3.11: <code>del</code> — оператор, <code>pop()</code> — метод, возвращающий удалённое. Разница лишь в том, что здесь выбор идёт по ключу.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>popitem()</h2>
+        <p>Метод снимает <b>последнюю добавленную</b> пару и возвращает её кортежем.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>результат сразу распаковывается</span></figcaption>
+<pre>tasks = {<span class="s">"first"</span>: <span class="s">"done"</span>, <span class="s">"second"</span>: <span class="s">"ready"</span>}
 key, value = tasks.popitem()
 
 <span class="f">print</span>(key, value)
-<span class="f">print</span>(tasks)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>последняя пара удалена</span></figcaption><pre>second ready
-{'first': 'done'}</pre></figure><p>У пустого словаря <code>popitem()</code> вызывает <code>KeyError</code>. Метод подходит для последовательной обработки с удалением, но не заменяет выбор по конкретному ключу.</p>
-<h2 id="s8"><span class="sec">§8</span>setdefault() читает или сразу создаёт</h2><figure class="code"><figcaption><span>main.py</span><span>два состояния ключа</span></figcaption><pre>settings = {<span class="s">"theme"</span>: <span class="s">"dark"</span>}
+<span class="f">print</span>(tasks)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>снята вторая пара</span></figcaption><pre>second ready
+{'first': 'done'}</pre></figure>
+        <p>Порядок здесь не случайный, а именно обратный порядку добавления, — словарь ведёт себя как стек из главы 3.11. На пустом словаре метод вызывает <code>KeyError: 'popitem(): dictionary is empty'</code>.</p>
+        <div class="margin-note">
+          <b>Так было не всегда</b>
+          <p>До Python 3.7 порядок пар не гарантировался, и <code>popitem()</code> действительно снимал произвольную пару. В старом коде и старых учебниках встречается описание «удаляет случайный элемент» — сейчас это неверно.</p>
+        </div>
+
+        <h2 id="s10"><span class="sec">§10</span>setdefault(): прочитать или создать</h2>
+        <p>Метод возвращает значение ключа, а если ключа нет — сначала создаёт его с указанным значением.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два состояния ключа</span></figcaption>
+<pre>settings = {<span class="s">"theme"</span>: <span class="s">"dark"</span>}
 
 first = settings.setdefault(<span class="s">"theme"</span>, <span class="s">"light"</span>)
 second = settings.setdefault(<span class="s">"language"</span>, <span class="s">"ru"</span>)
 
 <span class="f">print</span>(first, second)
-<span class="f">print</span>(settings)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>старое сохранено, новое добавлено</span></figcaption><pre>dark ru
-{'theme': 'dark', 'language': 'ru'}</pre></figure><div class="table-scroll"><table><thead><tr><th>Метод</th><th>Ключ есть</th><th>Ключа нет</th></tr></thead><tbody><tr><td><code>get(key, default)</code></td><td>вернёт значение</td><td>вернёт default, словарь не изменит</td></tr><tr><td><code>setdefault(key, default)</code></td><td>вернёт значение</td><td>добавит default и вернёт его</td></tr></tbody></table></div>
-<h2 id="s9"><span class="sec">§9</span>Группировка через setdefault()</h2><figure class="code"><figcaption><span>main.py</span><span>города по странам</span></figcaption><pre>rows = [(<span class="s">"Россия"</span>, <span class="s">"Москва"</span>), (<span class="s">"Казахстан"</span>, <span class="s">"Астана"</span>), (<span class="s">"Россия"</span>, <span class="s">"Казань"</span>)]
+<span class="f">print</span>(settings)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>существующее сохранено, новое добавлено</span></figcaption><pre>dark ru
+{'theme': 'dark', 'language': 'ru'}</pre></figure>
+        <p>Ключевое: существующее значение метод <b>не перезаписывает</b>. Аргумент <code>"light"</code> в первой строке был проигнорирован, потому что <code>"theme"</code> уже существовал.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>get() или setdefault()</h2>
+        <p>Названия похожи, поведение различается ровно в одном: меняет ли метод словарь.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Ключ есть</th><th>Ключа нет</th></tr></thead>
+            <tbody>
+              <tr><td><code>get(key, default)</code></td><td>вернёт значение</td><td>вернёт <code>default</code>, словарь не изменится</td></tr>
+              <tr><td><code>setdefault(key, default)</code></td><td>вернёт значение</td><td>добавит пару и вернёт <code>default</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для счётчика из главы 4.2 нужен <code>get()</code>: там значение всё равно перезаписывается следующей строкой, и создавать ключ заранее незачем. А для группировки, наоборот, нужен <code>setdefault()</code> — и это следующий параграф.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Группировка</h2>
+        <p>Классическая задача: разложить плоский список записей по категориям.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>города по странам</span></figcaption>
+<pre>rows = [(<span class="s">"Россия"</span>, <span class="s">"Москва"</span>), (<span class="s">"Казахстан"</span>, <span class="s">"Астана"</span>), (<span class="s">"Россия"</span>, <span class="s">"Казань"</span>)]
 grouped = {}
 
 <span class="k">for</span> country, city <span class="k">in</span> rows:
     grouped.setdefault(country, []).append(city)
 
-<span class="f">print</span>(grouped)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>списки по ключам</span></figcaption><pre>{'Россия': ['Москва', 'Казань'], 'Казахстан': ['Астана']}</pre></figure><p>Для первого города метод создаёт пустой список, а для следующих возвращает уже существующий. Затем <code>append()</code> работает с этим списком.</p>
-<h2 id="s10"><span class="sec">§10</span>update() переносит пары в исходный словарь</h2><figure class="code"><figcaption><span>main.py</span><span>пользовательская настройка заменяет базовую</span></figcaption><pre>config = {<span class="s">"theme"</span>: <span class="s">"light"</span>, <span class="s">"language"</span>: <span class="s">"en"</span>}
+<span class="f">print</span>(grouped)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>списки собраны по ключам</span></figcaption><pre>{'Россия': ['Москва', 'Казань'], 'Казахстан': ['Астана']}</pre></figure>
+        <ol class="steps">
+          <li><code>setdefault(country, [])</code> для новой страны создаёт пустой список и возвращает его.</li>
+          <li>Для уже известной страны — возвращает существующий список, ничего не создавая.</li>
+          <li><code>append(city)</code> в обоих случаях работает с полученным списком.</li>
+        </ol>
+        <p>Здесь важно, что метод возвращает <b>сам список</b>, а не копию: <code>append()</code> меняет то, что лежит в словаре. С <code>get(country, [])</code> приём бы не сработал — тот вернул бы новый пустой список, не связанный со словарём, и добавление потерялось бы.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>update(): пакетное обновление</h2>
+        <p>Метод переносит пары из другого источника в текущий словарь: существующие ключи обновляет, новые добавляет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>настройки пользователя поверх базовых</span></figcaption>
+<pre>config = {<span class="s">"theme"</span>: <span class="s">"light"</span>, <span class="s">"language"</span>: <span class="s">"en"</span>}
 config.update({<span class="s">"theme"</span>: <span class="s">"dark"</span>, <span class="s">"font_size"</span>: <span class="n">16</span>})
 
-<span class="f">print</span>(config)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>замена и добавление</span></figcaption><pre>{'theme': 'dark', 'language': 'en', 'font_size': 16}</pre></figure><p>Метод принимает другой словарь, итерируемый объект пар или именованные аргументы. Он меняет исходный словарь и возвращает <code>None</code>.</p>
-<h2 id="s11"><span class="sec">§11</span>Оператор | создаёт новый словарь</h2><figure class="code"><figcaption><span>main.py</span><span>объединение без изменения исходных</span></figcaption><pre>defaults = {<span class="s">"theme"</span>: <span class="s">"light"</span>, <span class="s">"language"</span>: <span class="s">"en"</span>}
+<span class="f">print</span>(config)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>тема заменена, размер добавлен</span></figcaption><pre>{'theme': 'dark', 'language': 'en', 'font_size': 16}</pre></figure>
+        <p>Источником может быть не только словарь.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три формы вызова</span></figcaption>
+<pre>data = {<span class="s">"a"</span>: <span class="n">1</span>}
+
+data.update({<span class="s">"b"</span>: <span class="n">2</span>})
+data.update([(<span class="s">"c"</span>, <span class="n">3</span>)])
+data.update(d=<span class="n">4</span>)
+
+<span class="f">print</span>(data)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>словарь, список пар, именованные аргументы</span></figcaption><pre>{'a': 1, 'b': 2, 'c': 3, 'd': 4}</pre></figure>
+        <p>Метод меняет словарь на месте и возвращает <code>None</code> — как <code>append()</code> и <code>sort()</code> у списков.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Оператор |</h2>
+        <p>Начиная с Python 3.9 два словаря можно объединить оператором. Он не меняет исходные, а строит новый.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>объединение без изменения исходных</span></figcaption>
+<pre>defaults = {<span class="s">"theme"</span>: <span class="s">"light"</span>, <span class="s">"language"</span>: <span class="s">"en"</span>}
 custom = {<span class="s">"theme"</span>: <span class="s">"dark"</span>}
+
 result = defaults | custom
 
 <span class="f">print</span>(result)
-<span class="f">print</span>(defaults)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>справа приоритетнее</span></figcaption><pre>{'theme': 'dark', 'language': 'en'}
-{'theme': 'light', 'language': 'en'}</pre></figure><p><code>|=</code>, напротив, обновляет словарь слева. Оба оператора доступны начиная с Python 3.9.</p>
-<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>data.keys()[0]</code></td><td><code>TypeError</code>: у представления нет индексов</td><td>перебрать его или осознанно создать <code>list(data)</code></td></tr><tr><td><code>result = data.update(other)</code></td><td><code>result</code> станет <code>None</code></td><td>сначала вызвать <code>update()</code>, затем использовать <code>data</code></td></tr><tr><td><code>data.pop("x")</code> без гарантии ключа</td><td>возможен <code>KeyError</code></td><td><code>data.pop("x", default)</code></td></tr><tr><td>считать <code>get()</code> и <code>setdefault()</code> одинаковыми</td><td>пропускается изменение словаря</td><td>выбирать по тому, нужно ли создавать ключ</td></tr><tr><td><code>data.popitem()</code> для случайной пары</td><td>удалится последняя добавленная пара</td><td>не полагаться на случайность</td></tr></tbody></table></div>
-<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Чем представление словаря отличается от списка?</summary><p>Оно связано с исходным словарём, отражает последующие изменения и не поддерживает числовые индексы.</p></details><details><summary>Когда setdefault() меняет словарь?</summary><p>Только когда указанного ключа ещё нет: тогда метод добавляет ключ со значением по умолчанию.</p></details><details><summary>Что возвращает update()?</summary><p><code>None</code>. Метод меняет исходный словарь.</p></details>
-<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Представления</b><code>data.keys()</code><code>data.values()</code><code>data.items()</code></div><div><b>Удаление</b><code>data.pop(key, default)</code><code>data.popitem()</code></div><div><b>Создать при отсутствии</b><code>data.setdefault(key, default)</code></div><div><b>Обновить</b><code>data.update(other)</code><code>new = left | right</code></div></div>
-<h3>Итог главы</h3><p>Представления дают актуальные ключи, значения и пары. <code>pop()</code> извлекает значение с удалением, <code>setdefault()</code> создаёт отсутствующий ключ, а <code>update()</code> меняет сразу несколько пар.</p>
-<div class="pager"><a href="../47-metody-slovarey-1/index.html">← 4.3 Методы словарей: часть 1</a><a href="../../index.html">К содержанию справочника</a><a href="../49-mnozhestva/index.html">4.5 Множества →</a></div><div class="colophon"><span>Глава 4.4 · Методы словарей II · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="f">print</span>(defaults)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>правый словарь важнее, исходный цел</span></figcaption><pre>{'theme': 'dark', 'language': 'en'}
+{'theme': 'light', 'language': 'en'}</pre></figure>
+        <p>При конфликте ключей побеждает <b>правый</b> словарь — это и делает запись <code>defaults | custom</code> естественной для настроек: справа то, что должно перекрывать.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>update() или |</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Исходный словарь</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>a.update(b)</code></td><td>изменяется</td><td><code>None</code></td></tr>
+              <tr><td><code>c = a | b</code></td><td>не изменяется</td><td>новый словарь</td></tr>
+              <tr><td><code>a |= b</code></td><td>изменяется</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Разница ровно та же, что между <code>sort()</code> и <code>sorted()</code> в главе 3.11 или между <code>clear()</code> и <code>= {}</code>: метод меняет объект, оператор строит новый. Если словарь известен под несколькими именами, выбор между ними существенный.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>data.keys()[0]</code></td><td><code>TypeError</code>: у представления нет индексов</td><td><code>list(data)[0]</code></td></tr>
+              <tr><td><code>result = data.update(other)</code></td><td>в <code>result</code> попадёт <code>None</code></td><td><code>data.update(other)</code> отдельной строкой</td></tr>
+              <tr><td><code>data.pop("x")</code> без гарантии ключа</td><td><code>KeyError</code></td><td><code>data.pop("x", None)</code></td></tr>
+              <tr><td><code>get(key, []).append(x)</code> для группировки</td><td>добавление потеряется: список не в словаре</td><td><code>setdefault(key, []).append(x)</code></td></tr>
+              <tr><td>ждать, что <code>setdefault()</code> обновит значение</td><td>существующий ключ не меняется</td><td>обычное присваивание <code>data[key] = value</code></td></tr>
+              <tr><td><code>a.values() &amp; b.values()</code></td><td><code>TypeError</code>: значения не уникальны</td><td>сравнивать <code>keys()</code> или <code>items()</code></td></tr>
+              <tr><td>считать <code>popitem()</code> случайным выбором</td><td>снимается последняя добавленная пара</td><td>выбирать пару по ключу через <code>pop()</code></td></tr>
+              <tr><td>перебирать представление и менять словарь</td><td><code>RuntimeError</code>: представление живое</td><td>сделать снимок <code>list(data)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s17"><span class="sec">§17</span>Проверьте себя</h2>
+        <details><summary>Чем представление отличается от списка?</summary><p>Оно связано с исходным словарём и отражает его изменения, не занимает память под копию и не поддерживает индексы.</p></details>
+        <details><summary>Почему <code>keys()</code> поддерживает операции множеств, а <code>values()</code> — нет?</summary><p>Ключи уникальны и потому ведут себя как множество. Значения могут повторяться, и объединять их как множество бессмысленно.</p></details>
+        <details><summary>Когда <code>setdefault()</code> меняет словарь?</summary><p>Только когда ключа ещё нет: тогда пара добавляется. Существующее значение метод не перезаписывает.</p></details>
+        <details><summary>Почему группировка работает через <code>setdefault()</code>, а не <code>get()</code>?</summary><p><code>setdefault()</code> возвращает список, который уже лежит в словаре, и <code>append()</code> меняет именно его. <code>get()</code> вернул бы новый пустой список, не связанный со словарём.</p></details>
+        <details><summary>Что возвращает <code>update()</code>?</summary><p><code>None</code>. Метод меняет словарь на месте, поэтому присваивать его результат нельзя.</p></details>
+        <details><summary>Какой словарь побеждает при конфликте в <code>a | b</code>?</summary><p>Правый. Поэтому <code>defaults | custom</code> — естественный порядок для настроек.</p></details>
+
+        <h2 id="s18"><span class="sec">§18</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Представления</b><code>data.keys()</code><code>data.values()</code><code>data.items()</code></div>
+          <div><b>Снимок</b><code>list(data)</code></div>
+          <div><b>Общие ключи</b><code>a.keys() &amp; b.keys()</code></div>
+          <div><b>Что изменилось</b><code>old.items() - new.items()</code></div>
+          <div><b>Удалить и забрать</b><code>data.pop(key, None)</code></div>
+          <div><b>Создать при отсутствии</b><code>data.setdefault(key, [])</code></div>
+          <div><b>Группировка</b><code>d.setdefault(k, []).append(v)</code></div>
+          <div><b>Объединить</b><code>data.update(other)</code><code>new = a | b</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Представления — живые окна в словарь: они отражают его изменения, не поддерживают индексы и объясняют, почему нельзя менять словарь во время перебора. Ключи и пары дополнительно ведут себя как множества, что позволяет сравнивать словари без циклов. <code>pop()</code> с запасным значением делает удаление безопасным, <code>setdefault()</code> отличается от <code>get()</code> тем, что создаёт ключ — и потому именно он годится для группировки. <code>update()</code> меняет словарь и возвращает <code>None</code>, а оператор <code>|</code> строит новый, отдавая приоритет правому словарю.</p>
+        <div class="pager">
+          <a href="../47-metody-slovarey-1/index.html">← 4.3 Методы словарей: часть 1</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../49-mnozhestva/index.html">4.5 Множества →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.4 · Методы словарей II · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

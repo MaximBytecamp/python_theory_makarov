@@ -1,62 +1,311 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>4.8 Изменяющие операции множеств · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.8</p></div>
-<header class="chapter-head"><span class="chapter-num">4.8</span><h1>Изменяющие операции<br>множеств</h1><p class="lead">Методы с суффиксом <code>_update</code> записывают результат операции в исходное множество. Это отличает их от <code>union()</code>, <code>intersection()</code> и других методов, создающих новый объект.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Обработка множеств</dd></div><div><dt>Уровень</dt><dd>Продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Операции множеств, изменяемость, присваивание</dd></div><div><dt>Зачем это знать</dt><dd>Обновлять существующий набор без промежуточного результата</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Новый или исходный set</a></li><li><a href="#s2">update</a></li><li><a href="#s3">Оператор |=</a></li><li><a href="#s4">difference_update</a></li><li><a href="#s5">Оператор -=</a></li><li><a href="#s6">intersection_update</a></li><li><a href="#s7">Оператор &amp;=</a></li><li><a href="#s8">symmetric_difference_update</a></li><li><a href="#s9">Оператор ^=</a></li><li><a href="#s10">Несколько аргументов</a></li><li><a href="#s11">Возвращаемое значение</a></li><li><a href="#s12">Практический пример</a></li><li><a href="#s13">Частые ошибки</a></li><li><a href="#s14">Проверьте себя</a></li><li><a href="#s15">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Сначала выбираем: сохранить исходное или изменить</h2><div class="table-scroll"><table><thead><tr><th>Новый результат</th><th>Изменение слева</th></tr></thead><tbody><tr><td><code>result = a.union(b)</code></td><td><code>a.update(b)</code></td></tr><tr><td><code>result = a.difference(b)</code></td><td><code>a.difference_update(b)</code></td></tr><tr><td><code>result = a.intersection(b)</code></td><td><code>a.intersection_update(b)</code></td></tr><tr><td><code>result = a.symmetric_difference(b)</code></td><td><code>a.symmetric_difference_update(b)</code></td></tr></tbody></table></div><p>Изменяющий метод нужен, когда старое состояние множества больше не требуется. Если оно ещё понадобится, сохраните результат обычной операции в новом имени.</p>
-<h2 id="s2"><span class="sec">§2</span>update() добавляет все элементы аргумента</h2><figure class="code"><figcaption><span>main.py</span><span>несколько новых ролей</span></figcaption><pre>roles = {<span class="s">"reader"</span>}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.8 Изменяющие операции множеств · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.8</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.8</span>
+          <h1>Изменяющие операции<br>множеств</h1>
+          <p class="lead">У каждой операции из главы 4.7 есть версия, которая меняет множество на месте вместо создания нового. Разница между <code>a = a | b</code> и <code>a |= b</code> кажется косметической — до тех пор, пока у множества не появится второе имя.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Операции set</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Операции множеств, изменяемость, ссылки</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Обновлять набор на месте и не терять исходные данные</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Новый набор или изменение</a></li>
+            <li><a href="#s2">update(): добавить всё</a></li>
+            <li><a href="#s3">Оператор |=</a></li>
+            <li><a href="#s4">difference_update(): убрать</a></li>
+            <li><a href="#s5">intersection_update(): оставить общее</a></li>
+            <li><a href="#s6">symmetric_difference_update()</a></li>
+            <li><a href="#s7">Сводная таблица</a></li>
+            <li><a href="#s8">Методы принимают списки</a></li>
+            <li><a href="#s9">Несколько аргументов</a></li>
+            <li><a href="#s10">Все возвращают None</a></li>
+            <li><a href="#s11">Почему это важно: два имени</a></li>
+            <li><a href="#s12">Как выбрать</a></li>
+            <li><a href="#s13">Практика: фильтрация набора</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Новый набор или изменение</h2>
+        <p>Каждая операция главы 4.7 существует в двух видах. Один строит новый набор, другой меняет левый операнд.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Операция</th><th>Новый результат</th><th>Изменение слева</th></tr></thead>
+            <tbody>
+              <tr><td>объединение</td><td><code>a.union(b)</code>, <code>a | b</code></td><td><code>a.update(b)</code>, <code>a |= b</code></td></tr>
+              <tr><td>разность</td><td><code>a.difference(b)</code>, <code>a - b</code></td><td><code>a.difference_update(b)</code>, <code>a -= b</code></td></tr>
+              <tr><td>пересечение</td><td><code>a.intersection(b)</code>, <code>a &amp; b</code></td><td><code>a.intersection_update(b)</code>, <code>a &amp;= b</code></td></tr>
+              <tr><td>симметрическая разность</td><td><code>a.symmetric_difference(b)</code>, <code>a ^ b</code></td><td><code>a.symmetric_difference_update(b)</code>, <code>a ^= b</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Различить их легко по названию: суффикс <code>_update</code> и знак <code>=</code> у оператора означают «изменить на месте». Это та же пара, что <code>sort()</code> и <code>sorted()</code> в главе 3.11.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>update(): добавить всё</h2>
+        <p>Метод добавляет в множество все элементы аргумента. Повторы отсеиваются сами.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>reader уже был в наборе</span></figcaption>
+<pre>roles = {<span class="s">"reader"</span>}
 roles.update([<span class="s">"editor"</span>, <span class="s">"admin"</span>, <span class="s">"reader"</span>])
 
-<span class="f">print</span>(roles)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>повторов нет</span></figcaption><pre>{'reader', 'editor', 'admin'}</pre></figure><p>В отличие от <code>add()</code>, метод принимает итерируемые объекты и добавляет их элементы по одному.</p>
-<h2 id="s3"><span class="sec">§3</span>Оператор |= выполняет изменяющее объединение</h2><figure class="code"><figcaption><span>main.py</span><span>оба операнда — множества</span></figcaption><pre>roles = {<span class="s">"reader"</span>}
-roles |= {<span class="s">"editor"</span>, <span class="s">"admin"</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(roles))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три роли, без дублей</span></figcaption><pre>['admin', 'editor', 'reader']</pre></figure>
+        <p>Метод уже встречался в главе 4.6 — он относится к <code>add()</code> так же, как <code>extend()</code> к <code>append()</code>. Здесь важно другое: <code>update()</code> и есть изменяющая версия объединения.</p>
 
-<span class="f">print</span>(roles)</pre></figure><p><code>update()</code> принимает любой итерируемый аргумент, а оператор <code>|=</code> ожидает множество справа.</p>
-<h2 id="s4"><span class="sec">§4</span>difference_update() удаляет найденные элементы</h2><figure class="code"><figcaption><span>main.py</span><span>отозванные разрешения</span></figcaption><pre>permissions = {<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>}
+        <h2 id="s3"><span class="sec">§3</span>Оператор |=</h2>
+        <p>Короткая запись того же действия.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>справа обязательно множество</span></figcaption>
+<pre>roles = {<span class="s">"reader"</span>}
+roles |= {<span class="s">"editor"</span>}
+
+<span class="f">print</span>(<span class="f">sorted</span>(roles))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>роль добавлена</span></figcaption><pre>['editor', 'reader']</pre></figure>
+        <p>Запись <code>a |= b</code> читается как <code>a += b</code> у чисел: «взять текущее значение, применить операцию, положить обратно».</p>
+
+        <h2 id="s4"><span class="sec">§4</span>difference_update(): убрать</h2>
+        <p>Метод удаляет из множества всё, что встретилось в аргументе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отзыв разрешений</span></figcaption>
+<pre>permissions = {<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>}
 permissions.difference_update([<span class="s">"write"</span>, <span class="s">"unknown"</span>])
 
-<span class="f">print</span>(permissions)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>write удалён</span></figcaption><pre>{'read', 'delete'}</pre></figure><p>Отсутствующие элементы не вызывают ошибку: метод оставляет в исходном множестве только то, чего нет в аргументах.</p>
-<h2 id="s5"><span class="sec">§5</span>Оператор -= выполняет изменяющую разность</h2><figure class="code"><figcaption><span>main.py</span><span>краткая запись</span></figcaption><pre>permissions = {<span class="s">"read"</span>, <span class="s">"write"</span>, <span class="s">"delete"</span>}
-permissions -= {<span class="s">"write"</span>}
-<span class="f">print</span>(permissions)</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>intersection_update() оставляет только общие</h2><figure class="code"><figcaption><span>main.py</span><span>ограничение доступным тарифом</span></figcaption><pre>requested = {<span class="s">"reports"</span>, <span class="s">"exports"</span>, <span class="s">"analytics"</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(permissions))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>write убран, unknown проигнорирован</span></figcaption><pre>['delete', 'read']</pre></figure>
+        <p>Отсутствующие элементы ошибки не вызывают — метод ведёт себя как <code>discard()</code> из главы 4.6, только сразу для группы. Это удобно: не нужно проверять, что там есть на самом деле.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>intersection_update(): оставить общее</h2>
+        <p>Обратная задача: оставить только то, что есть и в аргументе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обрезаем запрос по доступному тарифу</span></figcaption>
+<pre>requested = {<span class="s">"reports"</span>, <span class="s">"exports"</span>, <span class="s">"analytics"</span>}
 available = {<span class="s">"reports"</span>, <span class="s">"analytics"</span>}
 
 requested.intersection_update(available)
-<span class="f">print</span>(requested)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>только доступные возможности</span></figcaption><pre>{'reports', 'analytics'}</pre></figure>
-<h2 id="s7"><span class="sec">§7</span>Оператор &amp;= выполняет изменяющее пересечение</h2><figure class="code"><figcaption><span>main.py</span><span>тот же механизм</span></figcaption><pre>requested = {<span class="s">"reports"</span>, <span class="s">"exports"</span>, <span class="s">"analytics"</span>}
-requested &amp;= {<span class="s">"reports"</span>, <span class="s">"analytics"</span>}
-<span class="f">print</span>(requested)</pre></figure>
-<h2 id="s8"><span class="sec">§8</span>symmetric_difference_update() оставляет различия</h2><figure class="code"><figcaption><span>main.py</span><span>переключение выбранных тегов</span></figcaption><pre>selected = {<span class="s">"python"</span>, <span class="s">"sql"</span>}
+
+<span class="f">print</span>(<span class="f">sorted</span>(requested))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>недоступное отброшено</span></figcaption><pre>['analytics', 'reports']</pre></figure>
+        <p>Типичное применение — фильтрация: «оставить из запрошенного только разрешённое». Оператор <code>&amp;=</code> делает то же самое короче.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>symmetric_difference_update()</h2>
+        <p>Метод оставляет то, что было ровно в одном из наборов, — получается переключение принадлежности.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>переключение выбранных тегов</span></figcaption>
+<pre>selected = {<span class="s">"python"</span>, <span class="s">"sql"</span>}
 selected.symmetric_difference_update({<span class="s">"sql"</span>, <span class="s">"docker"</span>})
 
-<span class="f">print</span>(selected)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>sql исчез, docker появился</span></figcaption><pre>{'python', 'docker'}</pre></figure><p>Общий элемент удаляется, а элемент только из аргумента добавляется. Поэтому операция похожа на переключение состояния принадлежности.</p>
-<h2 id="s9"><span class="sec">§9</span>Оператор ^= выполняет ту же операцию</h2><figure class="code"><figcaption><span>main.py</span><span>краткая запись</span></figcaption><pre>selected = {<span class="s">"python"</span>, <span class="s">"sql"</span>}
-selected ^= {<span class="s">"sql"</span>, <span class="s">"docker"</span>}
-<span class="f">print</span>(selected)</pre></figure>
-<h2 id="s10"><span class="sec">§10</span>Не все update-методы принимают несколько аргументов</h2><div class="table-scroll"><table><thead><tr><th>Метод</th><th>Несколько итерируемых аргументов</th></tr></thead><tbody><tr><td><code>update(*others)</code></td><td>да</td></tr><tr><td><code>difference_update(*others)</code></td><td>да</td></tr><tr><td><code>intersection_update(*others)</code></td><td>да</td></tr><tr><td><code>symmetric_difference_update(other)</code></td><td>нет, ровно один аргумент</td></tr></tbody></table></div><figure class="code"><figcaption><span>main.py</span><span>пересечение трёх условий</span></figcaption><pre>ids = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(selected))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>sql выключен, docker включён</span></figcaption><pre>['docker', 'python']</pre></figure>
+        <p>Общий элемент <code>sql</code> удалился, а <code>docker</code> добавился. Именно так работают переключатели в интерфейсах: повторный клик по выбранному тегу его снимает.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Сводная таблица</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Что остаётся в a</th></tr></thead>
+            <tbody>
+              <tr><td><code>a |= b</code></td><td>всё из обоих наборов</td></tr>
+              <tr><td><code>a -= b</code></td><td>только то, чего нет в b</td></tr>
+              <tr><td><code>a &amp;= b</code></td><td>только общее с b</td></tr>
+              <tr><td><code>a ^= b</code></td><td>то, что было ровно в одном</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Во всех четырёх случаях <code>b</code> не меняется — операция односторонняя.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Методы принимают списки</h2>
+        <p>Различие между методом и оператором здесь то же, что в главе 4.7.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>справа от оператора список</span></figcaption>
+<pre>values = {<span class="n">1</span>}
+values |= [<span class="n">2</span>]</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>оператор требует множество</span></figcaption>
+<pre>TypeError: unsupported operand type(s) for |=: 'set' and 'list'</pre>
+        </figure>
+        <p>А <code>values.update([2])</code> отработает без нареканий. Отсюда практический вывод: с данными из внешнего источника, которые обычно приходят списком, удобнее методы.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Несколько аргументов</h2>
+        <p>Три метода из четырёх принимают сразу несколько коллекций.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пересечение трёх условий</span></figcaption>
+<pre>ids = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>}
 ids.intersection_update([<span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>], (<span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>))
-<span class="f">print</span>(ids)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>общие для всех</span></figcaption><pre>{3, 4}</pre></figure>
-<h2 id="s11"><span class="sec">§11</span>Все изменяющие методы возвращают None</h2><figure class="code"><figcaption><span>main.py</span><span>результат хранится в values</span></figcaption><pre>values = {<span class="n">1</span>, <span class="n">2</span>}
-result = values.update({<span class="n">3</span>})
+
+<span class="f">print</span>(<span class="f">sorted</span>(ids))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>общее для всех трёх наборов</span></figcaption><pre>[3, 4]</pre></figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Несколько аргументов</th></tr></thead>
+            <tbody>
+              <tr><td><code>update()</code></td><td>да</td></tr>
+              <tr><td><code>difference_update()</code></td><td>да</td></tr>
+              <tr><td><code>intersection_update()</code></td><td>да</td></tr>
+              <tr><td><code>symmetric_difference_update()</code></td><td>нет, ровно один</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Исключение объяснимо: симметрическая разность для трёх наборов сразу не имеет однозначного смысла. Попытка передать два аргумента даёт <code>TypeError: takes exactly one argument</code>.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Все возвращают None</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>результат вызова и состояние множества</span></figcaption>
+<pre>values = {<span class="n">1</span>, <span class="n">2</span>}
+result = values.update([<span class="n">3</span>])
 
 <span class="f">print</span>(result)
-<span class="f">print</span>(values)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>None и изменённый set</span></figcaption><pre>None
-{1, 2, 3}</pre></figure>
-<h2 id="s12"><span class="sec">§12</span>Практический пример: синхронизация тегов</h2><figure class="code"><figcaption><span>main.py</span><span>снимок изменений и обновление состояния</span></figcaption><pre>current = {<span class="s">"python"</span>, <span class="s">"api"</span>}
-incoming = {<span class="s">"python"</span>, <span class="s">"sql"</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(values))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>работа сделана, но не возвращена</span></figcaption><pre>None
+[1, 2, 3]</pre></figure>
+        <p>Правило из главы 3.10 действует и здесь: метод, меняющий коллекцию, возвращает <code>None</code>. Запись <code>values = values.update([3])</code> уничтожила бы множество.</p>
 
-added = incoming - current
-removed = current - incoming
+        <h2 id="s11"><span class="sec">§11</span>Почему это важно: два имени</h2>
+        <p>Пока у множества одно имя, выбор между <code>a = a | b</code> и <code>a |= b</code> ни на что не влияет. Разница проявляется, когда имён два, — как в главе 3.10.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>изменение на месте</span></figcaption>
+<pre>a = {<span class="n">1</span>, <span class="n">2</span>}
+b = a
 
-current.intersection_update(incoming)
-current.update(added)
+a |= {<span class="n">3</span>}
 
-<span class="f">print</span>(added, removed)
-<span class="f">print</span>(current)</pre></figure><p>Сначала мы вычисляем отчёт о различиях новыми множествами, затем осознанно обновляем текущее состояние.</p>
-<h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>result = values.update(other)</code></td><td><code>result</code> станет <code>None</code></td><td>после вызова читать <code>values</code></td></tr><tr><td><code>values.add([1, 2])</code> для добавления двух чисел</td><td>список попытаются добавить одним нехешируемым элементом</td><td><code>values.update([1, 2])</code></td></tr><tr><td>применить update, когда исходное множество ещё нужно</td><td>старое состояние потеряется</td><td><code>result = values.union(other)</code></td></tr><tr><td><code>values.symmetric_difference_update(a, b)</code></td><td><code>TypeError</code>: аргументов слишком много</td><td>передать один набор или выполнить операции последовательно</td></tr><tr><td><code>values |= [1, 2]</code></td><td><code>TypeError</code></td><td><code>values.update([1, 2])</code> или <code>values |= {1, 2}</code></td></tr></tbody></table></div>
-<h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2><details><summary>Чем union() отличается от update()?</summary><p><code>union()</code> возвращает новое множество и не меняет исходное. <code>update()</code> меняет исходное и возвращает <code>None</code>.</p></details><details><summary>Что останется после intersection_update()?</summary><p>Только элементы, которые входят в исходное множество и во все переданные итерируемые объекты.</p></details><details><summary>Как symmetric_difference_update() обращается с общим элементом?</summary><p>Удаляет его, потому что в результате остаются элементы, принадлежащие ровно одному набору.</p></details>
-<h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2><div class="cheat"><div><b>Добавить набор</b><code>a.update(b)</code><code>a |= b</code></div><div><b>Удалить набор</b><code>a.difference_update(b)</code><code>a -= b</code></div><div><b>Оставить общие</b><code>a.intersection_update(b)</code><code>a &amp;= b</code></div><div><b>Оставить различия</b><code>a.symmetric_difference_update(b)</code><code>a ^= b</code></div></div>
-<h3>Итог главы</h3><p>Методы <code>update()</code> и <code>*_update()</code> меняют множество слева и возвращают <code>None</code>. Обычные операции лучше, если нужно сохранить исходные данные; изменяющие — если старое состояние больше не требуется.</p>
-<div class="pager"><a href="../51-operacii-mnozhestv/index.html">← 4.7 Операции над множествами</a><a href="../../index.html">К содержанию справочника</a><a href="../53-frozenset/index.html">4.9 frozenset →</a></div><div class="colophon"><span>Глава 4.8 · Изменяющие операции множеств · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="f">print</span>(<span class="f">sorted</span>(b))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>b видит изменение</span></figcaption><pre>[1, 2, 3]</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>создание нового множества</span></figcaption>
+<pre>a = {<span class="n">1</span>, <span class="n">2</span>}
+b = a
+
+a = a | {<span class="n">3</span>}
+
+<span class="f">print</span>(<span class="f">sorted</span>(b))
+<span class="f">print</span>(<span class="f">sorted</span>(a))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>b остался со старым набором</span></figcaption><pre>[1, 2]
+[1, 2, 3]</pre></figure>
+        <div class="margin-note margin-note--warn">
+          <b>Две почти одинаковые строки</b>
+          <p><code>a |= b</code> меняет сам объект — изменение видят все имена. <code>a = a | b</code> создаёт новое множество и связывает с ним только <code>a</code>; прежний объект остаётся у остальных имён. Если множество передавали в функцию или сохраняли под другим именем, разница становится решающей.</p>
+        </div>
+
+        <h2 id="s12"><span class="sec">§12</span>Как выбрать</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Что использовать</th></tr></thead>
+            <tbody>
+              <tr><td>старое состояние больше не нужно</td><td><code>a |= b</code> или <code>a.update(b)</code></td></tr>
+              <tr><td>исходный набор ещё понадобится</td><td><code>c = a | b</code></td></tr>
+              <tr><td>множество известно под несколькими именами</td><td>решить осознанно: изменение увидят все</td></tr>
+              <tr><td>справа список или кортеж</td><td>метод, а не оператор</td></tr>
+              <tr><td>нужно накапливать в цикле</td><td><code>result.update(...)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка — про эффективность: <code>result = result | new</code> в цикле создаёт новое множество на каждом шаге, как склейка строк в главе 5.9.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Практика: фильтрация набора</h2>
+        <p>Типичный сценарий: собрать запрошенное, убрать запрещённое, оставить доступное.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три изменения одного набора</span></figcaption>
+<pre>requested = {<span class="s">"reports"</span>, <span class="s">"exports"</span>}
+extra = [<span class="s">"analytics"</span>, <span class="s">"admin"</span>]
+banned = {<span class="s">"admin"</span>}
+available = {<span class="s">"reports"</span>, <span class="s">"analytics"</span>, <span class="s">"exports"</span>}
+
+requested.update(extra)
+requested.difference_update(banned)
+requested.intersection_update(available)
+
+<span class="f">print</span>(<span class="f">sorted</span>(requested))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>итоговый набор разрешённого</span></figcaption><pre>['analytics', 'exports', 'reports']</pre></figure>
+        <p>Каждый шаг меняет один и тот же набор, промежуточные копии не создаются. Если бы понадобилось сохранить исходный запрос, первую строку заменили бы на <code>result = requested | set(extra)</code>.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>values = values.update(items)</code></td><td>в переменной окажется <code>None</code></td><td><code>values.update(items)</code> отдельной строкой</td></tr>
+              <tr><td><code>values |= [2]</code></td><td><code>TypeError</code>: оператору нужно множество</td><td><code>values.update([2])</code></td></tr>
+              <tr><td><code>a |= b</code>, когда <code>a</code> ещё нужен прежним</td><td>исходный набор потерян</td><td><code>c = a | b</code></td></tr>
+              <tr><td><code>a = a | b</code> с ожиданием, что увидят все имена</td><td>другие имена остались со старым множеством</td><td><code>a |= b</code></td></tr>
+              <tr><td><code>symmetric_difference_update(x, y)</code></td><td><code>TypeError</code>: только один аргумент</td><td>вызвать метод дважды</td></tr>
+              <tr><td><code>a.difference_update(b)</code> с ожиданием изменения <code>b</code></td><td>меняется только левый набор</td><td>операция односторонняя</td></tr>
+              <tr><td><code>result = result | new</code> в цикле</td><td>новое множество на каждом шаге</td><td><code>result.update(new)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Чем <code>a |= b</code> отличается от <code>a = a | b</code>?</summary><p>Первое меняет сам объект, и изменение видят все его имена. Второе создаёт новое множество и связывает с ним только <code>a</code>.</p></details>
+        <details><summary>Что возвращают методы с суффиксом <code>_update</code>?</summary><p><code>None</code>. Они меняют множество на месте, поэтому присваивать их результат нельзя.</p></details>
+        <details><summary>Почему <code>values |= [2]</code> не работает?</summary><p>Оператор требует множество с обеих сторон. Метод <code>update()</code> принимает любую итерируемую коллекцию.</p></details>
+        <details><summary>Меняется ли правый набор при <code>a -= b</code>?</summary><p>Нет. Все изменяющие операции односторонние: меняется только левый набор.</p></details>
+        <details><summary>Какой метод не принимает нескольких аргументов?</summary><p><code>symmetric_difference_update()</code> — для трёх наборов сразу эта операция не имеет однозначного смысла.</p></details>
+        <details><summary>Что удобнее для накопления результата в цикле?</summary><p><code>result.update(...)</code>: операция <code>result = result | new</code> создавала бы новое множество на каждом шаге.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Добавить всё</b><code>a.update(items)</code><code>a |= b</code></div>
+          <div><b>Убрать</b><code>a.difference_update(items)</code><code>a -= b</code></div>
+          <div><b>Оставить общее</b><code>a.intersection_update(items)</code><code>a &amp;= b</code></div>
+          <div><b>Переключить</b><code>a ^= b</code></div>
+          <div><b>Сохранить исходное</b><code>c = a | b</code></div>
+          <div><b>Со списком</b><code>a.update(items)</code></div>
+          <div><b>Накопление в цикле</b><code>result.update(new)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>У каждой операции множеств есть версия с суффиксом <code>_update</code> и оператор со знаком <code>=</code> — они меняют левый набор на месте и возвращают <code>None</code>. Правый набор при этом не меняется никогда. Выбор между <code>a |= b</code> и <code>a = a | b</code> становится существенным, когда у множества несколько имён: первое изменение увидят все, второе — только переменная слева. Методы принимают любые коллекции, операторы — только множества.</p>
+        <div class="pager">
+          <a href="../51-operacii-mnozhestv/index.html">← 4.7 Операции над множествами</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../53-frozenset/index.html">4.9 frozenset →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.8 · Изменяющие операции множеств · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

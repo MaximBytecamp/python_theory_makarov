@@ -10,106 +10,317 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../styles.css">
 </head>
-<body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-  <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.10</p></div>
-  <header class="chapter-head"><span class="chapter-num">4.10</span><h1>Включения<br>в Python</h1><p class="lead">Включение создаёт новую коллекцию из элементов другой последовательности. В одной записи можно указать перебор, преобразование и условие отбора.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-  <dl class="passport"><div><dt>Категория</dt><dd>Создание коллекций</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>for, условия, списки, множества, словари</dd></div><div><dt>Зачем это знать</dt><dd>Преобразовывать и фильтровать данные без лишнего кода</dd></div></dl>
-  <nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Основная идея</a></li><li><a href="#s2">От цикла к включению</a></li><li><a href="#s3">Преобразование</a></li><li><a href="#s4">Фильтрация</a></li><li><a href="#s5">Условное выражение</a></li><li><a href="#s6">Множества</a></li><li><a href="#s7">Словари</a></li><li><a href="#s8">Область видимости</a></li><li><a href="#s9">Генераторное выражение</a></li><li><a href="#s10">Когда выбрать цикл</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.10</p>
+        </div>
 
-  <h2 id="s1"><span class="sec">§1</span>Основная идея</h2>
-  <p><span class="term">Включение</span> проходит по исходным данным и добавляет вычисленный результат в новую коллекцию. Для списка используется схема:</p>
-  <figure class="code"><figcaption><span>Синтаксис</span><span>условие можно опустить</span></figcaption><pre>[выражение <span class="k">for</span> элемент <span class="k">in</span> источник <span class="k">if</span> условие]
- └─ что добавить   └─ откуда брать     └─ кого оставить</pre></figure>
-  <ol class="steps"><li>Взять очередной элемент из источника.</li><li>Проверить условие, если оно есть.</li><li>Вычислить выражение.</li><li>Добавить результат в новую коллекцию.</li></ol>
+        <header class="chapter-head">
+          <span class="chapter-num">4.10</span>
+          <h1>Включения<br>в Python</h1>
+          <p class="lead">Включение собирает новую коллекцию из существующей одним выражением. Это не «короткая запись цикла ради краткости»: включение сразу объявляет намерение — «получить новый список из этих элементов», — и потому читается быстрее, чем цикл с накоплением.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
 
-  <h2 id="s2"><span class="sec">§2</span>От обычного цикла к включению</h2>
-  <p>Обе записи создают одинаковый список квадратов. Сначала находите знакомый цикл, затем переносите выражение перед <code>for</code>.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>один результат двумя способами</span></figcaption><pre>squares_loop = []
-<span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>):
-    squares_loop.append(number ** <span class="n">2</span>)
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Коллекции</dd></div>
+          <div><dt>Уровень</dt><dd>Средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Циклы, списки, словари, множества</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Строить коллекции коротко и читаемо</dd></div>
+        </dl>
 
-squares_comp = [number ** <span class="n">2</span> <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>)]
-<span class="f">print</span>(squares_loop)
-<span class="f">print</span>(squares_comp)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>списки совпадают</span></figcaption><pre>[0, 1, 4, 9, 16]
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">От цикла к включению</a></li>
+            <li><a href="#s2">Строение включения</a></li>
+            <li><a href="#s3">Преобразование элементов</a></li>
+            <li><a href="#s4">Фильтрация через if</a></li>
+            <li><a href="#s5">Два if подряд</a></li>
+            <li><a href="#s6">Условие в результате</a></li>
+            <li><a href="#s7">Два разных if</a></li>
+            <li><a href="#s8">Включение множества</a></li>
+            <li><a href="#s9">Включение словаря</a></li>
+            <li><a href="#s10">Обращение словаря</a></li>
+            <li><a href="#s11">Скобки решают тип</a></li>
+            <li><a href="#s12">Генераторное выражение</a></li>
+            <li><a href="#s13">Область видимости</a></li>
+            <li><a href="#s14">Независимые списки</a></li>
+            <li><a href="#s15">Когда нужен обычный цикл</a></li>
+            <li><a href="#s16">Частые ошибки</a></li>
+            <li><a href="#s17">Проверьте себя</a></li>
+            <li><a href="#s18">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>От цикла к включению</h2>
+        <p>Задача «построить новый список на основе существующего» решается циклом с накоплением — приёмом из главы 3.10.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>привычный способ</span></figcaption>
+<pre>squares = []
+
+<span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>):
+    squares.append(number * number)
+
+<span class="f">print</span>(squares)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пять квадратов</span></figcaption><pre>[1, 4, 9, 16, 25]</pre></figure>
+        <p>Здесь четыре строки, из которых по-настоящему содержательна одна — <code>number * number</code>. Остальные — обвязка: создать пустой список, открыть цикл, вызвать <code>append()</code>. Включение убирает обвязку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>то же самое одним выражением</span></figcaption>
+<pre>squares = [number * number <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>)]
+
+<span class="f">print</span>(squares)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат тот же</span></figcaption><pre>[1, 4, 9, 16, 25]</pre></figure>
+
+        <h2 id="s2"><span class="sec">§2</span>Строение включения</h2>
+        <p>Внутри квадратных скобок три части, и порядок их непривычен: сначала говорится, <b>что получить</b>, и только потом — <b>откуда</b>.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>из чего состоит запись</span></figcaption>
+<pre>[ number * number   for number in range(1, 6) ]
+  └─────┬───────┘   └──────────┬────────────┘
+   что положить          откуда брать
+   в новый список        элементы</pre>
+        </figure>
+        <p>Читать удобно с середины: сначала часть <code>for</code>, затем выражение слева. «Для каждого <code>number</code> из диапазона — положить <code>number * number</code>».</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Преобразование элементов</h2>
+        <p>Самое частое применение — применить к каждому элементу одно и то же действие.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>два преобразования одного списка</span></figcaption>
+<pre>words = [<span class="s">"python"</span>, <span class="s">"sql"</span>, <span class="s">"go"</span>]
+
+<span class="f">print</span>([word.upper() <span class="k">for</span> word <span class="k">in</span> words])
+<span class="f">print</span>([<span class="f">len</span>(word) <span class="k">for</span> word <span class="k">in</span> words])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>длина результата совпадает с исходной</span></figcaption><pre>['PYTHON', 'SQL', 'GO']
+[6, 3, 2]</pre></figure>
+        <p>Без фильтрации включение всегда даёт ровно столько элементов, сколько было на входе. Исходный список при этом не меняется — создаётся новый.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Фильтрация через if</h2>
+        <p>Необязательная часть <code>if</code> в конце отбирает, какие элементы вообще попадут в результат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>только чётные числа</span></figcaption>
+<pre><span class="f">print</span>([number <span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">10</span>) <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пять элементов из десяти</span></figcaption><pre>[0, 2, 4, 6, 8]</pre></figure>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>полная форма</span></figcaption>
+<pre>[ выражение   for имя in источник   if условие ]
+      │                  │               │
+   что положить      откуда брать    что пропустить</pre>
+        </figure>
+        <p>Теперь длина результата может быть меньше исходной. Порядок частей строгий: сначала <code>for</code>, потом <code>if</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Два if подряд</h2>
+        <p>Условий может быть несколько — тогда элемент должен пройти все.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>делится и на 2, и на 3</span></figcaption>
+<pre><span class="f">print</span>([n <span class="k">for</span> n <span class="k">in</span> <span class="f">range</span>(<span class="n">20</span>) <span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span> <span class="k">if</span> n % <span class="n">3</span> == <span class="n">0</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>числа, кратные шести</span></figcaption><pre>[0, 6, 12, 18]</pre></figure>
+        <p>Два <code>if</code> подряд равнозначны одному с <code>and</code>. Выбор — вопрос читаемости: когда условия логически независимы, раздельная запись понятнее.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Условие в результате</h2>
+        <p>Есть и другой <code>if</code> — не отбирающий, а выбирающий значение. Он ставится <b>слева</b>, в части «что положить», и обязательно с <code>else</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тернарный оператор внутри включения</span></figcaption>
+<pre><span class="f">print</span>([<span class="s">"чёт"</span> <span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span> <span class="k">else</span> <span class="s">"нечет"</span> <span class="k">for</span> n <span class="k">in</span> <span class="f">range</span>(<span class="n">4</span>)])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементов столько же, сколько на входе</span></figcaption><pre>['чёт', 'нечет', 'чёт', 'нечет']</pre></figure>
+        <p>Это тернарный оператор из главы 2.6, поставленный на место выражения. Он ничего не отбрасывает — только решает, какое значение положить.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Два разных if</h2>
+        <p>Два <code>if</code> из §5 и §6 выглядят похоже, но делают противоположное. Различить их можно по позиции и по наличию <code>else</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Где стоит</th><th>Есть else</th><th>Что делает</th><th>Длина результата</th></tr></thead>
+            <tbody>
+              <tr><td>в конце, после <code>for</code></td><td>нет</td><td>отбирает элементы</td><td>может уменьшиться</td></tr>
+              <tr><td>в начале, до <code>for</code></td><td>да, обязательно</td><td>выбирает значение</td><td>не меняется</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>одни и те же слова, разный смысл</span></figcaption>
+<pre>[n for n in data if n &gt; 0]              оставить только положительные
+[n if n &gt; 0 else 0 for n in data]       отрицательные заменить нулём</pre>
+        </figure>
+        <p>Первая запись сокращает список, вторая сохраняет его длину. Требование <code>else</code> в левой форме не случайно: если условие ложно, что-то же надо положить в результат.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Включение множества</h2>
+        <p>Скобки определяют тип результата. Фигурные с одним выражением дают множество — со всеми его свойствами из главы 4.5.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>уникальные длины слов</span></figcaption>
+<pre>words = [<span class="s">"python"</span>, <span class="s">"sql"</span>, <span class="s">"go"</span>]
+
+<span class="f">print</span>({<span class="f">len</span>(word) <span class="k">for</span> word <span class="k">in</span> words})</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>повторы отсеялись бы сами</span></figcaption><pre>{2, 3, 6}</pre></figure>
+        <p>Слов три, длин тоже три — но если бы среди слов нашлись одинаковые по длине, в множестве осталась бы одна запись.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Включение словаря</h2>
+        <p>Те же фигурные скобки, но выражение содержит пару через двоеточие.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>слово и его длина</span></figcaption>
+<pre>words = [<span class="s">"python"</span>, <span class="s">"sql"</span>, <span class="s">"go"</span>]
+
+<span class="f">print</span>({word: <span class="f">len</span>(word) <span class="k">for</span> word <span class="k">in</span> words})</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>готовый словарь</span></figcaption><pre>{'python': 6, 'sql': 3, 'go': 2}</pre></figure>
+        <p>Именно эта форма решала задачу из главы 4.3: <code>{key: [] for key in keys}</code> создаёт по независимому списку на каждый ключ, в отличие от <code>dict.fromkeys()</code>.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Обращение словаря</h2>
+        <p>Частая задача — поменять ключи и значения местами. Со словарным включением это одна строка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>цена становится ключом</span></figcaption>
+<pre>prices = {<span class="s">"book"</span>: <span class="n">900</span>, <span class="s">"pen"</span>: <span class="n">120</span>}
+
+<span class="f">print</span>({price: name <span class="k">for</span> name, price <span class="k">in</span> prices.items()})</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пары перевёрнуты</span></figcaption><pre>{900: 'book', 120: 'pen'}</pre></figure>
+        <p>Здесь работает распаковка пар из главы 4.1. Важная оговорка: значения могли повторяться, а ключи уникальны — при совпадении значений часть данных потеряется.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Скобки решают тип</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Тип результата</th></tr></thead>
+            <tbody>
+              <tr><td><code>[x for x in data]</code></td><td><code>list</code></td></tr>
+              <tr><td><code>{x for x in data}</code></td><td><code>set</code></td></tr>
+              <tr><td><code>{k: v for k, v in pairs}</code></td><td><code>dict</code></td></tr>
+              <tr><td><code>(x for x in data)</code></td><td>генератор, не кортеж</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последняя строка — исключение из правила: круглые скобки кортеж не создают. Чтобы получить кортеж, результат оборачивают: <code>tuple(x for x in data)</code>.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Генераторное выражение</h2>
+        <p>Круглые скобки дают <span class="term">генератор</span> — объект, который вычисляет элементы по одному при обходе, а не строит список целиком.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>что именно получилось</span></figcaption>
+<pre>squares = (n * n <span class="k">for</span> n <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>))
+
+<span class="f">print</span>(<span class="f">type</span>(squares).__name__)
+<span class="f">print</span>(<span class="f">list</span>(squares))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список получен только по требованию</span></figcaption><pre>generator
 [0, 1, 4, 9, 16]</pre></figure>
+        <p>Практическая польза — экономия памяти, когда результат нужен один раз. Запись <code>sum(len(w) for w in words)</code> не создаёт промежуточный список: скобки генератора можно опустить, если он единственный аргумент функции.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>суммирование без промежуточного списка</span></figcaption>
+<pre>words = [<span class="s">"python"</span>, <span class="s">"sql"</span>, <span class="s">"go"</span>]
 
-  <h2 id="s3"><span class="sec">§3</span>Преобразование каждого элемента</h2>
-  <p>Выражение слева от <code>for</code> определяет, что попадёт в новый список. Исходные элементы при этом не меняются.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>строки в верхнем регистре</span></figcaption><pre>words = [<span class="s">"python"</span>, <span class="s">"java"</span>, <span class="s">"c++"</span>]
-upper_words = [word.upper() <span class="k">for</span> word <span class="k">in</span> words]
-<span class="f">print</span>(upper_words)
-<span class="f">print</span>(words)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>новый и исходный списки</span></figcaption><pre>['PYTHON', 'JAVA', 'C++']
-['python', 'java', 'c++']</pre></figure>
+<span class="f">print</span>(<span class="f">sum</span>(<span class="f">len</span>(word) <span class="k">for</span> word <span class="k">in</span> words))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>общее число символов</span></figcaption><pre>11</pre></figure>
+        <p>Генераторы подробно разбираются в главе 7.2.</p>
 
-  <h2 id="s4"><span class="sec">§4</span>Фильтрация через if</h2>
-  <p><code>if</code> после цикла отвечает на вопрос «добавлять ли этот элемент?». Если условие ложно, элемент пропускается.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>оставляем чётные числа</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]
-even_numbers = [number <span class="k">for</span> number <span class="k">in</span> numbers <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span>]
-<span class="f">print</span>(even_numbers)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>три элемента прошли проверку</span></figcaption><pre>[2, 4, 6]</pre></figure>
+        <h2 id="s13"><span class="sec">§13</span>Область видимости</h2>
+        <p>Переменная включения живёт только внутри него и наружу не выходит.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обращение к x после включения</span></figcaption>
+<pre>values = [x <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)]
+<span class="f">print</span>(x)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>имени не существует</span></figcaption>
+<pre>NameError: name 'x' is not defined</pre>
+        </figure>
+        <p>Это отличие от обычного цикла, где переменная остаётся доступной после завершения. Свойство полезное: включение не засоряет окружающий код и не может случайно затереть существующую переменную с тем же именем.</p>
 
-  <h2 id="s5"><span class="sec">§5</span>Условное выражение внутри результата</h2>
-  <p>Тернарное выражение перед <code>for</code> не отбрасывает элементы, а выбирает для каждого одно из двух значений.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>метка для каждого числа</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
-labels = [<span class="s">"чётное"</span> <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span> <span class="k">else</span> <span class="s">"нечётное"</span>
-          <span class="k">for</span> number <span class="k">in</span> numbers]
-<span class="f">print</span>(labels)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>длина не изменилась</span></figcaption><pre>['нечётное', 'чётное', 'нечётное', 'чётное']</pre></figure>
-  <div class="table-scroll"><table><thead><tr><th>Положение условия</th><th>Назначение</th><th>Схема</th></tr></thead><tbody><tr><td>после цикла</td><td>фильтрует элементы</td><td><code>[x for x in data if test]</code></td></tr><tr><td>перед циклом</td><td>выбирает одно из двух значений</td><td><code>[a if test else b for x in data]</code></td></tr></tbody></table></div>
+        <h2 id="s14"><span class="sec">§14</span>Независимые списки</h2>
+        <p>Одна задача, где включение не просто короче, а единственно верно, — создание списка списков.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>умножение списка вместо включения</span></figcaption>
+<pre>rows = [[<span class="n">0</span>] * <span class="n">3</span>] * <span class="n">2</span>
+rows[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">9</span>
 
-  <h2 id="s6"><span class="sec">§6</span>Включение для множества</h2>
-  <p>Фигурные скобки без пары «ключ — значение» создают множество. Повторяющиеся результаты исчезают.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>уникальные длины слов</span></figcaption><pre>words = [<span class="s">"cat"</span>, <span class="s">"dog"</span>, <span class="s">"python"</span>, <span class="s">"go"</span>]
-lengths = {<span class="f">len</span>(word) <span class="k">for</span> word <span class="k">in</span> words}
-<span class="f">print</span>(<span class="f">sorted</span>(lengths))</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>повтор длины 3 удалён</span></figcaption><pre>[2, 3, 6]</pre></figure>
-  <p><code>sorted()</code> здесь нужен лишь для предсказуемого отображения: само множество не хранит позиционный порядок.</p>
+<span class="f">print</span>(rows)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>изменились обе строки</span></figcaption><pre>[[9, 0, 0], [9, 0, 0]]</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>то же самое включением</span></figcaption>
+<pre>rows = [[<span class="n">0</span>] * <span class="n">3</span> <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>)]
+rows[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">9</span>
 
-  <h2 id="s7"><span class="sec">§7</span>Включение для словаря</h2>
-  <p>Для словаря выражение содержит ключ и значение через двоеточие.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>слово и его длина</span></figcaption><pre>words = [<span class="s">"cat"</span>, <span class="s">"dog"</span>, <span class="s">"python"</span>]
-lengths = {word: <span class="f">len</span>(word) <span class="k">for</span> word <span class="k">in</span> words}
-<span class="f">print</span>(lengths)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>ключи и значения</span></figcaption><pre>{'cat': 3, 'dog': 3, 'python': 6}</pre></figure>
-  <figure class="code"><figcaption><span>main.py</span><span>фильтрация существующего словаря</span></figcaption><pre>scores = {<span class="s">"Анна"</span>: <span class="n">3</span>, <span class="s">"Борис"</span>: <span class="n">5</span>, <span class="s">"Вера"</span>: <span class="n">4</span>}
-passed = {name: score <span class="k">for</span> name, score <span class="k">in</span> scores.items() <span class="k">if</span> score &gt;= <span class="n">4</span>}
-<span class="f">print</span>(passed)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>две записи</span></figcaption><pre>{'Борис': 5, 'Вера': 4}</pre></figure>
+<span class="f">print</span>(rows)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строки независимы</span></figcaption><pre>[[9, 0, 0], [0, 0, 0]]</pre></figure>
+        <p>Причина та же, что у <code>dict.fromkeys()</code> в главе 4.3: умножение копирует <b>ссылку</b> на один и тот же список, а включение выполняет выражение заново на каждом шаге и создаёт новый список. Подчёркивание в роли переменной — приём из главы 6.7.</p>
 
-  <h2 id="s8"><span class="sec">§8</span>Область видимости переменной</h2>
-  <p>Имя перебора внутри включения не заменяет одноимённую внешнюю переменную.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>два независимых x</span></figcaption><pre>x = <span class="n">10</span>
-numbers = [x <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">5</span>)]
-<span class="f">print</span>(numbers)
-<span class="f">print</span>(x)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>внешний x сохранился</span></figcaption><pre>[0, 1, 2, 3, 4]
-10</pre></figure>
+        <h2 id="s15"><span class="sec">§15</span>Когда нужен обычный цикл</h2>
+        <p>Включение — не всегда лучший выбор. Есть случаи, где цикл понятнее.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Что использовать</th></tr></thead>
+            <tbody>
+              <tr><td>построить новую коллекцию из существующей</td><td>включение</td></tr>
+              <tr><td>в теле несколько действий</td><td>цикл</td></tr>
+              <tr><td>нужен <code>break</code> или <code>continue</code></td><td>цикл</td></tr>
+              <tr><td>результат не нужен, важен побочный эффект</td><td>цикл</td></tr>
+              <tr><td>условий и вложенности так много, что строка не читается</td><td>цикл</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Четвёртая строка про частую ошибку стиля: включение ради одного <code>print()</code> создаёт список из <code>None</code>, который тут же выбрасывается. Если результат не нужен — нужен цикл.</p>
 
-  <h2 id="s9"><span class="sec">§9</span>Генераторное выражение</h2>
-  <p>Круглые скобки создают не кортеж, а генераторное выражение: значения вычисляются по мере перебора. Это удобно, когда функция вроде <code>sum()</code> сразу потребляет результат.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>суммы цифр нескольких чисел</span></figcaption><pre>numbers = [<span class="n">123</span>, <span class="n">456</span>, <span class="n">789</span>]
-digit_sums = [<span class="f">sum</span>(<span class="f">int</span>(digit) <span class="k">for</span> digit <span class="k">in</span> <span class="f">str</span>(number))
-              <span class="k">for</span> number <span class="k">in</span> numbers]
-<span class="f">print</span>(digit_sums)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>1+2+3, 4+5+6, 7+8+9</span></figcaption><pre>[6, 15, 24]</pre></figure>
-  <div class="margin-note"><b>Список или генератор</b><p><code>[expr for x in data]</code> сразу хранит все результаты. <code>(expr for x in data)</code> выдаёт их по одному. Генератор экономит память, но после полного перебора исчерпывается.</p></div>
+        <h2 id="s16"><span class="sec">§16</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>[n if n &gt; 0 for n in data]</code></td><td><code>SyntaxError</code>: слева нужен <code>else</code></td><td><code>[n for n in data if n &gt; 0]</code></td></tr>
+              <tr><td><code>[n for n in data if n &gt; 0 else 0]</code></td><td><code>SyntaxError</code>: справа <code>else</code> не бывает</td><td><code>[n if n &gt; 0 else 0 for n in data]</code></td></tr>
+              <tr><td><code>(x for x in data)</code> для кортежа</td><td>получится генератор</td><td><code>tuple(x for x in data)</code></td></tr>
+              <tr><td>обратиться к переменной после включения</td><td><code>NameError</code></td><td>сохранить нужное значение отдельно</td></tr>
+              <tr><td><code>[[0] * 3] * 2</code></td><td>строки окажутся одним списком</td><td><code>[[0] * 3 for _ in range(2)]</code></td></tr>
+              <tr><td><code>[print(x) for x in data]</code></td><td>создастся список из <code>None</code></td><td>обычный цикл</td></tr>
+              <tr><td>обратить словарь с повторяющимися значениями</td><td>часть пар потеряется</td><td>проверить уникальность значений</td></tr>
+              <tr><td>включение в несколько строк с тремя условиями</td><td>читается хуже цикла</td><td>развернуть в цикл</td></tr>
+            </tbody>
+          </table>
+        </div>
 
-  <h2 id="s10"><span class="sec">§10</span>Когда выбрать обычный цикл</h2>
-  <p>Включение удобно для одного понятного преобразования и короткого условия. Если нужны несколько действий, промежуточные переменные, обработка ошибок или сложные ветви, обычный цикл читается легче.</p>
+        <h2 id="s17"><span class="sec">§17</span>Проверьте себя</h2>
+        <details><summary>В каком порядке читать включение?</summary><p>С середины: сначала часть <code>for</code> — откуда берутся элементы, затем выражение слева — что кладётся в результат.</p></details>
+        <details><summary>Чем отличаются два <code>if</code> во включении?</summary><p><code>if</code> в конце отбирает элементы и может уменьшить длину результата. <code>if ... else</code> слева выбирает значение и длину не меняет.</p></details>
+        <details><summary>Почему в левой форме <code>else</code> обязателен?</summary><p>Потому что это тернарный оператор: если условие ложно, в результат всё равно нужно что-то положить.</p></details>
+        <details><summary>Что создаст <code>(x for x in data)</code>?</summary><p>Генератор, а не кортеж. Для кортежа нужно <code>tuple(x for x in data)</code>.</p></details>
+        <details><summary>Доступна ли переменная включения после него?</summary><p>Нет, обращение к ней даёт <code>NameError</code>. В обычном цикле переменная сохраняется.</p></details>
+        <details><summary>Почему <code>[[0] * 3] * 2</code> — ошибка?</summary><p>Умножение копирует ссылку на один список, и обе строки окажутся одним объектом. Включение создаёт новый список на каждом шаге.</p></details>
 
-  <h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2>
-  <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>[for x in numbers x ** 2]</code></td><td><code>SyntaxError</code>: нарушен порядок частей</td><td><code>[x ** 2 for x in numbers]</code></td></tr><tr><td><code>[x for x in numbers else 0]</code></td><td><code>SyntaxError</code>: у фильтра нет <code>else</code></td><td><code>[x if test else 0 for x in numbers]</code></td></tr><tr><td><code>{x: x ** 2, for x in numbers}</code></td><td><code>SyntaxError</code>: лишняя запятая</td><td><code>{x: x ** 2 for x in numbers}</code></td></tr><tr><td><code>(x ** 2 for x in numbers)</code> считают кортежем</td><td>создаётся генератор</td><td>для кортежа: <code>tuple(x ** 2 for x in numbers)</code></td></tr><tr><td>длинное включение с несколькими условиями</td><td>порядок действий трудно проследить</td><td>развернуть запись в обычный цикл</td></tr></tbody></table></div>
+        <h2 id="s18"><span class="sec">§18</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Список</b><code>[f(x) for x in data]</code></div>
+          <div><b>С отбором</b><code>[x for x in data if cond]</code></div>
+          <div><b>С заменой</b><code>[x if cond else 0 for x in data]</code></div>
+          <div><b>Множество</b><code>{f(x) for x in data}</code></div>
+          <div><b>Словарь</b><code>{k: v for k, v in pairs}</code></div>
+          <div><b>Обратить словарь</b><code>{v: k for k, v in d.items()}</code></div>
+          <div><b>Генератор</b><code>sum(f(x) for x in data)</code></div>
+          <div><b>Матрица</b><code>[[0] * n for _ in range(m)]</code></div>
+        </div>
 
-  <h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2>
-  <details><summary>Какая часть включения определяет добавляемое значение?</summary><p>Выражение перед <code>for</code>.</p></details>
-  <details><summary>Чем отличаются <code>if</code> после цикла и <code>if ... else</code> перед циклом?</summary><p>Первый отбирает элементы, второй выбирает результат для каждого элемента.</p></details>
-  <details><summary>Что создаёт запись в круглых скобках?</summary><p>Генераторное выражение, которое выдаёт значения по одному.</p></details>
-
-  <h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2>
-  <div class="cheat"><div><b>Список</b><code>[expr for x in data]</code></div><div><b>Фильтр</b><code>[x for x in data if test]</code></div><div><b>Множество</b><code>{expr for x in data}</code></div><div><b>Словарь</b><code>{key: value for x in data}</code></div></div>
-  <h3>Итог главы</h3><p>Включение строит новую коллекцию из перебираемых данных. Выражение задаёт результат, <code>for</code> — источник, а завершающий <code>if</code> — фильтр. Квадратные скобки создают список, фигурные — множество или словарь, круглые — генераторное выражение.</p>
-  <div class="pager"><a href="../53-frozenset/index.html">← 4.9 frozenset</a><a href="../../index.html">К содержанию справочника</a><a href="../34-vlozhennye-vklyucheniya/index.html">4.11 Вложенные включения →</a></div>
-  <div class="colophon"><span>Глава 4.10 · Включения · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <h3>Итог главы</h3>
+        <p>Включение строит новую коллекцию одним выражением, объявляя намерение раньше механики. Тип результата задают скобки: квадратные дают список, фигурные — множество или словарь, круглые — генератор, а не кортеж. Два вида <code>if</code> различаются позицией: справа он отбирает элементы, слева выбирает значение и требует <code>else</code>. Переменная включения наружу не выходит, а само включение — единственный корректный способ создать список независимых списков.</p>
+        <div class="pager">
+          <a href="../53-frozenset/index.html">← 4.9 frozenset</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../34-vlozhennye-vklyucheniya/index.html">4.11 Вложенные включения →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.10 · Включения · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

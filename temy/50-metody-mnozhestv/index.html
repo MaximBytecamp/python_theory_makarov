@@ -1,56 +1,293 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>4.6 Методы множеств · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.6</p></div>
-<header class="chapter-head"><span class="chapter-num">4.6</span><h1>Методы<br>множеств</h1><p class="lead">Научимся добавлять и удалять элементы, очищать и копировать множество. Особое внимание — различию между <code>remove()</code> и <code>discard()</code>.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Обработка множеств</dd></div><div><dt>Уровень</dt><dd>Базовый</dd></div><div><dt>Связанные темы</dt><dd>Множества, изменяемость, исключения</dd></div><div><dt>Зачем это знать</dt><dd>Контролируемо изменять набор уникальных элементов</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Общие операции</a></li><li><a href="#s2">add</a></li><li><a href="#s3">Повторное добавление</a></li><li><a href="#s4">remove</a></li><li><a href="#s5">discard</a></li><li><a href="#s6">remove или discard</a></li><li><a href="#s7">pop</a></li><li><a href="#s8">clear</a></li><li><a href="#s9">copy</a></li><li><a href="#s10">Возвращаемые значения</a></li><li><a href="#s11">Практический пример</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Часть операций знакома по другим коллекциям</h2><div class="table-scroll"><table><thead><tr><th>Запись</th><th>Результат</th></tr></thead><tbody><tr><td><code>len(values)</code></td><td>число элементов</td></tr><tr><td><code>value in values</code></td><td>проверка наличия</td></tr><tr><td><code>for value in values</code></td><td>перебор без гарантии порядка</td></tr><tr><td><code>values.clear()</code></td><td>очистка исходного множества</td></tr><tr><td><code>values.copy()</code></td><td>новое поверхностное множество</td></tr></tbody></table></div>
-<h2 id="s2"><span class="sec">§2</span>add() добавляет один элемент</h2><figure class="code"><figcaption><span>main.py</span><span>новая роль</span></figcaption><pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.6 Методы множеств · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.6</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.6</span>
+          <h1>Методы<br>множеств</h1>
+          <p class="lead">Методы для работы с отдельными элементами: <code>add()</code> добавляет, <code>remove()</code> и <code>discard()</code> удаляют по-разному, <code>pop()</code> снимает произвольный элемент. Выбор между строгим и мягким удалением — главное решение этой главы.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Методы set</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Множества, исключения, копирование</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Изменять состав множества и не ловить лишних исключений</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Знакомые операции</a></li>
+            <li><a href="#s2">add(): один элемент</a></li>
+            <li><a href="#s3">Повторное добавление</a></li>
+            <li><a href="#s4">update(): сразу несколько</a></li>
+            <li><a href="#s5">remove(): строгое удаление</a></li>
+            <li><a href="#s6">discard(): мягкое удаление</a></li>
+            <li><a href="#s7">remove() или discard()</a></li>
+            <li><a href="#s8">pop(): произвольный элемент</a></li>
+            <li><a href="#s9">clear() и присваивание</a></li>
+            <li><a href="#s10">copy(): отдельное множество</a></li>
+            <li><a href="#s11">Что возвращают методы</a></li>
+            <li><a href="#s12">Изменение во время перебора</a></li>
+            <li><a href="#s13">Практика: подписки</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Знакомые операции</h2>
+        <p>Часть работы с множеством выглядит так же, как с любой коллекцией.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запись</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>len(values)</code></td><td>число элементов</td></tr>
+              <tr><td><code>value in values</code></td><td>проверка наличия</td></tr>
+              <tr><td><code>for value in values</code></td><td>перебор без гарантии порядка</td></tr>
+              <tr><td><code>values.clear()</code></td><td>очистка исходного множества</td></tr>
+              <tr><td><code>values.copy()</code></td><td>новое поверхностное множество</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Новое здесь — методы изменения состава. Их немного, но у двух из них одинаковая работа и разное поведение при отсутствии элемента.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>add(): один элемент</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>новая роль</span></figcaption>
+<pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
 roles.add(<span class="s">"admin"</span>)
 
-<span class="f">print</span>(roles)
-<span class="f">print</span>(<span class="s">"admin"</span> <span class="k">in</span> roles)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>элемент появился</span></figcaption><pre>{'reader', 'editor', 'admin'}
-True</pre></figure><p>Название <code>add()</code> подчёркивает, что у множества нет позиции «в конце». Поэтому здесь нет списочного <code>append()</code>.</p>
-<h2 id="s3"><span class="sec">§3</span>Повторное добавление ничего не меняет</h2><figure class="code"><figcaption><span>main.py</span><span>уникальность сохраняется</span></figcaption><pre>ids = {<span class="n">101</span>, <span class="n">102</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(roles))
+<span class="f">print</span>(<span class="s">"admin"</span> <span class="k">in</span> roles)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элемент появился</span></figcaption><pre>['admin', 'editor', 'reader']
+True</pre></figure>
+        <p>Название неслучайно: у множества нет позиции «в конце», поэтому здесь <code>add()</code>, а не списочный <code>append()</code>. Попытка вызвать <code>append()</code> даёт <code>AttributeError</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Повторное добавление</h2>
+        <p>Если элемент уже есть, метод молча ничего не делает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>102 уже в множестве</span></figcaption>
+<pre>ids = {<span class="n">101</span>, <span class="n">102</span>}
 ids.add(<span class="n">102</span>)
 
-<span class="f">print</span>(<span class="f">len</span>(ids))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>элементов по-прежнему два</span></figcaption><pre>2</pre></figure><p>Метод не сообщает, был ли элемент новым: он всегда возвращает <code>None</code>.</p>
-<h2 id="s4"><span class="sec">§4</span>remove() требует наличия элемента</h2><figure class="code"><figcaption><span>main.py</span><span>строгое удаление</span></figcaption><pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
-roles.remove(<span class="s">"editor"</span>)
-<span class="f">print</span>(roles)</pre></figure><p>Если элемента нет, <code>remove()</code> вызывает <code>KeyError</code>. Это полезно, когда отсутствие означает нарушение ожидаемого состояния.</p><figure class="code code--out"><figcaption><span>Исключение</span><span>guest отсутствует</span></figcaption><pre>KeyError: 'guest'</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>discard() допускает отсутствие элемента</h2><figure class="code"><figcaption><span>main.py</span><span>повторное удаление безопасно</span></figcaption><pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
-roles.discard(<span class="s">"editor"</span>)
-roles.discard(<span class="s">"editor"</span>)
+<span class="f">print</span>(<span class="f">len</span>(ids))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементов по-прежнему два</span></figcaption><pre>2</pre></figure>
+        <p>Метод не сообщает, был ли элемент новым: он всегда возвращает <code>None</code>. Если это нужно знать, проверяют заранее через <code>in</code> — как в примере с обработанными задачами из главы 4.5.</p>
 
-<span class="f">print</span>(roles)</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>ошибки нет</span></figcaption><pre>{'reader'}</pre></figure>
-<h2 id="s6"><span class="sec">§6</span>remove() или discard()</h2><div class="table-scroll"><table><thead><tr><th>Метод</th><th>Элемент есть</th><th>Элемента нет</th><th>Когда выбирать</th></tr></thead><tbody><tr><td><code>remove(x)</code></td><td>удалит</td><td><code>KeyError</code></td><td>отсутствие — ошибка данных</td></tr><tr><td><code>discard(x)</code></td><td>удалит</td><td>ничего не сделает</td><td>нужно гарантировать отсутствие</td></tr></tbody></table></div><p>Выбор зависит не от «лучшего» метода, а от требования программы к отсутствующему элементу.</p>
-<h2 id="s7"><span class="sec">§7</span>pop() удаляет произвольный элемент</h2><figure class="code"><figcaption><span>main.py</span><span>результат нельзя предсказать по позиции</span></figcaption><pre>queue = {<span class="s">"task-1"</span>, <span class="s">"task-2"</span>, <span class="s">"task-3"</span>}
+        <h2 id="s4"><span class="sec">§4</span>update(): сразу несколько</h2>
+        <p>Чтобы добавить группу элементов, есть <code>update()</code> — он относится к <code>add()</code> так же, как <code>extend()</code> к <code>append()</code> у списков в главе 3.10.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>добавление из списка</span></figcaption>
+<pre>values = {<span class="n">1</span>, <span class="n">2</span>}
+values.update([<span class="n">3</span>, <span class="n">4</span>])
+
+<span class="f">print</span>(<span class="f">sorted</span>(values))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>добавлены оба элемента</span></figcaption><pre>[1, 2, 3, 4]</pre></figure>
+        <p>Аргументом может быть любая итерируемая коллекция — список, кортеж, строка, другое множество. Повторы при этом отсеются сами.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>remove(): строгое удаление</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удаляем то, чего нет</span></figcaption>
+<pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
+roles.remove(<span class="s">"guest"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>элемента в множестве не было</span></figcaption>
+<pre>KeyError: 'guest'</pre>
+        </figure>
+        <p>Тип исключения тот же, что у словаря, — и это логично: множество и есть словарь без значений. Строгость полезна, когда отсутствие элемента означает нарушение ожидаемого состояния программы.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>discard(): мягкое удаление</h2>
+        <p>Тот же результат, но без исключения. Повторный вызов безопасен.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удаляем дважды и удаляем несуществующее</span></figcaption>
+<pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>}
+
+roles.discard(<span class="s">"editor"</span>)
+roles.discard(<span class="s">"editor"</span>)
+roles.discard(<span class="s">"guest"</span>)
+
+<span class="f">print</span>(roles)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ни одной ошибки</span></figcaption><pre>{'reader'}</pre></figure>
+        <p>Такое поведение называют идемпотентным: сколько раз ни вызови — результат один. Для «убедиться, что элемента нет» это ровно то, что нужно.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>remove() или discard()</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Элемент есть</th><th>Элемента нет</th><th>Когда выбирать</th></tr></thead>
+            <tbody>
+              <tr><td><code>remove(x)</code></td><td>удалит</td><td><code>KeyError</code></td><td>отсутствие — ошибка данных</td></tr>
+              <tr><td><code>discard(x)</code></td><td>удалит</td><td>ничего не сделает</td><td>нужно гарантировать отсутствие</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Это то же решение, что между <code>data[key]</code> и <code>data.get(key)</code> в главе 4.2, и между <code>index()</code> и <code>find()</code> в главе 5.5. Вопрос всегда один: считать ли отсутствие ошибкой.</p>
+        <div class="margin-note">
+          <b>Практическое правило</b>
+          <p>Если сразу после удаления идёт <code>if x in values</code> — вы уже выбрали <code>discard()</code>, просто написали это в две строки. Проверка перед <code>remove()</code> почти всегда означает, что нужен был <code>discard()</code>.</p>
+        </div>
+
+        <h2 id="s8"><span class="sec">§8</span>pop(): произвольный элемент</h2>
+        <p>У множества нет порядка, поэтому <code>pop()</code> — не «последний», как у списка, а какой придётся.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>какой элемент снимется — неизвестно</span></figcaption>
+<pre>queue = {<span class="s">"task-1"</span>, <span class="s">"task-2"</span>, <span class="s">"task-3"</span>}
 task = queue.pop()
 
-<span class="f">print</span>(task)
-<span class="f">print</span>(<span class="f">len</span>(queue))</pre></figure><p>Метод возвращает удалённый элемент. У пустого множества он вызывает <code>KeyError</code>. Если важен порядок обработки, множество для очереди не подходит.</p>
-<h2 id="s8"><span class="sec">§8</span>clear() очищает исходное множество</h2><figure class="code"><figcaption><span>main.py</span><span>объект остаётся тем же</span></figcaption><pre>active_ids = {<span class="n">101</span>, <span class="n">102</span>, <span class="n">103</span>}
+<span class="f">print</span>(<span class="f">len</span>(queue))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементов стало на один меньше</span></figcaption><pre>2</pre></figure>
+        <p>Метод возвращает удалённый элемент, а на пустом множестве вызывает <code>KeyError: 'pop from an empty set'</code>. Имя переменной <code>queue</code> в примере намеренно неудачное: для очереди множество не годится — порядок обработки предсказать нельзя.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>clear() и присваивание</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>очистка на месте</span></figcaption>
+<pre>active_ids = {<span class="n">101</span>, <span class="n">102</span>, <span class="n">103</span>}
 active_ids.clear()
 
-<span class="f">print</span>(active_ids)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>пустое множество</span></figcaption><pre>set()</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>copy() создаёт отдельное множество</h2><figure class="code"><figcaption><span>main.py</span><span>изменение копии</span></figcaption><pre>base = {<span class="s">"read"</span>, <span class="s">"write"</span>}
+<span class="f">print</span>(active_ids)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>пустое множество печатается так</span></figcaption><pre>set()</pre></figure>
+        <p>Пустое множество выводится как <code>set()</code>, а не как <code>{}</code> — по той же причине, что и в главе 4.5: фигурные скобки заняты словарём.</p>
+        <p>Разница между <code>values.clear()</code> и <code>values = set()</code> точно такая же, как у списков в главе 3.11: первый опустошает сам объект, и это видят все его имена, второй создаёт новое пустое множество только для одной переменной.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>copy(): отдельное множество</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>изменение копии не трогает оригинал</span></figcaption>
+<pre>base = {<span class="s">"read"</span>, <span class="s">"write"</span>}
 custom = base.copy()
 custom.add(<span class="s">"delete"</span>)
 
-<span class="f">print</span>(base)
-<span class="f">print</span>(custom)</pre></figure><p>Присваивание <code>custom = base</code> не создаёт копию: оба имени будут обозначать одно множество. <code>copy()</code> отделяет внешнюю коллекцию.</p>
-<h2 id="s10"><span class="sec">§10</span>Методы изменения обычно возвращают None</h2><div class="table-scroll"><table><thead><tr><th>Метод</th><th>Меняет set</th><th>Возвращает</th></tr></thead><tbody><tr><td><code>add()</code></td><td>да</td><td><code>None</code></td></tr><tr><td><code>remove()</code></td><td>да</td><td><code>None</code></td></tr><tr><td><code>discard()</code></td><td>да</td><td><code>None</code></td></tr><tr><td><code>clear()</code></td><td>да</td><td><code>None</code></td></tr><tr><td><code>pop()</code></td><td>да</td><td>удалённый элемент</td></tr><tr><td><code>copy()</code></td><td>нет</td><td>новый set</td></tr></tbody></table></div>
-<h2 id="s11"><span class="sec">§11</span>Практический пример: активные подписки</h2><figure class="code"><figcaption><span>main.py</span><span>добавление и безопасная отмена</span></figcaption><pre>subscribers = {<span class="n">101</span>, <span class="n">205</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(base))
+<span class="f">print</span>(<span class="f">sorted</span>(custom))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два независимых множества</span></figcaption><pre>['read', 'write']
+['delete', 'read', 'write']</pre></figure>
+        <p>Присваивание <code>custom = base</code> копией не является — это второе имя того же объекта, как разбиралось в главе 3.10. Про «поверхностность» копии здесь можно не беспокоиться: элементы множества неизменяемы по определению, поэтому вложенных уровней, которые остались бы общими, просто не бывает.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Что возвращают методы</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Метод</th><th>Меняет множество</th><th>Возвращает</th></tr></thead>
+            <tbody>
+              <tr><td><code>add()</code></td><td>да</td><td><code>None</code></td></tr>
+              <tr><td><code>update()</code></td><td>да</td><td><code>None</code></td></tr>
+              <tr><td><code>remove()</code></td><td>да</td><td><code>None</code></td></tr>
+              <tr><td><code>discard()</code></td><td>да</td><td><code>None</code></td></tr>
+              <tr><td><code>clear()</code></td><td>да</td><td><code>None</code></td></tr>
+              <tr><td><code>pop()</code></td><td>да</td><td>удалённый элемент</td></tr>
+              <tr><td><code>copy()</code></td><td>нет</td><td>новое множество</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Правило то же, что у списков: метод, меняющий коллекцию, возвращает <code>None</code>. Поэтому <code>values = values.add(x)</code> уничтожит множество, оставив в переменной <code>None</code>. Исключения — <code>pop()</code> и <code>copy()</code>, они отдают результат.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Изменение во время перебора</h2>
+        <p>Множество ведёт себя как словарь из главы 4.2: менять его размер во время цикла нельзя.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>добавление внутри перебора</span></figcaption>
+<pre>values = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>}
+
+<span class="k">for</span> value <span class="k">in</span> values:
+    values.add(<span class="n">99</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>перебор прерван</span></figcaption>
+<pre>RuntimeError: Set changed size during iteration</pre>
+        </figure>
+        <p>Здесь Python строже, чем со списком: там аналогичная ошибка из главы 3.11 приводила к тихо неверному результату, а тут программа останавливается сразу. Если менять состав всё-таки нужно, перебирают копию: <code>for value in values.copy()</code>.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Практика: подписки</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>подписка, отписка и отписка несуществующего</span></figcaption>
+<pre>subscribers = {<span class="n">101</span>, <span class="n">205</span>}
 
 subscribers.add(<span class="n">310</span>)
 subscribers.discard(<span class="n">205</span>)
 subscribers.discard(<span class="n">999</span>)
 
 <span class="f">print</span>(<span class="n">310</span> <span class="k">in</span> subscribers)
-<span class="f">print</span>(<span class="f">len</span>(subscribers))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>состояние набора</span></figcaption><pre>True
+<span class="f">print</span>(<span class="f">len</span>(subscribers))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>осталось два подписчика</span></figcaption><pre>True
 2</pre></figure>
-<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>values.append(x)</code></td><td><code>AttributeError</code></td><td><code>values.add(x)</code></td></tr><tr><td><code>values.remove(x)</code>, когда x может отсутствовать</td><td>возможен <code>KeyError</code></td><td><code>values.discard(x)</code></td></tr><tr><td><code>first = values.pop()</code> с ожиданием первого</td><td>удалится произвольный элемент</td><td>использовать упорядоченную коллекцию</td></tr><tr><td><code>result = values.add(x)</code></td><td><code>result</code> станет <code>None</code></td><td>вызвать метод отдельно, затем использовать <code>values</code></td></tr><tr><td><code>copy = original</code></td><td>оба имени обозначат один set</td><td><code>copy = original.copy()</code></td></tr></tbody></table></div>
-<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Когда remove() лучше discard()?</summary><p>Когда отсутствие элемента означает ошибку состояния, которую нельзя молча пропускать.</p></details><details><summary>Что возвращает pop()?</summary><p>Произвольный удалённый элемент. Для пустого множества возникает <code>KeyError</code>.</p></details><details><summary>Почему result = values.add(x) не сохраняет множество?</summary><p><code>add()</code> меняет исходный объект и возвращает <code>None</code>.</p></details>
-<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Добавить</b><code>values.add(item)</code></div><div><b>Удалить строго</b><code>values.remove(item)</code></div><div><b>Удалить безопасно</b><code>values.discard(item)</code></div><div><b>Прочее</b><code>item = values.pop()</code><code>copy = values.copy()</code><code>values.clear()</code></div></div>
-<h3>Итог главы</h3><p><code>add()</code> добавляет один элемент, <code>remove()</code> требует его наличия, а <code>discard()</code> допускает отсутствие. <code>pop()</code> возвращает произвольный удалённый элемент, <code>clear()</code> очищает набор, <code>copy()</code> создаёт отдельное множество.</p>
-<div class="pager"><a href="../49-mnozhestva/index.html">← 4.5 Множества</a><a href="../../index.html">К содержанию справочника</a><a href="../51-operacii-mnozhestv/index.html">4.7 Операции над множествами →</a></div><div class="colophon"><span>Глава 4.6 · Методы множеств · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <p>Здесь <code>discard()</code> выбран сознательно: пользователь может нажать «отписаться» дважды или отписаться от того, на что не был подписан, и падать программе из-за этого не следует. А вот <code>remove()</code> уместен там, где отсутствие означает рассогласование данных — например, при удалении задачи из списка активных, которая туда точно попадала.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>values.append(x)</code></td><td><code>AttributeError</code>: у множества нет такого метода</td><td><code>values.add(x)</code></td></tr>
+              <tr><td><code>values.add([1, 2])</code></td><td><code>TypeError</code>: список не хешируется</td><td><code>values.add((1, 2))</code></td></tr>
+              <tr><td><code>values.add(items)</code> для группы</td><td>добавится один объект или будет ошибка</td><td><code>values.update(items)</code></td></tr>
+              <tr><td><code>values.remove(x)</code>, когда x может не быть</td><td><code>KeyError</code></td><td><code>values.discard(x)</code></td></tr>
+              <tr><td><code>first = values.pop()</code> с ожиданием первого</td><td>снимется произвольный элемент</td><td>взять список или кортеж</td></tr>
+              <tr><td><code>values = values.add(x)</code></td><td>в переменной окажется <code>None</code></td><td><code>values.add(x)</code> отдельной строкой</td></tr>
+              <tr><td><code>copy = original</code></td><td>оба имени обозначат одно множество</td><td><code>copy = original.copy()</code></td></tr>
+              <tr><td>менять состав внутри <code>for</code></td><td><code>RuntimeError</code></td><td>перебирать <code>values.copy()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Почему у множества <code>add()</code>, а не <code>append()</code>?</summary><p>У множества нет порядка и позиции «в конце», поэтому «добавить в конец» не имеет смысла.</p></details>
+        <details><summary>Когда <code>remove()</code> лучше <code>discard()</code>?</summary><p>Когда отсутствие элемента означает ошибку состояния, которую нельзя молча пропускать.</p></details>
+        <details><summary>Что вернёт <code>values.add(x)</code>, если элемент уже был?</summary><p><code>None</code> — как и всегда. Метод не сообщает, был ли элемент новым; для этого нужна проверка <code>in</code> заранее.</p></details>
+        <details><summary>Какой элемент снимет <code>pop()</code>?</summary><p>Произвольный: порядка у множества нет. На пустом множестве метод вызывает <code>KeyError</code>.</p></details>
+        <details><summary>Почему <code>values = values.add(x)</code> — ошибка?</summary><p><code>add()</code> меняет множество на месте и возвращает <code>None</code>, поэтому переменная потеряет коллекцию.</p></details>
+        <details><summary>Чем добавление группы отличается от добавления одного элемента?</summary><p><code>add()</code> кладёт объект целиком, <code>update()</code> перебирает аргумент и добавляет каждый его элемент — как <code>append()</code> и <code>extend()</code> у списков.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Добавить</b><code>values.add(item)</code></div>
+          <div><b>Добавить группу</b><code>values.update(items)</code></div>
+          <div><b>Удалить строго</b><code>values.remove(item)</code></div>
+          <div><b>Удалить безопасно</b><code>values.discard(item)</code></div>
+          <div><b>Снять любой</b><code>item = values.pop()</code></div>
+          <div><b>Очистить</b><code>values.clear()</code></div>
+          <div><b>Копия</b><code>other = values.copy()</code></div>
+          <div><b>Менять в цикле</b><code>for v in values.copy():</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>add()</code> добавляет один элемент и молчит, если он уже есть; <code>update()</code> добавляет сразу группу. Главное решение главы — между <code>remove()</code> и <code>discard()</code>: первый считает отсутствие ошибкой, второй нет, и выбор диктуется требованиями программы, а не удобством. <code>pop()</code> снимает произвольный элемент, потому что порядка у множества нет. Все методы изменения возвращают <code>None</code>, а менять состав множества во время перебора нельзя — Python прервёт цикл ошибкой.</p>
+        <div class="pager">
+          <a href="../49-mnozhestva/index.html">← 4.5 Множества</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../51-operacii-mnozhestv/index.html">4.7 Операции над множествами →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.6 · Методы множеств · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

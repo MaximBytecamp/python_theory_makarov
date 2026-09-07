@@ -10,95 +10,281 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../styles.css">
 </head>
-<body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-  <div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.11</p></div>
-  <header class="chapter-head"><span class="chapter-num">4.11</span><h1>Вложенные<br>включения</h1><p class="lead">Несколько частей <code>for</code> заменяют вложенные циклы, а включение внутри выражения создаёт вложенную структуру. Главное — различать плоский результат и список списков.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-  <dl class="passport"><div><dt>Категория</dt><dd>Создание коллекций</dd></div><div><dt>Уровень</dt><dd>Средний</dd></div><div><dt>Связанные темы</dt><dd>Включения, вложенные циклы, матрицы</dd></div><div><dt>Зачем это знать</dt><dd>Создавать комбинации и обрабатывать вложенные данные</dd></div></dl>
-  <nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Две формы вложенности</a></li><li><a href="#s2">Несколько for</a></li><li><a href="#s3">Порядок перебора</a></li><li><a href="#s4">Пары элементов</a></li><li><a href="#s5">Выпрямление списка</a></li><li><a href="#s6">Создание матрицы</a></li><li><a href="#s7">Таблица умножения</a></li><li><a href="#s8">Условия</a></li><li><a href="#s9">Когда выбрать циклы</a></li><li><a href="#s10">Частые ошибки</a></li><li><a href="#s11">Проверьте себя</a></li><li><a href="#s12">Шпаргалка</a></li></ol></nav>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.11</p>
+        </div>
 
-  <h2 id="s1"><span class="sec">§1</span>Две формы вложенности</h2>
-  <div class="table-scroll"><table><thead><tr><th>Форма</th><th>Пример</th><th>Результат</th></tr></thead><tbody><tr><td>несколько частей <code>for</code></td><td><code>[value for row in matrix for value in row]</code></td><td>один плоский список</td></tr><tr><td>включение внутри выражения</td><td><code>[[expr for x in row] for row in matrix]</code></td><td>список списков</td></tr></tbody></table></div>
-  <p>Обе формы связаны с вложенными циклами, но скобки определяют структуру результата.</p>
+        <header class="chapter-head">
+          <span class="chapter-num">4.11</span>
+          <h1>Вложенные<br>включения</h1>
+          <p class="lead">Вложенность бывает двух разных видов: несколько частей <code>for</code> в одном включении дают плоский результат, а включение внутри выражения — вложенный. Их постоянно путают, хотя решают они противоположные задачи.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
 
-  <h2 id="s2"><span class="sec">§2</span>Несколько частей for</h2>
-  <p>Запись с двумя <code>for</code> повторяет порядок двух вложенных циклов.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>цикл и включение</span></figcaption><pre>pairs_loop = []
-<span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>):
-    <span class="k">for</span> y <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>):
-        pairs_loop.append((x, y))
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Коллекции</dd></div>
+          <div><dt>Уровень</dt><dd>Средний → продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Включения, вложенные циклы, двумерные списки</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Обрабатывать таблицы и комбинации значений</dd></div>
+        </dl>
 
-pairs_comp = [(x, y) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>) <span class="k">for</span> y <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)]
-<span class="f">print</span>(pairs_loop == pairs_comp)
-<span class="f">print</span>(pairs_comp)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>порядок совпадает</span></figcaption><pre>True
-[(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2)]</pre></figure>
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Две разные вложенности</a></li>
+            <li><a href="#s2">Несколько частей for</a></li>
+            <li><a href="#s3">Порядок перебора</a></li>
+            <li><a href="#s4">Выпрямление таблицы</a></li>
+            <li><a href="#s5">Порядок нельзя менять</a></li>
+            <li><a href="#s6">Комбинации значений</a></li>
+            <li><a href="#s7">Включение внутри выражения</a></li>
+            <li><a href="#s8">Создание матрицы</a></li>
+            <li><a href="#s9">Таблица умножения</a></li>
+            <li><a href="#s10">Зависимая вложенность</a></li>
+            <li><a href="#s11">Условие: где его ставить</a></li>
+            <li><a href="#s12">Три уровня</a></li>
+            <li><a href="#s13">Когда лучше обычные циклы</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
 
-  <h2 id="s3"><span class="sec">§3</span>Как читать порядок перебора</h2>
-  <p>После выражения части <code>for</code> читаются слева направо: сначала внешний цикл, затем внутренний. Каждое следующее имя может использовать значения предыдущего цикла.</p>
-  <figure class="code"><figcaption><span>Схема</span><span>одинаковый порядок</span></figcaption><pre>[(x, y) <span class="k">for</span> x <span class="k">in</span> A <span class="k">for</span> y <span class="k">in</span> B]
+        <h2 id="s1"><span class="sec">§1</span>Две разные вложенности</h2>
+        <p>Начать нужно с различия, без которого дальше всё сольётся. Формы похожи, результаты противоположны.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>две конструкции, две задачи</span></figcaption>
+<pre>[ x        for row in matrix  for x in row ]     два for подряд
+  └ результат ПЛОСКИЙ: [1, 2, 3, 4, 5, 6]
 
-<span class="k">for</span> x <span class="k">in</span> A:
-    <span class="k">for</span> y <span class="k">in</span> B:
-        result.append((x, y))</pre></figure>
+[ [x * 2 for x in row]   for row in matrix ]     включение внутри
+  └ результат ВЛОЖЕННЫЙ: [[2, 4, 6], [8, 10, 12]]</pre>
+        </figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Форма</th><th>Признак</th><th>Результат</th><th>Задача</th></tr></thead>
+            <tbody>
+              <tr><td>несколько <code>for</code></td><td>скобки одни</td><td>плоский список</td><td>развернуть или скомбинировать</td>
+              </tr>
+              <tr><td>включение внутри</td><td>вторые скобки слева</td><td>список списков</td><td>построить таблицу</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Простое правило: <b>сколько пар скобок — столько уровней в результате</b>.</p>
 
-  <h2 id="s4"><span class="sec">§4</span>Комбинации элементов</h2>
-  <p>Вложенный перебор создаёт все сочетания одного элемента из левой коллекции с одним элементом из правой.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>товар и размер</span></figcaption><pre>colors = [<span class="s">"black"</span>, <span class="s">"white"</span>]
-sizes = [<span class="s">"S"</span>, <span class="s">"M"</span>, <span class="s">"L"</span>]
-variants = [(color, size) <span class="k">for</span> color <span class="k">in</span> colors <span class="k">for</span> size <span class="k">in</span> sizes]
-<span class="f">print</span>(variants)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>шесть сочетаний</span></figcaption><pre>[('black', 'S'), ('black', 'M'), ('black', 'L'), ('white', 'S'), ('white', 'M'), ('white', 'L')]</pre></figure>
+        <h2 id="s2"><span class="sec">§2</span>Несколько частей for</h2>
+        <p>Части <code>for</code> в одном включении работают как вложенные циклы: каждая следующая перебирается полностью для каждого значения предыдущей.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две буквы и две цифры</span></figcaption>
+<pre><span class="f">print</span>([(a, b) <span class="k">for</span> a <span class="k">in</span> <span class="s">"AB"</span> <span class="k">for</span> b <span class="k">in</span> <span class="s">"12"</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>четыре пары</span></figcaption><pre>[('A', '1'), ('A', '2'), ('B', '1'), ('B', '2')]</pre></figure>
+        <p>Тот же результат даёт вложенный цикл из главы 3.7.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>развёрнутая запись</span></figcaption>
+<pre>result = []
 
-  <h2 id="s5"><span class="sec">§5</span>Выпрямление вложенного списка</h2>
-  <p>Сначала перебираются строки матрицы, затем значения каждой строки. В результате дополнительные скобки исчезают.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>из матрицы в один список</span></figcaption><pre>matrix = [
-    [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>],
-    [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>],
-    [<span class="n">7</span>, <span class="n">8</span>, <span class="n">9</span>],
-]
-flat = [number <span class="k">for</span> row <span class="k">in</span> matrix <span class="k">for</span> number <span class="k">in</span> row]
-<span class="f">print</span>(flat)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>девять значений</span></figcaption><pre>[1, 2, 3, 4, 5, 6, 7, 8, 9]</pre></figure>
+<span class="k">for</span> a <span class="k">in</span> <span class="s">"AB"</span>:
+    <span class="k">for</span> b <span class="k">in</span> <span class="s">"12"</span>:
+        result.append((a, b))
 
-  <h2 id="s6"><span class="sec">§6</span>Создание матрицы</h2>
-  <p>Чтобы сохранить строки отдельно, внутреннее включение помещают в квадратные скобки. Оно создаёт одну строку, а внешнее повторяет создание строк.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>матрица 3 × 3</span></figcaption><pre>matrix = [[column + row * <span class="n">3</span> <span class="k">for</span> column <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)]
-          <span class="k">for</span> row <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)]
-<span class="f">print</span>(matrix)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>три строки</span></figcaption><pre>[[0, 1, 2], [3, 4, 5], [6, 7, 8]]</pre></figure>
-  <ol class="steps"><li>Внешний цикл получает <code>row = 0</code>.</li><li>Внутреннее включение создаёт <code>[0, 1, 2]</code>.</li><li>Внешний цикл переходит к <code>row = 1</code> и создаётся следующая строка.</li><li>После трёх повторений готов список из трёх списков.</li></ol>
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>тот же список</span></figcaption><pre>[('A', '1'), ('A', '2'), ('B', '1'), ('B', '2')]</pre></figure>
 
-  <h2 id="s7"><span class="sec">§7</span>Таблица умножения</h2>
-  <figure class="code"><figcaption><span>main.py</span><span>каждая строка для своего множителя</span></figcaption><pre>table = [[left * right <span class="k">for</span> right <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">6</span>)]
-         <span class="k">for</span> left <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">4</span>)]
+        <h2 id="s3"><span class="sec">§3</span>Порядок перебора</h2>
+        <p>Отсюда правило чтения: части <code>for</code> идут в том же порядке, что вложенные циклы, — слева направо, сверху вниз.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>как разворачивать в уме</span></figcaption>
+<pre>[выражение  for a in ...  for b in ...]
+
+           for a in ...:          ← внешний, меняется медленно
+               for b in ...:      ← внутренний, меняется быстро
+                   выражение</pre>
+        </figure>
+        <p>Быстрее всего меняется <b>последняя</b> переменная — как в вывод из §2: сначала перебраны обе цифры для <code>A</code>, потом для <code>B</code>.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Выпрямление таблицы</h2>
+        <p>Главное применение формы с двумя <code>for</code> — превратить список списков в плоский.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>из таблицы в один список</span></figcaption>
+<pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
+
+<span class="f">print</span>([x <span class="k">for</span> row <span class="k">in</span> matrix <span class="k">for</span> x <span class="k">in</span> row])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>шесть чисел подряд</span></figcaption><pre>[1, 2, 3, 4, 5, 6]</pre></figure>
+        <p>Читается это так: «для каждой строки в таблице, для каждого элемента в строке — взять элемент». Двумерные списки разбирались в главе 3.13.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Порядок нельзя менять</h2>
+        <p>Части <code>for</code> зависят друг от друга: вторая использует переменную первой. Поменять их местами не выйдет.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>row используется до объявления</span></figcaption>
+<pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>]]
+
+<span class="f">print</span>([x <span class="k">for</span> x <span class="k">in</span> row <span class="k">for</span> row <span class="k">in</span> matrix])</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>имени ещё не существует</span></figcaption>
+<pre>NameError: name 'row' is not defined</pre>
+        </figure>
+        <p>Это частая ошибка: по аналогии с выражением слева хочется поставить «главное» вперёд. Но части <code>for</code> читаются строго слева направо, как вложенные циклы.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Комбинации значений</h2>
+        <p>Когда источники независимы, получаются все сочетания.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>размеры и цвета</span></figcaption>
+<pre>sizes = [<span class="s">"S"</span>, <span class="s">"M"</span>]
+colors = [<span class="s">"red"</span>, <span class="s">"blue"</span>]
+
+<span class="f">print</span>([<span class="s">f"{size}-{color}"</span> <span class="k">for</span> size <span class="k">in</span> sizes <span class="k">for</span> color <span class="k">in</span> colors])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>четыре варианта товара</span></figcaption><pre>['S-red', 'S-blue', 'M-red', 'M-blue']</pre></figure>
+        <p>Число элементов результата — произведение длин: два размера на два цвета дают четыре. С тремя источниками по десять элементов получится уже тысяча, и об этом стоит помнить.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Включение внутри выражения</h2>
+        <p>Вторая форма: на месте «что положить» стоит целое включение. Тогда каждый элемент результата сам становится списком.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удвоить каждое число, сохранив структуру</span></figcaption>
+<pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
+
+<span class="f">print</span>([[x * <span class="n">2</span> <span class="k">for</span> x <span class="k">in</span> row] <span class="k">for</span> row <span class="k">in</span> matrix])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две строки, как было</span></figcaption><pre>[[2, 4, 6], [8, 10, 12]]</pre></figure>
+        <p>Сравните с §4: те же данные, почти те же слова, но результат другой. Разница — во вторых квадратных скобках слева.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Создание матрицы</h2>
+        <p>Приём из главы 4.10, теперь в контексте вложенности.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>таблица из нулей</span></figcaption>
+<pre>rows = [[<span class="n">0</span>] * <span class="n">3</span> <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>)]
+rows[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">9</span>
+
+<span class="f">print</span>(rows)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>строки независимы</span></figcaption><pre>[[9, 0, 0], [0, 0, 0]]</pre></figure>
+        <p>Внутреннюю строку можно построить и включением: <code>[[0 for _ in range(3)] for _ in range(2)]</code>. Результат тот же, запись длиннее — умножение здесь читается лучше.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Таблица умножения</h2>
+        <p>Классический пример, где внутреннее включение зависит от внешней переменной.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три на три</span></figcaption>
+<pre>table = [[i * j <span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">4</span>)] <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">4</span>)]
+
 <span class="k">for</span> row <span class="k">in</span> table:
-    <span class="f">print</span>(row)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>три строки таблицы</span></figcaption><pre>[1, 2, 3, 4, 5]
-[2, 4, 6, 8, 10]
-[3, 6, 9, 12, 15]</pre></figure>
+    <span class="f">print</span>(row)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>каждая строка — произведения на i</span></figcaption><pre>[1, 2, 3]
+[2, 4, 6]
+[3, 6, 9]</pre></figure>
+        <p>Внешнее включение задаёт строки, внутреннее — ячейки внутри строки. Переменная <code>i</code> доступна внутреннему включению, потому что оно вычисляется для каждого значения <code>i</code> заново.</p>
 
-  <h2 id="s8"><span class="sec">§8</span>Условие во вложенном переборе</h2>
-  <p>Условие относится к тому циклу, после которого оно записано. В примере сначала выбирается строка, затем из неё остаются только чётные значения.</p>
-  <figure class="code"><figcaption><span>main.py</span><span>фильтр внутренних значений</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
-even = [number <span class="k">for</span> row <span class="k">in</span> matrix
-        <span class="k">for</span> number <span class="k">in</span> row <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span>]
-<span class="f">print</span>(even)</pre></figure>
-  <figure class="code code--out"><figcaption><span>Вывод</span><span>плоский список</span></figcaption><pre>[2, 4, 6]</pre></figure>
+        <h2 id="s10"><span class="sec">§10</span>Зависимая вложенность</h2>
+        <p>Внутренняя часть может зависеть от внешней и в форме с двумя <code>for</code> — тогда длины строк получатся разными.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>строка длиной i</span></figcaption>
+<pre><span class="f">print</span>([[i] * i <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">4</span>)])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ступенчатая структура</span></figcaption><pre>[[1], [2, 2], [3, 3, 3]]</pre></figure>
+        <p>Такие «рваные» таблицы встречаются реже прямоугольных, но включение справляется с ними так же.</p>
 
-  <h2 id="s9"><span class="sec">§9</span>Когда лучше обычные циклы</h2>
-  <p>Вложенное включение подходит, если соответствующие циклы короткие и их цель видна сразу. Если появляются несколько условий, промежуточные вычисления или три уровня вложенности, разверните конструкцию в циклы.</p>
+        <h2 id="s11"><span class="sec">§11</span>Условие: где его ставить</h2>
+        <p>С двумя формами появляются и два места для <code>if</code> — и они дают разный результат.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отбор при выпрямлении</span></figcaption>
+<pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
 
-  <h2 id="s10"><span class="sec">§10</span>Частые ошибки</h2>
-  <div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>[number for number in row for row in matrix]</code></td><td><code>row</code> используется раньше, чем появляется</td><td><code>[number for row in matrix for number in row]</code></td></tr><tr><td><code>[number for row in matrix]</code></td><td>имя <code>number</code> не создано этим включением</td><td>добавить внутренний <code>for number in row</code></td></tr><tr><td>ожидать матрицу от двух частей <code>for</code></td><td>получится один плоский список</td><td>для матрицы поместить внутреннее включение в <code>[...]</code></td></tr><tr><td>считать порядок циклов обратным</td><td>получатся неверные зависимости имён</td><td>после выражения читать части <code>for</code> слева направо</td></tr><tr><td>три сложных уровня в одной строке</td><td>код трудно проверить и изменить</td><td>использовать обычные вложенные циклы</td></tr></tbody></table></div>
+<span class="f">print</span>([x <span class="k">for</span> row <span class="k">in</span> matrix <span class="k">for</span> x <span class="k">in</span> row <span class="k">if</span> x % <span class="n">2</span> == <span class="n">0</span>])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>плоский список чётных</span></figcaption><pre>[2, 4, 6]</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>отбор внутри каждой строки</span></figcaption>
+<pre><span class="f">print</span>([[x <span class="k">for</span> x <span class="k">in</span> row <span class="k">if</span> x % <span class="n">2</span> == <span class="n">0</span>] <span class="k">for</span> row <span class="k">in</span> matrix])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>структура сохранена</span></figcaption><pre>[[2], [4, 6]]</pre></figure>
+        <p>Первая запись теряет разбиение на строки, вторая его сохраняет — и допускает пустые строки, если в какой-то не нашлось подходящих элементов. Выбор зависит от того, нужна ли структура дальше.</p>
 
-  <h2 id="s11"><span class="sec">§11</span>Проверьте себя</h2>
-  <details><summary>Что создаёт запись <code>[x for row in matrix for x in row]</code>?</summary><p>Один плоский список из всех элементов всех строк.</p></details>
-  <details><summary>В каком порядке выполняются две части <code>for</code>?</summary><p>Слева направо: первая соответствует внешнему циклу, вторая — вложенному.</p></details>
-  <details><summary>Как сохранить строки матрицы отдельными списками?</summary><p>Сделать внутреннее включение выражением внешнего: <code>[[expr for x in row] for row in matrix]</code>.</p></details>
+        <h2 id="s12"><span class="sec">§12</span>Три уровня</h2>
+        <p>Ограничений на число частей <code>for</code> нет, но читаемость падает быстро.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список списков списков</span></figcaption>
+<pre>data = [[[<span class="n">1</span>, <span class="n">2</span>]], [[<span class="n">3</span>]]]
 
-  <h2 id="s12"><span class="sec">§12</span>Шпаргалка</h2>
-  <div class="cheat"><div><b>Комбинации</b><code>[(x, y) for x in A for y in B]</code></div><div><b>Выпрямление</b><code>[x for row in matrix for x in row]</code></div><div><b>Матрица</b><code>[[expr for x in row] for row in matrix]</code></div><div><b>С фильтром</b><code>[x for row in matrix for x in row if test]</code></div></div>
-  <h3>Итог главы</h3><p>Несколько частей <code>for</code> создают плоский результат в том же порядке, что и вложенные циклы. Включение в квадратных скобках внутри другого включения сохраняет вложенную структуру. Если запись перестаёт быстро читаться, обычные циклы подходят лучше.</p>
-  <div class="pager"><a href="../33-vklyucheniya/index.html">← 4.10 Включения</a><a href="../../index.html">К содержанию справочника</a><a href="../55-unicode-ord-chr/index.html">5.1 Unicode, ord() и chr() →</a></div>
-  <div class="colophon"><span>Глава 4.11 · Вложенные включения · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+<span class="f">print</span>([x <span class="k">for</span> a <span class="k">in</span> data <span class="k">for</span> b <span class="k">in</span> a <span class="k">for</span> x <span class="k">in</span> b])</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>всё выпрямлено</span></figcaption><pre>[1, 2, 3]</pre></figure>
+        <p>Три уровня — практический предел. Дальше строка перестаёт читаться, и обычные циклы становятся понятнее.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Когда лучше обычные циклы</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ситуация</th><th>Что выбрать</th></tr></thead>
+            <tbody>
+              <tr><td>выпрямить таблицу</td><td>включение с двумя <code>for</code></td></tr>
+              <tr><td>преобразовать таблицу, сохранив форму</td><td>включение внутри включения</td></tr>
+              <tr><td>создать матрицу</td><td>включение</td></tr>
+              <tr><td>больше трёх уровней</td><td>циклы</td></tr>
+              <tr><td>несколько действий в теле</td><td>циклы</td></tr>
+              <tr><td>нужен <code>break</code></td><td>циклы</td></tr>
+              <tr><td>строка не помещается на экран</td><td>циклы</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Критерий простой: если, чтобы понять включение, приходится мысленно разворачивать его в циклы — лучше сразу написать циклы.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>[x for x in row for row in matrix]</code></td><td><code>NameError</code>: <code>row</code> ещё не определена</td><td><code>[x for row in matrix for x in row]</code></td></tr>
+              <tr><td>два <code>for</code> для сохранения структуры</td><td>результат окажется плоским</td><td>включение внутри выражения</td></tr>
+              <tr><td>включение внутри для выпрямления</td><td>получится список списков</td><td>два <code>for</code> в одних скобках</td></tr>
+              <tr><td><code>if</code> в конце при вложенном включении</td><td>отберутся строки, а не элементы</td><td>поставить <code>if</code> во внутреннее включение</td></tr>
+              <tr><td><code>[[0] * 3] * 2</code></td><td>строки окажутся одним списком</td><td><code>[[0] * 3 for _ in range(2)]</code></td></tr>
+              <tr><td>три независимых источника по 100 элементов</td><td>миллион комбинаций</td><td>оценить размер результата заранее</td></tr>
+              <tr><td>четыре уровня вложенности в одной строке</td><td>код нечитаем</td><td>развернуть в циклы</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Как по записи понять, будет результат плоским или вложенным?</summary><p>По числу пар квадратных скобок: одни скобки с двумя <code>for</code> дают плоский список, вторые скобки слева — список списков.</p></details>
+        <details><summary>В каком порядке перебираются части <code>for</code>?</summary><p>Слева направо, как вложенные циклы: первая часть — внешний цикл, последняя меняется быстрее всех.</p></details>
+        <details><summary>Почему <code>[x for x in row for row in matrix]</code> даёт <code>NameError</code>?</summary><p>Части <code>for</code> читаются слева направо, и <code>row</code> используется раньше, чем объявляется.</p></details>
+        <details><summary>Чем отличаются два места для <code>if</code> при вложенности?</summary><p><code>if</code> в конце общего включения фильтрует элементы плоского результата. <code>if</code> внутри вложенного включения фильтрует внутри каждой строки, сохраняя структуру.</p></details>
+        <details><summary>Сколько элементов даст включение по двум источникам?</summary><p>Произведение их длин: два размера и два цвета — четыре комбинации.</p></details>
+        <details><summary>Когда включение стоит заменить циклами?</summary><p>Когда уровней больше трёх, в теле нужно несколько действий или требуется <code>break</code>.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Выпрямить</b><code>[x for row in m for x in row]</code></div>
+          <div><b>Сохранить форму</b><code>[[f(x) for x in row] for row in m]</code></div>
+          <div><b>Комбинации</b><code>[(a, b) for a in A for b in B]</code></div>
+          <div><b>Матрица</b><code>[[0] * n for _ in range(m)]</code></div>
+          <div><b>Таблица</b><code>[[i * j for j in R] for i in R]</code></div>
+          <div><b>Отбор плоско</b><code>[x for r in m for x in r if cond]</code></div>
+          <div><b>Отбор в строке</b><code>[[x for x in r if cond] for r in m]</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Вложенность бывает двух видов, и различает их число пар скобок. Несколько частей <code>for</code> в одних скобках работают как вложенные циклы и дают плоский результат — это способ выпрямить таблицу или собрать комбинации. Включение внутри выражения даёт список списков и сохраняет структуру. Порядок частей <code>for</code> строго слева направо: переставить их нельзя, потому что каждая следующая опирается на переменную предыдущей. Место для <code>if</code> тоже зависит от формы и определяет, останется ли разбиение на строки.</p>
+        <div class="pager">
+          <a href="../33-vklyucheniya/index.html">← 4.10 Включения</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../55-unicode-ord-chr/index.html">5.1 Unicode, ord() и chr() →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.11 · Вложенные включения · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

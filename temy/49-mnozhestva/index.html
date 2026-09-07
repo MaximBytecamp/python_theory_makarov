@@ -1,56 +1,339 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>4.5 Множества в Python · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p><p class="running__folio">Глава 4.5</p></div>
-<header class="chapter-head"><span class="chapter-num">4.5</span><h1>Множества<br>в Python</h1><p class="lead">Множество хранит только уникальные хешируемые элементы и быстро проверяет наличие. У элементов нет индексов и гарантированного позиционного порядка.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Структуры данных</dd></div><div><dt>Уровень</dt><dd>Базовый → продвинутый</dd></div><div><dt>Связанные темы</dt><dd>Списки, словари, хеширование, циклы</dd></div><div><dt>Зачем это знать</dt><dd>Удалять повторы и быстро проверять принадлежность</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Что хранит set</a></li><li><a href="#s2">Создание</a></li><li><a href="#s3">Уникальность</a></li><li><a href="#s4">Пустое множество</a></li><li><a href="#s5">Порядок и индексы</a></li><li><a href="#s6">Перебор</a></li><li><a href="#s7">Проверка наличия</a></li><li><a href="#s8">Допустимые элементы</a></li><li><a href="#s9">Удаление повторов</a></li><li><a href="#s10">Сохранение порядка</a></li><li><a href="#s11">Практический пример</a></li><li><a href="#s12">Частые ошибки</a></li><li><a href="#s13">Проверьте себя</a></li><li><a href="#s14">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>set хранит уникальные элементы</h2><p><span class="term">Множество</span> (<code>set</code>) — изменяемая коллекция уникальных хешируемых элементов. Оно отвечает на вопрос «есть ли значение в наборе?» и не связывает элементы ни с индексами, ни с ключами.</p><div class="table-scroll"><table><thead><tr><th>Коллекция</th><th>Главное свойство</th><th>Доступ</th></tr></thead><tbody><tr><td><code>list</code></td><td>порядок и повторы</td><td>по индексу</td></tr><tr><td><code>dict</code></td><td>уникальные ключи со значениями</td><td>по ключу</td></tr><tr><td><code>set</code></td><td>только уникальные элементы</td><td>проверка через <code>in</code></td></tr></tbody></table></div>
-<h2 id="s2"><span class="sec">§2</span>Создание множества</h2><figure class="code"><figcaption><span>main.py</span><span>литерал и set()</span></figcaption><pre>languages = {<span class="s">"Python"</span>, <span class="s">"Go"</span>, <span class="s">"Java"</span>}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>4.5 Множества в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 4 · Словари, множества и кортежи</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 4 · словари, множества и кортежи</p>
+          <p class="running__folio">Глава 4.5</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">4.5</span>
+          <h1>Множества<br>в Python</h1>
+          <p class="lead">Множество хранит только уникальные элементы и не связывает их ни с индексами, ни с ключами. Взамен оно отвечает на вопрос «есть ли здесь такое значение?» практически мгновенно — независимо от того, сто в нём элементов или миллион.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Структуры данных</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый → средний</dd></div>
+          <div><dt>Связанные темы</dt><dd>Хеширование, словари, уникальность</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Убирать повторы и быстро проверять принадлежность</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем нужно множество</a></li>
+            <li><a href="#s2">Что хранит set</a></li>
+            <li><a href="#s3">Создание множества</a></li>
+            <li><a href="#s4">Повторы исчезают</a></li>
+            <li><a href="#s5">Пустое множество</a></li>
+            <li><a href="#s6">Индексов нет</a></li>
+            <li><a href="#s7">Порядок не гарантирован</a></li>
+            <li><a href="#s8">Перебор множества</a></li>
+            <li><a href="#s9">Проверка наличия</a></li>
+            <li><a href="#s10">Насколько это быстрее</a></li>
+            <li><a href="#s11">Элемент должен быть хешируемым</a></li>
+            <li><a href="#s12">Равные значения разных типов</a></li>
+            <li><a href="#s13">Удаление повторов</a></li>
+            <li><a href="#s14">Уникальность с порядком</a></li>
+            <li><a href="#s15">Практика: уже обработанные</a></li>
+            <li><a href="#s16">Когда set, когда list</a></li>
+            <li><a href="#s17">Частые ошибки</a></li>
+            <li><a href="#s18">Проверьте себя</a></li>
+            <li><a href="#s19">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем нужно множество</h2>
+        <p>Две задачи встречаются постоянно: «убрать повторы» и «проверить, встречалось ли это раньше». Списком обе решаются, но плохо.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>проверка принадлежности</span></figcaption>
+<pre>value in big_list    Python сравнивает элементы по очереди
+value in big_set     Python сразу вычисляет, где значение должно лежать</pre>
+        </figure>
+        <p>Множество — это, по сути, словарь без значений: та же хеш-таблица из главы 4.2, только хранятся одни ключи. Отсюда и оба его свойства: элементы уникальны, потому что ключи уникальны, и поиск мгновенный, потому что идёт по хешу.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Что хранит set</h2>
+        <p><span class="term">Множество</span> (<code>set</code>) — изменяемая коллекция уникальных хешируемых элементов без порядка и индексов.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Коллекция</th><th>Главное свойство</th><th>Доступ</th><th>Повторы</th></tr></thead>
+            <tbody>
+              <tr><td><code>list</code></td><td>порядок</td><td>по индексу</td><td>разрешены</td></tr>
+              <tr><td><code>tuple</code></td><td>порядок, неизменяемость</td><td>по индексу</td><td>разрешены</td></tr>
+              <tr><td><code>dict</code></td><td>ключ → значение</td><td>по ключу</td><td>ключи уникальны</td></tr>
+              <tr><td><code>set</code></td><td>уникальность</td><td>только <code>in</code></td><td>невозможны</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s3"><span class="sec">§3</span>Создание множества</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>литерал и функция set()</span></figcaption>
+<pre>languages = {<span class="s">"Python"</span>, <span class="s">"Go"</span>, <span class="s">"Java"</span>}
 letters = <span class="f">set</span>(<span class="s">"hello"</span>)
 
-<span class="f">print</span>(languages)
-<span class="f">print</span>(letters)</pre></figure><p>Порядок в выводе может отличаться. <code>set()</code> перебирает аргумент и оставляет по одному экземпляру каждого элемента.</p>
-<h2 id="s3"><span class="sec">§3</span>Повторные значения исчезают</h2><figure class="code"><figcaption><span>main.py</span><span>пять входных значений, три уникальных</span></figcaption><pre>numbers = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">1</span>}
+<span class="f">print</span>(<span class="f">sorted</span>(languages))
+<span class="f">print</span>(<span class="f">sorted</span>(letters))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вторая строка — уникальные буквы слова</span></figcaption><pre>['Go', 'Java', 'Python']
+['e', 'h', 'l', 'o']</pre></figure>
+        <p>В слове <code>hello</code> две буквы <code>l</code>, но в множестве осталась одна. Вывод здесь обёрнут в <code>sorted()</code> намеренно — почему, объясняет §7.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Повторы исчезают</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>пять значений в литерале</span></figcaption>
+<pre>numbers = {<span class="n">1</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">1</span>}
 
 <span class="f">print</span>(numbers)
-<span class="f">print</span>(<span class="f">len</span>(numbers))</pre></figure><figure class="code code--out"><figcaption><span>Один из возможных выводов</span><span>повторов нет</span></figcaption><pre>{1, 2, 3}
-3</pre></figure><p>Добавление уже существующего элемента не создаёт второй экземпляр и не вызывает ошибку.</p>
-<h2 id="s4"><span class="sec">§4</span>Пустое множество создают через set()</h2><figure class="code"><figcaption><span>main.py</span><span>фигурные скобки заняты словарём</span></figcaption><pre>empty_set = <span class="f">set</span>()
+<span class="f">print</span>(<span class="f">len</span>(numbers))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>уникальных только три</span></figcaption><pre>{1, 2, 3}
+3</pre></figure>
+        <p>Добавление уже существующего элемента не создаёт второй экземпляр и не вызывает ошибку — операция просто ничего не делает. Это отличает <code>add()</code> от <code>append()</code> у списка.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Пустое множество</h2>
+        <p>Фигурные скобки заняты словарём, поэтому пустое множество создают только функцией.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две пустые коллекции</span></figcaption>
+<pre>empty_set = <span class="f">set</span>()
 empty_dict = {}
 
 <span class="f">print</span>(<span class="f">type</span>(empty_set))
-<span class="f">print</span>(<span class="f">type</span>(empty_dict))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>разные типы</span></figcaption><pre>&lt;class 'set'&gt;
+<span class="f">print</span>(<span class="f">type</span>(empty_dict))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>разные типы</span></figcaption><pre>&lt;class 'set'&gt;
 &lt;class 'dict'&gt;</pre></figure>
-<h2 id="s5"><span class="sec">§5</span>У set нет индексов</h2><p>Запись <code>values[0]</code> завершится <code>TypeError</code>. Даже если вывод сейчас выглядит одинаково, нельзя связывать элемент с определённой позицией: порядок обхода не является частью контракта множества.</p><aside class="margin-note"><b>Если нужен порядок</b><p>Используйте список или кортеж. Множество выбирают ради уникальности и быстрых проверок, а не ради позиционной работы.</p></aside>
-<h2 id="s6"><span class="sec">§6</span>Перебирать множество можно</h2><figure class="code"><figcaption><span>main.py</span><span>порядок строк заранее не задан</span></figcaption><pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>, <span class="s">"admin"</span>}
+        <p>Причина историческая: словарь появился в языке раньше и занял литерал <code>{}</code>. Ошибка коварна тем, что не проявляется сразу — <code>{}.add(x)</code> упадёт лишь на первой попытке добавить элемент.</p>
 
-<span class="k">for</span> role <span class="k">in</span> roles:
-    <span class="f">print</span>(role)</pre></figure><p>Цикл посетит каждый элемент один раз. Если нужен воспроизводимый отсортированный вывод, перебирайте <code>sorted(roles)</code>.</p>
-<h2 id="s7"><span class="sec">§7</span>Проверка наличия — основная операция</h2><figure class="code"><figcaption><span>main.py</span><span>разрешённые расширения</span></figcaption><pre>allowed = {<span class="s">"jpg"</span>, <span class="s">"png"</span>, <span class="s">"webp"</span>}
-extension = <span class="s">"png"</span>
+        <h2 id="s6"><span class="sec">§6</span>Индексов нет</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обращение по позиции</span></figcaption>
+<pre>values = {<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>}
+<span class="f">print</span>(values[<span class="n">0</span>])</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>позиций у множества нет</span></figcaption>
+<pre>TypeError: 'set' object is not subscriptable</pre>
+        </figure>
+        <p>Это не недоработка, а следствие устройства: элементы лежат в хеш-таблице по своим хешам, и «первого» среди них не существует. Нужен порядок — берите список.</p>
 
-<span class="f">print</span>(extension <span class="k">in</span> allowed)
-<span class="f">print</span>(<span class="s">"exe"</span> <span class="k">not in</span> allowed)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>две проверки</span></figcaption><pre>True
-True</pre></figure><p>Поиск в множестве в среднем работает за <code>O(1)</code>. В списке тот же поиск обычно требует последовательного просмотра и занимает <code>O(n)</code>.</p>
-<h2 id="s8"><span class="sec">§8</span>Элемент должен быть хешируемым</h2><div class="table-scroll"><table><thead><tr><th>Можно добавить</th><th>Нельзя добавить</th></tr></thead><tbody><tr><td>числа, строки, неизменяемые кортежи, <code>frozenset</code></td><td>списки, словари, обычные множества</td></tr></tbody></table></div><figure class="code"><figcaption><span>Ошибка</span><span>список изменяем</span></figcaption><pre>values = {[<span class="n">1</span>, <span class="n">2</span>]}</pre></figure><figure class="code code--out"><figcaption><span>Исключение</span><span>элемент не хешируется</span></figcaption><pre>TypeError: unhashable type: 'list'</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>Удаление повторов через преобразование</h2><figure class="code"><figcaption><span>main.py</span><span>короткий способ</span></figcaption><pre>tags = [<span class="s">"python"</span>, <span class="s">"api"</span>, <span class="s">"python"</span>, <span class="s">"sql"</span>]
-unique_tags = <span class="f">set</span>(tags)
+        <h2 id="s7"><span class="sec">§7</span>Порядок не гарантирован</h2>
+        <p>При выводе множество показывает элементы в каком-то порядке, и его легко принять за осмысленный. Полагаться на него нельзя: он зависит от хешей и истории добавлений, а для строк может меняться от запуска к запуску.</p>
+        <div class="margin-note margin-note--warn">
+          <b>Ошибка, которая проходит тесты</b>
+          <p>Если код опирается на порядок вывода множества, он может работать месяцами и сломаться при первом же изменении данных. Для воспроизводимого вывода всегда используйте <code>sorted(values)</code>.</p>
+        </div>
+        <p>В отличие от словаря, который с Python 3.7 сохраняет порядок добавления, множество такой гарантии не даёт вовсе.</p>
 
-<span class="f">print</span>(unique_tags)</pre></figure><p>Этот способ подходит, когда порядок не важен. Обратное преобразование <code>list(set(tags))</code> не восстанавливает исходный порядок.</p>
-<h2 id="s10"><span class="sec">§10</span>Уникальность с сохранением порядка</h2><figure class="code"><figcaption><span>main.py</span><span>ключи словаря сохраняют порядок добавления</span></figcaption><pre>tags = [<span class="s">"python"</span>, <span class="s">"api"</span>, <span class="s">"python"</span>, <span class="s">"sql"</span>]
-unique_in_order = <span class="f">list</span>(<span class="f">dict</span>.fromkeys(tags))
+        <h2 id="s8"><span class="sec">§8</span>Перебор множества</h2>
+        <p>Перебирать множество можно — цикл посетит каждый элемент ровно один раз.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>предсказуемый порядок вывода</span></figcaption>
+<pre>roles = {<span class="s">"reader"</span>, <span class="s">"editor"</span>, <span class="s">"admin"</span>}
 
-<span class="f">print</span>(unique_in_order)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>первое появление каждого тега</span></figcaption><pre>['python', 'api', 'sql']</pre></figure>
-<h2 id="s11"><span class="sec">§11</span>Практический пример: уже обработанные задачи</h2><figure class="code"><figcaption><span>main.py</span><span>каждый id обрабатывается один раз</span></figcaption><pre>task_ids = [<span class="n">101</span>, <span class="n">103</span>, <span class="n">101</span>, <span class="n">108</span>, <span class="n">103</span>]
+<span class="k">for</span> role <span class="k">in</span> <span class="f">sorted</span>(roles):
+    <span class="f">print</span>(role)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>по алфавиту</span></figcaption><pre>admin
+editor
+reader</pre></figure>
+        <p>Без <code>sorted()</code> результат тоже будет полным, но его порядок непредсказуем.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Проверка наличия</h2>
+        <p>Это главная операция множества и причина его выбирать.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>разрешённые расширения файлов</span></figcaption>
+<pre>allowed = {<span class="s">"jpg"</span>, <span class="s">"png"</span>, <span class="s">"webp"</span>}
+
+<span class="f">print</span>(<span class="s">"png"</span> <span class="k">in</span> allowed)
+<span class="f">print</span>(<span class="s">"exe"</span> <span class="k">not in</span> allowed)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две проверки</span></figcaption><pre>True
+True</pre></figure>
+        <p>Сравните с проверкой через <code>or</code> из главы 5.5: <code>ext == "jpg" or ext == "png" or ext == "webp"</code>. Множество короче, а добавление нового формата — это правка одной строки.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Насколько это быстрее</h2>
+        <p>Разница между <code>in</code> для списка и для множества не косметическая. В списке Python сравнивает элементы по очереди, в множестве — сразу вычисляет, где значение должно лежать.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сто тысяч элементов, ищем последний</span></figcaption>
+<pre><span class="k">import</span> timeit
+
+big_list = <span class="f">list</span>(<span class="f">range</span>(<span class="n">100_000</span>))
+big_set = <span class="f">set</span>(big_list)
+
+<span class="f">print</span>(timeit.timeit(<span class="k">lambda</span>: <span class="n">99_999</span> <span class="k">in</span> big_list, number=<span class="n">200</span>))
+<span class="f">print</span>(timeit.timeit(<span class="k">lambda</span>: <span class="n">99_999</span> <span class="k">in</span> big_set, number=<span class="n">200</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Примерный вывод</span><span>точные числа зависят от машины</span></figcaption><pre>0.0819...
+0.0000064...</pre></figure>
+        <p>Разница здесь — четыре порядка, и она растёт вместе с размером данных.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Операция</th><th><code>list</code></th><th><code>set</code></th></tr></thead>
+            <tbody>
+              <tr><td>проверка <code>in</code></td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr>
+              <tr><td>добавление</td><td><code>O(1)</code> в конец</td><td><code>O(1)</code></td></tr>
+              <tr><td>удаление по значению</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr>
+              <tr><td>доступ по индексу</td><td><code>O(1)</code></td><td>невозможен</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Отсюда практический приём: если по списку приходится часто проверять принадлежность, один раз преобразуйте его в множество — <code>known = set(items)</code> — и проверяйте уже по нему.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Элемент должен быть хешируемым</h2>
+        <p>Требование то же, что к ключам словаря в главе 4.2, и по той же причине.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список в множестве</span></figcaption>
+<pre>values = {[<span class="n">1</span>, <span class="n">2</span>]}</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>знакомое сообщение</span></figcaption>
+<pre>TypeError: unhashable type: 'list'</pre>
+        </figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Можно добавить</th><th>Нельзя добавить</th></tr></thead>
+            <tbody>
+              <tr><td>числа, строки, <code>bool</code></td><td>списки</td></tr>
+              <tr><td>кортежи из неизменяемых</td><td>словари</td></tr>
+              <tr><td><code>frozenset</code></td><td>другие множества</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Обратите внимание на последнюю строку: множество внутри множества невозможно, потому что <code>set</code> изменяем. Для этого случая существует <code>frozenset</code> — глава 4.9.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Равные значения разных типов</h2>
+        <p>Уникальность определяется равенством, а не типом. Значения, равные друг другу, считаются одним элементом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три разных литерала</span></figcaption>
+<pre><span class="f">print</span>({<span class="n">1</span>, <span class="n">1.0</span>, <span class="k">True</span>})</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>остался один элемент</span></figcaption><pre>{1}</pre></figure>
+        <p>В Python <code>1 == 1.0 == True</code>, а значит для множества это одно и то же значение. Остаётся тот экземпляр, который добавили первым. То же правило действует для ключей словаря, и на практике оно всплывает при смешивании целых и дробных чисел или <code>bool</code> с числами.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Удаление повторов</h2>
+        <p>Самое частое применение множества в одну строку.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>уникальные теги</span></figcaption>
+<pre>tags = [<span class="s">"python"</span>, <span class="s">"api"</span>, <span class="s">"python"</span>, <span class="s">"sql"</span>]
+
+<span class="f">print</span>(<span class="f">sorted</span>(<span class="f">set</span>(tags)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>три уникальных значения</span></figcaption><pre>['api', 'python', 'sql']</pre></figure>
+        <p>Способ подходит, когда порядок не важен: обратное преобразование <code>list(set(tags))</code> исходный порядок не восстанавливает.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Уникальность с порядком</h2>
+        <p>Когда порядок первого появления нужно сохранить, используют не множество, а словарь: его ключи тоже уникальны, но порядок добавления сохраняется.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>ключи словаря как упорядоченное множество</span></figcaption>
+<pre>tags = [<span class="s">"python"</span>, <span class="s">"api"</span>, <span class="s">"python"</span>, <span class="s">"sql"</span>]
+
+<span class="f">print</span>(<span class="f">list</span>(<span class="f">dict</span>.fromkeys(tags)))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>порядок первого появления сохранён</span></figcaption><pre>['python', 'api', 'sql']</pre></figure>
+        <p><code>dict.fromkeys()</code> из главы 4.3 создаёт словарь, где ключи — элементы списка, а значения не нужны. Приём стоит запомнить: он решает задачу, которую множество решить не может.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Практика: уже обработанные</h2>
+        <p>Второе классическое применение — запоминать, что уже встречалось.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>каждый идентификатор обрабатывается один раз</span></figcaption>
+<pre>task_ids = [<span class="n">101</span>, <span class="n">103</span>, <span class="n">101</span>, <span class="n">108</span>, <span class="n">103</span>]
 processed = <span class="f">set</span>()
 
 <span class="k">for</span> task_id <span class="k">in</span> task_ids:
     <span class="k">if</span> task_id <span class="k">in</span> processed:
         <span class="k">continue</span>
     <span class="f">print</span>(<span class="s">"обработка"</span>, task_id)
-    processed.add(task_id)</pre></figure><p>Здесь множество одновременно хранит уникальные идентификаторы и быстро отвечает, встречался ли каждый из них раньше.</p>
-<h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>empty = {}</code></td><td>создастся словарь</td><td><code>empty = set()</code></td></tr><tr><td><code>values[0]</code></td><td><code>TypeError</code>: у set нет индексов</td><td>перебрать множество или выбрать другую коллекцию</td></tr><tr><td><code>values.add([1, 2])</code></td><td><code>TypeError</code>: список не хешируется</td><td>добавить кортеж <code>(1, 2)</code>, если он подходит по смыслу</td></tr><tr><td>ожидать определённый порядок печати</td><td>результат может отличаться</td><td>использовать <code>sorted(values)</code> для вывода</td></tr><tr><td><code>list(set(items))</code> ради уникальности и порядка</td><td>исходный порядок потеряется</td><td><code>list(dict.fromkeys(items))</code></td></tr></tbody></table></div>
-<h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2><details><summary>Чем пустое множество отличается по записи от пустого словаря?</summary><p>Множество создают как <code>set()</code>, а литерал <code>{}</code> всегда создаёт словарь.</p></details><details><summary>Почему set не поддерживает индекс?</summary><p>У множества нет позиционного порядка элементов, поэтому понятия «первый» и «второй» не определены.</p></details><details><summary>Когда set подходит лучше списка?</summary><p>Когда важны уникальность и частые проверки принадлежности, а позиционный порядок и повторы не нужны.</p></details>
-<h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2><div class="cheat"><div><b>Создать</b><code>values = {1, 2, 3}</code><code>empty = set()</code></div><div><b>Преобразовать</b><code>unique = set(items)</code></div><div><b>Проверить</b><code>value in values</code><code>value not in values</code></div><div><b>Перебрать</b><code>for value in values:</code><code>for value in sorted(values):</code></div></div>
-<h3>Итог главы</h3><p>Множество хранит уникальные хешируемые элементы, не имеет индексов и в среднем быстро проверяет принадлежность. Его выбирают для устранения повторов, учёта уже встреченных значений и быстрых фильтров.</p>
-<div class="pager"><a href="../48-metody-slovarey-2/index.html">← 4.4 Методы словарей: часть 2</a><a href="../../index.html">К содержанию справочника</a><a href="../50-metody-mnozhestv/index.html">4.6 Методы множеств →</a></div><div class="colophon"><span>Глава 4.5 · Множества · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+    processed.add(task_id)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>повторы пропущены</span></figcaption><pre>обработка 101
+обработка 103
+обработка 108</pre></figure>
+        <p>Множество здесь делает сразу два дела: хранит уникальные идентификаторы и мгновенно отвечает, встречался ли каждый следующий. Со списком проверка <code>in</code> замедлялась бы по мере роста данных.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>Когда set, когда list</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Нужно</th><th>Тип</th></tr></thead>
+            <tbody>
+              <tr><td>порядок элементов</td><td><code>list</code></td></tr>
+              <tr><td>повторы имеют смысл</td><td><code>list</code></td></tr>
+              <tr><td>доступ по индексу</td><td><code>list</code></td></tr>
+              <tr><td>убрать повторы</td><td><code>set</code></td></tr>
+              <tr><td>частые проверки принадлежности</td><td><code>set</code></td></tr>
+              <tr><td>сравнить два набора между собой</td><td><code>set</code></td></tr>
+              <tr><td>уникальность и порядок сразу</td><td><code>dict.fromkeys()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Предпоследняя строка — про сравнение наборов: пересечение, объединение и разность. Это уже операции множеств, им посвящена глава 4.7.</p>
+
+        <h2 id="s17"><span class="sec">§17</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>empty = {}</code></td><td>создастся словарь, а не множество</td><td><code>empty = set()</code></td></tr>
+              <tr><td><code>values[0]</code></td><td><code>TypeError</code>: индексов нет</td><td>перебрать или взять список</td></tr>
+              <tr><td><code>values.add([1, 2])</code></td><td><code>TypeError: unhashable type: 'list'</code></td><td>добавить кортеж <code>(1, 2)</code></td></tr>
+              <tr><td>полагаться на порядок вывода</td><td>он может измениться при других данных</td><td><code>sorted(values)</code></td></tr>
+              <tr><td><code>list(set(items))</code> ради уникальности и порядка</td><td>исходный порядок потеряется</td><td><code>list(dict.fromkeys(items))</code></td></tr>
+              <tr><td>ждать, что <code>{1, True}</code> даст два элемента</td><td>останется один: значения равны</td><td>не смешивать <code>bool</code> и числа</td></tr>
+              <tr><td><code>values.add(x)</code> для существующего элемента</td><td>ничего не произойдёт, но и ошибки не будет</td><td>это нормально: повторов в множестве нет</td></tr>
+              <tr><td><code>set</code> внутри <code>set</code></td><td><code>TypeError</code>: множество изменяемо</td><td><code>frozenset</code> из главы 4.9</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s18"><span class="sec">§18</span>Проверьте себя</h2>
+        <details><summary>Чем пустое множество отличается по записи от пустого словаря?</summary><p>Множество создают только как <code>set()</code>: литерал <code>{}</code> всегда даёт словарь.</p></details>
+        <details><summary>Почему у множества нет индексов?</summary><p>Элементы лежат в хеш-таблице по своим хешам, а не по позициям, поэтому понятий «первый» и «второй» не существует.</p></details>
+        <details><summary>Почему проверка <code>in</code> в множестве быстрее, чем в списке?</summary><p>В списке элементы сравниваются по очереди, а в множестве Python по хешу сразу вычисляет, где значение должно лежать.</p></details>
+        <details><summary>Сколько элементов будет в <code>{1, 1.0, True}</code>?</summary><p>Один. Все три значения равны между собой, а уникальность определяется равенством, а не типом.</p></details>
+        <details><summary>Как убрать повторы, сохранив порядок?</summary><p><code>list(dict.fromkeys(items))</code>: ключи словаря уникальны и сохраняют порядок добавления.</p></details>
+        <details><summary>Когда список подходит лучше множества?</summary><p>Когда важен порядок, нужен доступ по индексу или повторы несут смысл.</p></details>
+
+        <h2 id="s19"><span class="sec">§19</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Создать</b><code>values = {1, 2, 3}</code></div>
+          <div><b>Пустое</b><code>empty = set()</code></div>
+          <div><b>Убрать повторы</b><code>unique = set(items)</code></div>
+          <div><b>С порядком</b><code>list(dict.fromkeys(items))</code></div>
+          <div><b>Проверить</b><code>value in values</code></div>
+          <div><b>Добавить</b><code>values.add(value)</code></div>
+          <div><b>Предсказуемый вывод</b><code>for v in sorted(values):</code></div>
+          <div><b>Быстрый поиск</b><code>known = set(big_list)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Множество — это словарь без значений: та же хеш-таблица, поэтому элементы уникальны, а проверка принадлежности не зависит от размера коллекции. У множества нет индексов и нет гарантированного порядка, и для воспроизводимого вывода нужен <code>sorted()</code>. Элементы должны быть хешируемыми, а равные значения разных типов считаются одним элементом. Если вместе с уникальностью нужен порядок первого появления, множество не подходит — подходит <code>dict.fromkeys()</code>.</p>
+        <div class="pager">
+          <a href="../48-metody-slovarey-2/index.html">← 4.4 Методы словарей: часть 2</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../50-metody-mnozhestv/index.html">4.6 Методы множеств →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 4.5 · Множества · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
