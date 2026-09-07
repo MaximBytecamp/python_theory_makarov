@@ -60,6 +60,39 @@
 a &lt;= x and x &lt;= b</pre>
         </figure>
         <p>Python проверяет оба сравнения. Результат будет <code>True</code>, только если значение проходит левую и правую границу.</p>
+        <p>Но равносильность здесь не полная, и разница важнее, чем кажется: <b>среднее выражение вычисляется один раз</b>. В развёрнутой записи оно встречается дважды — значит, и вычислено будет дважды.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>считаем, сколько раз сработала функция</span></figcaption>
+<pre>calls = []
+
+<span class="k">def</span> <span class="f">value</span>():
+    calls.append(<span class="n">1</span>)
+    <span class="k">return</span> <span class="n">5</span>
+
+<span class="f">print</span>(<span class="n">1</span> &lt; <span class="f">value</span>() &lt; <span class="n">10</span>)
+<span class="f">print</span>(<span class="f">len</span>(calls))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>функция вызвана однократно</span></figcaption><pre>True
+1</pre></figure>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>то же условие через and</span></figcaption>
+<pre>calls.clear()
+
+<span class="f">print</span>(<span class="n">1</span> &lt; <span class="f">value</span>() <span class="k">and</span> <span class="f">value</span>() &lt; <span class="n">10</span>)
+<span class="f">print</span>(<span class="f">len</span>(calls))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>функция вызвана дважды</span></figcaption><pre>True
+2</pre></figure>
+        <p>Пока в середине стоит переменная, разницы нет. Она появляется, когда там вызов функции, чтение из файла или запрос — то есть что-то, что <b>стоит времени или меняет состояние</b>. Цепочка гарантирует однократное вычисление, развёрнутая запись — нет.</p>
+        <p>Второе свойство цепочка наследует от <code>and</code> из главы 2.1: если левое сравнение ложно, правое не вычисляется вовсе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>правая часть не выполнится</span></figcaption>
+<pre><span class="k">def</span> <span class="f">boom</span>():
+    <span class="k">raise</span> <span class="f">RuntimeError</span>(<span class="s">"сюда не дойдёт"</span>)
+
+<span class="f">print</span>(<span class="n">10</span> &lt; <span class="n">5</span> &lt; <span class="f">boom</span>())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ошибки нет: до boom() дело не дошло</span></figcaption><pre>False</pre></figure>
 
         <h2 id="s2"><span class="sec">§2</span>Включённые границы</h2>
         <p>Знаки <code>&lt;=</code> и <code>&gt;=</code> включают крайние значения в диапазон.</p>
