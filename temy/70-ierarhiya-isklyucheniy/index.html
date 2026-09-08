@@ -101,19 +101,53 @@ KeyError - 'z'</pre></figure>
         <p>Запись <code>type(e).__name__</code> показывает настоящий тип пойманного исключения — родитель ловит, но не подменяет.</p>
 
         <h2 id="s4"><span class="sec">§4</span>Общее дерево</h2>
-        <figure class="code">
+        <figure class="viz">
           <figcaption><span>Схема</span><span>основные узлы иерархии</span></figcaption>
-<pre>BaseException
-├── SystemExit            выход из программы
-├── KeyboardInterrupt     нажатие Ctrl+C
-└── Exception             все обычные ошибки программы
-    ├── ArithmeticError   → ZeroDivisionError, OverflowError
-    ├── ImportError       → ModuleNotFoundError
-    ├── LookupError       → IndexError, KeyError
-    ├── OSError           → FileNotFoundError, PermissionError
-    ├── ValueError        → UnicodeError → UnicodeDecodeError
-    ├── StopIteration     завершение перебора
-    ├── TypeError, NameError, AttributeError, RuntimeError …</pre>
+          <div class="viz__body">
+            <svg viewBox="0 0 590 362" role="img" aria-label="Дерево исключений: BaseException, под ним SystemExit, KeyboardInterrupt и Exception, а под Exception — ArithmeticError, LookupError, OSError, ValueError и другие">
+              <path d="M32 42 L32 142 M32 66 L60 66 M32 104 L60 104 M32 142 L60 142" stroke="#020835" stroke-width="2" fill="none"/>
+              <path d="M76 156 L76 332 M76 180 L104 180 M76 218 L104 218 M76 256 L104 256 M76 294 L104 294 M76 332 L104 332" stroke="#020835" stroke-width="2" fill="none"/>
+
+              <rect x="20" y="14" width="124" height="28" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="30" y="33" class="viz-svg-label" font-size="12">BaseException</text>
+
+              <rect x="60" y="52" width="100" height="28" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
+              <text x="70" y="71" class="viz-svg-label" font-size="12" fill="#8A93B2">SystemExit</text>
+              <text x="176" y="71" class="viz-svg-idx">выход из программы · не ловить</text>
+
+              <rect x="60" y="90" width="156" height="28" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
+              <text x="70" y="109" class="viz-svg-label" font-size="12" fill="#8A93B2">KeyboardInterrupt</text>
+              <text x="232" y="109" class="viz-svg-idx">нажатие Ctrl+C · не ловить</text>
+
+              <rect x="60" y="128" width="92" height="28" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="70" y="147" class="viz-svg-label" font-size="12">Exception</text>
+              <text x="168" y="147" class="viz-svg-idx">все обычные ошибки программы</text>
+
+              <rect x="104" y="166" width="140" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="114" y="185" class="viz-svg-label" font-size="12">ArithmeticError</text>
+              <text x="258" y="185" class="viz-svg-idx">→ ZeroDivisionError, OverflowError</text>
+
+              <rect x="104" y="204" width="112" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="114" y="223" class="viz-svg-label" font-size="12">LookupError</text>
+              <text x="230" y="223" class="viz-svg-idx">→ IndexError, KeyError</text>
+
+              <rect x="104" y="242" width="80" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="114" y="261" class="viz-svg-label" font-size="12">OSError</text>
+              <text x="198" y="261" class="viz-svg-idx">→ FileNotFoundError, PermissionError</text>
+
+              <rect x="104" y="280" width="104" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="114" y="299" class="viz-svg-label" font-size="12">ValueError</text>
+              <text x="222" y="299" class="viz-svg-idx">→ UnicodeError → UnicodeDecodeError</text>
+
+              <text x="114" y="337" class="viz-svg-label" font-size="12">ImportError, StopIteration, TypeError,</text>
+              <text x="114" y="355" class="viz-svg-label" font-size="12">NameError, AttributeError, RuntimeError …</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>обычная граница перехвата</li>
+            <li><i></i>категории, которые указывают в except</li>
+            <li><i style="border-color:#8A93B2"></i>служебные, перехватывать не следует</li>
+          </ul>
         </figure>
         <p>Восемь узлов сверху — это почти всё, что нужно помнить. Остальные сотни исключений висят на них листьями.</p>
 

@@ -124,6 +124,60 @@ generator = <span class="f">count_up</span>(<span class="n">3</span>)
         <figure class="code code--out"><figcaption><span>Вывод</span><span>current продолжает расти</span></figcaption><pre>0
 1
 2</pre></figure>
+        <figure class="viz">
+          <figcaption><span>Схема</span><span>управление переходит туда и обратно</span></figcaption>
+          <div class="viz__body">
+            <svg viewBox="0 0 576 258" role="img" aria-label="Временная схема: вызывающий код и генератор по очереди получают управление, между значениями генератор стоит на паузе и хранит переменную current">
+              <text x="36" y="30" class="viz-svg-small">время →</text>
+
+              <rect x="36" y="44" width="510" height="40" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="46" y="69" class="viz-svg-label" font-size="12">вызывающий код</text>
+
+              <rect x="36" y="182" width="510" height="40" fill="#fff"/>
+              <rect x="110" y="182" width="62" height="40" fill="#BFE2F5"/>
+              <rect x="250" y="182" width="62" height="40" fill="#BFE2F5"/>
+              <rect x="390" y="182" width="62" height="40" fill="#BFE2F5"/>
+              <rect x="36" y="182" width="510" height="40" fill="none" stroke="#020835" stroke-width="3"/>
+              <text x="46" y="207" class="viz-svg-label" font-size="12">генератор</text>
+              <text x="211" y="207" text-anchor="middle" class="viz-svg-idx">пауза</text>
+              <text x="351" y="207" text-anchor="middle" class="viz-svg-idx">пауза</text>
+              <text x="499" y="207" text-anchor="middle" class="viz-svg-idx">пауза</text>
+
+              <path d="M110 88 L110 176" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M104 168 L110 178 L116 168 Z" fill="#020835"/>
+              <text x="110" y="108" text-anchor="middle" class="viz-svg-idx">next()</text>
+
+              <path d="M172 178 L172 90" stroke="#2D7FC1" stroke-width="3" fill="none"/>
+              <path d="M166 98 L172 88 L178 98 Z" fill="#2D7FC1"/>
+              <text x="172" y="148" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">0</text>
+
+              <path d="M250 88 L250 176" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M244 168 L250 178 L256 168 Z" fill="#020835"/>
+              <text x="250" y="108" text-anchor="middle" class="viz-svg-idx">next()</text>
+
+              <path d="M312 178 L312 90" stroke="#2D7FC1" stroke-width="3" fill="none"/>
+              <path d="M306 98 L312 88 L318 98 Z" fill="#2D7FC1"/>
+              <text x="312" y="148" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">1</text>
+
+              <path d="M390 88 L390 176" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M384 168 L390 178 L396 168 Z" fill="#020835"/>
+              <text x="390" y="108" text-anchor="middle" class="viz-svg-idx">next()</text>
+
+              <path d="M452 178 L452 90" stroke="#2D7FC1" stroke-width="3" fill="none"/>
+              <path d="M446 98 L452 88 L458 98 Z" fill="#2D7FC1"/>
+              <text x="452" y="148" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">2</text>
+
+              <text x="211" y="248" text-anchor="middle" class="viz-svg-idx">current = 1</text>
+              <text x="351" y="248" text-anchor="middle" class="viz-svg-idx">current = 2</text>
+              <text x="499" y="248" text-anchor="middle" class="viz-svg-idx">current = 3</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>генератор выполняется</li>
+            <li><i></i>генератор приостановлен, но жив</li>
+          </ul>
+        </figure>
+        <p>Из схемы видно главное: две части программы работают <b>по очереди</b>, а не одновременно. Пока идёт закрашенный отрезок, вызывающий код ждёт; как только генератор доходит до <code>yield</code>, он замирает — и в этот момент его переменная <code>current</code> продолжает существовать, сохраняя значение до следующего <code>next()</code>. Внизу схемы показано, чему она равна на каждой паузе.</p>
         <p>Это и есть главное отличие от обычной функции. Обычная функция после <code>return</code> забывает всё: её локальные переменные исчезают. Приостановленный генератор продолжает существовать вместе с ними — <code>current</code> живёт между вызовами и помнит своё значение.</p>
 
         <h2 id="s5"><span class="sec">§5</span>Обычный способ чтения — цикл for</h2>

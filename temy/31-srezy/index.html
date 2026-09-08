@@ -26,6 +26,62 @@
 result = numbers[<span class="n">1</span>:<span class="n">4</span>]
 <span class="f">print</span>(result)</pre></figure>
   <figure class="code code--out"><figcaption><span>Вывод</span><span>три элемента</span></figcaption><pre>[20, 30, 40]</pre></figure>
+  <figure class="viz">
+    <figcaption><span>Схема</span><span>границы стоят между элементами</span></figcaption>
+    <div class="viz__body">
+      <svg viewBox="0 0 572 208" role="img" aria-label="Линейка индексов: границы среза стоят между элементами, [1:4] выбирает 20, 30 и 40">
+        <path d="M148 46 L148 30 L424 30 L424 46" fill="none" stroke="#2D7FC1" stroke-width="3"/>
+        <text x="286" y="22" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">numbers[1:4]</text>
+
+        <text x="20" y="70" class="viz-svg-small">граница</text>
+        <text x="56" y="70" text-anchor="middle" class="viz-svg-idx">0</text>
+        <text x="148" y="70" text-anchor="middle" class="viz-svg-idx" fill="#2D7FC1">1</text>
+        <text x="240" y="70" text-anchor="middle" class="viz-svg-idx">2</text>
+        <text x="332" y="70" text-anchor="middle" class="viz-svg-idx">3</text>
+        <text x="424" y="70" text-anchor="middle" class="viz-svg-idx" fill="#2D7FC1">4</text>
+        <text x="516" y="70" text-anchor="middle" class="viz-svg-idx">5</text>
+
+        <line x1="56" y1="76" x2="56" y2="90" stroke="#8A93B2" stroke-width="2" stroke-dasharray="3 3"/>
+        <line x1="148" y1="76" x2="148" y2="146" stroke="#2D7FC1" stroke-width="3"/>
+        <line x1="240" y1="76" x2="240" y2="90" stroke="#8A93B2" stroke-width="2" stroke-dasharray="3 3"/>
+        <line x1="332" y1="76" x2="332" y2="90" stroke="#8A93B2" stroke-width="2" stroke-dasharray="3 3"/>
+        <line x1="424" y1="76" x2="424" y2="146" stroke="#2D7FC1" stroke-width="3"/>
+        <line x1="516" y1="76" x2="516" y2="90" stroke="#8A93B2" stroke-width="2" stroke-dasharray="3 3"/>
+
+        <rect x="56" y="90" width="92" height="52" fill="#fff" stroke="#020835" stroke-width="3"/>
+        <rect x="148" y="90" width="92" height="52" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+        <rect x="240" y="90" width="92" height="52" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+        <rect x="332" y="90" width="92" height="52" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+        <rect x="424" y="90" width="92" height="52" fill="#fff" stroke="#020835" stroke-width="3"/>
+
+        <text x="102" y="123" text-anchor="middle" class="viz-svg-label">10</text>
+        <text x="194" y="123" text-anchor="middle" class="viz-svg-label">20</text>
+        <text x="286" y="123" text-anchor="middle" class="viz-svg-label">30</text>
+        <text x="378" y="123" text-anchor="middle" class="viz-svg-label">40</text>
+        <text x="470" y="123" text-anchor="middle" class="viz-svg-label">50</text>
+
+        <text x="20" y="168" class="viz-svg-small">индекс</text>
+        <text x="102" y="168" text-anchor="middle" class="viz-svg-idx">0</text>
+        <text x="194" y="168" text-anchor="middle" class="viz-svg-idx">1</text>
+        <text x="286" y="168" text-anchor="middle" class="viz-svg-idx">2</text>
+        <text x="378" y="168" text-anchor="middle" class="viz-svg-idx">3</text>
+        <text x="470" y="168" text-anchor="middle" class="viz-svg-idx">4</text>
+
+        <text x="20" y="194" class="viz-svg-small">с конца</text>
+        <text x="102" y="194" text-anchor="middle" class="viz-svg-idx">−5</text>
+        <text x="194" y="194" text-anchor="middle" class="viz-svg-idx">−4</text>
+        <text x="286" y="194" text-anchor="middle" class="viz-svg-idx">−3</text>
+        <text x="378" y="194" text-anchor="middle" class="viz-svg-idx">−2</text>
+        <text x="470" y="194" text-anchor="middle" class="viz-svg-idx">−1</text>
+      </svg>
+    </div>
+    <ul class="viz__legend">
+      <li><i style="background:#BFE2F5"></i>попадает в результат</li>
+      <li><i></i>остаётся за границей среза</li>
+    </ul>
+  </figure>
+  <p>Схема объясняет правило нагляднее словесной формулировки: числа в квадратных скобках указывают не на элементы, а на <b>границы между ними</b>. Срез забирает всё, что лежит между границей <code>1</code> и границей <code>4</code>, — отсюда и три элемента, и невключение <code>stop</code>. Из той же линейки видно, почему <code>numbers[1:4]</code> и <code>numbers[-4:-1]</code> дают одно и то же.</p>
+
 
   <h2 id="s3"><span class="sec">§3</span>Шаг среза</h2>
   <p>Третья позиция задаёт расстояние между выбранными элементами. Пропущенные <code>start</code> и <code>stop</code> означают всю последовательность.</p>

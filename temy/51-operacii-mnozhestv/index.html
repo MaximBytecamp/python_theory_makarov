@@ -76,6 +76,69 @@
           </table>
         </div>
         <p>Каждый из этих вопросов можно решить циклом с проверками, но операция короче, быстрее и читается как формулировка задачи.</p>
+  <figure class="viz">
+    <figcaption><span>Схема</span><span>четыре операции на одной паре наборов</span></figcaption>
+    <div class="viz__body">
+      <svg viewBox="0 0 620 372" role="img" aria-label="Диаграммы Венна: объединение, пересечение, разность и симметрическая разность">
+        <defs>
+          <clipPath id="cL1"><circle cx="118" cy="112" r="54"/></clipPath>
+          <clipPath id="cR1"><circle cx="182" cy="112" r="54"/></clipPath>
+          <clipPath id="cL2"><circle cx="428" cy="112" r="54"/></clipPath>
+          <clipPath id="cR2"><circle cx="492" cy="112" r="54"/></clipPath>
+          <clipPath id="cL3"><circle cx="118" cy="286" r="54"/></clipPath>
+          <clipPath id="cR3"><circle cx="182" cy="286" r="54"/></clipPath>
+          <clipPath id="cL4"><circle cx="428" cy="286" r="54"/></clipPath>
+          <clipPath id="cR4"><circle cx="492" cy="286" r="54"/></clipPath>
+        </defs>
+
+        <!-- 1. Объединение -->
+        <text x="150" y="30" text-anchor="middle" class="viz-svg-small" fill="#020835">объединение</text>
+        <text x="150" y="52" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">a | b</text>
+        <circle cx="118" cy="112" r="54" fill="#BFE2F5"/>
+        <circle cx="182" cy="112" r="54" fill="#BFE2F5"/>
+        <circle cx="118" cy="112" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <circle cx="182" cy="112" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <text x="86" y="118" text-anchor="middle" class="viz-svg-label">a</text>
+        <text x="214" y="118" text-anchor="middle" class="viz-svg-label">b</text>
+
+        <!-- 2. Пересечение -->
+        <text x="460" y="30" text-anchor="middle" class="viz-svg-small" fill="#020835">пересечение</text>
+        <text x="460" y="52" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">a &amp; b</text>
+        <g clip-path="url(#cL2)"><circle cx="492" cy="112" r="54" fill="#BFE2F5"/></g>
+        <circle cx="428" cy="112" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <circle cx="492" cy="112" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <text x="396" y="118" text-anchor="middle" class="viz-svg-label">a</text>
+        <text x="524" y="118" text-anchor="middle" class="viz-svg-label">b</text>
+
+        <!-- 3. Разность -->
+        <text x="150" y="204" text-anchor="middle" class="viz-svg-small" fill="#020835">разность</text>
+        <text x="150" y="226" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">a - b</text>
+        <circle cx="118" cy="286" r="54" fill="#BFE2F5"/>
+        <g clip-path="url(#cR3)"><circle cx="118" cy="286" r="54" fill="#FFFDF8"/></g>
+        <circle cx="118" cy="286" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <circle cx="182" cy="286" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <text x="86" y="292" text-anchor="middle" class="viz-svg-label">a</text>
+        <text x="214" y="292" text-anchor="middle" class="viz-svg-label">b</text>
+
+        <!-- 4. Симметрическая разность -->
+        <text x="460" y="204" text-anchor="middle" class="viz-svg-small" fill="#020835">симметрическая разность</text>
+        <text x="460" y="226" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">a ^ b</text>
+        <circle cx="428" cy="286" r="54" fill="#BFE2F5"/>
+        <circle cx="492" cy="286" r="54" fill="#BFE2F5"/>
+        <g clip-path="url(#cL4)"><circle cx="492" cy="286" r="54" fill="#FFFDF8"/></g>
+        <circle cx="428" cy="286" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <circle cx="492" cy="286" r="54" fill="none" stroke="#020835" stroke-width="3"/>
+        <text x="396" y="292" text-anchor="middle" class="viz-svg-label">a</text>
+        <text x="524" y="292" text-anchor="middle" class="viz-svg-label">b</text>
+      </svg>
+    </div>
+    <ul class="viz__legend">
+      <li><i style="background:#BFE2F5"></i>элементы, попадающие в результат</li>
+      <li><i></i>элементы, которые операция отбрасывает</li>
+    </ul>
+  </figure>
+  <p>Четыре операции отличаются только тем, какая часть картинки остаётся закрашенной. Дальше каждая разбирается отдельно, но к этой схеме полезно возвращаться: почти любой вопрос о двух наборах сводится к выбору области на ней.</p>
+
 
         <h2 id="s2"><span class="sec">§2</span>Объединение</h2>
         <p>Объединение собирает всё, что есть хотя бы в одном из наборов, — повторы при этом исчезают сами.</p>

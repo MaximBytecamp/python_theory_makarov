@@ -135,6 +135,40 @@ say = <span class="f">my_decorator</span>(say)      <span class="c"># имя say
 Основное действие
 После вызова функции</pre></figure>
         <p>Функция <code>say</code> не изменилась ни на строку. Изменилось лишь то, на что указывает имя <code>say</code>: теперь это обёртка, которая внутри себя вызывает прежнюю функцию.</p>
+        <figure class="viz">
+          <figcaption><span>Схема</span><span>что теперь стоит за именем say</span></figcaption>
+          <div class="viz__body">
+            <svg viewBox="0 0 580 288" role="img" aria-label="Схема обёртки: вызов say попадает в wrapper, который печатает строку до, вызывает исходную функцию и печатает строку после">
+              <text x="90" y="22" text-anchor="middle" class="viz-svg-idx">вызов say()</text>
+              <path d="M90 30 L90 52" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M84 44 L90 54 L96 44 Z" fill="#020835"/>
+
+              <rect x="40" y="54" width="500" height="196" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <rect x="40" y="54" width="500" height="28" fill="#020835"/>
+              <text x="54" y="73" class="viz-svg-small" fill="#6FB8E3">wrapper — то, на что теперь указывает имя say</text>
+
+              <rect x="66" y="98" width="448" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="2"/>
+              <text x="290" y="120" text-anchor="middle" class="viz-svg-label" font-size="12">print("До вызова функции")</text>
+
+              <rect x="66" y="142" width="448" height="52" fill="#FFFDF8" stroke="#020835" stroke-width="3"/>
+              <text x="80" y="161" class="viz-svg-small">исходная функция say — не изменилась</text>
+              <text x="290" y="184" text-anchor="middle" class="viz-svg-label" font-size="12">print("Основное действие")</text>
+
+              <rect x="66" y="204" width="448" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="2"/>
+              <text x="290" y="226" text-anchor="middle" class="viz-svg-label" font-size="12">print("После вызова функции")</text>
+
+              <path d="M90 250 L90 272" stroke="#2D7FC1" stroke-width="3" fill="none"/>
+              <path d="M84 264 L90 274 L96 264 Z" fill="#2D7FC1"/>
+              <text x="196" y="278" text-anchor="middle" class="viz-svg-idx" fill="#2D7FC1">результат возвращается вызывающему коду</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>добавлено декоратором</li>
+            <li><i style="background:#FFFDF8"></i>исходный код, к которому никто не притрагивался</li>
+          </ul>
+        </figure>
+        <p>Схема объясняет и само слово «обёртка»: исходная функция оказывается внутри новой, как ядро внутри скорлупы. Снаружи по-прежнему вызывают <code>say()</code> — и не догадываются, что попадают уже не туда, куда попадали раньше.</p>
+
 
         <h2 id="s7"><span class="sec">§7</span>Синтаксис @</h2>
         <p>Строка <code>say = my_decorator(say)</code> стоит далеко от определения функции, и читатель кода легко её пропустит. Python предлагает короткую запись.</p>
