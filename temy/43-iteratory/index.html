@@ -1,59 +1,327 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F2F1E9"><title>7.1 Итераторы в Python · Справочник по Python</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css"></head><body><div class="book"><div class="book__body"><div class="spine"><span>Модуль 7 · Итераторы и генераторы</span></div><main class="leaf">
-<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 7 · итераторы и генераторы</p><p class="running__folio">Глава 7.1</p></div>
-<header class="chapter-head"><span class="chapter-num">7.1</span><h1>Итераторы<br>в Python</h1><p class="lead">Итерируемый объект умеет создать средство перебора, а итератор хранит текущую позицию и выдаёт следующее значение через <code>next()</code>. На этом протоколе работают циклы <code>for</code> и многие встроенные функции.</p><blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote></header>
-<dl class="passport"><div><dt>Категория</dt><dd>Модель перебора</dd></div><div><dt>Уровень</dt><dd>Продвинутый</dd></div><div><dt>Связанные темы</dt><dd>for, range, map, filter, генераторы</dd></div><div><dt>Зачем это знать</dt><dd>Понимать ленивые вычисления и одноразовый перебор</dd></div></dl>
-<nav class="contents"><b>В этой главе</b><ol><li><a href="#s1">Основная идея</a></li><li><a href="#s2">iter() и next()</a></li><li><a href="#s3">Конец перебора</a></li><li><a href="#s4">Как работает for</a></li><li><a href="#s5">Iterable и iterator</a></li><li><a href="#s6">Повторный перебор</a></li><li><a href="#s7">Протокол итератора</a></li><li><a href="#s8">range не итератор</a></li><li><a href="#s9">Встроенные итераторы</a></li><li><a href="#s10">Зачем нужна ленивость</a></li><li><a href="#s11">Частые ошибки</a></li><li><a href="#s12">Проверьте себя</a></li><li><a href="#s13">Шпаргалка</a></li></ol></nav>
-<h2 id="s1"><span class="sec">§1</span>Основная идея</h2><p><span class="term">Итератор</span> умеет выполнить две операции: выдать следующее значение и сообщить, что значений больше нет. Он не обязан хранить все будущие элементы сразу.</p><figure class="code"><figcaption><span>Схема</span><span>один шаг за вызов</span></figcaption><pre>источник → <span class="f">iter</span>(источник) → итератор
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>7.1 Итераторы в Python · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 7 · Итераторы и генераторы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 7 · итераторы и генераторы</p>
+          <p class="running__folio">Глава 7.1</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">7.1</span>
+          <h1>Итераторы<br>в Python</h1>
+          <p class="lead">Итерируемый объект умеет создать средство перебора, а итератор хранит текущую позицию и выдаёт следующее значение через <code>next()</code>. На этом протоколе работают циклы <code>for</code> и многие встроенные функции.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Модель перебора</dd></div>
+          <div><dt>Уровень</dt><dd>Продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>for, range, map, filter, генераторы</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Понимать ленивые вычисления и одноразовый перебор</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Основная идея</a></li>
+            <li><a href="#s2">iter() и next()</a></li>
+            <li><a href="#s3">Конец перебора</a></li>
+            <li><a href="#s4">Как работает for</a></li>
+            <li><a href="#s5">Iterable и iterator</a></li>
+            <li><a href="#s6">Повторный перебор</a></li>
+            <li><a href="#s7">Протокол итератора</a></li>
+            <li><a href="#s8">Свой итератор</a></li>
+            <li><a href="#s9">range не итератор</a></li>
+            <li><a href="#s10">Встроенные итераторы</a></li>
+            <li><a href="#s11">Одноразовость: главная ловушка</a></li>
+            <li><a href="#s12">Файл — итератор самого себя</a></li>
+            <li><a href="#s13">Изменение коллекции при переборе</a></li>
+            <li><a href="#s14">Конвейер преобразований</a></li>
+            <li><a href="#s15">Зачем нужна ленивость</a></li>
+            <li><a href="#s16">Частые ошибки</a></li>
+            <li><a href="#s17">Проверьте себя</a></li>
+            <li><a href="#s18">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Основная идея</h2>
+        <p><span class="term">Итератор</span> умеет выполнить две операции: выдать следующее значение и сообщить, что значений больше нет. Он не обязан хранить все будущие элементы сразу.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>один шаг за вызов</span></figcaption>
+<pre>источник → <span class="f">iter</span>(источник) → итератор
                               │
                   <span class="f">next</span>() → значение
                   <span class="f">next</span>() → значение
-                  <span class="f">next</span>() → StopIteration</pre></figure>
-<h2 id="s2"><span class="sec">§2</span>Ручной перебор через iter() и next()</h2><figure class="code"><figcaption><span>main.py</span><span>три последовательных шага</span></figcaption><pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
+                  <span class="f">next</span>() → StopIteration</pre>
+        </figure>
+        <p>Такое устройство разделяет две разные вещи: <b>что</b> перебирается и <b>где</b> находится перебор. Данные остаются в источнике, а позиция хранится в отдельном объекте — поэтому один список можно одновременно проходить в двух местах программы, не мешая друг другу.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Ручной перебор через iter() и next()</h2>
+        <p>Функция <code>iter()</code> получает из источника итератор, функция <code>next()</code> запрашивает у него очередное значение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три последовательных шага</span></figcaption>
+<pre>numbers = [<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>]
 iterator = <span class="f">iter</span>(numbers)
 <span class="f">print</span>(<span class="f">next</span>(iterator))
 <span class="f">print</span>(<span class="f">next</span>(iterator))
-<span class="f">print</span>(<span class="f">next</span>(iterator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>позиция движется вперёд</span></figcaption><pre>10
+<span class="f">print</span>(<span class="f">next</span>(iterator))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>позиция движется вперёд</span></figcaption><pre>10
 20
 30</pre></figure>
-<h2 id="s3"><span class="sec">§3</span>Когда элементы заканчиваются</h2><p>Следующий вызов после последнего элемента возбуждает <code>StopIteration</code>. Функция <code>next(iterator, default)</code> вместо исключения возвращает запасное значение.</p><figure class="code"><figcaption><span>main.py</span><span>безопасное чтение конца</span></figcaption><pre>iterator = <span class="f">iter</span>([<span class="n">10</span>])
+        <p>Три одинаковых вызова дают разные результаты — значит, между ними что-то меняется. Меняется состояние итератора: он помнит, что уже отдал, и назад не возвращается.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Когда элементы заканчиваются</h2>
+        <p>Следующий вызов после последнего элемента возбуждает <code>StopIteration</code>. Функция <code>next(iterator, default)</code> вместо исключения возвращает запасное значение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>безопасное чтение конца</span></figcaption>
+<pre>iterator = <span class="f">iter</span>([<span class="n">10</span>])
 <span class="f">print</span>(<span class="f">next</span>(iterator, <span class="s">"конец"</span>))
-<span class="f">print</span>(<span class="f">next</span>(iterator, <span class="s">"конец"</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>исключение заменено строкой</span></figcaption><pre>10
+<span class="f">print</span>(<span class="f">next</span>(iterator, <span class="s">"конец"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>исключение заменено строкой</span></figcaption><pre>10
 конец</pre></figure>
-<h2 id="s4"><span class="sec">§4</span>Как цикл for использует протокол</h2><p>Упрощённо цикл сначала вызывает <code>iter()</code>, затем повторяет <code>next()</code> и сам завершает работу при <code>StopIteration</code>.</p><figure class="code"><figcaption><span>Псевдокод</span><span>механика цикла</span></figcaption><pre>iterator = <span class="f">iter</span>(iterable)
+        <p>Обратите внимание: конец последовательности сообщается именно исключением, а не особым значением вроде <code>None</code>. Так <code>None</code> остаётся полноправным элементом — итератор может его выдать, и это не будет означать завершения.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Как цикл for использует протокол</h2>
+        <p>Упрощённо цикл сначала вызывает <code>iter()</code>, затем повторяет <code>next()</code> и сам завершает работу при <code>StopIteration</code>.</p>
+        <figure class="code">
+          <figcaption><span>Псевдокод</span><span>механика цикла</span></figcaption>
+<pre>iterator = <span class="f">iter</span>(iterable)
 <span class="k">while</span> <span class="k">True</span>:
     <span class="k">try</span>:
         item = <span class="f">next</span>(iterator)
     <span class="k">except</span> StopIteration:
         <span class="k">break</span>
-    <span class="c"># тело цикла for</span></pre></figure><p>В обычной программе этот код писать не нужно: <code>for</code> делает всё автоматически и яснее показывает намерение.</p>
-<h2 id="s5"><span class="sec">§5</span>Iterable и iterator</h2><div class="table-scroll"><table><thead><tr><th>Понятие</th><th>Что умеет</th><th>Примеры</th></tr></thead><tbody><tr><td>итерируемый объект</td><td>создаёт итератор через <code>iter()</code></td><td>список, строка, словарь, множество, <code>range</code></td></tr><tr><td>итератор</td><td>хранит состояние перебора и отвечает на <code>next()</code></td><td>результаты <code>iter(list)</code>, <code>map()</code>, <code>filter()</code>, <code>zip()</code></td></tr></tbody></table></div><p>Каждый итератор является итерируемым: <code>iter(iterator)</code> возвращает его самого. Но не каждый итерируемый объект является итератором: <code>next([1, 2])</code> вызывает <code>TypeError</code>.</p>
-<h2 id="s6"><span class="sec">§6</span>Повторный перебор</h2><p>Список может создавать новый итератор для каждого цикла. Сам итератор после чтения не возвращается в начало.</p><figure class="code"><figcaption><span>main.py</span><span>список повторяем, итератор исчерпываем</span></figcaption><pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+    <span class="c"># тело цикла for</span></pre>
+        </figure>
+        <p>В обычной программе этот код писать не нужно: <code>for</code> делает всё автоматически и яснее показывает намерение. Но из схемы видно, почему цикл работает одинаково со списком, строкой, словарём и файлом: ему безразличен источник, важно лишь, чтобы тот отвечал на <code>iter()</code>.</p>
+        <p>Тот же протокол стоит и за распаковкой из главы 1.6: запись <code>a, b, c = источник</code> тоже запрашивает значения по одному.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Iterable и iterator</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Понятие</th><th>Что умеет</th><th>Примеры</th></tr></thead>
+            <tbody>
+              <tr><td>итерируемый объект</td><td>создаёт итератор через <code>iter()</code></td><td>список, строка, словарь, множество, <code>range</code></td></tr>
+              <tr><td>итератор</td><td>хранит состояние перебора и отвечает на <code>next()</code></td><td>результаты <code>iter(list)</code>, <code>map()</code>, <code>filter()</code>, <code>zip()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Каждый итератор является итерируемым: <code>iter(iterator)</code> возвращает его самого. Но не каждый итерируемый объект является итератором: <code>next([1, 2])</code> вызывает <code>TypeError</code>. Русские названия помогают запомнить разницу: «то, что можно перебирать» и «то, что перебирает».</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Повторный перебор</h2>
+        <p>Список может создавать новый итератор для каждого цикла. Сам итератор после чтения не возвращается в начало.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список повторяем, итератор исчерпываем</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
 <span class="f">print</span>(<span class="f">list</span>(numbers))
 <span class="f">print</span>(<span class="f">list</span>(numbers))
 
 iterator = <span class="f">iter</span>(numbers)
 <span class="f">print</span>(<span class="f">list</span>(iterator))
-<span class="f">print</span>(<span class="f">list</span>(iterator))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>последний результат пуст</span></figcaption><pre>[1, 2, 3]
+<span class="f">print</span>(<span class="f">list</span>(iterator))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>последний результат пуст</span></figcaption><pre>[1, 2, 3]
 [1, 2, 3]
 [1, 2, 3]
 []</pre></figure>
-<h2 id="s7"><span class="sec">§7</span>Протокол итератора</h2><p>На уровне методов итерируемый объект предоставляет <code>__iter__()</code>. Итератор предоставляет <code>__next__()</code>, а его <code>__iter__()</code> возвращает сам итератор. В пользовательском коде эти методы обычно вызывают через функции <code>iter()</code> и <code>next()</code>.</p>
-<h2 id="s8"><span class="sec">§8</span>range — итерируемый объект, но не итератор</h2><p><code>range</code> компактно хранит границы числовой последовательности и создаёт отдельный итератор. Поэтому его можно перебирать многократно.</p><figure class="code"><figcaption><span>main.py</span><span>итератор создаётся явно</span></figcaption><pre>numbers = <span class="f">range</span>(<span class="n">3</span>)
+        <p>Пустой список в последней строке — не ошибка и не потеря данных: исходный <code>numbers</code> цел. Исчерпался лишь итератор, дошедший до конца; вернуть его в начало нельзя, можно только создать новый.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Протокол итератора</h2>
+        <p>На уровне методов итерируемый объект предоставляет <code>__iter__()</code>. Итератор предоставляет <code>__next__()</code>, а его <code>__iter__()</code> возвращает сам итератор. В пользовательском коде эти методы обычно вызывают через функции <code>iter()</code> и <code>next()</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Вызов</th><th>Что происходит на самом деле</th></tr></thead>
+            <tbody>
+              <tr><td><code>iter(obj)</code></td><td><code>obj.__iter__()</code></td></tr>
+              <tr><td><code>next(it)</code></td><td><code>it.__next__()</code></td></tr>
+              <tr><td><code>for x in obj:</code></td><td><code>iter()</code>, затем <code>next()</code> до <code>StopIteration</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Именно поэтому <code>for</code> не спрашивает, какой перед ним тип: достаточно, чтобы объект отвечал на эти два метода. Такой подход называют <span class="term">протоколом</span> — договорённостью о наборе методов вместо проверки типа.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Свой итератор</h2>
+        <p>Раз протокол состоит из двух методов, его можно реализовать самому. Класс ниже считает от заданного числа вниз.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>объект, который умеет перебираться</span></figcaption>
+<pre><span class="k">class</span> <span class="f">Countdown</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(self, start):
+        self.current = start
+
+    <span class="k">def</span> <span class="f">__iter__</span>(self):
+        <span class="k">return</span> self
+
+    <span class="k">def</span> <span class="f">__next__</span>(self):
+        <span class="k">if</span> self.current &lt;= <span class="n">0</span>:
+            <span class="k">raise</span> StopIteration
+        self.current -= <span class="n">1</span>
+        <span class="k">return</span> self.current + <span class="n">1</span>
+
+<span class="k">for</span> value <span class="k">in</span> <span class="f">Countdown</span>(<span class="n">3</span>):
+    <span class="f">print</span>(value, end=<span class="s">' '</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>цикл for принял чужой объект как родной</span></figcaption><pre>3 2 1</pre></figure>
+        <p>Три обязательных детали: <code>__next__()</code> возвращает очередное значение, изменяет состояние и возбуждает <code>StopIteration</code>, когда значения кончились. Классы подробно разбираются в модуле 9; здесь важно другое — как только объект реализует протокол, он работает со всем языком сразу: с <code>for</code>, с <code>list()</code>, с <code>sum()</code>, с распаковкой.</p>
+        <p>Забегая вперёд: почти всё то же самое даёт генераторная функция из главы 7.2 — в четыре строки вместо двенадцати.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>range — итерируемый объект, но не итератор</h2>
+        <p><code>range</code> компактно хранит границы числовой последовательности и создаёт отдельный итератор. Поэтому его можно перебирать многократно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>итератор создаётся явно</span></figcaption>
+<pre>numbers = <span class="f">range</span>(<span class="n">3</span>)
 iterator = <span class="f">iter</span>(numbers)
 <span class="f">print</span>(<span class="f">next</span>(iterator))
 <span class="f">print</span>(<span class="f">list</span>(numbers))
-<span class="f">print</span>(<span class="f">list</span>(numbers))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>range доступен снова</span></figcaption><pre>0
+<span class="f">print</span>(<span class="f">list</span>(numbers))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>range доступен снова</span></figcaption><pre>0
 [0, 1, 2]
 [0, 1, 2]</pre></figure>
-<h2 id="s9"><span class="sec">§9</span>Встроенные функции, возвращающие итераторы</h2><figure class="code"><figcaption><span>main.py</span><span>zip и enumerate читаются по одному разу</span></figcaption><pre>pairs = <span class="f">zip</span>([<span class="s">"Анна"</span>, <span class="s">"Борис"</span>], [<span class="n">5</span>, <span class="n">4</span>])
+        <p>Продвижение <code>iterator</code> никак не отразилось на самом <code>range</code>: у них разные роли. <code>range(1000000)</code> при этом не хранит миллион чисел — только начало, конец и шаг, а числа вычисляет на ходу.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Встроенные функции, возвращающие итераторы</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>zip и enumerate читаются по одному разу</span></figcaption>
+<pre>pairs = <span class="f">zip</span>([<span class="s">"Анна"</span>, <span class="s">"Борис"</span>], [<span class="n">5</span>, <span class="n">4</span>])
 numbered = <span class="f">enumerate</span>([<span class="s">"Python"</span>, <span class="s">"SQL"</span>], start=<span class="n">1</span>)
 <span class="f">print</span>(<span class="f">list</span>(pairs))
-<span class="f">print</span>(<span class="f">list</span>(numbered))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>элементы материализованы в списки</span></figcaption><pre>[('Анна', 5), ('Борис', 4)]
+<span class="f">print</span>(<span class="f">list</span>(numbered))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементы материализованы в списки</span></figcaption><pre>[('Анна', 5), ('Борис', 4)]
 [(1, 'Python'), (2, 'SQL')]</pre></figure>
-<h2 id="s10"><span class="sec">§10</span>Зачем значения выдаются по одному</h2><ul><li>можно начать обработку до получения всех данных;</li><li>не требуется заранее хранить весь результат;</li><li>можно работать с большими или потенциально бесконечными потоками;</li><li>несколько преобразований соединяются в последовательную обработку.</li></ul><p>Экономия памяти появляется только тогда, когда программа не превращает итератор сразу в большой список.</p>
-<h2 id="s11"><span class="sec">§11</span>Частые ошибки</h2><div class="table-scroll errors-table"><table><thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead><tbody><tr><td><code>next(numbers)</code> для списка</td><td><code>TypeError</code>: список итерируем, но не является итератором</td><td><code>next(iter(numbers))</code></td></tr><tr><td>ещё один <code>next()</code> после конца</td><td>возникнет <code>StopIteration</code></td><td>использовать <code>for</code> или второй аргумент <code>next()</code></td></tr><tr><td>повторно перебирать исчерпанный <code>map</code> или <code>zip</code></td><td>второй проход не даст элементов</td><td>создать итератор заново или заранее сохранить список</td></tr><tr><td>считать <code>range</code> итератором</td><td><code>next(range(3))</code> вызовет <code>TypeError</code></td><td><code>next(iter(range(3)))</code></td></tr><tr><td>сразу применять <code>list()</code> к огромному потоку</td><td>все элементы окажутся в памяти</td><td>обрабатывать поток циклом или частями</td></tr></tbody></table></div>
-<h2 id="s12"><span class="sec">§12</span>Проверьте себя</h2><details><summary>Чем итерируемый объект отличается от итератора?</summary><p>Первый создаёт средство перебора через <code>iter()</code>, второй хранит текущую позицию и выдаёт значения через <code>next()</code>.</p></details><details><summary>Почему список можно пройти дважды, а один объект map обычно нельзя?</summary><p>Список для каждого прохода создаёт новый итератор; <code>map</code> сам является одноразово продвигающимся итератором.</p></details><details><summary>Как цикл for узнаёт о завершении?</summary><p>Итератор возбуждает <code>StopIteration</code>, а цикл перехватывает его и заканчивается.</p></details>
-<h2 id="s13"><span class="sec">§13</span>Шпаргалка</h2><div class="cheat"><div><b>Создать итератор</b><code>iterator = iter(iterable)</code></div><div><b>Следующий элемент</b><code>next(iterator)</code></div><div><b>Значение на конце</b><code>next(iterator, default)</code></div><div><b>Обычный перебор</b><code>for item in iterable:</code></div></div>
-<h3>Итог главы</h3><p>Итерируемый объект создаёт итератор через <code>iter()</code>. Итератор хранит состояние, выдаёт следующий элемент через <code>next()</code> и сообщает о конце исключением <code>StopIteration</code>. Цикл <code>for</code> управляет этим протоколом автоматически.</p>
-<div class="pager"><a href="../65-morzhovyy-operator/index.html">← 6.12 Оператор :=</a><a href="../../index.html">К содержанию справочника</a><a href="../44-generatory/index.html">7.2 Генераторы →</a></div><div class="colophon"><span>Глава 7.1 · Итераторы · Справочник по Python</span><span class="author-line">Автор: Макаров Максим Николаевич</span></div>
-</main></div></div></body></html>
+        <p><code>map()</code>, <code>filter()</code>, <code>zip()</code>, <code>enumerate()</code>, <code>reversed()</code> — все они возвращают именно итераторы, а не списки. Ничего не вычисляется, пока результат не запросили: строка <code>map(func, huge_list)</code> выполняется мгновенно независимо от размера списка, потому что не делает ещё ничего.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Одноразовость: главная ловушка</h2>
+        <p>Отсюда следует ошибка, на которую натыкаются все. Итератор, однажды пройденный до конца, остаётся пустым — а выглядит по-прежнему.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>второй проход не даёт ничего</span></figcaption>
+<pre>pairs = <span class="f">zip</span>([<span class="n">1</span>, <span class="n">2</span>], [<span class="n">3</span>, <span class="n">4</span>])
+<span class="f">print</span>(<span class="f">list</span>(pairs))
+<span class="f">print</span>(<span class="f">list</span>(pairs))
+
+values = <span class="f">iter</span>([<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>])
+<span class="f">print</span>(<span class="f">sum</span>(values))
+<span class="f">print</span>(<span class="f">sum</span>(values))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вторые вызовы работают с пустотой</span></figcaption><pre>[(1, 3), (2, 4)]
+[]
+6
+0</pre></figure>
+        <p>Опасен именно второй результат: не ошибка, а тихий ноль и пустой список. Функции вроде <code>sum()</code>, <code>max()</code>, <code>list()</code>, <code>any()</code> потребляют итератор целиком — после них он исчерпан. Если результат нужен дважды, его сохраняют: <code>data = list(pairs)</code>.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Файл — итератор самого себя</h2>
+        <p>Открытый файл из главы 8.4 тоже участвует в этом протоколе: он является итератором и перебирается по строкам.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл возвращает сам себя</span></figcaption>
+<pre>file = <span class="f">open</span>(<span class="s">"demo.txt"</span>, encoding=<span class="s">"utf-8"</span>)
+<span class="f">print</span>(<span class="f">iter</span>(file) <span class="k">is</span> file)
+file.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>признак настоящего итератора</span></figcaption><pre>True</pre></figure>
+        <p>Поэтому <code>for line in file:</code> не загружает файл в память целиком — и поэтому же второй такой цикл по тому же открытому файлу не даст ни одной строки: позиция уже в конце.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Изменение коллекции при переборе</h2>
+        <p>Итератор хранит позицию, а не копию данных. Если менять коллекцию во время перебора, позиция «съезжает».</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>удаление во время цикла</span></figcaption>
+<pre>numbers = [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
+<span class="k">for</span> n <span class="k">in</span> numbers:
+    <span class="k">if</span> n % <span class="n">2</span> == <span class="n">0</span>:
+        numbers.remove(n)
+
+<span class="f">print</span>(numbers)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>четвёрка уцелела</span></figcaption><pre>[1, 3]</pre></figure>
+        <p>После удаления двойки элементы сдвинулись влево, а позиция итератора шагнула вправо — четвёрка оказалась пропущена. Словарь в такой ситуации ведёт себя честнее и сразу возбуждает <code>RuntimeError: dictionary changed size during iteration</code>.</p>
+        <p>Правило: коллекцию, которую перебирают, не изменяют. Перебирают копию (<code>for n in numbers[:]</code>) или, что обычно лучше, строят новый список включением из главы 4.10.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Конвейер преобразований</h2>
+        <p>Поскольку <code>map()</code> и <code>filter()</code> сами возвращают итераторы, их можно соединять — и ни один элемент не будет вычислен раньше, чем понадобится.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>три звена, ни одного промежуточного списка</span></figcaption>
+<pre>numbers = <span class="f">range</span>(<span class="n">1</span>, <span class="n">11</span>)
+squares = <span class="f">map</span>(<span class="k">lambda</span> x: x * x, numbers)
+big = <span class="f">filter</span>(<span class="k">lambda</span> x: x &gt; <span class="n">20</span>, squares)
+
+<span class="f">print</span>(<span class="f">next</span>(big))
+<span class="f">print</span>(<span class="f">list</span>(big))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>первое значение получено раньше остальных</span></figcaption><pre>25
+[36, 49, 64, 81, 100]</pre></figure>
+        <p>Первый <code>next()</code> протянул через всю цепочку ровно столько чисел, сколько потребовалось для одного результата. Если бы каждое звено возвращало список, пришлось бы трижды построить полный набор данных.</p>
+
+        <h2 id="s15"><span class="sec">§15</span>Зачем значения выдаются по одному</h2>
+        <ul>
+          <li>можно начать обработку до получения всех данных;</li>
+          <li>не требуется заранее хранить весь результат;</li>
+          <li>можно работать с большими или потенциально бесконечными потоками;</li>
+          <li>несколько преобразований соединяются в последовательную обработку.</li>
+        </ul>
+        <p>Экономия памяти появляется только тогда, когда программа не превращает итератор сразу в большой список. Вызов <code>list(map(...))</code> перечёркивает всю ленивость: данные всё равно окажутся в памяти целиком.</p>
+
+        <h2 id="s16"><span class="sec">§16</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>next(numbers)</code> для списка</td><td><code>TypeError</code>: список итерируем, но не является итератором</td><td><code>next(iter(numbers))</code></td></tr>
+              <tr><td>ещё один <code>next()</code> после конца</td><td>возникнет <code>StopIteration</code></td><td>использовать <code>for</code> или второй аргумент <code>next()</code></td></tr>
+              <tr><td>повторно перебирать исчерпанный <code>map</code> или <code>zip</code></td><td>второй проход не даст элементов</td><td>создать итератор заново или заранее сохранить список</td></tr>
+              <tr><td>считать <code>range</code> итератором</td><td><code>next(range(3))</code> вызовет <code>TypeError</code></td><td><code>next(iter(range(3)))</code></td></tr>
+              <tr><td>удалять элементы из перебираемого списка</td><td>часть элементов будет пропущена</td><td>перебирать копию или строить новый список</td></tr>
+              <tr><td><code>len(iterator)</code></td><td><code>TypeError</code>: итератор не знает, сколько значений впереди</td><td>материализовать список или считать вручную</td></tr>
+              <tr><td>сразу применять <code>list()</code> к огромному потоку</td><td>все элементы окажутся в памяти</td><td>обрабатывать поток циклом или частями</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s17"><span class="sec">§17</span>Проверьте себя</h2>
+        <details><summary>Чем итерируемый объект отличается от итератора?</summary><p>Первый создаёт средство перебора через <code>iter()</code>, второй хранит текущую позицию и выдаёт значения через <code>next()</code>.</p></details>
+        <details><summary>Почему список можно пройти дважды, а один объект map обычно нельзя?</summary><p>Список для каждого прохода создаёт новый итератор; <code>map</code> сам является одноразово продвигающимся итератором.</p></details>
+        <details><summary>Как цикл for узнаёт о завершении?</summary><p>Итератор возбуждает <code>StopIteration</code>, а цикл перехватывает его и заканчивается.</p></details>
+        <details><summary>Какие два метода делают объект итератором?</summary><p><code>__next__()</code>, выдающий очередное значение, и <code>__iter__()</code>, возвращающий сам объект.</p></details>
+        <details><summary>Почему <code>sum(values)</code> во второй раз вернул ноль?</summary><p>Первый вызов прошёл итератор до конца и исчерпал его, поэтому во второй раз складывать было нечего.</p></details>
+        <details><summary>Почему нельзя удалять элементы прямо в цикле <code>for</code>?</summary><p>Итератор помнит позицию в исходной коллекции. После удаления элементы сдвигаются, и следующий по счёту оказывается пропущен.</p></details>
+
+        <h2 id="s18"><span class="sec">§18</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Создать итератор</b><code>iterator = iter(iterable)</code></div>
+          <div><b>Следующий элемент</b><code>next(iterator)</code></div>
+          <div><b>Значение на конце</b><code>next(iterator, default)</code></div>
+          <div><b>Обычный перебор</b><code>for item in iterable:</code></div>
+          <div><b>Свой итератор</b><code>__iter__() и __next__()</code></div>
+          <div><b>Сохранить результат</b><code>data = list(iterator)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Итерируемый объект создаёт итератор через <code>iter()</code>. Итератор хранит состояние, выдаёт следующий элемент через <code>next()</code> и сообщает о конце исключением <code>StopIteration</code>. Цикл <code>for</code> управляет этим протоколом автоматически, а собственный объект включается в него двумя методами — <code>__iter__()</code> и <code>__next__()</code>. Главное практическое следствие: итератор одноразов и не знает своей длины, поэтому результат, нужный дважды, сохраняют в список, а перебираемую коллекцию не изменяют.</p>
+        <div class="pager">
+          <a href="../82-dekoratory-vvedenie/index.html">← 6.14 Декораторы: введение</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../44-generatory/index.html">7.2 Генераторы →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 7.1 · Итераторы · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
