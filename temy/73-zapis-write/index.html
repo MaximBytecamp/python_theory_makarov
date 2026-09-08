@@ -73,6 +73,52 @@
           </table>
         </div>
         <p>Во всех четырёх случаях файл будет создан, если его нет. Разница только в судьбе существующего содержимого.</p>
+        <figure class="viz viz--wide">
+          <figcaption><span>Схема</span><span>что режим делает с существующим файлом</span></figcaption>
+          <div class="viz__body">
+            <svg viewBox="0 0 700 274" role="img" aria-label="Сравнение режимов: w стирает содержимое, a сохраняет и пишет в конец, x отказывается открывать существующий файл, r только читает">
+              <text x="76" y="24" class="viz-svg-small">файл до открытия</text>
+              <text x="284" y="24" class="viz-svg-small">файл после открытия</text>
+              <text x="16" y="64" class="viz-svg-label" fill="#2D7FC1">"w"</text>
+              <rect x="76" y="38" width="150" height="40" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="151" y="64" text-anchor="middle" class="viz-svg-label" font-size="12">старый текст</text>
+              <path d="M234 58 L272 58" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M264 52 L276 58 L264 64 Z" fill="#020835"/>
+              <rect x="284" y="38" width="196" height="40" fill="#fff" stroke="#C0392B" stroke-width="3"/>
+              <text x="382" y="64" text-anchor="middle" class="viz-svg-label" font-size="12">пусто</text>
+              <text x="496" y="63" class="viz-svg-idx">содержимое стёрто</text>
+              <text x="16" y="124" class="viz-svg-label" fill="#2D7FC1">"a"</text>
+              <rect x="76" y="98" width="150" height="40" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="151" y="124" text-anchor="middle" class="viz-svg-label" font-size="12">старый текст</text>
+              <path d="M234 118 L272 118" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M264 112 L276 118 L264 124 Z" fill="#020835"/>
+              <rect x="284" y="98" width="196" height="40" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="382" y="124" text-anchor="middle" class="viz-svg-label" font-size="12">старый текст ▸</text>
+              <text x="496" y="123" class="viz-svg-idx">запись пойдёт в конец</text>
+              <text x="16" y="184" class="viz-svg-label" fill="#2D7FC1">"x"</text>
+              <rect x="76" y="158" width="150" height="40" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="151" y="184" text-anchor="middle" class="viz-svg-label" font-size="12">старый текст</text>
+              <path d="M234 178 L272 178" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M264 172 L276 178 L264 184 Z" fill="#020835"/>
+              <rect x="284" y="158" width="196" height="40" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="382" y="184" text-anchor="middle" class="viz-svg-label" font-size="12">FileExistsError</text>
+              <text x="496" y="183" class="viz-svg-idx">файл не тронут</text>
+              <text x="16" y="244" class="viz-svg-label" fill="#2D7FC1">"r"</text>
+              <rect x="76" y="218" width="150" height="40" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="151" y="244" text-anchor="middle" class="viz-svg-label" font-size="12">старый текст</text>
+              <path d="M234 238 L272 238" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M264 232 L276 238 L264 244 Z" fill="#020835"/>
+              <rect x="284" y="218" width="196" height="40" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="382" y="244" text-anchor="middle" class="viz-svg-label" font-size="12">старый текст</text>
+              <text x="496" y="243" class="viz-svg-idx">только чтение</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>содержимое уцелело</li>
+            <li><i></i>содержимое стёрто или файл не открыт</li>
+          </ul>
+        </figure>
+        <p>Решающая строка — первая. <code>open(path, "w")</code> стирает файл <b>в момент открытия</b>, ещё до первого <code>write()</code>: даже если программа упадёт следующей строкой, старых данных уже не будет. Это самая дорогая ошибка во всей теме файлов, и защита от неё — режим <code>"x"</code> из главы 8.13.</p>
 
         <h2 id="s3"><span class="sec">§3</span>Метод write()</h2>
         <p><code>write(string)</code> записывает строку в текущую позицию файла.</p>

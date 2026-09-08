@@ -57,14 +57,47 @@
 
         <h2 id="s1"><span class="sec">§1</span>Что такое буфер</h2>
         <p><span class="term">Буфер</span> — временная область оперативной памяти, где данные накапливаются по пути между программой и устройством. Программа пишет в буфер, а на диск данные уходят потом, большими блоками.</p>
-        <figure class="code">
+        <figure class="viz">
           <figcaption><span>Схема</span><span>путь данных при записи</span></figcaption>
-<pre>программа  ──write()──→  БУФЕР  ──блоками──→  диск
-                        (в ОЗУ)
-                                  ↑
-                          перенос происходит,
-                          когда буфер заполнен
-                          или файл закрыт</pre>
+          <div class="viz__body">
+            <svg viewBox="0 0 580 250" role="img" aria-label="Данные идут из программы в буфер оперативной памяти и лишь потом блоками попадают на диск">
+              <rect x="16" y="72" width="118" height="66" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="75" y="103" text-anchor="middle" class="viz-svg-label" font-size="12">программа</text>
+              <text x="75" y="123" text-anchor="middle" class="viz-svg-idx">ваш код</text>
+
+              <path d="M138 105 L196 105" stroke="#020835" stroke-width="3" fill="none"/>
+              <path d="M188 99 L200 105 L188 111 Z" fill="#020835"/>
+              <text x="168" y="94" text-anchor="middle" class="viz-svg-idx">write()</text>
+
+              <rect x="204" y="56" width="212" height="98" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <rect x="204" y="56" width="212" height="26" fill="#020835"/>
+              <text x="216" y="75" class="viz-svg-small" fill="#6FB8E3">буфер · оперативная память</text>
+              <rect x="220" y="98" width="22" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="2"/>
+              <rect x="246" y="98" width="22" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="2"/>
+              <rect x="272" y="98" width="22" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="2"/>
+              <rect x="298" y="98" width="22" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="2"/>
+              <rect x="324" y="98" width="22" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <rect x="350" y="98" width="22" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <rect x="376" y="98" width="22" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+
+              <path d="M420 105 L478 105" stroke="#2D7FC1" stroke-width="3" fill="none"/>
+              <path d="M470 99 L482 105 L470 111 Z" fill="#2D7FC1"/>
+              <text x="450" y="94" text-anchor="middle" class="viz-svg-idx" fill="#2D7FC1">блоками</text>
+
+              <ellipse cx="536" cy="76" rx="30" ry="10" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <path d="M506 76 L506 130 A30 10 0 0 0 566 130 L566 76" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="536" y="112" text-anchor="middle" class="viz-svg-label" font-size="12">диск</text>
+
+              <path d="M450 118 L450 182" stroke="#2D7FC1" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+              <text x="290" y="196" text-anchor="middle" class="viz-svg-small" fill="#020835">перенос происходит, когда</text>
+              <text x="290" y="220" text-anchor="middle" class="viz-svg-label" font-size="12" fill="#2D7FC1">буфер заполнен · flush() · close() · выход из with</text>
+              <text x="290" y="240" text-anchor="middle" class="viz-svg-idx">до этого момента файла на диске может не быть вовсе</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>данные, записанные программой, но ещё не на диске</li>
+            <li><i></i>свободное место в буфере</li>
+          </ul>
         </figure>
         <p>То же самое происходит и при чтении, только в обратную сторону: с диска считывается блок, а программа берёт из него по кусочку.</p>
 

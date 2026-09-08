@@ -101,52 +101,63 @@ KeyError - 'z'</pre></figure>
         <p>Запись <code>type(e).__name__</code> показывает настоящий тип пойманного исключения — родитель ловит, но не подменяет.</p>
 
         <h2 id="s4"><span class="sec">§4</span>Общее дерево</h2>
-        <figure class="viz">
-          <figcaption><span>Схема</span><span>основные узлы иерархии</span></figcaption>
+        <figure class="viz viz--wide">
+          <figcaption><span>Схема</span><span>дерево наследования исключений</span></figcaption>
           <div class="viz__body">
-            <svg viewBox="0 0 590 362" role="img" aria-label="Дерево исключений: BaseException, под ним SystemExit, KeyboardInterrupt и Exception, а под Exception — ArithmeticError, LookupError, OSError, ValueError и другие">
-              <path d="M32 42 L32 142 M32 66 L60 66 M32 104 L60 104 M32 142 L60 142" stroke="#020835" stroke-width="2" fill="none"/>
-              <path d="M76 156 L76 332 M76 180 L104 180 M76 218 L104 218 M76 256 L104 256 M76 294 L104 294 M76 332 L104 332" stroke="#020835" stroke-width="2" fill="none"/>
-
-              <rect x="20" y="14" width="124" height="28" fill="#fff" stroke="#020835" stroke-width="3"/>
-              <text x="30" y="33" class="viz-svg-label" font-size="12">BaseException</text>
-
-              <rect x="60" y="52" width="100" height="28" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
-              <text x="70" y="71" class="viz-svg-label" font-size="12" fill="#8A93B2">SystemExit</text>
-              <text x="176" y="71" class="viz-svg-idx">выход из программы · не ловить</text>
-
-              <rect x="60" y="90" width="156" height="28" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
-              <text x="70" y="109" class="viz-svg-label" font-size="12" fill="#8A93B2">KeyboardInterrupt</text>
-              <text x="232" y="109" class="viz-svg-idx">нажатие Ctrl+C · не ловить</text>
-
-              <rect x="60" y="128" width="92" height="28" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
-              <text x="70" y="147" class="viz-svg-label" font-size="12">Exception</text>
-              <text x="168" y="147" class="viz-svg-idx">все обычные ошибки программы</text>
-
-              <rect x="104" y="166" width="140" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
-              <text x="114" y="185" class="viz-svg-label" font-size="12">ArithmeticError</text>
-              <text x="258" y="185" class="viz-svg-idx">→ ZeroDivisionError, OverflowError</text>
-
-              <rect x="104" y="204" width="112" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
-              <text x="114" y="223" class="viz-svg-label" font-size="12">LookupError</text>
-              <text x="230" y="223" class="viz-svg-idx">→ IndexError, KeyError</text>
-
-              <rect x="104" y="242" width="80" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
-              <text x="114" y="261" class="viz-svg-label" font-size="12">OSError</text>
-              <text x="198" y="261" class="viz-svg-idx">→ FileNotFoundError, PermissionError</text>
-
-              <rect x="104" y="280" width="104" height="28" fill="#fff" stroke="#020835" stroke-width="2"/>
-              <text x="114" y="299" class="viz-svg-label" font-size="12">ValueError</text>
-              <text x="222" y="299" class="viz-svg-idx">→ UnicodeError → UnicodeDecodeError</text>
-
-              <text x="114" y="337" class="viz-svg-label" font-size="12">ImportError, StopIteration, TypeError,</text>
-              <text x="114" y="355" class="viz-svg-label" font-size="12">NameError, AttributeError, RuntimeError …</text>
+            <svg viewBox="0 0 900 372" role="img" aria-label="Дерево исключений: от BaseException к Exception, SystemExit, GeneratorExit и KeyboardInterrupt, далее категории и конкретные ошибки">
+              <rect x="390" y="16" width="160" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="470" y="38" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">BaseException</text>
+              <path d="M470 50 L470 70 M78 70 L760 70 M78 70 L78 92 M325 70 L325 92 M530 70 L530 92 M760 70 L760 92" stroke="#020835" stroke-width="2" fill="none"/>
+              <rect x="20" y="92" width="160" height="34" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="100" y="114" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">Exception</text>
+              <rect x="255" y="92" width="140" height="34" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
+              <text x="325" y="114" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#8A93B2">SystemExit</text>
+              <rect x="455" y="92" width="150" height="34" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
+              <text x="530" y="114" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#8A93B2">GeneratorExit</text>
+              <rect x="660" y="92" width="200" height="34" fill="#fff" stroke="#8A93B2" stroke-width="2"/>
+              <text x="760" y="114" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#8A93B2">KeyboardInterrupt</text>
+              <path d="M100 126 L100 154 M78 154 L772 154 M78 154 L78 176 M206 154 L206 176 M314 154 L314 176 M402 154 L402 176 M500 154 L500 176 M592 154 L592 176 M677 154 L677 176 M772 154 L772 176" stroke="#020835" stroke-width="2" fill="none"/>
+              <rect x="24" y="176" width="108" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="78" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">AttributeError</text>
+              <rect x="148" y="176" width="115" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="206" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">ArithmeticError</text>
+              <rect x="279" y="176" width="69" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="314" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">EOFError</text>
+              <rect x="364" y="176" width="76" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="402" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">NameError</text>
+              <rect x="456" y="176" width="89" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="500" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">LookupError</text>
+              <rect x="561" y="176" width="62" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="592" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">OSError</text>
+              <rect x="639" y="176" width="76" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="677" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">TypeError</text>
+              <rect x="731" y="176" width="82" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="772" y="198" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">ValueError</text>
+              <path d="M205 210 L190 210 L190 329 M190 245 L206 245 M190 287 L206 287 M190 329 L206 329" stroke="#020835" stroke-width="2" fill="none"/>
+              <rect x="206" y="228" width="130" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="271" y="250" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">ZeroDivisionError</text>
+              <rect x="206" y="270" width="136" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="274" y="292" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">FloatingPointError</text>
+              <rect x="206" y="312" width="110" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="261" y="334" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">OverflowError</text>
+              <path d="M500 210 L485 210 L485 287 M485 245 L501 245 M485 287 L501 287" stroke="#020835" stroke-width="2" fill="none"/>
+              <rect x="501" y="228" width="82" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="542" y="250" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">IndexError</text>
+              <rect x="501" y="270" width="70" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="536" y="292" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">KeyError</text>
+              <path d="M592 210 L577 210 L577 329 M577 245 L608 245 M577 287 L608 287 M577 329 L608 329" stroke="#020835" stroke-width="2" fill="none"/>
+              <rect x="608" y="228" width="136" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="676" y="250" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">FileNotFoundError</text>
+              <rect x="608" y="270" width="118" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="667" y="292" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">PermissionError</text>
+              <rect x="608" y="312" width="100" height="34" fill="#fff" stroke="#020835" stroke-width="2"/>
+              <text x="658" y="334" text-anchor="middle" class="viz-svg-label" font-size="11" fill="#020835">TimeoutError</text>
             </svg>
           </div>
           <ul class="viz__legend">
-            <li><i style="background:#BFE2F5"></i>обычная граница перехвата</li>
-            <li><i></i>категории, которые указывают в except</li>
-            <li><i style="border-color:#8A93B2"></i>служебные, перехватывать не следует</li>
+            <li><i style="background:#BFE2F5"></i>корень и обычная граница перехвата</li>
+            <li><i></i>категории и конкретные ошибки</li>
+            <li><i style="border-color:#8A93B2"></i>служебные: перехватывать не следует</li>
           </ul>
         </figure>
         <p>Восемь узлов сверху — это почти всё, что нужно помнить. Остальные сотни исключений висят на них листьями.</p>

@@ -277,6 +277,7 @@ figure.viz figcaption {
 }
 .viz__body { padding: 20px 16px; overflow-x: auto; }
 .viz__body svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.viz--wide .viz__body svg { width: 940px; max-width: none; }
 .viz__legend {
   display: flex;
   flex-wrap: wrap;

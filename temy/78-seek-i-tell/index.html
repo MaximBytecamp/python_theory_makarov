@@ -165,6 +165,65 @@ d0 bf  d1 80  d0 b8  d0 b2  d0 b5  d1 82
     <span class="f">print</span>(file.tell())</pre>
         </figure>
         <figure class="code code--out"><figcaption><span>Вывод</span><span>прочитано три символа, позиция шесть</span></figcaption><pre>6</pre></figure>
+                <figure class="viz">
+          <figcaption><span>Схема</span><span>символы сверху, байты снизу</span></figcaption>
+          <div class="viz__body">
+            <svg viewBox="0 0 520 208" role="img" aria-label="Строка «привет мир»: прочитаны три символа, а позиция файла равна шести байтам, потому что каждая кириллическая буква занимает два байта">
+              <text x="40" y="30" class="viz-svg-small">read(3) прочитал три символа</text>
+              <path d="M172 40 L172 58" stroke="#2D7FC1" stroke-width="3" fill="none"/>
+              <path d="M165 50 L172 62 L179 50 Z" fill="#2D7FC1"/>
+              <rect x="40" y="64" width="44" height="46" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="62" y="95" text-anchor="middle" class="viz-svg-label">п</text>
+              <rect x="84" y="64" width="44" height="46" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="106" y="95" text-anchor="middle" class="viz-svg-label">р</text>
+              <rect x="128" y="64" width="44" height="46" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="150" y="95" text-anchor="middle" class="viz-svg-label">и</text>
+              <rect x="172" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="194" y="95" text-anchor="middle" class="viz-svg-label">в</text>
+              <rect x="216" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="238" y="95" text-anchor="middle" class="viz-svg-label">е</text>
+              <rect x="260" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="282" y="95" text-anchor="middle" class="viz-svg-label">т</text>
+              <rect x="304" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="326" y="95" text-anchor="middle" class="viz-svg-label"> </text>
+              <rect x="348" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="370" y="95" text-anchor="middle" class="viz-svg-label">м</text>
+              <rect x="392" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="414" y="95" text-anchor="middle" class="viz-svg-label">и</text>
+              <rect x="436" y="64" width="44" height="46" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="458" y="95" text-anchor="middle" class="viz-svg-label">р</text>
+              <line x1="40" y1="116" x2="40" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="40" y="146" text-anchor="middle" class="viz-svg-idx">0</text>
+              <line x1="84" y1="116" x2="84" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="84" y="146" text-anchor="middle" class="viz-svg-idx">2</text>
+              <line x1="128" y1="116" x2="128" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="128" y="146" text-anchor="middle" class="viz-svg-idx">4</text>
+              <line x1="172" y1="116" x2="172" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="172" y="146" text-anchor="middle" class="viz-svg-idx">6</text>
+              <line x1="216" y1="116" x2="216" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="216" y="146" text-anchor="middle" class="viz-svg-idx">8</text>
+              <line x1="260" y1="116" x2="260" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="260" y="146" text-anchor="middle" class="viz-svg-idx">10</text>
+              <line x1="304" y1="116" x2="304" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="304" y="146" text-anchor="middle" class="viz-svg-idx">12</text>
+              <line x1="348" y1="116" x2="348" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="348" y="146" text-anchor="middle" class="viz-svg-idx">13</text>
+              <line x1="392" y1="116" x2="392" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="392" y="146" text-anchor="middle" class="viz-svg-idx">15</text>
+              <line x1="436" y1="116" x2="436" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="436" y="146" text-anchor="middle" class="viz-svg-idx">17</text>
+              <line x1="480" y1="116" x2="480" y2="128" stroke="#8A93B2" stroke-width="2"/>
+              <text x="480" y="146" text-anchor="middle" class="viz-svg-idx">19</text>
+              <text x="40" y="172" class="viz-svg-small">позиция в байтах</text>
+              <text x="172" y="196" text-anchor="middle" class="viz-svg-label" fill="#2D7FC1">tell() → 6</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>прочитано: три символа</li>
+            <li><i></i>ещё не прочитано</li>
+          </ul>
+        </figure>
+        <p>Верхний ряд — символы, нижняя линейка — байты. Кириллическая буква в UTF-8 занимает два байта, пробел — один, поэтому обе шкалы расходятся с самого начала. <code>read()</code> отсчитывает деления по верхней шкале, <code>tell()</code> и <code>seek()</code> — по нижней.</p>
         <p>Это то же расхождение, что в главе 5.4: три кириллических символа занимают шесть байтов. Вычислять позицию вручную по числу символов нельзя — для латиницы совпадёт, для кириллицы нет.</p>
 
         <h2 id="s8"><span class="sec">§8</span>Правило работы с текстом</h2>
