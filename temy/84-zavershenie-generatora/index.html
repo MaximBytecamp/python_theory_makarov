@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>7.4 Завершение генератора: try/finally и close() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 7 · Итераторы и генераторы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 7 · итераторы и генераторы</p>
+          <p class="running__folio">Глава 7.4</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">7.4</span>
+          <h1>Завершение генератора:<br><code>try-finally</code> и <code>close()</code></h1>
+          <p class="lead">Генератор редко дочитывают до конца: цикл прерывают <code>break</code>, берут первые десять значений и уходят. Код после последнего <code>yield</code> тогда не выполняется — и открытый внутри файл рискует остаться незакрытым. Решение — <code>try-finally</code> или <code>with</code> внутри самого генератора.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Генераторы</dd></div>
+          <div><dt>Уровень</dt><dd>Продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>try-finally, менеджер контекста, работа с файлами</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Освобождать ресурсы, даже если генератор прервали</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Частичное потребление генератора</a></li>
+            <li><a href="#s2">Код после yield может не выполниться</a></li>
+            <li><a href="#s3">Блок try-finally внутри генератора</a></li>
+            <li><a href="#s4">Прерванный перебор</a></li>
+            <li><a href="#s5">Полный перебор для сравнения</a></li>
+            <li><a href="#s6">Когда именно срабатывает finally</a></li>
+            <li><a href="#s7">Метод close()</a></li>
+            <li><a href="#s8">Исключение GeneratorExit</a></li>
+            <li><a href="#s9">Менеджер контекста внутри генератора</a></li>
+            <li><a href="#s10">Почему это важнее, чем кажется</a></li>
+            <li><a href="#s11">Чего нельзя делать при закрытии</a></li>
+            <li><a href="#s12">Частые ошибки</a></li>
+            <li><a href="#s13">Проверьте себя</a></li>
+            <li><a href="#s14">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Частичное потребление генератора</h2>
+        <p>Генератор выдаёт значения по одному, и потребитель волен остановиться в любой момент: нашёл нужную строку — вышел из цикла, набрал сто записей — прекратил чтение. Такое <span class="term">частичное потребление</span> — не редкость, а обычный сценарий; ради него генераторы во многом и существуют.</p>
+        <p>Но у него есть оборотная сторона. Функция-генератор остаётся навсегда приостановленной на <code>yield</code>, и всё, что было написано после этой точки, никогда не выполнится само по себе.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Код после yield может не выполниться</h2>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>выход из цикла до конца последовательности</span></figcaption>
+<pre><span class="k">for</span> n <span class="k">in</span> <span class="f">countdown</span>(<span class="n">10</span>):
+    <span class="k">if</span> n == <span class="n">2</span>:
+        <span class="k">break</span>
+    <span class="c"># команды</span></pre>
+        </figure>
+        <p>Цикл прерывается на значении <code>2</code>, генератор <code>countdown</code> так и остаётся стоять на своём <code>yield</code>. Если внутри него был открыт файл, установлено соединение или взята блокировка — освободить это некому.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Блок try-finally внутри генератора</h2>
+        <p>Чтобы завершающие действия выполнялись в любом случае, их помещают в <code>finally</code> — тот самый блок из главы 8.1, который срабатывает при любом исходе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>завершающее действие защищено</span></figcaption>
+<pre><span class="k">def</span> <span class="f">countdown</span>(n):
+    <span class="f">print</span>(<span class="s">'Количество всего'</span>, n)
+    <span class="k">try</span>:
+        <span class="k">while</span> n &gt; <span class="n">0</span>:
+            <span class="k">yield</span> n
+            n = n - <span class="n">1</span>
+    <span class="k">finally</span>:
+        <span class="f">print</span>(<span class="s">'Текущий элемент на позиции'</span>, n)</pre>
+        </figure>
+        <p>Здесь <code>yield</code> стоит внутри <code>try</code>. Это и есть ключ: что бы ни случилось с генератором — исчерпался, был прерван или уничтожен — блок <code>finally</code> выполнится.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Прерванный перебор</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>берём значения до двойки</span></figcaption>
+<pre><span class="k">for</span> n <span class="k">in</span> <span class="f">countdown</span>(<span class="n">10</span>):
+    <span class="k">if</span> n == <span class="n">2</span>:
+        <span class="k">break</span>
+
+<span class="f">print</span>(<span class="s">"после цикла"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>finally сработал на позиции 2</span></figcaption><pre>Количество всего 10
+Текущий элемент на позиции 2
+после цикла</pre></figure>
+        <p>Генератор не отработал до конца — до нуля он не досчитал, — но завершающая строка всё равно выполнилась, и видно, на каком элементе остановились.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Полный перебор для сравнения</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тот же генератор без break</span></figcaption>
+<pre><span class="k">for</span> n <span class="k">in</span> <span class="f">countdown</span>(<span class="n">3</span>):
+    <span class="f">print</span>(n)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>досчитали до нуля</span></figcaption><pre>Количество всего 3
+3
+2
+1
+Текущий элемент на позиции 0</pre></figure>
+        <p>При обычном исчерпании <code>finally</code> тоже выполняется — просто уже на позиции <code>0</code>. Один и тот же блок закрывает оба сценария.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Когда именно срабатывает finally</h2>
+        <p>Момент выполнения зависит от того, как закончилась жизнь генератора.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Что произошло</th><th>Когда выполнится finally</th></tr></thead>
+            <tbody>
+              <tr><td>генератор исчерпался</td><td>сразу, при выходе из тела функции</td></tr>
+              <tr><td>вызван <code>gen.close()</code></td><td>сразу, в момент вызова</td></tr>
+              <tr><td>перебор прерван, ссылок на генератор не осталось</td><td>когда объект уничтожается сборщиком мусора</td></tr>
+              <tr><td>внутри генератора возникло исключение</td><td>по пути наружу, до передачи исключения дальше</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Третья строка требует внимания. Генераторы гарантированно выполняют блок <code>finally</code>, даже если не были потреблены полностью, — но происходит это при уничтожении объекта. В примере из §4 генератор был безымянным и перестал быть нужным сразу после <code>break</code>, поэтому уборка случилась немедленно. Если же генератор записан в переменную и переменная жива, момент отложится — до конца программы или до присваивания этому имени чего-то другого.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Метод close()</h2>
+        <p>Не полагаться на сборщик мусора помогает метод <code>close()</code> — он завершает генератор явно и немедленно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>закрываем генератор сами</span></figcaption>
+<pre>gen = <span class="f">countdown</span>(<span class="n">5</span>)
+<span class="f">print</span>(<span class="f">next</span>(gen))
+<span class="f">print</span>(<span class="f">next</span>(gen))
+gen.close()
+<span class="f">print</span>(<span class="s">"после close"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>уборка произошла по команде</span></figcaption><pre>Количество всего 5
+5
+4
+Текущий элемент на позиции 4
+после close</pre></figure>
+        <p>После <code>close()</code> генератор считается завершённым: следующий <code>next()</code> вызовет <code>StopIteration</code>. Повторный <code>close()</code> при этом безопасен — он просто ничего не делает.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Исключение GeneratorExit</h2>
+        <p>Изнутри закрытие выглядит как исключение: в точке, где генератор был приостановлен, возбуждается <code>GeneratorExit</code>. Именно оно и раскручивает блоки <code>finally</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>генератор видит собственное закрытие</span></figcaption>
+<pre><span class="k">def</span> <span class="f">demo</span>():
+    <span class="k">try</span>:
+        <span class="k">yield</span> <span class="n">1</span>
+        <span class="k">yield</span> <span class="n">2</span>
+    <span class="k">except</span> GeneratorExit:
+        <span class="f">print</span>(<span class="s">"генератор закрывают"</span>)
+        <span class="k">raise</span>
+
+gen = <span class="f">demo</span>()
+<span class="f">print</span>(<span class="f">next</span>(gen))
+gen.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>исключение пришло в точку паузы</span></figcaption><pre>1
+генератор закрывают</pre></figure>
+        <p>Перехватывать <code>GeneratorExit</code> нужно редко, и почти всегда с последующим <code>raise</code>: закрытие не отменяют, его лишь замечают. Для обычной уборки достаточно <code>finally</code> — он ловит это исключение неявно и не мешает ему идти дальше.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Менеджер контекста внутри генератора</h2>
+        <p>Тот же результат достигается менеджером контекста <code>with</code> из главы 8.5 — и это самый частый способ на практике.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>файл закрывается вместе с генератором</span></figcaption>
+<pre><span class="k">def</span> <span class="f">reader</span>(path):
+    <span class="k">with</span> <span class="f">open</span>(path, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> file:
+        <span class="k">for</span> line <span class="k">in</span> file:
+            <span class="k">yield</span> line.rstrip()
+
+gen = <span class="f">reader</span>(<span class="s">"demo.txt"</span>)
+<span class="f">print</span>(<span class="f">next</span>(gen))
+gen.close()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>прочитали одну строку из трёх</span></figcaption><pre>первая</pre></figure>
+        <p>Прочитана только первая строка, но файл закрыт: <code>close()</code> возбудил внутри генератора <code>GeneratorExit</code>, тот вышел из блока <code>with</code>, а выход из <code>with</code> закрывает файл. Точно так же гарантируется выполнение любого завершающего кода с участием менеджера контекста.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Почему это важнее, чем кажется</h2>
+        <p>Генераторная функция часто пишется как библиотечная: её сочиняет один человек, а вызывает другой — и вызывающий совершенно не обязан дочитывать её до конца. Автор генератора не может рассчитывать на дисциплину потребителя.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Ресурс внутри генератора</th><th>Что будет без finally или with</th></tr></thead>
+            <tbody>
+              <tr><td>открытый файл</td><td>останется открытым; записанное может не попасть на диск из-за буфера</td></tr>
+              <tr><td>сетевое соединение</td><td>висит до конца программы, занимая порт и память</td></tr>
+              <tr><td>блокировка</td><td>другой участок кода будет ждать её бесконечно</td></tr>
+              <tr><td>временный файл</td><td>останется на диске</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Правило простое: если генератор что-то открывает или захватывает, <code>yield</code> должен находиться внутри <code>with</code> или <code>try-finally</code>. Не после них — именно внутри.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Чего нельзя делать при закрытии</h2>
+        <p>Единственное жёсткое ограничение: закрываемый генератор не имеет права выдать ещё одно значение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>yield в блоке finally</span></figcaption>
+<pre><span class="k">def</span> <span class="f">bad</span>():
+    <span class="k">try</span>:
+        <span class="k">yield</span> <span class="n">1</span>
+    <span class="k">finally</span>:
+        <span class="k">yield</span> <span class="n">99</span>
+
+gen = <span class="f">bad</span>()
+<span class="f">next</span>(gen)
+gen.close()</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>генератор попытался продолжить работу</span></figcaption>
+<pre>RuntimeError: generator ignored GeneratorExit</pre>
+        </figure>
+        <p>Смысл ограничения понятен: <code>close()</code> означает «работа окончена», и генератор не может в ответ предложить ещё одно значение. В завершающем блоке место только уборке.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>уборка после цикла с <code>yield</code>, без <code>finally</code></td><td>при <code>break</code> она не выполнится никогда</td><td>перенести уборку в <code>finally</code></td></tr>
+              <tr><td><code>open()</code> в генераторе без <code>with</code></td><td>прерванный генератор оставит файл открытым</td><td>обернуть перебор в <code>with</code></td></tr>
+              <tr><td>рассчитывать на немедленную уборку</td><td>пока на генератор есть ссылка, <code>finally</code> не выполнится</td><td>вызвать <code>gen.close()</code> явно</td></tr>
+              <tr><td><code>yield</code> в блоке <code>finally</code></td><td><code>RuntimeError: generator ignored GeneratorExit</code></td><td>в завершающем блоке только уборка</td></tr>
+              <tr><td>перехватить <code>GeneratorExit</code> без <code>raise</code></td><td>тот же <code>RuntimeError</code> при закрытии</td><td>возбудить исключение снова или обойтись <code>finally</code></td></tr>
+              <tr><td><code>next()</code> после <code>close()</code></td><td><code>StopIteration</code>: генератор завершён</td><td>создать генератор заново</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2>
+        <details><summary>Почему код после <code>yield</code> может не выполниться?</summary><p>Потому что потребитель вправе прекратить перебор. Генератор остаётся приостановленным, и следующие за <code>yield</code> строки сами по себе не запускаются.</p></details>
+        <details><summary>Как гарантировать завершающие действия?</summary><p>Поместить <code>yield</code> внутрь <code>try</code> с блоком <code>finally</code> или внутрь <code>with</code>.</p></details>
+        <details><summary>Что делает <code>gen.close()</code>?</summary><p>Возбуждает внутри генератора <code>GeneratorExit</code> в точке паузы, отчего выполняются блоки <code>finally</code>, и завершает генератор.</p></details>
+        <details><summary>Когда выполнится <code>finally</code>, если генератор просто бросили?</summary><p>При уничтожении объекта сборщиком мусора — то есть не обязательно сразу. Точный момент задаёт <code>close()</code>.</p></details>
+        <details><summary>Можно ли выдать значение при закрытии генератора?</summary><p>Нет. <code>yield</code> в блоке <code>finally</code> во время закрытия приводит к <code>RuntimeError</code>.</p></details>
+
+        <h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Гарантия уборки</b><code>try:</code><code>    yield value</code><code>finally:</code><code>    cleanup()</code></div>
+          <div><b>С ресурсом</b><code>with open(path) as f:</code><code>    yield from f</code></div>
+          <div><b>Закрыть явно</b><code>gen.close()</code></div>
+          <div><b>Сигнал изнутри</b><code>except GeneratorExit:</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Генератор почти всегда потребляют частично, поэтому код после последнего <code>yield</code> — ненадёжное место для освобождения ресурсов. Надёжное — блок <code>finally</code> или менеджер контекста, внутри которых стоит сам <code>yield</code>: Python выполнит их и при исчерпании, и при прерывании, и при уничтожении генератора. Метод <code>close()</code> позволяет не ждать сборщика мусора: он возбуждает в точке паузы <code>GeneratorExit</code>, запускает уборку и завершает генератор. Единственное, чего при этом делать нельзя, — выдавать новые значения.</p>
+        <div class="pager">
+          <a href="../83-generator-send/index.html">← 7.3 Передача значений в генератор</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../85-yield-from/index.html">7.5 Делегирование: yield from →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 7.4 · Завершение генератора · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

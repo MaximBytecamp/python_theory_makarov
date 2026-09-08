@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>7.5 Делегирование генераторов: yield from · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 7 · Итераторы и генераторы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 7 · итераторы и генераторы</p>
+          <p class="running__folio">Глава 7.5</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">7.5</span>
+          <h1>Делегирование:<br><code>yield from</code></h1>
+          <p class="lead">Функция с <code>yield</code> никогда не работает сама по себе — ею всегда управляет внешний код. Поэтому вызвать один генератор из другого просто так нельзя. Команда <code>yield from</code> передаёт ему управление и все значения, избавляя от ручного цикла-посредника.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Генераторы</dd></div>
+          <div><dt>Уровень</dt><dd>Продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>yield, итераторы, рекурсия</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Собирать генераторы из генераторов без лишнего кода</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Генератор не выполняется сам</a></li>
+            <li><a href="#s2">Что происходит при простом вызове</a></li>
+            <li><a href="#s3">Команда yield from</a></li>
+            <li><a href="#s4">Пример: вверх и вниз</a></li>
+            <li><a href="#s5">Как это выглядит без yield from</a></li>
+            <li><a href="#s6">Сравнение двух записей</a></li>
+            <li><a href="#s7">Источником может быть любой итерируемый объект</a></li>
+            <li><a href="#s8">Рекурсия: разбор вложенной структуры</a></li>
+            <li><a href="#s9">Что ещё делегируется</a></li>
+            <li><a href="#s10">Возвращаемое значение подгенератора</a></li>
+            <li><a href="#s11">Когда нужен обычный цикл</a></li>
+            <li><a href="#s12">Частые ошибки</a></li>
+            <li><a href="#s13">Проверьте себя</a></li>
+            <li><a href="#s14">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Генератор не выполняется сам</h2>
+        <p>Неотъемлемое свойство генераторов в том, что функция с <code>yield</code> никогда не выполняется сама по себе. Ею всегда должен управлять другой код: цикл <code>for</code> или явные вызовы <code>next()</code>. Без такого управления тело функции просто не начинает работать.</p>
+        <p>Для отдельного генератора это привычно. Но как только генератор понадобилось собрать из других генераторов, свойство превращается в неудобство: вызова функции-генератора недостаточно, чтобы она заработала.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Что происходит при простом вызове</h2>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>так не работает</span></figcaption>
+<pre><span class="k">def</span> <span class="f">up_and_down</span>(n):
+    <span class="f">countup</span>(n)        <span class="c"># создан объект генератора — и выброшен</span>
+    <span class="f">countdown</span>(n)      <span class="c"># то же самое</span></pre>
+        </figure>
+        <p>Каждая строка лишь создаёт генераторный объект и тут же его теряет. Ни одного значения наружу не выйдет, а сама <code>up_and_down</code> вообще не будет генератором — в её теле нет <code>yield</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Команда yield from</h2>
+        <p>Решает задачу команда <code>yield from</code>: она <span class="term">делегирует</span> перебор — передаёт управление внутреннему генератору и выпускает наружу все его значения, одно за другим, как если бы их выдавал внешний генератор.</p>
+        <figure class="code">
+          <figcaption><span>Синтаксис</span><span>одна строка вместо цикла</span></figcaption>
+<pre>yield from итерируемый_объект</pre>
+        </figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Пример: вверх и вниз</h2>
+        <p>Два простых генератора — счёт вверх и счёт вниз — и третий, составленный из них.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>делегирование двум генераторам подряд</span></figcaption>
+<pre><span class="k">def</span> <span class="f">countup</span>(stop):
+    n = <span class="n">1</span>
+    <span class="k">while</span> n &lt;= stop:
+        <span class="k">yield</span> n
+        n += <span class="n">1</span>
+
+<span class="k">def</span> <span class="f">countdown</span>(start):
+    n = start
+    <span class="k">while</span> n &gt; <span class="n">0</span>:
+        <span class="k">yield</span> n
+        n -= <span class="n">1</span>
+
+<span class="k">def</span> <span class="f">up_and_down</span>(n):
+    <span class="k">yield from</span> <span class="f">countup</span>(n)
+    <span class="k">yield from</span> <span class="f">countdown</span>(n)
+
+<span class="k">for</span> x <span class="k">in</span> <span class="f">up_and_down</span>(<span class="n">5</span>):
+    <span class="f">print</span>(x, end=<span class="s">' '</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>две последовательности слились в одну</span></figcaption><pre>1 2 3 4 5 5 4 3 2 1</pre></figure>
+        <p>Снаружи виден один генератор, выдающий десять значений. Кто именно их произвёл, потребителю знать не нужно.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Как это выглядит без yield from</h2>
+        <p><code>yield from</code> избавляет от необходимости управлять перебором вручную. Иначе пришлось бы записать <code>up_and_down(n)</code> так:</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тот же результат, больше кода</span></figcaption>
+<pre><span class="k">def</span> <span class="f">up_and_down</span>(n):
+    <span class="k">for</span> x <span class="k">in</span> <span class="f">countup</span>(n):
+        <span class="k">yield</span> x
+    <span class="k">for</span> x <span class="k">in</span> <span class="f">countdown</span>(n):
+        <span class="k">yield</span> x</pre>
+        </figure>
+        <p>Цикл здесь — чистый посредник: он получает значение и немедленно отдаёт его дальше, не делая с ним ничего. Именно такой цикл <code>yield from</code> и заменяет.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Сравнение двух записей</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th><code>for x in gen: yield x</code></th><th><code>yield from gen</code></th></tr></thead>
+            <tbody>
+              <tr><td>две строки на каждый источник</td><td>одна строка</td></tr>
+              <tr><td>заводится лишняя переменная</td><td>переменная не нужна</td></tr>
+              <tr><td>передаёт только значения</td><td>передаёт также <code>send()</code>, исключения и <code>close()</code></td></tr>
+              <tr><td>результат подгенератора теряется</td><td>результат доступен через присваивание</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Для простого перебора обе записи равносильны. Различия из последних двух строк проявляются в сопрограммах из главы 7.3 — там ручной цикл уже не эквивалент.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Источником может быть любой итерируемый объект</h2>
+        <p>После <code>yield from</code> необязательно стоит генератор — годится всё, что перебирается.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>список, кортеж, строка, словарь</span></figcaption>
+<pre><span class="k">def</span> <span class="f">chain_all</span>():
+    <span class="k">yield from</span> [<span class="n">1</span>, <span class="n">2</span>]
+    <span class="k">yield from</span> (<span class="n">3</span>, <span class="n">4</span>)
+    <span class="k">yield from</span> <span class="s">"ab"</span>
+    <span class="k">yield from</span> {<span class="s">"k"</span>: <span class="n">5</span>}
+
+<span class="f">print</span>(<span class="f">list</span>(<span class="f">chain_all</span>()))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>словарь отдал ключи, строка — символы</span></figcaption><pre>[1, 2, 3, 4, 'a', 'b', 'k']</pre></figure>
+        <p>Правила те же, что у цикла <code>for</code> из главы 7.1: перебирается всё, что поддерживает протокол итератора.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Рекурсия: разбор вложенной структуры</h2>
+        <p>Самое сильное применение <code>yield from</code> — когда генератор делегирует самому себе. Так разворачивают вложенные списки любой глубины.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>«выпрямление» вложенных списков</span></figcaption>
+<pre><span class="k">def</span> <span class="f">flatten</span>(items):
+    <span class="k">for</span> item <span class="k">in</span> items:
+        <span class="k">if</span> <span class="f">isinstance</span>(item, <span class="f">list</span>):
+            <span class="k">yield from</span> <span class="f">flatten</span>(item)
+        <span class="k">else</span>:
+            <span class="k">yield</span> item
+
+<span class="f">print</span>(<span class="f">list</span>(<span class="f">flatten</span>([<span class="n">1</span>, [<span class="n">2</span>, [<span class="n">3</span>, [<span class="n">4</span>, <span class="n">5</span>]], <span class="n">6</span>], <span class="n">7</span>])))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>любая глубина вложенности</span></figcaption><pre>[1, 2, 3, 4, 5, 6, 7]</pre></figure>
+        <p>Без делегирования такую функцию пришлось бы писать заметно длиннее: каждый уровень вложенности требовал бы своего цикла-посредника. Здесь же вся рекурсия умещается в одну строку.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Что ещё делегируется</h2>
+        <p><code>yield from</code> передаёт вниз не только запросы значений. Пока внешний генератор стоит на этой строке, между вызывающим кодом и внутренним генератором устанавливается прямой канал.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Действие снаружи</th><th>Куда попадает</th></tr></thead>
+            <tbody>
+              <tr><td><code>next()</code></td><td>во внутренний генератор</td></tr>
+              <tr><td><code>send(value)</code></td><td>во внутренний генератор</td></tr>
+              <tr><td><code>close()</code></td><td>закрывает внутренний, затем внешний</td></tr>
+              <tr><td>исключение через <code>throw()</code></td><td>возбуждается внутри внутреннего</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Внешний генератор на это время становится прозрачным. Ручной цикл <code>for x in gen: yield x</code> такой прозрачности не даёт: присланные значения дошли бы только до него и дальше не пошли.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Возвращаемое значение подгенератора</h2>
+        <p>Генератор может завершиться командой <code>return</code> со значением. При обычном переборе это значение недоступно, но <code>yield from</code> его подхватывает.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>внутренний генератор возвращает итог</span></figcaption>
+<pre><span class="k">def</span> <span class="f">inner</span>():
+    total = <span class="n">0</span>
+    <span class="k">while</span> <span class="k">True</span>:
+        value = <span class="k">yield</span>
+        <span class="k">if</span> value <span class="k">is</span> <span class="k">None</span>:
+            <span class="k">return</span> total
+        total += value
+
+<span class="k">def</span> <span class="f">outer</span>():
+    result = <span class="k">yield from</span> <span class="f">inner</span>()
+    <span class="f">print</span>(<span class="s">"подгенератор вернул:"</span>, result)
+    <span class="k">yield</span> result
+
+gen = <span class="f">outer</span>()
+<span class="f">next</span>(gen)
+gen.send(<span class="n">5</span>)
+gen.send(<span class="n">7</span>)
+<span class="f">print</span>(gen.send(<span class="k">None</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>итог перешёл во внешний генератор</span></figcaption><pre>подгенератор вернул: 12
+12</pre></figure>
+        <p>Запись <code>result = yield from inner()</code> читается так: отдавать наружу всё, что выдаёт <code>inner</code>, а когда тот завершится — забрать его возвращённое значение. Это и делает <code>yield from</code> механизмом делегирования, а не просто сокращением цикла.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Когда нужен обычный цикл</h2>
+        <p><code>yield from</code> подходит только тогда, когда значения передаются <b>без изменений</b>. Как только с ними нужно что-то сделать — отфильтровать, преобразовать, пронумеровать — возвращается обычный цикл.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>прозрачная передача и обработка</span></figcaption>
+<pre>yield from countup(n)              всё как есть
+
+for x in countup(n):               только чётные,
+    if x % 2 == 0:                 и удвоенные
+        yield x * 2</pre>
+        </figure>
+
+        <h2 id="s12"><span class="sec">§12</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>countup(n)</code> отдельной строкой</td><td>генератор создан и потерян, значений не будет</td><td><code>yield from countup(n)</code></td></tr>
+              <tr><td><code>yield countup(n)</code></td><td>наружу выйдет сам объект генератора, а не его значения</td><td><code>yield from countup(n)</code></td></tr>
+              <tr><td><code>yield from 5</code></td><td><code>TypeError</code>: число не перебирается</td><td>передавать итерируемый объект</td></tr>
+              <tr><td><code>return countup(n)</code> внутри генератора</td><td>завершит генератор, значения не выйдут наружу</td><td><code>yield from</code></td></tr>
+              <tr><td>ждать от <code>yield from</code> изменения значений</td><td>они передаются как есть</td><td>писать цикл с обработкой</td></tr>
+              <tr><td>цикл-посредник в сопрограмме</td><td><code>send()</code> не дойдёт до внутреннего генератора</td><td><code>yield from</code> устанавливает прямой канал</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s13"><span class="sec">§13</span>Проверьте себя</h2>
+        <details><summary>Почему нельзя просто вызвать генератор внутри другого генератора?</summary><p>Вызов лишь создаёт генераторный объект. Функция с <code>yield</code> не выполняется сама — ею должен управлять внешний код.</p></details>
+        <details><summary>Какой цикл заменяет <code>yield from</code>?</summary><p>Цикл-посредник <code>for x in gen: yield x</code>, который получает значение и сразу отдаёт его дальше.</p></details>
+        <details><summary>Что может стоять после <code>yield from</code>?</summary><p>Любой итерируемый объект: генератор, список, кортеж, строка, словарь.</p></details>
+        <details><summary>Чем <code>yield from</code> отличается от цикла-посредника?</summary><p>Он передаёт вниз ещё и <code>send()</code>, <code>close()</code> и исключения, а также забирает значение, возвращённое подгенератором через <code>return</code>.</p></details>
+        <details><summary>Как получить возвращённое подгенератором значение?</summary><p>Записать результат делегирования: <code>result = yield from inner()</code>.</p></details>
+
+        <h2 id="s14"><span class="sec">§14</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Делегирование</b><code>yield from generator()</code></div>
+          <div><b>Из коллекции</b><code>yield from [1, 2, 3]</code></div>
+          <div><b>Рекурсия</b><code>yield from flatten(item)</code></div>
+          <div><b>С результатом</b><code>result = yield from inner()</code></div>
+          <div><b>Равносильно</b><code>for x in gen: yield x</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Функция с <code>yield</code> не работает без внешнего управления, поэтому вызвать один генератор из другого напрямую нельзя. <code>yield from</code> делегирует перебор: передаёт управление внутреннему источнику и выпускает его значения наружу без изменений. Заодно она заменяет цикл-посредник, поддерживает рекурсию в одну строку, пропускает вниз <code>send()</code>, <code>close()</code> и исключения и забирает значение, возвращённое подгенератором. Как только значения нужно обрабатывать, а не просто пропускать, вместо неё пишут обычный цикл.</p>
+        <div class="pager">
+          <a href="../84-zavershenie-generatora/index.html">← 7.4 Завершение генератора</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../68-isklyucheniya-try-except/index.html">8.1 Исключения: try/except →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 7.5 · Делегирование: yield from · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

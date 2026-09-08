@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>8.14 Команда assert · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 8 · Исключения и файлы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 8 · исключения и файлы</p>
+          <p class="running__folio">Глава 8.14</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">8.14</span>
+          <h1>Команда <code>assert</code>:<br>проверки для себя</h1>
+          <p class="lead">Модуль начинался с исключений, которые нужно перехватывать. Заканчивается он исключением, которое программист возбуждает сам — чтобы поймать собственную ошибку как можно раньше. <code>assert</code> проверяет предположение и обрывает работу, если оно не выполнилось.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Отладка</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Исключения, raise, тестирование</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Находить ошибки в логике на раннем этапе</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Зачем нужны утверждения</a></li>
+            <li><a href="#s2">Синтаксис</a></li>
+            <li><a href="#s3">Условие истинно</a></li>
+            <li><a href="#s4">Условие ложно</a></li>
+            <li><a href="#s5">Сообщение об ошибке</a></li>
+            <li><a href="#s6">Сообщение как выражение</a></li>
+            <li><a href="#s7">Любое логическое выражение</a></li>
+            <li><a href="#s8">Назначение — отладка</a></li>
+            <li><a href="#s9">Флаг -O выключает проверки</a></li>
+            <li><a href="#s10">Не для внешних данных</a></li>
+            <li><a href="#s11">Условие не должно менять состояние</a></li>
+            <li><a href="#s12">assert против if и raise</a></li>
+            <li><a href="#s13">Ловушка со скобками</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Зачем нужны утверждения</h2>
+        <p>Программа пишется с предположениями: «здесь список уже отсортирован», «сюда приходит только положительное число», «на этом шаге словарь не пуст». Пока предположения верны, всё работает. Когда одно из них нарушается, ошибка редко проявляется сразу — она всплывает много позже и совсем в другом месте.</p>
+        <p><span class="term">Команда assert</span> предназначена для проверки условий во время выполнения. Если условие не выполняется, выбрасывается исключение <code>AssertionError</code>. Это удобный способ убедиться, что код работает так, как задумано, — особенно на этапе разработки и тестирования.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Синтаксис</h2>
+        <p>Команда состоит из двух частей: условия, которое должно быть истинным, и необязательного сообщения об ошибке.</p>
+        <figure class="code">
+          <figcaption><span>Синтаксис</span><span>вторая часть необязательна</span></figcaption>
+<pre>assert условие, сообщение_об_ошибке</pre>
+        </figure>
+
+        <h2 id="s3"><span class="sec">§3</span>Условие истинно</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка пройдена</span></figcaption>
+<pre><span class="k">assert</span> <span class="n">2</span> + <span class="n">2</span> == <span class="n">4</span>, <span class="s">"Математика сломалась!"</span>
+<span class="f">print</span>(<span class="s">"программа продолжается"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>assert не оставил следов</span></figcaption><pre>программа продолжается</pre></figure>
+        <p>Если условие истинно, не происходит ничего: программа продолжает выполнение, как будто строки с <code>assert</code> и не было.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Условие ложно</h2>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>предположение нарушено</span></figcaption>
+<pre><span class="k">assert</span> <span class="n">2</span> + <span class="n">2</span> == <span class="n">5</span>, <span class="s">"Математика сломалась!"</span>
+<span class="f">print</span>(<span class="s">"эта строка не выполнится"</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>работа прервана</span></figcaption>
+<pre>AssertionError: Математика сломалась!</pre>
+        </figure>
+        <p>Программа прерывается на месте — там, где предположение оказалось неверным, а не там, где ошибка проявилась бы последствиями. В этом вся ценность: расстояние между причиной и симптомом сокращается до нуля.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Сообщение об ошибке</h2>
+        <p>Сообщение необязательно, но без него в трассировке будет только имя исключения и строка кода.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>что увидит тот, кто читает ошибку</span></figcaption>
+<pre>assert x &gt; 0                       AssertionError
+
+assert x &gt; 0, "x должно            AssertionError: x должно
+              быть больше нуля"    быть больше нуля</pre>
+        </figure>
+        <p>Сообщение объясняет, что именно предполагалось. Писать его стоит всегда: через месяц условие <code>assert len(rows) == len(headers)</code> уже не расскажет, почему оно должно выполняться.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Сообщение как выражение</h2>
+        <p>Сообщением может быть любое выражение, добавляющее контекст, — например, f-строка с текущим значением переменной.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>значение прямо в тексте ошибки</span></figcaption>
+<pre>x = -<span class="n">1</span>
+<span class="k">assert</span> x &gt; <span class="n">0</span>, <span class="s">f"Значение x ({x}) должно быть больше 0"</span></pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>видно не только правило, но и факт</span></figcaption>
+<pre>AssertionError: Значение x (-1) должно быть больше 0</pre>
+        </figure>
+        <p>Такое сообщение экономит отладку: не нужно добавлять <code>print</code> и запускать программу заново, чтобы узнать, чему равнялась переменная.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Любое логическое выражение</h2>
+        <p>Условием может быть что угодно, что приводится к логическому типу: сравнение, вызов функции, проверка типа, составное выражение.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка типа данных</span></figcaption>
+<pre><span class="k">def</span> <span class="f">process</span>(data):
+    <span class="k">assert</span> <span class="f">isinstance</span>(data, <span class="f">list</span>), <span class="s">"Ожидался список"</span>
+    <span class="c"># продолжение обработки...</span></pre>
+        </figure>
+        <p>Здесь <code>assert</code> фиксирует договорённость: функция рассчитана на список. Если её однажды вызовут со строкой, ошибка проявится немедленно и с понятным текстом, а не через десять строк странным поведением.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Назначение — отладка</h2>
+        <p>Основная цель <code>assert</code> — отладка программы. В ходе разработки часто нужно проверять корректность промежуточных данных или подтверждать выполнение ожидаемых условий; это помогает обнаружить и исправить ошибки на раннем этапе.</p>
+        <p>Но <code>assert</code> не должен заменять полноценную обработку ошибок или проверку данных, поступающих извне. Причина у этого ограничения не стилистическая, а вполне техническая — она в следующем параграфе.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Флаг -O выключает проверки</h2>
+        <p>Когда Python запускается с флагом оптимизации <code>-O</code>, все утверждения <code>assert</code> игнорируются и не выполняются. Это немного повышает производительность, но может привести к пропуску ошибок в логике программы.</p>
+        <figure class="code">
+          <figcaption><span>script.py</span><span>проверка, которая может не сработать</span></figcaption>
+<pre>x = -<span class="n">10</span>
+<span class="k">assert</span> x &gt; <span class="n">0</span>, <span class="s">"x должно быть положительным"</span>
+<span class="f">print</span>(<span class="s">"Программа продолжается"</span>)</pre>
+        </figure>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Запуск</th><th>Результат</th></tr></thead>
+            <tbody>
+              <tr><td><code>python script.py</code></td><td><code>AssertionError: x должно быть положительным</code></td></tr>
+              <tr><td><code>python -O script.py</code></td><td><code>Программа продолжается</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>С флагом <code>-O</code> программа продолжит выполнение даже при <code>x = -10</code>, и исключение выброшено не будет. Отсюда главное правило: программа не должна зависеть от того, выполнились <code>assert</code> или нет.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Не для внешних данных</h2>
+        <p>Поскольку <code>assert</code> может быть отключён, его не следует использовать для проверки пользовательского ввода или данных из внешних источников — файлов, ответов сети, аргументов командной строки. Для таких задач применяют <code>if</code> с явной обработкой ошибок: это надёжнее.</p>
+        <figure class="code">
+          <figcaption><span>Неправильно</span><span>проверка исчезнет при запуске с -O</span></figcaption>
+<pre><span class="k">def</span> <span class="f">read_file</span>(filename):
+    <span class="k">assert</span> filename.endswith(<span class="s">'.txt'</span>), <span class="s">"Ожидался текстовый файл"</span>
+    <span class="k">with</span> <span class="f">open</span>(filename) <span class="k">as</span> f:
+        <span class="k">return</span> f.read()</pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>Правильно</span><span>проверка есть при любом запуске</span></figcaption>
+<pre><span class="k">def</span> <span class="f">read_file</span>(filename):
+    <span class="k">if</span> <span class="k">not</span> filename.endswith(<span class="s">'.txt'</span>):
+        <span class="k">raise</span> <span class="f">ValueError</span>(<span class="s">"Ожидался текстовый файл"</span>)
+    <span class="k">with</span> <span class="f">open</span>(filename) <span class="k">as</span> f:
+        <span class="k">return</span> f.read()</pre>
+        </figure>
+        <p>У второго варианта есть и смысловое преимущество: <code>ValueError</code> из главы 8.2 точно называет проблему — значение неподходящее. <code>AssertionError</code> сообщает лишь, что нарушилось какое-то предположение автора кода.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Условие не должно менять состояние</h2>
+        <p>Из отключаемости следует ещё одно требование: выражение внутри <code>assert</code> не должно изменять состояние программы. Иначе при запуске с оптимизацией поведение программы изменится.</p>
+        <figure class="code">
+          <figcaption><span>Плохо</span><span>проверка меняет список</span></figcaption>
+<pre><span class="k">assert</span> my_list.pop() == <span class="n">5</span>, <span class="s">"Последний элемент должен быть 5"</span></pre>
+        </figure>
+        <figure class="code">
+          <figcaption><span>Хорошо</span><span>изменение отделено от проверки</span></figcaption>
+<pre>last_element = my_list.pop()
+<span class="k">assert</span> last_element == <span class="n">5</span>, <span class="s">"Последний элемент должен быть 5"</span></pre>
+        </figure>
+        <p>Если <code>assert</code> отключён, метод <code>pop()</code> в первом варианте не вызовется — и список останется с лишним элементом. Программа с <code>-O</code> начнёт вести себя иначе, чем без него, а найти такую разницу крайне тяжело.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>assert против if и raise</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th><code>assert</code></th><th><code>if</code> + <code>raise</code></th></tr></thead>
+            <tbody>
+              <tr><td>для чего</td><td>предположения автора кода</td><td>проверка входных данных</td></tr>
+              <tr><td>кому адресовано</td><td>программисту</td><td>пользователю и вызывающему коду</td></tr>
+              <tr><td>при запуске с <code>-O</code></td><td>исчезает</td><td>работает</td></tr>
+              <tr><td>тип исключения</td><td>всегда <code>AssertionError</code></td><td>любой подходящий по смыслу</td></tr>
+              <tr><td>кто должен перехватывать</td><td>никто — это сигнал об ошибке в коде</td><td>вызывающий код</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Отдельная область, где <code>assert</code> уместен всегда, — автоматические тесты: там проверка и есть суть кода, а запуск с <code>-O</code> не используется.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Ловушка со скобками</h2>
+        <p>Соблазн заключить условие и сообщение в скобки — как в вызове функции — приводит к молчаливой поломке.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>лишние скобки</span></figcaption>
+<pre><span class="k">assert</span> (<span class="n">1</span> == <span class="n">2</span>, <span class="s">"это сообщение не сработает"</span>)
+<span class="f">print</span>(<span class="s">"программа продолжает работу"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>проверка не сработала</span></figcaption><pre>программа продолжает работу</pre></figure>
+        <p>В скобках оказался кортеж из двух элементов, а непустой кортеж всегда истинен — условие выполняется при любых данных. Python предупредит об этом сообщением <code>SyntaxWarning: assertion is always true, perhaps remove parentheses?</code>, но программа продолжит работать, и проверка окажется декорацией. <code>assert</code> — команда, а не функция: скобки после неё не нужны.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>assert (cond, "текст")</code></td><td>кортеж всегда истинен, проверка не работает</td><td><code>assert cond, "текст"</code></td></tr>
+              <tr><td><code>assert</code> для проверки ввода пользователя</td><td>с флагом <code>-O</code> проверка исчезнет</td><td><code>if</code> и <code>raise ValueError</code></td></tr>
+              <tr><td><code>assert my_list.pop() == 5</code></td><td>с <code>-O</code> список не изменится, логика сломается</td><td>вынести изменение отдельной строкой</td></tr>
+              <tr><td><code>except AssertionError</code> в рабочем коде</td><td>ошибка в логике будет скрыта</td><td>исправить причину, а не перехватывать</td></tr>
+              <tr><td><code>assert</code> без сообщения</td><td>в трассировке не видно, что предполагалось</td><td>добавить пояснение</td></tr>
+              <tr><td>рассчитывать на <code>assert</code> в готовой программе</td><td>проверки могут быть отключены</td><td>критичные проверки писать через <code>if</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Что делает <code>assert</code>, если условие истинно?</summary><p>Ничего: программа продолжает выполнение, как если бы строки не было.</p></details>
+        <details><summary>Какое исключение возбуждается при ложном условии?</summary><p><code>AssertionError</code> — с сообщением, если оно указано.</p></details>
+        <details><summary>Что происходит при запуске с флагом <code>-O</code>?</summary><p>Все <code>assert</code> игнорируются и не выполняются.</p></details>
+        <details><summary>Почему <code>assert</code> не годится для проверки пользовательского ввода?</summary><p>Потому что его можно отключить. Проверка внешних данных должна работать всегда, поэтому пишется через <code>if</code> с <code>raise</code>.</p></details>
+        <details><summary>Чем плох <code>assert my_list.pop() == 5</code>?</summary><p>Условие изменяет состояние программы. При отключённых проверках <code>pop()</code> не вызовется, и поведение программы станет другим.</p></details>
+        <details><summary>Почему <code>assert (cond, "текст")</code> не работает?</summary><p>В скобках получается кортеж, а непустой кортеж всегда истинен, поэтому проверка проходит при любых данных.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Проверка</b><code>assert условие, "сообщение"</code></div>
+          <div><b>С контекстом</b><code>assert x &gt; 0, f"x = {x}"</code></div>
+          <div><b>Проверка типа</b><code>assert isinstance(data, list)</code></div>
+          <div><b>Отключить</b><code>python -O script.py</code></div>
+          <div><b>Для внешних данных</b><code>if not ok: raise ValueError(...)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>assert</code> проверяет предположение и возбуждает <code>AssertionError</code>, если оно нарушено. Это инструмент отладки и самотестирования: он ловит ошибку в момент возникновения, а не по её последствиям. Его не используют для проверки данных из внешних источников и не пишут в его условии ничего, что меняет состояние программы, — потому что запуск с флагом <code>-O</code> выключает все утверждения разом. Иными словами, <code>assert</code> адресован программисту, а <code>if</code> с <code>raise</code> — пользователю; путать эти два адресата не стоит.</p>
+        <div class="pager">
+          <a href="../80-rezhim-x/index.html">← 8.13 Режим x</a>
+          <a href="../../index.html">К содержанию справочника</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 8.14 · Команда assert · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

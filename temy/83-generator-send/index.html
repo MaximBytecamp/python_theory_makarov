@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>7.3 Передача значений в генератор: send() · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 7 · Итераторы и генераторы</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 7 · итераторы и генераторы</p>
+          <p class="running__folio">Глава 7.3</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">7.3</span>
+          <h1>Передача значений<br>в генератор: <code>send()</code></h1>
+          <p class="lead">До сих пор генератор только отдавал значения. Метод <code>send()</code> открывает движение в обратную сторону: он передаёт значение внутрь приостановленного генератора, и оно становится результатом выражения <code>yield</code>.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Генераторы</dd></div>
+          <div><dt>Уровень</dt><dd>Продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>yield, next(), объект None</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Строить генераторы, которые накапливают и принимают данные</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Генератор как собеседник</a></li>
+            <li><a href="#s2">yield — выражение, а не команда</a></li>
+            <li><a href="#s3">Что приходит при обычном next()</a></li>
+            <li><a href="#s4">Метод send()</a></li>
+            <li><a href="#s5">Накопитель: полный пример</a></li>
+            <li><a href="#s6">Разбор по шагам</a></li>
+            <li><a href="#s7">Обязательный первый next()</a></li>
+            <li><a href="#s8">next(gen) — это send(None)</a></li>
+            <li><a href="#s9">Что возвращает send()</a></li>
+            <li><a href="#s10">yield без значения</a></li>
+            <li><a href="#s11">Завершение и StopIteration</a></li>
+            <li><a href="#s12">Когда send() уместен</a></li>
+            <li><a href="#s13">Частые ошибки</a></li>
+            <li><a href="#s14">Проверьте себя</a></li>
+            <li><a href="#s15">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Генератор как собеседник</h2>
+        <p>В главе 7.2 генератор работал как источник: <code>next()</code> запрашивал очередное значение, генератор его выдавал и засыпал до следующего запроса. Связь была односторонней — от генератора наружу.</p>
+        <p>Но приостановленная функция сохраняет всё своё состояние, а значит, ей можно и передать что-то в момент пробуждения. Тогда генератор превращается из источника в <span class="term">сопрограмму</span> — функцию, которая ведёт с вызывающим кодом диалог: получает значение, обрабатывает, отдаёт ответ и снова засыпает.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>yield — выражение, а не команда</h2>
+        <p>Ключ ко всему — то, что <code>yield</code> в Python является выражением и имеет результат. Его можно записать справа от знака присваивания.</p>
+        <figure class="code">
+          <figcaption><span>Сравнение</span><span>две роли одного слова</span></figcaption>
+<pre>yield total              отдать значение наружу
+
+value = yield total      отдать значение наружу и,
+                         проснувшись, получить обратно</pre>
+        </figure>
+        <p>Читать вторую строку следует так: выполнение останавливается на <code>yield</code>, значение <code>total</code> уходит наружу; когда генератор разбудят, присланное значение станет результатом выражения и запишется в <code>value</code>.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Что приходит при обычном next()</h2>
+        <p>Если генератор разбудили обычным <code>next()</code>, ничего внутрь не передавалось. В этом случае результатом выражения <code>yield</code> становится <code>None</code> — объект из главы 6.13, обозначающий отсутствие значения.</p>
+        <p>Поэтому в генераторах-сопрограммах постоянно встречается проверка <code>if value is None</code>: она отличает «просто попросили следующее значение» от «прислали данные».</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Метод send()</h2>
+        <p>Метод <code>send(value)</code> делает два дела сразу: передаёт значение внутрь и возобновляет работу генератора до следующего <code>yield</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>генератор печатает всё, что ему присылают</span></figcaption>
+<pre><span class="k">def</span> <span class="f">echo</span>():
+    <span class="k">while</span> <span class="k">True</span>:
+        received = <span class="k">yield</span>
+        <span class="f">print</span>(<span class="s">"получено:"</span>, received)
+
+gen = <span class="f">echo</span>()
+<span class="f">next</span>(gen)                <span class="c"># доводим до первого yield</span>
+gen.send(<span class="s">"привет"</span>)
+gen.send(<span class="n">42</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>значения дошли внутрь</span></figcaption><pre>получено: привет
+получено: 42</pre></figure>
+
+        <h2 id="s5"><span class="sec">§5</span>Накопитель: полный пример</h2>
+        <p>Теперь генератор, который и принимает значения, и отдаёт результат: он копит сумму присланных чисел.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>двусторонний обмен</span></figcaption>
+<pre><span class="k">def</span> <span class="f">accumulator</span>():
+    total = <span class="n">0</span>
+    <span class="k">while</span> <span class="k">True</span>:
+        value = <span class="k">yield</span> total
+        <span class="k">if</span> value <span class="k">is</span> <span class="k">None</span>:
+            <span class="k">break</span>
+        total += value
+
+gen = <span class="f">accumulator</span>()
+<span class="f">print</span>(<span class="f">next</span>(gen))
+<span class="f">print</span>(gen.send(<span class="n">10</span>))
+<span class="f">print</span>(gen.send(<span class="n">20</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>сумма растёт между вызовами</span></figcaption><pre>0
+10
+30</pre></figure>
+        <p>Обратите внимание: переменная <code>total</code> не хранится ни в каком объекте снаружи. Она живёт внутри приостановленной функции — генератор помнит своё состояние сам.</p>
+
+        <h2 id="s6"><span class="sec">§6</span>Разбор по шагам</h2>
+        <ol class="steps">
+          <li><code>accumulator()</code> создаёт генератор; тело функции ещё не выполнялось.</li>
+          <li><code>next(gen)</code> запускает тело: <code>total = 0</code>, вход в цикл, остановка на <code>yield total</code>. Наружу уходит <code>0</code>.</li>
+          <li><code>gen.send(10)</code> будит генератор, <code>value</code> получает <code>10</code>, <code>total</code> становится <code>10</code>, новый виток цикла, остановка на <code>yield total</code>. Наружу уходит <code>10</code>.</li>
+          <li><code>gen.send(20)</code> — то же самое: <code>total</code> становится <code>30</code>, наружу уходит <code>30</code>.</li>
+        </ol>
+        <p>Каждый вызов <code>send()</code> — один цикл обмена: значение внутрь, значение наружу.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Обязательный первый next()</h2>
+        <p>Только что созданный генератор ещё не дошёл до первого <code>yield</code>, а значит, передавать в него нечего: внутри нет выражения, которое приняло бы значение. Попытка сразу вызвать <code>send()</code> с данными — ошибка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>send() до первого next()</span></figcaption>
+<pre>gen = <span class="f">accumulator</span>()
+gen.send(<span class="n">5</span>)</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>генератор ещё не запущен</span></figcaption>
+<pre>TypeError: can't send non-None value to a just-started generator</pre>
+        </figure>
+        <p>Поэтому первый шаг любой сопрограммы — <code>next(gen)</code>: он доводит выполнение до первого <code>yield</code> и ставит генератор в позицию, из которой тот способен что-то принять. Этот приём называют <span class="term">запуском</span> (priming) генератора.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>next(gen) — это send(None)</h2>
+        <p>Два способа возобновить генератор — на самом деле один.</p>
+        <figure class="code">
+          <figcaption><span>Эквивалент</span><span>next выражается через send</span></figcaption>
+<pre>next(gen)        ==        gen.send(None)</pre>
+        </figure>
+        <p>Отсюда и правило §3: при обычном переборе внутрь приходит <code>None</code>. И отсюда же — почему <code>gen.send(None)</code> допустим для только что созданного генератора, а <code>gen.send(5)</code> нет: <code>None</code> означает «ничего не передаю».</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Что возвращает send()</h2>
+        <p>Возвращаемое значение <code>send()</code> — то, что генератор отдал на следующем <code>yield</code>. Не эхо присланного, а ответ генератора.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Действие</th><th>Что идёт внутрь</th><th>Что возвращается</th></tr></thead>
+            <tbody>
+              <tr><td><code>next(gen)</code></td><td><code>None</code></td><td>значение следующего <code>yield</code></td></tr>
+              <tr><td><code>gen.send(x)</code></td><td><code>x</code></td><td>значение следующего <code>yield</code></td></tr>
+              <tr><td><code>gen.close()</code></td><td>исключение <code>GeneratorExit</code></td><td>ничего</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s10"><span class="sec">§10</span>yield без значения</h2>
+        <p>Если генератору нечего отдавать, а нужно только принимать, <code>yield</code> пишут без выражения — как в примере <code>echo</code> из §4. Наружу тогда уходит <code>None</code>, и вызывающий код обычно этот результат игнорирует.</p>
+        <p>Такие генераторы называют <span class="term">приёмниками</span>: они собирают присылаемые данные и что-то с ними делают — записывают в файл, накапливают статистику, передают дальше.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>приёмник складывает всё в список</span></figcaption>
+<pre><span class="k">def</span> <span class="f">collector</span>(target):
+    <span class="k">while</span> <span class="k">True</span>:
+        item = <span class="k">yield</span>
+        target.append(item)
+
+log = []
+sink = <span class="f">collector</span>(log)
+<span class="f">next</span>(sink)
+sink.send(<span class="s">"вход"</span>)
+sink.send(<span class="s">"выход"</span>)
+
+<span class="f">print</span>(log)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>данные ушли в список</span></figcaption><pre>['вход', 'выход']</pre></figure>
+
+        <h2 id="s11"><span class="sec">§11</span>Завершение и StopIteration</h2>
+        <p>В примере из §5 <code>break</code> срабатывает, когда внутрь приходит <code>None</code>. Тело функции доходит до конца, генератор завершается — и вызывающая сторона узнаёт об этом привычным способом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>сигнал к остановке</span></figcaption>
+<pre>gen = <span class="f">accumulator</span>()
+<span class="f">next</span>(gen)
+gen.send(<span class="n">3</span>)
+
+<span class="k">try</span>:
+    gen.send(<span class="k">None</span>)
+<span class="k">except</span> StopIteration:
+    <span class="f">print</span>(<span class="s">"генератор завершился"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>сработал break внутри генератора</span></figcaption><pre>генератор завершился</pre></figure>
+        <p>То есть <code>None</code> в этом генераторе играет роль условного знака «работа окончена». Есть и прямой способ остановить генератор снаружи — метод <code>close()</code>; о нём и о гарантированной уборке речь пойдёт в следующей главе.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Когда send() уместен</h2>
+        <p><code>send()</code> — инструмент узкого применения, и это нормально. Он нужен там, где генератор должен помнить состояние между порциями данных, а данные приходят не сразу.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>среднее по мере поступления измерений</span></figcaption>
+<pre><span class="k">def</span> <span class="f">moving_average</span>():
+    total = <span class="n">0</span>
+    count = <span class="n">0</span>
+    average = <span class="k">None</span>
+    <span class="k">while</span> <span class="k">True</span>:
+        value = <span class="k">yield</span> average
+        total += value
+        count += <span class="n">1</span>
+        average = total / count
+
+avg = <span class="f">moving_average</span>()
+<span class="f">next</span>(avg)
+<span class="f">print</span>(avg.send(<span class="n">10</span>))
+<span class="f">print</span>(avg.send(<span class="n">20</span>))
+<span class="f">print</span>(avg.send(<span class="n">30</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>среднее пересчитывается на каждом шаге</span></figcaption><pre>10.0
+15.0
+20.0</pre></figure>
+        <p>Ни <code>total</code>, ни <code>count</code> не хранятся снаружи и не передаются в вызовах — вся «память» задачи находится внутри приостановленной функции. В этом и состоит выигрыш: вызывающему коду достаточно присылать очередное измерение.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Задача</th><th>Подходит ли send()</th></tr></thead>
+            <tbody>
+              <tr><td>перебрать большой файл построчно</td><td>нет, достаточно обычного <code>yield</code></td></tr>
+              <tr><td>копить скользящее среднее по потоку измерений</td><td>да, состояние живёт внутри генератора</td></tr>
+              <tr><td>разобрать поток данных, приходящий кусками</td><td>да, генератор помнит, где остановился разбор</td></tr>
+              <tr><td>просто сложить числа списка</td><td>нет, это работа для <code>sum()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Заметьте: генератор, в который что-то присылают, нельзя пройти обычным циклом <code>for</code> — цикл умеет только вызывать <code>next()</code>. Такой сопрограммой всегда управляют вручную.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>gen.send(5)</code> сразу после создания</td><td><code>TypeError</code>: генератор не запущен</td><td>сначала <code>next(gen)</code></td></tr>
+              <tr><td><code>yield total</code> вместо <code>value = yield total</code></td><td>присланное значение будет отброшено</td><td>записать результат <code>yield</code> в переменную</td></tr>
+              <tr><td>ждать от <code>send()</code> присланного значения</td><td>вернётся то, что генератор отдал на следующем <code>yield</code></td><td>читать возврат как ответ генератора</td></tr>
+              <tr><td>перебирать сопрограмму циклом <code>for</code></td><td>внутрь всегда будет приходить <code>None</code></td><td>управлять вручную через <code>send()</code></td></tr>
+              <tr><td>забыть проверку <code>if value is None</code></td><td>обычный <code>next()</code> испортит накопленное состояние</td><td>отличать <code>None</code> от присланных данных</td></tr>
+              <tr><td>вызвать <code>send()</code> после завершения генератора</td><td><code>StopIteration</code></td><td>перехватить исключение или создать генератор заново</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s14"><span class="sec">§14</span>Проверьте себя</h2>
+        <details><summary>Что делает <code>send()</code>?</summary><p>Передаёт значение внутрь приостановленного генератора и возобновляет его работу до следующего <code>yield</code>.</p></details>
+        <details><summary>Куда попадает присланное значение?</summary><p>Оно становится результатом выражения <code>yield</code>, на котором генератор был приостановлен.</p></details>
+        <details><summary>Почему перед <code>send()</code> нужен <code>next()</code>?</summary><p>Новый генератор ещё не дошёл до первого <code>yield</code>, поэтому принять значение некому.</p></details>
+        <details><summary>Что приходит внутрь при обычном <code>next()</code>?</summary><p><code>None</code>: <code>next(gen)</code> равносилен <code>gen.send(None)</code>.</p></details>
+        <details><summary>Что возвращает сам вызов <code>send()</code>?</summary><p>Значение, которое генератор отдал на следующем <code>yield</code>, — его ответ, а не присланное значение.</p></details>
+
+        <h2 id="s15"><span class="sec">§15</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Принять значение</b><code>value = yield result</code></div>
+          <div><b>Запустить</b><code>next(gen)</code></div>
+          <div><b>Передать</b><code>answer = gen.send(x)</code></div>
+          <div><b>Равносильно</b><code>next(gen) == gen.send(None)</code></div>
+          <div><b>Только приём</b><code>received = yield</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>yield</code> — выражение, и его результатом становится то, что прислали генератору методом <code>send()</code>. Это превращает генератор в сопрограмму: он хранит состояние между вызовами, принимает данные и отвечает очередным значением. Перед первым <code>send()</code> генератор обязательно запускают вызовом <code>next()</code>, который равносилен <code>send(None)</code>. Инструмент узкий, но незаменимый там, где данные приходят порциями, а промежуточное состояние удобнее держать внутри самой функции.</p>
+        <div class="pager">
+          <a href="../44-generatory/index.html">← 7.2 Генераторы</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../84-zavershenie-generatora/index.html">7.4 Завершение генератора →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 7.3 · Передача значений в генератор · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

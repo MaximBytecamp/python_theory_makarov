@@ -36,10 +36,11 @@
     .toc a { color: var(--ink); font-weight: 600; }
     .toc a:hover { color: var(--blue); }
     .toc s { color: var(--ink-faint); text-decoration: none; }
-    .toc em { margin-left: auto; font: 600 10px/1 var(--pixel); letter-spacing: 1px; text-transform: uppercase; font-style: normal; }
+    .toc a > span, .toc s > span { flex: 1 1 auto; min-width: 0; line-height: 1.35; overflow-wrap: anywhere; }
+    .toc em { flex: 0 0 auto; margin-left: auto; font: 600 10px/1 var(--pixel); letter-spacing: 1px; text-transform: uppercase; font-style: normal; }
     .toc a em { color: var(--blue); }
     .toc s em { color: var(--ink-faint); }
-    .toc i { font: 700 12px/1 var(--mono); font-style: normal; color: var(--ink-faint); min-width: 30px; }
+    .toc i { flex: 0 0 auto; font: 700 12px/1 var(--mono); font-style: normal; color: var(--ink-faint); min-width: 34px; }
     @media (max-width: 860px) { .cover { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -79,15 +80,15 @@
               <h3>Данные и имена</h3>
               <p>Как программа хранит значения и как мы к ним обращаемся.</p>
               <ul class="toc">
-                <li><a href="temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании<em>читать</em></a></li>
-                <li><a href="temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python<em>читать</em></a></li>
-                <li><a href="temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных<em>читать</em></a></li>
-                <li><a href="temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end<em>читать</em></a></li>
-                <li><a href="temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных<em>читать</em></a></li>
-                <li><a href="temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание<em>читать</em></a></li>
-                <li><a href="temy/07-operatory/index.html"><i>1.7</i>Операторы в Python<em>читать</em></a></li>
-                <li><a href="temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %<em>читать</em></a></li>
-                <li><a href="temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code><em>читать</em></a></li>
+                <li><a href="temy/01-peremennye/index.html"><i>1.1</i><span>Переменные в программировании</span><em>читать</em></a></li>
+                <li><a href="temy/02-tipy-dannyh/index.html"><i>1.2</i><span>Типы данных в Python</span><em>читать</em></a></li>
+                <li><a href="temy/03-print/index.html"><i>1.3</i><span>Функция <code>print()</code>: вывод данных</span><em>читать</em></a></li>
+                <li><a href="temy/04-print-sep-end/index.html"><i>1.4</i><span>Параметры <code>print()</code>: sep и end</span><em>читать</em></a></li>
+                <li><a href="temy/05-input/index.html"><i>1.5</i><span>Функция <code>input()</code>: ввод данных</span><em>читать</em></a></li>
+                <li><a href="temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i><span>Множественное присваивание</span><em>читать</em></a></li>
+                <li><a href="temy/07-operatory/index.html"><i>1.7</i><span>Операторы в Python</span><em>читать</em></a></li>
+                <li><a href="temy/08-operacii-deleniya/index.html"><i>1.8</i><span>Операции деления: /, // и %</span><em>читать</em></a></li>
+                <li><a href="temy/09-round-i-format/index.html"><i>1.9</i><span><code>round()</code> и формат <code>.2f</code></span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -97,12 +98,12 @@
               <h3>Условия</h3>
               <p>Как программа выбирает, что делать дальше.</p>
               <ul class="toc">
-                <li><a href="temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not<em>читать</em></a></li>
-                <li><a href="temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления<em>читать</em></a></li>
-                <li><a href="temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны<em>читать</em></a></li>
-                <li><a href="temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else<em>читать</em></a></li>
-                <li><a href="temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия<em>читать</em></a></li>
-                <li><a href="temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор<em>читать</em></a></li>
+                <li><a href="temy/10-logicheskiy-tip/index.html"><i>2.1</i><span>Логический тип: and, or, not</span><em>читать</em></a></li>
+                <li><a href="temy/11-sostavnye-usloviya/index.html"><i>2.2</i><span>Составление условий без ветвления</span><em>читать</em></a></li>
+                <li><a href="temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i><span>Двойное сравнение и диапазоны</span><em>читать</em></a></li>
+                <li><a href="temy/13-if-elif-else/index.html"><i>2.4</i><span>Операторы ветвления: if, elif, else</span><em>читать</em></a></li>
+                <li><a href="temy/14-vlozhennye-usloviya/index.html"><i>2.5</i><span>Вложенные условия</span><em>читать</em></a></li>
+                <li><a href="temy/15-ternarnyy-operator/index.html"><i>2.6</i><span>Тернарный условный оператор</span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -112,23 +113,23 @@
               <h3>Списки и циклы</h3>
               <p>Первая коллекция, повторение действий и всё, что из этого следует.</p>
               <ul class="toc">
-                <li><a href="temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python<em>читать</em></a></li>
-                <li><a href="temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code><em>читать</em></a></li>
-                <li><a href="temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code><em>читать</em></a></li>
-                <li><a href="temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code><em>читать</em></a></li>
-                <li><a href="temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code><em>читать</em></a></li>
-                <li><a href="temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам<em>читать</em></a></li>
-                <li><a href="temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы<em>читать</em></a></li>
-                <li><a href="temy/31-srezy/index.html"><i>3.8</i>Срезы<em>читать</em></a></li>
-                <li><a href="temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code><em>читать</em></a></li>
-                <li><a href="temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1<em>читать</em></a></li>
-                <li><a href="temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2<em>читать</em></a></li>
-                <li><a href="temy/27-metody-spiskov-3/index.html"><i>3.12</i>Методы списков: часть 3<em>читать</em></a></li>
-                <li><a href="temy/39-dvumernye-spiski/index.html"><i>3.13</i>Двумерные списки<em>читать</em></a></li>
-                <li><a href="temy/30-funkcii-kollekciy/index.html"><i>3.14</i>Функции для коллекций<em>читать</em></a></li>
-                <li><a href="temy/32-sum/index.html"><i>3.15</i>Функция <code>sum()</code><em>читать</em></a></li>
-                <li><a href="temy/37-truthy-falsy/index.html"><i>3.16</i>Truthy и Falsy<em>читать</em></a></li>
-                <li><a href="temy/38-logicheskie-znacheniya-i-none/index.html"><i>3.17</i><code>and</code>, <code>or</code> и <code>None</code><em>читать</em></a></li>
+                <li><a href="temy/24-kollekcii/index.html"><i>3.1</i><span>Коллекции в Python</span><em>читать</em></a></li>
+                <li><a href="temy/20-while/index.html"><i>3.2</i><span>Цикл <code>while</code></span><em>читать</em></a></li>
+                <li><a href="temy/21-for-in/index.html"><i>3.3</i><span>Цикл <code>for in</code></span><em>читать</em></a></li>
+                <li><a href="temy/22-range/index.html"><i>3.4</i><span>Функция <code>range()</code></span><em>читать</em></a></li>
+                <li><a href="temy/23-praktika-for/index.html"><i>3.5</i><span>Практика <code>for in</code></span><em>читать</em></a></li>
+                <li><a href="temy/28-indeksy-spiska/index.html"><i>3.6</i><span>Перебор списка по индексам</span><em>читать</em></a></li>
+                <li><a href="temy/29-vlozhennye-cikly/index.html"><i>3.7</i><span>Вложенные циклы</span><em>читать</em></a></li>
+                <li><a href="temy/31-srezy/index.html"><i>3.8</i><span>Срезы</span><em>читать</em></a></li>
+                <li><a href="temy/54-imenovannye-srezy/index.html"><i>3.9</i><span>Объект <code>slice</code></span><em>читать</em></a></li>
+                <li><a href="temy/25-metody-spiskov-1/index.html"><i>3.10</i><span>Методы списков: часть 1</span><em>читать</em></a></li>
+                <li><a href="temy/26-metody-spiskov-2/index.html"><i>3.11</i><span>Методы списков: часть 2</span><em>читать</em></a></li>
+                <li><a href="temy/27-metody-spiskov-3/index.html"><i>3.12</i><span>Методы списков: часть 3</span><em>читать</em></a></li>
+                <li><a href="temy/39-dvumernye-spiski/index.html"><i>3.13</i><span>Двумерные списки</span><em>читать</em></a></li>
+                <li><a href="temy/30-funkcii-kollekciy/index.html"><i>3.14</i><span>Функции для коллекций</span><em>читать</em></a></li>
+                <li><a href="temy/32-sum/index.html"><i>3.15</i><span>Функция <code>sum()</code></span><em>читать</em></a></li>
+                <li><a href="temy/37-truthy-falsy/index.html"><i>3.16</i><span>Truthy и Falsy</span><em>читать</em></a></li>
+                <li><a href="temy/38-logicheskie-znacheniya-i-none/index.html"><i>3.17</i><span><code>and</code>, <code>or</code> и <code>None</code></span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -138,17 +139,17 @@
               <h3>Словари, множества и кортежи</h3>
               <p>Коллекции, у которых свои правила порядка, ключей и уникальности.</p>
               <ul class="toc">
-                <li><a href="temy/45-kortezhi/index.html"><i>4.1</i>Кортежи<em>читать</em></a></li>
-                <li><a href="temy/46-slovari/index.html"><i>4.2</i>Словари<em>читать</em></a></li>
-                <li><a href="temy/47-metody-slovarey-1/index.html"><i>4.3</i>Методы словарей: часть 1<em>читать</em></a></li>
-                <li><a href="temy/48-metody-slovarey-2/index.html"><i>4.4</i>Методы словарей: часть 2<em>читать</em></a></li>
-                <li><a href="temy/49-mnozhestva/index.html"><i>4.5</i>Множества<em>читать</em></a></li>
-                <li><a href="temy/50-metody-mnozhestv/index.html"><i>4.6</i>Методы множеств<em>читать</em></a></li>
-                <li><a href="temy/51-operacii-mnozhestv/index.html"><i>4.7</i>Операции над множествами<em>читать</em></a></li>
-                <li><a href="temy/52-izmenyayushchie-operacii-mnozhestv/index.html"><i>4.8</i>Изменяющие операции множеств<em>читать</em></a></li>
-                <li><a href="temy/53-frozenset/index.html"><i>4.9</i><code>frozenset</code><em>читать</em></a></li>
-                <li><a href="temy/33-vklyucheniya/index.html"><i>4.10</i>Включения<em>читать</em></a></li>
-                <li><a href="temy/34-vlozhennye-vklyucheniya/index.html"><i>4.11</i>Вложенные включения<em>читать</em></a></li>
+                <li><a href="temy/45-kortezhi/index.html"><i>4.1</i><span>Кортежи</span><em>читать</em></a></li>
+                <li><a href="temy/46-slovari/index.html"><i>4.2</i><span>Словари</span><em>читать</em></a></li>
+                <li><a href="temy/47-metody-slovarey-1/index.html"><i>4.3</i><span>Методы словарей: часть 1</span><em>читать</em></a></li>
+                <li><a href="temy/48-metody-slovarey-2/index.html"><i>4.4</i><span>Методы словарей: часть 2</span><em>читать</em></a></li>
+                <li><a href="temy/49-mnozhestva/index.html"><i>4.5</i><span>Множества</span><em>читать</em></a></li>
+                <li><a href="temy/50-metody-mnozhestv/index.html"><i>4.6</i><span>Методы множеств</span><em>читать</em></a></li>
+                <li><a href="temy/51-operacii-mnozhestv/index.html"><i>4.7</i><span>Операции над множествами</span><em>читать</em></a></li>
+                <li><a href="temy/52-izmenyayushchie-operacii-mnozhestv/index.html"><i>4.8</i><span>Изменяющие операции множеств</span><em>читать</em></a></li>
+                <li><a href="temy/53-frozenset/index.html"><i>4.9</i><span><code>frozenset</code></span><em>читать</em></a></li>
+                <li><a href="temy/33-vklyucheniya/index.html"><i>4.10</i><span>Включения</span><em>читать</em></a></li>
+                <li><a href="temy/34-vlozhennye-vklyucheniya/index.html"><i>4.11</i><span>Вложенные включения</span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -158,16 +159,16 @@
               <h3>Строки</h3>
               <p>Текст как последовательность символов и всё, что с ним делают.</p>
               <ul class="toc">
-                <li><a href="temy/55-unicode-ord-chr/index.html"><i>5.1</i>Unicode: <code>ord()</code> и <code>chr()</code><em>читать</em></a></li>
-                <li><a href="temy/56-registr-strok/index.html"><i>5.2</i>Регистр строк<em>читать</em></a></li>
-                <li><a href="temy/57-center-count/index.html"><i>5.3</i><code>center()</code> и <code>count()</code><em>читать</em></a></li>
-                <li><a href="temy/58-encode-decode/index.html"><i>5.4</i>Кодирование: <code>encode()</code> и <code>decode()</code><em>читать</em></a></li>
-                <li><a href="temy/59-poisk-v-strokah/index.html"><i>5.5</i>Начало, окончание и поиск в строках<em>читать</em></a></li>
-                <li><a href="temy/60-format-strok/index.html"><i>5.6</i>Форматирование строк<em>читать</em></a></li>
-                <li><a href="temy/61-proverki-soderzhimogo-strok/index.html"><i>5.7</i>Проверки содержимого строк<em>читать</em></a></li>
-                <li><a href="temy/62-proverki-sostoyaniya-strok/index.html"><i>5.8</i>Проверки состояния строк<em>читать</em></a></li>
-                <li><a href="temy/63-join-strip-partition/index.html"><i>5.9</i><code>join()</code>, <code>strip()</code> и <code>partition()</code><em>читать</em></a></li>
-                <li><a href="temy/64-zamena-i-razbienie-strok/index.html"><i>5.10</i>Замена и разбиение строк<em>читать</em></a></li>
+                <li><a href="temy/55-unicode-ord-chr/index.html"><i>5.1</i><span>Unicode: <code>ord()</code> и <code>chr()</code></span><em>читать</em></a></li>
+                <li><a href="temy/56-registr-strok/index.html"><i>5.2</i><span>Регистр строк</span><em>читать</em></a></li>
+                <li><a href="temy/57-center-count/index.html"><i>5.3</i><span><code>center()</code> и <code>count()</code></span><em>читать</em></a></li>
+                <li><a href="temy/58-encode-decode/index.html"><i>5.4</i><span>Кодирование: <code>encode()</code> и <code>decode()</code></span><em>читать</em></a></li>
+                <li><a href="temy/59-poisk-v-strokah/index.html"><i>5.5</i><span>Начало, окончание и поиск в строках</span><em>читать</em></a></li>
+                <li><a href="temy/60-format-strok/index.html"><i>5.6</i><span>Форматирование строк</span><em>читать</em></a></li>
+                <li><a href="temy/61-proverki-soderzhimogo-strok/index.html"><i>5.7</i><span>Проверки содержимого строк</span><em>читать</em></a></li>
+                <li><a href="temy/62-proverki-sostoyaniya-strok/index.html"><i>5.8</i><span>Проверки состояния строк</span><em>читать</em></a></li>
+                <li><a href="temy/63-join-strip-partition/index.html"><i>5.9</i><span><code>join()</code>, <code>strip()</code> и <code>partition()</code></span><em>читать</em></a></li>
+                <li><a href="temy/64-zamena-i-razbienie-strok/index.html"><i>5.10</i><span>Замена и разбиение строк</span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -177,18 +178,20 @@
               <h3>Функции и модули</h3>
               <p>Как использовать готовые функции, создавать свои и подключать код из других файлов.</p>
               <ul class="toc">
-                <li><a href="temy/16-abs-max-min/index.html"><i>6.1</i><code>abs()</code>, <code>max()</code> и <code>min()</code><em>читать</em></a></li>
-                <li><a href="temy/17-def/index.html"><i>6.2</i>Объявление функций: <code>def</code><em>читать</em></a></li>
-                <li><a href="temy/18-praktika-def/index.html"><i>6.3</i>Практическое применение <code>def</code><em>читать</em></a></li>
-                <li><a href="temy/19-moduli-import/index.html"><i>6.4</i>Библиотеки и модули<em>читать</em></a></li>
-                <li><a href="temy/41-vidy-argumentov/index.html"><i>6.5</i>Виды аргументов<em>читать</em></a></li>
-                <li><a href="temy/42-raspakovka-argumentov/index.html"><i>6.6</i>Распаковка <code>*</code> и <code>**</code><em>читать</em></a></li>
-                <li><a href="temy/67-ignoriruemye-znacheniya/index.html"><i>6.7</i>Игнорируемые значения: <code>_</code><em>читать</em></a></li>
-                <li><a href="temy/35-funkcii-vysshego-poryadka/index.html"><i>6.8</i>Функции высшего порядка<em>читать</em></a></li>
-                <li><a href="temy/36-lambda/index.html"><i>6.9</i>Lambda-функции<em>читать</em></a></li>
-                <li><a href="temy/40-sort-sorted-key/index.html"><i>6.10</i>Сортировка и <code>key</code><em>читать</em></a></li>
-                <li><a href="temy/66-annotacii-tipov/index.html"><i>6.11</i>Аннотации типов<em>читать</em></a></li>
-                <li><a href="temy/65-morzhovyy-operator/index.html"><i>6.12</i>Оператор присваивания <code>:=</code><em>читать</em></a></li>
+                <li><a href="temy/16-abs-max-min/index.html"><i>6.1</i><span><code>abs()</code>, <code>max()</code> и <code>min()</code></span><em>читать</em></a></li>
+                <li><a href="temy/17-def/index.html"><i>6.2</i><span>Объявление функций: <code>def</code></span><em>читать</em></a></li>
+                <li><a href="temy/18-praktika-def/index.html"><i>6.3</i><span>Практическое применение <code>def</code></span><em>читать</em></a></li>
+                <li><a href="temy/19-moduli-import/index.html"><i>6.4</i><span>Библиотеки и модули</span><em>читать</em></a></li>
+                <li><a href="temy/41-vidy-argumentov/index.html"><i>6.5</i><span>Виды аргументов</span><em>читать</em></a></li>
+                <li><a href="temy/42-raspakovka-argumentov/index.html"><i>6.6</i><span>Распаковка <code>*</code> и <code>**</code></span><em>читать</em></a></li>
+                <li><a href="temy/67-ignoriruemye-znacheniya/index.html"><i>6.7</i><span>Игнорируемые значения: <code>_</code></span><em>читать</em></a></li>
+                <li><a href="temy/35-funkcii-vysshego-poryadka/index.html"><i>6.8</i><span>Функции высшего порядка</span><em>читать</em></a></li>
+                <li><a href="temy/36-lambda/index.html"><i>6.9</i><span>Lambda-функции</span><em>читать</em></a></li>
+                <li><a href="temy/40-sort-sorted-key/index.html"><i>6.10</i><span>Сортировка и <code>key</code></span><em>читать</em></a></li>
+                <li><a href="temy/66-annotacii-tipov/index.html"><i>6.11</i><span>Аннотации типов</span><em>читать</em></a></li>
+                <li><a href="temy/65-morzhovyy-operator/index.html"><i>6.12</i><span>Оператор присваивания <code>:=</code></span><em>читать</em></a></li>
+                <li><a href="temy/81-obekt-none/index.html"><i>6.13</i><span>Объект <code>None</code></span><em>читать</em></a></li>
+                <li><a href="temy/82-dekoratory-vvedenie/index.html"><i>6.14</i><span>Декораторы: введение</span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -196,10 +199,13 @@
             <div class="module__spine"><b>МОДУЛЬ 7</b></div>
             <div class="module__body">
               <h3>Итераторы и генераторы</h3>
-              <p>Как Python выдаёт значения по одному и обрабатывает данные без хранения всего результата.</p>
+              <p>Как Python выдаёт значения по одному, обрабатывает данные без хранения всего результата и собирает генераторы из генераторов.</p>
               <ul class="toc">
-                <li><a href="temy/43-iteratory/index.html"><i>7.1</i>Итераторы<em>читать</em></a></li>
-                <li><a href="temy/44-generatory/index.html"><i>7.2</i>Генераторы<em>читать</em></a></li>
+                <li><a href="temy/43-iteratory/index.html"><i>7.1</i><span>Итераторы</span><em>читать</em></a></li>
+                <li><a href="temy/44-generatory/index.html"><i>7.2</i><span>Генераторы</span><em>читать</em></a></li>
+                <li><a href="temy/83-generator-send/index.html"><i>7.3</i><span>Передача значений в генератор: <code>send()</code></span><em>читать</em></a></li>
+                <li><a href="temy/84-zavershenie-generatora/index.html"><i>7.4</i><span>Завершение генератора: <code>try-finally</code> и <code>close()</code></span><em>читать</em></a></li>
+                <li><a href="temy/85-yield-from/index.html"><i>7.5</i><span>Делегирование: <code>yield from</code></span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -209,19 +215,20 @@
               <h3>Исключения и файлы</h3>
               <p>Как не дать программе упасть и как сохранить данные, которые переживут её завершение.</p>
               <ul class="toc">
-                <li><a href="temy/68-isklyucheniya-try-except/index.html"><i>8.1</i>Исключения: <code>try</code>, <code>except</code>, <code>else</code>, <code>finally</code><em>читать</em></a></li>
-                <li><a href="temy/69-raise-i-cepochki/index.html"><i>8.2</i><code>raise</code> и цепочки исключений<em>читать</em></a></li>
-                <li><a href="temy/70-ierarhiya-isklyucheniy/index.html"><i>8.3</i>Иерархия исключений<em>читать</em></a></li>
-                <li><a href="temy/71-fayly-osnovy/index.html"><i>8.4</i>Файлы: основные понятия<em>читать</em></a></li>
-                <li><a href="temy/72-kontekstnyy-menedzher-with/index.html"><i>8.5</i>Контекстный менеджер <code>with</code><em>читать</em></a></li>
-                <li><a href="temy/73-zapis-write/index.html"><i>8.6</i>Запись в файл: <code>write()</code><em>читать</em></a></li>
-                <li><a href="temy/74-zapis-writelines/index.html"><i>8.7</i>Запись: <code>writelines()</code><em>читать</em></a></li>
-                <li><a href="temy/75-chtenie-read/index.html"><i>8.8</i>Чтение: <code>read()</code><em>читать</em></a></li>
-                <li><a href="temy/76-chtenie-readline/index.html"><i>8.9</i>Чтение: <code>readline()</code><em>читать</em></a></li>
-                <li><a href="temy/77-chtenie-readlines/index.html"><i>8.10</i>Чтение: <code>readlines()</code><em>читать</em></a></li>
-                <li><a href="temy/78-seek-i-tell/index.html"><i>8.11</i>Произвольный доступ: <code>seek()</code> и <code>tell()</code><em>читать</em></a></li>
-                <li><a href="temy/79-bufer-i-buferizaciya/index.html"><i>8.12</i>Буфер и буферизация<em>читать</em></a></li>
-                <li><a href="temy/80-rezhim-x/index.html"><i>8.13</i>Режим <code>x</code><em>читать</em></a></li>
+                <li><a href="temy/68-isklyucheniya-try-except/index.html"><i>8.1</i><span>Исключения: <code>try</code>, <code>except</code>, <code>else</code>, <code>finally</code></span><em>читать</em></a></li>
+                <li><a href="temy/69-raise-i-cepochki/index.html"><i>8.2</i><span><code>raise</code> и цепочки исключений</span><em>читать</em></a></li>
+                <li><a href="temy/70-ierarhiya-isklyucheniy/index.html"><i>8.3</i><span>Иерархия исключений</span><em>читать</em></a></li>
+                <li><a href="temy/71-fayly-osnovy/index.html"><i>8.4</i><span>Файлы: основные понятия</span><em>читать</em></a></li>
+                <li><a href="temy/72-kontekstnyy-menedzher-with/index.html"><i>8.5</i><span>Контекстный менеджер <code>with</code></span><em>читать</em></a></li>
+                <li><a href="temy/73-zapis-write/index.html"><i>8.6</i><span>Запись в файл: <code>write()</code></span><em>читать</em></a></li>
+                <li><a href="temy/74-zapis-writelines/index.html"><i>8.7</i><span>Запись: <code>writelines()</code></span><em>читать</em></a></li>
+                <li><a href="temy/75-chtenie-read/index.html"><i>8.8</i><span>Чтение: <code>read()</code></span><em>читать</em></a></li>
+                <li><a href="temy/76-chtenie-readline/index.html"><i>8.9</i><span>Чтение: <code>readline()</code></span><em>читать</em></a></li>
+                <li><a href="temy/77-chtenie-readlines/index.html"><i>8.10</i><span>Чтение: <code>readlines()</code></span><em>читать</em></a></li>
+                <li><a href="temy/78-seek-i-tell/index.html"><i>8.11</i><span>Произвольный доступ: <code>seek()</code> и <code>tell()</code></span><em>читать</em></a></li>
+                <li><a href="temy/79-bufer-i-buferizaciya/index.html"><i>8.12</i><span>Буфер и буферизация</span><em>читать</em></a></li>
+                <li><a href="temy/80-rezhim-x/index.html"><i>8.13</i><span>Режим <code>x</code></span><em>читать</em></a></li>
+                <li><a href="temy/86-assert/index.html"><i>8.14</i><span>Команда <code>assert</code></span><em>читать</em></a></li>
               </ul>
             </div>
           </article>
@@ -231,9 +238,9 @@
               <h3>Объекты</h3>
               <p>Собственные типы данных под задачу.</p>
               <ul class="toc">
-                <li><s><i>9.1</i>Классы и экземпляры<em>в работе</em></s></li>
-                <li><s><i>9.2</i>Атрибуты и методы<em>в работе</em></s></li>
-                <li><s><i>9.3</i>Наследование<em>в работе</em></s></li>
+                <li><s><i>9.1</i><span>Классы и экземпляры</span><em>в работе</em></s></li>
+                <li><s><i>9.2</i><span>Атрибуты и методы</span><em>в работе</em></s></li>
+                <li><s><i>9.3</i><span>Наследование</span><em>в работе</em></s></li>
               </ul>
             </div>
           </article>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>6.14 Декораторы: введение · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 6 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 6 · функции и модули</p>
+          <p class="running__folio">Глава 6.14</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">6.14</span>
+          <h1>Декораторы:<br>введение</h1>
+          <p class="lead">Декоратор добавляет функции новое поведение, не трогая её код. Он принимает функцию, оборачивает её в другую и возвращает обёртку — а строка <code>@decorator</code> над определением просто записывает эту замену коротко.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Функции</dd></div>
+          <div><dt>Уровень</dt><dd>Продвинутый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Функции высшего порядка, аргументы, возврат значений</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Добавлять логирование, замеры и проверки без правки самих функций</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Задача, которую решают декораторы</a></li>
+            <li><a href="#s2">Функция — обычный объект</a></li>
+            <li><a href="#s3">Функцию можно передать в функцию</a></li>
+            <li><a href="#s4">Функцию можно вернуть из функции</a></li>
+            <li><a href="#s5">Обёртывание функции</a></li>
+            <li><a href="#s6">Первый декоратор вручную</a></li>
+            <li><a href="#s7">Синтаксис @</a></li>
+            <li><a href="#s8">Что именно делает знак @</a></li>
+            <li><a href="#s9">Аргументы: *args и **kwargs</a></li>
+            <li><a href="#s10">Не потерять результат</a></li>
+            <li><a href="#s11">Пример: замер времени</a></li>
+            <li><a href="#s12">Обёртка подменяет имя функции</a></li>
+            <li><a href="#s13">Когда декоратор срабатывает</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Задача, которую решают декораторы</h2>
+        <p>Представьте два десятка функций, и в каждую нужно добавить одно и то же: записать в журнал момент вызова, замерить время работы, проверить права доступа, запомнить результат. Вписывать эти строки в каждую функцию — значит двадцать раз повторить один код и двадцать раз смешать основную задачу функции с посторонней.</p>
+        <p><span class="term">Декоратор</span> — инструмент, позволяющий изменить поведение функции, не меняя её кода. Дополнительные действия описываются один раз, а функции остаются такими, какими были.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Функция — обычный объект</h2>
+        <p>Всё устройство декораторов держится на одном свойстве языка: в Python функции — <span class="term">объекты первого класса</span>. Их можно присваивать именам, складывать в списки, передавать и возвращать — как числа или строки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>имя функции — обычная переменная</span></figcaption>
+<pre><span class="k">def</span> <span class="f">say_hello</span>():
+    <span class="f">print</span>(<span class="s">"Привет"</span>)
+
+greet = say_hello      <span class="c"># без скобок — не вызов, а ссылка</span>
+<span class="f">greet</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>два имени, одна функция</span></figcaption><pre>Привет</pre></figure>
+        <p>Скобки означают вызов. Имя без скобок — сама функция как объект; именно её и получает декоратор.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Функцию можно передать в функцию</h2>
+        <p>Это уже знакомо по главе 6.8 о функциях высшего порядка.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция как аргумент</span></figcaption>
+<pre><span class="k">def</span> <span class="f">call_twice</span>(func):
+    <span class="f">func</span>()
+    <span class="f">func</span>()
+
+<span class="f">call_twice</span>(say_hello)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вызвали дважды</span></figcaption><pre>Привет
+Привет</pre></figure>
+
+        <h2 id="s4"><span class="sec">§4</span>Функцию можно вернуть из функции</h2>
+        <p>Вторая половина конструкции: функция, объявленная внутри другой, может быть возвращена наружу — вместе с запомненными значениями окружения.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>внутренняя функция помнит name</span></figcaption>
+<pre><span class="k">def</span> <span class="f">make_greeter</span>(name):
+    <span class="k">def</span> <span class="f">greeter</span>():
+        <span class="f">print</span>(<span class="s">"Привет,"</span>, name)
+    <span class="k">return</span> greeter          <span class="c"># возвращаем функцию, не вызывая её</span>
+
+hello_anya = <span class="f">make_greeter</span>(<span class="s">"Аня"</span>)
+<span class="f">hello_anya</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>значение name сохранилось</span></figcaption><pre>Привет, Аня</pre></figure>
+        <p>Функция, которая помнит переменные из места своего создания, называется <span class="term">замыканием</span>. Декоратор — это ровно такая конструкция: он принимает функцию и возвращает замыкание, помнящее её.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>Обёртывание функции</h2>
+        <p><span class="term">Обёртывание</span> — создание новой функции, которая добавляет что-то к существующей, не изменяя её исходный код. Новая функция выполняет свои действия до и после вызова исходной, а сама исходная о происходящем ничего не знает.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Участник</th><th>Роль</th></tr></thead>
+            <tbody>
+              <tr><td>исходная функция</td><td>делает основную работу, остаётся без изменений</td></tr>
+              <tr><td>обёртка (<code>wrapper</code>)</td><td>добавляет действия до и после, вызывает исходную</td></tr>
+              <tr><td>декоратор</td><td>принимает исходную функцию и возвращает обёртку</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s6"><span class="sec">§6</span>Первый декоратор вручную</h2>
+        <p>Соберём всё вместе — пока без специального синтаксиса.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>замена функции на обёртку</span></figcaption>
+<pre><span class="k">def</span> <span class="f">my_decorator</span>(func):
+    <span class="k">def</span> <span class="f">wrapper</span>():
+        <span class="f">print</span>(<span class="s">"До вызова функции"</span>)
+        <span class="f">func</span>()
+        <span class="f">print</span>(<span class="s">"После вызова функции"</span>)
+    <span class="k">return</span> wrapper
+
+<span class="k">def</span> <span class="f">say</span>():
+    <span class="f">print</span>(<span class="s">"Основное действие"</span>)
+
+say = <span class="f">my_decorator</span>(say)      <span class="c"># имя say теперь указывает на wrapper</span>
+<span class="f">say</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>основное действие оказалось в середине</span></figcaption><pre>До вызова функции
+Основное действие
+После вызова функции</pre></figure>
+        <p>Функция <code>say</code> не изменилась ни на строку. Изменилось лишь то, на что указывает имя <code>say</code>: теперь это обёртка, которая внутри себя вызывает прежнюю функцию.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>Синтаксис @</h2>
+        <p>Строка <code>say = my_decorator(say)</code> стоит далеко от определения функции, и читатель кода легко её пропустит. Python предлагает короткую запись.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>то же самое через @</span></figcaption>
+<pre><span class="k">@my_decorator</span>
+<span class="k">def</span> <span class="f">say</span>():
+    <span class="f">print</span>(<span class="s">"Основное действие"</span>)
+
+<span class="f">say</span>()</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>результат идентичен §6</span></figcaption><pre>До вызова функции
+Основное действие
+После вызова функции</pre></figure>
+        <p>Теперь дополнительное поведение видно прямо над функцией — одной строкой, которую невозможно не заметить.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Что именно делает знак @</h2>
+        <p>Никакой магии здесь нет: <code>@</code> — сокращение для присваивания.</p>
+        <figure class="code">
+          <figcaption><span>Эквивалент</span><span>две записи означают одно</span></figcaption>
+<pre>@decorator                  def function():
+def function():        ==       ...
+    ...                     function = decorator(function)</pre>
+        </figure>
+        <p>Декоратор получает функцию, возвращает что-то новое, и это новое записывается под прежним именем. Отсюда следует важное: декоратор обязан вернуть функцию. Если он вернёт <code>None</code> — а так будет, если забыть <code>return wrapper</code>, — имя станет равно <code>None</code>, и вызов упадёт с <code>TypeError</code>.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>Аргументы: *args и **kwargs</h2>
+        <p>Обёртка из §6 умеет оборачивать только функции без аргументов: <code>wrapper()</code> объявлен без параметров. Чтобы декоратор подходил любой функции, обёртка принимает аргументы в общем виде — распаковкой из главы 6.6.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>универсальная обёртка</span></figcaption>
+<pre><span class="k">def</span> <span class="f">logged</span>(func):
+    <span class="k">def</span> <span class="f">wrapper</span>(*args, **kwargs):
+        <span class="f">print</span>(<span class="s">"Вызов"</span>, func.__name__, <span class="s">"с"</span>, args, kwargs)
+        result = <span class="f">func</span>(*args, **kwargs)
+        <span class="f">print</span>(<span class="s">"Результат:"</span>, result)
+        <span class="k">return</span> result
+    <span class="k">return</span> wrapper
+
+<span class="k">@logged</span>
+<span class="k">def</span> <span class="f">add</span>(a, b):
+    <span class="k">return</span> a + b
+
+total = <span class="f">add</span>(<span class="n">2</span>, <span class="n">3</span>)
+<span class="f">print</span>(total)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>аргументы прошли насквозь</span></figcaption><pre>Вызов add с (2, 3) {}
+Результат: 5
+5</pre></figure>
+        <p><code>*args, **kwargs</code> в объявлении обёртки собирают любые аргументы, а те же звёздочки при вызове <code>func</code> раздают их обратно. Такой декоратор годится и для <code>add(a, b)</code>, и для функции с десятком именованных параметров.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Не потерять результат</h2>
+        <p>Строка <code>return result</code> в предыдущем примере — не украшение. Внешний мир теперь вызывает обёртку, и то, что она вернёт, и станет результатом. Забыть <code>return</code> — значит превратить любую функцию в возвращающую <code>None</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>обёртка вызвала функцию, но результат не вернула</span></figcaption>
+<pre><span class="k">def</span> <span class="f">broken</span>(func):
+    <span class="k">def</span> <span class="f">wrapper</span>(*args, **kwargs):
+        <span class="f">func</span>(*args, **kwargs)      <span class="c"># результат вычислен и выброшен</span>
+    <span class="k">return</span> wrapper
+
+<span class="k">@broken</span>
+<span class="k">def</span> <span class="f">square</span>(x):
+    <span class="k">return</span> x * x
+
+<span class="f">print</span>(<span class="f">square</span>(<span class="n">4</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>16 потерялось внутри обёртки</span></figcaption><pre>None</pre></figure>
+        <p>Ошибка коварна тем, что программа не падает: она молча начинает работать с <code>None</code> — и упадёт много позже, в другом месте, с сообщением из главы 6.13.</p>
+
+        <h2 id="s11"><span class="sec">§11</span>Пример: замер времени</h2>
+        <p>Классическая задача для декоратора: узнать, сколько работает функция, ничего в ней не меняя.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>измерение длительности вызова</span></figcaption>
+<pre><span class="k">import</span> time
+
+<span class="k">def</span> <span class="f">timed</span>(func):
+    <span class="k">def</span> <span class="f">wrapper</span>(*args, **kwargs):
+        start = time.perf_counter()
+        result = <span class="f">func</span>(*args, **kwargs)
+        <span class="f">print</span>(<span class="s">f"{func.__name__}: {time.perf_counter() - start:.3f} c"</span>)
+        <span class="k">return</span> result
+    <span class="k">return</span> wrapper
+
+<span class="k">@timed</span>
+<span class="k">def</span> <span class="f">slow_sum</span>(n):
+    <span class="k">return</span> <span class="f">sum</span>(<span class="f">range</span>(n))
+
+<span class="f">slow_sum</span>(<span class="n">1000000</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>число зависит от компьютера</span></figcaption><pre>slow_sum: 0.008 c</pre></figure>
+        <p>Чтобы замерить другую функцию, достаточно поставить над ней ту же строку <code>@timed</code>. Чтобы перестать замерять — убрать её. Код самих функций при этом не трогают.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Обёртка подменяет имя функции</h2>
+        <p>У подмены есть побочный эффект: снаружи теперь видна обёртка, и представляется она своим именем.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция потеряла имя</span></figcaption>
+<pre><span class="f">print</span>(add.__name__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вместо add — wrapper</span></figcaption><pre>wrapper</pre></figure>
+        <p>Это мешает и в сообщениях об ошибках, и в справке. Лечится одной строкой из стандартной библиотеки.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>functools.wraps переносит имя и описание</span></figcaption>
+<pre><span class="k">import</span> functools
+
+<span class="k">def</span> <span class="f">logged</span>(func):
+    <span class="k">@functools.wraps</span>(func)
+    <span class="k">def</span> <span class="f">wrapper</span>(*args, **kwargs):
+        <span class="k">return</span> <span class="f">func</span>(*args, **kwargs)
+    <span class="k">return</span> wrapper
+
+<span class="k">@logged</span>
+<span class="k">def</span> <span class="f">multiply</span>(a, b):
+    <span class="k">return</span> a * b
+
+<span class="f">print</span>(multiply.__name__)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>имя на месте</span></figcaption><pre>multiply</pre></figure>
+        <p><code>functools.wraps</code> — сам декоратор, который копирует имя, строку документации и другие служебные атрибуты исходной функции на обёртку. В рабочем коде его ставят всегда.</p>
+
+        <h2 id="s13"><span class="sec">§13</span>Когда декоратор срабатывает</h2>
+        <p>Декоратор выполняется один раз — в момент объявления функции, а не при каждом вызове. При объявлении Python вызывает <code>my_decorator(say)</code> и запоминает результат под именем <code>say</code>. При каждом последующем вызове работает уже тело обёртки.</p>
+        <ol class="steps">
+          <li>Python читает <code>def</code> и создаёт исходную функцию.</li>
+          <li>Немедленно вызывает декоратор, передав ему эту функцию.</li>
+          <li>Записывает возвращённую обёртку под именем функции.</li>
+          <li>Каждый дальнейший вызов по этому имени идёт в обёртку.</li>
+        </ol>
+        <p>Отсюда практический вывод: тяжёлую подготовку (открыть журнал, прочитать настройки) можно делать в теле самого декоратора — она произойдёт однократно. А то, что должно повторяться при каждом вызове, помещают в обёртку.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td>забыт <code>return wrapper</code></td><td>имя функции станет <code>None</code>, вызов даст <code>TypeError</code></td><td>декоратор всегда возвращает функцию</td></tr>
+              <tr><td>забыт <code>return result</code> в обёртке</td><td>функция молча начнёт возвращать <code>None</code></td><td>вернуть результат вызова <code>func</code></td></tr>
+              <tr><td><code>return wrapper()</code> со скобками</td><td>функция выполнится сразу при объявлении, а имя получит её результат</td><td><code>return wrapper</code> без скобок</td></tr>
+              <tr><td><code>def wrapper():</code> без параметров</td><td><code>TypeError</code> при вызове функции с аргументами</td><td><code>def wrapper(*args, **kwargs):</code></td></tr>
+              <tr><td>обёртка без <code>functools.wraps</code></td><td><code>__name__</code> и документация подменяются на <code>wrapper</code></td><td>поставить <code>@functools.wraps(func)</code></td></tr>
+              <tr><td><code>@my_decorator()</code> со скобками у простого декоратора</td><td><code>TypeError</code>: вызвали декоратор без функции</td><td><code>@my_decorator</code> без скобок</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Что принимает и что возвращает декоратор?</summary><p>Принимает функцию, возвращает функцию — обычно обёртку, которая вызывает исходную и добавляет действия до и после.</p></details>
+        <details><summary>Во что разворачивается строка <code>@decorator</code>?</summary><p>В присваивание <code>function = decorator(function)</code> сразу после определения функции.</p></details>
+        <details><summary>Зачем обёртке <code>*args, **kwargs</code>?</summary><p>Чтобы декоратор подходил функциям с любым набором аргументов: обёртка принимает их в общем виде и передаёт исходной функции.</p></details>
+        <details><summary>Почему обёртка должна возвращать результат?</summary><p>Потому что снаружи вызывается именно она. Без <code>return</code> результат исходной функции будет потерян и вызов вернёт <code>None</code>.</p></details>
+        <details><summary>Что делает <code>functools.wraps</code>?</summary><p>Переносит на обёртку имя, документацию и служебные атрибуты исходной функции, чтобы та не «исчезала» из сообщений и справки.</p></details>
+        <details><summary>Сколько раз выполняется код декоратора?</summary><p>Один раз — при объявлении функции. Тело обёртки выполняется при каждом вызове.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Скелет</b><code>def deco(func):</code><code>    def wrapper(*a, **kw):</code><code>        return func(*a, **kw)</code><code>    return wrapper</code></div>
+          <div><b>Применение</b><code>@deco</code><code>def f(): ...</code></div>
+          <div><b>Равносильно</b><code>f = deco(f)</code></div>
+          <div><b>Сохранить имя</b><code>@functools.wraps(func)</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p>Декоратор — функция, принимающая функцию и возвращающая новую, обычно обёртку с дополнительным поведением. Строка <code>@decorator</code> над определением означает лишь <code>function = decorator(function)</code>, и вся конструкция держится на том, что функции в Python — обычные объекты, которые можно передавать и возвращать. Работоспособной обёртку делают три детали: <code>*args, **kwargs</code> для любых аргументов, <code>return</code> результата и <code>functools.wraps</code> для сохранения имени. С этим набором логирование, замеры и проверки добавляются к любой функции одной строкой и снимаются так же легко.</p>
+        <div class="pager">
+          <a href="../81-obekt-none/index.html">← 6.13 Объект None</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../43-iteratory/index.html">7.1 Итераторы →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 6.14 · Декораторы: введение · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

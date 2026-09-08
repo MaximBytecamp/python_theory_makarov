@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>6.13 Объект None · Справочник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Модуль 6 · Функции и модули</span></div>
+      <main class="leaf">
+        <div class="running">
+          <p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · модуль 6 · функции и модули</p>
+          <p class="running__folio">Глава 6.13</p>
+        </div>
+
+        <header class="chapter-head">
+          <span class="chapter-num">6.13</span>
+          <h1>Объект <code>None</code>:<br>отсутствие значения</h1>
+          <p class="lead">В Python «ничего» — это тоже объект. <code>None</code> обозначает отсутствие значения: его возвращает функция без <code>return</code>, им отмечают ещё не заполненную переменную и им сообщают, что результата не нашлось.</p>
+          <blockquote class="quote"><p>«Разбираться в основах — значит экономить время в будущем.»</p></blockquote>
+        </header>
+
+        <dl class="passport">
+          <div><dt>Категория</dt><dd>Функции</dd></div>
+          <div><dt>Уровень</dt><dd>Базовый</dd></div>
+          <div><dt>Связанные темы</dt><dd>Возврат значений, аргументы по умолчанию</dd></div>
+          <div><dt>Зачем это знать</dt><dd>Отличать «нет значения» от нуля и пустой строки</dd></div>
+        </dl>
+
+        <nav class="contents">
+          <b>В этой главе</b>
+          <ol>
+            <li><a href="#s1">Что означает None</a></li>
+            <li><a href="#s2">Тип NoneType и единственный объект</a></li>
+            <li><a href="#s3">Функция без return</a></li>
+            <li><a href="#s4">Проверка через is</a></li>
+            <li><a href="#s5">None в логическом контексте</a></li>
+            <li><a href="#s6">Почему if value недостаточно</a></li>
+            <li><a href="#s7">None как значение по умолчанию</a></li>
+            <li><a href="#s8">Ловушка изменяемого умолчания</a></li>
+            <li><a href="#s9">None как «результата нет»</a></li>
+            <li><a href="#s10">Заглушка для будущего значения</a></li>
+            <li><a href="#s11">None внутри коллекции</a></li>
+            <li><a href="#s12">Типичная авария: AttributeError</a></li>
+            <li><a href="#s13">None и аннотации типов</a></li>
+            <li><a href="#s14">Частые ошибки</a></li>
+            <li><a href="#s15">Проверьте себя</a></li>
+            <li><a href="#s16">Шпаргалка</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="s1"><span class="sec">§1</span>Что означает None</h2>
+        <p><span class="term">None</span> — специальное значение, которое означает «ничего» или «значения нет». Это не ноль, не пустая строка и не <code>False</code>: те говорят «значение есть, и оно пустое», а <code>None</code> говорит «значения не существует».</p>
+        <p>Разница важная. Ноль градусов — это измеренная температура. <code>None</code> в поле температуры — датчик не ответил. Оба «пустые» на вид, но означают разное, и путать их нельзя.</p>
+
+        <h2 id="s2"><span class="sec">§2</span>Тип NoneType и единственный объект</h2>
+        <p><code>None</code> — экземпляр класса <code>NoneType</code>, и это единственный объект такого типа во всей программе.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>тип и единственность</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">type</span>(<span class="k">None</span>))
+<span class="f">print</span>(<span class="k">None</span> <span class="k">is</span> <span class="k">None</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>других None не бывает</span></figcaption><pre>&lt;class 'NoneType'&gt;
+True</pre></figure>
+        <p>Такой объект в единственном экземпляре называют <span class="term">синглтоном</span>. Сколько бы имён на него ни ссылалось, в памяти он один — и именно поэтому его проверяют оператором <code>is</code>, а не сравнением.</p>
+
+        <h2 id="s3"><span class="sec">§3</span>Функция без return</h2>
+        <p>Функция, которая ничего не возвращает явно, всё равно возвращает значение — <code>None</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция печатает, но не возвращает</span></figcaption>
+<pre><span class="k">def</span> <span class="f">greet</span>(name):
+    <span class="f">print</span>(<span class="s">"Привет,"</span>, name)
+
+result = <span class="f">greet</span>(<span class="s">"Аня"</span>)
+<span class="f">print</span>(result)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>вторая строка — результат вызова</span></figcaption><pre>Привет, Аня
+None</pre></figure>
+        <p>То же самое верно для <code>return</code> без значения. И для встроенных функций: <code>print()</code> печатает текст, но возвращает <code>None</code> — поэтому <code>x = print("текст")</code> кладёт в <code>x</code> вовсе не строку.</p>
+
+        <h2 id="s4"><span class="sec">§4</span>Проверка через is</h2>
+        <p>Правильный способ проверить, что значение отсутствует, — оператор <code>is</code>.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>две проверки дают один результат</span></figcaption>
+<pre>value = <span class="k">None</span>
+
+<span class="k">if</span> value <span class="k">is</span> <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">"значения нет"</span>)
+
+<span class="f">print</span>(value == <span class="k">None</span>, value <span class="k">is</span> <span class="k">None</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>формально работают оба варианта</span></figcaption><pre>значения нет
+True True</pre></figure>
+        <p><code>==</code> спрашивает «равны ли значения», а <code>is</code> — «это один и тот же объект». Поскольку <code>None</code> существует в единственном экземпляре, вопрос об идентичности здесь и точнее, и быстрее: он не зависит от того, как чужой класс определил своё сравнение. Проверка отсутствия пишется как <code>is None</code>, наличия — как <code>is not None</code>.</p>
+
+        <h2 id="s5"><span class="sec">§5</span>None в логическом контексте</h2>
+        <p><code>None</code> относится к ложным значениям — тем самым, о которых шла речь в главе 3.16.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>приведение к логическому типу</span></figcaption>
+<pre><span class="f">print</span>(<span class="f">bool</span>(<span class="k">None</span>))
+
+<span class="k">if</span> <span class="k">not</span> <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">"None считается ложным"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>None — falsy</span></figcaption><pre>False
+None считается ложным</pre></figure>
+
+        <h2 id="s6"><span class="sec">§6</span>Почему if value недостаточно</h2>
+        <p>Раз <code>None</code> ложно, кажется соблазнительным писать просто <code>if value:</code>. Но ложны и ноль, и пустая строка, и пустой список.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>значение есть, и оно равно нулю</span></figcaption>
+<pre>temperature = <span class="n">0</span>
+
+<span class="k">if</span> <span class="k">not</span> temperature:
+    <span class="f">print</span>(<span class="s">"условие сработало"</span>)
+
+<span class="k">if</span> temperature <span class="k">is</span> <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">"эта строка не напечатается"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>ноль принят за «нет данных»</span></figcaption><pre>условие сработало</pre></figure>
+        <p>Ноль градусов — реальное измерение, а не отсутствие данных. Когда нужно отличить «нет значения» от «значение пустое», проверка обязана быть именно <code>is None</code>.</p>
+
+        <h2 id="s7"><span class="sec">§7</span>None как значение по умолчанию</h2>
+        <p>Частая роль <code>None</code> — умолчание для необязательного аргумента, о которых шла речь в главе 6.5.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>аргумент можно не передавать</span></figcaption>
+<pre><span class="k">def</span> <span class="f">example</span>(arg=<span class="k">None</span>):
+    <span class="k">if</span> arg <span class="k">is</span> <span class="k">None</span>:
+        <span class="f">print</span>(<span class="s">"Аргумент не передан"</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(<span class="s">"Аргумент передан:"</span>, arg)
+
+<span class="f">example</span>()
+<span class="f">example</span>(<span class="n">42</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>функция различает два случая</span></figcaption><pre>Аргумент не передан
+Аргумент передан: 42</pre></figure>
+        <p>Такое умолчание честнее любого другого: оно не притворяется осмысленным значением, а прямо сообщает, что параметр не задавали.</p>
+
+        <h2 id="s8"><span class="sec">§8</span>Ловушка изменяемого умолчания</h2>
+        <p>У <code>None</code> в этой роли есть ещё одна причина. Значение по умолчанию вычисляется один раз — при объявлении функции, а не при каждом вызове. Для списка это оборачивается сюрпризом.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>так делать не надо</span></figcaption>
+<pre><span class="k">def</span> <span class="f">append_value</span>(lst=[]):
+    lst.append(<span class="n">42</span>)
+    <span class="k">return</span> lst
+
+<span class="f">print</span>(<span class="f">append_value</span>())
+<span class="f">print</span>(<span class="f">append_value</span>())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>список общий для всех вызовов</span></figcaption><pre>[42]
+[42, 42]</pre></figure>
+        <p>Все вызовы используют один и тот же список, и он растёт от вызова к вызову. Лечение — умолчание <code>None</code> и создание нового объекта внутри функции.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>правильный вариант</span></figcaption>
+<pre><span class="k">def</span> <span class="f">append_value</span>(lst=<span class="k">None</span>):
+    <span class="k">if</span> lst <span class="k">is</span> <span class="k">None</span>:
+        lst = []
+    lst.append(<span class="n">42</span>)
+    <span class="k">return</span> lst
+
+<span class="f">print</span>(<span class="f">append_value</span>())
+<span class="f">print</span>(<span class="f">append_value</span>())</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>каждый вызов получает свой список</span></figcaption><pre>[42]
+[42]</pre></figure>
+        <p>Правило простое: изменяемый объект (список, словарь, множество) никогда не ставят значением по умолчанию. Ставят <code>None</code>, а сам объект создают в теле функции.</p>
+
+        <h2 id="s9"><span class="sec">§9</span>None как «результата нет»</h2>
+        <p>Функция поиска возвращает <code>None</code>, когда искать было нечего.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>возврат-маркер</span></figcaption>
+<pre><span class="k">def</span> <span class="f">find_in_list</span>(lst, value):
+    <span class="k">if</span> value <span class="k">in</span> lst:
+        <span class="k">return</span> lst.index(value)
+    <span class="k">return</span> <span class="k">None</span>
+
+result = <span class="f">find_in_list</span>([<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], <span class="n">4</span>)
+<span class="k">if</span> result <span class="k">is</span> <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">"Значение не найдено"</span>)</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>индекса нет</span></figcaption><pre>Значение не найдено</pre></figure>
+        <p>Так же поступает встроенный метод словарей: <code>d.get("ключ")</code> возвращает <code>None</code> вместо исключения, если ключа нет. Обратите внимание, почему здесь нельзя проверять через <code>if not result</code>: индекс <code>0</code> — законный результат, а он тоже ложен.</p>
+
+        <h2 id="s10"><span class="sec">§10</span>Заглушка для будущего значения</h2>
+        <p>Имя иногда нужно создать заранее, хотя настоящее значение появится позже и не при всех условиях.</p>
+        <figure class="code">
+          <figcaption><span>Схема</span><span>переменная объявлена, значения ещё нет</span></figcaption>
+<pre>value = <span class="k">None</span>          <span class="c"># переменная пока не имеет значения</span>
+
+<span class="k">if</span> some_condition:
+    value = <span class="n">42</span>
+
+<span class="f">print</span>(value)</pre>
+        </figure>
+        <p>Без первой строки ветка <code>else</code> оставила бы имя несуществующим, и обращение к нему вызвало бы <code>NameError</code>. <code>None</code> здесь означает «сюда ещё ничего не записали».</p>
+
+        <h2 id="s11"><span class="sec">§11</span>None внутри коллекции</h2>
+        <p>В списке или словаре <code>None</code> отмечает пропущенный элемент, не сбивая длину и нумерацию.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>третье измерение не получено</span></figcaption>
+<pre>data = [<span class="n">1</span>, <span class="n">2</span>, <span class="k">None</span>, <span class="n">4</span>]
+
+<span class="f">print</span>(<span class="f">len</span>(data))
+<span class="f">print</span>(<span class="f">sum</span>(x <span class="k">for</span> x <span class="k">in</span> data <span class="k">if</span> x <span class="k">is</span> <span class="k">not</span> <span class="k">None</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>элементов четыре, суммируются три</span></figcaption><pre>4
+7</pre></figure>
+        <p>Если бы пропуск просто выбросили, четвёртое измерение сдвинулось бы на третью позицию, и связь с моментом времени потерялась. <code>None</code> сохраняет структуру данных.</p>
+
+        <h2 id="s12"><span class="sec">§12</span>Типичная авария: AttributeError</h2>
+        <p>Главная ошибка при работе с <code>None</code> — забыть проверить результат и сразу его использовать.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция вернула None</span></figcaption>
+<pre><span class="k">def</span> <span class="f">get_data</span>():
+    <span class="k">return</span> <span class="k">None</span>
+
+data = <span class="f">get_data</span>()
+<span class="f">print</span>(data.upper())</pre>
+        </figure>
+        <figure class="code code--out">
+          <figcaption><span>Ошибка</span><span>у None нет методов строк</span></figcaption>
+<pre>AttributeError: 'NoneType' object has no attribute 'upper'</pre>
+        </figure>
+        <p>Это одно из самых частых сообщений в Python, и читать его нужно так: «где-то выше функция вернула <code>None</code>, а я обращаюсь с ним как со строкой». Лечится проверкой перед использованием.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>проверка перед обращением</span></figcaption>
+<pre><span class="k">if</span> data <span class="k">is</span> <span class="k">not</span> <span class="k">None</span>:
+    <span class="f">print</span>(data.upper())</pre>
+        </figure>
+
+        <h2 id="s13"><span class="sec">§13</span>None и аннотации типов</h2>
+        <p>В аннотациях из главы 6.11 возможность отсутствия записывают явно.</p>
+        <figure class="code">
+          <figcaption><span>main.py</span><span>функция возвращает либо число, либо None</span></figcaption>
+<pre><span class="k">def</span> <span class="f">find_index</span>(lst: <span class="f">list</span>, value) -&gt; <span class="f">int</span> | <span class="k">None</span>:
+    <span class="k">if</span> value <span class="k">in</span> lst:
+        <span class="k">return</span> lst.index(value)
+    <span class="k">return</span> <span class="k">None</span>
+
+<span class="f">print</span>(<span class="f">find_index</span>([<span class="s">"a"</span>, <span class="s">"b"</span>], <span class="s">"b"</span>))</pre>
+        </figure>
+        <figure class="code code--out"><figcaption><span>Вывод</span><span>аннотация ничего не проверяет, но предупреждает читателя</span></figcaption><pre>1</pre></figure>
+        <p>Запись <code>int | None</code> — сигнал тому, кто вызывает функцию: результат придётся проверить. Функция, которая ничего не возвращает, аннотируется как <code>-&gt; None</code>.</p>
+
+        <h2 id="s14"><span class="sec">§14</span>Частые ошибки</h2>
+        <div class="table-scroll errors-table">
+          <table>
+            <thead><tr><th>Что написано</th><th>Что произойдёт</th><th>Как правильно</th></tr></thead>
+            <tbody>
+              <tr><td><code>if value:</code> для проверки отсутствия</td><td>ноль, пустая строка и пустой список тоже сочтутся отсутствием</td><td><code>if value is None:</code></td></tr>
+              <tr><td><code>def f(lst=[])</code></td><td>список общий для всех вызовов и накапливает данные</td><td><code>def f(lst=None)</code> и создание внутри</td></tr>
+              <tr><td>использовать результат функции без проверки</td><td><code>AttributeError</code> или <code>TypeError</code> на <code>NoneType</code></td><td><code>if result is not None:</code></td></tr>
+              <tr><td><code>x = print("текст")</code></td><td>в <code>x</code> попадёт <code>None</code>, а не строка</td><td><code>x = "текст"</code>, печатать отдельно</td></tr>
+              <tr><td><code>return</code> в одной ветке и ничего в другой</td><td>вторая ветка молча вернёт <code>None</code></td><td>вернуть значение из всех веток осознанно</td></tr>
+              <tr><td><code>None == 0</code> как признак пустоты</td><td><code>False</code>: это разные объекты разных типов</td><td>сравнивать с <code>None</code> только через <code>is</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s15"><span class="sec">§15</span>Проверьте себя</h2>
+        <details><summary>Чем <code>None</code> отличается от <code>0</code> и пустой строки?</summary><p><code>None</code> означает, что значения нет вовсе. Ноль и пустая строка — существующие значения, просто «пустые» по содержанию.</p></details>
+        <details><summary>Что вернёт функция, в которой нет <code>return</code>?</summary><p><code>None</code>. То же самое вернёт <code>return</code> без значения.</p></details>
+        <details><summary>Почему проверяют <code>is None</code>, а не <code>== None</code>?</summary><p><code>None</code> существует в единственном экземпляре, поэтому корректнее спрашивать об идентичности объекта. Такая проверка быстрее и не зависит от того, как чужой класс определил сравнение.</p></details>
+        <details><summary>Чем плохо <code>def f(lst=[])</code>?</summary><p>Значение по умолчанию создаётся один раз при объявлении функции, поэтому все вызовы работают с одним списком и он накапливает изменения.</p></details>
+        <details><summary>О чём говорит <code>AttributeError: 'NoneType' object has no attribute ...</code>?</summary><p>Что переменная содержит <code>None</code>, хотя ожидался объект с методами: скорее всего, выше функция не нашла результат и вернула <code>None</code>.</p></details>
+
+        <h2 id="s16"><span class="sec">§16</span>Шпаргалка</h2>
+        <div class="cheat">
+          <div><b>Проверка отсутствия</b><code>if value is None:</code></div>
+          <div><b>Проверка наличия</b><code>if value is not None:</code></div>
+          <div><b>Тип</b><code>type(None) → NoneType</code></div>
+          <div><b>Умолчание</b><code>def f(arg=None):</code></div>
+          <div><b>Аннотация</b><code>-&gt; int | None</code></div>
+        </div>
+
+        <h3>Итог главы</h3>
+        <p><code>None</code> — единственный объект типа <code>NoneType</code>, обозначающий отсутствие значения. Его возвращает функция без <code>return</code>, им отмечают необязательные аргументы, пропуски в данных и отрицательный результат поиска. Проверять его нужно оператором <code>is</code>, а не общей проверкой на истинность: иначе ноль и пустая строка будут приняты за отсутствие данных. И главное практическое правило главы: изменяемый объект не ставят значением по умолчанию — там всегда стоит <code>None</code>.</p>
+        <div class="pager">
+          <a href="../65-morzhovyy-operator/index.html">← 6.12 Оператор :=</a>
+          <a href="../../index.html">К содержанию справочника</a>
+          <a href="../82-dekoratory-vvedenie/index.html">6.14 Декораторы: введение →</a>
+        </div>
+        <div class="colophon">
+          <span>Глава 6.13 · Объект None · Справочник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
