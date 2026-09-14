@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/03-print/index.html">1.3 Функция <code>print()</code>: вывод данных</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.3</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip chip--now" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a></div>
 <p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Параметры <code>sep</code> и <code>end</code> — в следующей главе 1.4.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Строка чека</a></li><li><a href="#r2">Разбор 2. Средний чек за день</a></li><li><a href="#r3">Разбор 3. Карточка участника</a></li><li><a href="#p1">Задача 1.3.1. Приветствие в приложении</a></li><li><a href="#p2">Задача 1.3.2. Стоимость топлива</a></li><li><a href="#p3">Задача 1.3.3. Цена со скидкой</a></li><li><a href="#p4">Задача 1.3.4. Площадь круглой клумбы</a></li><li><a href="#p5">Задача 1.3.5. Дневной отчёт интернет-магазина</a></li><li><a href="#p6">Задача 1.3.6. Исправьте программу менеджера</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Строка чека</a></li><li><a href="#r2">Разбор 2. Средний чек за день</a></li><li><a href="#r3">Разбор 3. Карточка участника</a></li><li><a href="#p1">Задача 1.3.1. Приветствие в приложении</a></li><li><a href="#p2">Задача 1.3.2. Стоимость топлива</a></li><li><a href="#p3">Задача 1.3.3. Электронная визитка</a></li><li><a href="#p4">Задача 1.3.4. Заряд батареи</a></li><li><a href="#p5">Задача 1.3.5. Обмен валюты</a></li><li><a href="#p6">Задача 1.3.6. Цена со скидкой</a></li><li><a href="#p7">Задача 1.3.7. Площадь круглой клумбы</a></li><li><a href="#p8">Задача 1.3.8. Дневной отчёт интернет-магазина</a></li><li><a href="#p9">Задача 1.3.9. Коммунальные платежи</a></li><li><a href="#p10">Задача 1.3.10. Скорость печати</a></li><li><a href="#p11">Задача 1.3.11. Расход топлива по чеку</a></li><li><a href="#p12">Задача 1.3.12. Письмо о заказе</a></li><li><a href="#p13">Задача 1.3.13. Исправьте программу менеджера</a></li><li><a href="#p14">Задача 1.3.14. Чек из трёх позиций</a></li><li><a href="#p15">Задача 1.3.15. Исправьте отчёт аналитика</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -133,7 +133,40 @@ fuel_price = <span class="n">45.5</span></pre></div><div><b>Вывод</b><pre>�
 <details class="hint"><summary>Подсказка</summary><p>Литров нужно: расстояние / расход. Для копеек — формат <code>:.2f</code>.</p></details>
 </div></article>
 <article class="task" id="p3">
-<header class="task__head"><span class="task__num">Задача 1.3.3</span><h3 class="task__title">Цена со скидкой</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.3.3</span><h3 class="task__title">Электронная визитка</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Даны имя, должность и телефон. Выведите визитку из трёх строк, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Ирина Волкова&quot;</span>
+position = <span class="s">&quot;дизайнер&quot;</span>
+phone = <span class="s">&quot;+7 900 123-45-67&quot;</span></pre></div><div><b>Вывод</b><pre>Ирина Волкова
+Должность: дизайнер
+Телефон: +7 900 123-45-67</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Павел Орлов&quot;</span>
+position = <span class="s">&quot;инженер&quot;</span>
+phone = <span class="s">&quot;8 (812) 555-01-02&quot;</span></pre></div><div><b>Вывод</b><pre>Павел Орлов
+Должность: инженер
+Телефон: 8 (812) 555-01-02</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>По одной f-строке на строку визитки.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.3.4</span><h3 class="task__title">Заряд батареи</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Батарея ёмкостью в некоторое число ампер-часов заряжена частично. Выведите заряд в процентах с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>charged = <span class="n">37</span>
+capacity = <span class="n">50</span></pre></div><div><b>Вывод</b><pre>Заряд: 74.00%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>charged = <span class="n">2</span>
+capacity = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>Заряд: 66.67%</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Процент = часть / целое × 100. Знак % в f-строке пишется просто после фигурной скобки.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.3.5</span><h3 class="task__title">Обмен валюты</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Турист меняет рубли на доллары. Даны сумма в рублях и курс — сколько рублей стоит один доллар. Выведите, сколько долларов он получит, с центами.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>rubles = <span class="n">10000</span>
+rate = <span class="n">92.35</span></pre></div><div><b>Вывод</b><pre>10000 руб. = 108.28 $</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>rubles = <span class="n">500</span>
+rate = <span class="n">100</span></pre></div><div><b>Вывод</b><pre>500 руб. = 5.00 $</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Рубли делятся на курс. Центы — это два знака после точки.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.3.6</span><h3 class="task__title">Цена со скидкой</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Товар стоит некоторую сумму, на него действует скидка в процентах. Выведите размер скидки и итоговую цену — обе суммы с двумя знаками после точки.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>price = <span class="n">1999</span>
@@ -143,15 +176,15 @@ discount = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>Ск�
 К оплате: 450.00 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Скидка в рублях = цена × процент / 100. Посчитайте её отдельно — она нужна и в выводе, и в итоговой цене.</p></details>
 </div></article>
-<article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.3.4</span><h3 class="task__title">Площадь круглой клумбы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.3.7</span><h3 class="task__title">Площадь круглой клумбы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Ландшафтный дизайнер знает радиус клумбы в метрах. Выведите её площадь с двумя знаками после точки. Число π возьмите равным 3.14159.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>radius = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>Клумба радиусом 3 м: 28.27 кв. м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>radius = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>Клумба радиусом 10 м: 314.16 кв. м</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Площадь круга — π × r². Степень в Python записывается через <code>**</code>.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.3.5</span><h3 class="task__title">Дневной отчёт интернет-магазина</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.3.8</span><h3 class="task__title">Дневной отчёт интернет-магазина</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Известно число посетителей сайта и число заказов за день. Выведите отчёт: заголовок, пустую строку, посетителей, заказы и конверсию — долю заказов в процентах с двумя знаками.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>visitors = <span class="n">120</span>
@@ -167,8 +200,66 @@ orders = <span class="n">7</span></pre></div><div><b>Вывод</b><pre>Отчё
 Конверсия: 2.80%</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Конверсия = заказы / посетители × 100. Пустая строка — отдельный <code>print()</code>.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.3.6</span><h3 class="task__title">Исправьте программу менеджера</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.3.9</span><h3 class="task__title">Коммунальные платежи</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Даны суммы за воду, электричество и газ. Выведите каждую строку квитанции и итог — все суммы с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>water = <span class="n">512.4</span>
+power = <span class="n">1170</span>
+gas = <span class="n">345.75</span></pre></div><div><b>Вывод</b><pre>Вода: 512.40 руб.
+Электричество: 1170.00 руб.
+Газ: 345.75 руб.
+Итого: 2028.15 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>water = <span class="n">300</span>
+power = <span class="n">800.5</span>
+gas = <span class="n">0</span></pre></div><div><b>Вывод</b><pre>Вода: 300.00 руб.
+Электричество: 800.50 руб.
+Газ: 0.00 руб.
+Итого: 1100.50 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формат <code>:.2f</code> работает и с целыми числами — допишет <code>.00</code>.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.3.10</span><h3 class="task__title">Скорость печати</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">За тренировку набрано некоторое число символов за несколько минут. Выведите скорость в символах в минуту и в символах в секунду — обе с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>symbols = <span class="n">1250</span>
+minutes = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>В минуту: 250.00
+В секунду: 4.17</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>symbols = <span class="n">900</span>
+minutes = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>В минуту: 225.00
+В секунду: 3.75</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Скорость в секунду удобно считать от скорости в минуту.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.3.11</span><h3 class="task__title">Расход топлива по чеку</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Водитель проехал некоторое расстояние и заправил столько-то литров. Выведите расход на 100 км с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>km = <span class="n">430</span>
+liters = <span class="n">31.6</span></pre></div><div><b>Вывод</b><pre>Расход: 7.35 л на 100 км</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>km = <span class="n">250</span>
+liters = <span class="n">20</span></pre></div><div><b>Вывод</b><pre>Расход: 8.00 л на 100 км</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала литры на один километр, потом умножение на 100.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.3.12</span><h3 class="task__title">Письмо о заказе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Магазин отправляет письмо: приветствие по имени, пустая строка, номер заказа и сумма с двумя знаками, пустая строка и подпись.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Мария&quot;</span>
+order_id = <span class="n">58213</span>
+total = <span class="n">2499.9</span></pre></div><div><b>Вывод</b><pre>Здравствуйте, Мария!
+
+Ваш заказ №58213 принят.
+Сумма к оплате: 2499.90 руб.
+
+С уважением, команда магазина</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Олег&quot;</span>
+order_id = <span class="n">7</span>
+total = <span class="n">150</span></pre></div><div><b>Вывод</b><pre>Здравствуйте, Олег!
+
+Ваш заказ №7 принят.
+Сумма к оплате: 150.00 руб.
+
+С уважением, команда магазина</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Пустая строка — <code>print()</code> без аргументов.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.3.13</span><h3 class="task__title">Исправьте программу менеджера</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">Менеджер написал программу для ценника, но она не работает, а если убрать первую ошибку — печатает не то. Найдите все ошибки и исправьте программу так, чтобы вывод совпал с примерами.</p>
 <figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>product = <span class="s">&quot;Ноутбук&quot;</span>
@@ -184,6 +275,42 @@ price = <span class="n">1290</span></pre></div><div><b>Вывод</b><pre>Тов
 Цена: 1290 руб.
 С доставкой: 1790 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Ошибок две разного рода: одна останавливает программу, другая молча печатает фигурные скобки. Запустите исходный код и прочитайте последнюю строку сообщения об ошибке.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.3.14</span><h3 class="task__title">Чек из трёх позиций</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Даны три позиции чека: название, цена и количество каждой. Выведите по строке на позицию в формате «Название: количество × цена = сумма руб.», а в конце — итог.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>item1 = <span class="s">&quot;Хлеб&quot;</span>
+price1 = <span class="n">45</span>
+qty1 = <span class="n">2</span>
+item2 = <span class="s">&quot;Молоко&quot;</span>
+price2 = <span class="n">89</span>
+qty2 = <span class="n">1</span>
+item3 = <span class="s">&quot;Яблоки&quot;</span>
+price3 = <span class="n">120</span>
+qty3 = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>Хлеб: 2 × 45 = 90 руб.
+Молоко: 1 × 89 = 89 руб.
+Яблоки: 3 × 120 = 360 руб.
+Итого: 539 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумму каждой позиции посчитайте отдельно — она нужна и в строке позиции, и в итоге.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.3.15</span><h3 class="task__title">Исправьте отчёт аналитика</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа должна печатать отчёт о посещаемости, но в ней три ошибки. Исправьте их, чтобы вывод совпал с примерами.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>visits = <span class="n">350</span>
+buyers = <span class="n">14</span>
+<span class="f">print</span>(<span class="s">&quot;Посетители: &quot;</span> + visits)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Покупатели: buyers</span><span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Конверсия: </span>{buyers / visits * <span class="n">100</span>}<span class="s">.2f%</span><span class="s">&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>visits = <span class="n">350</span>
+buyers = <span class="n">14</span></pre></div><div><b>Вывод</b><pre>Посетители: 350
+Покупатели: 14
+Конверсия: 4.00%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>visits = <span class="n">1000</span>
+buyers = <span class="n">37</span></pre></div><div><b>Вывод</b><pre>Посетители: 1000
+Покупатели: 37
+Конверсия: 3.70%</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна ошибка останавливает программу, одна печатает имя вместо значения, одна ставит формат не туда: формат пишется внутри фигурных скобок после двоеточия.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>

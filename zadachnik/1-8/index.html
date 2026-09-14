@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/08-operacii-deleniya/index.html">1.8 Операции деления: /, // и %</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.8</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip chip--now" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a></div>
 <p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Делитель во всех задачах не равен нулю — проверять это научимся в модуле 2.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Число задом наперёд</a></li><li><a href="#r2">Разбор 2. Сдача монетами</a></li><li><a href="#r3">Разбор 3. Чётный ли номер рейса</a></li><li><a href="#p1">Задача 1.8.1. Сумма цифр двузначного числа</a></li><li><a href="#p2">Задача 1.8.2. Переставить цифры</a></li><li><a href="#p3">Задача 1.8.3. Контрольная сумма артикула</a></li><li><a href="#p4">Задача 1.8.4. Что показывают часы</a></li><li><a href="#p5">Задача 1.8.5. Автобусы для экскурсии</a></li><li><a href="#p6">Задача 1.8.6. Какой подъезд и этаж</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Число задом наперёд</a></li><li><a href="#r2">Разбор 2. Сдача монетами</a></li><li><a href="#r3">Разбор 3. Чётный ли номер рейса</a></li><li><a href="#p1">Задача 1.8.1. Сумма цифр двузначного числа</a></li><li><a href="#p2">Задача 1.8.2. Переставить цифры</a></li><li><a href="#p3">Задача 1.8.3. Последняя цифра номера</a></li><li><a href="#p4">Задача 1.8.4. Номер без последней цифры</a></li><li><a href="#p5">Задача 1.8.5. Билет с подарком</a></li><li><a href="#p6">Задача 1.8.6. Контрольная сумма артикула</a></li><li><a href="#p7">Задача 1.8.7. Что показывают часы</a></li><li><a href="#p8">Задача 1.8.8. Автобусы для экскурсии</a></li><li><a href="#p9">Задача 1.8.9. Сумма цифр года</a></li><li><a href="#p10">Задача 1.8.10. Переставить первые две цифры</a></li><li><a href="#p11">Задача 1.8.11. День недели через n дней</a></li><li><a href="#p12">Задача 1.8.12. Какой месяц</a></li><li><a href="#p13">Задача 1.8.13. Число в зеркале</a></li><li><a href="#p14">Задача 1.8.14. Какой подъезд и этаж</a></li><li><a href="#p15">Задача 1.8.15. Счастливый билет</a></li><li><a href="#p16">Задача 1.8.16. Время прибытия</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -146,7 +146,30 @@ gift = flight % <span class="n">5</span> == <span class="n">0</span>
 <details class="hint"><summary>Подсказка</summary><p>Единицы становятся десятками: умножьте их на 10 и прибавьте старые десятки.</p></details>
 </div></article>
 <article class="task" id="p3">
-<header class="task__head"><span class="task__num">Задача 1.8.3</span><h3 class="task__title">Контрольная сумма артикула</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.8.3</span><h3 class="task__title">Последняя цифра номера</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Для розыгрыша нужна последняя цифра номера заказа. Вводится номер, выведите его последнюю цифру.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">58213</pre></div><div><b>Вывод</b><pre>Последняя цифра: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">40</pre></div><div><b>Вывод</b><pre>Последняя цифра: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Остаток от деления на 10.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.8.4</span><h3 class="task__title">Номер без последней цифры</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится номер телефона без кода страны — целым числом. Выведите номер без последней цифры и отдельно последние две цифры.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">9001234567</pre></div><div><b>Вывод</b><pre>Без последней цифры: 900123456
+Последние две цифры: 67</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5550102</pre></div><div><b>Вывод</b><pre>Без последней цифры: 555010
+Последние две цифры: 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>//</code> отрезает цифры с конца, <code>%</code> оставляет их.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.8.5</span><h3 class="task__title">Билет с подарком</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В кинотеатре дарят попкорн по билетам, номер которых делится на 3. Вводится номер билета, выведите признак подарка.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">123</pre></div><div><b>Вывод</b><pre>Попкорн в подарок: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">124</pre></div><div><b>Вывод</b><pre>Попкорн в подарок: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Кратность — остаток, равный нулю.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.8.6</span><h3 class="task__title">Контрольная сумма артикула</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">На складе трёхзначный артикул проверяют так: считают сумму и произведение его цифр. Выведите обе величины.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">254</pre></div><div><b>Вывод</b><pre>Сумма цифр: 11
@@ -154,8 +177,8 @@ gift = flight % <span class="n">5</span> == <span class="n">0</span>
 Произведение цифр: 0</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Сначала выделите три цифры в три переменные, потом считайте.</p></details>
 </div></article>
-<article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.8.4</span><h3 class="task__title">Что показывают часы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.8.7</span><h3 class="task__title">Что показывают часы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">С начала суток прошло n секунд. Выведите, сколько полных часов прошло, сколько полных минут прошло с начала текущего часа и сколько секунд — с начала текущей минуты.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12307</pre></div><div><b>Вывод</b><pre>Часов: 3
@@ -167,8 +190,8 @@ gift = flight % <span class="n">5</span> == <span class="n">0</span>
 Секунд с начала минуты: 59</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Минуты с начала часа — это минуты в остатке после полных часов.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.8.5</span><h3 class="task__title">Автобусы для экскурсии</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.8.8</span><h3 class="task__title">Автобусы для экскурсии</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">На экскурсию едет группа, в автобусе фиксированное число мест. Выведите, сколько автобусов заполнится полностью, сколько человек не поместится в полные автобусы и сколько всего автобусов нужно заказать.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">130
@@ -183,8 +206,46 @@ gift = flight % <span class="n">5</span> == <span class="n">0</span>
 Нужно заказать: 1</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Подвох в третьем числе: если кто-то не поместился, нужен ещё один автобус, а если все поместились — нет. Условий нет, но есть приём: прибавьте к числу людей «мест в автобусе минус один» и разделите нацело.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.8.6</span><h3 class="task__title">Какой подъезд и этаж</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.8.9</span><h3 class="task__title">Сумма цифр года</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится четырёхзначный год. Выведите сумму его цифр.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2026</pre></div><div><b>Вывод</b><pre>Сумма цифр: 10</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1999</pre></div><div><b>Вывод</b><pre>Сумма цифр: 28</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для каждой цифры: отрезать всё справа от неё, затем взять последнюю.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.8.10</span><h3 class="task__title">Переставить первые две цифры</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится трёхзначное число. Выведите число, в котором первая и вторая цифры поменялись местами.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">254</pre></div><div><b>Вывод</b><pre>524</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">109</pre></div><div><b>Вывод</b><pre>19</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Разберите число на цифры и соберите заново по разрядам. Во втором примере первая цифра станет нулём.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.8.11</span><h3 class="task__title">День недели через n дней</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Дни недели пронумерованы от 0 (понедельник) до 6 (воскресенье). Вводятся номер сегодняшнего дня и число дней n. Выведите номер дня недели через n дней.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+10</pre></div><div><b>Вывод</b><pre>Номер дня: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+2</pre></div><div><b>Вывод</b><pre>Номер дня: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+365</pre></div><div><b>Вывод</b><pre>Номер дня: 4</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Каждые 7 дней неделя повторяется — нужен остаток.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.8.12</span><h3 class="task__title">Какой месяц</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">С начала года прошло n полных месяцев (n может быть больше 12 — прошло несколько лет). Выведите номер текущего месяца от 1 до 12.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>Месяц: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">11</pre></div><div><b>Вывод</b><pre>Месяц: 12</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">25</pre></div><div><b>Вывод</b><pre>Месяц: 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Остаток от деления на 12 даёт число от 0 до 11, а месяцы нумеруются с 1.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.8.13</span><h3 class="task__title">Число в зеркале</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится четырёхзначное число. Выведите число, записанное теми же цифрами в обратном порядке.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1234</pre></div><div><b>Вывод</b><pre>4321</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2026</pre></div><div><b>Вывод</b><pre>6202</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5000</pre></div><div><b>Вывод</b><pre>5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Как в разборе с трёхзначным числом, только разрядов четыре.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.8.14</span><h3 class="task__title">Какой подъезд и этаж</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">В доме на каждом этаже одинаковое число квартир и во всех подъездах одинаковое число этажей; квартиры нумеруются подряд с первого подъезда и первого этажа. Вводятся номер квартиры, квартир на этаже и этажей в подъезде. Выведите номер подъезда и этажа.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">87
@@ -198,6 +259,30 @@ gift = flight % <span class="n">5</span> == <span class="n">0</span>
 9</pre></div><div><b>Вывод</b><pre>Подъезд: 1
 Этаж: 1</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Нумерация с единицы мешает делению. Считайте от нуля: вычтите 1 из номера квартиры, а к найденным подъезду и этажу прибавьте 1. Сначала узнайте, сколько квартир в одном подъезде.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.8.15</span><h3 class="task__title">Счастливый билет</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Билет с шестизначным номером счастливый, если сумма первых трёх цифр равна сумме последних трёх. Вводится номер. Выведите обе суммы и признак счастливого билета.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">385916</pre></div><div><b>Вывод</b><pre>Сумма первых трёх: 16
+Сумма последних трёх: 16
+Счастливый: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">123456</pre></div><div><b>Вывод</b><pre>Сумма первых трёх: 6
+Сумма последних трёх: 15
+Счастливый: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Шесть цифр — шесть выражений. Удобно сначала отрезать лишнее справа, потом взять последнюю цифру.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 1.8.16</span><h3 class="task__title">Время прибытия</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Поезд отправляется в h часов m минут и едет t минут. Выведите время прибытия в формате «часы:минуты» (минуты без ведущего нуля, как в примерах). После полуночи часы начинаются с 0.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">9
+30
+45</pre></div><div><b>Вывод</b><pre>10:15</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">22
+40
+95</pre></div><div><b>Вывод</b><pre>0:15</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">23
+0
+1510</pre></div><div><b>Вывод</b><pre>0:10</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Переведите время отправления в минуты, прибавьте поездку и разложите обратно. Часы нужно «завернуть» по кругу из 24.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>

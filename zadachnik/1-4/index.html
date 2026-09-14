@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/04-print-sep-end/index.html">1.4 Параметры <code>print()</code>: sep и end</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.4</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip chip--now" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a></div>
 <p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Ведущие нули вроде <code>09</code> пока не выводим: форматирование чисел по ширине — в главе 5.6.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Дата в двух форматах</a></li><li><a href="#r2">Разбор 2. Ведомость оценок</a></li><li><a href="#r3">Разбор 3. Установка программы</a></li><li><a href="#p1">Задача 1.4.1. Время на табло</a></li><li><a href="#p2">Задача 1.4.2. IP-адрес</a></li><li><a href="#p3">Задача 1.4.3. Список покупок</a></li><li><a href="#p4">Задача 1.4.4. Номер телефона</a></li><li><a href="#p5">Задача 1.4.5. Строка меню</a></li><li><a href="#p6">Задача 1.4.6. Рамка для таблички</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Дата в двух форматах</a></li><li><a href="#r2">Разбор 2. Ведомость оценок</a></li><li><a href="#r3">Разбор 3. Установка программы</a></li><li><a href="#p1">Задача 1.4.1. Время на табло</a></li><li><a href="#p2">Задача 1.4.2. IP-адрес</a></li><li><a href="#p3">Задача 1.4.3. Список покупок</a></li><li><a href="#p4">Задача 1.4.4. Путь к файлу</a></li><li><a href="#p5">Задача 1.4.5. Ингредиенты столбиком</a></li><li><a href="#p6">Задача 1.4.6. Строка CSV</a></li><li><a href="#p7">Задача 1.4.7. Ход установки</a></li><li><a href="#p8">Задача 1.4.8. Номер телефона</a></li><li><a href="#p9">Задача 1.4.9. Строка меню</a></li><li><a href="#p10">Задача 1.4.10. Хештеги к посту</a></li><li><a href="#p11">Задача 1.4.11. Адрес доставки</a></li><li><a href="#p12">Задача 1.4.12. Расписание с табуляцией</a></li><li><a href="#p13">Задача 1.4.13. Дата и время одной строкой</a></li><li><a href="#p14">Задача 1.4.14. Рамка для таблички</a></li><li><a href="#p15">Задача 1.4.15. Полоса прогресса</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -134,7 +134,49 @@ third = <span class="s">&quot;печенье&quot;</span></pre></div><div><b>В�
 <details class="hint"><summary>Подсказка</summary><p>После заголовка нужен пробел, а не перевод строки. Между товарами — свой разделитель.</p></details>
 </div></article>
 <article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.4.4</span><h3 class="task__title">Номер телефона</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.4.4</span><h3 class="task__title">Путь к файлу</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Даны папка, подпапка и имя файла. Выведите путь, разделяя части косой чертой.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>folder = <span class="s">&quot;projects&quot;</span>
+subfolder = <span class="s">&quot;python&quot;</span>
+file_name = <span class="s">&quot;main.py&quot;</span></pre></div><div><b>Вывод</b><pre>projects/python/main.py</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>folder = <span class="s">&quot;docs&quot;</span>
+subfolder = <span class="s">&quot;2026&quot;</span>
+file_name = <span class="s">&quot;report.txt&quot;</span></pre></div><div><b>Вывод</b><pre>docs/2026/report.txt</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Все части разделены одним и тем же знаком.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.4.5</span><h3 class="task__title">Ингредиенты столбиком</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Даны три ингредиента. Выведите их одним вызовом <code>print()</code>, каждый на своей строке.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>first = <span class="s">&quot;мука&quot;</span>
+second = <span class="s">&quot;молоко&quot;</span>
+third = <span class="s">&quot;яйца&quot;</span></pre></div><div><b>Вывод</b><pre>мука
+молоко
+яйца</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Разделителем может быть перевод строки.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.4.6</span><h3 class="task__title">Строка CSV</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Таблицы часто сохраняют в формате CSV, где колонки разделены точкой с запятой. Выведите строку заголовков и строку с данными.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Анна&quot;</span>
+age = <span class="n">19</span>
+city = <span class="s">&quot;Казань&quot;</span></pre></div><div><b>Вывод</b><pre>Имя;Возраст;Город
+Анна;19;Казань</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Пётр&quot;</span>
+age = <span class="n">45</span>
+city = <span class="s">&quot;Омск&quot;</span></pre></div><div><b>Вывод</b><pre>Имя;Возраст;Город
+Пётр;45;Омск</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Один и тот же <code>sep</code> в обоих вызовах.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.4.7</span><h3 class="task__title">Ход установки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Выведите в одну строку тремя вызовами: «0% ... 50% ... 100%».</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case io__case--single"><span class="io__n">Пример 1</span><div><b>Вывод</b><pre>0% ... 50% ... 100%</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>У двух первых вызовов окончание строки заменено, у последнего — нет.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.4.8</span><h3 class="task__title">Номер телефона</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">В базе клиентов номер хранится частями: код оператора и три группы цифр — строками. Выведите номер в формате, как в примерах.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>code = <span class="s">&quot;495&quot;</span>
@@ -146,8 +188,8 @@ part2 = <span class="s">&quot;11&quot;</span>
 part3 = <span class="s">&quot;22&quot;</span></pre></div><div><b>Вывод</b><pre>+7 (912) 000-11-22</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Если разделитель между всеми значениями разный, его можно сделать пустым, а нужные знаки передать отдельными значениями.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.4.5</span><h3 class="task__title">Строка меню</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.4.9</span><h3 class="task__title">Строка меню</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Меню кафе печатается так: название блюда, многоточие с пробелами и цена с «руб.» — всё в одну строку, но из двух вызовов <code>print()</code>.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>dish = <span class="s">&quot;Борщ&quot;</span>
@@ -155,8 +197,56 @@ price = <span class="n">320</span></pre></div><div><b>Вывод</b><pre>Бор�
 price = <span class="n">450</span></pre></div><div><b>Вывод</b><pre>Салат Цезарь ... 450 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Многоточие можно передать в <code>end</code> первого вызова.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.4.6</span><h3 class="task__title">Рамка для таблички</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.4.10</span><h3 class="task__title">Хештеги к посту</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Даны три слова. Выведите их хештегами через пробел, как в примерах. Используйте два вызова <code>print()</code> и параметры <code>sep</code> и <code>end</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>tag1 = <span class="s">&quot;python&quot;</span>
+tag2 = <span class="s">&quot;учёба&quot;</span>
+tag3 = <span class="s">&quot;код&quot;</span></pre></div><div><b>Вывод</b><pre>#python #учёба #код</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>tag1 = <span class="s">&quot;осень&quot;</span>
+tag2 = <span class="s">&quot;парк&quot;</span>
+tag3 = <span class="s">&quot;фото&quot;</span></pre></div><div><b>Вывод</b><pre>#осень #парк #фото</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Разделитель ставится только между значениями, поэтому перед первым словом решётку нужно вывести отдельно.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.4.11</span><h3 class="task__title">Адрес доставки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Даны город, улица, номер дома и квартиры. Выведите адрес одной строкой, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>city = <span class="s">&quot;Казань&quot;</span>
+street = <span class="s">&quot;Баумана&quot;</span>
+house = <span class="n">12</span>
+flat = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>Казань, ул. Баумана, д. 12, кв. 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>city = <span class="s">&quot;Москва&quot;</span>
+street = <span class="s">&quot;Тверская&quot;</span>
+house = <span class="n">7</span>
+flat = <span class="n">101</span></pre></div><div><b>Вывод</b><pre>Москва, ул. Тверская, д. 7, кв. 101</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Между частями разный текст. Можно сделать разделитель пустым и передать все кусочки текста отдельными значениями.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.4.12</span><h3 class="task__title">Расписание с табуляцией</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Выведите расписание из трёх строк: день, дисциплина и аудитория, разделённые табуляцией.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case io__case--single"><span class="io__n">Пример 1</span><div><b>Вывод</b><pre>Пн	Python	ауд. 305
+Ср	Базы данных	ауд. 210
+Пт	Сети	ауд. 118</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Табуляция записывается как <code>\t</code>.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.4.13</span><h3 class="task__title">Дата и время одной строкой</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Даны день, месяц, год, часы и минуты. Выведите дату через точку и время через двоеточие в одной строке, используя два вызова <code>print()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>day = <span class="n">14</span>
+month = <span class="n">9</span>
+year = <span class="n">2026</span>
+hours = <span class="n">9</span>
+minutes = <span class="n">45</span></pre></div><div><b>Вывод</b><pre>14.9.2026 9:45</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>day = <span class="n">31</span>
+month = <span class="n">12</span>
+year = <span class="n">2026</span>
+hours = <span class="n">23</span>
+minutes = <span class="n">59</span></pre></div><div><b>Вывод</b><pre>31.12.2026 23:59</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В первом вызове нужны оба параметра сразу.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.4.14</span><h3 class="task__title">Рамка для таблички</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">Нужно напечатать табличку с надписью в рамке. Ширина рамки подстраивается под длину слова: слева и справа от слова по одному пробелу.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>word = <span class="s">&quot;PYTHON&quot;</span></pre></div><div><b>Вывод</b><pre>+--------+
@@ -167,6 +257,16 @@ price = <span class="n">450</span></pre></div><div><b>Вывод</b><pre>Сал�
 | Открыто |
 +---------+</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Длину слова даёт <code>len()</code> из главы 1.2, линию — умножение строки. Посчитайте линию один раз и используйте в верхней и нижней строке.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.4.15</span><h3 class="task__title">Полоса прогресса</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Даны число выполненных шагов и общее число шагов. Выведите полосу прогресса: в квадратных скобках решётки за выполненные шаги и точки за оставшиеся, затем «выполнено/всего».</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>done = <span class="n">7</span>
+total = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>[#######...] 7/10</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>done = <span class="n">0</span>
+total = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>[.....] 0/5</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>done = <span class="n">12</span>
+total = <span class="n">12</span></pre></div><div><b>Вывод</b><pre>[############] 12/12</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строку можно повторить умножением (глава 1.2). Количество точек — это оставшиеся шаги.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>

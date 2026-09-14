@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/09-round-i-format/index.html">1.9 <code>round()</code> и формат <code>.2f</code></a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.9</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip chip--now" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div>
 <p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Средняя оценка в электронном журнале</a></li><li><a href="#r2">Разбор 2. Счёт с НДС</a></li><li><a href="#r3">Разбор 3. Процент выполнения плана</a></li><li><a href="#p1">Задача 1.9.1. Цена до копеек</a></li><li><a href="#p2">Задача 1.9.2. Сколько гостей за столом</a></li><li><a href="#p3">Задача 1.9.3. Цена за килограмм</a></li><li><a href="#p4">Задача 1.9.4. Доля рынка</a></li><li><a href="#p5">Задача 1.9.5. Расходы на обеды</a></li><li><a href="#p6">Задача 1.9.6. Разделить счёт с чаевыми</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Средняя оценка в электронном журнале</a></li><li><a href="#r2">Разбор 2. Счёт с НДС</a></li><li><a href="#r3">Разбор 3. Процент выполнения плана</a></li><li><a href="#p1">Задача 1.9.1. Цена до копеек</a></li><li><a href="#p2">Задача 1.9.2. Сколько гостей за столом</a></li><li><a href="#p3">Задача 1.9.3. До десятых</a></li><li><a href="#p4">Задача 1.9.4. Размер скидки в процентах</a></li><li><a href="#p5">Задача 1.9.5. Расход на 100 км</a></li><li><a href="#p6">Задача 1.9.6. Цена за килограмм</a></li><li><a href="#p7">Задача 1.9.7. Доля рынка</a></li><li><a href="#p8">Задача 1.9.8. Расходы на обеды</a></li><li><a href="#p9">Задача 1.9.9. Сколько прошло от вебинара</a></li><li><a href="#p10">Задача 1.9.10. Проверка правила половин</a></li><li><a href="#p11">Задача 1.9.11. Обмен с комиссией</a></li><li><a href="#p12">Задача 1.9.12. Оценка по пятибалльной шкале</a></li><li><a href="#p13">Задача 1.9.13. Разделить счёт с чаевыми</a></li><li><a href="#p14">Задача 1.9.14. Копейка в рассрочке</a></li><li><a href="#p15">Задача 1.9.15. НДС внутри суммы</a></li><li><a href="#p16">Задача 1.9.16. Время чтения статьи</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -141,7 +141,32 @@ percent = <span class="f">round</span>(done / plan * <span class="n">100</span>)
 <details class="hint"><summary>Подсказка</summary><p>Одна функция без второго аргумента. Результат третьего примера объясняется правилом из главы 1.9.</p></details>
 </div></article>
 <article class="task" id="p3">
-<header class="task__head"><span class="task__num">Задача 1.9.3</span><h3 class="task__title">Цена за килограмм</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.9.3</span><h3 class="task__title">До десятых</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится дробное число. Выведите его, округлённое до одного знака после точки, как число.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3.14159</pre></div><div><b>Вывод</b><pre>3.1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2.96</pre></div><div><b>Вывод</b><pre>3.0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Второй аргумент <code>round()</code> — количество знаков.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.9.4</span><h3 class="task__title">Размер скидки в процентах</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся старая и новая цена. Выведите, на сколько процентов снижена цена, с одним знаком после точки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2000
+1500</pre></div><div><b>Вывод</b><pre>Скидка: 25.0%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">999
+799</pre></div><div><b>Вывод</b><pre>Скидка: 20.0%</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Разница цен, делённая на старую цену, × 100.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.9.5</span><h3 class="task__title">Расход на 100 км</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся пройденные километры и потраченные литры. Выведите расход на 100 км с одним знаком после точки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">430
+31.6</pre></div><div><b>Вывод</b><pre>Расход: 7.3 л/100 км</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+6</pre></div><div><b>Вывод</b><pre>Расход: 6.0 л/100 км</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формат <code>.1f</code> — один знак.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.9.6</span><h3 class="task__title">Цена за килограмм</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">На ценнике указаны цена упаковки и её вес в граммах. Покупатель хочет сравнить товары по цене за килограмм. Выведите её с двумя знаками.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">89.9
@@ -149,8 +174,8 @@ percent = <span class="f">round</span>(done / plan * <span class="n">100</span>)
 300</pre></div><div><b>Вывод</b><pre>За 1 кг: 333.33 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Сначала цена одного грамма, потом умножение на 1000.</p></details>
 </div></article>
-<article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.9.4</span><h3 class="task__title">Доля рынка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.9.7</span><h3 class="task__title">Доля рынка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Аналитик вводит продажи компании и продажи всего рынка. Выведите долю компании в процентах с одним знаком после точки и эту же долю, округлённую до целого.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7
@@ -160,8 +185,8 @@ percent = <span class="f">round</span>(done / plan * <span class="n">100</span>)
 Округлённо: 33</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Формат <code>.1f</code> работает так же, как <code>.2f</code>, только знак один.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.9.5</span><h3 class="task__title">Расходы на обеды</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.9.8</span><h3 class="task__title">Расходы на обеды</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Сотрудник вводит, сколько в среднем тратит на обед в рабочий день. Выведите расходы за месяц из 22 рабочих дней округлённым до рубля числом и за год (12 месяцев) — с копейками.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">345.5</pre></div><div><b>Вывод</b><pre>За месяц: 7601
@@ -169,8 +194,54 @@ percent = <span class="f">round</span>(done / plan * <span class="n">100</span>)
 За год: 73920.00 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Годовую сумму считайте от точного месячного значения, а не от округлённого.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.9.6</span><h3 class="task__title">Разделить счёт с чаевыми</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.9.9</span><h3 class="task__title">Сколько прошло от вебинара</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вебинар длится некоторое число минут, прошло сколько-то минут. Выведите, какая доля прошла, в процентах с одним знаком и целым округлённым числом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">35
+90</pre></div><div><b>Вывод</b><pre>Прошло: 38.9%
+Округлённо: 39 %</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">45
+90</pre></div><div><b>Вывод</b><pre>Прошло: 50.0%
+Округлённо: 50 %</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна переменная для процента, два способа её показать.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.9.10</span><h3 class="task__title">Проверка правила половин</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся два дробных числа. Выведите каждое, округлённое до целого. Проверьте программу на числах, которые оканчиваются ровно на .5.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2.5
+3.5</pre></div><div><b>Вывод</b><pre>2.5 → 2
+3.5 → 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0.5
+1.5</pre></div><div><b>Вывод</b><pre>0.5 → 0
+1.5 → 2</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4.6
+4.4</pre></div><div><b>Вывод</b><pre>4.6 → 5
+4.4 → 4</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Результаты в первых двух примерах объясняет правило округления половин к чётному.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.9.11</span><h3 class="task__title">Обмен с комиссией</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Обменник берёт комиссию в процентах от суммы в рублях, а остаток меняет по курсу. Вводятся сумма в рублях, курс и комиссия. Выведите комиссию в рублях и сумму в валюте — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10000
+92.35
+1.5</pre></div><div><b>Вывод</b><pre>Комиссия: 150.00 руб.
+Получите: 106.66</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5000
+100
+0</pre></div><div><b>Вывод</b><pre>Комиссия: 0.00 руб.
+Получите: 50.00</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала вычтите комиссию, потом делите на курс.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.9.12</span><h3 class="task__title">Оценка по пятибалльной шкале</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">За контрольную можно набрать максимум сколько-то баллов. Вводятся набранные баллы и максимум. Выведите оценку по пятибалльной шкале (доля × 5), округлённую до десятых.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">42
+50</pre></div><div><b>Вывод</b><pre>Оценка: 4.2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">17
+30</pre></div><div><b>Вывод</b><pre>Оценка: 2.8</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Доля набранного от максимума, умноженная на 5.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.9.13</span><h3 class="task__title">Разделить счёт с чаевыми</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">Компания делит счёт в ресторане поровну и оставляет чаевые в процентах. Вводятся сумма счёта, число людей и процент чаевых. Выведите чаевые, общую сумму и сумму с каждого — с двумя знаками.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3450
@@ -183,6 +254,42 @@ percent = <span class="f">round</span>(done / plan * <span class="n">100</span>)
 Всего: 1000.00 руб.
 С каждого: 333.33 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Сначала чаевые, потом общая сумма, потом деление на людей. Округляйте только в выводе.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.9.14</span><h3 class="task__title">Копейка в рассрочке</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Покупка делится на равные ежемесячные платежи, платёж округляется до копеек. Вводятся цена и число месяцев. Выведите платёж, сколько будет выплачено за весь срок по округлённому платежу и разницу с ценой — всё с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+3</pre></div><div><b>Вывод</b><pre>Платёж: 333.33 руб.
+Выплачено: 999.99 руб.
+Разница с ценой: 0.01 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2000
+3</pre></div><div><b>Вывод</b><pre>Платёж: 666.67 руб.
+Выплачено: 2000.01 руб.
+Разница с ценой: -0.01 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1200
+12</pre></div><div><b>Вывод</b><pre>Платёж: 100.00 руб.
+Выплачено: 1200.00 руб.
+Разница с ценой: 0.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Здесь нужен именно <code>round()</code>: округлённый платёж участвует в дальнейшем расчёте. Посмотрите, в какую сторону уходит разница в первых двух примерах.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.9.15</span><h3 class="task__title">НДС внутри суммы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В чеке указана сумма с НДС 20%. Вводится эта сумма. Выведите сумму без НДС и сам налог — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1200</pre></div><div><b>Вывод</b><pre>Без НДС: 1000.00 руб.
+НДС: 200.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">999.99</pre></div><div><b>Вывод</b><pre>Без НДС: 833.33 руб.
+НДС: 166.66 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Подвох: НДС — это 20% от суммы без налога, а не от суммы с налогом. Сумма с НДС — это 120% от суммы без него.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 1.9.16</span><h3 class="task__title">Время чтения статьи</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Блог показывает время чтения статьи. Вводятся число слов и скорость чтения в словах в минуту. Выведите точное время с одним знаком и округлённое до целых минут.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1850
+200</pre></div><div><b>Вывод</b><pre>Точно: 9.2 мин
+Примерно: 9 мин</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">450
+180</pre></div><div><b>Вывод</b><pre>Точно: 2.5 мин
+Примерно: 2 мин</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Во втором примере время ровно 2.5 минуты — вспомните правило половин.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>

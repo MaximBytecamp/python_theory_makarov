@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/05-input/index.html">1.5 Функция <code>input()</code>: ввод данных</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.5</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip chip--now" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div>
 <p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Если пользователь введёт не число, программа остановится с ошибкой — защищаться от этого научимся в главе 8.1.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Возраст в будущем году</a></li><li><a href="#r2">Разбор 2. Покупка на развес</a></li><li><a href="#r3">Разбор 3. Калькулятор суммы</a></li><li><a href="#p1">Задача 1.5.1. Приветствие</a></li><li><a href="#p2">Задача 1.5.2. Номера соседних мест</a></li><li><a href="#p3">Задача 1.5.3. Рост в анкете</a></li><li><a href="#p4">Задача 1.5.4. Поездка на машине</a></li><li><a href="#p5">Задача 1.5.5. Зарплата на руки</a></li><li><a href="#p6">Задача 1.5.6. Сколько качать фильм</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Возраст в будущем году</a></li><li><a href="#r2">Разбор 2. Покупка на развес</a></li><li><a href="#r3">Разбор 3. Калькулятор суммы</a></li><li><a href="#p1">Задача 1.5.1. Приветствие</a></li><li><a href="#p2">Задача 1.5.2. Номера соседних мест</a></li><li><a href="#p3">Задача 1.5.3. Рост в анкете</a></li><li><a href="#p4">Задача 1.5.4. Удвоенное число</a></li><li><a href="#p5">Задача 1.5.5. Площадь квадратной плитки</a></li><li><a href="#p6">Задача 1.5.6. Сколько лет до совершеннолетия</a></li><li><a href="#p7">Задача 1.5.7. Поездка на машине</a></li><li><a href="#p8">Задача 1.5.8. Зарплата на руки</a></li><li><a href="#p9">Задача 1.5.9. Скорость в метрах в секунду</a></li><li><a href="#p10">Задача 1.5.10. Стоимость поездки на такси</a></li><li><a href="#p11">Задача 1.5.11. Обои для комнаты</a></li><li><a href="#p12">Задача 1.5.12. Доход по вкладу за месяц</a></li><li><a href="#p13">Задача 1.5.13. Строка или число</a></li><li><a href="#p14">Задача 1.5.14. Сколько качать фильм</a></li><li><a href="#p15">Задача 1.5.15. Хватит ли бензина</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -125,7 +125,28 @@ second = <span class="f">int</span>(<span class="f">input</span>(<span class="s"
 <details class="hint"><summary>Подсказка</summary><p>В метре 100 сантиметров: полные метры и остаток — главы 1.2 и 1.8.</p></details>
 </div></article>
 <article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.5.4</span><h3 class="task__title">Поездка на машине</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.5.4</span><h3 class="task__title">Удвоенное число</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает целое число и выводит его удвоенное значение.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">21</pre></div><div><b>Вывод</b><pre>Удвоенное: 42</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-7</pre></div><div><b>Вывод</b><pre>Удвоенное: -14</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Без преобразования строка повторится дважды.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.5.5</span><h3 class="task__title">Площадь квадратной плитки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится сторона квадратной плитки в сантиметрах (может быть дробной). Выведите площадь плитки с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">30</pre></div><div><b>Вывод</b><pre>Площадь: 900.00 кв. см</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12.5</pre></div><div><b>Вывод</b><pre>Площадь: 156.25 кв. см</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сторона — измерение, значит <code>float()</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.5.6</span><h3 class="task__title">Сколько лет до совершеннолетия</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится возраст. Выведите, сколько лет осталось до 18. Если человек старше, число получится отрицательным — условий мы пока не знаем, так и выводим.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">15</pre></div><div><b>Вывод</b><pre>До 18 лет осталось: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">18</pre></div><div><b>Вывод</b><pre>До 18 лет осталось: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">20</pre></div><div><b>Вывод</b><pre>До 18 лет осталось: -2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одно вычитание и одно преобразование.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.5.7</span><h3 class="task__title">Поездка на машине</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Программа спрашивает расстояние в километрах (целое), расход топлива в литрах на 100 км и цену литра. Выведите, сколько литров понадобится и сколько это стоит, — с двумя знаками после точки.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
@@ -137,8 +158,8 @@ second = <span class="f">int</span>(<span class="f">input</span>(<span class="s"
 Стоимость: 576.00 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Сначала литры: расстояние / 100 × расход. Потом деньги: литры × цена.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.5.5</span><h3 class="task__title">Зарплата на руки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.5.8</span><h3 class="task__title">Зарплата на руки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Бухгалтер вводит зарплату до вычета налога. Налог — 13%. Выведите налог, сумму на руки и заработок за один рабочий день, если в месяце 22 рабочих дня. Все суммы — с двумя знаками.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">60000</pre></div><div><b>Вывод</b><pre>Налог: 7800.00 руб.
@@ -148,14 +169,76 @@ second = <span class="f">int</span>(<span class="f">input</span>(<span class="s"
 За один день: 1403.88 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Налог — отдельная величина. Сумма «на руки» нужна дважды: в выводе и для расчёта за день.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.5.6</span><h3 class="task__title">Сколько качать фильм</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.5.9</span><h3 class="task__title">Скорость в метрах в секунду</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Спидометр показывает скорость в км/ч. Вводится скорость, выведите её в м/с с двумя знаками. В километре 1000 метров, в часе 3600 секунд.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">90</pre></div><div><b>Вывод</b><pre>90.0 км/ч = 25.00 м/с</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5.4</pre></div><div><b>Вывод</b><pre>5.4 км/ч = 1.50 м/с</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала метры в час, потом деление на число секунд в часе.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.5.10</span><h3 class="task__title">Стоимость поездки на такси</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Тариф такси: стоимость посадки плюс цена за каждый километр. Вводятся стоимость посадки, цена километра и длина поездки. Выведите стоимость поездки с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">99
+18.5
+12.4</pre></div><div><b>Вывод</b><pre>Поездка: 328.40 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">150
+20
+0</pre></div><div><b>Вывод</b><pre>Поездка: 150.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Умножение выполняется раньше сложения, скобки не нужны.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.5.11</span><h3 class="task__title">Обои для комнаты</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся длина, ширина и высота комнаты в метрах. Выведите площадь всех стен (без вычета окон и дверей) с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+4
+2.7</pre></div><div><b>Вывод</b><pre>Площадь стен: 48.60 кв. м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3.2
+3.2
+2.5</pre></div><div><b>Вывод</b><pre>Площадь стен: 32.00 кв. м</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Стены вместе — это полоса длиной в периметр пола и высотой в высоту комнаты.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.5.12</span><h3 class="task__title">Доход по вкладу за месяц</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся сумма вклада и годовая ставка в процентах. Выведите, сколько вклад приносит за месяц — двенадцатую часть годового дохода — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">150000
+16</pre></div><div><b>Вывод</b><pre>За год: 24000.00 руб.
+За месяц: 2000.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10000
+7.5</pre></div><div><b>Вывод</b><pre>За год: 750.00 руб.
+За месяц: 62.50 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Годовой доход — процент от вклада. Месячный — от годового.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.5.13</span><h3 class="task__title">Строка или число</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает число и выводит два результата: что будет, если «умножить на 3» введённое значение как есть, и что будет после преобразования в целое.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>Как строка: 777
+Как число: 21</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Как строка: 121212
+Как число: 36</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сохраните ввод в переменную без преобразования и используйте её дважды: один раз как есть, один раз через <code>int()</code>.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.5.14</span><h3 class="task__title">Сколько качать фильм</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">Пользователь вводит размер фильма в гигабайтах и скорость интернета в мегабитах в секунду. Выведите время загрузки в минутах с двумя знаками. В одном гигабайте 1024 мегабайта, в одном мегабайте 8 мегабит.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4.7
 100</pre></div><div><b>Вывод</b><pre>Загрузка займёт 6.42 мин</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
 8</pre></div><div><b>Вывод</b><pre>Загрузка займёт 17.07 мин</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Подвох в единицах: скорость дана в мегабитах, а размер — в гигабайтах. Переведите размер в мегабиты, найдите секунды, затем минуты.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.5.15</span><h3 class="task__title">Хватит ли бензина</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся литры в баке, расход на 100 км и длина оставшегося пути. Выведите, сколько километров можно проехать на этом бензине и сколько пути останется после этого (отрицательное число — значит, топлива хватает с запасом). Оба числа — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">18
+7.5
+300</pre></div><div><b>Вывод</b><pre>Хватит на: 240.00 км
+Останется проехать: 60.00 км</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">40
+8
+200</pre></div><div><b>Вывод</b><pre>Хватит на: 500.00 км
+Останется проехать: -300.00 км</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сколько «сотен километров» даёт бак: литры / расход. Затем переведите в километры.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>

@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/07-operatory/index.html">1.7 Операторы в Python</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.7</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip chip--now" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a></div>
 <p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Результат сравнения пока только выводим как <code>True</code> или <code>False</code> — выбирать по нему действия будем в модуле 2.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Зачёт по баллам</a></li><li><a href="#r2">Разбор 2. Средняя оценка: где ошибка</a></li><li><a href="#r3">Разбор 3. Вклад со сложными процентами</a></li><li><a href="#p1">Задача 1.7.1. Хватит ли денег</a></li><li><a href="#p2">Задача 1.7.2. Проверка кода подтверждения</a></li><li><a href="#p3">Задача 1.7.3. Перепад температуры</a></li><li><a href="#p4">Задача 1.7.4. Значение формулы</a></li><li><a href="#p5">Задача 1.7.5. Курьер и клиент</a></li><li><a href="#p6">Задача 1.7.6. Площадь треугольного участка</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Зачёт по баллам</a></li><li><a href="#r2">Разбор 2. Средняя оценка: где ошибка</a></li><li><a href="#r3">Разбор 3. Вклад со сложными процентами</a></li><li><a href="#p1">Задача 1.7.1. Хватит ли денег</a></li><li><a href="#p2">Задача 1.7.2. Проверка кода подтверждения</a></li><li><a href="#p3">Задача 1.7.3. Перепад температуры</a></li><li><a href="#p4">Задача 1.7.4. Предупреждение о жаре</a></li><li><a href="#p5">Задача 1.7.5. Квадрат составным присваиванием</a></li><li><a href="#p6">Задача 1.7.6. Индекс массы тела</a></li><li><a href="#p7">Задача 1.7.7. Значение формулы</a></li><li><a href="#p8">Задача 1.7.8. Курьер и клиент</a></li><li><a href="#p9">Задача 1.7.9. Одинаковый забор</a></li><li><a href="#p10">Задача 1.7.10. Минус и степень</a></li><li><a href="#p11">Задача 1.7.11. Успею ли на поезд</a></li><li><a href="#p12">Задача 1.7.12. Есть ли корни у уравнения</a></li><li><a href="#p13">Задача 1.7.13. Ночной тариф</a></li><li><a href="#p14">Задача 1.7.14. Площадь треугольного участка</a></li><li><a href="#p15">Задача 1.7.15. Треугольник существует?</a></li><li><a href="#p16">Задача 1.7.16. Удвоится ли вклад</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -158,14 +158,43 @@ income = total - deposit
 <details class="hint"><summary>Подсказка</summary><p>Посчитайте изменение один раз, а второй результат получите минусом перед переменной.</p></details>
 </div></article>
 <article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.7.4</span><h3 class="task__title">Значение формулы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.7.4</span><h3 class="task__title">Предупреждение о жаре</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Погодное приложение предупреждает о жаре, если температура не ниже 30 градусов. Вводится температура, выведите признак жары.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">31</pre></div><div><b>Вывод</b><pre>Жара: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">30</pre></div><div><b>Вывод</b><pre>Жара: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">25</pre></div><div><b>Вывод</b><pre>Жара: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Граница включается.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.7.5</span><h3 class="task__title">Квадрат составным присваиванием</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число. Возведите его в квадрат, затем разделите нацело на 3 и возьмите остаток от деления на 10 — каждое действие составным присваиванием к одной переменной. Выведите значение после каждого шага.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>После **= 2: 49
+После //= 3: 16
+После %= 10: 6</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>После **= 2: 144
+После //= 3: 48
+После %= 10: 8</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В главе 1.7 есть составные формы для всех арифметических операций.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.7.6</span><h3 class="task__title">Индекс массы тела</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся вес в килограммах и рост в метрах. Выведите индекс массы тела (вес / рост²) с двумя знаками и признак, что он не меньше 25.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70
+1.75</pre></div><div><b>Вывод</b><pre>ИМТ: 22.86
+Выше нормы: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">95
+1.8</pre></div><div><b>Вывод</b><pre>ИМТ: 29.32
+Выше нормы: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Степень выполняется раньше деления — скобки вокруг роста в квадрате не нужны.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.7.7</span><h3 class="task__title">Значение формулы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Инженер проверяет формулу y = 2x³ − 3x² + x − 5. Вводится целое x, выведите y.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>y = 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-1</pre></div><div><b>Вывод</b><pre>y = -11</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>y = -5</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Степень — <code>**</code>, и она выполняется раньше умножения. Скобки здесь не нужны, но проверьте ответ на x = 2 вручную.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.7.5</span><h3 class="task__title">Курьер и клиент</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.7.8</span><h3 class="task__title">Курьер и клиент</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">На карте города заданы координаты курьера и клиента (целые числа, в сотнях метров). Выведите расстояние между ними по прямой с двумя знаками.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
@@ -177,8 +206,77 @@ income = total - deposit
 -3</pre></div><div><b>Вывод</b><pre>Расстояние: 7.21</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Расстояние = √((x₂ − x₁)² + (y₂ − y₁)²). Корень — это степень 0.5. Внимательно расставьте скобки.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.7.6</span><h3 class="task__title">Площадь треугольного участка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.7.9</span><h3 class="task__title">Одинаковый забор</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Есть прямоугольный участок со сторонами a и b и квадратный участок со стороной c. Выведите периметры обоих и признак, что для них нужен забор одной длины.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+4
+5</pre></div><div><b>Вывод</b><pre>Прямоугольник: 20
+Квадрат: 20
+Одинаковый забор: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+2
+5</pre></div><div><b>Вывод</b><pre>Прямоугольник: 24
+Квадрат: 20
+Одинаковый забор: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Периметры посчитайте в переменные, потом сравните.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.7.10</span><h3 class="task__title">Минус и степень</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число n. Выведите значения <code>-n ** 2</code> и <code>(-n) ** 2</code> и объясните себе разницу.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>-n ** 2 = -9
+(-n) ** 2 = 9</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-4</pre></div><div><b>Вывод</b><pre>-n ** 2 = -16
+(-n) ** 2 = 16</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Степень выполняется раньше унарного минуса.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.7.11</span><h3 class="task__title">Успею ли на поезд</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся расстояние до вокзала в километрах, средняя скорость в км/ч и сколько минут осталось до отправления. Выведите время в пути в минутах с двумя знаками и признак, что успеваем.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12
+30
+25</pre></div><div><b>Вывод</b><pre>В пути: 24.00 мин
+Успеваю: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">20
+40
+30</pre></div><div><b>Вывод</b><pre>В пути: 30.00 мин
+Успеваю: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">15
+45
+15</pre></div><div><b>Вывод</b><pre>В пути: 20.00 мин
+Успеваю: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Время в часах = расстояние / скорость. В минутах — умножить на 60.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.7.12</span><h3 class="task__title">Есть ли корни у уравнения</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Для квадратного уравнения ax² + bx + c = 0 вводятся коэффициенты a, b, c. Выведите дискриминант D = b² − 4ac и признак, что у уравнения есть действительные корни (D не меньше нуля).</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+-3
+2</pre></div><div><b>Вывод</b><pre>D = 1
+Есть корни: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+5</pre></div><div><b>Вывод</b><pre>D = -16
+Есть корни: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+2
+1</pre></div><div><b>Вывод</b><pre>D = 0
+Есть корни: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Степень, потом умножение, потом вычитание — порядок уже правильный без скобок.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.7.13</span><h3 class="task__title">Ночной тариф</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Стоимость поездки: посадка плюс километры по цене за километр, и вся километровая часть увеличивается на ночную надбавку в процентах. Вводятся посадка, цена километра, расстояние и надбавка. Выведите стоимость с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+20
+10
+30</pre></div><div><b>Вывод</b><pre>Стоимость: 360.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+20
+10
+0</pre></div><div><b>Вывод</b><pre>Стоимость: 300.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Надбавка касается только километров, а не посадки. Скобки нужны там, где проценты превращаются в множитель.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.7.14</span><h3 class="task__title">Площадь треугольного участка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">Геодезист измерил три стороны треугольного участка в метрах. Выведите площадь по формуле Герона с двумя знаками: p = (a + b + c) / 2, S = √(p · (p − a) · (p − b) · (p − c)).</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
@@ -189,6 +287,38 @@ income = total - deposit
 7.2
 12</pre></div><div><b>Вывод</b><pre>Площадь: 37.53 кв. м</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Полупериметр посчитайте отдельной переменной. Корень — степень 0.5, и всё подкоренное выражение должно быть в скобках.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.7.15</span><h3 class="task__title">Треугольник существует?</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Треугольник со сторонами a, b, c существует, только если каждая сторона меньше суммы двух других. Вводятся три стороны. Выведите три проверки — по одной на строку.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+4
+5</pre></div><div><b>Вывод</b><pre>a &lt; b + c: True
+b &lt; a + c: True
+c &lt; a + b: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3</pre></div><div><b>Вывод</b><pre>a &lt; b + c: True
+b &lt; a + c: True
+c &lt; a + b: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+2
+3</pre></div><div><b>Вывод</b><pre>a &lt; b + c: False
+b &lt; a + c: True
+c &lt; a + b: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сложение выполняется раньше сравнения. Объединять проверки через «и» научимся в модуле 2 — пока выводим каждую отдельно.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 1.7.16</span><h3 class="task__title">Удвоится ли вклад</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся сумма вклада, ставка в процентах и срок в годах; проценты капитализируются раз в год. Выведите итоговую сумму с двумя знаками и признак, что вклад как минимум удвоился.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100000
+10
+7</pre></div><div><b>Вывод</b><pre>Итог: 194871.71 руб.
+Удвоился: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100000
+10
+8</pre></div><div><b>Вывод</b><pre>Итог: 214358.88 руб.
+Удвоился: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формула из разбора про вклад плюс одно сравнение. Сравните два примера: разница всего в год.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>

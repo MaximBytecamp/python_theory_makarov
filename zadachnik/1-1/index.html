@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/01-peremennye/index.html">1.1 Переменные в программировании</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip chip--now" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a></div>
 <p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Вывод — через <code>print()</code> с запятыми: f-строки разберём в главе 1.3.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Покупка в магазине</a></li><li><a href="#r2">Разбор 2. Счёт за электричество</a></li><li><a href="#r3">Разбор 3. Движение товара на складе</a></li><li><a href="#p1">Задача 1.1.1. Забор вокруг участка</a></li><li><a href="#p2">Задача 1.1.2. Время загрузки файла</a></li><li><a href="#p3">Задача 1.1.3. Стоимость одного дня аренды</a></li><li><a href="#p4">Задача 1.1.4. Погода для туриста</a></li><li><a href="#p5">Задача 1.1.5. Счёт в кафе</a></li><li><a href="#p6">Задача 1.1.6. Баланс карты за неделю</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Покупка в магазине</a></li><li><a href="#r2">Разбор 2. Счёт за электричество</a></li><li><a href="#r3">Разбор 3. Движение товара на складе</a></li><li><a href="#p1">Задача 1.1.1. Забор вокруг участка</a></li><li><a href="#p2">Задача 1.1.2. Время загрузки файла</a></li><li><a href="#p3">Задача 1.1.3. Стоимость одного дня аренды</a></li><li><a href="#p4">Задача 1.1.4. Проездной или разовые поездки</a></li><li><a href="#p5">Задача 1.1.5. Ламинат для комнаты</a></li><li><a href="#p6">Задача 1.1.6. Возраст через несколько лет</a></li><li><a href="#p7">Задача 1.1.7. Погода для туриста</a></li><li><a href="#p8">Задача 1.1.8. Счёт в кафе</a></li><li><a href="#p9">Задача 1.1.9. Смета на покраску</a></li><li><a href="#p10">Задача 1.1.10. Траты на такси за три дня</a></li><li><a href="#p11">Задача 1.1.11. Рассрочка без переплаты</a></li><li><a href="#p12">Задача 1.1.12. Счёт за мобильную связь</a></li><li><a href="#p13">Задача 1.1.13. Поменять значения через третью переменную</a></li><li><a href="#p14">Задача 1.1.14. Баланс карты за неделю</a></li><li><a href="#p15">Задача 1.1.15. Рецепт на другое число порций</a></li><li><a href="#p16">Задача 1.1.16. Средняя скорость в поездке</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -145,14 +145,41 @@ days = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Один �
 <details class="hint"><summary>Подсказка</summary><p>Общую сумму делим на количество дней и сохраняем результат в переменную с понятным именем.</p></details>
 </div></article>
 <article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.1.4</span><h3 class="task__title">Погода для туриста</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.1.4</span><h3 class="task__title">Проездной или разовые поездки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">За месяц студент совершает определённое число поездок на автобусе, одна поездка стоит фиксированную сумму. Сколько он потратит за месяц?</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>trips = <span class="n">44</span>
+fare = <span class="n">62</span></pre></div><div><b>Вывод</b><pre>За месяц: 2728 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>trips = <span class="n">20</span>
+fare = <span class="n">55</span></pre></div><div><b>Вывод</b><pre>За месяц: 1100 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна переменная для результата, один <code>print()</code> с запятыми.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.1.5</span><h3 class="task__title">Ламинат для комнаты</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Даны длина и ширина комнаты в метрах. Выведите площадь пола — столько квадратных метров ламината нужно купить без запаса.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>length = <span class="n">5.5</span>
+width = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Площадь пола: 22.0 кв. м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>length = <span class="n">3</span>
+width = <span class="n">2.5</span></pre></div><div><b>Вывод</b><pre>Площадь пола: 7.5 кв. м</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Площадь прямоугольника — длина × ширина. Если одна из сторон дробная, результат тоже будет дробным.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.1.6</span><h3 class="task__title">Возраст через несколько лет</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Известен возраст человека и через сколько лет состоится событие. Выведите, сколько ему будет тогда.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>age = <span class="n">17</span>
+years = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>Через 5 лет будет: 22</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>age = <span class="n">30</span>
+years = <span class="n">12</span></pre></div><div><b>Вывод</b><pre>Через 12 лет будет: 42</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Будущий возраст сохраните в переменную, а в выводе перечислите текст и значения через запятую.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.1.7</span><h3 class="task__title">Погода для туриста</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Прогноз дан в градусах Цельсия, а турист привык к Фаренгейту. Переведите температуру: умножьте на 1.8 и прибавьте 32. Выведите обе величины в одной строке, как в примерах.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>celsius = <span class="n">25</span></pre></div><div><b>Вывод</b><pre>25 °C = 77.0 °F</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>celsius = -<span class="n">10</span></pre></div><div><b>Вывод</b><pre>-10 °C = 14.0 °F</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Значения и текст перечисляются в <code>print()</code> через запятую — пробелы между ними поставятся сами.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.1.5</span><h3 class="task__title">Счёт в кафе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.1.8</span><h3 class="task__title">Счёт в кафе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Компания заказала два кофе и один десерт. Известны цена кофе и цена десерта. Выведите стоимость кофе, стоимость десерта и общий счёт — каждую величину отдельной строкой.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>coffee = <span class="n">180</span>
@@ -164,8 +191,83 @@ dessert = <span class="n">320</span></pre></div><div><b>Вывод</b><pre>Ко�
 Счёт: 620 руб.</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Стоимость двух кофе понадобится и в выводе, и в общем счёте — посчитайте её один раз.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.1.6</span><h3 class="task__title">Баланс карты за неделю</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.1.9</span><h3 class="task__title">Смета на покраску</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Для ремонта покупают несколько банок краски и несколько кистей. Известны цены и количество. Выведите стоимость краски, стоимость кистей и общую сумму.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>paint_price = <span class="n">890</span>
+cans = <span class="n">3</span>
+brush_price = <span class="n">250</span>
+brushes = <span class="n">2</span></pre></div><div><b>Вывод</b><pre>Краска: 2670 руб.
+Кисти: 500 руб.
+Всего: 3170 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>paint_price = <span class="n">1200</span>
+cans = <span class="n">1</span>
+brush_price = <span class="n">180</span>
+brushes = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Краска: 1200 руб.
+Кисти: 720 руб.
+Всего: 1920 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Две промежуточные суммы — две переменные. Общая сумма складывается из них, а не пересчитывается заново.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.1.10</span><h3 class="task__title">Траты на такси за три дня</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Известно, сколько потрачено на такси в понедельник, вторник и среду. Выведите общую сумму и среднюю трату за день.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>monday = <span class="n">450</span>
+tuesday = <span class="n">300</span>
+wednesday = <span class="n">600</span></pre></div><div><b>Вывод</b><pre>Всего: 1350 руб.
+В среднем за день: 450.0 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>monday = <span class="n">120</span>
+tuesday = <span class="n">90</span>
+wednesday = <span class="n">150</span></pre></div><div><b>Вывод</b><pre>Всего: 360 руб.
+В среднем за день: 120.0 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала общая сумма, потом средняя — от уже посчитанной суммы.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.1.11</span><h3 class="task__title">Рассрочка без переплаты</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Телефон купили в рассрочку: сумма делится поровну на несколько месяцев. Выведите ежемесячный платёж, сколько выплачено за первые 5 месяцев и сколько осталось.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>price = <span class="n">36000</span>
+months = <span class="n">12</span></pre></div><div><b>Вывод</b><pre>Платёж в месяц: 3000.0
+Выплачено за 5 месяцев: 15000.0
+Осталось: 21000.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>price = <span class="n">24000</span>
+months = <span class="n">8</span></pre></div><div><b>Вывод</b><pre>Платёж в месяц: 3000.0
+Выплачено за 5 месяцев: 15000.0
+Осталось: 9000.0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Три величины, каждая считается из предыдущей.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.1.12</span><h3 class="task__title">Счёт за мобильную связь</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Счёт складывается из абонентской платы, оплаты дополнительных гигабайт и SMS. Даны абонентская плата, число дополнительных гигабайт и цена одного, число SMS и цена одной. Выведите каждую часть счёта и итог.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>subscription = <span class="n">450</span>
+extra_gb = <span class="n">3</span>
+gb_price = <span class="n">120</span>
+sms = <span class="n">10</span>
+sms_price = <span class="n">2.5</span></pre></div><div><b>Вывод</b><pre>Абонентская плата: 450
+Доп. интернет: 360
+SMS: 25.0
+Итого: 835.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>subscription = <span class="n">300</span>
+extra_gb = <span class="n">0</span>
+gb_price = <span class="n">150</span>
+sms = <span class="n">4</span>
+sms_price = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>Абонентская плата: 300
+Доп. интернет: 0
+SMS: 12
+Итого: 312</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Каждая часть счёта — отдельная переменная. Во втором примере дополнительных гигабайт нет — часть счёта равна нулю, и это нормально.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.1.13</span><h3 class="task__title">Поменять значения через третью переменную</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В переменных <code>a</code> и <code>b</code> лежат числа. Поменяйте их значения местами с помощью вспомогательной переменной и выведите результат. (Короткий способ появится в главе 1.6 — здесь решаем тем, что уже знаем.)</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>a = <span class="n">5</span>
+b = <span class="n">9</span></pre></div><div><b>Вывод</b><pre>a = 9
+b = 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>a = -<span class="n">1</span>
+b = <span class="n">100</span></pre></div><div><b>Вывод</b><pre>a = 100
+b = -1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Прежде чем записать в <code>a</code> новое значение, сохраните старое во временную переменную — иначе оно потеряется.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.1.14</span><h3 class="task__title">Баланс карты за неделю</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">На карте лежит сумма. За неделю: пришла зарплата 30000 руб., оплатили аренду 18000 руб., потом банк начислил за месяц кешбэк — сумма на карте выросла в 1.01 раза, и наконец половину остатка перевели на накопительный счёт. Выведите баланс после каждой операции. Используйте одну переменную для баланса.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>balance = <span class="n">5000</span></pre></div><div><b>Вывод</b><pre>После зарплаты: 35000
@@ -176,6 +278,30 @@ dessert = <span class="n">320</span></pre></div><div><b>Вывод</b><pre>Ко�
 После кешбэка: 12120.0
 На карте осталось: 6060.0</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Для каждой операции — своё составное присваивание: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>. Длинный хвост после точки у дробных чисел — это нормально: округлять вывод научимся в главах 1.3 и 1.9.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.1.15</span><h3 class="task__title">Рецепт на другое число порций</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Рецепт блинов рассчитан на 4 порции: 300 г муки, 500 мл молока и 2 яйца. Даны нужное число порций. Пересчитайте все продукты.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>portions = <span class="n">6</span></pre></div><div><b>Вывод</b><pre>Мука: 450.0 г
+Молоко: 750.0 мл
+Яйца: 3.0 шт.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>portions = <span class="n">2</span></pre></div><div><b>Вывод</b><pre>Мука: 150.0 г
+Молоко: 250.0 мл
+Яйца: 1.0 шт.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Найдите, во сколько раз новое число порций больше исходного, и умножьте на это число каждый продукт. Составное присваивание сокращает запись.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 1.1.16</span><h3 class="task__title">Средняя скорость в поездке</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Первую часть пути машина проехала за одно время, вторую — за другое. Даны расстояния в километрах и время в часах для обеих частей. Выведите среднюю скорость на всём пути.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>distance1 = <span class="n">180</span>
+time1 = <span class="n">3</span>
+distance2 = <span class="n">100</span>
+time2 = <span class="n">1</span></pre></div><div><b>Вывод</b><pre>Средняя скорость: 70.0 км/ч</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>distance1 = <span class="n">100</span>
+time1 = <span class="n">2</span>
+distance2 = <span class="n">300</span>
+time2 = <span class="n">2</span></pre></div><div><b>Вывод</b><pre>Средняя скорость: 100.0 км/ч</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Подвох: средняя скорость — это не среднее двух скоростей. Это весь путь, делённый на всё время. В первом примере «среднее скоростей» дало бы 80, а правильный ответ другой.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>

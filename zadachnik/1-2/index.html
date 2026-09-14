@@ -28,14 +28,14 @@
 <div><dt>Глава справочника</dt><dd><a href="../../temy/02-tipy-dannyh/index.html">1.2 Типы данных в Python</a></dd></div>
 <div><dt>Можно использовать</dt><dd>главы 1.1–1.2</dd></div>
 <div><dt>Разборов</dt><dd>3 с решением</dd></div>
-<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
 </dl>
 <section class="allowed">
 <b>Уже изучено — этим и решаем</b>
 <div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip chip--now" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a></div>
 <p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Теперь доступны <code>//</code>, <code>%</code>, <code>**</code>, функции <code>type()</code>, <code>int()</code>, <code>float()</code>, <code>str()</code> и <code>len()</code>.</p>
 </section>
-<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Количество пришло строкой</a></li><li><a href="#r2">Разбор 2. Длительность фильма</a></li><li><a href="#r3">Разбор 3. Линия под заголовком отчёта</a></li><li><a href="#p1">Задача 1.2.1. Длина пароля</a></li><li><a href="#p2">Задача 1.2.2. Разделитель для чека</a></li><li><a href="#p3">Задача 1.2.3. Сколько недель длится проект</a></li><li><a href="#p4">Задача 1.2.4. Вес груза в тоннах</a></li><li><a href="#p5">Задача 1.2.5. Числа из таблицы</a></li><li><a href="#p6">Задача 1.2.6. Длительность звонка</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Количество пришло строкой</a></li><li><a href="#r2">Разбор 2. Длительность фильма</a></li><li><a href="#r3">Разбор 3. Линия под заголовком отчёта</a></li><li><a href="#p1">Задача 1.2.1. Длина пароля</a></li><li><a href="#p2">Задача 1.2.2. Разделитель для чека</a></li><li><a href="#p3">Задача 1.2.3. Сколько недель длится проект</a></li><li><a href="#p4">Задача 1.2.4. Упаковка яиц</a></li><li><a href="#p5">Задача 1.2.5. Что пришло из анкеты</a></li><li><a href="#p6">Задача 1.2.6. Сколько вариантов PIN-кода</a></li><li><a href="#p7">Задача 1.2.7. Вес груза в тоннах</a></li><li><a href="#p8">Задача 1.2.8. Числа из таблицы</a></li><li><a href="#p9">Задача 1.2.9. Копейки в рубли</a></li><li><a href="#p10">Задача 1.2.10. Страницы в каталоге</a></li><li><a href="#p11">Задача 1.2.11. Длинное SMS</a></li><li><a href="#p12">Задача 1.2.12. Сумма заказа из выгрузки</a></li><li><a href="#p13">Задача 1.2.13. Длительность звонка</a></li><li><a href="#p14">Задача 1.2.14. Размер файла в мегабайтах</a></li><li><a href="#p15">Задача 1.2.15. Сколько до конца пары</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
 <h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
 <p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
 <article class="task task--solved" id="r1">
@@ -141,14 +141,45 @@ width = <span class="n">6</span></pre></div><div><b>Вывод</b><pre>*~*~*~*~*
 <details class="hint"><summary>Подсказка</summary><p>В неделе 7 дней. «Сколько целых» и «сколько осталось» — два разных оператора деления.</p></details>
 </div></article>
 <article class="task" id="p4">
-<header class="task__head"><span class="task__num">Задача 1.2.4</span><h3 class="task__title">Вес груза в тоннах</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<header class="task__head"><span class="task__num">Задача 1.2.4</span><h3 class="task__title">Упаковка яиц</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Птицефабрика раскладывает яйца по коробкам фиксированной вместимости. Выведите, сколько получится полных коробок и сколько яиц останется.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>eggs = <span class="n">100</span>
+per_box = <span class="n">12</span></pre></div><div><b>Вывод</b><pre>Полных коробок: 8
+Осталось яиц: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>eggs = <span class="n">60</span>
+per_box = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>Полных коробок: 6
+Осталось яиц: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>«Сколько целых» и «сколько осталось» — два разных оператора деления.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.2.5</span><h3 class="task__title">Что пришло из анкеты</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Анкета передала возраст и рост строками. Выведите типы исходных значений, типы после преобразования (возраст — целое, рост — дробное) и сами значения.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>age_text = <span class="s">&quot;17&quot;</span>
+height_text = <span class="s">&quot;1.75&quot;</span></pre></div><div><b>Вывод</b><pre>&lt;class &#x27;str&#x27;&gt; &lt;class &#x27;str&#x27;&gt;
+&lt;class &#x27;int&#x27;&gt; &lt;class &#x27;float&#x27;&gt;
+Возраст: 17 Рост: 1.75</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>age_text = <span class="s">&quot;42&quot;</span>
+height_text = <span class="s">&quot;1.8&quot;</span></pre></div><div><b>Вывод</b><pre>&lt;class &#x27;str&#x27;&gt; &lt;class &#x27;str&#x27;&gt;
+&lt;class &#x27;int&#x27;&gt; &lt;class &#x27;float&#x27;&gt;
+Возраст: 42 Рост: 1.8</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>type()</code> можно передать в <code>print()</code> как обычное значение.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.2.6</span><h3 class="task__title">Сколько вариантов PIN-кода</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">PIN-код состоит из цифр от 0 до 9. Дано количество цифр в коде. Выведите, сколько всего разных кодов можно составить.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>digits = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Вариантов: 10000</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>digits = <span class="n">6</span></pre></div><div><b>Вывод</b><pre>Вариантов: 1000000</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>На каждой позиции 10 вариантов, позиций несколько — это степень.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 1.2.7</span><h3 class="task__title">Вес груза в тоннах</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Транспортная компания принимает вес груза в килограммах, а в накладной пишет тонны и килограммы. Переведите вес, как в примерах.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>kg = <span class="n">3750</span></pre></div><div><b>Вывод</b><pre>3750 кг = 3 т 750 кг</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>kg = <span class="n">999</span></pre></div><div><b>Вывод</b><pre>999 кг = 0 т 999 кг</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>kg = <span class="n">12005</span></pre></div><div><b>Вывод</b><pre>12005 кг = 12 т 5 кг</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>В тонне 1000 кг. Нулевое число тонн — нормальный результат, его тоже нужно вывести.</p></details>
 </div></article>
-<article class="task" id="p5">
-<header class="task__head"><span class="task__num">Задача 1.2.5</span><h3 class="task__title">Числа из таблицы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 1.2.8</span><h3 class="task__title">Числа из таблицы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
 <p class="task__text">Из выгрузки таблицы пришли два значения выручки — строками. Выведите, что получится, если «сложить» их как есть, и настоящую сумму.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>day1_text = <span class="s">&quot;25&quot;</span>
@@ -158,12 +189,70 @@ day2_text = <span class="s">&quot;250&quot;</span></pre></div><div><b>Вывод
 Сумма: 1250</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Первый вывод — сложение строк как есть. Для второго каждую строку сначала переведите в целое число.</p></details>
 </div></article>
-<article class="task" id="p6">
-<header class="task__head"><span class="task__num">Задача 1.2.6</span><h3 class="task__title">Длительность звонка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 1.2.9</span><h3 class="task__title">Копейки в рубли</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Платёжная система хранит суммы в копейках. Выведите сумму в рублях и копейках, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>kopecks = <span class="n">12345</span></pre></div><div><b>Вывод</b><pre>123 руб. 45 коп.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>kopecks = <span class="n">99</span></pre></div><div><b>Вывод</b><pre>0 руб. 99 коп.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>kopecks = <span class="n">50000</span></pre></div><div><b>Вывод</b><pre>500 руб. 0 коп.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В рубле 100 копеек.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 1.2.10</span><h3 class="task__title">Страницы в каталоге</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Интернет-магазин показывает товары по несколько на странице. Выведите, сколько получится полностью заполненных страниц и сколько товаров будет на неполной последней.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>items = <span class="n">47</span>
+per_page = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>Полных страниц: 4
+Товаров на неполной странице: 7</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>items = <span class="n">30</span>
+per_page = <span class="n">12</span></pre></div><div><b>Вывод</b><pre>Полных страниц: 2
+Товаров на неполной странице: 6</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Та же пара операторов, что в разборе про фильм, — только в другой задаче.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 1.2.11</span><h3 class="task__title">Длинное SMS</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Одна SMS на русском вмещает 70 символов. Выведите длину сообщения, сколько получается полностью заполненных частей и сколько символов уходит в неполную часть.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>message = <span class="s">&quot;Добрый день! Ваш заказ собран и ждёт вас в пункте выдачи на улице Ленина, дом 5, до пятницы.&quot;</span></pre></div><div><b>Вывод</b><pre>Символов: 92
+Полных частей: 1
+Символов в неполной части: 22</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>message = <span class="s">&quot;Код: 4821&quot;</span></pre></div><div><b>Вывод</b><pre>Символов: 9
+Полных частей: 0
+Символов в неполной части: 9</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Длину даёт <code>len()</code>. Её удобно сохранить в переменную: она нужна в трёх местах.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 1.2.12</span><h3 class="task__title">Сумма заказа из выгрузки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Из выгрузки пришли цена (дробная) и количество (целое) — обе строками. Выведите стоимость заказа.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>price_text = <span class="s">&quot;250.5&quot;</span>
+qty_text = <span class="s">&quot;4&quot;</span></pre></div><div><b>Вывод</b><pre>Стоимость: 1002.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>price_text = <span class="s">&quot;99.5&quot;</span>
+qty_text = <span class="s">&quot;2&quot;</span></pre></div><div><b>Вывод</b><pre>Стоимость: 199.0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Цену переводите в <code>float</code>, количество — в <code>int</code>. <code>int("250.5")</code> остановит программу с ошибкой.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 1.2.13</span><h3 class="task__title">Длительность звонка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
 <p class="task__text">Телефонная станция хранит длительность звонка в секундах. В детализации нужен формат «часы, минуты, секунды».</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>seconds = <span class="n">7384</span></pre></div><div><b>Вывод</b><pre>7384 с = 2 ч 3 мин 4 с</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>seconds = <span class="n">59</span></pre></div><div><b>Вывод</b><pre>59 с = 0 ч 0 мин 59 с</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>seconds = <span class="n">3600</span></pre></div><div><b>Вывод</b><pre>3600 с = 1 ч 0 мин 0 с</pre></div></div></div>
 <details class="hint"><summary>Подсказка</summary><p>В часе 3600 секунд. Минуты считайте не от всех секунд, а от того, что осталось после полных часов.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 1.2.14</span><h3 class="task__title">Размер файла в мегабайтах</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Файловый менеджер знает размер файла в байтах. Выведите, сколько это полных мегабайт и сколько байт сверх них. В одном мегабайте 2<sup>20</sup> байт.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>size = <span class="n">5000000</span></pre></div><div><b>Вывод</b><pre>Полных мегабайт: 4
+Байт сверх них: 805696</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>size = <span class="n">1048576</span></pre></div><div><b>Вывод</b><pre>Полных мегабайт: 1
+Байт сверх них: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>size = <span class="n">1000</span></pre></div><div><b>Вывод</b><pre>Полных мегабайт: 0
+Байт сверх них: 1000</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Посчитайте размер мегабайта один раз через <code>**</code> и сохраните в переменную. Во втором примере размер ровно 1 МБ.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 1.2.15</span><h3 class="task__title">Сколько до конца пары</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Пара заканчивается в 11:30. Даны текущие часы и минуты. Выведите, сколько часов и минут осталось до конца пары.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>now_hours = <span class="n">10</span>
+now_minutes = <span class="n">14</span></pre></div><div><b>Вывод</b><pre>До конца пары: 1 ч 16 мин</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>now_hours = <span class="n">11</span>
+now_minutes = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>До конца пары: 0 ч 25 мин</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>now_hours = <span class="n">9</span>
+now_minutes = <span class="n">0</span></pre></div><div><b>Вывод</b><pre>До конца пары: 2 ч 30 мин</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Время удобно сравнивать, переведя всё в минуты от начала суток. Разницу потом обратно разложите на часы и минуты.</p></details>
 </div></article>
 <h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
 <ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>
