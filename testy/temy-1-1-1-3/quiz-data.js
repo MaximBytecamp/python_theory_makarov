@@ -275,32 +275,32 @@ const QUIZ = {
   },
   {
    "id": "q16",
-   "topic": "1.2 · float",
+   "topic": "1.2 · int и float",
    "type": "single",
    "text": "Что напечатает программа?",
    "options": [
-    "<code>False</code>, затем <code>5.0</code>",
-    "<code>True</code>, затем <code>5.0</code>",
-    "<code>True</code>, затем <code>5</code>",
-    "<code>False</code>, затем <code>5</code>"
+    "<code>5.0</code>, затем <code>5.0</code>",
+    "<code>5</code>, затем <code>5</code>",
+    "<code>5.0</code>, затем <code>5</code>",
+    "<code>5</code>, затем <code>5.0</code>"
    ],
-   "code": "print(0.1 + 0.2 == 0.3)\nprint(2 + 3.0)",
+   "code": "print(2 + 3.0)\nprint(10 / 2)",
    "key": [
     "9a00d95b602a473e"
    ]
   },
   {
    "id": "q17",
-   "topic": "1.2 · ввод",
+   "topic": "1.2 · преобразование",
    "type": "single",
-   "text": "Пользователь ввёл <code>17</code>. Что произойдёт?",
+   "text": "Что напечатает программа?",
    "options": [
-    "<code>TypeError</code>: input() вернул строку",
-    "Напечатает <code>Через год: 18</code>",
-    "Напечатает <code>Через год: 171</code>",
-    "<code>ValueError</code>: введено не число"
+    "<code>1010</code>, затем <code>20</code>",
+    "<code>20</code>, затем <code>20</code>",
+    "<code>1010</code>, затем <code>1010</code>",
+    "<code>20</code>, затем <code>TypeError</code>"
    ],
-   "code": "age = input(\"Ваш возраст: \")\nprint(\"Через год:\", age + 1)",
+   "code": "x = \"10\"\nprint(x + \"10\")\nprint(int(x) + 10)",
    "key": [
     "b51f4b6e284e29e1"
    ]
