@@ -275,32 +275,32 @@ const QUIZ = {
   },
   {
    "id": "q16",
-   "topic": "1.2 · int и float",
+   "topic": "1.2 · склейка и len()",
    "type": "single",
    "text": "Что напечатает программа?",
    "options": [
-    "<code>5.0</code>, затем <code>5.0</code>",
-    "<code>5</code>, затем <code>5</code>",
-    "<code>5.0</code>, затем <code>5</code>",
-    "<code>5</code>, затем <code>5.0</code>"
+    "<code>HelloWorld</code>, затем <code>11</code>",
+    "<code>Hello World</code>, затем <code>11</code>",
+    "<code>HelloWorld</code>, затем <code>10</code>",
+    "<code>Hello World</code>, затем <code>2</code>"
    ],
-   "code": "print(2 + 3.0)\nprint(10 / 2)",
+   "code": "first = \"Hello\"\nsecond = \"World\"\nprint(first + second)\nprint(len(first + \" \" + second))",
    "key": [
     "9a00d95b602a473e"
    ]
   },
   {
    "id": "q17",
-   "topic": "1.2 · преобразование",
+   "topic": "1.2 · float() и int()",
    "type": "single",
    "text": "Что напечатает программа?",
    "options": [
-    "<code>1010</code>, затем <code>20</code>",
-    "<code>20</code>, затем <code>20</code>",
-    "<code>1010</code>, затем <code>1010</code>",
-    "<code>20</code>, затем <code>TypeError</code>"
+    "<code>7.0</code>, затем <code>3</code>",
+    "<code>7</code>, затем <code>4</code>",
+    "<code>3.53.5</code>, затем <code>3</code>",
+    "<code>7.0</code>, затем <code>ValueError</code>"
    ],
-   "code": "x = \"10\"\nprint(x + \"10\")\nprint(int(x) + 10)",
+   "code": "price = float(\"3.5\")\nprint(price * 2)\nprint(int(float(\"3.5\")))",
    "key": [
     "b51f4b6e284e29e1"
    ]
@@ -393,14 +393,14 @@ const QUIZ = {
    "id": "q23",
    "topic": "1.3 · текст и значение",
    "type": "single",
-   "text": "Переменная <code>name</code> в программе не создавалась. Что произойдёт?",
+   "text": "Что напечатает программа?",
    "options": [
-    "Печатает <code>name</code>, затем <code>NameError</code>",
-    "Дважды печатает <code>name</code>",
-    "<code>NameError</code> уже в первой строке",
-    "Печатает <code>name</code> и пустую строку"
+    "<code>name Alice</code>",
+    "<code>Alice Alice</code>",
+    "<code>name name</code>",
+    "<code>\"name\" Alice</code>"
    ],
-   "code": "print(\"name\")\nprint(name)",
+   "code": "name = \"Alice\"\nprint(\"name\", name)",
    "key": [
     "77e1bfc91781baec"
    ]
