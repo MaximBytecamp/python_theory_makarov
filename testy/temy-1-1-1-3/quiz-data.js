@@ -68,7 +68,7 @@ const QUIZ = {
    "id": "q03",
    "topic": "1.1 · имена",
    "type": "multi",
-   "text": "Какие имена переменных <b>допустимы</b> в Python? Отметьте все.",
+   "text": "Какие имена <b>Python разрешит</b> использовать для переменной — программа с ними запустится без ошибки? Стиль не учитывайте: имя может быть не принятым, но допустимым. Отметьте все.",
    "options": [
     "<code>day_2</code>",
     "<code>2day</code>",
@@ -119,12 +119,12 @@ const QUIZ = {
    "type": "single",
    "text": "Что произойдёт при запуске?",
    "options": [
-    "Ничего не печатается: <code>SyntaxError</code>, файл не запустится",
-    "Печатает «старт», затем <code>SyntaxError</code> во 2-й строке",
-    "Печатает «старт», затем <code>NameError</code>: x не определена",
-    "Печатает «старт» и <code>5</code>: присваивание сработает"
+    "<code>SyntaxError</code>: слева от = стоит значение, а не имя",
+    "<code>NameError</code>: переменная x ещё не создана",
+    "<code>TypeError</code>: числу нельзя присвоить значение",
+    "Напечатает <code>5</code>: присваивание сработает"
    ],
-   "code": "print(\"старт\")\n5 = x\nprint(x)",
+   "code": "5 = x\nprint(x)",
    "key": [
     "06566c151e88b2dc"
    ]
@@ -243,16 +243,16 @@ const QUIZ = {
   },
   {
    "id": "q14",
-   "topic": "1.2 · запятая вместо точки",
+   "topic": "1.2 · bool",
    "type": "single",
-   "text": "Студент записал число через запятую. Что напечатает программа?",
+   "text": "Что напечатает программа?",
    "options": [
-    "<code>&lt;class 'tuple'&gt;</code>",
-    "<code>&lt;class 'float'&gt;</code>",
-    "<code>SyntaxError</code>",
-    "<code>&lt;class 'int'&gt;</code>"
+    "<code>True &lt;class 'bool'&gt;</code>",
+    "<code>True &lt;class 'str'&gt;</code>",
+    "<code>10 &gt; 3 &lt;class 'str'&gt;</code>",
+    "<code>1 &lt;class 'int'&gt;</code>"
    ],
-   "code": "x = 3,14\nprint(type(x))",
+   "code": "is_adult = 10 > 3\nprint(is_adult, type(is_adult))",
    "key": [
     "3ece737633f8474c"
    ]
