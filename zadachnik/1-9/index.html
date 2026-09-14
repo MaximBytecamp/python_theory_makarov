@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.9 · round() и формат .2f · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.9</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.9</span>
+<h1>Задачи к главе<br>«round() и формат .2f»</h1>
+<p class="lead">Два инструмента для «некрасивых» дробей: <code>round()</code> даёт округлённое число для дальнейших расчётов, формат <code>:.2f</code> — аккуратный текст для вывода. В задачах важно выбрать нужный.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/09-round-i-format/index.html">1.9 <code>round()</code> и формат <code>.2f</code></a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.9</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip chip--now" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div>
+<p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Средняя оценка в электронном журнале</a></li><li><a href="#r2">Разбор 2. Счёт с НДС</a></li><li><a href="#r3">Разбор 3. Процент выполнения плана</a></li><li><a href="#p1">Задача 1.9.1. Цена до копеек</a></li><li><a href="#p2">Задача 1.9.2. Сколько гостей за столом</a></li><li><a href="#p3">Задача 1.9.3. Цена за килограмм</a></li><li><a href="#p4">Задача 1.9.4. Доля рынка</a></li><li><a href="#p5">Задача 1.9.5. Расходы на обеды</a></li><li><a href="#p6">Задача 1.9.6. Разделить счёт с чаевыми</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Средняя оценка в электронном журнале</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Журнал показывает среднюю из трёх оценок: точное значение, округлённое до десятых число и вид с двумя знаками.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Среднее считаем один раз и не округляем — точное значение пригодится.</li><li><code>round(average, 1)</code> возвращает новое число — оно не меняет <code>average</code>.</li><li><code>:.2f</code> — только вид в выводе: всегда два знака, даже нули.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+a = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка 1: &quot;</span>))
+b = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка 2: &quot;</span>))
+c = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка 3: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+average = (a + b + c) / <span class="n">3</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Точно:&quot;</span>, average)
+<span class="f">print</span>(<span class="s">&quot;До десятых:&quot;</span>, <span class="f">round</span>(average, <span class="n">1</span>))
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Два знака: </span>{average:<span class="s">.2f</span>}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Оценка 1: <span class="typed">5</span>
+Оценка 2: <span class="typed">4</span>
+Оценка 3: <span class="typed">4</span>
+Точно: 4.333333333333333
+До десятых: 4.3
+Два знака: 4.33</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+4
+5</pre></div><div><b>Вывод</b><pre>Точно: 4.0
+До десятых: 4.0
+Два знака: 4.00</pre></div></div></div>
+<div class="margin-note"><b>Число или текст</b><p><code>round()</code> вернул <code>float</code> — с ним можно считать дальше. F-строка вернула бы текст. Во втором примере видно различие: <code>round(4.0, 1)</code> — это <code>4.0</code>, а формат даёт <code>4.00</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Счёт с НДС</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Поставщик выставляет счёт: цена единицы без НДС и количество. Выведите сумму без налога, НДС 20% и итог — всё в рублях с копейками.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Все промежуточные суммы считаем без округления — чтобы не накапливать ошибку.</li><li>НДС — 20% от суммы: <code>subtotal * 0.2</code>.</li><li>Округляем только при выводе: формат <code>:.2f</code> в каждой строке.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+price = <span class="f">float</span>(<span class="f">input</span>(<span class="s">&quot;Цена без НДС, руб.: &quot;</span>))
+qty = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Количество: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+subtotal = price * qty
+vat = subtotal * <span class="n">0.2</span>
+total = subtotal + vat
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Сумма без НДС: </span>{subtotal:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">НДС 20%: </span>{vat:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Итого: </span>{total:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Цена без НДС, руб.: <span class="typed">149.9</span>
+Количество: <span class="typed">7</span>
+Сумма без НДС: 1049.30 руб.
+НДС 20%: 209.86 руб.
+Итого: 1259.16 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+3</pre></div><div><b>Вывод</b><pre>Сумма без НДС: 3000.00 руб.
+НДС 20%: 600.00 руб.
+Итого: 3600.00 руб.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Не округляйте на каждом шаге</b><p>Если сначала округлить <code>subtotal</code>, потом <code>vat</code>, потом итог, копейки начнут расходиться с бухгалтерией. Считайте точно, показывайте аккуратно.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Процент выполнения плана</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Трекер задач показывает, на сколько процентов выполнен план, — целым числом.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Доля = выполнено / запланировано, в процентах — умножить на 100.</li><li>Нужно целое число для дальнейшей работы — <code>round()</code> без второго аргумента вернёт <code>int</code>.</li><li>Выводим тип результата, чтобы убедиться.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+done = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Выполнено задач: &quot;</span>))
+plan = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Запланировано задач: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+percent = <span class="f">round</span>(done / plan * <span class="n">100</span>)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">План выполнен на </span>{percent}<span class="s">%</span><span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Тип результата:&quot;</span>, <span class="f">type</span>(percent))</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Выполнено задач: <span class="typed">12</span>
+Запланировано задач: <span class="typed">18</span>
+План выполнен на 67%
+Тип результата: &lt;class &#x27;int&#x27;&gt;</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+8</pre></div><div><b>Вывод</b><pre>План выполнен на 12%
+Тип результата: &lt;class &#x27;int&#x27;&gt;</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Половина — к чётному</b><p>Во втором примере 1 / 8 × 100 = 12.5, а <code>round()</code> дал 12: значения ровно посередине Python округляет к ближайшему чётному. Об этом стоит помнить, когда результат «на половине» кажется неверным.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.9.1</span><h3 class="task__title">Цена до копеек</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Калькулятор скидок выдаёт цену с длинным хвостом. Выведите введённое число с двумя знаками после точки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3.14159</pre></div><div><b>Вывод</b><pre>3.14</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2.5</pre></div><div><b>Вывод</b><pre>2.50</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">100</pre></div><div><b>Вывод</b><pre>100.00</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нужен вид, а не новое число, — значит, формат в f-строке.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.9.2</span><h3 class="task__title">Сколько гостей за столом</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Организатор банкета знает дробную оценку «гостей на стол». Выведите её округлённой до целого числа.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7.6</pre></div><div><b>Вывод</b><pre>8</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7.4</pre></div><div><b>Вывод</b><pre>7</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2.5</pre></div><div><b>Вывод</b><pre>2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна функция без второго аргумента. Результат третьего примера объясняется правилом из главы 1.9.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.9.3</span><h3 class="task__title">Цена за килограмм</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На ценнике указаны цена упаковки и её вес в граммах. Покупатель хочет сравнить товары по цене за килограмм. Выведите её с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">89.9
+400</pre></div><div><b>Вывод</b><pre>За 1 кг: 224.75 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+300</pre></div><div><b>Вывод</b><pre>За 1 кг: 333.33 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала цена одного грамма, потом умножение на 1000.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.9.4</span><h3 class="task__title">Доля рынка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Аналитик вводит продажи компании и продажи всего рынка. Выведите долю компании в процентах с одним знаком после точки и эту же долю, округлённую до целого.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7
+250</pre></div><div><b>Вывод</b><pre>Доля: 2.8%
+Округлённо: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+3</pre></div><div><b>Вывод</b><pre>Доля: 33.3%
+Округлённо: 33</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формат <code>.1f</code> работает так же, как <code>.2f</code>, только знак один.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.9.5</span><h3 class="task__title">Расходы на обеды</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Сотрудник вводит, сколько в среднем тратит на обед в рабочий день. Выведите расходы за месяц из 22 рабочих дней округлённым до рубля числом и за год (12 месяцев) — с копейками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">345.5</pre></div><div><b>Вывод</b><pre>За месяц: 7601
+За год: 91212.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">280</pre></div><div><b>Вывод</b><pre>За месяц: 6160
+За год: 73920.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Годовую сумму считайте от точного месячного значения, а не от округлённого.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.9.6</span><h3 class="task__title">Разделить счёт с чаевыми</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Компания делит счёт в ресторане поровну и оставляет чаевые в процентах. Вводятся сумма счёта, число людей и процент чаевых. Выведите чаевые, общую сумму и сумму с каждого — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3450
+4
+10</pre></div><div><b>Вывод</b><pre>Чаевые: 345.00 руб.
+Всего: 3795.00 руб.
+С каждого: 948.75 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1000
+3
+0</pre></div><div><b>Вывод</b><pre>Чаевые: 0.00 руб.
+Всего: 1000.00 руб.
+С каждого: 333.33 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала чаевые, потом общая сумма, потом деление на людей. Округляйте только в выводе.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-8/index.html">← Задачи 1.8</a><a href="../../temy/09-round-i-format/index.html">Глава 1.9 в справочнике</a><a href="../index.html">К оглавлению задачника</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.9 · round() и формат .2f · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

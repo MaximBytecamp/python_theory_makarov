@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.2 · Типы данных · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.2</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.2</span>
+<h1>Задачи к главе<br>«Типы данных»</h1>
+<p class="lead">Числа бывают целыми и дробными, текст — строкой, и программа обращается с ними по-разному. В задачах этой главы данные часто приходят «не того типа» — строкой из формы или таблицы — и их нужно привести.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/02-tipy-dannyh/index.html">1.2 Типы данных в Python</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.2</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip chip--now" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a></div>
+<p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Теперь доступны <code>//</code>, <code>%</code>, <code>**</code>, функции <code>type()</code>, <code>int()</code>, <code>float()</code>, <code>str()</code> и <code>len()</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Количество пришло строкой</a></li><li><a href="#r2">Разбор 2. Длительность фильма</a></li><li><a href="#r3">Разбор 3. Линия под заголовком отчёта</a></li><li><a href="#p1">Задача 1.2.1. Длина пароля</a></li><li><a href="#p2">Задача 1.2.2. Разделитель для чека</a></li><li><a href="#p3">Задача 1.2.3. Сколько недель длится проект</a></li><li><a href="#p4">Задача 1.2.4. Вес груза в тоннах</a></li><li><a href="#p5">Задача 1.2.5. Числа из таблицы</a></li><li><a href="#p6">Задача 1.2.6. Длительность звонка</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Количество пришло строкой</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Интернет-магазин получает из формы заказа количество товара — строкой, как любой текст из формы. Цена одной штуки известна числом. Посчитайте стоимость заказа.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Смотрим на типы: <code>"12"</code> в кавычках — строка, <code>35</code> — целое число.</li><li>Строку и число перемножать нельзя по смыслу: <code>"12" * 35</code> повторит строку 35 раз. Сначала переводим строку в число через <code>int()</code>.</li><li>Для отладки выводим типы до и после преобразования — так видно, что именно лежит в переменных.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+count_text = <span class="s">&quot;12&quot;</span>   <span class="c"># количество из формы заказа: строка</span>
+price = <span class="n">35</span>          <span class="c"># цена одной штуки, руб.</span>
+
+<span class="c"># Преобразование и расчёт</span>
+count = <span class="f">int</span>(count_text)
+total = count * price
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Тип из формы:&quot;</span>, <span class="f">type</span>(count_text))
+<span class="f">print</span>(<span class="s">&quot;Тип после int():&quot;</span>, <span class="f">type</span>(count))
+<span class="f">print</span>(<span class="s">&quot;Стоимость заказа:&quot;</span>, total, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Тип из формы: &lt;class &#x27;str&#x27;&gt;
+Тип после int(): &lt;class &#x27;int&#x27;&gt;
+Стоимость заказа: 420 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>count_text = <span class="s">&quot;3&quot;</span>
+price = <span class="n">990</span></pre></div><div><b>Вывод</b><pre>Тип из формы: &lt;class &#x27;str&#x27;&gt;
+Тип после int(): &lt;class &#x27;int&#x27;&gt;
+Стоимость заказа: 2970 руб.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Что было бы без int()</b><p><code>count_text * price</code> не упадёт с ошибкой: строка умножится на число и повторится 35 раз — получится <code>121212…</code>. Программа молча выдаст бессмыслицу. Поэтому тип данных «на входе» проверяют первым делом.</p></div>
+<div class="margin-note"><b>Оформление</b><p>Исходная строка и число после преобразования лежат в разных переменных: <code>count_text</code> и <code>count</code>. Суффикс <code>_text</code> сразу подсказывает, что внутри строка.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Длительность фильма</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В каталоге кинотеатра длительность фильма записана в минутах. На афише нужно показать её в часах и минутах.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Полных часов в минутах — это сколько раз 60 помещается в числе: целочисленное деление <code>//</code>.</li><li>Оставшиеся минуты — то, что не поместилось в полные часы: остаток от деления <code>%</code>.</li><li>Оба действия делим на одно и то же число 60, но отвечают они на разные вопросы: «сколько целых» и «сколько осталось».</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+total_minutes = <span class="n">135</span>   <span class="c"># длительность фильма, мин</span>
+
+<span class="c"># Расчёт</span>
+hours = total_minutes // <span class="n">60</span>     <span class="c"># полных часов</span>
+minutes = total_minutes % <span class="n">60</span>    <span class="c"># минут сверх полных часов</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Длительность:&quot;</span>, hours, <span class="s">&quot;ч&quot;</span>, minutes, <span class="s">&quot;мин&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Длительность: 2 ч 15 мин</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>total_minutes = <span class="n">59</span></pre></div><div><b>Вывод</b><pre>Длительность: 0 ч 59 мин</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>total_minutes = <span class="n">180</span></pre></div><div><b>Вывод</b><pre>Длительность: 3 ч 0 мин</pre></div></div></div>
+<div class="margin-note"><b>Почему не /</b><p><code>135 / 60</code> даёт <code>2.25</code> — это 2 часа и четверть часа, а не 2 часа 25 минут. Для «часы и минуты» нужна пара <code>//</code> и <code>%</code>: одна отвечает, сколько целых, другая — сколько осталось.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Линия под заголовком отчёта</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа печатает отчёт. Под заголовком должна идти линия из знаков <code>=</code> ровно такой же длины, как заголовок, а ниже — сколько символов в заголовке.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Длину строки даёт <code>len()</code> — пробелы тоже считаются символами.</li><li>Строку можно повторить умножением: <code>"=" * 5</code> даёт <code>=====</code>. Умножаем знак на длину заголовка.</li><li>Если заголовок поменяется, линия подстроится сама — число символов нигде не вписано руками.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+title = <span class="s">&quot;Отчёт за сентябрь&quot;</span>
+
+<span class="c"># Расчёт</span>
+title_length = <span class="f">len</span>(title)
+line = <span class="s">&quot;=&quot;</span> * title_length
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(title)
+<span class="f">print</span>(line)
+<span class="f">print</span>(<span class="s">&quot;Символов в заголовке:&quot;</span>, title_length)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Отчёт за сентябрь
+=================
+Символов в заголовке: 17</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>title = <span class="s">&quot;Итоги&quot;</span></pre></div><div><b>Вывод</b><pre>Итоги
+=====
+Символов в заголовке: 5</pre></div></div></div>
+<div class="margin-note"><b>Одна запись — два смысла</b><p><code>*</code> для чисел — умножение, для строки и числа — повторение. Язык выбирает действие по типам значений. Поэтому знать тип каждой переменной — не формальность, а способ предсказать, что сделает строка кода.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.2.1</span><h3 class="task__title">Длина пароля</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Сервис требует пароль не короче 8 символов. Выведите, сколько символов в пароле, — дальше сравнивать научимся в модуле 2.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>password = <span class="s">&quot;qwerty123&quot;</span></pre></div><div><b>Вывод</b><pre>Символов в пароле: 9</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>password = <span class="s">&quot;cat&quot;</span></pre></div><div><b>Вывод</b><pre>Символов в пароле: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>password = <span class="s">&quot;мой пароль 2026&quot;</span></pre></div><div><b>Вывод</b><pre>Символов в пароле: 15</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна встроенная функция из главы 1.2 возвращает количество символов строки.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.2.2</span><h3 class="task__title">Разделитель для чека</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Кассовый чек печатается на ленте фиксированной ширины. Выведите строку-разделитель: знак, повторённый нужное число раз, а под ней — её длину.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>symbol = <span class="s">&quot;-&quot;</span>
+width = <span class="n">32</span></pre></div><div><b>Вывод</b><pre>--------------------------------
+Ширина ленты: 32</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>symbol = <span class="s">&quot;*~&quot;</span>
+width = <span class="n">6</span></pre></div><div><b>Вывод</b><pre>*~*~*~*~*~*~
+Ширина ленты: 12</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строку можно умножить на целое число. Во втором примере знак из двух символов — длина станет вдвое больше ширины.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.2.3</span><h3 class="task__title">Сколько недель длится проект</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Проект рассчитан на некоторое количество дней. Менеджеру нужно знать, сколько это полных недель и сколько дней остаётся сверх них.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>days = <span class="n">234</span></pre></div><div><b>Вывод</b><pre>Полных недель: 33
+Дней сверх недель: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>days = <span class="n">7</span></pre></div><div><b>Вывод</b><pre>Полных недель: 1
+Дней сверх недель: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>days = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>Полных недель: 0
+Дней сверх недель: 5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В неделе 7 дней. «Сколько целых» и «сколько осталось» — два разных оператора деления.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.2.4</span><h3 class="task__title">Вес груза в тоннах</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Транспортная компания принимает вес груза в килограммах, а в накладной пишет тонны и килограммы. Переведите вес, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>kg = <span class="n">3750</span></pre></div><div><b>Вывод</b><pre>3750 кг = 3 т 750 кг</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>kg = <span class="n">999</span></pre></div><div><b>Вывод</b><pre>999 кг = 0 т 999 кг</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>kg = <span class="n">12005</span></pre></div><div><b>Вывод</b><pre>12005 кг = 12 т 5 кг</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В тонне 1000 кг. Нулевое число тонн — нормальный результат, его тоже нужно вывести.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.2.5</span><h3 class="task__title">Числа из таблицы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Из выгрузки таблицы пришли два значения выручки — строками. Выведите, что получится, если «сложить» их как есть, и настоящую сумму.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>day1_text = <span class="s">&quot;25&quot;</span>
+day2_text = <span class="s">&quot;17&quot;</span></pre></div><div><b>Вывод</b><pre>Склеились: 2517
+Сумма: 42</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>day1_text = <span class="s">&quot;1000&quot;</span>
+day2_text = <span class="s">&quot;250&quot;</span></pre></div><div><b>Вывод</b><pre>Склеились: 1000250
+Сумма: 1250</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первый вывод — сложение строк как есть. Для второго каждую строку сначала переведите в целое число.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.2.6</span><h3 class="task__title">Длительность звонка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Телефонная станция хранит длительность звонка в секундах. В детализации нужен формат «часы, минуты, секунды».</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>seconds = <span class="n">7384</span></pre></div><div><b>Вывод</b><pre>7384 с = 2 ч 3 мин 4 с</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>seconds = <span class="n">59</span></pre></div><div><b>Вывод</b><pre>59 с = 0 ч 0 мин 59 с</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Данные в начале программы</b><pre>seconds = <span class="n">3600</span></pre></div><div><b>Вывод</b><pre>3600 с = 1 ч 0 мин 0 с</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В часе 3600 секунд. Минуты считайте не от всех секунд, а от того, что осталось после полных часов.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-1/index.html">← Задачи 1.1</a><a href="../../temy/02-tipy-dannyh/index.html">Глава 1.2 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-3/index.html">Задачи 1.3 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.2 · Типы данных · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.3 · Функция print() · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.3</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.3</span>
+<h1>Задачи к главе<br>«Функция print()»</h1>
+<p class="lead">Результат должен читаться человеком: с подписями, единицами измерения и аккуратными числами. Здесь тренируем f-строки, формат <code>.2f</code> и выбор между запятой и подстановкой.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/03-print/index.html">1.3 Функция <code>print()</code>: вывод данных</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.3</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip chip--now" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a></div>
+<p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Параметры <code>sep</code> и <code>end</code> — в следующей главе 1.4.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Строка чека</a></li><li><a href="#r2">Разбор 2. Средний чек за день</a></li><li><a href="#r3">Разбор 3. Карточка участника</a></li><li><a href="#p1">Задача 1.3.1. Приветствие в приложении</a></li><li><a href="#p2">Задача 1.3.2. Стоимость топлива</a></li><li><a href="#p3">Задача 1.3.3. Цена со скидкой</a></li><li><a href="#p4">Задача 1.3.4. Площадь круглой клумбы</a></li><li><a href="#p5">Задача 1.3.5. Дневной отчёт интернет-магазина</a></li><li><a href="#p6">Задача 1.3.6. Исправьте программу менеджера</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Строка чека</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Касса печатает строку чека: название позиции, количество и сумму. Составьте строку так, чтобы текст и числа шли вперемешку, как в чеке.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Сумма — отдельная величина: считаем её в переменную <code>total</code> до вывода.</li><li>Текст и значения перемешаны плотно, со знаком × и словом «руб.». Через запятую пришлось бы следить за пробелами — берём f-строку.</li><li>Внутри фигурных скобок — только имена готовых значений; расчёт не прячем в строку вывода.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+item = <span class="s">&quot;Капучино&quot;</span>
+price = <span class="n">180</span>   <span class="c"># цена одной порции, руб.</span>
+qty = <span class="n">2</span>       <span class="c"># количество порций</span>
+
+<span class="c"># Расчёт</span>
+total = price * qty
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{item}<span class="s"> × </span>{qty}<span class="s"> = </span>{total}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Капучино × 2 = 360 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>item = <span class="s">&quot;Круассан&quot;</span>
+price = <span class="n">95</span>
+qty = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>Круассан × 3 = 285 руб.</pre></div></div></div>
+<div class="margin-note"><b>Та же строка через запятые</b><p><code>print(item, "×", qty, "=", total, "руб.")</code> напечатает то же самое. Но f-строку читать проще: видна вся строка чека целиком, как она выйдет на ленту.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Средний чек за день</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Известны выручка кафе за день и количество заказов. Выведите средний чек сначала как есть, а затем в денежном виде — с двумя знаками после точки.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Средний чек = выручка / количество заказов. Деление даёт дробное число, часто с длинным хвостом.</li><li>Для денег нужен вид «рубли.копейки»: формат <code>:.2f</code> внутри f-строки показывает ровно два знака.</li><li>Формат меняет только вид при выводе — в переменной <code>average</code> остаётся полное значение.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+revenue = <span class="n">1250</span>   <span class="c"># выручка за день, руб.</span>
+orders = <span class="n">6</span>       <span class="c"># количество заказов</span>
+
+<span class="c"># Расчёт</span>
+average = revenue / orders
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Без форматирования:&quot;</span>, average)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Средний чек: </span>{average:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Без форматирования: 208.33333333333334
+Средний чек: 208.33 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>revenue = <span class="n">900</span>
+orders = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Без форматирования: 225.0
+Средний чек: 225.00 руб.</pre></div></div></div>
+<div class="margin-note"><b>Нули тоже дописываются</b><p>Во втором примере среднее — ровно <code>225.0</code>, а с форматом получается <code>225.00</code>. Для цен это удобно: все суммы в отчёте выглядят одинаково.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Карточка участника</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На конференции печатают карточки участников: заголовок, пустая строка, затем имя, компания и номер места.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Пустую строку даёт вызов <code>print()</code> без аргументов — так блоки вывода отделяются друг от друга.</li><li>Для строк «подпись: значение» хватает запятой: пробел после двоеточия поставится сам.</li><li>Где текст с данными сплетён плотнее — «ряд 5, место 12» — удобнее f-строка.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+name = <span class="s">&quot;Анна Смирнова&quot;</span>
+company = <span class="s">&quot;ТехноСфера&quot;</span>
+row = <span class="n">5</span>
+seat = <span class="n">12</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;УЧАСТНИК КОНФЕРЕНЦИИ&quot;</span>)
+<span class="f">print</span>()
+<span class="f">print</span>(<span class="s">&quot;Имя:&quot;</span>, name)
+<span class="f">print</span>(<span class="s">&quot;Компания:&quot;</span>, company)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Место: ряд </span>{row}<span class="s">, кресло </span>{seat}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>УЧАСТНИК КОНФЕРЕНЦИИ
+
+Имя: Анна Смирнова
+Компания: ТехноСфера
+Место: ряд 5, кресло 12</pre></figure>
+<div class="margin-note"><b>Запятая, f-строка или плюс</b><p>Запятая — для пары «подпись и значение». F-строка — когда текст и данные перемешаны. Плюс <code>"Место: " + row</code> здесь упал бы с <code>TypeError</code>: число к строке не прибавляется.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.3.1</span><h3 class="task__title">Приветствие в приложении</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Приложение знает имя пользователя и город. Выведите приветствие и строку о длине имени, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Анна&quot;</span>
+city = <span class="s">&quot;Казань&quot;</span></pre></div><div><b>Вывод</b><pre>Здравствуйте, Анна! Ваш город: Казань.
+В имени 4 букв(ы).</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>name = <span class="s">&quot;Константин&quot;</span>
+city = <span class="s">&quot;Тверь&quot;</span></pre></div><div><b>Вывод</b><pre>Здравствуйте, Константин! Ваш город: Тверь.
+В имени 10 букв(ы).</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Внутри фигурных скобок f-строки можно вызвать функцию, например <code>len()</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.3.2</span><h3 class="task__title">Стоимость топлива</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Известны расстояние, расход (сколько километров машина проезжает на литре) и цена литра. Выведите стоимость топлива с копейками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>distance = <span class="n">500</span>
+fuel_efficiency = <span class="n">12</span>
+fuel_price = <span class="n">45.5</span></pre></div><div><b>Вывод</b><pre>Топливо: 1895.83 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>distance = <span class="n">120</span>
+fuel_efficiency = <span class="n">12</span>
+fuel_price = <span class="n">45.5</span></pre></div><div><b>Вывод</b><pre>Топливо: 455.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Литров нужно: расстояние / расход. Для копеек — формат <code>:.2f</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.3.3</span><h3 class="task__title">Цена со скидкой</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Товар стоит некоторую сумму, на него действует скидка в процентах. Выведите размер скидки и итоговую цену — обе суммы с двумя знаками после точки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>price = <span class="n">1999</span>
+discount = <span class="n">15</span></pre></div><div><b>Вывод</b><pre>Скидка: 299.85 руб.
+К оплате: 1699.15 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>price = <span class="n">500</span>
+discount = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>Скидка: 50.00 руб.
+К оплате: 450.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Скидка в рублях = цена × процент / 100. Посчитайте её отдельно — она нужна и в выводе, и в итоговой цене.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.3.4</span><h3 class="task__title">Площадь круглой клумбы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Ландшафтный дизайнер знает радиус клумбы в метрах. Выведите её площадь с двумя знаками после точки. Число π возьмите равным 3.14159.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>radius = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>Клумба радиусом 3 м: 28.27 кв. м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>radius = <span class="n">10</span></pre></div><div><b>Вывод</b><pre>Клумба радиусом 10 м: 314.16 кв. м</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Площадь круга — π × r². Степень в Python записывается через <code>**</code>.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.3.5</span><h3 class="task__title">Дневной отчёт интернет-магазина</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Известно число посетителей сайта и число заказов за день. Выведите отчёт: заголовок, пустую строку, посетителей, заказы и конверсию — долю заказов в процентах с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>visitors = <span class="n">120</span>
+orders = <span class="n">18</span></pre></div><div><b>Вывод</b><pre>Отчёт за день
+
+Посетителей: 120
+Заказов: 18
+Конверсия: 15.00%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>visitors = <span class="n">250</span>
+orders = <span class="n">7</span></pre></div><div><b>Вывод</b><pre>Отчёт за день
+
+Посетителей: 250
+Заказов: 7
+Конверсия: 2.80%</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Конверсия = заказы / посетители × 100. Пустая строка — отдельный <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.3.6</span><h3 class="task__title">Исправьте программу менеджера</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Менеджер написал программу для ценника, но она не работает, а если убрать первую ошибку — печатает не то. Найдите все ошибки и исправьте программу так, чтобы вывод совпал с примерами.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>product = <span class="s">&quot;Ноутбук&quot;</span>
+price = <span class="n">54990</span>
+<span class="f">print</span>(<span class="s">&quot;Товар: &quot;</span> + product)
+<span class="f">print</span>(<span class="s">&quot;Цена: &quot;</span> + price + <span class="s">&quot; руб.&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;С доставкой: {price + 500} руб.&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>product = <span class="s">&quot;Ноутбук&quot;</span>
+price = <span class="n">54990</span></pre></div><div><b>Вывод</b><pre>Товар: Ноутбук
+Цена: 54990 руб.
+С доставкой: 55490 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>product = <span class="s">&quot;Мышь&quot;</span>
+price = <span class="n">1290</span></pre></div><div><b>Вывод</b><pre>Товар: Мышь
+Цена: 1290 руб.
+С доставкой: 1790 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Ошибок две разного рода: одна останавливает программу, другая молча печатает фигурные скобки. Запустите исходный код и прочитайте последнюю строку сообщения об ошибке.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-2/index.html">← Задачи 1.2</a><a href="../../temy/03-print/index.html">Глава 1.3 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-4/index.html">Задачи 1.4 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.3 · Функция print() · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

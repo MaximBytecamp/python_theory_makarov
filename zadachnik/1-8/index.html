@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.8 · Операции деления · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.8</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.8</span>
+<h1>Задачи к главе<br>«Операции деления»</h1>
+<p class="lead">Пара <code>//</code> и <code>%</code> решает удивительно много прикладных задач: цифры числа, сдача, время на часах, автобусы для группы и даже номер подъезда по номеру квартиры.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/08-operacii-deleniya/index.html">1.8 Операции деления: /, // и %</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.8</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip chip--now" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a></div>
+<p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Делитель во всех задачах не равен нулю — проверять это научимся в модуле 2.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Число задом наперёд</a></li><li><a href="#r2">Разбор 2. Сдача монетами</a></li><li><a href="#r3">Разбор 3. Чётный ли номер рейса</a></li><li><a href="#p1">Задача 1.8.1. Сумма цифр двузначного числа</a></li><li><a href="#p2">Задача 1.8.2. Переставить цифры</a></li><li><a href="#p3">Задача 1.8.3. Контрольная сумма артикула</a></li><li><a href="#p4">Задача 1.8.4. Что показывают часы</a></li><li><a href="#p5">Задача 1.8.5. Автобусы для экскурсии</a></li><li><a href="#p6">Задача 1.8.6. Какой подъезд и этаж</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Число задом наперёд</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Для игры «перевёртыши» нужно по трёхзначному числу получить его цифры и число, записанное теми же цифрами в обратном порядке.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Сотни: отрезаем две последние цифры — <code>number // 100</code>.</li><li>Десятки: отрезаем последнюю цифру и берём последнюю у того, что осталось, — <code>number // 10 % 10</code>. Единицы: <code>number % 10</code>.</li><li>Собираем новое число по разрядам: единицы становятся сотнями — <code>units * 100 + tens * 10 + hundreds</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Трёхзначное число: &quot;</span>))
+
+<span class="c"># Цифры</span>
+hundreds = number // <span class="n">100</span>
+tens = number // <span class="n">10</span> % <span class="n">10</span>
+units = number % <span class="n">10</span>
+
+<span class="c"># Число наоборот</span>
+reversed_number = units * <span class="n">100</span> + tens * <span class="n">10</span> + hundreds
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Цифры:&quot;</span>, hundreds, tens, units)
+<span class="f">print</span>(<span class="s">&quot;Наоборот:&quot;</span>, reversed_number)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Трёхзначное число: <span class="typed">254</span>
+Цифры: 2 5 4
+Наоборот: 452</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">120</pre></div><div><b>Вывод</b><pre>Цифры: 1 2 0
+Наоборот: 21</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Куда делся ноль</b><p>Из 120 получилось 21, а не 021: у числа не бывает ведущих нулей. Программа права — это свойство чисел, а не ошибка.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Сдача монетами</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Автомат выдаёт сдачу монетами по 10, 5, 2 и 1 рублю — сначала крупными. Сколько монет каждого номинала он выдаст?</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Сколько монет по 10 — сколько раз 10 помещается в сдаче: <code>//</code>. Что осталось выдать — <code>%</code>.</li><li>С остатком повторяем то же для 5, затем для 2. Последний остаток — монеты по 1.</li><li>Каждый шаг работает с тем, что осталось после предыдущего, — поэтому остаток хранится в своей переменной.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+change = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сдача, руб.: &quot;</span>))
+
+<span class="c"># Расчёт: от крупных монет к мелким</span>
+coins_10 = change // <span class="n">10</span>
+rest = change % <span class="n">10</span>
+coins_5 = rest // <span class="n">5</span>
+rest = rest % <span class="n">5</span>
+coins_2 = rest // <span class="n">2</span>
+coins_1 = rest % <span class="n">2</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;По 10 руб.:&quot;</span>, coins_10)
+<span class="f">print</span>(<span class="s">&quot;По 5 руб.:&quot;</span>, coins_5)
+<span class="f">print</span>(<span class="s">&quot;По 2 руб.:&quot;</span>, coins_2)
+<span class="f">print</span>(<span class="s">&quot;По 1 руб.:&quot;</span>, coins_1)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сдача, руб.: <span class="typed">38</span>
+По 10 руб.: 3
+По 5 руб.: 1
+По 2 руб.: 1
+По 1 руб.: 1</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">9</pre></div><div><b>Вывод</b><pre>По 10 руб.: 0
+По 5 руб.: 1
+По 2 руб.: 2
+По 1 руб.: 0</pre></div></div></div>
+<div class="margin-note"><b>Проверка суммой</b><p>38 = 3 × 10 + 1 × 5 + 1 × 2 + 1 × 1. Сложите монеты обратно — если сумма сошлась, расчёт верный.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Чётный ли номер рейса</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Авиакомпания отправляет чётные рейсы с терминала A, а на рейсы с номером, кратным 5, дарит напиток. Программа выводит остаток от деления номера на 2 и оба признака.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Чётность — остаток от деления на 2: у чётного числа он равен 0.</li><li>Кратность 5 — остаток от деления на 5 равен 0. Сравнение из главы 1.7 превращает остаток в ответ <code>True</code> или <code>False</code>.</li><li>Сохраняем признаки в переменные с именами-вопросами.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+flight = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Номер рейса: &quot;</span>))
+
+<span class="c"># Проверки</span>
+remainder = flight % <span class="n">2</span>
+is_even = remainder == <span class="n">0</span>
+gift = flight % <span class="n">5</span> == <span class="n">0</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Остаток от деления на 2:&quot;</span>, remainder)
+<span class="f">print</span>(<span class="s">&quot;Терминал A:&quot;</span>, is_even)
+<span class="f">print</span>(<span class="s">&quot;Напиток в подарок:&quot;</span>, gift)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Номер рейса: <span class="typed">1250</span>
+Остаток от деления на 2: 0
+Терминал A: True
+Напиток в подарок: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">733</pre></div><div><b>Вывод</b><pre>Остаток от деления на 2: 1
+Терминал A: False
+Напиток в подарок: False</pre></div></div></div>
+<div class="margin-note"><b>Приоритет</b><p>В <code>flight % 5 == 0</code> сначала считается остаток, потом сравнение — арифметика выполняется раньше сравнений.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.8.1</span><h3 class="task__title">Сумма цифр двузначного числа</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится двузначное число. Выведите его цифру десятков, цифру единиц и их сумму.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">47</pre></div><div><b>Вывод</b><pre>Десятков: 4
+Единиц: 7
+Сумма цифр: 11</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">90</pre></div><div><b>Вывод</b><pre>Десятков: 9
+Единиц: 0
+Сумма цифр: 9</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Десятки отрезаются делением на 10, единицы остаются в остатке.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.8.2</span><h3 class="task__title">Переставить цифры</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится двузначное число. Выведите число, в котором его цифры переставлены местами.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">47</pre></div><div><b>Вывод</b><pre>74</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">50</pre></div><div><b>Вывод</b><pre>5</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">11</pre></div><div><b>Вывод</b><pre>11</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Единицы становятся десятками: умножьте их на 10 и прибавьте старые десятки.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.8.3</span><h3 class="task__title">Контрольная сумма артикула</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На складе трёхзначный артикул проверяют так: считают сумму и произведение его цифр. Выведите обе величины.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">254</pre></div><div><b>Вывод</b><pre>Сумма цифр: 11
+Произведение цифр: 40</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">907</pre></div><div><b>Вывод</b><pre>Сумма цифр: 16
+Произведение цифр: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала выделите три цифры в три переменные, потом считайте.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.8.4</span><h3 class="task__title">Что показывают часы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">С начала суток прошло n секунд. Выведите, сколько полных часов прошло, сколько полных минут прошло с начала текущего часа и сколько секунд — с начала текущей минуты.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12307</pre></div><div><b>Вывод</b><pre>Часов: 3
+Минут с начала часа: 25
+Секунд с начала минуты: 7</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">86399</pre></div><div><b>Вывод</b><pre>Часов: 23
+Минут с начала часа: 59
+Секунд с начала минуты: 59</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">59</pre></div><div><b>Вывод</b><pre>Часов: 0
+Минут с начала часа: 0
+Секунд с начала минуты: 59</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Минуты с начала часа — это минуты в остатке после полных часов.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.8.5</span><h3 class="task__title">Автобусы для экскурсии</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На экскурсию едет группа, в автобусе фиксированное число мест. Выведите, сколько автобусов заполнится полностью, сколько человек не поместится в полные автобусы и сколько всего автобусов нужно заказать.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">130
+45</pre></div><div><b>Вывод</b><pre>Полных автобусов: 2
+Не поместились в полные: 40
+Нужно заказать: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">90
+45</pre></div><div><b>Вывод</b><pre>Полных автобусов: 2
+Не поместились в полные: 0
+Нужно заказать: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+45</pre></div><div><b>Вывод</b><pre>Полных автобусов: 0
+Не поместились в полные: 10
+Нужно заказать: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Подвох в третьем числе: если кто-то не поместился, нужен ещё один автобус, а если все поместились — нет. Условий нет, но есть приём: прибавьте к числу людей «мест в автобусе минус один» и разделите нацело.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.8.6</span><h3 class="task__title">Какой подъезд и этаж</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В доме на каждом этаже одинаковое число квартир и во всех подъездах одинаковое число этажей; квартиры нумеруются подряд с первого подъезда и первого этажа. Вводятся номер квартиры, квартир на этаже и этажей в подъезде. Выведите номер подъезда и этажа.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">87
+4
+9</pre></div><div><b>Вывод</b><pre>Подъезд: 3
+Этаж: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">36
+4
+9</pre></div><div><b>Вывод</b><pre>Подъезд: 1
+Этаж: 9</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+4
+9</pre></div><div><b>Вывод</b><pre>Подъезд: 1
+Этаж: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нумерация с единицы мешает делению. Считайте от нуля: вычтите 1 из номера квартиры, а к найденным подъезду и этажу прибавьте 1. Сначала узнайте, сколько квартир в одном подъезде.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-7/index.html">← Задачи 1.7</a><a href="../../temy/08-operacii-deleniya/index.html">Глава 1.8 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-9/index.html">Задачи 1.9 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.8 · Операции деления · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

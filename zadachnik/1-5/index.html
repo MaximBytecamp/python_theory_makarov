@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.5 · Функция input() · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.5</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.5</span>
+<h1>Задачи к главе<br>«Функция input()»</h1>
+<p class="lead">Программа начинает разговаривать с человеком. Главное в задачах этой главы — не забыть, что <code>input()</code> всегда возвращает строку, и выбрать правильное преобразование: <code>int()</code> для штук, <code>float()</code> для измерений.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/05-input/index.html">1.5 Функция <code>input()</code>: ввод данных</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.5</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip chip--now" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div>
+<p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Если пользователь введёт не число, программа остановится с ошибкой — защищаться от этого научимся в главе 8.1.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Возраст в будущем году</a></li><li><a href="#r2">Разбор 2. Покупка на развес</a></li><li><a href="#r3">Разбор 3. Калькулятор суммы</a></li><li><a href="#p1">Задача 1.5.1. Приветствие</a></li><li><a href="#p2">Задача 1.5.2. Номера соседних мест</a></li><li><a href="#p3">Задача 1.5.3. Рост в анкете</a></li><li><a href="#p4">Задача 1.5.4. Поездка на машине</a></li><li><a href="#p5">Задача 1.5.5. Зарплата на руки</a></li><li><a href="#p6">Задача 1.5.6. Сколько качать фильм</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Возраст в будущем году</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Сервис поздравлений спрашивает имя и год рождения и сообщает, сколько человеку исполнится в 2030 году.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Имя — текст, его можно оставить строкой. Год нужен для вычитания — сразу переводим в <code>int</code>.</li><li>Подсказка в <code>input()</code> заканчивается пробелом, чтобы ввод не прилипал к двоеточию.</li><li>Расчёт — отдельной строкой, вывод — f-строкой.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+name = <span class="f">input</span>(<span class="s">&quot;Как вас зовут? &quot;</span>)
+birth_year = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Год рождения: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+age_2030 = <span class="n">2030</span> - birth_year
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{name}<span class="s">, в 2030 году вам исполнится </span>{age_2030}<span class="s">.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Как вас зовут? <span class="typed">Анна</span>
+Год рождения: <span class="typed">2004</span>
+Анна, в 2030 году вам исполнится 26.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Олег
+1990</pre></div><div><b>Вывод</b><pre>Олег, в 2030 году вам исполнится 40.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Без int()</b><p><code>2030 - input("Год рождения: ")</code> остановится с <code>TypeError</code>: из числа нельзя вычесть строку. Преобразование пишут прямо в строке ввода — так в переменную сразу попадает число.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Покупка на развес</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Касса в овощном отделе спрашивает цену за килограмм и вес покупки и печатает сумму к оплате с копейками.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>И цена, и вес бывают дробными — оба значения читаем через <code>float()</code>.</li><li>Сумма = цена × вес, отдельной переменной.</li><li>Деньги выводим с двумя знаками: <code>:.2f</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+price = <span class="f">float</span>(<span class="f">input</span>(<span class="s">&quot;Цена за 1 кг, руб.: &quot;</span>))
+weight = <span class="f">float</span>(<span class="f">input</span>(<span class="s">&quot;Вес, кг: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+cost = price * weight
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">К оплате: </span>{cost:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Цена за 1 кг, руб.: <span class="typed">189.9</span>
+Вес, кг: <span class="typed">2.5</span>
+К оплате: 474.75 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">120
+0.75</pre></div><div><b>Вывод</b><pre>К оплате: 90.00 руб.</pre></div></div></div>
+<div class="margin-note"><b>int или float</b><p>Правило из главы: штуки — <code>int()</code>, измерения — <code>float()</code>. Если здесь взять <code>int()</code>, ввод <code>2.5</code> остановит программу с <code>ValueError</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Калькулятор суммы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа спрашивает два целых числа и печатает пример со сложением целиком: «первое + второе = сумма».</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Оба ввода сразу переводим в <code>int</code> — иначе <code>+</code> склеит строки, и из 5 и 7 получится 57.</li><li>Сумму можно посчитать отдельно или прямо в фигурных скобках: выражение короткое и нужно один раз.</li><li>Проверяем на отрицательном числе — программа должна работать и с ним.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+first = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Первое число: &quot;</span>))
+second = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Второе число: &quot;</span>))
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{first}<span class="s"> + </span>{second}<span class="s"> = </span>{first + second}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Первое число: <span class="typed">5</span>
+Второе число: <span class="typed">7</span>
+5 + 7 = 12</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">-12
+30</pre></div><div><b>Вывод</b><pre>-12 + 30 = 18</pre></div></div></div>
+<div class="margin-note"><b>Каждый input() — отдельная остановка</b><p>Вторая подсказка появляется только после того, как введено первое число и нажат <kbd>Enter</kbd>: строки выполняются сверху вниз.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.5.1</span><h3 class="task__title">Приветствие</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Программа спрашивает имя и здоровается.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Анна</pre></div><div><b>Вывод</b><pre>Привет, Анна!</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Максим</pre></div><div><b>Вывод</b><pre>Привет, Максим!</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Имя — это текст, преобразовывать его не нужно.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.5.2</span><h3 class="task__title">Номера соседних мест</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Зритель вводит номер своего места в ряду. Выведите номера мест слева и справа от него.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>Слева место 6, справа место 8</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100</pre></div><div><b>Вывод</b><pre>Слева место 99, справа место 101</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Прибавлять и вычитать можно только из числа — вспомните, что возвращает <code>input()</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.5.3</span><h3 class="task__title">Рост в анкете</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Анкета спортивной секции просит рост в сантиметрах, а в карточку записывает метры и сантиметры.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">175</pre></div><div><b>Вывод</b><pre>Рост: 1 м 75 см</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">203</pre></div><div><b>Вывод</b><pre>Рост: 2 м 3 см</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В метре 100 сантиметров: полные метры и остаток — главы 1.2 и 1.8.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.5.4</span><h3 class="task__title">Поездка на машине</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа спрашивает расстояние в километрах (целое), расход топлива в литрах на 100 км и цену литра. Выведите, сколько литров понадобится и сколько это стоит, — с двумя знаками после точки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
+7.5
+55.9</pre></div><div><b>Вывод</b><pre>Топлива: 37.50 л
+Стоимость: 2096.25 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">120
+8
+60</pre></div><div><b>Вывод</b><pre>Топлива: 9.60 л
+Стоимость: 576.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала литры: расстояние / 100 × расход. Потом деньги: литры × цена.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.5.5</span><h3 class="task__title">Зарплата на руки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Бухгалтер вводит зарплату до вычета налога. Налог — 13%. Выведите налог, сумму на руки и заработок за один рабочий день, если в месяце 22 рабочих дня. Все суммы — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">60000</pre></div><div><b>Вывод</b><pre>Налог: 7800.00 руб.
+На руки: 52200.00 руб.
+За один день: 2372.73 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">35500.50</pre></div><div><b>Вывод</b><pre>Налог: 4615.06 руб.
+На руки: 30885.44 руб.
+За один день: 1403.88 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Налог — отдельная величина. Сумма «на руки» нужна дважды: в выводе и для расчёта за день.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.5.6</span><h3 class="task__title">Сколько качать фильм</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Пользователь вводит размер фильма в гигабайтах и скорость интернета в мегабитах в секунду. Выведите время загрузки в минутах с двумя знаками. В одном гигабайте 1024 мегабайта, в одном мегабайте 8 мегабит.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4.7
+100</pre></div><div><b>Вывод</b><pre>Загрузка займёт 6.42 мин</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+8</pre></div><div><b>Вывод</b><pre>Загрузка займёт 17.07 мин</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Подвох в единицах: скорость дана в мегабитах, а размер — в гигабайтах. Переведите размер в мегабиты, найдите секунды, затем минуты.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-4/index.html">← Задачи 1.4</a><a href="../../temy/05-input/index.html">Глава 1.5 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-6/index.html">Задачи 1.6 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.5 · Функция input() · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

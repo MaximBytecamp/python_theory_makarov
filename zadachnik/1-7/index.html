@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.7 · Операторы · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.7</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.7</span>
+<h1>Задачи к главе<br>«Операторы»</h1>
+<p class="lead">Сравнения дают ответ «да или нет», приоритет решает, в каком порядке считается формула. Задачи главы — про формулы из жизни, где скобка не на месте меняет результат.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/07-operatory/index.html">1.7 Операторы в Python</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.7</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip chip--now" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a></div>
+<p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Результат сравнения пока только выводим как <code>True</code> или <code>False</code> — выбирать по нему действия будем в модуле 2.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Зачёт по баллам</a></li><li><a href="#r2">Разбор 2. Средняя оценка: где ошибка</a></li><li><a href="#r3">Разбор 3. Вклад со сложными процентами</a></li><li><a href="#p1">Задача 1.7.1. Хватит ли денег</a></li><li><a href="#p2">Задача 1.7.2. Проверка кода подтверждения</a></li><li><a href="#p3">Задача 1.7.3. Перепад температуры</a></li><li><a href="#p4">Задача 1.7.4. Значение формулы</a></li><li><a href="#p5">Задача 1.7.5. Курьер и клиент</a></li><li><a href="#p6">Задача 1.7.6. Площадь треугольного участка</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Зачёт по баллам</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Экзамен сдан, если набрано не меньше 60 баллов, и сдан на «отлично» — если не меньше 90. Программа спрашивает баллы и выводит оба признака.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>«Не меньше» — это <code>&gt;=</code>: граница включается.</li><li>Результат сравнения — значение <code>True</code> или <code>False</code>. Его можно сохранить в переменную с именем-вопросом.</li><li>Выводим признаки через запятую — <code>print()</code> покажет <code>True</code> или <code>False</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+score = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Баллы за экзамен: &quot;</span>))
+
+<span class="c"># Проверки</span>
+passed = score &gt;= <span class="n">60</span>
+excellent = score &gt;= <span class="n">90</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Сдан:&quot;</span>, passed)
+<span class="f">print</span>(<span class="s">&quot;Отлично:&quot;</span>, excellent)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Баллы за экзамен: <span class="typed">75</span>
+Сдан: True
+Отлично: False</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">90</pre></div><div><b>Вывод</b><pre>Сдан: True
+Отлично: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">59</pre></div><div><b>Вывод</b><pre>Сдан: False
+Отлично: False</pre></div></div></div>
+<div class="margin-note"><b>Проверяйте границы</b><p>Второй и третий примеры стоят ровно на границах: 90 и 59. Ошибка <code>&gt;</code> вместо <code>&gt;=</code> проявляется только там — поэтому граничные значения берут в проверку всегда.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Средняя оценка: где ошибка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Студент считает среднюю из трёх оценок и получает странно большое число. Покажем обе версии формулы рядом.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Деление выполняется раньше сложения: <code>a + b + c / 3</code> делит на три только последнюю оценку.</li><li>Скобки задают порядок явно: <code>(a + b + c) / 3</code>.</li><li>Выводим обе версии с двумя знаками — разница видна сразу.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+a = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Первая оценка: &quot;</span>))
+b = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Вторая оценка: &quot;</span>))
+c = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Третья оценка: &quot;</span>))
+
+<span class="c"># Две версии формулы</span>
+wrong = a + b + c / <span class="n">3</span>
+average = (a + b + c) / <span class="n">3</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Без скобок: </span>{wrong:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Со скобками: </span>{average:<span class="s">.2f</span>}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Первая оценка: <span class="typed">5</span>
+Вторая оценка: <span class="typed">4</span>
+Третья оценка: <span class="typed">3</span>
+Без скобок: 10.00
+Со скобками: 4.00</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5</pre></div><div><b>Вывод</b><pre>Без скобок: 11.67
+Со скобками: 5.00</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Ошибка без сообщения</b><p>Программа без скобок не падает — она уверенно печатает 10.00 вместо 4.00. Такие ошибки находит только проверка на примере, ответ к которому вы знаете заранее.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Вклад со сложными процентами</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вклад открыт на несколько лет, проценты каждый год прибавляются к сумме. Выведите сумму в конце срока и доход.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>За год сумма умножается на <code>1 + ставка / 100</code>. За несколько лет — возводится в степень числа лет: <code>**</code>.</li><li>Степень выполняется раньше умножения, а сложение внутри скобок — первым: <code>deposit * (1 + rate / 100) ** years</code>.</li><li>Доход — итог минус вложенное, считаем по готовым переменным.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+deposit = <span class="f">float</span>(<span class="f">input</span>(<span class="s">&quot;Сумма вклада, руб.: &quot;</span>))
+rate = <span class="f">float</span>(<span class="f">input</span>(<span class="s">&quot;Ставка, % годовых: &quot;</span>))
+years = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Срок, лет: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+total = deposit * (<span class="n">1</span> + rate / <span class="n">100</span>) ** years
+income = total - deposit
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Через </span>{years}<span class="s"> г.: </span>{total:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Доход: </span>{income:<span class="s">.2f</span>}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сумма вклада, руб.: <span class="typed">100000</span>
+Ставка, % годовых: <span class="typed">12</span>
+Срок, лет: <span class="typed">3</span>
+Через 3 г.: 140492.80 руб.
+Доход: 40492.80 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5000
+10
+2</pre></div><div><b>Вывод</b><pre>Через 2 г.: 6050.00 руб.
+Доход: 1050.00 руб.</pre></div></div></div>
+<div class="margin-note"><b>Порядок в формуле</b><p>Скобки → <code>**</code> → <code>*</code> <code>/</code> → <code>+</code> <code>-</code>. Без скобок <code>deposit * 1 + rate / 100 ** years</code> посчитало бы совсем другое число.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.7.1</span><h3 class="task__title">Хватит ли денег</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся баланс карты и цена товара. Выведите, можно ли купить товар, и сколько останется после покупки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5000
+3200</pre></div><div><b>Вывод</b><pre>Можно купить: True
+Останется: 1800</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1000
+1000</pre></div><div><b>Вывод</b><pre>Можно купить: True
+Останется: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">300
+450</pre></div><div><b>Вывод</b><pre>Можно купить: False
+Останется: -150</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если денег ровно столько, сколько стоит товар, купить можно. В третьем примере остаток отрицательный — это нормально, условий мы пока не знаем.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.7.2</span><h3 class="task__title">Проверка кода подтверждения</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Сервис отправил код подтверждения. Вводятся отправленный код и код, который набрал пользователь. Выведите, совпадают ли они и отличаются ли.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4821
+4821</pre></div><div><b>Вывод</b><pre>Код верный: True
+Код неверный: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4821
+4812</pre></div><div><b>Вывод</b><pre>Код верный: False
+Код неверный: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравнение на равенство — два знака <code>==</code>, на неравенство — <code>!=</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.7.3</span><h3 class="task__title">Перепад температуры</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся утренняя и вечерняя температура. Выведите, на сколько изменилась температура за день и то же изменение в обратную сторону — от вечера к утру, с помощью унарного минуса.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12
+19</pre></div><div><b>Вывод</b><pre>Изменение за день: 7
+От вечера к утру: -7</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+-4</pre></div><div><b>Вывод</b><pre>Изменение за день: -7
+От вечера к утру: 7</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Посчитайте изменение один раз, а второй результат получите минусом перед переменной.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.7.4</span><h3 class="task__title">Значение формулы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Инженер проверяет формулу y = 2x³ − 3x² + x − 5. Вводится целое x, выведите y.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>y = 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-1</pre></div><div><b>Вывод</b><pre>y = -11</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>y = -5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Степень — <code>**</code>, и она выполняется раньше умножения. Скобки здесь не нужны, но проверьте ответ на x = 2 вручную.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.7.5</span><h3 class="task__title">Курьер и клиент</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На карте города заданы координаты курьера и клиента (целые числа, в сотнях метров). Выведите расстояние между ними по прямой с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+0
+3
+4</pre></div><div><b>Вывод</b><pre>Расстояние: 5.00</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-2
+1
+4
+-3</pre></div><div><b>Вывод</b><pre>Расстояние: 7.21</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Расстояние = √((x₂ − x₁)² + (y₂ − y₁)²). Корень — это степень 0.5. Внимательно расставьте скобки.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.7.6</span><h3 class="task__title">Площадь треугольного участка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Геодезист измерил три стороны треугольного участка в метрах. Выведите площадь по формуле Герона с двумя знаками: p = (a + b + c) / 2, S = √(p · (p − a) · (p − b) · (p − c)).</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+4
+5</pre></div><div><b>Вывод</b><pre>Площадь: 6.00 кв. м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+5
+6</pre></div><div><b>Вывод</b><pre>Площадь: 12.00 кв. м</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10.5
+7.2
+12</pre></div><div><b>Вывод</b><pre>Площадь: 37.53 кв. м</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Полупериметр посчитайте отдельной переменной. Корень — степень 0.5, и всё подкоренное выражение должно быть в скобках.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-6/index.html">← Задачи 1.6</a><a href="../../temy/07-operatory/index.html">Глава 1.7 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-8/index.html">Задачи 1.8 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.7 · Операторы · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

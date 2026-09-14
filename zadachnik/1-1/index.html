@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.1 · Переменные · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.1</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.1</span>
+<h1>Задачи к главе<br>«Переменные»</h1>
+<p class="lead">Первые программы: дать данным имена, посчитать по формуле и вывести результат. Главное здесь не арифметика, а привычка: данные сверху, расчёт отдельными строками, вывод в конце.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/01-peremennye/index.html">1.1 Переменные в программировании</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip chip--now" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a></div>
+<p>Ввода с клавиатуры пока нет — он появится в главе 1.5. Поэтому исходные данные записываются в первые строки программы, а решение проверяется так: меняем данные наверху и запускаем снова. Вывод — через <code>print()</code> с запятыми: f-строки разберём в главе 1.3.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Покупка в магазине</a></li><li><a href="#r2">Разбор 2. Счёт за электричество</a></li><li><a href="#r3">Разбор 3. Движение товара на складе</a></li><li><a href="#p1">Задача 1.1.1. Забор вокруг участка</a></li><li><a href="#p2">Задача 1.1.2. Время загрузки файла</a></li><li><a href="#p3">Задача 1.1.3. Стоимость одного дня аренды</a></li><li><a href="#p4">Задача 1.1.4. Погода для туриста</a></li><li><a href="#p5">Задача 1.1.5. Счёт в кафе</a></li><li><a href="#p6">Задача 1.1.6. Баланс карты за неделю</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Покупка в магазине</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В магазине купили несколько одинаковых тетрадей. Известны цена одной тетради и их количество. Выведите количество и сумму к оплате.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Выписываем, что дано: цена и количество. Каждому числу — своё имя, которое объясняет смысл.</li><li>Решаем, что нужно найти: сумма = цена × количество.</li><li>Сначала считаем и сохраняем результат в переменную <code>total</code>, потом выводим.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+price = <span class="n">45</span>   <span class="c"># цена одной тетради, руб.</span>
+count = <span class="n">3</span>    <span class="c"># сколько тетрадей купили</span>
+
+<span class="c"># Расчёт</span>
+total = price * count
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Тетрадей:&quot;</span>, count)
+<span class="f">print</span>(<span class="s">&quot;К оплате:&quot;</span>, total, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Тетрадей: 3
+К оплате: 135 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>price = <span class="n">120</span>
+count = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>Тетрадей: 5
+К оплате: 600 руб.</pre></div></div></div>
+<div class="margin-note"><b>Почему не print(45 * 3)</b><p>Такая строка тоже напечатает 135, но через месяц уже непонятно, что такое 45 и 3. С именами <code>price</code> и <code>count</code> программа объясняет себя сама, а новые данные меняются в одном месте — наверху.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Счёт за электричество</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Известны показания счётчика в прошлом и в этом месяце и тариф — цена одного киловатт-часа. Посчитайте расход за месяц и сумму к оплате.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Расход — это разница показаний: текущее минус прошлое. Это отдельная величина, у неё будет своё имя.</li><li>Сумма — расход, умноженный на тариф. Считаем её по имени <code>used</code>, а не повторяем вычитание второй раз.</li><li>Выводим обе величины с единицами измерения, чтобы вывод читался без программы перед глазами.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+previous = <span class="n">12450</span>   <span class="c"># показание в прошлом месяце, кВт·ч</span>
+current = <span class="n">12630</span>    <span class="c"># показание в этом месяце, кВт·ч</span>
+tariff = <span class="n">6.5</span>       <span class="c"># цена 1 кВт·ч, руб.</span>
+
+<span class="c"># Расчёт</span>
+used = current - previous
+cost = used * tariff
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Расход:&quot;</span>, used, <span class="s">&quot;кВт·ч&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;К оплате:&quot;</span>, cost, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>Расход: 180 кВт·ч
+К оплате: 1170.0 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>previous = <span class="n">800</span>
+current = <span class="n">1000</span>
+tariff = <span class="n">5</span></pre></div><div><b>Вывод</b><pre>Расход: 200 кВт·ч
+К оплате: 1000 руб.</pre></div></div></div>
+<div class="margin-note"><b>Промежуточный результат — тоже переменная</b><p>Можно было написать <code>cost = (current - previous) * tariff</code> и обойтись без <code>used</code>. Но расход нужен дважды — в выводе и в расчёте суммы. Одно имя вместо двух одинаковых выражений: меньше кода и некуда ошибиться при правке.</p></div>
+<div class="margin-note"><b>Откуда .0 во втором примере</b><p>В первом примере тариф дробный, <code>6.5</code>, — и сумма получается дробной: <code>1170.0</code>. Во втором тариф целый, и сумма целая. Тип результата зависит от типов данных — подробно это в главе 1.2.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Движение товара на складе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Утром на складе лежит некоторое количество коробок. За день пришла поставка на 120 коробок, продали 75, а вечером половину остатка передали в другой магазин. Выведите остаток после каждой операции.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Одна величина меняется несколько раз — значит, нужна одна переменная <code>stock</code> и составное присваивание.</li><li>Операции идут в порядке условия. Порядок строк важен: каждая работает с тем значением, что лежит в переменной на этот момент.</li><li>После каждой операции выводим промежуточный остаток — так легко проверить программу по шагам.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Исходные данные</span>
+stock = <span class="n">200</span>   <span class="c"># коробок на складе утром</span>
+
+<span class="c"># Операции за день</span>
+stock += <span class="n">120</span>   <span class="c"># пришла поставка</span>
+<span class="f">print</span>(<span class="s">&quot;После поставки:&quot;</span>, stock)
+
+stock -= <span class="n">75</span>    <span class="c"># продали</span>
+<span class="f">print</span>(<span class="s">&quot;После продаж:&quot;</span>, stock)
+
+stock /= <span class="n">2</span>     <span class="c"># половину передали в другой магазин</span>
+<span class="f">print</span>(<span class="s">&quot;Вечером осталось:&quot;</span>, stock)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption><pre>После поставки: 320
+После продаж: 245
+Вечером осталось: 122.5</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>stock = <span class="n">50</span></pre></div><div><b>Вывод</b><pre>После поставки: 170
+После продаж: 95
+Вечером осталось: 47.5</pre></div></div></div>
+<div class="margin-note"><b>Трассировка: что лежит в stock</b><div class="table-scroll"><table><thead><tr><th>Строка</th><th>Действие</th><th>stock</th></tr></thead><tbody><tr><td><code>stock = 200</code></td><td>начальное значение</td><td>200</td></tr><tr><td><code>stock += 120</code></td><td>200 + 120</td><td>320</td></tr><tr><td><code>stock -= 75</code></td><td>320 − 75</td><td>245</td></tr><tr><td><code>stock /= 2</code></td><td>245 / 2</td><td>122.5</td></tr></tbody></table></div><p>Такую таблицу стоит рисовать на черновике, когда результат не сходится: сразу видно, на какой строке значение ушло не туда.</p></div>
+<div class="margin-note margin-note--warn"><b>Половина коробки</b><p><code>/=</code> всегда даёт дробное число, поэтому получилось 122.5. В жизни коробку не разрежешь — как получить целую часть, узнаем в главах 1.2 и 1.8. Пока важно заметить: программа честно посчитала то, что написано.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.1.1</span><h3 class="task__title">Забор вокруг участка</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Участок прямоугольный. Известны его длина и ширина в метрах. Посчитайте, сколько метров забора нужно, чтобы обнести участок.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>length = <span class="n">30</span>
+width = <span class="n">20</span></pre></div><div><b>Вывод</b><pre>Длина забора: 100 м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>length = <span class="n">15</span>
+width = <span class="n">8</span></pre></div><div><b>Вывод</b><pre>Длина забора: 46 м</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Забор идёт по периметру: две длины и две ширины.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.1.2</span><h3 class="task__title">Время загрузки файла</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Размер файла — в мегабайтах, скорость интернета — в мегабайтах в секунду. Сколько секунд займёт загрузка?</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>file_size = <span class="n">700</span>
+speed = <span class="n">25</span></pre></div><div><b>Вывод</b><pre>Время загрузки: 28.0 с</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>file_size = <span class="n">1500</span>
+speed = <span class="n">60</span></pre></div><div><b>Вывод</b><pre>Время загрузки: 25.0 с</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Время = объём / скорость. Обратите внимание, какого вида число получится после деления.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.1.3</span><h3 class="task__title">Стоимость одного дня аренды</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Велосипед взяли в аренду на несколько дней и заплатили за всё сразу. Сколько стоил один день?</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>rent = <span class="n">3000</span>
+days = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Один день: 750.0 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>rent = <span class="n">1000</span>
+days = <span class="n">4</span></pre></div><div><b>Вывод</b><pre>Один день: 250.0 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Общую сумму делим на количество дней и сохраняем результат в переменную с понятным именем.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.1.4</span><h3 class="task__title">Погода для туриста</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Прогноз дан в градусах Цельсия, а турист привык к Фаренгейту. Переведите температуру: умножьте на 1.8 и прибавьте 32. Выведите обе величины в одной строке, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>celsius = <span class="n">25</span></pre></div><div><b>Вывод</b><pre>25 °C = 77.0 °F</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>celsius = -<span class="n">10</span></pre></div><div><b>Вывод</b><pre>-10 °C = 14.0 °F</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Значения и текст перечисляются в <code>print()</code> через запятую — пробелы между ними поставятся сами.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.1.5</span><h3 class="task__title">Счёт в кафе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Компания заказала два кофе и один десерт. Известны цена кофе и цена десерта. Выведите стоимость кофе, стоимость десерта и общий счёт — каждую величину отдельной строкой.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>coffee = <span class="n">180</span>
+dessert = <span class="n">250</span></pre></div><div><b>Вывод</b><pre>Кофе: 360 руб.
+Десерт: 250 руб.
+Счёт: 610 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>coffee = <span class="n">150</span>
+dessert = <span class="n">320</span></pre></div><div><b>Вывод</b><pre>Кофе: 300 руб.
+Десерт: 320 руб.
+Счёт: 620 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Стоимость двух кофе понадобится и в выводе, и в общем счёте — посчитайте её один раз.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.1.6</span><h3 class="task__title">Баланс карты за неделю</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">На карте лежит сумма. За неделю: пришла зарплата 30000 руб., оплатили аренду 18000 руб., потом банк начислил за месяц кешбэк — сумма на карте выросла в 1.01 раза, и наконец половину остатка перевели на накопительный счёт. Выведите баланс после каждой операции. Используйте одну переменную для баланса.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>balance = <span class="n">5000</span></pre></div><div><b>Вывод</b><pre>После зарплаты: 35000
+После аренды: 17000
+После кешбэка: 17170.0
+На карте осталось: 8585.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>balance = <span class="n">0</span></pre></div><div><b>Вывод</b><pre>После зарплаты: 30000
+После аренды: 12000
+После кешбэка: 12120.0
+На карте осталось: 6060.0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для каждой операции — своё составное присваивание: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>. Длинный хвост после точки у дробных чисел — это нормально: округлять вывод научимся в главах 1.3 и 1.9.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запишите данные из колонки «Данные в начале программы» в первые строки решения.</li><li>Запустите программу и сравните вывод с колонкой «Вывод» — символ в символ: пробелы, двоеточия, точка вместо запятой.</li><li>Замените данные на значения из следующего примера и запустите ещё раз. Решение верное, если при любых данных менять приходится только верхние строки.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../../temy/01-peremennye/index.html">Глава 1.1 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-2/index.html">Задачи 1.2 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.1 · Переменные · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

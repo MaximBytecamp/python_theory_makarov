@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 1.6 · Множественное присваивание · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 1 · Данные и имена</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Задачи 1.6</p></div>
+<header class="chapter-head">
+<span class="chapter-num">1.6</span>
+<h1>Задачи к главе<br>«Множественное присваивание»</h1>
+<p class="lead">Несколько имён в одной строке и одновременное обновление связанных величин: обмен, сдвиг по кругу, перенос точки. Ключ ко всем задачам — правая часть вычисляется целиком до того, как изменится хоть одно имя.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html">1.6 Множественное присваивание</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–1.6</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>6 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip chip--now" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a></div>
+<p>Условий и циклов пока нет — они в модулях 2 и 3. Все задачи решаются последовательностью строк сверху вниз. Разбирать строку вида <code>"3 4"</code> на части мы ещё не умеем — каждое значение вводится отдельной строкой.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Поменять значения местами</a></li><li><a href="#r2">Разбор 2. Дежурство по кругу</a></li><li><a href="#r3">Разбор 3. Робот-пылесос на плане квартиры</a></li><li><a href="#p1">Задача 1.6.1. Обмен двух чисел</a></li><li><a href="#p2">Задача 1.6.2. Показания счётчика воды</a></li><li><a href="#p3">Задача 1.6.3. Перевод между счетами</a></li><li><a href="#p4">Задача 1.6.4. Температура за три последних дня</a></li><li><a href="#p5">Задача 1.6.5. Рост числа подписчиков</a></li><li><a href="#p6">Задача 1.6.6. Две недели дежурств</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Смотрите не только на ответ, но и на оформление: исходные данные сверху, расчёт отдельными строками с понятными именами, вывод — в конце.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Поменять значения местами</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает два числа в переменные <code>a</code> и <code>b</code>, меняет их значения местами и выводит.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Наивный вариант <code>a = b</code>, затем <code>b = a</code> теряет старое значение <code>a</code> на первой же строке.</li><li>В записи <code>a, b = b, a</code> правая часть вычисляется первой: берутся текущие значения, потом раздаются по именам.</li><li>Третья переменная для обмена не нужна.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+a = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;a = &quot;</span>))
+b = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;b = &quot;</span>))
+
+<span class="c"># Обмен</span>
+a, b = b, a
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;a =&quot;</span>, a)
+<span class="f">print</span>(<span class="s">&quot;b =&quot;</span>, b)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>a = <span class="typed">5</span>
+b = <span class="typed">9</span>
+a = 9
+b = 5</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">-1
+0</pre></div><div><b>Вывод</b><pre>a = 0
+b = -1</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Как не надо</b><p><code>a = b</code> → в <code>a</code> уже 9, пятёрка потеряна; <code>b = a</code> → в <code>b</code> тоже 9. Обе переменные получили одно значение.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Дежурство по кругу</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Три сотрудника дежурят по очереди: сегодня первый, завтра второй, послезавтра третий. Каждую неделю очередь сдвигается: первый уходит в конец. Выведите очередь сейчас и через неделю.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Сдвиг по кругу: новый первый — это старый второй, новый второй — старый третий, новый третий — старый первый.</li><li>Все три имени меняются одновременно, поэтому пишем одну строку: <code>first, second, third = second, third, first</code>.</li><li>Имена — строки, преобразовывать ввод не нужно.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+first = <span class="f">input</span>(<span class="s">&quot;Первый дежурный: &quot;</span>)
+second = <span class="f">input</span>(<span class="s">&quot;Второй дежурный: &quot;</span>)
+third = <span class="f">input</span>(<span class="s">&quot;Третий дежурный: &quot;</span>)
+
+<span class="f">print</span>(<span class="s">&quot;Сейчас:&quot;</span>, first, second, third, sep=<span class="s">&quot; → &quot;</span>)
+
+<span class="c"># Сдвиг очереди на неделю</span>
+first, second, third = second, third, first
+<span class="f">print</span>(<span class="s">&quot;Через неделю:&quot;</span>, first, second, third, sep=<span class="s">&quot; → &quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Первый дежурный: <span class="typed">Анна</span>
+Второй дежурный: <span class="typed">Борис</span>
+Третий дежурный: <span class="typed">Вера</span>
+Сейчас: → Анна → Борис → Вера
+Через неделю: → Борис → Вера → Анна</pre></figure>
+<div class="margin-note"><b>Проверка по шагам</b><p>Правая часть <code>second, third, first</code> — это значения «Борис», «Вера», «Анна». Они раздаются по порядку: <code>first</code> = Борис, <code>second</code> = Вера, <code>third</code> = Анна. Если бы присваивание шло по одному, Анна потерялась бы на первом шаге.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Робот-пылесос на плане квартиры</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Робот стартует в точке (0, 0). За один шаг он смещается на <code>dx</code> по горизонтали и <code>dy</code> по вертикали. Выведите координаты после первого и второго шага.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Координаты — пара связанных величин: задаём и обновляем их вместе, одной строкой.</li><li>Новая точка = старая точка + смещение: <code>x, y = x + dx, y + dy</code>.</li><li>Смещение вводится один раз и используется на обоих шагах.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Старт и ввод</span>
+x, y = <span class="n">0</span>, <span class="n">0</span>
+dx = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Смещение по x: &quot;</span>))
+dy = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Смещение по y: &quot;</span>))
+
+<span class="c"># Первый шаг</span>
+x, y = x + dx, y + dy
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">После шага 1: (</span>{x}<span class="s">, </span>{y}<span class="s">)</span><span class="s">&quot;</span>)
+
+<span class="c"># Второй шаг</span>
+x, y = x + dx, y + dy
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">После шага 2: (</span>{x}<span class="s">, </span>{y}<span class="s">)</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Смещение по x: <span class="typed">3</span>
+Смещение по y: <span class="typed">-2</span>
+После шага 1: (3, -2)
+После шага 2: (6, -4)</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+5</pre></div><div><b>Вывод</b><pre>После шага 1: (0, 5)
+После шага 2: (0, 10)</pre></div></div></div>
+<div class="margin-note"><b>Когда объединять в одну строку</b><p><code>x, y = 0, 0</code> читается как одна мысль — «точка в начале координат». А вот <code>dx</code> и <code>dy</code> приходят разными вводами, и склеивать их нечем: разбирать строку на части научимся в главе о строках.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 1.6.1</span><h3 class="task__title">Обмен двух чисел</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Прочитайте два целых числа и выведите их в одной строке в обратном порядке. Порядок нужно поменять в самих переменных, а не только при выводе.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+9</pre></div><div><b>Вывод</b><pre>9 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+-3</pre></div><div><b>Вывод</b><pre>-3 100</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна строка обмена, затем <code>print(a, b)</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 1.6.2</span><h3 class="task__title">Показания счётчика воды</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Программа хранит предыдущее и текущее показание счётчика. Вводятся текущее показание и новое. После сдвига «текущее становится предыдущим, новое — текущим» выведите оба показания и расход между ними.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">120
+135</pre></div><div><b>Вывод</b><pre>Было: 120, стало: 135, расход: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4580
+4600</pre></div><div><b>Вывод</b><pre>Было: 4580, стало: 4600, расход: 20</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сдвиг двух значений — одна строка множественного присваивания.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 1.6.3</span><h3 class="task__title">Перевод между счетами</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся балансы двух счетов и сумма перевода с первого счёта на второй. Обновите оба баланса одной строкой и выведите их.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+1000
+300</pre></div><div><b>Вывод</b><pre>Счёт A: 700
+Счёт B: 1300</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">50
+0
+50</pre></div><div><b>Вывод</b><pre>Счёт A: 0
+Счёт B: 50</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Справа — оба новых значения, посчитанные из старых.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 1.6.4</span><h3 class="task__title">Температура за три последних дня</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Метеостанция хранит температуру за три последних дня. Вводятся три значения, выводится средняя. Затем вводится температура нового дня: самый старый день выбывает, окно сдвигается, и снова выводится средняя. Средние — с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12
+15
+9
+20</pre></div><div><b>Вывод</b><pre>Средняя: 12.00
+Средняя после сдвига: 14.67</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-3.5
+0
+1.5
+4</pre></div><div><b>Вывод</b><pre>Средняя: -0.67
+Средняя после сдвига: 1.83</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сдвиг окна — одна строка: каждый день получает значение следующего, последний — новое.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 1.6.5</span><h3 class="task__title">Рост числа подписчиков</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Блогер заметил, что число новых подписчиков за день равно сумме двух предыдущих дней. Вводятся приросты за два первых дня. Выведите в одну строку приросты за следующие пять дней через пробел.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2</pre></div><div><b>Вывод</b><pre>3 5 8 13 21</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+10</pre></div><div><b>Вывод</b><pre>20 30 50 80 130</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Храните два последних значения. Новый день: «последний» становится «предыдущим», а новое значение — сумма обоих. Выводите через <code>end=" "</code>, у последнего вызова — обычный перенос.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 1.6.6</span><h3 class="task__title">Две недели дежурств</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Как в разборе, три сотрудника дежурят по кругу. Выведите очередь через одну и через две недели. В конце выведите, совпадает ли очередь через три недели с исходной, — посчитайте третий сдвиг и выведите имена ещё раз.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Анна
+Борис
+Вера</pre></div><div><b>Вывод</b><pre>Через 1 неделю: Борис Вера Анна
+Через 2 недели: Вера Анна Борис
+Через 3 недели: Анна Борис Вера</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3</pre></div><div><b>Вывод</b><pre>Через 1 неделю: 2 3 1
+Через 2 недели: 3 1 2
+Через 3 недели: 1 2 3</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна и та же строка сдвига повторяется три раза. Сравните последний вывод с тем, что вводили.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-5/index.html">← Задачи 1.5</a><a href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html">Глава 1.6 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../1-7/index.html">Задачи 1.7 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 1.6 · Множественное присваивание · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
