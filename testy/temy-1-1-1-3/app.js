@@ -252,6 +252,7 @@ async function finish(byTimeout) {
     byTimeout: !!byTimeout,
     leaves: state.leaves || 0,
     order: state.order,
+    raw: { ...state.answers },
     details
   };
   result.code = await makeCode(result);
@@ -281,7 +282,7 @@ async function makeCode(r) {
 
 /* ---------- экран результата ---------- */
 
-function renderResult(r, returning) {
+async function renderResult(r, returning) {
   show('result');
   $('result-title').textContent = returning ? 'Тест уже пройден' : (r.byTimeout ? 'Время вышло — работа отправлена' : 'Работа завершена');
 
@@ -298,18 +299,74 @@ function renderResult(r, returning) {
   if (returning && !document.querySelector('.notice.again')) {
     const note = document.createElement('div');
     note.className = 'notice again';
-    note.innerHTML = '<b>Повторное прохождение не предусмотрено.</b> Оценка зафиксирована при первой попытке и не меняется. Если тест нужно пересдать, обратитесь к преподавателю.';
+    note.innerHTML = '<b>Повторное прохождение не предусмотрено.</b> Оценка зафиксирована при первой попытке и не меняется, но разбор ниже остаётся доступным — его можно перечитать. Если тест нужно пересдать, обратитесь к преподавателю.';
     screens.result.insertBefore(note, screens.result.children[2]);
   }
 
-  // номера — в том порядке, в каком студент видел вопросы
+  const secret = await secretData();
   const order = r.order || QUIZ.questions.map((_, i) => i);
+  const raw = r.raw || fromAnswerString(r.answers);
+
+  // номера — в том порядке, в каком студент видел вопросы
+  $('review-map').innerHTML = order.map((qi, pos) => {
+    const q = QUIZ.questions[qi];
+    const d = r.details.find(x => x.id === q.id) || { ok: false };
+    return `<a href="#rv-${q.id}" class="${d.ok ? 'ok' : 'bad'}" title="${d.ok ? 'верно' : 'неверно'} · ${esc(q.topic)}">${pos + 1}</a>`;
+  }).join('');
+
   $('review').innerHTML = order.map((qi, pos) => {
     const q = QUIZ.questions[qi];
     const d = r.details.find(x => x.id === q.id) || { ok: false };
-    return `<div class="rq ${d.ok ? 'ok' : 'bad'}"><b>${pos + 1} · ${d.ok ? 'верно' : 'неверно'}</b><span>${esc(q.topic)}</span></div>`;
+    const s = secret[q.id];
+    return `<article class="q rv ${d.ok ? 'ok' : 'bad'}" id="rv-${q.id}">
+      <div class="q-head">
+        <span class="q-num">ВОПРОС ${pos + 1} ИЗ ${QUIZ.questions.length}</span>
+        <span class="verdict ${d.ok ? 'ok' : 'bad'}">${d.ok ? '✓ верно' : '✗ неверно'}</span>
+        <span class="q-topic">${esc(q.topic)}</span>
+      </div>
+      <p class="q-text">${q.text}</p>
+      ${q.code ? codeBlock(q.code) : ''}
+      ${reviewOptions(q, raw[q.id] || [], s.correct)}
+      <div class="why"><b>Разбор</b>${s.why}</div>
+    </article>`;
   }).join('');
 }
+
+/* Ответы из кода результата — запасной путь для попыток, записанных до того,
+   как разбор появился: там сохранены только строки вида "03-1-24". */
+function fromAnswerString(answers) {
+  const parts = String(answers || '').split('-');
+  const out = {};
+  QUIZ.questions.forEach((q, i) => {
+    const picked = (parts[i] || '').split('').filter(Boolean).map(Number);
+    if (picked.length) out[q.id] = picked;
+  });
+  return out;
+}
+
+function codeBlock(code) {
+  return `<figure class="q-code"><figcaption><span>main.py</span><span>Python 3.12</span></figcaption><pre>${
+    code.split('\n').map(line => `<span class="ln">${esc(line) || ' '}</span>`).join('')}</pre></figure>`;
+}
+
+function reviewOptions(q, mine, correct) {
+  const rows = q.options.map((o, i) => {
+    const right = correct.includes(i), my = mine.includes(i);
+    const cls = right ? 'right' : (my ? 'wrong' : '');
+    const tag = right && my ? 'ваш выбор · верно' : right ? 'верный ответ' : my ? 'ваш выбор · неверно' : '';
+    return `<div class="cmp-opt ${cls}"><span class="mk">${right ? '✓' : my ? '✗' : ''}</span><span>${o}</span>${
+      tag ? `<span class="tag">${tag}</span>` : ''}</div>`;
+  }).join('');
+  return `<div class="cmp">${rows}</div>${mine.length ? '' : '<p class="muted">Вы не ответили на этот вопрос.</p>'}`;
+}
+
+/* ---------- фильтр разбора ---------- */
+
+document.querySelectorAll('.filter .chipbtn').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.filter .chipbtn').forEach(b => b.classList.toggle('on', b === btn));
+  const onlyBad = btn.dataset.filter === 'bad';
+  document.querySelectorAll('#review .rv').forEach(el => el.classList.toggle('hidden', onlyBad && el.classList.contains('ok')));
+}));
 
 $('btn-copy').addEventListener('click', async () => {
   const ta = $('code');
