@@ -22,7 +22,6 @@ WINDOW_SHOTS = {
     "vscode-folder-open": ("empty-folder", 560, False),
     "vscode-trust": ("trust", 1100, False),
     "vscode-run-button": ("tab-dirty", 480, False),
-    "vscode-run-terminal": ("run-result", 1010, True),
 }
 
 # имя: (источник, левый, верхний, правый, нижний)
@@ -30,6 +29,9 @@ AREA_SHOTS = {
     "vscode-new-file": ("new-file-name", 0, 60, 1300, 500),
     "vscode-menu-folder": ("menu-file", 0, 0, 800, 600),
     "vscode-open-dialog": ("dialog-open", 510, 345, 2290, 1255),
+    # проводник обрезан: в нём видна папка .vscode, которая появляется
+    # только после выбора интерпретатора, а это §9 — позже по тексту
+    "vscode-run-terminal": ("run-result", 712, 0, 2400, 1010),
 }
 
 

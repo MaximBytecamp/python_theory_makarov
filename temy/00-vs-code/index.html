@@ -183,21 +183,21 @@
         <ol class="steps">
           <li>Создайте папку в удобном месте: <code>C:\Users\Имя\python\zayavki</code> на Windows или <code>~/python/zayavki</code> на macOS.</li>
           <li>В VS&nbsp;Code выберите <b>Файл → Открыть папку…</b> (File → Open Folder…) и укажите её.</li>
-          <li>Если редактор спросит, доверяете ли вы авторам файлов в папке, ответьте «Да»: папку вы создали сами.</li>
+          <li>Редактор спросит, доверяете ли вы авторам файлов в папке. Нажмите <b>Trust</b>: папку вы создали сами.</li>
         </ol>
         <figure class="illustration illustration--narrow">
           <img src="assets/vscode-menu-folder.png" alt="Меню File в VS Code: пункты New Text File, New File, Open, Open Folder и Open Recent">
-          <figcaption>Меню <b>Файл</b> (File) · нужен пункт <code>Open Folder…</code>, а не <code>Open…</code></figcaption>
+          <figcaption>Меню <b>Файл</b> (File) · пункт <code>Open Folder…</code></figcaption>
         </figure>
-        <p>Соседний пункт <code>Open…</code> открывает один файл — тот случай, из-за которого терминал потом оказывается в чужой папке. В диалоге выберите папку одним щелчком и нажмите <b>Открыть</b>: заходить внутрь папки не нужно.</p>
+        <p>Соседний пункт <code>Open…</code> открывает отдельный файл, папку открывает <code>Open Folder…</code>. В диалоге выберите папку одним щелчком и нажмите <b>Открыть</b>: заходить внутрь папки не нужно.</p>
         <figure class="illustration">
           <img src="assets/vscode-open-dialog.png" alt="Диалог выбора папки macOS: внутри python выбрана папка zayavki, внизу кнопки Отменить и Открыть">
           <figcaption>Диалог выбора папки · выбрана <code>zayavki</code> внутри <code>python</code></figcaption>
         </figure>
-        <p>При первом открытии папки редактор спрашивает про доверие: пока ответа нет, он работает в ограниченном режиме (Restricted Mode) и не запускает задачи и отладку. Нажмите <b>Trust</b> — папку вы создали сами.</p>
+        <p>Про доверие редактор спрашивает при первом открытии папки. Пока ответа нет, папка держится в ограниченном режиме (Restricted Mode): задачи и отладка не запускаются, часть расширений работает не полностью.</p>
         <figure class="illustration">
           <img src="assets/vscode-trust.png" alt="Окно Workspace Trust в VS Code: слева описание доверенной папки с кнопкой Trust, справа ограничения режима Restricted Mode">
-          <figcaption>Вопрос о доверии · кнопка <b>Trust</b> слева включает все возможности редактора</figcaption>
+          <figcaption>Окно доверия · кнопка <b>Trust</b> снимает ограниченный режим</figcaption>
         </figure>
         <figure class="illustration">
           <img src="assets/vscode-folder-open.png" alt="Окно VS Code с открытой папкой zayavki: в проводнике имя папки, файлов пока нет">
@@ -232,13 +232,9 @@
         </figure>
         <figure class="illustration">
           <img src="assets/vscode-run-terminal.png" alt="Окно VS Code после нажатия на треугольник: внизу терминал с командой запуска и строкой Hello, world!">
-          <figcaption>После нажатия <b>▷</b> · редактор сам открыл терминал, выполнил файл и показал вывод</figcaption>
+          <figcaption>После нажатия <b>▷</b> · редактор открыл терминал, выполнил файл и показал вывод</figcaption>
         </figure>
-        <p>В терминале видно всю команду: путь к интерпретатору и путь к файлу. Ниже — строка, которую напечатала программа.</p>
-        <figure class="code code--out">
-          <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
-<pre>Hello, world!</pre>
-        </figure>
+        <p>В терминале видна вся команда: путь к интерпретатору и путь к файлу. Строкой ниже — то, что напечатала программа: <code>Hello, world!</code>.</p>
         <p>Добавим второй файл — программу, которая запрашивает данные у пользователя. Создайте <code>zayavka.py</code> тем же способом.</p>
         <figure class="code">
           <figcaption><span>zayavka.py</span><span>ввод и вывод</span></figcaption>
