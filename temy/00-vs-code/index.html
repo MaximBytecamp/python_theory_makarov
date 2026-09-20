@@ -185,6 +185,24 @@
           <li>В VS&nbsp;Code выберите <b>Файл → Открыть папку…</b> (File → Open Folder…) и укажите её.</li>
           <li>Если редактор спросит, доверяете ли вы авторам файлов в папке, ответьте «Да»: папку вы создали сами.</li>
         </ol>
+        <figure class="illustration illustration--narrow">
+          <img src="assets/vscode-menu-folder.png" alt="Меню File в VS Code: пункты New Text File, New File, Open, Open Folder и Open Recent">
+          <figcaption>Меню <b>Файл</b> (File) · нужен пункт <code>Open Folder…</code>, а не <code>Open…</code></figcaption>
+        </figure>
+        <p>Соседний пункт <code>Open…</code> открывает один файл — тот случай, из-за которого терминал потом оказывается в чужой папке. В диалоге выберите папку одним щелчком и нажмите <b>Открыть</b>: заходить внутрь папки не нужно.</p>
+        <figure class="illustration">
+          <img src="assets/vscode-open-dialog.png" alt="Диалог выбора папки macOS: внутри python выбрана папка zayavki, внизу кнопки Отменить и Открыть">
+          <figcaption>Диалог выбора папки · выбрана <code>zayavki</code> внутри <code>python</code></figcaption>
+        </figure>
+        <p>При первом открытии папки редактор спрашивает про доверие: пока ответа нет, он работает в ограниченном режиме (Restricted Mode) и не запускает задачи и отладку. Нажмите <b>Trust</b> — папку вы создали сами.</p>
+        <figure class="illustration">
+          <img src="assets/vscode-trust.png" alt="Окно Workspace Trust в VS Code: слева описание доверенной папки с кнопкой Trust, справа ограничения режима Restricted Mode">
+          <figcaption>Вопрос о доверии · кнопка <b>Trust</b> слева включает все возможности редактора</figcaption>
+        </figure>
+        <figure class="illustration">
+          <img src="assets/vscode-folder-open.png" alt="Окно VS Code с открытой папкой zayavki: в проводнике имя папки, файлов пока нет">
+          <figcaption>Папка открыта · в проводнике её имя, файлов внутри пока нет</figcaption>
+        </figure>
         <p>Имя папки лучше писать латиницей, без пробелов и с подчёркиваниями вместо них: <code>zayavki</code>, <code>python_kurs</code>. Русские буквы и пробелы в пути ломают часть команд терминала.</p>
         <div class="margin-note margin-note--warn">
           <b>Где не стоит держать проект</b>
@@ -200,10 +218,23 @@
           <li>Сохраните файл: <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>S</kbd> (на macOS <kbd>Cmd</kbd>&nbsp;+&nbsp;<kbd>S</kbd>). Пока файл не сохранён, на вкладке вместо крестика стоит точка.</li>
           <li>Нажмите треугольник <b>▷</b> в правом верхнем углу редактора. Внизу откроется терминал и выполнит файл.</li>
         </ol>
+        <figure class="illustration illustration--narrow">
+          <img src="assets/vscode-new-file.png" alt="Проводник VS Code: на строке папки zayavki четыре значка, ниже поле ввода с набранным именем main.py">
+          <figcaption>Значки появляются при наведении на строку папки · первый создаёт файл, имя набирается тут же</figcaption>
+        </figure>
         <figure class="code">
           <figcaption><span>main.py</span><span>первая программа</span></figcaption>
 <pre><span class="f">print</span>(<span class="s">"Hello, world!"</span>)</pre>
         </figure>
+        <figure class="illustration">
+          <img src="assets/vscode-run-button.png" alt="Вкладка main.py с точкой вместо крестика, справа вверху треугольник запуска">
+          <figcaption>Точка на вкладке · файл не сохранён; треугольник <b>▷</b> справа вверху запускает его</figcaption>
+        </figure>
+        <figure class="illustration">
+          <img src="assets/vscode-run-terminal.png" alt="Окно VS Code после нажатия на треугольник: внизу терминал с командой запуска и строкой Hello, world!">
+          <figcaption>После нажатия <b>▷</b> · редактор сам открыл терминал, выполнил файл и показал вывод</figcaption>
+        </figure>
+        <p>В терминале видно всю команду: путь к интерпретатору и путь к файлу. Ниже — строка, которую напечатала программа.</p>
         <figure class="code code--out">
           <figcaption><span>Вывод в терминал</span><span>результат запуска</span></figcaption>
 <pre>Hello, world!</pre>
