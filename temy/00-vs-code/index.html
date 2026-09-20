@@ -113,6 +113,17 @@
 
         <h2 id="s3"><span class="sec">§3</span>Устанавливаем Python</h2>
         <p>Установщик берём только с официального сайта <a href="https://www.python.org/downloads/" target="_blank" rel="noreferrer">python.org/downloads</a>. Сборки с других сайтов бывают изменены, а на учебных задачах разницу вы не заметите — зато можете поймать проблему, которую нечем объяснить.</p>
+        <figure class="illustration">
+          <img src="assets/site-python-download.png" alt="Верх страницы python.org/downloads: жёлтая кнопка Download Python и ссылки на другие системы">
+          <figcaption>python.org/downloads · жёлтая кнопка и ссылка Windows для другой системы</figcaption>
+        </figure>
+        <p>Сайт сам определяет вашу систему и предлагает <b>последнюю</b> версию: на снимке это <code>Download Python 3.14.7</code>. Номер у вас будет другой — Python выходит регулярно. Для курса подойдёт любая версия 3.12 и новее, поэтому большую кнопку можно нажимать смело.</p>
+        <p>А вот если вы открыли сайт с телефона или вам нужна другая система, кнопка предложит не тот файл. Тогда идите по ссылке <code>Windows</code> в строке «Looking for Python with a different OS?» — откроется список всех сборок под Windows.</p>
+        <figure class="illustration">
+          <img src="assets/site-python-windows.png" alt="Страница Python Releases for Windows со списком стабильных выпусков и ссылками на установщики">
+          <figcaption>python.org/downloads/windows · нужная ссылка называется Windows installer (64-bit)</figcaption>
+        </figure>
+        <p>В разделе <b>Stable Releases</b> найдите нужный выпуск и возьмите <code>Windows installer (64-bit)</code>. Не <code>embeddable package</code> — это урезанная сборка без установщика, и она вам не подойдёт.</p>
         <ol class="steps">
           <li>Скачайте установщик для своей системы. Для Windows это <code>Windows installer (64-bit)</code>.</li>
           <li><b>Windows, самый важный шаг:</b> в первом окне установщика поставьте галочку <b>Add python.exe to PATH</b> внизу. Она включает Python в тот самый список папок из предыдущего раздела.</li>
@@ -127,7 +138,17 @@
         <p>На macOS в системе обычно уже есть Python, но версия может быть старой. Ставьте установщик с python.org рядом: он добавит команду <code>python3</code> нужной версии и ничего не сломает.</p>
 
         <h2 id="s4"><span class="sec">§4</span>Устанавливаем Visual Studio Code</h2>
-        <p>VS&nbsp;Code скачиваем с <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">code.visualstudio.com</a>. Сайт сам определяет систему и предлагает нужный файл.</p>
+        <p>VS&nbsp;Code скачиваем с <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">code.visualstudio.com</a>. Здесь тоже есть большая кнопка, которая сама подставляет вашу систему.</p>
+        <figure class="illustration">
+          <img src="assets/site-vscode-home.png" alt="Главная страница code.visualstudio.com с чёрной кнопкой Download">
+          <figcaption>code.visualstudio.com · чёрная кнопка под вашу систему</figcaption>
+        </figure>
+        <p>Если система определилась неверно, нажмите <code>other platforms</code> под кнопкой или <code>Download</code> в шапке — откроется страница со всеми вариантами сразу.</p>
+        <figure class="illustration">
+          <img src="assets/site-vscode-download.png" alt="Страница загрузки VS Code: столбцы Windows, Linux и Mac с вариантами установщиков">
+          <figcaption>code.visualstudio.com/Download · три столбца по системам</figcaption>
+        </figure>
+        <p>Для Windows берите синюю кнопку <b>Windows</b> — это <code>User Installer</code> для x64, он ставится без прав администратора. Для Mac — кнопку <b>Mac</b>; если не знаете, какой у вас процессор, возьмите <code>Universal</code>.</p>
         <ol class="steps">
           <li><b>Windows:</b> запустите скачанный <code>.exe</code>. В окне с дополнительными задачами отметьте <b>Add to PATH</b> — тогда редактор можно будет открывать командой <code>code</code>. Остальные галочки по желанию: они добавляют пункты в контекстное меню проводника.</li>
           <li><b>macOS:</b> распакуйте архив и перетащите <code>Visual Studio Code.app</code> в папку <code>Программы</code>. Без этого шага редактор будет запускаться из папки загрузок и потеряется при первой же уборке.</li>
@@ -204,7 +225,7 @@ age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"�
           <img src="assets/vscode-ext.png" alt="Вкладка расширений VS Code: в поиске python, выбрано расширение Python от Microsoft">
           <figcaption>Схема интерфейса · одно расширение приносит с собой ещё два</figcaption>
         </figure>
-        <p>Вместе с ним установятся ещё два — <b>Pylance</b> и <b>Python Debugger</b>. Искать их отдельно не нужно: они приходят как зависимости. Pylance отвечает за подсказки и подчёркивание ошибок прямо в коде, Python Debugger — за пошаговую отладку.</p>
+        <p>Вместе с ним установятся ещё три — <b>Pylance</b>, <b>Python Debugger</b> и <b>Python Environments</b>. Искать их отдельно не нужно: они приходят как зависимости. Pylance отвечает за подсказки и подчёркивание ошибок прямо в коде, Python Debugger — за пошаговую отладку, Python Environments — за выбор интерпретатора и окружений.</p>
         <p>Что это даёт: подсветку кода, автодополнение имён, подчёркивание опечаток до запуска, ту самую кнопку <b>▷</b> и выбор интерпретатора из §9. Без расширения кнопка запуска не появится, а код будет выглядеть одноцветным текстом.</p>
         <div class="margin-note">
           <b>Чего на старте ставить не нужно</b>
