@@ -12,6 +12,10 @@ venv/
 .idea/
 .vscode/
 
+# Полные окна VS Code, снятые shoot-vscode.sh: из них crop-vscode.py режет
+# кадры главы. Сами кадры лежат в репозитории, исходники пересоздаются.
+temy/00-vs-code/assets/raw/
+
 # Стартовый пакет студента — самостоятельный репозиторий,
 # живёт по адресу https://github.com/MaximBytecamp/algo-portfolio-template
 op04-algoritmizaciya/starter-pack/
