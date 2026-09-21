@@ -326,10 +326,35 @@ async function renderResult(r, returning) {
       </div>
       <p class="q-text">${q.text}</p>
       ${q.code ? codeBlock(q.code) : ''}
-      ${reviewOptions(q, raw[q.id] || [], s.correct)}
+      ${reviewOptions(q, raw[q.id] || [], s.correct, s.notes)}
+      ${s.run ? `<figure class="q-img rv-run">${s.run}<figcaption>запуск кода из вопроса · так программа работает на самом деле</figcaption></figure>` : ''}
       <div class="why"><b>Разбор</b>${s.why}</div>
     </article>`;
-  }).join('');
+  }).join('') + repeatBlock(r);
+}
+
+/* Итог разбора: главы справочника, по которым были ошибки, со ссылками. */
+function repeatBlock(r) {
+  if (!QUIZ.chapters) return '';
+  const misses = {};
+  QUIZ.questions.forEach(q => {
+    const d = r.details.find(x => x.id === q.id);
+    if (d && d.ok) return;
+    (q.chapters || []).forEach(ch => { misses[ch] = (misses[ch] || 0) + 1; });
+  });
+  const list = Object.keys(QUIZ.chapters).filter(ch => misses[ch]);
+  const body = list.length
+    ? `<p>Ошибки распределились по главам справочника так. Перечитайте главы из списка, особенно разделы «Частые ошибки» и «Проверьте себя», затем ещё раз просмотрите разбор вопросов с красной рамкой.</p>
+       <ul class="repeat">${list.map(ch => `<li><a href="${QUIZ.chapters[ch].url}" target="_blank" rel="noreferrer"><b>${ch}</b> ${esc(QUIZ.chapters[ch].title)}</a><span>${misses[ch]} ${plural(misses[ch])}</span></li>`).join('')}</ul>`
+    : '<p>Ошибок нет. На все вопросы даны верные ответы.</p>';
+  return `<div class="panel repeat-panel"><h2>Что повторить</h2>${body}</div>`;
+}
+
+function plural(n) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return 'вопрос с ошибкой';
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'вопроса с ошибкой';
+  return 'вопросов с ошибкой';
 }
 
 /* Ответы из кода результата — запасной путь для попыток, записанных до того,
@@ -349,12 +374,12 @@ function codeBlock(code) {
     code.split('\n').map(line => `<span class="ln">${esc(line) || ' '}</span>`).join('')}</pre></figure>`;
 }
 
-function reviewOptions(q, mine, correct) {
+function reviewOptions(q, mine, correct, notes) {
   const rows = q.options.map((o, i) => {
     const right = correct.includes(i), my = mine.includes(i);
     const cls = right ? 'right' : (my ? 'wrong' : '');
     const tag = right && my ? 'ваш выбор · верно' : right ? 'верный ответ' : my ? 'ваш выбор · неверно' : '';
-    return `<div class="cmp-opt ${cls}"><span class="mk">${right ? '✓' : my ? '✗' : ''}</span><span>${o}</span>${
+    return `<div class="cmp-opt ${cls}"><span class="mk">${right ? '✓' : my ? '✗' : ''}</span><span>${o}${notes && notes[i] ? `<small class="note">${notes[i]}</small>` : ''}</span>${
       tag ? `<span class="tag">${tag}</span>` : ''}</div>`;
   }).join('');
   return `<div class="cmp">${rows}</div>${mine.length ? '' : '<p class="muted">Вы не ответили на этот вопрос.</p>'}`;

@@ -600,13 +600,38 @@ async function renderResult(r, returning) {
       ${questionHead(q, pos, verdict)}
       ${imageBlock(q.image)}
       ${sourceBlock(q)}
-      ${reviewBody(q, raw[q.id], key)}
+      ${reviewBody(q, raw[q.id], key, secret[q.id].notes)}
+      ${secret[q.id].run ? `<figure class="q-img rv-run">${secret[q.id].run}<figcaption>запуск кода из задания · так программа работает на самом деле</figcaption></figure>` : ''}
       <div class="why"><b>Разбор</b>${secret[q.id].why}</div>
     </article>`;
-  }).join('');
+  }).join('') + repeatBlock(r);
 }
 
-function reviewBody(q, a, key) {
+/* Итог разбора: главы справочника, по которым были ошибки, со ссылками. */
+function repeatBlock(r) {
+  const misses = {};
+  QUIZ.questions.forEach(q => {
+    const d = r.details.find(x => x.id === q.id);
+    if (d && d.ok) return;
+    (q.chapters || []).forEach(ch => { misses[ch] = (misses[ch] || 0) + 1; });
+  });
+  const list = Object.keys(QUIZ.chapters).filter(ch => misses[ch]);
+  const body = list.length
+    ? `<p>Ошибки распределились по главам справочника так. Перечитайте главы из списка, особенно разделы «Частые ошибки» и «Проверьте себя», затем ещё раз просмотрите разбор заданий с красной рамкой.</p>
+       <ul class="repeat">${list.map(ch => `<li><a href="${QUIZ.chapters[ch].url}" target="_blank" rel="noreferrer"><b>${ch}</b> ${esc(QUIZ.chapters[ch].title)}</a><span>${misses[ch]} ${plural(misses[ch])}</span></li>`).join('')}</ul>
+       <p class="muted">Одно задание может опираться на несколько глав, поэтому сумма по главам бывает больше числа ошибок.</p>`
+    : '<p>Ошибок нет. Все задания выполнены верно.</p>';
+  return `<div class="panel repeat-panel"><h2>Что повторить</h2>${body}</div>`;
+}
+
+function plural(n) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return 'задание с ошибкой';
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'задания с ошибкой';
+  return 'заданий с ошибкой';
+}
+
+function reviewBody(q, a, key, notes) {
   const none = '<i class="muted">нет ответа</i>';
   switch (q.type) {
     case 'single': case 'multi': {
@@ -615,7 +640,7 @@ function reviewBody(q, a, key) {
         const right = key.includes(i), my = mine.includes(i);
         const cls = right ? 'right' : (my ? 'wrong' : '');
         const tag = right && my ? 'ваш выбор · верно' : right ? 'верный ответ' : my ? 'ваш выбор · неверно' : '';
-        return `<div class="cmp-opt ${cls}"><span class="mk">${right ? '✓' : my ? '✗' : ''}</span><span>${o}</span>${tag ? `<span class="tag">${tag}</span>` : ''}</div>`;
+        return `<div class="cmp-opt ${cls}"><span class="mk">${right ? '✓' : my ? '✗' : ''}</span><span>${o}${notes && notes[i] ? `<small class="note">${notes[i]}</small>` : ''}</span>${tag ? `<span class="tag">${tag}</span>` : ''}</div>`;
       }).join('')}</div>${mine.length ? '' : `<p>${none}</p>`}`;
     }
     case 'order': {
