@@ -74,6 +74,7 @@ kbd { padding: 1px 6px; border: 1px solid var(--ink); border-bottom-width: 2px; 
 .kr-gate__btn { padding: 11px 18px; border: 3px solid var(--ink); background: var(--ink); color: #fff; font: 600 14px/1 var(--body); box-shadow: 4px 4px 0 var(--blue); cursor: pointer; }
 .kr-gate__btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--blue); }
 .kr-gate__err { min-height: 1.4em; color: #B4531F; font-weight: 600; }
+.kr-alt__note { margin: 0 0 10px; font-size: 15px; color: var(--ink-soft); }
 .kr-solution { margin: 8px 0 18px; padding-top: 4px; border-top: 3px dashed var(--ink); }
 
 @media (max-width: 720px) {
