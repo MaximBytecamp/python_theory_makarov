@@ -111,7 +111,7 @@ schedule</pre></div><div><b>Вывод</b><pre>https://college.ru/students/sched
 <article class="task" id="v1-6">
 <header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Шаги за три дня</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
-<p class="task__text">Шагомер хранит число шагов за позавчера и вчера. Вводятся эти два числа, затем число шагов за сегодня. Выведите, на сколько вчерашний результат больше позавчерашнего. Затем одной строкой множественного присваивания сдвиньте дни: вчера становится позавчера, сегодня становится вчера. После сдвига той же формулой выведите разницу ещё раз.</p>
+<p class="task__text">Шагомер хранит число шагов за позавчера и вчера. Вводятся эти два числа, затем число шагов за сегодня. Выведите разницу «вчера минус позавчера» — она может быть отрицательной, если вчера шагов было меньше. Затем одной строкой множественного присваивания сдвиньте дни: вчера становится позавчера, сегодня становится вчера. После сдвига той же формулой выведите разницу ещё раз.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6000
 7500
 9000</pre></div><div><b>Вывод</b><pre>Прирост вчера: 1500
@@ -125,7 +125,7 @@ schedule</pre></div><div><b>Вывод</b><pre>https://college.ru/students/sched
 <article class="task" id="v1-7">
 <header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Снятие наличных</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
-<p class="task__text">Банкомат проверяет запрос на снятие. Вводятся баланс карты, запрошенная сумма и дневной лимит снятия. Выведите, хватает ли денег на карте, не превышен ли лимит, и баланс после снятия. Баланс уменьшайте составным присваиванием.</p>
+<p class="task__text">Банкомат проверяет запрос на снятие. Вводятся баланс карты, запрошенная сумма и дневной лимит снятия. Выведите, хватает ли денег на карте, не превышен ли лимит, и баланс после снятия. Баланс после снятия считается в любом случае, даже если денег не хватает или лимит превышен: тогда он показывает, каким стал бы баланс, и может быть отрицательным. Баланс уменьшайте составным присваиванием.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12000
 5000
 10000</pre></div><div><b>Вывод</b><pre>Денег хватает: True
@@ -283,7 +283,7 @@ schedule</pre></div><div><b>Вывод</b><pre>https://college.ru/students/sched
 <article class="task" id="v2-7">
 <header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Проходной балл</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
 <div class="task__body">
-<p class="task__text">Для поступления на курс нужно набрать проходную сумму баллов за три экзамена. Вводятся баллы за три экзамена и проходная сумма. Выведите сумму баллов, набрана ли проходная сумма, равны ли баллы за первый и второй экзамен, и на сколько сумма отличается от проходной. Сумму набирайте составным присваиванием.</p>
+<p class="task__text">Для поступления на курс нужно набрать проходную сумму баллов за три экзамена. Вводятся баллы за три экзамена и проходная сумма. Выведите сумму баллов, набрана ли проходная сумма, равны ли баллы за первый и второй экзамен, и разницу «сумма минус проходная» — она может быть отрицательной. Сумму набирайте составным присваиванием.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70
 65
 80
@@ -329,19 +329,19 @@ schedule</pre></div><div><b>Вывод</b><pre>https://college.ru/students/sched
 <article class="task" id="v2-10">
 <header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Конец учебного дня</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
-<p class="task__text">Пары начинаются в заданное время, каждая пара длится 90 минут, между парами перерыв 10 минут. Вводятся час и минута начала первой пары и число пар. Выведите строку «Конец: часы:минуты» двумя вызовами <code>print()</code>, успеет ли студент к 17:00 и сколько часов длится учебный день — с двумя знаками после точки. Во всех примерах минуты окончания двузначные.</p>
+<p class="task__text">Пары начинаются в заданное время, каждая пара длится 90 минут, между парами перерыв 10 минут. Вводятся час и минута начала первой пары и число пар. Выведите строку «Конец: часы:минуты» двумя вызовами <code>print()</code>, закончатся ли пары не позже 17:00 и сколько часов длится учебный день — с двумя знаками после точки. Во всех примерах минуты окончания двузначные.</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8
 20
 4</pre></div><div><b>Вывод</b><pre>Конец: 14:50
-Успеет к 17:00: True
+Не позже 17:00: True
 Учебный день: 6.50 ч</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
 0
 3</pre></div><div><b>Вывод</b><pre>Конец: 13:50
-Успеет к 17:00: True
+Не позже 17:00: True
 Учебный день: 4.83 ч</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
 15
 5</pre></div><div><b>Вывод</b><pre>Конец: 18:25
-Успеет к 17:00: False
+Не позже 17:00: False
 Учебный день: 8.17 ч</pre></div></div></div>
 <div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Переведите время начала в минуты от начала суток, прибавьте длительность, потом переведите обратно: часы — через <code>// 60</code>, минуты — через <code>% 60</code>. Перерывов на один меньше, чем пар.</p></details>
@@ -485,20 +485,20 @@ final</pre></div><div><b>Вывод</b><pre>Было: draft review
 <article class="task" id="v3-10">
 <header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Загрузка резервной копии</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
 <div class="task__body">
-<p class="task__text">Резервную копию загружают в облако. Вводятся размер копии в мегабайтах и скорость в мегабитах в секунду — целые. Выведите время загрузки в секундах с одним знаком, это время, округлённое до целых секунд и разложенное на минуты и секунды (строка «минуты мин секунды с»), уложится ли загрузка в 10 минут и последней строкой размер и скорость через « | ».</p>
+<p class="task__text">Резервную копию загружают в облако. Вводятся размер копии в мегабайтах и скорость в мегабитах в секунду — целые. Выведите время загрузки в секундах с одним знаком, это время, округлённое до целых секунд и разложенное на минуты и секунды (строка «минуты мин секунды с»), уложится ли загрузка в 10 минут, то есть займёт ли она не больше 600 секунд, и последней строкой размер и скорость через « | ».</p>
 <h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3500
 50</pre></div><div><b>Вывод</b><pre>Время: 560.0 с
 9 мин 20 с
-Меньше 10 минут: True
+Уложится в 10 минут: True
 3500 | 50</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10240
 100</pre></div><div><b>Вывод</b><pre>Время: 819.2 с
 13 мин 39 с
-Меньше 10 минут: False
-10240 | 100</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">750
-16</pre></div><div><b>Вывод</b><pre>Время: 375.0 с
-6 мин 15 с
-Меньше 10 минут: True
-750 | 16</pre></div></div></div>
+Уложится в 10 минут: False
+10240 | 100</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3000
+40</pre></div><div><b>Вывод</b><pre>Время: 600.0 с
+10 мин 0 с
+Уложится в 10 минут: True
+3000 | 40</pre></div></div></div>
 <div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
 <details class="hint"><summary>Подсказка</summary><p>Для деления на минуты нужно целое число секунд: <code>round()</code> без второго аргумента возвращает <code>int</code>.</p></details>
 </div></article>
