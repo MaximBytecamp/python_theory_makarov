@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Подготовка к контрольной работе · модуль 1 · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · подготовка к контрольной работе · модуль 1</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p>
+<p class="running__folio">Главы 1.1–1.9</p></div>
+<header class="chapter-head">
+<span class="chapter-num">КР</span>
+<h1>Подготовка к контрольной<br>работе по главам 1.1–1.9</h1>
+<p class="lead">На странице три варианта по 10 задач. Задачи с одинаковым номером во всех вариантах проверяют одну и ту же тему, поэтому варианты равны по сложности. Решений нет, есть условие, примеры ввода и вывода, список глав для повторения и подсказка.</p></header>
+<dl class="passport">
+<div><dt>Главы справочника</dt><dd>1.1–1.9</dd></div>
+<div><dt>Вариантов</dt><dd>3</dd></div>
+<div><dt>Задач в варианте</dt><dd>10</dd></div>
+<div><dt>Сложность</dt><dd>задачи 1–3 ★☆☆, 4–9 ★★☆, 10 ★★★</dd></div>
+</dl>
+<section class="allowed">
+<b>Что можно использовать</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div>
+<p>Условий и циклов в контрольной нет: каждая задача решается последовательностью строк сверху вниз. Данные вводятся с клавиатуры через <code>input()</code>, каждое значение отдельной строкой.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#v1">Вариант 1</a></li><li><a href="#v2">Вариант 2</a></li><li><a href="#v3">Вариант 3</a></li><li><a href="#check">Как готовиться и проверять решения</a></li></ol></nav>
+<h2 id="plan"><span class="sec">§0</span>Что проверяет каждая задача</h2>
+<p>По строке таблицы видно, какие задачи трёх вариантов проверяют одну тему. Название задачи ведёт к её условию.</p>
+<div class="kr-plan"><table><thead><tr><th>№</th><th>Что проверяет задача</th><th><a href="#v1">Вариант 1</a></th><th><a href="#v2">Вариант 2</a></th><th><a href="#v3">Вариант 3</a></th></tr></thead><tbody><tr><td>1</td><td>Переменные и расчёт по формуле</td><td><a href="#v1-1">Поездка на такси</a></td><td><a href="#v2-1">Стипендия за семестр</a></td><td><a href="#v3-1">Оплата хостинга</a></td></tr><tr><td>2</td><td>Типы данных, <code>int()</code>, <code>str()</code>, <code>len()</code></td><td><a href="#v1-2">Число из строки ввода</a></td><td><a href="#v2-2">Проверка пароля</a></td><td><a href="#v3-2">Метка для коробки</a></td></tr><tr><td>3</td><td>F-строка</td><td><a href="#v1-3">Строка заказа</a></td><td><a href="#v2-3">Карточка студента</a></td><td><a href="#v3-3">Строка журнала событий</a></td></tr><tr><td>4</td><td>Параметры <code>sep</code> и <code>end</code></td><td><a href="#v1-4">Адрес страницы</a></td><td><a href="#v2-4">Табло тренировки</a></td><td><a href="#v3-4">IP-адрес и порт</a></td></tr><tr><td>5</td><td>Ввод и преобразование <code>int()</code>, <code>float()</code></td><td><a href="#v1-5">Бензин на поездку</a></td><td><a href="#v2-5">Тетради и ручки</a></td><td><a href="#v3-5">Время загрузки файла</a></td></tr><tr><td>6</td><td>Множественное присваивание</td><td><a href="#v1-6">Шаги за три дня</a></td><td><a href="#v2-6">Дежурство в кабинете</a></td><td><a href="#v3-6">Версии документа</a></td></tr><tr><td>7</td><td>Сравнения и составное присваивание</td><td><a href="#v1-7">Снятие наличных</a></td><td><a href="#v2-7">Проходной балл</a></td><td><a href="#v3-7">Место на диске</a></td></tr><tr><td>8</td><td>Операции <code>//</code> и <code>%</code></td><td><a href="#v1-8">Длительность видео</a></td><td><a href="#v2-8">Четырёхзначный ПИН-код</a></td><td><a href="#v3-8">Упаковка на складе</a></td></tr><tr><td>9</td><td><code>round()</code> и формат <code>.Nf</code></td><td><a href="#v1-9">Цена по карте лояльности</a></td><td><a href="#v2-9">Средний результат забега</a></td><td><a href="#v3-9">Рейтинг приложения</a></td></tr><tr><td>10</td><td>Задача на несколько тем</td><td><a href="#v1-10">Такси для группы</a></td><td><a href="#v2-10">Конец учебного дня</a></td><td><a href="#v3-10">Загрузка резервной копии</a></td></tr></tbody></table></div>
+<h2 id="v1"><span class="sec">§1</span>Вариант 1</h2>
+<article class="task" id="v1-1">
+<header class="task__head"><span class="task__num">Задача 1</span><h3 class="task__title">Поездка на такси</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Стоимость поездки на такси складывается из платы за посадку и платы за каждый километр. Вводятся плата за посадку, цена одного километра и длина поездки в километрах — все целые. Выведите стоимость поездки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">99
+25
+12</pre></div><div><b>Вывод</b><pre>Стоимость поездки: 399 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">150
+30
+1</pre></div><div><b>Вывод</b><pre>Стоимость поездки: 180 руб.</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала посчитайте стоимость в отдельную переменную, потом выведите её через <code>print()</code> с запятыми.</p></details>
+</div></article>
+<article class="task" id="v1-2">
+<header class="task__head"><span class="task__num">Задача 2</span><h3 class="task__title">Число из строки ввода</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Пользователь вводит целое число. Выведите тип значения, которое вернул <code>input()</code>, тип значения после <code>int()</code>, количество цифр во введённом числе, само число, умноженное на 2, и введённую строку, повторённую два раза.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">25</pre></div><div><b>Вывод</b><pre>&lt;class &#x27;str&#x27;&gt;
+&lt;class &#x27;int&#x27;&gt;
+Цифр: 2
+Число × 2: 50
+Строка × 2: 2525</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1000</pre></div><div><b>Вывод</b><pre>&lt;class &#x27;str&#x27;&gt;
+&lt;class &#x27;int&#x27;&gt;
+Цифр: 4
+Число × 2: 2000
+Строка × 2: 10001000</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сохраните ввод в одну переменную, а результат <code>int()</code> — в другую. Количество цифр считается по строке, а удвоение — по числу.</p></details>
+</div></article>
+<article class="task" id="v1-3">
+<header class="task__head"><span class="task__num">Задача 3</span><h3 class="task__title">Строка заказа</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Интернет-магазин печатает строку заказа. Вводятся название товара, цена за штуку и количество — цена и количество целые. Выведите одну строку, как в примерах, с помощью f-строки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Кофе
+250
+3</pre></div><div><b>Вывод</b><pre>Кофе: 3 шт. по 250 руб. = 750 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Флешка
+890
+1</pre></div><div><b>Вывод</b><pre>Флешка: 1 шт. по 890 руб. = 890 руб.</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Внутри фигурных скобок f-строки пишутся имена переменных. Сумму посчитайте заранее.</p></details>
+</div></article>
+<article class="task" id="v1-4">
+<header class="task__head"><span class="task__num">Задача 4</span><h3 class="task__title">Адрес страницы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся домен сайта, раздел и страница. Выведите две строки: адрес страницы, где части разделены косой чертой, и строку навигации «Вы здесь: раздел &gt; страница». Каждую часть выводите отдельным аргументом <code>print()</code>, склеивать строки плюсом нельзя. Слова «Вы здесь:» печатаются отдельным <code>print()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">shop.ru
+catalog
+laptops</pre></div><div><b>Вывод</b><pre>https://shop.ru/catalog/laptops
+Вы здесь: catalog &gt; laptops</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">college.ru
+students
+schedule</pre></div><div><b>Вывод</b><pre>https://college.ru/students/schedule
+Вы здесь: students &gt; schedule</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для первой строки нужен <code>sep="/"</code>. Подумайте, что поставить первым аргументом, чтобы после <code>https:</code> получилось две косые черты. Чтобы вторая строка собралась из двух <code>print()</code>, у первого поменяйте <code>end</code>.</p></details>
+</div></article>
+<article class="task" id="v1-5">
+<header class="task__head"><span class="task__num">Задача 5</span><h3 class="task__title">Бензин на поездку</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Водитель планирует поездку. Вводятся расстояние в километрах, расход бензина на 100 км в литрах и цена литра — все целые. Выведите, сколько литров понадобится и сколько они будут стоить.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">450
+8
+56</pre></div><div><b>Вывод</b><pre>Понадобится литров: 36.0
+Стоимость бензина: 2016.0 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">120
+10
+60</pre></div><div><b>Вывод</b><pre>Понадобится литров: 12.0
+Стоимость бензина: 720.0 руб.</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Расход указан на 100 км, поэтому расстояние умножают на расход и делят на 100. Результат деления <code>/</code> всегда дробный.</p></details>
+</div></article>
+<article class="task" id="v1-6">
+<header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Шаги за три дня</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Шагомер хранит число шагов за позавчера и вчера. Вводятся эти два числа, затем число шагов за сегодня. Выведите, на сколько вчерашний результат больше позавчерашнего. Затем одной строкой множественного присваивания сдвиньте дни: вчера становится позавчера, сегодня становится вчера. После сдвига той же формулой выведите разницу ещё раз.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6000
+7500
+9000</pre></div><div><b>Вывод</b><pre>Прирост вчера: 1500
+Прирост сегодня: 1500</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10000
+8000
+8500</pre></div><div><b>Вывод</b><pre>Прирост вчера: -2000
+Прирост сегодня: 500</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формула разницы записывается дважды одинаково: <code>yesterday - before</code>. Меняются только значения переменных после сдвига.</p></details>
+</div></article>
+<article class="task" id="v1-7">
+<header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Снятие наличных</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Банкомат проверяет запрос на снятие. Вводятся баланс карты, запрошенная сумма и дневной лимит снятия. Выведите, хватает ли денег на карте, не превышен ли лимит, и баланс после снятия. Баланс уменьшайте составным присваиванием.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12000
+5000
+10000</pre></div><div><b>Вывод</b><pre>Денег хватает: True
+Лимит не превышен: True
+Баланс после снятия: 7000</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3000
+5000
+10000</pre></div><div><b>Вывод</b><pre>Денег хватает: False
+Лимит не превышен: True
+Баланс после снятия: -2000</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">50000
+15000
+10000</pre></div><div><b>Вывод</b><pre>Денег хватает: True
+Лимит не превышен: False
+Баланс после снятия: 35000</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверки считаются до изменения баланса. Результат сравнения — <code>True</code> или <code>False</code>, его можно сохранить в переменную.</p></details>
+</div></article>
+<article class="task" id="v1-8">
+<header class="task__head"><span class="task__num">Задача 8</span><h3 class="task__title">Длительность видео</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Видеосервис знает длительность ролика в секундах. Выведите её в часах, минутах и секундах, как в примерах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4985</pre></div><div><b>Вывод</b><pre>1 ч 23 мин 5 с</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">600</pre></div><div><b>Вывод</b><pre>0 ч 10 мин 0 с</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">7322</pre></div><div><b>Вывод</b><pre>2 ч 2 мин 2 с</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В часе 3600 секунд. Минуты считаются из того, что осталось после полных часов.</p></details>
+</div></article>
+<article class="task" id="v1-9">
+<header class="task__head"><span class="task__num">Задача 9</span><h3 class="task__title">Цена по карте лояльности</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">По карте лояльности действует скидка в процентах. Вводятся цена товара (дробная) и процент скидки (целый). Выведите цену со скидкой с двумя знаками после точки и экономию, округлённую до целых рублей функцией <code>round()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1499.9
+15</pre></div><div><b>Вывод</b><pre>Цена по карте: 1274.91 руб.
+Экономия, руб.: 225</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">350
+5</pre></div><div><b>Вывод</b><pre>Цена по карте: 332.50 руб.
+Экономия, руб.: 18</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Экономия — это процент от цены. Округляйте только при выводе, расчёт ведите по точным значениям.</p></details>
+</div></article>
+<article class="task" id="v1-10">
+<header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Такси для группы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Группа студентов едет на такси. Вводятся число студентов, число мест в одной машине, стоимость одной машины (дробная) и сколько каждый студент готов заплатить (целое). Выведите число машин, общую стоимость и сумму с каждого с двумя знаками, хватает ли каждому его суммы, а последней строкой — число студентов и число машин через косую черту.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+4
+450.5
+150</pre></div><div><b>Вывод</b><pre>Машин: 3
+Всего: 1351.50 руб.
+С каждого: 135.15 руб.
+Бюджета хватает: True
+10/3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">8
+4
+600
+150</pre></div><div><b>Вывод</b><pre>Машин: 2
+Всего: 1200.00 руб.
+С каждого: 150.00 руб.
+Бюджета хватает: True
+8/2</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+4
+520
+150</pre></div><div><b>Вывод</b><pre>Машин: 1
+Всего: 520.00 руб.
+С каждого: 173.33 руб.
+Бюджета хватает: False
+3/1</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если хотя бы один студент не поместился в полные машины, нужна ещё одна машина. Без условий это считают так: к числу студентов прибавляют «мест минус один» и делят нацело.</p></details>
+</div></article>
+<h2 id="v2"><span class="sec">§2</span>Вариант 2</h2>
+<article class="task" id="v2-1">
+<header class="task__head"><span class="task__num">Задача 1</span><h3 class="task__title">Стипендия за семестр</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Студент получает одинаковую стипендию каждый месяц и один раз за семестр — премию за олимпиаду. Вводятся размер стипендии, число месяцев и размер премии — все целые. Выведите сумму за семестр.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3200
+5
+5000</pre></div><div><b>Вывод</b><pre>За семестр: 21000 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2800
+4
+0</pre></div><div><b>Вывод</b><pre>За семестр: 11200 руб.</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Премия прибавляется один раз, а стипендия умножается на число месяцев.</p></details>
+</div></article>
+<article class="task" id="v2-2">
+<header class="task__head"><span class="task__num">Задача 2</span><h3 class="task__title">Проверка пароля</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Сайт требует пароль длиной 12 символов. Пользователь вводит пароль (короче 12 символов). Выведите длину пароля, сколько символов не хватает до 12, пароль, скрытый звёздочками, и тип значения длины.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">qwerty</pre></div><div><b>Вывод</b><pre>Длина: 6
+Не хватает: 6
+На экране: ******
+&lt;class &#x27;int&#x27;&gt;</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Sun2026</pre></div><div><b>Вывод</b><pre>Длина: 7
+Не хватает: 5
+На экране: *******
+&lt;class &#x27;int&#x27;&gt;</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строку из звёздочек нужной длины даёт умножение строки на число.</p></details>
+</div></article>
+<article class="task" id="v2-3">
+<header class="task__head"><span class="task__num">Задача 3</span><h3 class="task__title">Карточка студента</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Электронный журнал печатает карточку студента. Вводятся имя, группа и курс (целое число). Обучение длится 4 курса. Выведите две строки, как в примерах, с помощью f-строк: во второй строке — курс и сколько курсов осталось до выпуска.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Анна
+ИС-21
+1</pre></div><div><b>Вывод</b><pre>Студент: Анна (группа ИС-21)
+Курс: 1, до выпуска: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Олег
+ПР-34
+3</pre></div><div><b>Вывод</b><pre>Студент: Олег (группа ПР-34)
+Курс: 3, до выпуска: 1</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В фигурных скобках f-строки можно записать не только имя переменной, но и выражение.</p></details>
+</div></article>
+<article class="task" id="v2-4">
+<header class="task__head"><span class="task__num">Задача 4</span><h3 class="task__title">Табло тренировки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Табло спортзала показывает время старта тренировки. Вводятся часы, минуты и секунды (все двузначные). Выведите строку «Старт: часы:минуты:секунды» двумя вызовами <code>print()</code>: первый печатает слово «Старт:», второй — время. Затем выведите номера трёх подходов через запятую с пробелом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">18
+30
+15</pre></div><div><b>Вывод</b><pre>Старт: 18:30:15
+1, 2, 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+45
+50</pre></div><div><b>Вывод</b><pre>Старт: 10:45:50
+1, 2, 3</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Чтобы второй <code>print()</code> продолжил ту же строку, первому нужен параметр <code>end</code>. Двоеточия между частями времени даёт <code>sep</code>.</p></details>
+</div></article>
+<article class="task" id="v2-5">
+<header class="task__head"><span class="task__num">Задача 5</span><h3 class="task__title">Тетради и ручки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В канцелярском магазине покупают тетради и ручки. Вводятся цена тетради (дробная), количество тетрадей, цена ручки (дробная) и количество ручек. Выведите стоимость тетрадей, стоимость ручек и общую сумму.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">45.5
+4
+30
+2</pre></div><div><b>Вывод</b><pre>Тетради: 182.0
+Ручки: 60.0
+Всего: 242.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">60
+1
+25.5
+3</pre></div><div><b>Вывод</b><pre>Тетради: 60.0
+Ручки: 76.5
+Всего: 136.5</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Цены преобразуйте через <code>float()</code>, количества — через <code>int()</code>.</p></details>
+</div></article>
+<article class="task" id="v2-6">
+<header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Дежурство в кабинете</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Три студента дежурят по очереди. Вводятся три имени в порядке дежурства. Каждый день первый в очереди уходит в её конец. Выведите очередь сегодня, завтра и послезавтра. Сдвиг очереди выполните множественным присваиванием.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Анна
+Борис
+Вера</pre></div><div><b>Вывод</b><pre>Сегодня: Анна Борис Вера
+Завтра: Борис Вера Анна
+Послезавтра: Вера Анна Борис</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Ира
+Лев
+Марк</pre></div><div><b>Вывод</b><pre>Сегодня: Ира Лев Марк
+Завтра: Лев Марк Ира
+Послезавтра: Марк Ира Лев</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>При множественном присваивании правая часть вычисляется целиком до того, как переменные получат новые значения, поэтому временная переменная не нужна.</p></details>
+</div></article>
+<article class="task" id="v2-7">
+<header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Проходной балл</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Для поступления на курс нужно набрать проходную сумму баллов за три экзамена. Вводятся баллы за три экзамена и проходная сумма. Выведите сумму баллов, набрана ли проходная сумма, равны ли баллы за первый и второй экзамен, и на сколько сумма отличается от проходной. Сумму набирайте составным присваиванием.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70
+65
+80
+200</pre></div><div><b>Вывод</b><pre>Сумма: 215
+Проходной набран: True
+Первый равен второму: False
+Разница с проходным: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">60
+60
+55
+190</pre></div><div><b>Вывод</b><pre>Сумма: 175
+Проходной набран: False
+Первый равен второму: True
+Разница с проходным: -15</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для «не меньше» используется <code>&gt;=</code>, для «равно» — два знака <code>==</code>.</p></details>
+</div></article>
+<article class="task" id="v2-8">
+<header class="task__head"><span class="task__num">Задача 8</span><h3 class="task__title">Четырёхзначный ПИН-код</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Приложение проверяет ПИН-код из четырёх цифр (первая цифра не ноль). Выведите четыре цифры через пробел, сумму цифр и признак того, что последняя цифра чётная.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2468</pre></div><div><b>Вывод</b><pre>Цифры: 2 4 6 8
+Сумма цифр: 20
+Последняя чётная: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7031</pre></div><div><b>Вывод</b><pre>Цифры: 7 0 3 1
+Сумма цифр: 11
+Последняя чётная: False</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Каждая цифра получается так: отрезать лишние цифры справа через <code>//</code>, затем взять последнюю через <code>% 10</code>.</p></details>
+</div></article>
+<article class="task" id="v2-9">
+<header class="task__head"><span class="task__num">Задача 9</span><h3 class="task__title">Средний результат забега</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Бегун пробежал три забега. Вводятся три времени в секундах (дробные). Выведите среднее время с двумя знаками после точки и то же время, округлённое функцией <code>round()</code> до десятых.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12.4
+12.9
+13.1</pre></div><div><b>Вывод</b><pre>Среднее: 12.80 с
+До десятых: 12.8</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">15
+14.5
+14</pre></div><div><b>Вывод</b><pre>Среднее: 14.50 с
+До десятых: 14.5</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумму заключите в скобки, иначе на 3 разделится только последнее время.</p></details>
+</div></article>
+<article class="task" id="v2-10">
+<header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Конец учебного дня</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Пары начинаются в заданное время, каждая пара длится 90 минут, между парами перерыв 10 минут. Вводятся час и минута начала первой пары и число пар. Выведите строку «Конец: часы:минуты» двумя вызовами <code>print()</code>, успеет ли студент к 17:00 и сколько часов длится учебный день — с двумя знаками после точки. Во всех примерах минуты окончания двузначные.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8
+20
+4</pre></div><div><b>Вывод</b><pre>Конец: 14:50
+Успеет к 17:00: True
+Учебный день: 6.50 ч</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
+0
+3</pre></div><div><b>Вывод</b><pre>Конец: 13:50
+Успеет к 17:00: True
+Учебный день: 4.83 ч</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+15
+5</pre></div><div><b>Вывод</b><pre>Конец: 18:25
+Успеет к 17:00: False
+Учебный день: 8.17 ч</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Переведите время начала в минуты от начала суток, прибавьте длительность, потом переведите обратно: часы — через <code>// 60</code>, минуты — через <code>% 60</code>. Перерывов на один меньше, чем пар.</p></details>
+</div></article>
+<h2 id="v3"><span class="sec">§3</span>Вариант 3</h2>
+<article class="task" id="v3-1">
+<header class="task__head"><span class="task__num">Задача 1</span><h3 class="task__title">Оплата хостинга</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Хостинг берёт разовую плату за подключение и одинаковую плату каждый месяц. Вводятся плата за подключение, плата в месяц и число месяцев — все целые. Выведите, сколько придётся заплатить всего.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
+290
+12</pre></div><div><b>Вывод</b><pre>Всего к оплате: 3980 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+450
+3</pre></div><div><b>Вывод</b><pre>Всего к оплате: 1350 руб.</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Умножение выполняется раньше сложения, поэтому скобки здесь не нужны.</p></details>
+</div></article>
+<article class="task" id="v3-2">
+<header class="task__head"><span class="task__num">Задача 2</span><h3 class="task__title">Метка для коробки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Склад печатает метку для коробки: название товара, дефис и количество. Вводятся название и количество (целое). Соберите метку сложением строк, выведите её, её длину, тип введённого количества после преобразования и строку из дефисов длиной с метку.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">cable
+40</pre></div><div><b>Вывод</b><pre>cable-40
+Длина метки: 8
+&lt;class &#x27;int&#x27;&gt;
+--------</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">mouse
+7</pre></div><div><b>Вывод</b><pre>mouse-7
+Длина метки: 7
+&lt;class &#x27;int&#x27;&gt;
+-------</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строку с числом сложить нельзя: сначала превратите число в строку функцией <code>str()</code>.</p></details>
+</div></article>
+<article class="task" id="v3-3">
+<header class="task__head"><span class="task__num">Задача 3</span><h3 class="task__title">Строка журнала событий</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Программа записывает события в журнал. Вводятся уровень события, имя модуля и текст сообщения. Выведите строку журнала, как в примерах, с помощью f-строки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">ERROR
+auth
+неверный пароль</pre></div><div><b>Вывод</b><pre>[ERROR] auth: неверный пароль</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">INFO
+backup
+копия создана</pre></div><div><b>Вывод</b><pre>[INFO] backup: копия создана</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Квадратные скобки и двоеточие — обычные символы строки, они пишутся в f-строке как есть.</p></details>
+</div></article>
+<article class="task" id="v3-4">
+<header class="task__head"><span class="task__num">Задача 4</span><h3 class="task__title">IP-адрес и порт</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся четыре числа IP-адреса и номер порта. Выведите адрес в виде «числа через точку:порт» двумя вызовами <code>print()</code>: первый печатает четыре числа, второй — порт. Затем выведите те же четыре числа через пробел.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">192
+168
+1
+10
+8080</pre></div><div><b>Вывод</b><pre>192.168.1.10:8080
+192 168 1 10</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+0
+0
+1
+22</pre></div><div><b>Вывод</b><pre>10.0.0.1:22
+10 0 0 1</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>У первого <code>print()</code> нужны оба параметра: <code>sep</code> ставит точки между числами, <code>end</code> — двоеточие в конце.</p></details>
+</div></article>
+<article class="task" id="v3-5">
+<header class="task__head"><span class="task__num">Задача 5</span><h3 class="task__title">Время загрузки файла</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Размер файла указан в мегабайтах, скорость интернета — в мегабитах в секунду. В одном байте 8 бит. Вводятся размер файла и скорость — целые. Выведите размер в мегабитах и время загрузки в секундах.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">700
+100</pre></div><div><b>Вывод</b><pre>Размер, Мбит: 5600
+Время загрузки, с: 56.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">25
+16</pre></div><div><b>Вывод</b><pre>Размер, Мбит: 200
+Время загрузки, с: 12.5</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала переведите мегабайты в мегабиты, потом делите на скорость.</p></details>
+</div></article>
+<article class="task" id="v3-6">
+<header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Версии документа</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Редактор хранит текущую и предыдущую версии документа. Вводятся предыдущая версия, текущая версия и новая версия. Выведите обе хранимые версии, затем одной строкой множественного присваивания сохраните новую версию: текущая становится предыдущей, новая становится текущей. Выведите версии ещё раз.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">v1.0
+v1.1
+v2.0</pre></div><div><b>Вывод</b><pre>Было: v1.0 v1.1
+Стало: v1.1 v2.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">draft
+review
+final</pre></div><div><b>Вывод</b><pre>Было: draft review
+Стало: review final</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если записать сдвиг двумя обычными присваиваниями, одна версия потеряется. Множественное присваивание делает сдвиг за один шаг.</p></details>
+</div></article>
+<article class="task" id="v3-7">
+<header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Место на диске</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Пользователь копирует на диск несколько одинаковых файлов. Вводятся свободное место в гигабайтах, размер одного файла и число файлов — целые. Выведите, поместятся ли файлы, сколько места останется (число может быть отрицательным) и совпадает ли объём файлов со свободным местом точно. Свободное место уменьшайте составным присваиванием.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+15
+4</pre></div><div><b>Вывод</b><pre>Поместятся: True
+Останется, ГБ: 40
+Точно впритык: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">50
+12
+5</pre></div><div><b>Вывод</b><pre>Поместятся: False
+Останется, ГБ: -10
+Точно впритык: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">64
+16
+4</pre></div><div><b>Вывод</b><pre>Поместятся: True
+Останется, ГБ: 0
+Точно впритык: True</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравнения посчитайте до того, как уменьшите свободное место.</p></details>
+</div></article>
+<article class="task" id="v3-8">
+<header class="task__head"><span class="task__num">Задача 8</span><h3 class="task__title">Упаковка на складе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Товар упаковывают в коробки одинаковой вместимости. Вводятся число единиц товара и вместимость коробки. Выведите, сколько коробок заполнится полностью, сколько единиц останется и сколько всего коробок нужно, чтобы упаковать всё.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">125
+12</pre></div><div><b>Вывод</b><pre>Полных коробок: 10
+Осталось единиц: 5
+Всего коробок: 11</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">96
+12</pre></div><div><b>Вывод</b><pre>Полных коробок: 8
+Осталось единиц: 0
+Всего коробок: 8</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+12</pre></div><div><b>Вывод</b><pre>Полных коробок: 0
+Осталось единиц: 5
+Всего коробок: 1</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Последнее число без условий считается так: к числу товаров прибавьте «вместимость минус один» и разделите нацело.</p></details>
+</div></article>
+<article class="task" id="v3-9">
+<header class="task__head"><span class="task__num">Задача 9</span><h3 class="task__title">Рейтинг приложения</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Магазин приложений хранит сумму всех оценок и число оценок. Вводятся оба числа — целые. Выведите средний рейтинг с одним знаком после точки, рейтинг, округлённый функцией <code>round()</code> до целого, и долю от максимальных 5 баллов в процентах с двумя знаками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1287
+300</pre></div><div><b>Вывод</b><pre>Рейтинг: 4.3
+Округлённо: 4
+От максимума: 85.80%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">37
+9</pre></div><div><b>Вывод</b><pre>Рейтинг: 4.1
+Округлённо: 4
+От максимума: 82.22%</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формат <code>.1f</code> работает так же, как <code>.2f</code>, только оставляет один знак.</p></details>
+</div></article>
+<article class="task" id="v3-10">
+<header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Загрузка резервной копии</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Резервную копию загружают в облако. Вводятся размер копии в мегабайтах и скорость в мегабитах в секунду — целые. Выведите время загрузки в секундах с одним знаком, это время, округлённое до целых секунд и разложенное на минуты и секунды (строка «минуты мин секунды с»), уложится ли загрузка в 10 минут и последней строкой размер и скорость через « | ».</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3500
+50</pre></div><div><b>Вывод</b><pre>Время: 560.0 с
+9 мин 20 с
+Меньше 10 минут: True
+3500 | 50</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10240
+100</pre></div><div><b>Вывод</b><pre>Время: 819.2 с
+13 мин 39 с
+Меньше 10 минут: False
+10240 | 100</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">750
+16</pre></div><div><b>Вывод</b><pre>Время: 375.0 с
+6 мин 15 с
+Меньше 10 минут: True
+750 | 16</pre></div></div></div>
+<div class="kr-topics"><b>Повторить</b><div class="chips"><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для деления на минуты нужно целое число секунд: <code>round()</code> без второго аргумента возвращает <code>int</code>.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§4</span>Как готовиться и проверять решения</h2>
+<ol class="steps">
+<li>Решите один вариант целиком без справочника. Засеките время.</li>
+<li>Запустите каждую программу и введите значения из колонки «Ввод»: каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li>
+<li>Сравните вывод с колонкой «Вывод» символ в символ: пробелы, двоеточия, количество знаков после точки. Подсказки <code>input()</code> в примерах не показаны, проверяется только результат.</li>
+<li>Прогоните все примеры задачи. Второй и третий пример часто проверяют крайний случай: ноль, отрицательный результат, ровное деление.</li>
+<li>Если задача не решилась, откройте главы из строки «Повторить» и задачи к ним, затем решите ту же задачу в другом варианте.</li>
+</ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Ввод — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-9/index.html">← Задачи 1.9</a><a href="../index.html">К оглавлению задачника</a></div>
+        <div class="colophon">
+          <span>Подготовка к контрольной работе · главы 1.1–1.9 · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
