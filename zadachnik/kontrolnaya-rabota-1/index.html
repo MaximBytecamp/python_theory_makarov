@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Контрольная работа № 1 · модуль 1 · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · контрольная работа № 1 · модуль 1</span></div>
+      <main class="leaf">
+
+<div class="running"><p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 1</p><p class="running__folio">Главы 1.1–1.9</p></div>
+<header class="chapter-head">
+<span class="chapter-num">КР 1</span>
+<h1>Контрольная работа № 1<br>по главам 1.1–1.9</h1>
+<p class="lead">Три варианта по 10 задач и две задачи повышенной сложности по желанию. Задачи с одинаковым номером во всех вариантах проверяют одну тему. Под каждой задачей — примеры ввода и вывода и подсказка: тот же приём на другой задаче.</p></header>
+<dl class="passport">
+<div><dt>Главы справочника</dt><dd>1.1–1.9</dd></div>
+<div><dt>Вариантов</dt><dd>3</dd></div>
+<div><dt>Задач</dt><dd>10 + 2 по желанию</dd></div>
+<div><dt>Время</dt><dd>90 минут</dd></div>
+</dl>
+<section class="allowed"><b>Что можно использовать</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a></div>
+<p>Условий и циклов нет: каждая задача решается последовательностью строк сверху вниз. Каждое значение вводится отдельной строкой через <code>input()</code>. Вывод должен совпадать с примером символ в символ.</p>
+<p>Всего 27 баллов: «5» — 24–27, «4» — 18–23, «3» — 12–17, «2» — 0–11. Задачи 11 и 12 — по желанию: за каждую полностью решённую +2 балла к баллам по дисциплине, на оценку за контрольную не влияют.</p><p><a href="kontrolnaya-1-varianty.pdf" download>Скачать варианты в PDF для печати</a></p></section>
+<h2 id="plan"><span class="sec">§0</span>Что проверяет каждая задача</h2>
+<div class="kr-plan"><table><thead><tr><th>№</th><th>Что проверяет задача</th><th>Баллы</th><th><a href="#v1">Вариант 1</a></th><th><a href="#v2">Вариант 2</a></th><th><a href="#v3">Вариант 3</a></th></tr></thead><tbody><tr><td>1</td><td>Переменные и расчёт по формуле</td><td>2</td><td><a href="#v1-1">Абонемент в бассейн</a></td><td><a href="#v2-1">Проездной</a></td><td><a href="#v3-1">Подписка на онлайн-кинотеатр</a></td></tr><tr><td>2</td><td>Строки и типы: <code>str()</code>, <code>len()</code>, <code>type()</code>, повтор строки</td><td>2</td><td><a href="#v1-2">Ник игрока</a></td><td><a href="#v2-2">Логин сотрудника</a></td><td><a href="#v3-2">Имя файла отчёта</a></td></tr><tr><td>3</td><td>F-строки с выражениями</td><td>2</td><td><a href="#v1-3">Билеты в кино</a></td><td><a href="#v2-3">Места на парковке</a></td><td><a href="#v3-3">Камеры хранения</a></td></tr><tr><td>4</td><td>Параметры <code>sep</code> и <code>end</code></td><td>2</td><td><a href="#v1-4">Дата в трёх форматах</a></td><td><a href="#v2-4">Артикул товара</a></td><td><a href="#v3-4">Номер версии программы</a></td></tr><tr><td>5</td><td>Ввод <code>int()</code> и <code>float()</code>, расчёт по шагам, формат <code>.2f</code></td><td>3</td><td><a href="#v1-5">Счёт за воду</a></td><td><a href="#v2-5">Счёт за электричество</a></td><td><a href="#v3-5">Пробег служебной машины</a></td></tr><tr><td>6</td><td>Множественное присваивание</td><td>3</td><td><a href="#v1-6">Вкладки браузера</a></td><td><a href="#v2-6">Очередь песен</a></td><td><a href="#v3-6">Товары на полке</a></td></tr><tr><td>7</td><td>Составное присваивание и сравнения</td><td>3</td><td><a href="#v1-7">Копилка на наушники</a></td><td><a href="#v2-7">Заряд телефона</a></td><td><a href="#v3-7">Остаток на складе</a></td></tr><tr><td>8</td><td>Операции <code>//</code> и <code>%</code></td><td>3</td><td><a href="#v1-8">Конфеты для группы</a></td><td><a href="#v2-8">Команды на турнире</a></td><td><a href="#v3-8">Фотоальбом</a></td></tr><tr><td>9</td><td><code>round()</code> и формат <code>.Nf</code></td><td>3</td><td><a href="#v1-9">Цена за 100 грамм</a></td><td><a href="#v2-9">Цена литра сока</a></td><td><a href="#v3-9">Цена листа бумаги</a></td></tr><tr><td>10</td><td><code>round()</code>, формат <code>.Nf</code> и несколько тем сразу</td><td>4</td><td><a href="#v1-10">Итоги практических работ</a></td><td><a href="#v2-10">Расходы на обеды</a></td><td><a href="#v3-10">Пробежки за неделю</a></td></tr><tr><td>11</td><td>Повышенная сложность: чек на три позиции</td><td>+2 к дисц.</td><td><a href="#v1-11">Чек магазина канцтоваров</a></td><td><a href="#v2-11">Счёт в кафе</a></td><td><a href="#v3-11">Заказ комплектующих</a></td></tr><tr><td>12</td><td>Повышенная сложность: карточка в рамке</td><td>+2 к дисц.</td><td><a href="#v1-12">Бейдж участника конференции</a></td><td><a href="#v2-12">Посадочный талон</a></td><td><a href="#v3-12">Этикетка посылки</a></td></tr></tbody></table></div>
+<h2 id="v1"><span class="sec">§1</span>Вариант 1</h2>
+<article class="task" id="v1-1">
+<header class="task__head"><span class="task__num">Задача 1</span><h3 class="task__title">Абонемент в бассейн</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Бассейн продаёт разовые посещения и абонемент на месяц. Вводятся цена одного посещения, цена абонемента и число посещений в месяц — все целые. Выведите, сколько стоят все разовые посещения за месяц, цену абонемента, экономию с абонементом за месяц и за год. Экономия может быть отрицательной — тогда абонемент невыгоден.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">450
+3200
+10</pre></div><div><b>Вывод</b><pre>Разовые посещения: 4500 руб.
+Абонемент: 3200 руб.
+Экономия за месяц: 1300 руб.
+Экономия за год: 15600 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">500
+3500
+4</pre></div><div><b>Вывод</b><pre>Разовые посещения: 2000 руб.
+Абонемент: 3500 руб.
+Экономия за месяц: -1500 руб.
+Экономия за год: -18000 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>lunch = <span class="n">180</span> * <span class="n">2</span>
+left = <span class="n">500</span> - lunch
+<span class="f">print</span>(<span class="s">&quot;Обеды за день:&quot;</span>, lunch)
+<span class="f">print</span>(<span class="s">&quot;Остаток от 500:&quot;</span>, left)
+<span class="f">print</span>(<span class="s">&quot;За неделю:&quot;</span>, lunch * <span class="n">7</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Обеды за день: 360
+Остаток от 500: 140
+За неделю: 2520</pre></figure></details>
+</div></article>
+<article class="task" id="v1-2">
+<header class="task__head"><span class="task__num">Задача 2</span><h3 class="task__title">Ник игрока</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Игра составляет ник из имени игрока и года рождения: имя, знак подчёркивания, год. Вводятся имя и год рождения. Год преобразуйте в целое число через <code>int()</code>. Соберите ник сложением строк и выведите: рамку из знаков <code>=</code> длиной с ник, сам ник, такую же рамку, длину ника и тип переменной с годом.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Denis
+2008</pre></div><div><b>Вывод</b><pre>==========
+Denis_2008
+==========
+Длина ника: 10
+&lt;class &#x27;int&#x27;&gt;</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Kira
+2009</pre></div><div><b>Вывод</b><pre>=========
+Kira_2009
+=========
+Длина ника: 9
+&lt;class &#x27;int&#x27;&gt;</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>word = <span class="s">&quot;Python&quot;</span>
+code = word + <span class="s">&quot;-&quot;</span> + <span class="f">str</span>(<span class="n">3</span>)
+<span class="f">print</span>(code, <span class="f">len</span>(code))
+<span class="f">print</span>(<span class="s">&quot;~&quot;</span> * <span class="f">len</span>(word))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Python-3 8
+~~~~~~</pre></figure></details>
+</div></article>
+<article class="task" id="v1-3">
+<header class="task__head"><span class="task__num">Задача 3</span><h3 class="task__title">Билеты в кино</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Кинотеатр печатает подтверждение покупки. Вводятся название фильма, номер ряда, номер первого места, число билетов и цена одного билета — все числа целые. Места идут подряд. Выведите две строки, как в примерах, с помощью f-строк. Номер последнего места и сумму к оплате посчитайте выражениями прямо в фигурных скобках.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Дюна
+7
+12
+3
+450</pre></div><div><b>Вывод</b><pre>«Дюна», ряд 7, места с 12 по 14
+3 шт. по 450 руб., к оплате 1350 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Чебурашка
+2
+5
+4
+300</pre></div><div><b>Вывод</b><pre>«Чебурашка», ряд 2, места с 5 по 8
+4 шт. по 300 руб., к оплате 1200 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>apples = <span class="n">5</span>
+price = <span class="n">30</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{apples}<span class="s"> кг, итого </span>{apples * price}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>5 кг, итого 150 руб.</pre></figure></details>
+</div></article>
+<article class="task" id="v1-4">
+<header class="task__head"><span class="task__num">Задача 4</span><h3 class="task__title">Дата в трёх форматах</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся день, месяц и год — как текст, без преобразования в числа. Выведите три строки: дату через точку (день.месяц.год), дату через дефис в обратном порядке (год-месяц-день) и строку «Сохранено: день/месяц/год». Третью строку напечатайте двумя вызовами <code>print()</code>: первый выводит слово «Сохранено:», второй — дату. Каждую часть даты передавайте в <code>print()</code> отдельным аргументом, склеивать строки плюсом нельзя.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">05
+10
+2026</pre></div><div><b>Вывод</b><pre>05.10.2026
+2026-10-05
+Сохранено: 05/10/2026</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">31
+12
+2025</pre></div><div><b>Вывод</b><pre>31.12.2025
+2025-12-31
+Сохранено: 31/12/2025</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre><span class="f">print</span>(<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, sep=<span class="s">&quot;:&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Ответ&quot;</span>, end=<span class="s">&quot;! &quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;x&quot;</span>, <span class="s">&quot;y&quot;</span>, sep=<span class="s">&quot;&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>10:20:30
+Ответ! xy</pre></figure></details>
+</div></article>
+<article class="task" id="v1-5">
+<header class="task__head"><span class="task__num">Задача 5</span><h3 class="task__title">Счёт за воду</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Счётчик воды показывает, сколько кубометров израсходовано с момента установки. Вводятся показания в прошлом месяце и в этом (целые), цена одного кубометра и абонентская плата (дробные). Выведите расход за месяц, стоимость воды, сумму к оплате вместе с абонентской платой и средний расход в день, если в месяце 30 дней. Денежные суммы и расход в день выводите с двумя знаками после точки.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1254
+1263
+52.3
+120</pre></div><div><b>Вывод</b><pre>Расход, куб. м: 9
+Стоимость воды: 470.70 руб.
+К оплате: 590.70 руб.
+В среднем в день: 0.30 куб. м</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">800
+815
+49.9
+95.5</pre></div><div><b>Вывод</b><pre>Расход, куб. м: 15
+Стоимость воды: 748.50 руб.
+К оплате: 844.00 руб.
+В среднем в день: 0.50 куб. м</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>weight = <span class="f">float</span>(<span class="s">&quot;2.5&quot;</span>)
+boxes = <span class="f">int</span>(<span class="s">&quot;4&quot;</span>)
+total = weight * boxes
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Груз: </span>{total:<span class="s">.2f</span>}<span class="s"> кг</span><span class="s">&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Груз: 10.00 кг</pre></figure></details>
+</div></article>
+<article class="task" id="v1-6">
+<header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Вкладки браузера</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">В браузере открыты три вкладки, слева направо. Вводятся их названия. Выведите порядок вкладок, затем поменяйте местами первую и третью вкладку и выведите порядок ещё раз. После этого последнюю вкладку перетаскивают в начало, остальные сдвигаются вправо. Выведите итоговый порядок. Каждое изменение порядка запишите одной строкой множественного присваивания, без дополнительных переменных.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Почта
+Карты
+Новости</pre></div><div><b>Вывод</b><pre>Было: Почта Карты Новости
+Обмен крайних: Новости Карты Почта
+Последняя в начало: Почта Новости Карты</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">GitHub
+StackOverflow
+YouTube</pre></div><div><b>Вывод</b><pre>Было: GitHub StackOverflow YouTube
+Обмен крайних: YouTube StackOverflow GitHub
+Последняя в начало: GitHub YouTube StackOverflow</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>a, b, c, d = <span class="s">&quot;A&quot;</span>, <span class="s">&quot;B&quot;</span>, <span class="s">&quot;C&quot;</span>, <span class="s">&quot;D&quot;</span>
+a, d = d, a
+<span class="f">print</span>(a, b, c, d)
+a, b, c, d = d, a, b, c
+<span class="f">print</span>(a, b, c, d)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>D B C A
+A D B C</pre></figure></details>
+</div></article>
+<article class="task" id="v1-7">
+<header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Копилка на наушники</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Студент копит на наушники. Вводятся сумма в копилке, сколько он добавляет каждую неделю и цена наушников — все целые. Три недели подряд студент пополняет копилку: каждое пополнение — отдельная строка составного присваивания. Выведите сумму после трёх недель, хватает ли денег на наушники и совпадает ли сумма с ценой точно. Затем студент покупает наушники: уменьшите сумму составным присваиванием и выведите остаток. Покупку считайте в любом случае, тогда остаток может быть отрицательным — это долг.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2500
+1500
+6000</pre></div><div><b>Вывод</b><pre>Через три недели: 7000
+Хватает на наушники: True
+Ровно на покупку: False
+Остаток после покупки: 1000</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1000
+800
+5000</pre></div><div><b>Вывод</b><pre>Через три недели: 3400
+Хватает на наушники: False
+Ровно на покупку: False
+Остаток после покупки: -1600</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>score = <span class="n">10</span>
+score += <span class="n">7</span>
+score -= <span class="n">2</span>
+<span class="f">print</span>(score, score &gt; <span class="n">12</span>, score == <span class="n">20</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>15 True False</pre></figure></details>
+</div></article>
+<article class="task" id="v1-8">
+<header class="task__head"><span class="task__num">Задача 8</span><h3 class="task__title">Конфеты для группы</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Куратор принёс конфеты для группы и раздаёт их поровну, целыми конфетами. Вводятся число конфет и число студентов. Выведите, сколько конфет получит каждый, сколько останется у куратора, удалось ли раздать все конфеты без остатка и чётное ли число конфет у каждого студента.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+24</pre></div><div><b>Вывод</b><pre>Каждому: 4
+Осталось у куратора: 4
+Раздали без остатка: False
+Каждому чётное число: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">75
+25</pre></div><div><b>Вывод</b><pre>Каждому: 3
+Осталось у куратора: 0
+Раздали без остатка: True
+Каждому чётное число: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>pencils = <span class="n">23</span>
+<span class="f">print</span>(pencils // <span class="n">5</span>, pencils % <span class="n">5</span>)
+<span class="f">print</span>(<span class="n">14</span> % <span class="n">2</span> == <span class="n">0</span>, <span class="n">15</span> % <span class="n">2</span> == <span class="n">0</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>4 3
+True False</pre></figure></details>
+</div></article>
+<article class="task" id="v1-9">
+<header class="task__head"><span class="task__num">Задача 9</span><h3 class="task__title">Цена за 100 грамм</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Чтобы сравнивать упаковки разного веса, магазин печатает на ценнике цену за 100 грамм. Вводятся цена упаковки (дробная) и вес упаковки в граммах (целый). Выведите цену за 100 г с двумя знаками после точки, цену за килограмм, округлённую функцией <code>round()</code> до десятых, и цену упаковки, округлённую <code>round()</code> до целых рублей.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">249.99
+380</pre></div><div><b>Вывод</b><pre>За 100 г: 65.79 руб.
+За 1 кг: 657.9 руб.
+Упаковка, округлённо: 250 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">89.4
+900</pre></div><div><b>Вывод</b><pre>За 100 г: 9.93 руб.
+За 1 кг: 99.3 руб.
+Упаковка, округлённо: 89 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>one = <span class="n">250</span> / <span class="n">6</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{one:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="f">round</span>(one, <span class="n">1</span>), <span class="f">round</span>(one))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>41.67
+41.7 42</pre></figure></details>
+</div></article>
+<article class="task" id="v1-10">
+<header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Итоги практических работ</h3><span class="level">4 балла</span></header>
+<div class="task__body">
+<p class="task__text">За модуль студент сдал пять практических работ, каждая оценивается максимум в 10 баллов. Вводятся баллы за пять работ (дробные, например 8.5) и минимальная сумма для зачёта (целая). Выведите:<br>— сумму баллов с одним знаком после точки и максимум 50, как в примерах;<br>— средний балл с двумя знаками после точки;<br>— средний балл, округлённый функцией <code>round()</code> до десятых;<br>— сколько процентов от максимума набрано, с одним знаком после точки;<br>— получен ли зачёт: сумма не меньше минимальной;<br>— последней строкой баллы через « + », затем « = » и сумму, округлённую <code>round()</code> до десятых. Эту строку напечатайте двумя вызовами <code>print()</code>.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8.5
+7
+9.3
+6.4
+8.1
+35</pre></div><div><b>Вывод</b><pre>Сумма: 39.3 из 50
+Средний балл: 7.86
+Округлённо: 7.9
+Выполнено: 78.6%
+Зачёт: True
+8.5 + 7.0 + 9.3 + 6.4 + 8.1 = 39.3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5.5
+6
+7.2
+4.4
+6.3
+35</pre></div><div><b>Вывод</b><pre>Сумма: 29.4 из 50
+Средний балл: 5.88
+Округлённо: 5.9
+Выполнено: 58.8%
+Зачёт: False
+5.5 + 6.0 + 7.2 + 4.4 + 6.3 = 29.4</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>t1 = <span class="n">20.5</span>
+t2 = <span class="n">22.1</span>
+t3 = <span class="n">19.4</span>
+average = (t1 + t2 + t3) / <span class="n">3</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Среднее: </span>{average:<span class="s">.1f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(t1, t2, t3, sep=<span class="s">&quot; | &quot;</span>, end=<span class="s">&quot; -&gt; &quot;</span>)
+<span class="f">print</span>(<span class="f">round</span>(average, <span class="n">2</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Среднее: 20.7
+20.5 | 22.1 | 19.4 -&gt; 20.67</pre></figure></details>
+</div></article>
+<h3>Задачи повышенной сложности · вариант 1</h3><p>По желанию, после основных. Каждая полностью решённая задача — +2 балла к баллам по дисциплине.</p>
+<article class="task" id="v1-11">
+<header class="task__head"><span class="task__num">Задача 11</span><h3 class="task__title">Чек магазина канцтоваров</h3><span class="level">+2 к дисциплине</span></header>
+<div class="task__body">
+<p class="task__text">Магазин канцтоваров печатает чек на три позиции. Вводятся данные трёх позиций: для каждой — название, цена (дробная) и количество (целое). Затем вводятся скидка в процентах и сумма, начиная с которой доставка бесплатная (обе целые). Выведите чек, как в примерах:<br>— три строки позиций: название, количество, цена и стоимость позиции, деньги — с двумя знаками после точки;<br>— разделитель из 30 дефисов, получите его повтором строки;<br>— сумму без скидки, размер скидки в рублях и сумму к оплате — с двумя знаками;<br>— сколько всего единиц в заказе;<br>— среднюю цену одной единицы после скидки, округлённую функцией <code>round()</code> до сотых;<br>— бесплатна ли доставка: сумма к оплате не меньше порога.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Тетрадь
+45.5
+6
+Ручка
+32.9
+4
+Рюкзак
+1890
+1
+10
+2000</pre></div><div><b>Вывод</b><pre>Тетрадь: 6 x 45.50 = 273.00
+Ручка: 4 x 32.90 = 131.60
+Рюкзак: 1 x 1890.00 = 1890.00
+------------------------------
+Сумма: 2294.60 руб.
+Скидка 10%: 229.46 руб.
+К оплате: 2065.14 руб.
+Количество, всего: 11
+Средняя цена единицы: 187.74 руб.
+Бесплатная доставка: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Маркер
+89.9
+3
+Папка
+55
+2
+Пенал
+349.5
+1
+5
+2000</pre></div><div><b>Вывод</b><pre>Маркер: 3 x 89.90 = 269.70
+Папка: 2 x 55.00 = 110.00
+Пенал: 1 x 349.50 = 349.50
+------------------------------
+Сумма: 729.20 руб.
+Скидка 5%: 36.46 руб.
+К оплате: 692.74 руб.
+Количество, всего: 6
+Средняя цена единицы: 115.46 руб.
+Бесплатная доставка: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>salary = <span class="n">40000</span>
+bonus = salary * <span class="n">15</span> / <span class="n">100</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Премия: </span>{bonus:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;=&quot;</span> * <span class="n">12</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Премия: 6000.00
+============</pre></figure></details>
+</div></article>
+<article class="task" id="v1-12">
+<header class="task__head"><span class="task__num">Задача 12</span><h3 class="task__title">Бейдж участника конференции</h3><span class="level">+2 к дисциплине</span></header>
+<div class="task__body">
+<p class="task__text">Конференция печатает бейджи участников в рамке из символов. Вводятся имя, фамилия, компания, город, роль участника, номер дня конференции (целое) и ширина текста внутри рамки (целое число). Ширина всегда не меньше длины самой длинной строки. Выведите карточку, как в примерах:<br>— верхняя и нижняя граница: знак <code>+</code>, дефисы на ширину плюс 2, знак <code>+</code>;<br>— три строки текста: <code>| </code>, текст, пробелы до заданной ширины, <code> |</code>. Число пробелов посчитайте через <code>len()</code>, сами пробелы получите повтором строки;<br>— строки текста: «имя фамилия», «компания, город», «роль, день N»;<br>— под рамкой — сколько пробелов добавлено в каждую из трёх строк;<br>— помещается ли карточка в строку из 40 символов: полная ширина карточки — это ширина текста плюс 4.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Анна
+Смирнова
+Яндекс
+Москва
+Докладчик
+2
+20</pre></div><div><b>Вывод</b><pre>+----------------------+
+| Анна Смирнова        |
+| Яндекс, Москва       |
+| Докладчик, день 2    |
++----------------------+
+Добавлено пробелов: 7 6 3
+Помещается в 40 символов: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Лев
+Ким
+1С
+Казань
+Слушатель
+1
+18</pre></div><div><b>Вывод</b><pre>+--------------------+
+| Лев Ким            |
+| 1С, Казань         |
+| Слушатель, день 1  |
++--------------------+
+Добавлено пробелов: 11 8 1
+Помещается в 40 символов: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>name = <span class="s">&quot;Кот&quot;</span>
+<span class="f">print</span>(<span class="s">&quot;[&quot;</span> + name + <span class="s">&quot;.&quot;</span> * (<span class="n">8</span> - <span class="f">len</span>(name)) + <span class="s">&quot;]&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;[&quot;</span> + <span class="s">&quot;Барсик&quot;</span> + <span class="s">&quot;.&quot;</span> * (<span class="n">8</span> - <span class="f">len</span>(<span class="s">&quot;Барсик&quot;</span>)) + <span class="s">&quot;]&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>[Кот.....]
+[Барсик..]</pre></figure></details>
+</div></article>
+<h2 id="v2"><span class="sec">§2</span>Вариант 2</h2>
+<article class="task" id="v2-1">
+<header class="task__head"><span class="task__num">Задача 1</span><h3 class="task__title">Проездной</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">В городе можно платить за каждую поездку отдельно или купить проездной на месяц. Вводятся цена одной поездки, цена проездного и число поездок в месяц — все целые. Выведите, сколько стоят все поездки по отдельности, цену проездного, экономию с проездным за месяц и за год. Экономия может быть отрицательной — тогда проездной невыгоден.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70
+2900
+46</pre></div><div><b>Вывод</b><pre>Поездки по отдельности: 3220 руб.
+Проездной: 2900 руб.
+Экономия за месяц: 320 руб.
+Экономия за год: 3840 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">65
+2500
+30</pre></div><div><b>Вывод</b><pre>Поездки по отдельности: 1950 руб.
+Проездной: 2500 руб.
+Экономия за месяц: -550 руб.
+Экономия за год: -6600 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>lunch = <span class="n">180</span> * <span class="n">2</span>
+left = <span class="n">500</span> - lunch
+<span class="f">print</span>(<span class="s">&quot;Обеды за день:&quot;</span>, lunch)
+<span class="f">print</span>(<span class="s">&quot;Остаток от 500:&quot;</span>, left)
+<span class="f">print</span>(<span class="s">&quot;За неделю:&quot;</span>, lunch * <span class="n">7</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Обеды за день: 360
+Остаток от 500: 140
+За неделю: 2520</pre></figure></details>
+</div></article>
+<article class="task" id="v2-2">
+<header class="task__head"><span class="task__num">Задача 2</span><h3 class="task__title">Логин сотрудника</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Компания составляет логин из фамилии сотрудника и номера отдела: фамилия, точка, номер отдела. Вводятся фамилия и номер отдела. Номер преобразуйте в целое число через <code>int()</code>. Соберите логин сложением строк и выведите: рамку из знаков <code>*</code> длиной с логин, сам логин, такую же рамку, длину логина и тип переменной с номером отдела.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">ivanov
+12</pre></div><div><b>Вывод</b><pre>*********
+ivanov.12
+*********
+Длина логина: 9
+&lt;class &#x27;int&#x27;&gt;</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">li
+7</pre></div><div><b>Вывод</b><pre>****
+li.7
+****
+Длина логина: 4
+&lt;class &#x27;int&#x27;&gt;</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>word = <span class="s">&quot;Python&quot;</span>
+code = word + <span class="s">&quot;-&quot;</span> + <span class="f">str</span>(<span class="n">3</span>)
+<span class="f">print</span>(code, <span class="f">len</span>(code))
+<span class="f">print</span>(<span class="s">&quot;~&quot;</span> * <span class="f">len</span>(word))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Python-3 8
+~~~~~~</pre></figure></details>
+</div></article>
+<article class="task" id="v2-3">
+<header class="task__head"><span class="task__num">Задача 3</span><h3 class="task__title">Места на парковке</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Парковка торгового центра печатает подтверждение брони. Вводятся название парковки, номер этажа, номер первого места, число мест и цена одного места за день — все числа целые. Места идут подряд. Выведите две строки, как в примерах, с помощью f-строк. Номер последнего места и сумму к оплате посчитайте выражениями прямо в фигурных скобках.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Север
+2
+41
+2
+350</pre></div><div><b>Вывод</b><pre>«Север», этаж 2, места с 41 по 42
+2 шт. по 350 руб., к оплате 700 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Галерея
+-1
+8
+3
+500</pre></div><div><b>Вывод</b><pre>«Галерея», этаж -1, места с 8 по 10
+3 шт. по 500 руб., к оплате 1500 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>apples = <span class="n">5</span>
+price = <span class="n">30</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{apples}<span class="s"> кг, итого </span>{apples * price}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>5 кг, итого 150 руб.</pre></figure></details>
+</div></article>
+<article class="task" id="v2-4">
+<header class="task__head"><span class="task__num">Задача 4</span><h3 class="task__title">Артикул товара</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Артикул товара состоит из трёх частей: категории, серии и номера. Вводятся эти три части как текст. Выведите три строки: артикул через дефис, артикул через косую черту и строку «Код для сканера: » с тремя частями без разделителей. Третью строку напечатайте двумя вызовами <code>print()</code>: первый выводит слова «Код для сканера:», второй — части артикула. Каждую часть передавайте в <code>print()</code> отдельным аргументом, склеивать строки плюсом нельзя.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">KB
+A7
+0042</pre></div><div><b>Вывод</b><pre>KB-A7-0042
+KB/A7/0042
+Код для сканера: KBA70042</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">MS
+X2
+1150</pre></div><div><b>Вывод</b><pre>MS-X2-1150
+MS/X2/1150
+Код для сканера: MSX21150</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre><span class="f">print</span>(<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, sep=<span class="s">&quot;:&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Ответ&quot;</span>, end=<span class="s">&quot;! &quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;x&quot;</span>, <span class="s">&quot;y&quot;</span>, sep=<span class="s">&quot;&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>10:20:30
+Ответ! xy</pre></figure></details>
+</div></article>
+<article class="task" id="v2-5">
+<header class="task__head"><span class="task__num">Задача 5</span><h3 class="task__title">Счёт за электричество</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Счётчик электричества показывает, сколько киловатт-часов израсходовано с момента установки. Вводятся показания в прошлом месяце и в этом (целые), цена одного киловатт-часа и плата за обслуживание (дробные). Выведите расход за месяц, стоимость электричества, сумму к оплате вместе с платой за обслуживание и средний расход в день, если в месяце 30 дней. Денежные суммы и расход в день выводите с двумя знаками после точки.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">15420
+15637
+6.43
+85</pre></div><div><b>Вывод</b><pre>Расход, кВт·ч: 217
+Стоимость электричества: 1395.31 руб.
+К оплате: 1480.31 руб.
+В среднем в день: 7.23 кВт·ч</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9800
+9950
+5.9
+70.5</pre></div><div><b>Вывод</b><pre>Расход, кВт·ч: 150
+Стоимость электричества: 885.00 руб.
+К оплате: 955.50 руб.
+В среднем в день: 5.00 кВт·ч</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>weight = <span class="f">float</span>(<span class="s">&quot;2.5&quot;</span>)
+boxes = <span class="f">int</span>(<span class="s">&quot;4&quot;</span>)
+total = weight * boxes
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Груз: </span>{total:<span class="s">.2f</span>}<span class="s"> кг</span><span class="s">&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Груз: 10.00 кг</pre></figure></details>
+</div></article>
+<article class="task" id="v2-6">
+<header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Очередь песен</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">В плеере в очереди стоят три песни. Вводятся их названия в порядке воспроизведения. Выведите очередь, затем поменяйте местами вторую и третью песню и выведите очередь ещё раз. После этого первую песню переносят в конец очереди, остальные сдвигаются вперёд. Выведите итоговую очередь. Каждое изменение очереди запишите одной строкой множественного присваивания, без дополнительных переменных.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Кукушка
+Звезда
+Морячка</pre></div><div><b>Вывод</b><pre>Было: Кукушка Звезда Морячка
+Обмен второй и третьей: Кукушка Морячка Звезда
+Первая в конец: Морячка Звезда Кукушка</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Intro
+Believe
+Outro</pre></div><div><b>Вывод</b><pre>Было: Intro Believe Outro
+Обмен второй и третьей: Intro Outro Believe
+Первая в конец: Outro Believe Intro</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>a, b, c, d = <span class="s">&quot;A&quot;</span>, <span class="s">&quot;B&quot;</span>, <span class="s">&quot;C&quot;</span>, <span class="s">&quot;D&quot;</span>
+a, d = d, a
+<span class="f">print</span>(a, b, c, d)
+a, b, c, d = d, a, b, c
+<span class="f">print</span>(a, b, c, d)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>D B C A
+A D B C</pre></figure></details>
+</div></article>
+<article class="task" id="v2-7">
+<header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Заряд телефона</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Телефон разряжается во время игры. Вводятся начальный заряд в процентах, сколько процентов уходит за час игры и сколько процентов добавляет зарядка — все целые. Три часа подряд идёт игра: каждый час — отдельная строка составного присваивания. Выведите заряд после трёх часов, остался ли заряд не ниже 20 процентов и разрядился ли телефон полностью, то есть заряд не больше нуля. Затем телефон ставят на зарядку: увеличьте заряд составным присваиванием и выведите его.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">90
+18
+40</pre></div><div><b>Вывод</b><pre>Через три часа: 36
+Не ниже 20%: True
+Телефон разрядился: False
+После зарядки: 76</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">60
+15
+50</pre></div><div><b>Вывод</b><pre>Через три часа: 15
+Не ниже 20%: False
+Телефон разрядился: False
+После зарядки: 65</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>score = <span class="n">10</span>
+score += <span class="n">7</span>
+score -= <span class="n">2</span>
+<span class="f">print</span>(score, score &gt; <span class="n">12</span>, score == <span class="n">20</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>15 True False</pre></figure></details>
+</div></article>
+<article class="task" id="v2-8">
+<header class="task__head"><span class="task__num">Задача 8</span><h3 class="task__title">Команды на турнире</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">На турнир пришли участники, их делят на команды одинакового размера. Вводятся число участников и число человек в команде. Выведите, сколько получится полных команд, сколько участников останется без команды, попали ли в команды все участники и чётное ли число команд — тогда все команды разобьются на пары для игр.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">47
+5</pre></div><div><b>Вывод</b><pre>Полных команд: 9
+Без команды: 2
+Все в командах: False
+Команды разбиваются на пары: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">42
+6</pre></div><div><b>Вывод</b><pre>Полных команд: 7
+Без команды: 0
+Все в командах: True
+Команды разбиваются на пары: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>pencils = <span class="n">23</span>
+<span class="f">print</span>(pencils // <span class="n">5</span>, pencils % <span class="n">5</span>)
+<span class="f">print</span>(<span class="n">14</span> % <span class="n">2</span> == <span class="n">0</span>, <span class="n">15</span> % <span class="n">2</span> == <span class="n">0</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>4 3
+True False</pre></figure></details>
+</div></article>
+<article class="task" id="v2-9">
+<header class="task__head"><span class="task__num">Задача 9</span><h3 class="task__title">Цена литра сока</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Чтобы сравнивать бутылки разного объёма, магазин печатает на ценнике цену за 100 миллилитров. Вводятся цена бутылки (дробная) и объём в миллилитрах (целый). Выведите цену за 100 мл с двумя знаками после точки, цену за литр, округлённую функцией <code>round()</code> до десятых, и цену бутылки, округлённую <code>round()</code> до целых рублей.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">159.9
+970</pre></div><div><b>Вывод</b><pre>За 100 мл: 16.48 руб.
+За 1 л: 164.8 руб.
+Бутылка, округлённо: 160 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">74.6
+330</pre></div><div><b>Вывод</b><pre>За 100 мл: 22.61 руб.
+За 1 л: 226.1 руб.
+Бутылка, округлённо: 75 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>one = <span class="n">250</span> / <span class="n">6</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{one:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="f">round</span>(one, <span class="n">1</span>), <span class="f">round</span>(one))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>41.67
+41.7 42</pre></figure></details>
+</div></article>
+<article class="task" id="v2-10">
+<header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Расходы на обеды</h3><span class="level">4 балла</span></header>
+<div class="task__body">
+<p class="task__text">Студент записывает, сколько потратил на обеды за пять учебных дней. Вводятся траты за пять дней (дробные, например 245.5) и бюджет на эти пять дней (целый). Выведите:<br>— сумму трат с двумя знаками после точки и бюджет, как в примерах;<br>— среднюю трату за день с двумя знаками после точки;<br>— среднюю трату, округлённую функцией <code>round()</code> до целых рублей;<br>— сколько процентов бюджета потрачено, с одним знаком после точки;<br>— уложился ли студент в бюджет: сумма не больше бюджета;<br>— последней строкой траты через « + », затем « = » и сумму, округлённую <code>round()</code> до сотых. Эту строку напечатайте двумя вызовами <code>print()</code>.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">245.5
+310
+198.4
+275.3
+262.1
+1500</pre></div><div><b>Вывод</b><pre>Потрачено: 1291.30 из 1500 руб.
+В среднем за день: 258.26 руб.
+Округлённо: 258
+Израсходовано бюджета: 86.1%
+Уложился в бюджет: True
+245.5 + 310.0 + 198.4 + 275.3 + 262.1 = 1291.3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">350
+412.8
+299.9
+380
+321.6
+1500</pre></div><div><b>Вывод</b><pre>Потрачено: 1764.30 из 1500 руб.
+В среднем за день: 352.86 руб.
+Округлённо: 353
+Израсходовано бюджета: 117.6%
+Уложился в бюджет: False
+350.0 + 412.8 + 299.9 + 380.0 + 321.6 = 1764.3</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>t1 = <span class="n">20.5</span>
+t2 = <span class="n">22.1</span>
+t3 = <span class="n">19.4</span>
+average = (t1 + t2 + t3) / <span class="n">3</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Среднее: </span>{average:<span class="s">.1f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(t1, t2, t3, sep=<span class="s">&quot; | &quot;</span>, end=<span class="s">&quot; -&gt; &quot;</span>)
+<span class="f">print</span>(<span class="f">round</span>(average, <span class="n">2</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Среднее: 20.7
+20.5 | 22.1 | 19.4 -&gt; 20.67</pre></figure></details>
+</div></article>
+<h3>Задачи повышенной сложности · вариант 2</h3><p>По желанию, после основных. Каждая полностью решённая задача — +2 балла к баллам по дисциплине.</p>
+<article class="task" id="v2-11">
+<header class="task__head"><span class="task__num">Задача 11</span><h3 class="task__title">Счёт в кафе</h3><span class="level">+2 к дисциплине</span></header>
+<div class="task__body">
+<p class="task__text">Кафе печатает счёт на три позиции. Вводятся данные трёх блюд: для каждой — название, цена (дробная) и количество (целое). Затем вводятся скидка по карте гостя в процентах и сумма, начиная с которой гостю дарят десерт (обе целые). Выведите чек, как в примерах:<br>— три строки позиций: название, количество, цена и стоимость позиции, деньги — с двумя знаками после точки;<br>— разделитель из 30 дефисов, получите его повтором строки;<br>— сумму без скидки, размер скидки в рублях и сумму к оплате — с двумя знаками;<br>— сколько всего единиц в заказе;<br>— среднюю цену одной единицы после скидки, округлённую функцией <code>round()</code> до сотых;<br>— положен ли десерт в подарок: сумма к оплате не меньше порога.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Борщ
+289
+2
+Пельмени
+349.5
+2
+Морс
+119.9
+3
+10
+1500</pre></div><div><b>Вывод</b><pre>Борщ: 2 x 289.00 = 578.00
+Пельмени: 2 x 349.50 = 699.00
+Морс: 3 x 119.90 = 359.70
+------------------------------
+Сумма: 1636.70 руб.
+Скидка 10%: 163.67 руб.
+К оплате: 1473.03 руб.
+Порций, всего: 7
+Средняя цена единицы: 210.43 руб.
+Десерт в подарок: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Салат
+245
+1
+Паста
+410.5
+2
+Чай
+99.9
+4
+5
+1000</pre></div><div><b>Вывод</b><pre>Салат: 1 x 245.00 = 245.00
+Паста: 2 x 410.50 = 821.00
+Чай: 4 x 99.90 = 399.60
+------------------------------
+Сумма: 1465.60 руб.
+Скидка 5%: 73.28 руб.
+К оплате: 1392.32 руб.
+Порций, всего: 7
+Средняя цена единицы: 198.9 руб.
+Десерт в подарок: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>salary = <span class="n">40000</span>
+bonus = salary * <span class="n">15</span> / <span class="n">100</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Премия: </span>{bonus:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;=&quot;</span> * <span class="n">12</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Премия: 6000.00
+============</pre></figure></details>
+</div></article>
+<article class="task" id="v2-12">
+<header class="task__head"><span class="task__num">Задача 12</span><h3 class="task__title">Посадочный талон</h3><span class="level">+2 к дисциплине</span></header>
+<div class="task__body">
+<p class="task__text">Авиакомпания печатает посадочный талон в рамке из символов. Вводятся имя, фамилия, город вылета, город прилёта, номер рейса, номер ряда (целое) и ширина текста внутри рамки (целое число). Ширина всегда не меньше длины самой длинной строки. Выведите карточку, как в примерах:<br>— верхняя и нижняя граница: знак <code>+</code>, дефисы на ширину плюс 2, знак <code>+</code>;<br>— три строки текста: <code>| </code>, текст, пробелы до заданной ширины, <code> |</code>. Число пробелов посчитайте через <code>len()</code>, сами пробелы получите повтором строки;<br>— строки текста: «имя фамилия», «откуда - куда», «Рейс номер, ряд N»;<br>— под рамкой — сколько пробелов добавлено в каждую из трёх строк;<br>— помещается ли карточка в строку из 40 символов: полная ширина карточки — это ширина текста плюс 4.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Иван
+Петров
+Москва
+Сочи
+SU1120
+14
+20</pre></div><div><b>Вывод</b><pre>+----------------------+
+| Иван Петров          |
+| Москва - Сочи        |
+| Рейс SU1120, ряд 14  |
++----------------------+
+Добавлено пробелов: 9 7 1
+Помещается в 40 символов: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Ли
+Мин
+Казань
+Санкт-Петербург
+DP405
+3
+24</pre></div><div><b>Вывод</b><pre>+--------------------------+
+| Ли Мин                   |
+| Казань - Санкт-Петербург |
+| Рейс DP405, ряд 3        |
++--------------------------+
+Добавлено пробелов: 18 0 7
+Помещается в 40 символов: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>name = <span class="s">&quot;Кот&quot;</span>
+<span class="f">print</span>(<span class="s">&quot;[&quot;</span> + name + <span class="s">&quot;.&quot;</span> * (<span class="n">8</span> - <span class="f">len</span>(name)) + <span class="s">&quot;]&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;[&quot;</span> + <span class="s">&quot;Барсик&quot;</span> + <span class="s">&quot;.&quot;</span> * (<span class="n">8</span> - <span class="f">len</span>(<span class="s">&quot;Барсик&quot;</span>)) + <span class="s">&quot;]&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>[Кот.....]
+[Барсик..]</pre></figure></details>
+</div></article>
+<h2 id="v3"><span class="sec">§3</span>Вариант 3</h2>
+<article class="task" id="v3-1">
+<header class="task__head"><span class="task__num">Задача 1</span><h3 class="task__title">Подписка на онлайн-кинотеатр</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Онлайн-кинотеатр продаёт фильмы по отдельности и подписку на месяц. Вводятся цена одного фильма, цена подписки и число фильмов в месяц — все целые. Выведите, сколько стоят все фильмы по отдельности, цену подписки, экономию с подпиской за месяц и за год. Экономия может быть отрицательной — тогда подписка невыгодна.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">149
+399
+6</pre></div><div><b>Вывод</b><pre>Фильмы по отдельности: 894 руб.
+Подписка: 399 руб.
+Экономия за месяц: 495 руб.
+Экономия за год: 5940 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">199
+499
+2</pre></div><div><b>Вывод</b><pre>Фильмы по отдельности: 398 руб.
+Подписка: 499 руб.
+Экономия за месяц: -101 руб.
+Экономия за год: -1212 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>lunch = <span class="n">180</span> * <span class="n">2</span>
+left = <span class="n">500</span> - lunch
+<span class="f">print</span>(<span class="s">&quot;Обеды за день:&quot;</span>, lunch)
+<span class="f">print</span>(<span class="s">&quot;Остаток от 500:&quot;</span>, left)
+<span class="f">print</span>(<span class="s">&quot;За неделю:&quot;</span>, lunch * <span class="n">7</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Обеды за день: 360
+Остаток от 500: 140
+За неделю: 2520</pre></figure></details>
+</div></article>
+<article class="task" id="v3-2">
+<header class="task__head"><span class="task__num">Задача 2</span><h3 class="task__title">Имя файла отчёта</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Программа сохраняет отчёт в файл, имя которого состоит из названия отчёта, приставки <code>_v</code> и номера версии. Вводятся название и номер версии. Номер преобразуйте в целое число через <code>int()</code>. Соберите имя файла сложением строк и выведите: рамку из знаков <code>-</code> длиной с имя файла, само имя, такую же рамку, длину имени и тип переменной с номером версии.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">sales
+3</pre></div><div><b>Вывод</b><pre>--------
+sales_v3
+--------
+Длина имени: 8
+&lt;class &#x27;int&#x27;&gt;</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">budget2026
+12</pre></div><div><b>Вывод</b><pre>--------------
+budget2026_v12
+--------------
+Длина имени: 14
+&lt;class &#x27;int&#x27;&gt;</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>word = <span class="s">&quot;Python&quot;</span>
+code = word + <span class="s">&quot;-&quot;</span> + <span class="f">str</span>(<span class="n">3</span>)
+<span class="f">print</span>(code, <span class="f">len</span>(code))
+<span class="f">print</span>(<span class="s">&quot;~&quot;</span> * <span class="f">len</span>(word))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Python-3 8
+~~~~~~</pre></figure></details>
+</div></article>
+<article class="task" id="v3-3">
+<header class="task__head"><span class="task__num">Задача 3</span><h3 class="task__title">Камеры хранения</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Камера хранения на вокзале печатает квитанцию. Вводятся название вокзала, номер секции, номер первой ячейки, число ячеек и цена одной ячейки за сутки — все числа целые. Ячейки идут подряд. Выведите две строки, как в примерах, с помощью f-строк. Номер последней ячейки и сумму к оплате посчитайте выражениями прямо в фигурных скобках.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Казанский
+4
+17
+2
+400</pre></div><div><b>Вывод</b><pre>«Казанский», секция 4, ячейки с 17 по 18
+2 шт. по 400 руб., к оплате 800 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Ладожский
+1
+3
+3
+350</pre></div><div><b>Вывод</b><pre>«Ладожский», секция 1, ячейки с 3 по 5
+3 шт. по 350 руб., к оплате 1050 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>apples = <span class="n">5</span>
+price = <span class="n">30</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{apples}<span class="s"> кг, итого </span>{apples * price}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>5 кг, итого 150 руб.</pre></figure></details>
+</div></article>
+<article class="task" id="v3-4">
+<header class="task__head"><span class="task__num">Задача 4</span><h3 class="task__title">Номер версии программы</h3><span class="level">2 балла</span></header>
+<div class="task__body">
+<p class="task__text">Номер версии программы состоит из трёх частей: основной номер, дополнительный номер и номер исправления. Вводятся эти три части как текст. Выведите три строки: версию через точку, версию через знак подчёркивания и строку «Сборка: » с тремя частями без разделителей. Третью строку напечатайте двумя вызовами <code>print()</code>: первый выводит слово «Сборка:», второй — части версии. Каждую часть передавайте в <code>print()</code> отдельным аргументом, склеивать строки плюсом нельзя.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+12
+4</pre></div><div><b>Вывод</b><pre>3.12.4
+3_12_4
+Сборка: 3124</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+0
+27</pre></div><div><b>Вывод</b><pre>1.0.27
+1_0_27
+Сборка: 1027</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre><span class="f">print</span>(<span class="n">10</span>, <span class="n">20</span>, <span class="n">30</span>, sep=<span class="s">&quot;:&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Ответ&quot;</span>, end=<span class="s">&quot;! &quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;x&quot;</span>, <span class="s">&quot;y&quot;</span>, sep=<span class="s">&quot;&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>10:20:30
+Ответ! xy</pre></figure></details>
+</div></article>
+<article class="task" id="v3-5">
+<header class="task__head"><span class="task__num">Задача 5</span><h3 class="task__title">Пробег служебной машины</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Счётчик пробега машины показывает, сколько километров она проехала с момента выпуска. Вводятся показания в начале месяца и в конце (целые), стоимость одного километра и плата за парковку за месяц (дробные). Выведите пробег за месяц, стоимость поездок, общие расходы вместе с парковкой и средний пробег в день, если в месяце 30 дней. Денежные суммы и пробег в день выводите с двумя знаками после точки.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">48210
+49485
+9.6
+3500</pre></div><div><b>Вывод</b><pre>Пробег, км: 1275
+Стоимость поездок: 12240.00 руб.
+Всего расходов: 15740.00 руб.
+В среднем в день: 42.50 км</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12000
+12340
+11.25
+2800.5</pre></div><div><b>Вывод</b><pre>Пробег, км: 340
+Стоимость поездок: 3825.00 руб.
+Всего расходов: 6625.50 руб.
+В среднем в день: 11.33 км</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>weight = <span class="f">float</span>(<span class="s">&quot;2.5&quot;</span>)
+boxes = <span class="f">int</span>(<span class="s">&quot;4&quot;</span>)
+total = weight * boxes
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Груз: </span>{total:<span class="s">.2f</span>}<span class="s"> кг</span><span class="s">&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Груз: 10.00 кг</pre></figure></details>
+</div></article>
+<article class="task" id="v3-6">
+<header class="task__head"><span class="task__num">Задача 6</span><h3 class="task__title">Товары на полке</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">На полке магазина стоят три товара, слева направо. Вводятся их названия. Выведите порядок товаров, затем поменяйте местами первый и второй товар и выведите порядок ещё раз. После этого последний товар переставляют в начало полки, остальные сдвигаются вправо. Выведите итоговый порядок. Каждое изменение порядка запишите одной строкой множественного присваивания, без дополнительных переменных.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Молоко
+Кефир
+Сметана</pre></div><div><b>Вывод</b><pre>Было: Молоко Кефир Сметана
+Обмен первых двух: Кефир Молоко Сметана
+Последний в начало: Сметана Кефир Молоко</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Чай
+Кофе
+Какао</pre></div><div><b>Вывод</b><pre>Было: Чай Кофе Какао
+Обмен первых двух: Кофе Чай Какао
+Последний в начало: Какао Кофе Чай</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>a, b, c, d = <span class="s">&quot;A&quot;</span>, <span class="s">&quot;B&quot;</span>, <span class="s">&quot;C&quot;</span>, <span class="s">&quot;D&quot;</span>
+a, d = d, a
+<span class="f">print</span>(a, b, c, d)
+a, b, c, d = d, a, b, c
+<span class="f">print</span>(a, b, c, d)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>D B C A
+A D B C</pre></figure></details>
+</div></article>
+<article class="task" id="v3-7">
+<header class="task__head"><span class="task__num">Задача 7</span><h3 class="task__title">Остаток на складе</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Склад каждый день отгружает одинаковое количество коробок с товаром. Вводятся остаток на складе, сколько коробок отгружают за день и размер новой поставки — все целые. Три дня подряд идёт отгрузка: каждый день — отдельная строка составного присваивания. Выведите остаток после трёх дней, больше ли он неприкосновенного запаса в 50 коробок и закончился ли товар, то есть остаток не больше нуля. Отгрузку считайте в любом случае, тогда остаток может быть отрицательным — это недостача. Затем приходит поставка: увеличьте остаток составным присваиванием и выведите его.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">400
+80
+200</pre></div><div><b>Вывод</b><pre>Через три дня: 160
+Больше запаса в 50: True
+Товар закончился: False
+После поставки: 360</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">200
+50
+300</pre></div><div><b>Вывод</b><pre>Через три дня: 50
+Больше запаса в 50: False
+Товар закончился: False
+После поставки: 350</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>score = <span class="n">10</span>
+score += <span class="n">7</span>
+score -= <span class="n">2</span>
+<span class="f">print</span>(score, score &gt; <span class="n">12</span>, score == <span class="n">20</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>15 True False</pre></figure></details>
+</div></article>
+<article class="task" id="v3-8">
+<header class="task__head"><span class="task__num">Задача 8</span><h3 class="task__title">Фотоальбом</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Фотографии вставляют в альбом, на каждой странице одинаковое число фото. Вводятся число фотографий и число фото на странице. Выведите, сколько страниц заполнится полностью, сколько фото не поместится на полные страницы, заполнены ли все страницы целиком, то есть лишних фото нет, и чётное ли число полных страниц — тогда они образуют целые развороты.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">130
+8</pre></div><div><b>Вывод</b><pre>Полных страниц: 16
+Лишних фото: 2
+Все страницы полные: False
+Целые развороты: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">84
+12</pre></div><div><b>Вывод</b><pre>Полных страниц: 7
+Лишних фото: 0
+Все страницы полные: True
+Целые развороты: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>pencils = <span class="n">23</span>
+<span class="f">print</span>(pencils // <span class="n">5</span>, pencils % <span class="n">5</span>)
+<span class="f">print</span>(<span class="n">14</span> % <span class="n">2</span> == <span class="n">0</span>, <span class="n">15</span> % <span class="n">2</span> == <span class="n">0</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>4 3
+True False</pre></figure></details>
+</div></article>
+<article class="task" id="v3-9">
+<header class="task__head"><span class="task__num">Задача 9</span><h3 class="task__title">Цена листа бумаги</h3><span class="level">3 балла</span></header>
+<div class="task__body">
+<p class="task__text">Офис сравнивает пачки бумаги разного размера по цене за 100 листов. Вводятся цена пачки (дробная) и число листов в пачке (целое). Выведите цену 100 листов с двумя знаками после точки, цену 1000 листов, округлённую функцией <code>round()</code> до десятых, и цену пачки, округлённую <code>round()</code> до целых рублей.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">389.9
+500</pre></div><div><b>Вывод</b><pre>За 100 листов: 77.98 руб.
+За 1000 листов: 779.8 руб.
+Пачка, округлённо: 390 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">129.4
+250</pre></div><div><b>Вывод</b><pre>За 100 листов: 51.76 руб.
+За 1000 листов: 517.6 руб.
+Пачка, округлённо: 129 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>one = <span class="n">250</span> / <span class="n">6</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{one:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="f">round</span>(one, <span class="n">1</span>), <span class="f">round</span>(one))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>41.67
+41.7 42</pre></figure></details>
+</div></article>
+<article class="task" id="v3-10">
+<header class="task__head"><span class="task__num">Задача 10</span><h3 class="task__title">Пробежки за неделю</h3><span class="level">4 балла</span></header>
+<div class="task__body">
+<p class="task__text">Бегун записывает длину пяти пробежек за неделю. Вводятся пять расстояний в километрах (дробные, например 5.2) и цель на неделю в километрах (целая). Выведите:<br>— сумму километров с одним знаком после точки и цель, как в примерах;<br>— среднюю длину пробежки с двумя знаками после точки;<br>— среднюю длину, округлённую функцией <code>round()</code> до десятых;<br>— сколько процентов цели выполнено, с одним знаком после точки;<br>— выполнена ли цель: сумма не меньше цели;<br>— последней строкой расстояния через « + », затем « = » и сумму, округлённую <code>round()</code> до десятых. Эту строку напечатайте двумя вызовами <code>print()</code>.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5.2
+7.5
+6.3
+10.1
+4.6
+30</pre></div><div><b>Вывод</b><pre>Пробежал: 33.7 из 30 км
+Средняя пробежка: 6.74 км
+Округлённо: 6.7
+Цель выполнена на 112.3%
+Цель выполнена: True
+5.2 + 7.5 + 6.3 + 10.1 + 4.6 = 33.7</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3.4
+4
+5.1
+3.8
+2.9
+25</pre></div><div><b>Вывод</b><pre>Пробежал: 19.2 из 25 км
+Средняя пробежка: 3.84 км
+Округлённо: 3.8
+Цель выполнена на 76.8%
+Цель выполнена: False
+3.4 + 4.0 + 5.1 + 3.8 + 2.9 = 19.2</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>t1 = <span class="n">20.5</span>
+t2 = <span class="n">22.1</span>
+t3 = <span class="n">19.4</span>
+average = (t1 + t2 + t3) / <span class="n">3</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Среднее: </span>{average:<span class="s">.1f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(t1, t2, t3, sep=<span class="s">&quot; | &quot;</span>, end=<span class="s">&quot; -&gt; &quot;</span>)
+<span class="f">print</span>(<span class="f">round</span>(average, <span class="n">2</span>))</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Среднее: 20.7
+20.5 | 22.1 | 19.4 -&gt; 20.67</pre></figure></details>
+</div></article>
+<h3>Задачи повышенной сложности · вариант 3</h3><p>По желанию, после основных. Каждая полностью решённая задача — +2 балла к баллам по дисциплине.</p>
+<article class="task" id="v3-11">
+<header class="task__head"><span class="task__num">Задача 11</span><h3 class="task__title">Заказ комплектующих</h3><span class="level">+2 к дисциплине</span></header>
+<div class="task__body">
+<p class="task__text">Интернет-магазин комплектующих печатает чек на три позиции. Вводятся данные трёх товаров: для каждой — название, цена (дробная) и количество (целое). Затем вводятся скидка по промокоду в процентах и сумма, начиная с которой доставка бесплатная (обе целые). Выведите чек, как в примерах:<br>— три строки позиций: название, количество, цена и стоимость позиции, деньги — с двумя знаками после точки;<br>— разделитель из 30 дефисов, получите его повтором строки;<br>— сумму без скидки, размер скидки в рублях и сумму к оплате — с двумя знаками;<br>— сколько всего единиц в заказе;<br>— среднюю цену одной единицы после скидки, округлённую функцией <code>round()</code> до сотых;<br>— бесплатна ли доставка: сумма к оплате не меньше порога.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">SSD
+4590
+1
+Кабель
+349.9
+2
+Кулер
+1290.5
+2
+7
+7000</pre></div><div><b>Вывод</b><pre>SSD: 1 x 4590.00 = 4590.00
+Кабель: 2 x 349.90 = 699.80
+Кулер: 2 x 1290.50 = 2581.00
+------------------------------
+Сумма: 7870.80 руб.
+Промокод 7%: 550.96 руб.
+К оплате: 7319.84 руб.
+Штук, всего: 5
+Средняя цена единицы: 1463.97 руб.
+Бесплатная доставка: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Мышь
+990
+1
+Коврик
+459.9
+1
+Батарейки
+89.5
+3
+10
+3000</pre></div><div><b>Вывод</b><pre>Мышь: 1 x 990.00 = 990.00
+Коврик: 1 x 459.90 = 459.90
+Батарейки: 3 x 89.50 = 268.50
+------------------------------
+Сумма: 1718.40 руб.
+Промокод 10%: 171.84 руб.
+К оплате: 1546.56 руб.
+Штук, всего: 5
+Средняя цена единицы: 309.31 руб.
+Бесплатная доставка: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>salary = <span class="n">40000</span>
+bonus = salary * <span class="n">15</span> / <span class="n">100</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Премия: </span>{bonus:<span class="s">.2f</span>}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;=&quot;</span> * <span class="n">12</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>Премия: 6000.00
+============</pre></figure></details>
+</div></article>
+<article class="task" id="v3-12">
+<header class="task__head"><span class="task__num">Задача 12</span><h3 class="task__title">Этикетка посылки</h3><span class="level">+2 к дисциплине</span></header>
+<div class="task__body">
+<p class="task__text">Служба доставки печатает этикетку посылки в рамке из символов. Вводятся имя и фамилия получателя, город, улица с домом, почтовый индекс, число коробок (целое) и ширина текста внутри рамки (целое число). Ширина всегда не меньше длины самой длинной строки. Выведите карточку, как в примерах:<br>— верхняя и нижняя граница: знак <code>+</code>, дефисы на ширину плюс 2, знак <code>+</code>;<br>— три строки текста: <code>| </code>, текст, пробелы до заданной ширины, <code> |</code>. Число пробелов посчитайте через <code>len()</code>, сами пробелы получите повтором строки;<br>— строки текста: «имя фамилия», «город, улица», «Индекс индекс, коробок N»;<br>— под рамкой — сколько пробелов добавлено в каждую из трёх строк;<br>— помещается ли карточка в строку из 40 символов: полная ширина карточки — это ширина текста плюс 4.</p>
+<h4>Примеры</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Олег
+Иванов
+Тверь
+ул. Ленина 5
+170100
+2
+26</pre></div><div><b>Вывод</b><pre>+----------------------------+
+| Олег Иванов                |
+| Тверь, ул. Ленина 5        |
+| Индекс 170100, коробок 2   |
++----------------------------+
+Добавлено пробелов: 15 7 2
+Помещается в 40 символов: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Ия
+Ли
+Омск
+пр. Мира 12
+644000
+1
+25</pre></div><div><b>Вывод</b><pre>+---------------------------+
+| Ия Ли                     |
+| Омск, пр. Мира 12         |
+| Индекс 644000, коробок 1  |
++---------------------------+
+Добавлено пробелов: 20 8 1
+Помещается в 40 символов: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка: тот же приём в другой задаче</summary><figure class="code"><figcaption><span>пример</span><span>другая задача</span></figcaption><pre>name = <span class="s">&quot;Кот&quot;</span>
+<span class="f">print</span>(<span class="s">&quot;[&quot;</span> + name + <span class="s">&quot;.&quot;</span> * (<span class="n">8</span> - <span class="f">len</span>(name)) + <span class="s">&quot;]&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;[&quot;</span> + <span class="s">&quot;Барсик&quot;</span> + <span class="s">&quot;.&quot;</span> * (<span class="n">8</span> - <span class="f">len</span>(<span class="s">&quot;Барсик&quot;</span>)) + <span class="s">&quot;]&quot;</span>)</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>результат запуска</span></figcaption><pre>[Кот.....]
+[Барсик..]</pre></figure></details>
+</div></article>
+<div class="pager"><a href="../kontrolnaya-1/index.html">← Подготовка к контрольной</a><a href="../index.html">К оглавлению задачника</a><a href="reshenija.html">Для преподавателя: ключ</a></div>
+        <div class="colophon">
+          <span>Контрольная работа № 1 · главы 1.1–1.9 · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
