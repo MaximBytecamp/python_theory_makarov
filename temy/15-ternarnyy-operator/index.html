@@ -23,7 +23,7 @@
         <header class="chapter-head">
           <span class="chapter-num">2.6</span>
           <h1>Тернарный<br>условный оператор</h1>
-          <p class="lead">Когда условие выбирает одно из двух значений, конструкцию <code>if / else</code> можно записать выражением в одной строке. Главное ограничение — строка должна оставаться понятной.</p>
+          <p class="lead">Когда условие выбирает одно из двух значений, конструкцию <code>if / else</code> можно записать выражением в одной строке. Такая запись подходит для коротких выражений.</p>
         </header>
 
         <dl class="passport">
@@ -107,7 +107,7 @@ final_total = total * (<span class="n">100</span> - discount) / <span class="n">
 <pre>number = <span class="n">7</span>
 <span class="f">print</span>(<span class="s">"Чётное"</span> <span class="k">if</span> number % <span class="n">2</span> == <span class="n">0</span> <span class="k">else</span> <span class="s">"Нечётное"</span>)</pre>
         </figure>
-        <p>Для короткого сообщения такая запись читается нормально. Если выражение становится длинным, отдельная переменная помогает назвать результат.</p>
+        <p>Короткое сообщение так записывать удобно. Длинное выражение лучше сначала сохранить в переменную с понятным именем.</p>
 
         <h2 id="s6"><span class="sec">§6</span>Когда применять</h2>
         <p>Условное выражение подходит, когда выполняются три условия:</p>
@@ -138,7 +138,7 @@ final_total = total * (<span class="n">100</span> - discount) / <span class="n">
     grade = <span class="s">"B"</span>
     message = <span class="s">"Продолжайте практику"</span></pre>
         </figure>
-        <p>Также избегайте вложенных тернарных выражений. Цепочка из нескольких <code>if</code> и <code>else</code> в одной строке требует слишком много внимания при чтении.</p>
+        <p>Вложенные тернарные выражения не используйте: в строке с несколькими <code>if</code> и <code>else</code> трудно проследить порядок выбора.</p>
 
         <h2 id="s8"><span class="sec">§8</span>Частые ошибки</h2>
         <div class="table-scroll errors-table">
