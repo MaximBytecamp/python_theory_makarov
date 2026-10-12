@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 2.6 · Тернарный условный оператор · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 2 · Условия</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 2</p>
+<p class="running__folio">Задачи 2.6</p></div>
+<header class="chapter-head">
+<span class="chapter-num">2.6</span>
+<h1>Задачи к главе<br>«Тернарный условный оператор»</h1>
+<p class="lead">Когда от условия зависит только одно значение — подпись, ставка, цена, — его выбирают одной строкой: <code>значение if условие else другое_значение</code>. В задачах нужно ещё и решить, где такая запись уместна, а где нужен обычный <code>if</code>.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/15-ternarnyy-operator/index.html">2.6 Тернарный условный оператор</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–2.6</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip chip--now" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a></div>
+<p>Циклов пока нет — они в модуле 3. Тернарный оператор выбирает одно из двух значений; если вариантов три или в ветке несколько действий, используйте <code>if / elif / else</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Статус заказа</a></li><li><a href="#r2">Разбор 2. Доставка и итог</a></li><li><a href="#r3">Разбор 3. Изменение цены</a></li><li><a href="#p1">Задача 2.6.1. Чётное или нечётное</a></li><li><a href="#p2">Задача 2.6.2. Доступ по возрасту</a></li><li><a href="#p3">Задача 2.6.3. Лучшее предложение</a></li><li><a href="#p4">Задача 2.6.4. Наличие на складе</a></li><li><a href="#p5">Задача 2.6.5. Отклонение от плана</a></li><li><a href="#p6">Задача 2.6.6. Ночной тариф такси</a></li><li><a href="#p7">Задача 2.6.7. Скидка в день рождения</a></li><li><a href="#p8">Задача 2.6.8. Время с ведущим нулём</a></li><li><a href="#p9">Задача 2.6.9. Сдача или долг</a></li><li><a href="#p10">Задача 2.6.10. Зачёт с двух попыток</a></li><li><a href="#p11">Задача 2.6.11. Комиссия с верхней границей</a></li><li><a href="#p12">Задача 2.6.12. Перепишите короче</a></li><li><a href="#p13">Задача 2.6.13. Громкость в пределах</a></li><li><a href="#p14">Задача 2.6.14. Исправьте выражения</a></li><li><a href="#p15">Задача 2.6.15. Счёт в кафе</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой тернарный оператор выбирает значение, а действие с этим значением — расчёт или вывод — записано отдельной строкой.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Статус заказа</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В списке заказов рядом с номером показан статус. Вводятся номер заказа и ответ, оплачен ли он: <code>да</code> или <code>нет</code>. Выведите строку вида <code>Заказ 1054: оплачен</code> или <code>Заказ 1054: ожидает оплаты</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>От условия зависит одно значение — текст статуса. Вариантов ровно два. Это случай для тернарного оператора.</li><li>Порядок частей: сначала значение для истинного условия, потом <code>if</code> и условие, потом <code>else</code> и второе значение.</li><li>Вывод один для обоих случаев: в f-строку подставляется уже выбранный статус.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Номер заказа: &quot;</span>))
+is_paid = <span class="f">input</span>(<span class="s">&quot;Оплачен (да/нет): &quot;</span>) == <span class="s">&quot;да&quot;</span>
+
+<span class="c"># Выбор</span>
+status = <span class="s">&quot;оплачен&quot;</span> <span class="k">if</span> is_paid <span class="k">else</span> <span class="s">&quot;ожидает оплаты&quot;</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Заказ </span>{number}<span class="s">: </span>{status}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Номер заказа: <span class="typed">1054</span>
+Оплачен (да/нет): <span class="typed">да</span>
+Заказ 1054: оплачен</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1055
+нет</pre></div><div><b>Вывод</b><pre>Заказ 1055: ожидает оплаты</pre></div></div></div>
+<div class="margin-note"><b>Та же программа через if / else</b><p>Без тернарного оператора выбор занял бы четыре строки: <code>if is_paid:</code>, присваивание, <code>else:</code>, второе присваивание. Результат одинаковый. Короткая запись удобнее, когда обе ветки только присваивают значение одной и той же переменной.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Доставка и итог</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Доставка стоит 300 рублей, а при заказе от 3000 рублей она бесплатная. Вводится сумма заказа. Выведите стоимость доставки — числом с рублями или словом <code>бесплатно</code> — и итог к оплате.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Стоимость доставки — одно из двух чисел: 0 или 300. Выбираем тернарным оператором.</li><li>Итог считаем обычной формулой: выбранное число уже лежит в переменной.</li><li>Подпись для вывода тоже одна из двух. Обе ветки дают строку, поэтому число в подпись вставляем через f-строку.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+order_total = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сумма заказа, руб.: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+delivery = <span class="n">0</span> <span class="k">if</span> order_total &gt;= <span class="n">3000</span> <span class="k">else</span> <span class="n">300</span>
+final_total = order_total + delivery
+delivery_text = <span class="s">&quot;бесплатно&quot;</span> <span class="k">if</span> delivery == <span class="n">0</span> <span class="k">else</span> <span class="s">f&quot;</span>{delivery}<span class="s"> руб.</span><span class="s">&quot;</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Доставка:&quot;</span>, delivery_text)
+<span class="f">print</span>(<span class="s">&quot;К оплате:&quot;</span>, final_total, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сумма заказа, руб.: <span class="typed">3500</span>
+Доставка: бесплатно
+К оплате: 3500 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1200</pre></div><div><b>Вывод</b><pre>Доставка: 300 руб.
+К оплате: 1500 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3000</pre></div><div><b>Вывод</b><pre>Доставка: бесплатно
+К оплате: 3000 руб.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>В обеих ветках — значения одного типа</b><p>Запись <code>"бесплатно" if delivery == 0 else delivery</code> положила бы в переменную то строку, то число. Программа с такой переменной ломается в неожиданных местах: строку нельзя сложить с числом. Поэтому вторая ветка тоже строка.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Изменение цены</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Сервис сравнения цен показывает, как изменилась цена товара. Вводятся вчерашняя и сегодняшняя цена. Выведите разницу со знаком: <code>+150</code>, <code>-80</code> или <code>0</code>. Второй строкой выведите вывод словами: <code>Цена выросла</code>, <code>Цена снизилась</code> или <code>Цена не изменилась</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Минус у отрицательного числа выводится сам, а плюс у положительного — нет. Знак перед числом — одно из двух значений: <code>"+"</code> или пустая строка.</li><li>Словесных выводов три. Тернарный оператор выбирает из двух значений, поэтому здесь нужна цепочка <code>if / elif / else</code>.</li><li>В одной программе используем обе записи — каждую там, где она подходит.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+yesterday = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена вчера, руб.: &quot;</span>))
+today = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена сегодня, руб.: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+diff = today - yesterday
+sign = <span class="s">&quot;+&quot;</span> <span class="k">if</span> diff &gt; <span class="n">0</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Изменение: </span>{sign}{diff}<span class="s"> руб.</span><span class="s">&quot;</span>)
+<span class="k">if</span> diff &gt; <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">&quot;Цена выросла&quot;</span>)
+<span class="k">elif</span> diff &lt; <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">&quot;Цена снизилась&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Цена не изменилась&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Цена вчера, руб.: <span class="typed">1200</span>
+Цена сегодня, руб.: <span class="typed">1350</span>
+Изменение: +150 руб.
+Цена выросла</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1200
+1120</pre></div><div><b>Вывод</b><pre>Изменение: -80 руб.
+Цена снизилась</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1200
+1200</pre></div><div><b>Вывод</b><pre>Изменение: 0 руб.
+Цена не изменилась</pre></div></div></div>
+<div class="margin-note"><b>Почему не два тернарных оператора подряд</b><p>Три варианта можно уместить в одну строку, вложив один тернарный оператор в другой. Такая строка работает, но порядок выбора в ней трудно проследить. Для трёх и более вариантов пишут <code>if / elif / else</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 2.6.1</span><h3 class="task__title">Чётное или нечётное</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится целое число. Выведите <code>Чётное</code> или <code>Нечётное</code>. Выбор слова запишите тернарным оператором.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8</pre></div><div><b>Вывод</b><pre>Чётное</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">15</pre></div><div><b>Вывод</b><pre>Нечётное</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Тернарное выражение можно записать прямо в скобках <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 2.6.2</span><h3 class="task__title">Доступ по возрасту</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Сайт открывает раздел пользователям от 18 лет. Вводится возраст. Выведите <code>Доступ разрешён</code> или <code>Доступ закрыт</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">20</pre></div><div><b>Вывод</b><pre>Доступ разрешён</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">17</pre></div><div><b>Вывод</b><pre>Доступ закрыт</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">18</pre></div><div><b>Вывод</b><pre>Доступ разрешён</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала значение для истинного условия, потом условие, потом значение для ложного.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 2.6.3</span><h3 class="task__title">Лучшее предложение</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Два покупателя предложили цену за подержанный велосипед. Вводятся два числа. Выведите большее из них.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7000
+8500</pre></div><div><b>Вывод</b><pre>Лучшее предложение: 8500 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9000
+8500</pre></div><div><b>Вывод</b><pre>Лучшее предложение: 9000 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">8000
+8000</pre></div><div><b>Вывод</b><pre>Лучшее предложение: 8000 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В ветках тернарного оператора могут стоять переменные.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 2.6.4</span><h3 class="task__title">Наличие на складе</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В карточке товара показано наличие. Вводится остаток на складе. Выведите <code>В наличии</code>, если остаток больше нуля, иначе — <code>Нет в наличии</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">14</pre></div><div><b>Вывод</b><pre>В наличии</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Нет в наличии</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Два варианта подписи — одно условное выражение.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 2.6.5</span><h3 class="task__title">Отклонение от плана</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся план продаж и фактические продажи. Выведите, на сколько факт отличается от плана, — неотрицательным числом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+130</pre></div><div><b>Вывод</b><pre>Отклонение: 30</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+85</pre></div><div><b>Вывод</b><pre>Отклонение: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">100
+100</pre></div><div><b>Вывод</b><pre>Отклонение: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если разность отрицательная, возьмите её с противоположным знаком.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 2.6.6</span><h3 class="task__title">Ночной тариф такси</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Километр поездки стоит 30 рублей с 6 до 23 часов и 45 рублей в остальное время. Вводятся час начала поездки (0–23) и расстояние в километрах. Выведите цену километра и стоимость поездки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">14
+10</pre></div><div><b>Вывод</b><pre>Цена километра: 30 руб.
+Стоимость поездки: 300 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">23
+10</pre></div><div><b>Вывод</b><pre>Цена километра: 45 руб.
+Стоимость поездки: 450 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+7</pre></div><div><b>Вывод</b><pre>Цена километра: 45 руб.
+Стоимость поездки: 315 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">6
+7</pre></div><div><b>Вывод</b><pre>Цена километра: 30 руб.
+Стоимость поездки: 210 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Тернарный оператор выбирает только цену километра. Стоимость считается обычной формулой.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 2.6.7</span><h3 class="task__title">Скидка в день рождения</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В день рождения покупатель получает скидку 15%. Вводятся сумма чека и ответ, день рождения ли сегодня у покупателя: <code>да</code> или <code>нет</code>. Выведите скидку в процентах и сумму к оплате с копейками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2400
+да</pre></div><div><b>Вывод</b><pre>Скидка: 15%
+К оплате: 2040.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2400
+нет</pre></div><div><b>Вывод</b><pre>Скидка: 0%
+К оплате: 2400.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Логическая переменная может стоять на месте условия: <code>15 if is_birthday else 0</code>.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 2.6.8</span><h3 class="task__title">Время с ведущим нулём</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся часы и минуты. Выведите время в виде <code>9:05</code>: если минут меньше десяти, перед ними ставится ноль.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">9
+5</pre></div><div><b>Вывод</b><pre>9:05</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">14
+30</pre></div><div><b>Вывод</b><pre>14:30</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+0</pre></div><div><b>Вывод</b><pre>0:00</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Выбирайте не число, а то, что стоит перед ним: строку <code>"0"</code> или пустую строку.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 2.6.9</span><h3 class="task__title">Сдача или долг</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся цена товара и сумма, которую дал покупатель. Выведите одну строку: <code>Сдача: N руб.</code>, если денег хватило, или <code>Не хватает: N руб.</code>, если нет. Число в обоих случаях неотрицательное.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">350
+500</pre></div><div><b>Вывод</b><pre>Сдача: 150 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">350
+300</pre></div><div><b>Вывод</b><pre>Не хватает: 50 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">350
+350</pre></div><div><b>Вывод</b><pre>Сдача: 0 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Выборов два: подпись и число. Каждый — своим тернарным оператором в отдельной строке.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 2.6.10</span><h3 class="task__title">Зачёт с двух попыток</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Тест можно пройти дважды, в зачёт идёт лучший результат. Зачёт ставят от 60 баллов. Вводятся баллы за две попытки. Выведите лучший балл и результат: <code>зачёт</code> или <code>незачёт</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">45
+72</pre></div><div><b>Вывод</b><pre>Лучший балл: 72
+Результат: зачёт</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">58
+40</pre></div><div><b>Вывод</b><pre>Лучший балл: 58
+Результат: незачёт</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">60
+10</pre></div><div><b>Вывод</b><pre>Лучший балл: 60
+Результат: зачёт</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала выберите лучший балл, потом по нему — результат. Это две отдельные строки.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 2.6.11</span><h3 class="task__title">Комиссия с верхней границей</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Банк берёт за перевод 1% от суммы, но не больше 500 рублей. Вводится сумма перевода. Выведите комиссию с копейками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12000</pre></div><div><b>Вывод</b><pre>Комиссия: 120.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">80000</pre></div><div><b>Вывод</b><pre>Комиссия: 500.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">50000</pre></div><div><b>Вывод</b><pre>Комиссия: 500.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Посчитайте комиссию по формуле, а затем выберите: оставить её или заменить на 500.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 2.6.12</span><h3 class="task__title">Перепишите короче</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа считает стоимость абонемента в спортзал: студентам месяц стоит 1500 рублей, остальным — 2500. Перепишите её так, чтобы цена месяца и подпись выбирались тернарными операторами. Вывод не должен измениться.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — переписать</span></figcaption><pre>is_student = <span class="f">input</span>() == <span class="s">&quot;да&quot;</span>
+months = <span class="f">int</span>(<span class="f">input</span>())
+<span class="k">if</span> is_student:
+    price = <span class="n">1500</span>
+<span class="k">else</span>:
+    price = <span class="n">2500</span>
+<span class="k">if</span> is_student:
+    label = <span class="s">&quot;студенческий&quot;</span>
+<span class="k">else</span>:
+    label = <span class="s">&quot;обычный&quot;</span>
+<span class="f">print</span>(<span class="s">&quot;Тариф:&quot;</span>, label)
+<span class="f">print</span>(<span class="s">&quot;К оплате:&quot;</span>, price * months, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">да
+3</pre></div><div><b>Вывод</b><pre>Тариф: студенческий
+К оплате: 4500 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">нет
+6</pre></div><div><b>Вывод</b><pre>Тариф: обычный
+К оплате: 15000 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Каждая пара <code>if / else</code> только присваивает значение одной переменной — её заменяет одна строка.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 2.6.13</span><h3 class="task__title">Громкость в пределах</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Громкость плеера — число от 0 до 100. Пользователь вводит текущую громкость и изменение: положительное или отрицательное число. Выведите новую громкость. Если она вышла за границы, в ответе должна быть ближайшая граница.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">50
+20</pre></div><div><b>Вывод</b><pre>Громкость: 70</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">90
+25</pre></div><div><b>Вывод</b><pre>Громкость: 100</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+-30</pre></div><div><b>Вывод</b><pre>Громкость: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">100
+0</pre></div><div><b>Вывод</b><pre>Громкость: 100</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Границы проверяйте по очереди, двумя строками: сначала верхнюю, потом нижнюю.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 2.6.14</span><h3 class="task__title">Исправьте выражения</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа выводит, сдан ли норматив по бегу и какой получен значок. Норматив сдан, если время не больше 15 секунд; золотой значок дают за время не больше 13 секунд, иначе — серебряный. В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>seconds = <span class="f">float</span>(<span class="f">input</span>())
+result = <span class="k">if</span> seconds &lt;= <span class="n">15</span> <span class="s">&quot;сдан&quot;</span> <span class="k">else</span> <span class="s">&quot;не сдан&quot;</span>
+badge = <span class="s">&quot;золотой&quot;</span> <span class="k">if</span> seconds &lt;= <span class="n">13</span>
+<span class="f">print</span>(<span class="s">&quot;Норматив:&quot;</span> result)
+<span class="f">print</span>(<span class="s">&quot;Значок:&quot;</span>, badge)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12.8</pre></div><div><b>Вывод</b><pre>Норматив: сдан
+Значок: золотой</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">14.2</pre></div><div><b>Вывод</b><pre>Норматив: сдан
+Значок: серебряный</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">13</pre></div><div><b>Вывод</b><pre>Норматив: сдан
+Значок: золотой</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>У условного выражения строгий порядок частей и обязательная ветка <code>else</code>. Третья ошибка — в <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 2.6.15</span><h3 class="task__title">Счёт в кафе</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Компания делит счёт поровну. Если гостей шестеро или больше, к счёту добавляется обслуживание 10%. При оплате картой долю каждого считают с копейками, при оплате наличными — округляют до рубля. Вводятся сумма счёта, число гостей и способ оплаты: <code>карта</code> или <code>наличные</code>. Выведите процент за обслуживание и долю каждого с двумя знаками после точки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4500
+4
+карта</pre></div><div><b>Вывод</b><pre>Обслуживание: 0%
+С каждого: 1125.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7000
+6
+карта</pre></div><div><b>Вывод</b><pre>Обслуживание: 10%
+С каждого: 1283.33 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">7000
+6
+наличные</pre></div><div><b>Вывод</b><pre>Обслуживание: 10%
+С каждого: 1283.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">1000
+3
+наличные</pre></div><div><b>Вывод</b><pre>Обслуживание: 0%
+С каждого: 333.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Выборов два, и они независимы: процент зависит от числа гостей, округление — от способа оплаты.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../2-5/index.html">← Задачи 2.5</a><a href="../../temy/15-ternarnyy-operator/index.html">Глава 2.6 в справочнике</a><a href="../index.html">К оглавлению задачника</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 2.6 · Тернарный условный оператор · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

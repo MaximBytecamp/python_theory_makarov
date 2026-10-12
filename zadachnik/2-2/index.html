@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 2.2 · Составление условий без ветвления · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 2 · Условия</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 2</p>
+<p class="running__folio">Задачи 2.2</p></div>
+<header class="chapter-head">
+<span class="chapter-num">2.2</span>
+<h1>Задачи к главе<br>«Составление условий без ветвления»</h1>
+<p class="lead">Условие задачи записано словами: «все», «хотя бы одно», «ровно одно», «ни одного». В этих задачах нужно узнать формулировку и перевести её в выражение с <code>and</code>, <code>or</code> и <code>not</code>.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/11-sostavnye-usloviya/index.html">2.2 Составление условий без ветвления</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–2.2</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip chip--now" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a></div>
+<p>Оператора <code>if</code> пока нет — он появится в главе 2.4. Программа ещё ничего не выбирает: она вычисляет логическое выражение и выводит <code>True</code> или <code>False</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Комплект документов</a></li><li><a href="#r2">Разбор 2. Просроченный товар</a></li><li><a href="#r3">Разбор 3. Один дежурный</a></li><li><a href="#p1">Задача 2.2.1. Сессия без двоек</a></li><li><a href="#p2">Задача 2.2.2. Есть ли пятёрка</a></li><li><a href="#p3">Задача 2.2.3. Упаковка без остатка</a></li><li><a href="#p4">Задача 2.2.4. Датчики в норме</a></li><li><a href="#p5">Задача 2.2.5. Непрошедший платёж</a></li><li><a href="#p6">Задача 2.2.6. Високосный год</a></li><li><a href="#p7">Задача 2.2.7. Скидка на один товар</a></li><li><a href="#p8">Задача 2.2.8. Неделя без опозданий</a></li><li><a href="#p9">Задача 2.2.9. Не все задачи закрыты</a></li><li><a href="#p10">Задача 2.2.10. Код подтверждения</a></li><li><a href="#p11">Задача 2.2.11. Допуск к экзамену</a></li><li><a href="#p12">Задача 2.2.12. Счастливый номер</a></li><li><a href="#p13">Задача 2.2.13. Одна открытая касса</a></li><li><a href="#p14">Задача 2.2.14. Решение жюри</a></li><li><a href="#p15">Задача 2.2.15. Найдите ошибку в условии</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>В трёх разборах — три основные формулировки: «каждое», «хотя бы одно» и «ровно одно». В каждом сначала записаны простые проверки, потом они соединены.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Комплект документов</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Для записи на курсы нужны три документа: паспорт, СНИЛС и заявление. Вводятся три ответа <code>да</code> или <code>нет</code> — есть ли каждый документ. Выведите, полон ли комплект и не хватает ли чего-нибудь.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Формулировка «нужны все три» — это «каждое». Записывается цепочкой <code>and</code>.</li><li>Каждый ответ сразу превращаем в логическое значение сравнением со словом <code>"да"</code>.</li><li>«Чего-то не хватает» — отрицание полного комплекта: <code>not is_complete</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+has_passport = <span class="f">input</span>(<span class="s">&quot;Паспорт (да/нет): &quot;</span>) == <span class="s">&quot;да&quot;</span>
+has_snils = <span class="f">input</span>(<span class="s">&quot;СНИЛС (да/нет): &quot;</span>) == <span class="s">&quot;да&quot;</span>
+has_form = <span class="f">input</span>(<span class="s">&quot;Заявление (да/нет): &quot;</span>) == <span class="s">&quot;да&quot;</span>
+
+<span class="c"># Проверка</span>
+is_complete = has_passport <span class="k">and</span> has_snils <span class="k">and</span> has_form
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Комплект полный:&quot;</span>, is_complete)
+<span class="f">print</span>(<span class="s">&quot;Чего-то не хватает:&quot;</span>, <span class="k">not</span> is_complete)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Паспорт (да/нет): <span class="typed">да</span>
+СНИЛС (да/нет): <span class="typed">да</span>
+Заявление (да/нет): <span class="typed">да</span>
+Комплект полный: True
+Чего-то не хватает: False</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">да
+нет
+да</pre></div><div><b>Вывод</b><pre>Комплект полный: False
+Чего-то не хватает: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">нет
+нет
+нет</pre></div><div><b>Вывод</b><pre>Комплект полный: False
+Чего-то не хватает: True</pre></div></div></div>
+<div class="margin-note"><b>Одного «нет» достаточно</b><p>Во втором примере два документа из трёх есть, но комплект неполный. Цепочка <code>and</code> истинна, только когда истинны все её части.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Просроченный товар</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">У трёх товаров на полке записано, сколько дней осталось до конца срока годности. Отрицательное число означает, что срок истёк. Вводятся три числа. Выведите, есть ли на полке просроченный товар и все ли товары годны.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Простая проверка: <code>days &lt; 0</code> — товар просрочен. Таких проверок три.</li><li>«Есть просроченный» — это «хотя бы одно»: соединяем через <code>or</code>.</li><li>«Все годны» — то же, что «нет ни одного просроченного». Это отрицание предыдущего условия.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+milk = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Молоко, дней: &quot;</span>))
+bread = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Хлеб, дней: &quot;</span>))
+cheese = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сыр, дней: &quot;</span>))
+
+<span class="c"># Проверки</span>
+has_expired = milk &lt; <span class="n">0</span> <span class="k">or</span> bread &lt; <span class="n">0</span> <span class="k">or</span> cheese &lt; <span class="n">0</span>
+all_fresh = <span class="k">not</span> has_expired
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Есть просроченный товар:&quot;</span>, has_expired)
+<span class="f">print</span>(<span class="s">&quot;Все товары годны:&quot;</span>, all_fresh)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Молоко, дней: <span class="typed">3</span>
+Хлеб, дней: <span class="typed">-1</span>
+Сыр, дней: <span class="typed">20</span>
+Есть просроченный товар: True
+Все товары годны: False</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+1
+14</pre></div><div><b>Вывод</b><pre>Есть просроченный товар: False
+Все товары годны: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-2
+-1
+-10</pre></div><div><b>Вывод</b><pre>Есть просроченный товар: True
+Все товары годны: False</pre></div></div></div>
+<div class="margin-note"><b>Две записи одного условия</b><p>«Все товары годны» можно записать напрямую: <code>milk &gt;= 0 and bread &gt;= 0 and cheese &gt;= 0</code>. Результат совпадает с <code>not (milk &lt; 0 or bread &lt; 0 or cheese &lt; 0)</code> при любых числах. Отрицание «хотя бы одного» всегда равно «каждое наоборот».</p></div>
+<div class="margin-note margin-note--warn"><b>Сравнение нужно каждому числу</b><p>Запись <code>milk or bread or cheese &lt; 0</code> не вызовет ошибки, но проверит другое: сравнение с нулём относится только к <code>cheese</code>, а <code>milk</code> и <code>bread</code> считаются истиной при любом ненулевом значении.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Один дежурный</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На смену нужен ровно один дежурный. Два сотрудника отвечают, готовы ли они выйти: <code>да</code> или <code>нет</code>. Смена утверждается, если готов ровно один из них. Выведите, утверждена ли смена.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>«Ровно один» одним оператором не записать. Перечисляем случаи, которые подходят.</li><li>Случай первый: первый готов, второй нет. Случай второй: первый не готов, второй готов.</li><li>Подходит любой из двух случаев — соединяем их через <code>or</code>, каждый случай берём в скобки.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+is_first_ready = <span class="f">input</span>(<span class="s">&quot;Первый готов (да/нет): &quot;</span>) == <span class="s">&quot;да&quot;</span>
+is_second_ready = <span class="f">input</span>(<span class="s">&quot;Второй готов (да/нет): &quot;</span>) == <span class="s">&quot;да&quot;</span>
+
+<span class="c"># Проверка</span>
+only_first = is_first_ready <span class="k">and</span> <span class="k">not</span> is_second_ready
+only_second = <span class="k">not</span> is_first_ready <span class="k">and</span> is_second_ready
+is_approved = only_first <span class="k">or</span> only_second
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Смена утверждена:&quot;</span>, is_approved)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Первый готов (да/нет): <span class="typed">да</span>
+Второй готов (да/нет): <span class="typed">нет</span>
+Смена утверждена: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">да
+да</pre></div><div><b>Вывод</b><pre>Смена утверждена: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">нет
+нет</pre></div><div><b>Вывод</b><pre>Смена утверждена: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">нет
+да</pre></div><div><b>Вывод</b><pre>Смена утверждена: True</pre></div></div></div>
+<div class="margin-note"><b>Чем «ровно один» отличается от «хотя бы один»</b><p>Во втором примере готовы оба. Условие <code>is_first_ready or is_second_ready</code> дало бы <code>True</code>, а смена не утверждена: дежурных двое, нужен один.</p></div>
+<div class="margin-note"><b>Короткая запись для двух значений</b><p>Для двух логических значений «ровно одно истинно» означает, что они разные: <code>is_first_ready != is_second_ready</code>. Для трёх и более значений эта запись не подходит — там перечисляют случаи.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 2.2.1</span><h3 class="task__title">Сессия без двоек</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся три оценки за экзамены. Сессия сдана, если каждая оценка не ниже 3. Выведите, сдана ли сессия.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+3
+5</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+2
+5</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формулировка «каждая» — цепочка <code>and</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 2.2.2</span><h3 class="task__title">Есть ли пятёрка</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся три оценки. Выведите, есть ли среди них хотя бы одна пятёрка.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+3
+5</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4
+4
+3</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Формулировка «хотя бы одна» — цепочка <code>or</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 2.2.3</span><h3 class="task__title">Упаковка без остатка</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Бутылки упаковывают в коробки по 6 штук, а коробки ставят на поддон по 4. Партию можно отправить, если количество бутылок делится без остатка и на 6, и на 4. Вводится количество бутылок. Выведите, можно ли отправить партию.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">48</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">18</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">20</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Делимость проверяют остатком: <code>n % 6 == 0</code>. Здесь таких проверок две.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 2.2.4</span><h3 class="task__title">Датчики в норме</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Три датчика показывают температуру оборудования. Норма — ниже 80 градусов. Вводятся три показания. Выведите, все ли датчики в норме.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">65
+72
+79</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">65
+80
+40</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Граница 80 в норму не входит.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 2.2.5</span><h3 class="task__title">Непрошедший платёж</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Банк прислал суммы трёх платежей. Если платёж не прошёл, вместо суммы стоит 0. Вводятся три числа. Выведите, есть ли непрошедший платёж.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
+0
+1200</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">500
+300
+1200</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Каждому числу нужно своё сравнение с нулём.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 2.2.6</span><h3 class="task__title">Високосный год</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Год високосный, если он делится на 4, но не делится на 100. Годы, которые делятся на 400, тоже високосные. Вводится год. Выведите, високосный ли он.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2024</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1900</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2000</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">2026</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В правиле два случая, подходит любой. Первый случай состоит из двух проверок — возьмите его в скобки.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 2.2.7</span><h3 class="task__title">Скидка на один товар</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Купон действует, если в чеке ровно один товар дороже 1000 рублей. Вводятся цены двух товаров. Выведите, действует ли купон.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1500
+300</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1500
+2000</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">400
+300</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">1000
+1001</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Перечислите два подходящих случая: дорогой только первый товар или дорогой только второй.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 2.2.8</span><h3 class="task__title">Неделя без опозданий</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">За три дня записано, на сколько минут сотрудник опоздал. Ноль означает, что он пришёл вовремя. Вводятся три числа. Выведите, было ли хотя бы одно опоздание и не было ли ни одного.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+15
+0</pre></div><div><b>Вывод</b><pre>Было опоздание: True
+Ни одного опоздания: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0</pre></div><div><b>Вывод</b><pre>Было опоздание: False
+Ни одного опоздания: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>«Ни одного» — отрицание условия «хотя бы одно».</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 2.2.9</span><h3 class="task__title">Не все задачи закрыты</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">У трёх задач в трекере есть статус: <code>готово</code> или <code>в работе</code>. Вводятся три статуса. Выведите, остались ли незакрытые задачи.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">готово
+в работе
+готово</pre></div><div><b>Вывод</b><pre>Есть незакрытые задачи: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">готово
+готово
+готово</pre></div><div><b>Вывод</b><pre>Есть незакрытые задачи: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала запишите условие «все готовы», потом возьмите его отрицание.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 2.2.10</span><h3 class="task__title">Код подтверждения</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Код подтверждения верного вида — трёхзначное число, которое делится на 5. Вводится целое число. Выведите, подходит ли оно под этот вид.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">345</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">346</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">95</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">1000</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Трёхзначное число — не меньше 100 и не больше 999. Это две проверки, и у каждой своя левая часть.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 2.2.11</span><h3 class="task__title">Допуск к экзамену</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Студента допускают к экзамену, если посещаемость не ниже 75%, сдано не меньше 8 лабораторных работ и нет долга по оплате. Вводятся посещаемость в процентах, число сданных работ и сумма долга. Выведите результат каждой проверки и общий ответ.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">80
+8
+0</pre></div><div><b>Вывод</b><pre>Посещаемость: True
+Лабораторные: True
+Нет долга: True
+Допущен: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">90
+6
+0</pre></div><div><b>Вывод</b><pre>Посещаемость: True
+Лабораторные: False
+Нет долга: True
+Допущен: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">75
+10
+1500</pre></div><div><b>Вывод</b><pre>Посещаемость: True
+Лабораторные: True
+Нет долга: False
+Допущен: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Когда проверок три и больше, каждой дают имя. Последняя строка тогда читается как обычная фраза.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 2.2.12</span><h3 class="task__title">Счастливый номер</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В розыгрыше выигрывает билет, номер которого оканчивается на 7 или делится на 7. Вводится номер билета. Выведите, выиграл ли билет.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">127</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">49</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">120</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">77</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Последняя цифра числа — остаток от деления на 10.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 2.2.13</span><h3 class="task__title">Одна открытая касса</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В магазине три кассы. Про каждую вводится ответ, открыта ли она: <code>да</code> или <code>нет</code>. Выведите, верно ли, что открыта ровно одна касса.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">нет
+да
+нет</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">да
+да
+нет</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">нет
+нет
+нет</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">да
+да
+да</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Подходящих случаев три — по одному на каждую кассу. В каждом случае две другие кассы закрыты.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 2.2.14</span><h3 class="task__title">Решение жюри</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В жюри три человека. Каждый голосует <code>за</code> или <code>против</code>. Решение принято, если «за» проголосовали хотя бы двое. Вводятся три голоса. Выведите, принято ли решение.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">за
+против
+за</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">против
+против
+за</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">за
+за
+за</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>«Хотя бы двое» — значит, нашлась пара, в которой оба «за». Пар из трёх человек три. Второй способ — сложить три логических значения и сравнить сумму с 2.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 2.2.15</span><h3 class="task__title">Найдите ошибку в условии</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа проверяет остатки на трёх счетах и должна вывести <code>True</code>, если хотя бы один остаток отрицательный. Программа запускается без ошибок, но в первых двух примерах выводит число 500 вместо <code>True</code> и <code>False</code>. Исправьте условие.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>a = <span class="f">int</span>(<span class="f">input</span>())
+b = <span class="f">int</span>(<span class="f">input</span>())
+c = <span class="f">int</span>(<span class="f">input</span>())
+<span class="f">print</span>(a <span class="k">or</span> b <span class="k">or</span> c &lt; <span class="n">0</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
+-20
+300</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">500
+20
+300</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+0
+-1</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверьте, к какому из трёх чисел относится сравнение <code>&lt; 0</code>.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../2-1/index.html">← Задачи 2.1</a><a href="../../temy/11-sostavnye-usloviya/index.html">Глава 2.2 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../2-3/index.html">Задачи 2.3 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 2.2 · Составление условий без ветвления · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

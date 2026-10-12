@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 2.3 · Двойное сравнение и диапазоны · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 2 · Условия</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 2</p>
+<p class="running__folio">Задачи 2.3</p></div>
+<header class="chapter-head">
+<span class="chapter-num">2.3</span>
+<h1>Задачи к главе<br>«Двойное сравнение и диапазоны»</h1>
+<p class="lead">Задачи про границы: значение должно попасть в диапазон. Запись <code>a &lt;= x &lt;= b</code> проверяет обе границы сразу. Главный вопрос в каждой задаче — входит ли в диапазон сама граница.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/12-dvoynoe-sravnenie/index.html">2.3 Двойное сравнение и диапазоны</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–2.3</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip chip--now" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a></div>
+<p>Оператора <code>if</code> пока нет — он появится в главе 2.4. Программа ещё ничего не выбирает: она вычисляет логическое выражение и выводит <code>True</code> или <code>False</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Температура в серверной</a></li><li><a href="#r2">Разбор 2. Часы работы магазина</a></li><li><a href="#r3">Разбор 3. Нажатие на кнопку</a></li><li><a href="#p1">Задача 2.3.1. Балл в допустимых пределах</a></li><li><a href="#p2">Задача 2.3.2. Подростковый тариф</a></li><li><a href="#p3">Задача 2.3.3. Двузначное число</a></li><li><a href="#p4">Задача 2.3.4. Номер месяца</a></li><li><a href="#p5">Задача 2.3.5. Пульс в покое</a></li><li><a href="#p6">Задача 2.3.6. Время на часах</a></li><li><a href="#p7">Задача 2.3.7. Погодное предупреждение</a></li><li><a href="#p8">Задача 2.3.8. Время года</a></li><li><a href="#p9">Задача 2.3.9. Точка на экране</a></li><li><a href="#p10">Задача 2.3.10. Стандартная посылка</a></li><li><a href="#p11">Задача 2.3.11. Четыре вида границ</a></li><li><a href="#p12">Задача 2.3.12. Бюджет или платное</a></li><li><a href="#p13">Задача 2.3.13. Цены по возрастанию</a></li><li><a href="#p14">Задача 2.3.14. Клик по рамке</a></li><li><a href="#p15">Задача 2.3.15. Между двумя показаниями</a></li><li><a href="#p16">Задача 2.3.16. Исправьте диапазоны</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой сначала выписаны границы и решено, какие из них входят в диапазон, — от этого зависит выбор между <code>&lt;</code> и <code>&lt;=</code>.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Температура в серверной</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В серверной допустима температура от 18 до 27 градусов включительно. Вводится показание датчика. Выведите, в норме ли температура.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Границы — 18 и 27, обе входят в норму. Значит, с обеих сторон знак <code>&lt;=</code>.</li><li>Записываем слева направо по возрастанию: меньшая граница, переменная, большая граница.</li><li>Результат сохраняем в переменную с понятным именем и выводим.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+temperature = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Температура: &quot;</span>))
+
+<span class="c"># Проверка</span>
+is_normal = <span class="n">18</span> &lt;= temperature &lt;= <span class="n">27</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Температура в норме:&quot;</span>, is_normal)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Температура: <span class="typed">22</span>
+Температура в норме: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">27</pre></div><div><b>Вывод</b><pre>Температура в норме: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">28</pre></div><div><b>Вывод</b><pre>Температура в норме: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">17</pre></div><div><b>Вывод</b><pre>Температура в норме: False</pre></div></div></div>
+<div class="margin-note"><b>Проверяйте на границах</b><p>Ошибку в знаке не видно на значении из середины диапазона: 22 подходит при любой записи. Поэтому во втором примере взято 27 — последнее допустимое значение, а в третьем 28 — первое недопустимое.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Часы работы магазина</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Магазин открыт с 9 до 21 часа. С 13 до 14 часов — перерыв. Вводится час от 0 до 23. Выведите, входит ли час в рабочее время, попадает ли он на перерыв и можно ли сейчас что-нибудь купить.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>В 21:00 магазин уже закрыт, поэтому правая граница не входит: <code>9 &lt;= hour &lt; 21</code>.</li><li>Перерыв занимает один час с номером 13: <code>13 &lt;= hour &lt; 14</code>.</li><li>Купить можно в рабочее время и не в перерыв: <code>is_working and not is_break</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+hour = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Час: &quot;</span>))
+
+<span class="c"># Проверки</span>
+is_working = <span class="n">9</span> &lt;= hour &lt; <span class="n">21</span>
+is_break = <span class="n">13</span> &lt;= hour &lt; <span class="n">14</span>
+is_open = is_working <span class="k">and</span> <span class="k">not</span> is_break
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Рабочее время:&quot;</span>, is_working)
+<span class="f">print</span>(<span class="s">&quot;Перерыв:&quot;</span>, is_break)
+<span class="f">print</span>(<span class="s">&quot;Можно купить:&quot;</span>, is_open)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Час: <span class="typed">10</span>
+Рабочее время: True
+Перерыв: False
+Можно купить: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">13</pre></div><div><b>Вывод</b><pre>Рабочее время: True
+Перерыв: True
+Можно купить: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">21</pre></div><div><b>Вывод</b><pre>Рабочее время: False
+Перерыв: False
+Можно купить: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">9</pre></div><div><b>Вывод</b><pre>Рабочее время: True
+Перерыв: False
+Можно купить: True</pre></div></div></div>
+<div class="margin-note"><b>Левая граница входит, правая нет</b><p>Запись <code>9 &lt;= hour &lt; 21</code> встречается чаще других: начало промежутка входит, конец — нет. Так описывают часы работы, возрастные группы и диапазоны баллов, которые идут друг за другом без пропусков.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Нажатие на кнопку</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Кнопка на экране занимает прямоугольник: по горизонтали от 100 до 300 пикселей, по вертикали от 40 до 90. Границы входят в кнопку. Вводятся координаты нажатия <code>x</code> и <code>y</code>. Выведите, попало ли нажатие по кнопке.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Величин две, у каждой свой диапазон. Для каждой пишем свою цепочку сравнений.</li><li>Нажатие попало по кнопке, если подходят обе координаты: соединяем через <code>and</code>.</li><li>Промежуточные результаты выводим тоже — по ним видно, какая координата не подошла.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+x = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;x: &quot;</span>))
+y = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;y: &quot;</span>))
+
+<span class="c"># Проверки</span>
+inside_x = <span class="n">100</span> &lt;= x &lt;= <span class="n">300</span>
+inside_y = <span class="n">40</span> &lt;= y &lt;= <span class="n">90</span>
+is_hit = inside_x <span class="k">and</span> inside_y
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;По горизонтали:&quot;</span>, inside_x)
+<span class="f">print</span>(<span class="s">&quot;По вертикали:&quot;</span>, inside_y)
+<span class="f">print</span>(<span class="s">&quot;Попадание:&quot;</span>, is_hit)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>x: <span class="typed">150</span>
+y: <span class="typed">60</span>
+По горизонтали: True
+По вертикали: True
+Попадание: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">150
+95</pre></div><div><b>Вывод</b><pre>По горизонтали: True
+По вертикали: False
+Попадание: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">300
+40</pre></div><div><b>Вывод</b><pre>По горизонтали: True
+По вертикали: True
+Попадание: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">50
+10</pre></div><div><b>Вывод</b><pre>По горизонтали: False
+По вертикали: False
+Попадание: False</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Одна цепочка — одна величина</b><p>Записать обе координаты в одну цепочку не получится: <code>100 &lt;= x &lt;= 300 &lt;= y</code> проверяет другое условие. На каждую величину — отдельная цепочка, между ними <code>and</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 2.3.1</span><h3 class="task__title">Балл в допустимых пределах</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">За тест можно получить от 0 до 100 баллов включительно. Вводится число. Выведите, может ли оно быть баллом за тест.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">73</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">101</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">-5</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Обе границы входят в диапазон.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 2.3.2</span><h3 class="task__title">Подростковый тариф</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Банк выдаёт подростковую карту клиентам от 14 лет, которым ещё не исполнилось 18. Вводится возраст. Выведите, положена ли такая карта.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">15</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">14</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">18</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Левая граница входит в диапазон, правая — нет.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 2.3.3</span><h3 class="task__title">Двузначное число</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Номер квартиры в подъезде — двузначное число. Вводится целое положительное число. Выведите, двузначное ли оно.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">45</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">100</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Самое маленькое двузначное число — 10, самое большое — 99.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 2.3.4</span><h3 class="task__title">Номер месяца</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится целое число. Выведите, может ли оно быть номером месяца.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">13</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Месяцев двенадцать, нумерация с единицы.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 2.3.5</span><h3 class="task__title">Пульс в покое</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Фитнес-браслет считает пульс в покое нормальным, если он от 60 до 90 ударов в минуту включительно. Вводится пульс. Выведите, в норме ли он.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">72</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">90</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">58</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна цепочка сравнений с двумя знаками <code>&lt;=</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 2.3.6</span><h3 class="task__title">Время на часах</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Пользователь устанавливает будильник: вводит часы и минуты. Часы бывают от 0 до 23, минуты — от 0 до 59. Выведите, существует ли такое время.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7
+30</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">24
+0</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">23
+59</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">12
+60</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Две величины — две цепочки, между ними <code>and</code>.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 2.3.7</span><h3 class="task__title">Погодное предупреждение</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Служба погоды объявляет предупреждение, если температура ниже −25 или выше 35 градусов. Вводится температура. Выведите, объявлено ли предупреждение и обычная ли сейчас температура.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">-30</pre></div><div><b>Вывод</b><pre>Предупреждение: True
+Обычная температура: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">20</pre></div><div><b>Вывод</b><pre>Предупреждение: False
+Обычная температура: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">35</pre></div><div><b>Вывод</b><pre>Предупреждение: False
+Обычная температура: True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">36</pre></div><div><b>Вывод</b><pre>Предупреждение: True
+Обычная температура: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Опасных диапазона два, и они не соприкасаются. Одной цепочкой их не записать — нужны два сравнения и <code>or</code>.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 2.3.8</span><h3 class="task__title">Время года</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится номер месяца от 1 до 12. Выведите четыре строки: зимний ли это месяц, весенний, летний и осенний. Зима — декабрь, январь и февраль.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4</pre></div><div><b>Вывод</b><pre>Зима: False
+Весна: True
+Лето: False
+Осень: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Зима: True
+Весна: False
+Лето: False
+Осень: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Зима: True
+Весна: False
+Лето: False
+Осень: False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">9</pre></div><div><b>Вывод</b><pre>Зима: False
+Весна: False
+Лето: False
+Осень: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Три времени года — непрерывные диапазоны. Зимние месяцы идут не подряд: 12, затем 1 и 2.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 2.3.9</span><h3 class="task__title">Точка на экране</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Экран имеет размер 1920 на 1080 пикселей. Координата <code>x</code> бывает от 0 до 1919, координата <code>y</code> — от 0 до 1079. Вводятся координаты курсора. Выведите, находится ли курсор на экране.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
+500</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1920
+500</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1919
+1079</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">-1
+0</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нумерация с нуля: при ширине 1920 последняя координата — 1919.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 2.3.10</span><h3 class="task__title">Стандартная посылка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Почта принимает посылку как стандартную, если её вес больше 0 и не больше 20 кг, а длина — от 10 до 120 см включительно. Вводятся вес (дробное число) и длина (целое). Выведите, стандартная ли посылка.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4.5
+60</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">20
+120</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+60</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">12.3
+130</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>У веса левая граница не входит в диапазон, правая входит.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 2.3.11</span><h3 class="task__title">Четыре вида границ</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится целое число <code>x</code>. Выведите результаты четырёх проверок диапазона от 1 до 3: обе границы входят; обе не входят; входит только левая; входит только правая.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>1 &lt;= x &lt;= 3: True
+1 &lt; x &lt; 3: False
+1 &lt;= x &lt; 3: True
+1 &lt; x &lt;= 3: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>1 &lt;= x &lt;= 3: True
+1 &lt; x &lt; 3: True
+1 &lt;= x &lt; 3: True
+1 &lt; x &lt;= 3: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>1 &lt;= x &lt;= 3: True
+1 &lt; x &lt; 3: False
+1 &lt;= x &lt; 3: False
+1 &lt; x &lt;= 3: True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">4</pre></div><div><b>Вывод</b><pre>1 &lt;= x &lt;= 3: False
+1 &lt; x &lt; 3: False
+1 &lt;= x &lt; 3: False
+1 &lt; x &lt;= 3: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Знак <code>&lt;=</code> включает границу, знак <code>&lt;</code> исключает.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 2.3.12</span><h3 class="task__title">Бюджет или платное</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На бюджетное место проходят с баллом от 75 до 100. С баллом от 50 до 74 можно учиться платно. Вводится балл. Выведите, допустим ли балл (от 0 до 100), проходит ли абитуриент на бюджет и на платное.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">82</pre></div><div><b>Вывод</b><pre>Балл допустимый: True
+Бюджет: True
+Платное: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">75</pre></div><div><b>Вывод</b><pre>Балл допустимый: True
+Бюджет: True
+Платное: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">74</pre></div><div><b>Вывод</b><pre>Балл допустимый: True
+Бюджет: False
+Платное: True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">120</pre></div><div><b>Вывод</b><pre>Балл допустимый: False
+Бюджет: False
+Платное: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Диапазоны «бюджет» и «платное» идут подряд: 74 относится к платному, 75 — уже к бюджету.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 2.3.13</span><h3 class="task__title">Цены по возрастанию</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В прайс-листе три тарифа: базовый, стандартный и расширенный. Вводятся три цены в этом порядке. Выведите, верно ли, что каждый следующий тариф строго дороже предыдущего, и верно ли, что цены не убывают.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">300
+500
+900</pre></div><div><b>Вывод</b><pre>Строго по возрастанию: True
+Не убывают: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">300
+300
+900</pre></div><div><b>Вывод</b><pre>Строго по возрастанию: False
+Не убывают: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">500
+300
+900</pre></div><div><b>Вывод</b><pre>Строго по возрастанию: False
+Не убывают: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В цепочке могут стоять три переменные: <code>a &lt; b &lt; c</code> проверяет обе соседние пары.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 2.3.14</span><h3 class="task__title">Клик по рамке</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Окно занимает квадрат от 0 до 400 пикселей по обеим координатам. Внутри него — рабочая область от 20 до 380 по обеим координатам. Всё, что в окне, но не в рабочей области, — рамка. Границы входят и в окно, и в рабочую область. Вводятся координаты нажатия. Выведите, попало ли нажатие на рамку.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+200</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">200
+200</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">390
+395</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">500
+200</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 5</span><div><b>Ввод</b><pre class="typed-block">20
+20</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Запишите два условия отдельно: «точка в окне» и «точка в рабочей области». Рамка — это первое без второго.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 2.3.15</span><h3 class="task__title">Между двумя показаниями</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Два датчика показывают температуру на концах трубы. Третий датчик стоит посередине, и его показание должно лежать между двумя крайними, включая границы. Какой из крайних датчиков покажет больше, заранее не известно. Вводятся показания первого, второго и среднего датчика. Выведите, в порядке ли средний датчик.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">40
+60
+50</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">60
+40
+50</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">40
+60
+70</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">55
+55
+55</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Возможны два порядка границ: первая меньше второй или наоборот. Запишите цепочку для каждого порядка.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 2.3.16</span><h3 class="task__title">Исправьте диапазоны</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа проверяет дату: месяц должен быть от 1 до 12, день — от 1 до 31. Программа запускается, но отвечает неверно. В ней две ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>month = <span class="f">int</span>(<span class="f">input</span>())
+day = <span class="f">int</span>(<span class="f">input</span>())
+is_month_ok = <span class="n">1</span> &lt;= month &gt;= <span class="n">12</span>
+is_day_ok = day &gt;= <span class="n">1</span> <span class="k">or</span> day &lt;= <span class="n">31</span>
+<span class="f">print</span>(is_month_ok <span class="k">and</span> is_day_ok)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+20</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12
+31</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">13
+10</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">5
+40</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В первой проверке знаки смотрят в разные стороны. Во второй посмотрите, какой оператор соединяет два сравнения.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../2-2/index.html">← Задачи 2.2</a><a href="../../temy/12-dvoynoe-sravnenie/index.html">Глава 2.3 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../2-4/index.html">Задачи 2.4 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 2.3 · Двойное сравнение и диапазоны · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

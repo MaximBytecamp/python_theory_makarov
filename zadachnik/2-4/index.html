@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 2.4 · Операторы ветвления: if, elif, else · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 2 · Условия</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 2</p>
+<p class="running__folio">Задачи 2.4</p></div>
+<header class="chapter-head">
+<span class="chapter-num">2.4</span>
+<h1>Задачи к главе<br>«Операторы ветвления: if, elif, else»</h1>
+<p class="lead">Программа выбирает, какие строки выполнить. В задачах нужно решить, сколько вариантов действий есть, и подобрать конструкцию: <code>if</code>, <code>if / else</code> или цепочку с <code>elif</code>.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/13-if-elif-else/index.html">2.4 Операторы ветвления: if, elif, else</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–2.4</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip chip--now" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a></div>
+<p>Вложенных условий пока нет — они в главе 2.5. Каждая задача решается одной цепочкой <code>if / elif / else</code> или несколькими отдельными <code>if</code>. Циклов тоже нет — они в модуле 3.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Хватит ли денег</a></li><li><a href="#r2">Разбор 2. Тариф парковки</a></li><li><a href="#r3">Разбор 3. Билет по возрасту</a></li><li><a href="#p1">Задача 2.4.1. Чётное или нечётное</a></li><li><a href="#p2">Задача 2.4.2. Зачёт</a></li><li><a href="#p3">Задача 2.4.3. Изменение баланса</a></li><li><a href="#p4">Задача 2.4.4. Где дешевле</a></li><li><a href="#p5">Задача 2.4.5. Подтверждение пароля</a></li><li><a href="#p6">Задача 2.4.6. Оценка по баллам</a></li><li><a href="#p7">Задача 2.4.7. Время суток</a></li><li><a href="#p8">Задача 2.4.8. Скидка по сумме чека</a></li><li><a href="#p9">Задача 2.4.9. Индекс массы тела</a></li><li><a href="#p10">Задача 2.4.10. Сдача в автомате</a></li><li><a href="#p11">Задача 2.4.11. Время года по месяцу</a></li><li><a href="#p12">Задача 2.4.12. Исправьте программу</a></li><li><a href="#p13">Задача 2.4.13. Комиссия за перевод</a></li><li><a href="#p14">Задача 2.4.14. Калькулятор</a></li><li><a href="#p15">Задача 2.4.15. Самый дорогой товар</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой перед кодом посчитано, сколько вариантов ответа возможно, — от этого зависит число веток.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Хватит ли денег</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Покупатель оплачивает товар с карты. Вводятся баланс карты и цена товара. Если денег хватает, спишите цену и выведите остаток. Если не хватает, выведите, сколько рублей недостаёт.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Вариантов два: денег хватает или нет. Это <code>if / else</code>.</li><li>Условие «хватает» — баланс не меньше цены. При равенстве покупка тоже проходит, поэтому знак <code>&gt;=</code>.</li><li>В каждой ветке свои действия. Строки одной ветки записаны с одинаковым отступом в четыре пробела.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+balance = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Баланс, руб.: &quot;</span>))
+price = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена, руб.: &quot;</span>))
+
+<span class="c"># Выбор</span>
+<span class="k">if</span> balance &gt;= price:
+    balance -= price
+    <span class="f">print</span>(<span class="s">&quot;Покупка оплачена&quot;</span>)
+    <span class="f">print</span>(<span class="s">&quot;Остаток:&quot;</span>, balance, <span class="s">&quot;руб.&quot;</span>)
+<span class="k">else</span>:
+    shortage = price - balance
+    <span class="f">print</span>(<span class="s">&quot;Недостаточно средств&quot;</span>)
+    <span class="f">print</span>(<span class="s">&quot;Не хватает:&quot;</span>, shortage, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Баланс, руб.: <span class="typed">1500</span>
+Цена, руб.: <span class="typed">1200</span>
+Покупка оплачена
+Остаток: 300 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">800
+1200</pre></div><div><b>Вывод</b><pre>Недостаточно средств
+Не хватает: 400 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1200
+1200</pre></div><div><b>Вывод</b><pre>Покупка оплачена
+Остаток: 0 руб.</pre></div></div></div>
+<div class="margin-note"><b>Граница в третьем примере</b><p>Баланс равен цене. Со знаком <code>&gt;</code> программа отказала бы в покупке, хотя денег ровно столько, сколько нужно. Значение на границе проверяют отдельным примером.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Тариф парковки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Парковка считает стоимость по времени стоянки. До 1 часа включительно — бесплатно. До 3 часов включительно — 100 рублей за каждый час. Дольше 3 часов — 150 рублей за каждый час. Вводится число полных часов. Выведите цену часа и стоимость стоянки.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Вариантов три, и подходит всегда ровно один. Это цепочка <code>if / elif / else</code>.</li><li>В ветках только выбираем цену часа. Стоимость считаем один раз после цепочки — формула общая для всех веток.</li><li>Проверки идут от меньшей границы к большей. До <code>elif hours &lt;= 3</code> программа доходит, только если часов больше 1.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+hours = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Часов стоянки: &quot;</span>))
+
+<span class="c"># Выбор цены часа</span>
+<span class="k">if</span> hours &lt;= <span class="n">1</span>:
+    rate = <span class="n">0</span>
+<span class="k">elif</span> hours &lt;= <span class="n">3</span>:
+    rate = <span class="n">100</span>
+<span class="k">else</span>:
+    rate = <span class="n">150</span>
+
+<span class="c"># Расчёт</span>
+cost = hours * rate
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Цена часа:&quot;</span>, rate, <span class="s">&quot;руб.&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;К оплате:&quot;</span>, cost, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Часов стоянки: <span class="typed">2</span>
+Цена часа: 100 руб.
+К оплате: 200 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Цена часа: 0 руб.
+К оплате: 0 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>Цена часа: 100 руб.
+К оплате: 300 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>Цена часа: 150 руб.
+К оплате: 750 руб.</pre></div></div></div>
+<div class="margin-note"><b>Почему не пишем hours > 1 and hours <= 3</b><p>Ветка <code>elif</code> проверяется, только когда условия выше оказались ложными. Раз программа дошла до второй проверки, часов уже больше 1 — повторять это не нужно.</p></div>
+<div class="margin-note"><b>Общее действие — после цепочки</b><p>Строку <code>cost = hours * rate</code> можно было повторить в каждой ветке. Тогда при изменении формулы её пришлось бы править в трёх местах. В ветках остаётся только то, что различается.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Билет по возрасту</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Касса продаёт билеты: детский (до 18 лет) — 300 рублей, взрослый — 600 рублей, льготный (от 65 лет) — 400 рублей. Вводится возраст. Если введено отрицательное число или число больше 120, выведите <code>Ошибка ввода</code>. Иначе выведите вид билета и цену.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Вариантов четыре: ошибка и три вида билета. Первой проверяем ошибку ввода — остальные ветки тогда работают с верным возрастом.</li><li>Ошибочных диапазона два: меньше 0 и больше 120. Соединяем их через <code>or</code>.</li><li>Дальше идём по возрасту снизу вверх: до 18, до 65, все остальные.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Возраст: &quot;</span>))
+
+<span class="c"># Выбор</span>
+<span class="k">if</span> age &lt; <span class="n">0</span> <span class="k">or</span> age &gt; <span class="n">120</span>:
+    <span class="f">print</span>(<span class="s">&quot;Ошибка ввода&quot;</span>)
+<span class="k">elif</span> age &lt; <span class="n">18</span>:
+    <span class="f">print</span>(<span class="s">&quot;Детский билет: 300 руб.&quot;</span>)
+<span class="k">elif</span> age &lt; <span class="n">65</span>:
+    <span class="f">print</span>(<span class="s">&quot;Взрослый билет: 600 руб.&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Льготный билет: 400 руб.&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Возраст: <span class="typed">30</span>
+Взрослый билет: 600 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">17</pre></div><div><b>Вывод</b><pre>Детский билет: 300 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">65</pre></div><div><b>Вывод</b><pre>Льготный билет: 400 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">-4</pre></div><div><b>Вывод</b><pre>Ошибка ввода</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">18</pre></div><div><b>Вывод</b><pre>Взрослый билет: 600 руб.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Порядок веток менять нельзя</b><p>Если поставить <code>age &lt; 65</code> выше, чем <code>age &lt; 18</code>, ребёнок получит взрослый билет: семнадцать меньше шестидесяти пяти, первая истинная ветка выполнится, а до остальных программа не дойдёт.</p></div>
+<div class="margin-note"><b>Чем elif отличается от нескольких if</b><p>Отдельные <code>if</code> проверяются все подряд, и сработать могут несколько. В цепочке <code>if / elif / else</code> выполняется только одна ветка — первая, у которой условие истинно.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 2.4.1</span><h3 class="task__title">Чётное или нечётное</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится целое число. Выведите <code>Чётное</code> или <code>Нечётное</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8</pre></div><div><b>Вывод</b><pre>Чётное</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">15</pre></div><div><b>Вывод</b><pre>Нечётное</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Чётное</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Вариантов два — подходит <code>if / else</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 2.4.2</span><h3 class="task__title">Зачёт</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Зачёт ставят, если за тест набрано не меньше 60 баллов. Вводится балл. Выведите <code>Зачёт</code> или <code>Незачёт</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">74</pre></div><div><b>Вывод</b><pre>Зачёт</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">60</pre></div><div><b>Вывод</b><pre>Зачёт</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">59</pre></div><div><b>Вывод</b><pre>Незачёт</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверьте решение на границе: 60 баллов — уже зачёт.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 2.4.3</span><h3 class="task__title">Изменение баланса</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится сумма операции по счёту. Положительная сумма — пополнение, отрицательная — списание, ноль — операции не было. Выведите <code>Пополнение</code>, <code>Списание</code> или <code>Без изменений</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500</pre></div><div><b>Вывод</b><pre>Пополнение</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-120</pre></div><div><b>Вывод</b><pre>Списание</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Без изменений</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Вариантов три — нужна ветка <code>elif</code>.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 2.4.4</span><h3 class="task__title">Где дешевле</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Один и тот же товар продаётся в двух магазинах. Вводятся цена в первом и цена во втором. Выведите <code>В первом дешевле</code>, <code>Во втором дешевле</code> или <code>Цены одинаковые</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">450
+520</pre></div><div><b>Вывод</b><pre>В первом дешевле</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">990
+870</pre></div><div><b>Вывод</b><pre>Во втором дешевле</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">300
+300</pre></div><div><b>Вывод</b><pre>Цены одинаковые</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Не забудьте третий случай: цены могут совпасть.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 2.4.5</span><h3 class="task__title">Подтверждение пароля</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">При регистрации пароль вводят дважды. Вводятся две строки. Если они совпадают, выведите <code>Пароль сохранён</code>, иначе — <code>Пароли не совпадают</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">sunny42
+sunny42</pre></div><div><b>Вывод</b><pre>Пароль сохранён</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">sunny42
+sunny24</pre></div><div><b>Вывод</b><pre>Пароли не совпадают</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строки сравниваются оператором <code>==</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 2.4.6</span><h3 class="task__title">Оценка по баллам</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Балл за тест переводится в оценку: от 85 — оценка 5, от 70 — оценка 4, от 50 — оценка 3, меньше 50 — оценка 2. Вводится балл. Выведите оценку.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">91</pre></div><div><b>Вывод</b><pre>Оценка: 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">70</pre></div><div><b>Вывод</b><pre>Оценка: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">69</pre></div><div><b>Вывод</b><pre>Оценка: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Оценка: 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Идите от большей границы к меньшей. В ветках только выбирайте оценку, а выводите её один раз после цепочки.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 2.4.7</span><h3 class="task__title">Время суток</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится час от 0 до 23. Выведите время суток: <code>Ночь</code> (0–5), <code>Утро</code> (6–11), <code>День</code> (12–17), <code>Вечер</code> (18–23). Если такого часа нет, выведите <code>Нет такого часа</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>Ночь</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">11</pre></div><div><b>Вывод</b><pre>Утро</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>День</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">23</pre></div><div><b>Вывод</b><pre>Вечер</pre></div></div><div class="io__case"><span class="io__n">Пример 5</span><div><b>Ввод</b><pre class="typed-block">24</pre></div><div><b>Вывод</b><pre>Нет такого часа</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала отсеките неверный ввод. Дальше каждой ветке достаточно одной верхней границы.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 2.4.8</span><h3 class="task__title">Скидка по сумме чека</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Магазин даёт скидку по сумме чека: до 1000 рублей скидки нет, от 1000 до 4999 рублей — 5%, от 5000 рублей — 10%. Вводится сумма чека. Выведите размер скидки в процентах и сумму к оплате с копейками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6200</pre></div><div><b>Вывод</b><pre>Скидка: 10%
+К оплате: 5580.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1000</pre></div><div><b>Вывод</b><pre>Скидка: 5%
+К оплате: 950.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">999</pre></div><div><b>Вывод</b><pre>Скидка: 0%
+К оплате: 999.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">5000</pre></div><div><b>Вывод</b><pre>Скидка: 10%
+К оплате: 4500.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В цепочке выбирается только процент. Формула итога одна для всех случаев — она стоит после цепочки.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 2.4.9</span><h3 class="task__title">Индекс массы тела</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Индекс массы тела — это вес в килограммах, делённый на рост в метрах и ещё раз на рост в метрах. Вводятся вес и рост. Выведите индекс с одним знаком после точки и категорию: меньше 18.5 — <code>ниже нормы</code>, меньше 25 — <code>норма</code>, меньше 30 — <code>выше нормы</code>, иначе — <code>значительно выше нормы</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70
+1.75</pre></div><div><b>Вывод</b><pre>Индекс: 22.9
+Категория: норма</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">50
+1.8</pre></div><div><b>Вывод</b><pre>Индекс: 15.4
+Категория: ниже нормы</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">90
+1.7</pre></div><div><b>Вывод</b><pre>Индекс: 31.1
+Категория: значительно выше нормы</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">85
+1.75</pre></div><div><b>Вывод</b><pre>Индекс: 27.8
+Категория: выше нормы</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала посчитайте индекс и сохраните в переменную. В условиях сравнивайте точное значение, а округляйте только при выводе.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 2.4.10</span><h3 class="task__title">Сдача в автомате</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Автомат продаёт напиток. Вводятся цена напитка и внесённая сумма. Если денег не хватает, выведите, сколько нужно добавить. Если внесено ровно столько, сколько нужно, выведите <code>Без сдачи</code>. Если больше — выведите сдачу.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">85
+100</pre></div><div><b>Вывод</b><pre>Сдача: 15 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">85
+50</pre></div><div><b>Вывод</b><pre>Добавьте: 35 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">85
+85</pre></div><div><b>Вывод</b><pre>Без сдачи</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Три случая: меньше, равно, больше.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 2.4.11</span><h3 class="task__title">Время года по месяцу</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится номер месяца. Выведите время года: <code>Зима</code>, <code>Весна</code>, <code>Лето</code> или <code>Осень</code>. Если такого месяца нет, выведите <code>Нет такого месяца</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Зима</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Зима</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>Весна</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>Лето</pre></div></div><div class="io__case"><span class="io__n">Пример 5</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>Осень</pre></div></div><div class="io__case"><span class="io__n">Пример 6</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Нет такого месяца</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Зимние месяцы идут не подряд: 12, 1 и 2. Для них понадобится <code>or</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 2.4.12</span><h3 class="task__title">Исправьте программу</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа должна выводить одну строку — уровень заряда телефона: от 80% — <code>Высокий</code>, от 30% — <code>Средний</code>, ниже 30% — <code>Низкий</code>. Сейчас при заряде 90% она выводит две строки, а при 10% — ни одной. Исправьте программу.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>charge = <span class="f">int</span>(<span class="f">input</span>())
+<span class="k">if</span> charge &gt;= <span class="n">80</span>:
+    <span class="f">print</span>(<span class="s">&quot;Высокий&quot;</span>)
+<span class="k">if</span> charge &gt;= <span class="n">30</span>:
+    <span class="f">print</span>(<span class="s">&quot;Средний&quot;</span>)
+<span class="k">if</span> charge &lt; <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">&quot;Низкий&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">90</pre></div><div><b>Вывод</b><pre>Высокий</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">45</pre></div><div><b>Вывод</b><pre>Средний</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>Низкий</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">80</pre></div><div><b>Вывод</b><pre>Высокий</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Отдельные <code>if</code> проверяются все. Чтобы сработала одна ветка, нужна цепочка с <code>elif</code> и <code>else</code>.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 2.4.13</span><h3 class="task__title">Комиссия за перевод</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Банк берёт за перевод комиссию 1% от суммы. Комиссия не может быть меньше 30 рублей и больше 500 рублей. Вводится сумма перевода. Выведите комиссию и сумму списания с копейками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12000</pre></div><div><b>Вывод</b><pre>Комиссия: 120.00 руб.
+Спишется: 12120.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1500</pre></div><div><b>Вывод</b><pre>Комиссия: 30.00 руб.
+Спишется: 1530.00 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">80000</pre></div><div><b>Вывод</b><pre>Комиссия: 500.00 руб.
+Спишется: 80500.00 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала посчитайте комиссию по формуле. Потом поправьте её, если она вышла за границы. Ветка <code>else</code> здесь не нужна.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 2.4.14</span><h3 class="task__title">Калькулятор</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся число, знак операции и второе число. Знак — один из четырёх: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>. Выведите результат. При делении на ноль выведите <code>На ноль делить нельзя</code>, при другом знаке — <code>Неизвестная операция</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12
++
+8</pre></div><div><b>Вывод</b><pre>Результат: 20.0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7
+*
+1.5</pre></div><div><b>Вывод</b><pre>Результат: 10.5</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">9
+/
+4</pre></div><div><b>Вывод</b><pre>Результат: 2.25</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">9
+/
+0</pre></div><div><b>Вывод</b><pre>На ноль делить нельзя</pre></div></div><div class="io__case"><span class="io__n">Пример 5</span><div><b>Ввод</b><pre class="typed-block">9
+%
+4</pre></div><div><b>Вывод</b><pre>Неизвестная операция</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для деления нужны две ветки. Первой поставьте ту, где условие уже: знак деления и ноль во втором числе.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 2.4.15</span><h3 class="task__title">Самый дорогой товар</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся цены трёх товаров. Выведите наибольшую цену. Цены могут совпадать.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">300
+900
+500</pre></div><div><b>Вывод</b><pre>Наибольшая цена: 900</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">900
+300
+500</pre></div><div><b>Вывод</b><pre>Наибольшая цена: 900</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">300
+500
+900</pre></div><div><b>Вывод</b><pre>Наибольшая цена: 900</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">700
+700
+200</pre></div><div><b>Вывод</b><pre>Наибольшая цена: 700</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первая проверка: первое число не меньше двух других. Если она ложна, наибольшее — одно из двух оставшихся.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../2-3/index.html">← Задачи 2.3</a><a href="../../temy/13-if-elif-else/index.html">Глава 2.4 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../2-5/index.html">Задачи 2.5 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 2.4 · Операторы ветвления: if, elif, else · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

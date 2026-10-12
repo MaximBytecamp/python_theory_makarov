@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 2.1 · Логический тип: and, or, not · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 2 · Условия</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 2</p>
+<p class="running__folio">Задачи 2.1</p></div>
+<header class="chapter-head">
+<span class="chapter-num">2.1</span>
+<h1>Задачи к главе<br>«Логический тип: and, or, not»</h1>
+<p class="lead">Программа отвечает на вопрос «да или нет». Сравнение даёт <code>True</code> или <code>False</code>, а <code>and</code>, <code>or</code> и <code>not</code> соединяют несколько проверок в одну.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/10-logicheskiy-tip/index.html">2.1 Логический тип: and, or, not</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–2.1</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip chip--now" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a></div>
+<p>Оператора <code>if</code> пока нет — он появится в главе 2.4. Программа ещё ничего не выбирает: она вычисляет логическое выражение и выводит <code>True</code> или <code>False</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Вход в кинозал</a></li><li><a href="#r2">Разбор 2. Бесплатная доставка</a></li><li><a href="#r3">Разбор 3. Отбор кандидата</a></li><li><a href="#p1">Задача 2.1.1. Проходной балл</a></li><li><a href="#p2">Задача 2.1.2. Длина пароля</a></li><li><a href="#p3">Задача 2.1.3. Чётная сторона улицы</a></li><li><a href="#p4">Задача 2.1.4. Выходной день</a></li><li><a href="#p5">Задача 2.1.5. Можно ли купить товар</a></li><li><a href="#p6">Задача 2.1.6. Льготный билет</a></li><li><a href="#p7">Задача 2.1.7. Свет в коридоре</a></li><li><a href="#p8">Задача 2.1.8. Логин и пароль</a></li><li><a href="#p9">Задача 2.1.9. Аттракцион</a></li><li><a href="#p10">Задача 2.1.10. Бонусы на карте</a></li><li><a href="#p11">Задача 2.1.11. Отправка заказа</a></li><li><a href="#p12">Задача 2.1.12. Таблица для двух ответов</a></li><li><a href="#p13">Задача 2.1.13. Сданные экзамены</a></li><li><a href="#p14">Задача 2.1.14. Исправьте проверку</a></li><li><a href="#p15">Задача 2.1.15. Сходится ли касса</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. Обратите внимание на порядок: сначала ввод, потом проверки — каждая в своей переменной с именем на <code>is_</code> или <code>has_</code>, в конце вывод.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Вход в кинозал</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">На сеанс пускают зрителей от 18 лет с билетом. Пользователь вводит возраст и отвечает, есть ли у него билет: <code>да</code> или <code>нет</code>. Выведите результат каждой проверки и общий ответ: можно ли войти.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Проверок две: возраст не меньше 18 и билет есть. Каждую сохраняем в свою переменную.</li><li>Ответ про билет приходит строкой. Сравнение <code>answer == "да"</code> превращает его в логическое значение.</li><li>Войти можно, когда выполнены обе проверки, — значит, соединяем их через <code>and</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Возраст: &quot;</span>))
+answer = <span class="f">input</span>(<span class="s">&quot;Билет есть (да/нет): &quot;</span>)
+
+<span class="c"># Проверки</span>
+is_adult = age &gt;= <span class="n">18</span>
+has_ticket = answer == <span class="s">&quot;да&quot;</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Совершеннолетний:&quot;</span>, is_adult)
+<span class="f">print</span>(<span class="s">&quot;Билет есть:&quot;</span>, has_ticket)
+<span class="f">print</span>(<span class="s">&quot;Можно войти:&quot;</span>, is_adult <span class="k">and</span> has_ticket)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Возраст: <span class="typed">20</span>
+Билет есть (да/нет): <span class="typed">да</span>
+Совершеннолетний: True
+Билет есть: True
+Можно войти: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">16
+да</pre></div><div><b>Вывод</b><pre>Совершеннолетний: False
+Билет есть: True
+Можно войти: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">30
+нет</pre></div><div><b>Вывод</b><pre>Совершеннолетний: True
+Билет есть: False
+Можно войти: False</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Почему не bool(answer)</b><p>Функция <code>bool()</code> считает ложью только пустую строку. Строка <code>"нет"</code> не пустая, поэтому <code>bool("нет")</code> — это <code>True</code>. Чтобы получить логическое значение из ответа, строку сравнивают с ожидаемым словом: <code>answer == "да"</code>.</p></div>
+<div class="margin-note"><b>Зачем переменные is_adult и has_ticket</b><p>Последнюю строку можно записать как <code>age &gt;= 18 and answer == "да"</code>. Результат тот же, но запись <code>is_adult and has_ticket</code> читается без расшифровки чисел и строк.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Бесплатная доставка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Интернет-магазин доставляет заказ бесплатно, если сумма заказа не меньше 3000 рублей или у покупателя есть подписка. Вводятся сумма заказа и ответ про подписку (<code>да</code> или <code>нет</code>). Выведите, бесплатна ли доставка и нужно ли за неё платить.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Условий два, и достаточно любого из них. Это оператор <code>or</code>.</li><li>Результат сохраняем в <code>is_free</code>: он нужен дважды.</li><li>«Нужно платить» — это противоположный ответ. Его даёт <code>not is_free</code>, второй раз условие не записываем.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+total = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сумма заказа, руб.: &quot;</span>))
+answer = <span class="f">input</span>(<span class="s">&quot;Подписка есть (да/нет): &quot;</span>)
+
+<span class="c"># Проверки</span>
+is_big_order = total &gt;= <span class="n">3000</span>
+has_subscription = answer == <span class="s">&quot;да&quot;</span>
+is_free = is_big_order <span class="k">or</span> has_subscription
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Доставка бесплатная:&quot;</span>, is_free)
+<span class="f">print</span>(<span class="s">&quot;Доставка платная:&quot;</span>, <span class="k">not</span> is_free)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сумма заказа, руб.: <span class="typed">3500</span>
+Подписка есть (да/нет): <span class="typed">нет</span>
+Доставка бесплатная: True
+Доставка платная: False</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">900
+да</pre></div><div><b>Вывод</b><pre>Доставка бесплатная: True
+Доставка платная: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">900
+нет</pre></div><div><b>Вывод</b><pre>Доставка бесплатная: False
+Доставка платная: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5000
+да</pre></div><div><b>Вывод</b><pre>Доставка бесплатная: True
+Доставка платная: False</pre></div></div></div>
+<div class="margin-note"><b>Оба условия сразу</b><p>В последнем примере выполнены оба условия: и сумма большая, и подписка есть. Оператор <code>or</code> в этом случае тоже даёт <code>True</code>: ему нужно хотя бы одно истинное условие, а не ровно одно.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Отбор кандидата</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На вакансию берут кандидата, который подходит по трём требованиям: возраст от 18 лет, стаж от 3 лет и не меньше 60 баллов за тест по английскому. Вводятся возраст, стаж и балл. Выведите, сколько требований выполнено и подходит ли кандидат.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Три требования — три проверки, каждая в своей переменной.</li><li>Кандидат подходит, когда выполнены все три: соединяем через <code>and</code>.</li><li>Количество выполненных требований получаем сложением: <code>True</code> в арифметике равно 1, <code>False</code> — 0.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Возраст: &quot;</span>))
+experience = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Стаж, лет: &quot;</span>))
+english = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Балл за тест: &quot;</span>))
+
+<span class="c"># Проверки</span>
+is_adult = age &gt;= <span class="n">18</span>
+is_experienced = experience &gt;= <span class="n">3</span>
+knows_english = english &gt;= <span class="n">60</span>
+
+<span class="c"># Расчёт</span>
+passed = is_adult + is_experienced + knows_english
+fits = is_adult <span class="k">and</span> is_experienced <span class="k">and</span> knows_english
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Выполнено требований:&quot;</span>, passed, <span class="s">&quot;из 3&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Кандидат подходит:&quot;</span>, fits)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Возраст: <span class="typed">25</span>
+Стаж, лет: <span class="typed">4</span>
+Балл за тест: <span class="typed">72</span>
+Выполнено требований: 3 из 3
+Кандидат подходит: True</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">22
+1
+80</pre></div><div><b>Вывод</b><pre>Выполнено требований: 2 из 3
+Кандидат подходит: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">17
+0
+40</pre></div><div><b>Вывод</b><pre>Выполнено требований: 0 из 3
+Кандидат подходит: False</pre></div></div></div>
+<div class="margin-note"><b>Почему логические значения складываются</b><p>Тип <code>bool</code> — подкласс <code>int</code>, поэтому <code>True + True + False</code> равно 2. Сумма проверок — это количество истинных среди них.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 2.1.1</span><h3 class="task__title">Проходной балл</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Тест считается сданным, если набрано не меньше 60 баллов. Вводится балл. Выведите <code>True</code>, если тест сдан, и <code>False</code>, если нет.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">75</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">60</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">59</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравнение — это выражение. Его результат можно сразу передать в <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 2.1.2</span><h3 class="task__title">Длина пароля</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Сайт принимает пароль длиной от 8 символов. Вводится пароль. Выведите, подходит ли он по длине.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">qwerty</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">sunny_day_42</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">12345678</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Длину строки возвращает <code>len()</code> — глава 1.2.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 2.1.3</span><h3 class="task__title">Чётная сторона улицы</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Дома с чётными номерами стоят на правой стороне улицы. Вводится номер дома. Выведите, стоит ли дом на правой стороне.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">14</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">27</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Чётное число делится на 2 без остатка. Остаток даёт оператор <code>%</code>.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 2.1.4</span><h3 class="task__title">Выходной день</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится номер дня недели: 1 — понедельник, 7 — воскресенье. Выведите, выходной ли это день. Выходные — суббота и воскресенье.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Подходит любой из двух дней. У каждого сравнения своя полная запись: <code>day == 6 or day == 7</code>.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 2.1.5</span><h3 class="task__title">Можно ли купить товар</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся остаток товара на складе, цена товара и сумма, которая есть у покупателя. Товар можно купить, если он есть на складе и денег хватает. Выведите ответ.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+1200
+1500</pre></div><div><b>Вывод</b><pre>True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+1200
+1500</pre></div><div><b>Вывод</b><pre>False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+1200
+1000</pre></div><div><b>Вывод</b><pre>False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нужны оба условия одновременно.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 2.1.6</span><h3 class="task__title">Льготный билет</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Музей продаёт льготный билет детям младше 18 лет и посетителям от 65 лет. Вводится возраст. Выведите, положен ли льготный билет и нужен ли полный.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Льготный билет: True
+Полный билет: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">40</pre></div><div><b>Вывод</b><pre>Льготный билет: False
+Полный билет: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">65</pre></div><div><b>Вывод</b><pre>Льготный билет: True
+Полный билет: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Льгота положена в одном из двух случаев. Второй ответ — отрицание первого.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 2.1.7</span><h3 class="task__title">Свет в коридоре</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Умный дом включает свет в коридоре, если датчик заметил движение и освещённость ниже 50 люкс. Вводятся ответ датчика (<code>да</code> или <code>нет</code>) и освещённость. Выведите, нужно ли включить свет.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">да
+20</pre></div><div><b>Вывод</b><pre>Включить свет: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">да
+300</pre></div><div><b>Вывод</b><pre>Включить свет: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">нет
+10</pre></div><div><b>Вывод</b><pre>Включить свет: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Ответ датчика — строка. Логическое значение из неё получается сравнением со словом <code>"да"</code>.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 2.1.8</span><h3 class="task__title">Логин и пароль</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В системе один пользователь: логин <code>admin</code>, пароль <code>qwerty123</code>. Вводятся логин и пароль. Выведите, верен ли логин, верен ли пароль и разрешён ли вход.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">admin
+qwerty123</pre></div><div><b>Вывод</b><pre>Логин верный: True
+Пароль верный: True
+Вход разрешён: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">admin
+12345</pre></div><div><b>Вывод</b><pre>Логин верный: True
+Пароль верный: False
+Вход разрешён: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">user
+qwerty123</pre></div><div><b>Вывод</b><pre>Логин верный: False
+Пароль верный: True
+Вход разрешён: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строки сравниваются оператором <code>==</code> так же, как числа.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 2.1.9</span><h3 class="task__title">Аттракцион</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На аттракцион пускают посетителей ростом от 120 см. Кроме роста нужно одно из двух: возраст от 10 лет или сопровождение взрослого. Вводятся рост, возраст и ответ про сопровождение (<code>да</code> или <code>нет</code>). Выведите, можно ли на аттракцион.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">130
+12
+нет</pre></div><div><b>Вывод</b><pre>Можно на аттракцион: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">125
+8
+да</pre></div><div><b>Вывод</b><pre>Можно на аттракцион: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">125
+8
+нет</pre></div><div><b>Вывод</b><pre>Можно на аттракцион: False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">110
+12
+да</pre></div><div><b>Вывод</b><pre>Можно на аттракцион: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Рост обязателен всегда, а из двух остальных условий хватит одного. Скобки показывают, что <code>or</code> вычисляется раньше <code>and</code>.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 2.1.10</span><h3 class="task__title">Бонусы на карте</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество бонусов на карте покупателя. После возврата товара оно может стать отрицательным. Выведите два значения: результат <code>bool()</code> от количества и результат проверки «бонусов больше нуля».</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">150</pre></div><div><b>Вывод</b><pre>bool(bonus): True
+Бонусы есть: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>bool(bonus): False
+Бонусы есть: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">-30</pre></div><div><b>Вывод</b><pre>bool(bonus): True
+Бонусы есть: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>bool()</code> считает ложью только ноль. Сравните две строки вывода в третьем примере.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 2.1.11</span><h3 class="task__title">Отправка заказа</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Заказ отправляют, когда он оплачен, товар есть на складе и адрес указан. Вводятся три ответа <code>да</code> или <code>нет</code>: оплачен ли заказ, есть ли товар, указан ли адрес. Выведите, можно ли отправлять. Отдельной строкой выведите, нужно ли звонить покупателю: звонят, если заказ оплачен, а адреса нет.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">да
+да
+да</pre></div><div><b>Вывод</b><pre>Можно отправлять: True
+Позвонить покупателю: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">да
+да
+нет</pre></div><div><b>Вывод</b><pre>Можно отправлять: False
+Позвонить покупателю: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">нет
+да
+нет</pre></div><div><b>Вывод</b><pre>Можно отправлять: False
+Позвонить покупателю: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Результат сравнения можно сохранить сразу при вводе: <code>is_paid = input() == "да"</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 2.1.12</span><h3 class="task__title">Таблица для двух ответов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся два ответа <code>да</code> или <code>нет</code>. Обозначим их A и B. Выведите три строки: результат <code>A and B</code>, результат <code>A or B</code> и результат <code>not A</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">да
+нет</pre></div><div><b>Вывод</b><pre>A and B: False
+A or B: True
+not A: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">нет
+нет</pre></div><div><b>Вывод</b><pre>A and B: False
+A or B: False
+not A: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">да
+да</pre></div><div><b>Вывод</b><pre>A and B: True
+A or B: True
+not A: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала превратите оба ответа в логические значения, потом применяйте операции.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 2.1.13</span><h3 class="task__title">Сданные экзамены</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Студент сдал три экзамена. Экзамен сдан, если балл не меньше 40. Вводятся три балла. Выведите, сколько экзаменов сдано и сданы ли все три.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">55
+40
+90</pre></div><div><b>Вывод</b><pre>Сдано экзаменов: 3
+Сессия закрыта: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">39
+70
+12</pre></div><div><b>Вывод</b><pre>Сдано экзаменов: 1
+Сессия закрыта: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>True</code> в сложении равно 1. Сумма трёх проверок — количество сданных экзаменов.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 2.1.14</span><h3 class="task__title">Исправьте проверку</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа должна вывести <code>True</code>, если кандидату от 18 до 65 лет включительно и у него есть опыт работы. Вводятся возраст и ответ про опыт: <code>да</code> или <code>нет</code>. В программе три ошибки. Найдите и исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>age = <span class="f">int</span>(<span class="f">input</span>())
+answer = <span class="f">input</span>()
+has_experience = answer = <span class="s">&quot;да&quot;</span>
+fits = age &gt;= <span class="n">18</span> <span class="k">and</span> &lt;= <span class="n">65</span> <span class="k">and</span> has_experience
+<span class="f">print</span>(<span class="s">&quot;Подходит:&quot;</span> fits)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">30
+да</pre></div><div><b>Вывод</b><pre>Подходит: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">70
+да</pre></div><div><b>Вывод</b><pre>Подходит: False</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">30
+нет</pre></div><div><b>Вывод</b><pre>Подходит: False</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">65
+да</pre></div><div><b>Вывод</b><pre>Подходит: True</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверьте три места: знак сравнения, левую часть у каждого сравнения и запятую в <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 2.1.15</span><h3 class="task__title">Сходится ли касса</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Кассир вводит две суммы наличных и сумму по отчёту — все три числа дробные. Касса сходится, если две суммы вместе равны отчёту. Выведите результат точного сравнения и результат сравнения после округления суммы до копеек.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0.1
+0.2
+0.3</pre></div><div><b>Вывод</b><pre>Точное сравнение: False
+До копеек: True</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100.5
+200.25
+300.75</pre></div><div><b>Вывод</b><pre>Точное сравнение: True
+До копеек: True</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10.1
+5.2
+15.4</pre></div><div><b>Вывод</b><pre>Точное сравнение: False
+До копеек: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Дробные числа хранятся неточно, поэтому <code>0.1 + 0.2 == 0.3</code> даёт <code>False</code>. Сумму перед сравнением округляют — глава 1.9.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../1-9/index.html">← Задачи 1.9</a><a href="../../temy/10-logicheskiy-tip/index.html">Глава 2.1 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../2-2/index.html">Задачи 2.2 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 2.1 · Логический тип: and, or, not · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
