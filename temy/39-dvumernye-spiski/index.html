@@ -15,7 +15,50 @@
 <span class="f">print</span>(matrix[<span class="n">1</span>])
 <span class="f">print</span>(matrix[<span class="n">1</span>][<span class="n">2</span>])</pre></figure><figure class="code code--out"><figcaption><span>Вывод</span><span>сначала строка, затем число</span></figcaption><pre>[4, 5, 6]
 6</pre></figure>
-<h2 id="s3"><span class="sec">§3</span>Перебор значений</h2><p>Внешний цикл получает строки, внутренний — значения выбранной строки.</p><figure class="code"><figcaption><span>main.py</span><span>табличный вывод</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
+<figure class="viz">
+          <figcaption><span>Схема</span><span>сначала строка, потом столбец</span></figcaption>
+          <div class="viz__body">
+            <svg viewBox="0 0 560 274" role="img" aria-label="Матрица три на три: matrix[1] выбирает всю вторую строку, а matrix[1][2] — число 6 на её третьем месте">
+              <text x="20" y="46" class="viz-svg-small">столбец</text>
+              <text x="153" y="46" text-anchor="middle" class="viz-svg-idx">[0]</text>
+              <text x="239" y="46" text-anchor="middle" class="viz-svg-idx">[1]</text>
+              <text x="325" y="46" text-anchor="middle" class="viz-svg-idx">[2]</text>
+              <text x="20" y="95" class="viz-svg-idx">строка [0]</text>
+              <rect x="110" y="64" width="86" height="50" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="153" y="96" text-anchor="middle" class="viz-svg-label" fill="#020835">1</text>
+              <rect x="196" y="64" width="86" height="50" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="239" y="96" text-anchor="middle" class="viz-svg-label" fill="#020835">2</text>
+              <rect x="282" y="64" width="86" height="50" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="325" y="96" text-anchor="middle" class="viz-svg-label" fill="#020835">3</text>
+              <text x="20" y="145" class="viz-svg-idx">строка [1]</text>
+              <rect x="110" y="114" width="86" height="50" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="153" y="146" text-anchor="middle" class="viz-svg-label" fill="#020835">4</text>
+              <rect x="196" y="114" width="86" height="50" fill="#BFE2F5" stroke="#020835" stroke-width="3"/>
+              <text x="239" y="146" text-anchor="middle" class="viz-svg-label" fill="#020835">5</text>
+              <rect x="282" y="114" width="86" height="50" fill="#2D7FC1" stroke="#020835" stroke-width="3"/>
+              <text x="325" y="146" text-anchor="middle" class="viz-svg-label" fill="#fff">6</text>
+              <text x="20" y="195" class="viz-svg-idx">строка [2]</text>
+              <rect x="110" y="164" width="86" height="50" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="153" y="196" text-anchor="middle" class="viz-svg-label" fill="#020835">7</text>
+              <rect x="196" y="164" width="86" height="50" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="239" y="196" text-anchor="middle" class="viz-svg-label" fill="#020835">8</text>
+              <rect x="282" y="164" width="86" height="50" fill="#fff" stroke="#020835" stroke-width="3"/>
+              <text x="325" y="196" text-anchor="middle" class="viz-svg-label" fill="#020835">9</text>
+              <rect x="110" y="114" width="258" height="50" fill="none" stroke="#2D7FC1" stroke-width="4"/>
+              <path d="M376 139 L398 139" stroke="#2D7FC1" stroke-width="2" fill="none"/>
+              <text x="406" y="135" class="viz-svg-label" font-size="12" fill="#2D7FC1">matrix[1]</text>
+              <text x="406" y="153" class="viz-svg-idx">весь список-строка</text>
+              <path d="M325 222 L325 244" stroke="#2D7FC1" stroke-width="2" fill="none"/>
+              <text x="325" y="262" text-anchor="middle" class="viz-svg-label" font-size="12" fill="#2D7FC1">matrix[1][2]</text>
+            </svg>
+          </div>
+          <ul class="viz__legend">
+            <li><i style="background:#BFE2F5"></i>то, что выбрал первый индекс</li>
+            <li><i style="background:#2D7FC1"></i>то, что осталось после второго</li>
+          </ul>
+        </figure>
+        <p>Порядок индексов легко перепутать, и схема помогает его закрепить: первый спускается по строкам, второй идёт по столбцам внутри выбранной строки. Строка — это самостоятельный список, поэтому <code>matrix[1]</code> и есть полноценное значение, а не «половина обращения».</p>
+        <h2 id="s3"><span class="sec">§3</span>Перебор значений</h2><p>Внешний цикл получает строки, внутренний — значения выбранной строки.</p><figure class="code"><figcaption><span>main.py</span><span>табличный вывод</span></figcaption><pre>matrix = [[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>], [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>]]
 <span class="k">for</span> row <span class="k">in</span> matrix:
     <span class="k">for</span> value <span class="k">in</span> row:
         <span class="f">print</span>(value, end=<span class="s">" "</span>)
