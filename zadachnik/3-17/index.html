@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.17 · <code>and</code>, <code>or</code> и <code>None</code> · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.17</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.17</span>
+<h1>Задачи к главе<br>«<code>and</code>, <code>or</code> и <code>None</code>»</h1>
+<p class="lead">Операторы <code>and</code> и <code>or</code> возвращают не только <code>True</code> и <code>False</code>, а один из своих операндов. На этом держатся запасные значения (<code>name or "Гость"</code>) и защита от ошибок (<code>items and items[0]</code>). Для ситуации «результата нет» в Python есть <code>None</code>, и проверять его нужно через <code>is None</code>, а не через истинность.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/38-logicheskie-znacheniya-i-none/index.html">3.17 <code>and</code>, <code>or</code> и <code>None</code></a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.17</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a><a class="chip" href="../../temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2</a><a class="chip" href="../../temy/27-metody-spiskov-3/index.html"><i>3.12</i>Методы списков: часть 3</a><a class="chip" href="../../temy/39-dvumernye-spiski/index.html"><i>3.13</i>Двумерные списки</a><a class="chip" href="../../temy/30-funkcii-kollekciy/index.html"><i>3.14</i>Функции для коллекций</a><a class="chip" href="../../temy/32-sum/index.html"><i>3.15</i>Функция <code>sum()</code></a><a class="chip" href="../../temy/37-truthy-falsy/index.html"><i>3.16</i>Truthy и Falsy</a><a class="chip chip--now" href="../../temy/38-logicheskie-znacheniya-i-none/index.html"><i>3.17</i><code>and</code>, <code>or</code> и <code>None</code></a></div>
+<p>Функций пока нет, поэтому поиск пишут циклом с переменной-результатом, которая сначала равна <code>None</code>. Генераторов и методов строк нет. Список вводят так: сначала количество, потом элементы по одному в строке.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Ник или логин</a></li><li><a href="#r2">Разбор 2. Оценки товара без деления на ноль</a></li><li><a href="#r3">Разбор 3. Первое превышение нормы</a></li><li><a href="#p1">Задача 3.17.1. Гость без имени</a></li><li><a href="#p2">Задача 3.17.2. Город доставки по умолчанию</a></li><li><a href="#p3">Задача 3.17.3. Что вернут and и or</a></li><li><a href="#p4">Задача 3.17.4. Телефон для связи</a></li><li><a href="#p5">Задача 3.17.5. Профиль пользователя</a></li><li><a href="#p6">Задача 3.17.6. Первое отрицательное</a></li><li><a href="#p7">Задача 3.17.7. Срочный заказ в начале</a></li><li><a href="#p8">Задача 3.17.8. Скидка: ноль тоже ответ</a></li><li><a href="#p9">Задача 3.17.9. Брак выше нормы</a></li><li><a href="#p10">Задача 3.17.10. Цена по приоритету</a></li><li><a href="#p11">Задача 3.17.11. Позиция сотрудника в списке</a></li><li><a href="#p12">Задача 3.17.12. Максимум без стартового значения</a></li><li><a href="#p13">Задача 3.17.13. Исправьте поиск мороза</a></li><li><a href="#p14">Задача 3.17.14. Минимум и максимум с пропусками</a></li><li><a href="#p15">Задача 3.17.15. Первая и последняя продажа</a></li><li><a href="#p16">Задача 3.17.16. Перевыполнение плана</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью: запасное значение через <code>or</code>, защита через <code>and</code> и поиск с результатом <code>None</code>.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Ник или логин</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В приветствии показывают ник пользователя, а если ник не задан — логин. Вводятся ник (пустая строка, если не задан) и логин. Выведите <code>Привет, …</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Нужно взять ник, а если он пуст, то логин. Оператор <code>or</code> возвращает первый истинный операнд, а если истинных нет — последний.</li><li>Пустая строка ложна, значит, <code>nickname or login</code> даёт логин. Непустой ник истинен и возвращается сам.</li><li>Результат кладём в переменную и выводим. Условие <code>if</code> здесь не нужно.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+nickname = <span class="f">input</span>(<span class="s">&quot;Ник (Enter, если нет): &quot;</span>)
+login = <span class="f">input</span>(<span class="s">&quot;Логин: &quot;</span>)
+
+<span class="c"># Расчёт</span>
+display_name = nickname <span class="k">or</span> login
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Привет,&quot;</span>, display_name)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Ник (Enter, если нет): <span class="typed">Лисичка</span>
+Логин: <span class="typed">anna_k</span>
+Привет, Лисичка</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">
+anna_k</pre></div><div><b>Вывод</b><pre>Привет, anna_k</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>or подставляет запасное значение вместо любого ложного</b><p>Ложно не только пустое: <code>0</code> тоже. Запись <code>discount or 5</code> заменит скидку 0% на 5%. Для числа, у которого ноль — законное значение, запасное значение через <code>or</code> использовать нельзя.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Оценки товара без деления на ноль</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">У карточки товара могут быть пользовательские оценки. Вводятся количество оценок и сами оценки. Первой строкой выведите <code>Первая оценка высокая</code>, если первая оценка не меньше 4, иначе <code>Первая оценка низкая или оценок нет</code>. Второй строкой выведите <code>Карточка идёт в топ</code>, если средняя оценка не меньше 4.5, иначе <code>Карточка не идёт в топ</code>. Оценок может не быть.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Если оценок нет, <code>ratings[0]</code> упадёт с ошибкой индекса, а деление суммы на <code>len(ratings)</code> — с делением на ноль.</li><li>Оператор <code>and</code> вычисляет правую часть, только если левая истинна. Запись <code>ratings and ratings[0] >= 4</code> сначала проверяет, что список не пуст, и только потом берёт элемент.</li><li>Так же защищаем деление: <code>ratings and sum(ratings) / len(ratings) >= 4.5</code>. При пустом списке правая часть не выполняется.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько оценок: &quot;</span>))
+ratings = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    ratings.append(<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка: &quot;</span>)))
+
+<span class="c"># Вывод</span>
+<span class="k">if</span> ratings <span class="k">and</span> ratings[<span class="n">0</span>] &gt;= <span class="n">4</span>:
+    <span class="f">print</span>(<span class="s">&quot;Первая оценка высокая&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Первая оценка низкая или оценок нет&quot;</span>)
+<span class="k">if</span> ratings <span class="k">and</span> <span class="f">sum</span>(ratings) / <span class="f">len</span>(ratings) &gt;= <span class="n">4.5</span>:
+    <span class="f">print</span>(<span class="s">&quot;Карточка идёт в топ&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Карточка не идёт в топ&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько оценок: <span class="typed">3</span>
+Оценка: <span class="typed">5</span>
+Оценка: <span class="typed">4</span>
+Оценка: <span class="typed">5</span>
+Первая оценка высокая
+Карточка идёт в топ</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+3
+5
+5</pre></div><div><b>Вывод</b><pre>Первая оценка низкая или оценок нет
+Карточка не идёт в топ</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Первая оценка низкая или оценок нет
+Карточка не идёт в топ</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Порядок частей важен</b><p>Защита работает только слева направо. Запись <code>ratings[0] >= 4 and ratings</code> сначала обратится к элементу и упадёт на пустом списке. Проверка, которая защищает, всегда стоит левее того, что она защищает.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Первое превышение нормы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество показаний, допустимый предел и сами показания. Позиции считаются с нуля, как индексы списка. Выведите <code>Первое превышение в позиции …</code> для первого показания строго выше предела или <code>Превышений нет</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Результат поиска — позиция или «ничего не найдено». Для «ничего» используем <code>None</code>: перед циклом пишем <code>position = None</code>.</li><li>Идём по индексам. Как только нашли показание выше предела, запоминаем индекс и останавливаем цикл через <code>break</code>.</li><li>После цикла проверяем <code>position is None</code>. Проверку <code>if position:</code> здесь писать нельзя: позиция 0 ложна, и находка в самом начале была бы принята за отсутствие результата.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько показаний: &quot;</span>))
+limit = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Допустимый предел: &quot;</span>))
+readings = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    readings.append(<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Показание: &quot;</span>)))
+
+<span class="c"># Расчёт</span>
+position = <span class="k">None</span>
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(count):
+    <span class="k">if</span> readings[index] &gt; limit:
+        position = index
+        <span class="k">break</span>
+
+<span class="c"># Вывод</span>
+<span class="k">if</span> position <span class="k">is</span> <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">&quot;Превышений нет&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Первое превышение в позиции&quot;</span>, position)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько показаний: <span class="typed">4</span>
+Допустимый предел: <span class="typed">100</span>
+Показание: <span class="typed">90</span>
+Показание: <span class="typed">120</span>
+Показание: <span class="typed">95</span>
+Показание: <span class="typed">130</span>
+Первое превышение в позиции 1</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+50
+80
+10
+20</pre></div><div><b>Вывод</b><pre>Первое превышение в позиции 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+50
+10
+20</pre></div><div><b>Вывод</b><pre>Превышений нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+50</pre></div><div><b>Вывод</b><pre>Превышений нет</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Ноль — это результат, а не его отсутствие</b><p><code>None</code> означает «значения нет», а <code>0</code> — это значение. Их различает только проверка <code>is None</code> или <code>is not None</code>. Проверка через истинность смешивает их и теряет ответ 0.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.17.1</span><h3 class="task__title">Гость без имени</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится имя посетителя; поле может быть пустым. Выведите <code>Здравствуйте, …</code>, а если имя пустое — подставьте слово <code>Гость</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Мария</pre></div><div><b>Вывод</b><pre>Здравствуйте, Мария</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Здравствуйте, Гость</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Оператор <code>or</code> берёт первое истинное значение: непустое имя или запасное слово.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.17.2</span><h3 class="task__title">Город доставки по умолчанию</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится город доставки; если оставить поле пустым, доставка идёт в Москву. Выведите <code>Доставка в город: …</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Казань</pre></div><div><b>Вывод</b><pre>Доставка в город: Казань</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Доставка в город: Москва</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Запасное значение можно подставить сразу при чтении: <code>input() or "…"</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.17.3</span><h3 class="task__title">Что вернут and и or</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся два целых числа <code>a</code> и <code>b</code>. Выведите значение выражения <code>a and b</code> на первой строке и <code>a or b</code> на второй.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+5</pre></div><div><b>Вывод</b><pre>0
+5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+7</pre></div><div><b>Вывод</b><pre>7
+3</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+0</pre></div><div><b>Вывод</b><pre>0
+0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>and</code> возвращает первый ложный операнд, а если ложных нет — последний. <code>or</code> возвращает первый истинный, иначе последний.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.17.4</span><h3 class="task__title">Телефон для связи</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В карточке клиента три поля: мобильный, домашний и рабочий телефон; любое может быть пустым. Вводятся три строки в этом порядке. Выведите <code>Телефон для связи: …</code> — первый непустой номер, а если все пусты — слова <code>не указан</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">
+
+333</pre></div><div><b>Вывод</b><pre>Телефон для связи: 333</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">111
+222
+333</pre></div><div><b>Вывод</b><pre>Телефон для связи: 111</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Телефон для связи: не указан</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Цепочка <code>a or b or c or d</code> возвращает первый истинный элемент.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.17.5</span><h3 class="task__title">Профиль пользователя</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся ник, город, телефон и почта; любое поле может быть пустым. Выведите три строки: <code>Ник: …</code> (если пусто — <code>аноним</code>), <code>Город: …</code> (если пусто — <code>не указан</code>) и <code>Контакт: …</code> — телефон, а если его нет, то почта, а если нет и её, то <code>нет контактов</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">fox
+Казань
++7900
+fox@mail.ru</pre></div><div><b>Вывод</b><pre>Ник: fox
+Город: Казань
+Контакт: +7900</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">
+
+
+fox@mail.ru</pre></div><div><b>Вывод</b><pre>Ник: аноним
+Город: не указан
+Контакт: fox@mail.ru</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Ник: аноним
+Город: не указан
+Контакт: нет контактов</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>На каждую строку вывода нужно своё запасное значение.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.17.6</span><h3 class="task__title">Первое отрицательное</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество чисел и сами числа. Найдите первое отрицательное число и выведите <code>Первое отрицательное: …</code>. Если таких нет, выведите <code>Отрицательных нет</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+5
+-3
+8
+-1</pre></div><div><b>Вывод</b><pre>Первое отрицательное: -3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+2
+3</pre></div><div><b>Вывод</b><pre>Отрицательных нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Отрицательных нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Пока ничего не найдено, переменная-результат равна <code>None</code>. Присваивайте ей число только один раз.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.17.7</span><h3 class="task__title">Срочный заказ в начале</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество заказов и пометки к ним по порядку (например, <code>срочно</code> или <code>обычный</code>). Если заказы есть и первый помечен словом <code>срочно</code>, выведите <code>Начать со срочного</code>, иначе <code>Обычная очередь</code>. Заказов может не быть.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+срочно
+обычный</pre></div><div><b>Вывод</b><pre>Начать со срочного</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+обычный
+срочно</pre></div><div><b>Вывод</b><pre>Обычная очередь</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Обычная очередь</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала проверьте, что список не пуст, и только потом обращайтесь к <code>marks[0]</code>.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.17.8</span><h3 class="task__title">Скидка: ноль тоже ответ</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Менеджер вводит скидку клиента в процентах. Если поле оставлено пустым, действует стандартная скидка 5%. Если введён 0, это значит «скидки нет»; 5% в этом случае подставлять нельзя. Выведите <code>Скидка: …%</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">15</pre></div><div><b>Вывод</b><pre>Скидка: 15%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Скидка: 5%</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Скидка: 0%</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Запись <code>discount or 5</code> здесь не подходит: она заменит ноль на 5. Проверяйте <code>is None</code>.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.17.9</span><h3 class="task__title">Брак выше нормы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество выпущенных деталей и количество бракованных. Если выпущено больше нуля и доля брака строго больше 0,05 (5%), выведите <code>Брак выше нормы</code>, иначе <code>Брак в норме</code>. Выпущено может быть 0 деталей.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">200
+15</pre></div><div><b>Вывод</b><pre>Брак выше нормы</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">200
+10</pre></div><div><b>Вывод</b><pre>Брак в норме</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+0</pre></div><div><b>Вывод</b><pre>Брак в норме</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Деление на <code>produced</code> стоит после <code>and</code>: при нуле оно не выполнится.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.17.10</span><h3 class="task__title">Цена по приоритету</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">У товара три возможные цены: акционная, оптовая и обычная. Если какой-то цены нет, она записана как 0. Вводятся три цены в этом порядке. Покупателю действует первая ненулевая цена в этом порядке. Выведите <code>Цена за штуку: …</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">80
+90
+100</pre></div><div><b>Вывод</b><pre>Цена за штуку: 80</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+90
+100</pre></div><div><b>Вывод</b><pre>Цена за штуку: 90</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+0
+100</pre></div><div><b>Вывод</b><pre>Цена за штуку: 100</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нуль ложен, поэтому цепочка <code>or</code> пропускает отсутствующие цены.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.17.11</span><h3 class="task__title">Позиция сотрудника в списке</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество сотрудников, их фамилии по порядку, затем фамилия для поиска. Выведите <code>Найден в позиции …</code> (позиции с нуля) для первого совпадения или <code>Не найден</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+Иванов
+Петрова
+Сидоров
+Петрова</pre></div><div><b>Вывод</b><pre>Найден в позиции 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+Иванов
+Петрова
+Иванов</pre></div><div><b>Вывод</b><pre>Найден в позиции 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+Иванов
+Петрова
+Смирнов</pre></div><div><b>Вывод</b><pre>Не найден</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0
+Иванов</pre></div><div><b>Вывод</b><pre>Не найден</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Результат поиска хранится в переменной, которая сначала равна <code>None</code>. Позиция 0 — настоящий ответ.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.17.12</span><h3 class="task__title">Максимум без стартового значения</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество чисел и сами числа (любые, в том числе отрицательные и нули). Найдите наибольшее и выведите <code>Максимум: …</code>. Если чисел нет, выведите <code>Список пуст</code>. Решите без начального значения вроде 0: оно было бы неверным для отрицательных чисел.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+-5
+-2
+-9
+-3</pre></div><div><b>Вывод</b><pre>Максимум: -2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Максимум: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+4
+10
+7</pre></div><div><b>Вывод</b><pre>Максимум: 10</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Список пуст</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Условие <code>best is None or value > best</code> принимает первое число сразу, а сравнение справа выполняется, только если <code>best</code> уже есть.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.17.13</span><h3 class="task__title">Исправьте поиск мороза</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа получает количество измерений температуры и сами измерения. Она должна вывести позицию (с нуля) первого измерения ниже нуля: <code>Первый мороз в позиции …</code> или <code>Морозов не было</code>. В программе две ошибки: из-за них первая позиция 0 теряется. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — исправить две ошибки</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+temps = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    temps.append(<span class="f">int</span>(<span class="f">input</span>()))
+position = <span class="n">0</span>
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(count):
+    <span class="k">if</span> temps[index] &lt; <span class="n">0</span>:
+        position = index
+        <span class="k">break</span>
+<span class="k">if</span> position:
+    <span class="f">print</span>(<span class="s">&quot;Первый мороз в позиции&quot;</span>, position)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Морозов не было&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+5
+-2
+1</pre></div><div><b>Вывод</b><pre>Первый мороз в позиции 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+-1
+2
+3</pre></div><div><b>Вывод</b><pre>Первый мороз в позиции 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+5
+6</pre></div><div><b>Вывод</b><pre>Морозов не было</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Морозов не было</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна ошибка в значении перед циклом: «не нашли» нельзя обозначать нулём. Вторая в проверке после цикла: ноль ложен.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.17.14</span><h3 class="task__title">Минимум и максимум с пропусками</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Датчик иногда ничего не передаёт: тогда в потоке пустая строка. Остальные строки — целые температуры, ноль и отрицательные значения тоже настоящие. Вводятся количество строк и сами строки. Если измерения есть, выведите <code>Минимум: …, максимум: …</code>, иначе <code>Измерений нет</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+4
+
+-7
+0
+9</pre></div><div><b>Вывод</b><pre>Минимум: -7, максимум: 9</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>Измерений нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+0</pre></div><div><b>Вывод</b><pre>Минимум: 0, максимум: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Измерений нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Пустую строку проверяйте до перевода в число. Для минимума и максимума заведите две переменные, обе сначала равны <code>None</code>.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.17.15</span><h3 class="task__title">Первая и последняя продажа</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней и продажи за каждый день (0 — продаж не было). Позиции считаются с нуля. Выведите <code>Первая продажа: позиция …, последняя: позиция …</code> или <code>Продаж не было</code>. Если продажа одна, обе позиции совпадают.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+0
+0
+5
+0
+7
+0</pre></div><div><b>Вывод</b><pre>Первая продажа: позиция 2, последняя: позиция 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4
+3
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Первая продажа: позиция 0, последняя: позиция 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Продаж не было</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Продаж не было</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первую позицию запоминают один раз, а последнюю перезаписывают при каждой продаже. Отсутствие продаж проверяйте через <code>is None</code>: первая позиция может быть 0.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 3.17.16</span><h3 class="task__title">Перевыполнение плана</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество отделов, затем планы по отделам, затем факты по отделам. Отдел перевыполнил план, если у него план больше нуля и факт не меньше плана, умноженного на 1,2. Выведите <code>Перевыполнили на 20% и больше: …</code> — число таких отделов. Нулевой план в расчёт не берётся и ошибки давать не должен.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+100
+0
+50
+200
+130
+40
+50
+230</pre></div><div><b>Вывод</b><pre>Перевыполнили на 20% и больше: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+0
+0
+5
+6</pre></div><div><b>Вывод</b><pre>Перевыполнили на 20% и больше: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+10
+15</pre></div><div><b>Вывод</b><pre>Перевыполнили на 20% и больше: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Перевыполнили на 20% и больше: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверка <code>plan > 0</code> стоит левее деления и защищает его. Результаты проверок по отделам собирайте в список для <code>sum()</code>.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-16/index.html">← Задачи 3.16</a><a href="../../temy/38-logicheskie-znacheniya-i-none/index.html">Глава 3.17 в справочнике</a><a href="../index.html">К оглавлению задачника</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.17 · <code>and</code>, <code>or</code> и <code>None</code> · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

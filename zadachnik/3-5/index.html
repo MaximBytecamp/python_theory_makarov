@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.5 · Практика <code>for in</code> · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.5</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.5</span>
+<h1>Задачи к главе<br>«Практика <code>for in</code>»</h1>
+<p class="lead">Почти любая задача на <code>for</code> строится по одной схеме: перед циклом задают начальное значение, в цикле обновляют его, после цикла выводят результат. Меняется только то, что накапливают: сумму, произведение, счётчик, самое большое число или новую строку.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/23-praktika-for/index.html">3.5 Практика <code>for in</code></a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.5</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip chip--now" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a></div>
+<p>Функций <code>max()</code>, <code>min()</code>, <code>abs()</code> и методов строк пока нет. Наибольшее и наименьшее значения ищите циклом. Список вводится так: сначала количество, затем элементы по одному в строке; обрабатывать их можно сразу, по мере ввода.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Выручка за период</a></li><li><a href="#r2">Разбор 2. Сумма цифр номера</a></li><li><a href="#r3">Разбор 3. Самая дорогая покупка</a></li><li><a href="#p1">Задача 3.5.1. Шаги за неделю</a></li><li><a href="#p2">Задача 3.5.2. Рост цены</a></li><li><a href="#p3">Задача 3.5.3. Отличные оценки</a></li><li><a href="#p4">Задача 3.5.4. Удвоенные буквы</a></li><li><a href="#p5">Задача 3.5.5. Чётные заказы</a></li><li><a href="#p6">Задача 3.5.6. Крупные цифры кода</a></li><li><a href="#p7">Задача 3.5.7. Самый холодный день</a></li><li><a href="#p8">Задача 3.5.8. Число рассадок</a></li><li><a href="#p9">Задача 3.5.9. Средний положительный баланс</a></li><li><a href="#p10">Задача 3.5.10. Первая дорогая покупка</a></li><li><a href="#p11">Задача 3.5.11. Простой ли номер зала</a></li><li><a href="#p12">Задача 3.5.12. Перепишите цикл</a></li><li><a href="#p13">Задача 3.5.13. Максимум пульса и повторы</a></li><li><a href="#p14">Задача 3.5.14. Серия выполненных планов</a></li><li><a href="#p15">Задача 3.5.15. Исправьте ошибки</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью: накопление с условием, перебор цифр и поиск наибольшего значения с его номером. В каждой видно, что задаётся до цикла, что делается в цикле и что выводится после.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Выручка за период</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Кассир сверяет выручку магазина с планом. Вводятся количество дней, план на один день в рублях и затем выручка за каждый день. Выведите общую выручку и число дней, в которые план выполнен или перевыполнен.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Нужны два накопителя: сумма выручки и счётчик удачных дней. Оба начинаются с нуля и создаются до цикла.</li><li>Цикл повторяется столько раз, сколько дней. Значения читаем прямо в цикле: хранить все дни сразу не нужно.</li><li>Сумма растёт на каждой итерации. Счётчик растёт только при условии <code>revenue &gt;= plan</code>.</li><li>Если дней ноль, цикл не выполнится, и программа выведет нули. Это верный ответ.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+days = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько дней: &quot;</span>))
+plan = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;План на день, руб.: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+total = <span class="n">0</span>
+good_days = <span class="n">0</span>
+<span class="k">for</span> day <span class="k">in</span> <span class="f">range</span>(days):
+    revenue = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Выручка: &quot;</span>))
+    total += revenue
+    <span class="k">if</span> revenue &gt;= plan:
+        good_days += <span class="n">1</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Выручка за период:&quot;</span>, total, <span class="s">&quot;руб.&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Дней с выполненным планом:&quot;</span>, good_days)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько дней: <span class="typed">4</span>
+План на день, руб.: <span class="typed">10000</span>
+Выручка: <span class="typed">12000</span>
+Выручка: <span class="typed">9000</span>
+Выручка: <span class="typed">10000</span>
+Выручка: <span class="typed">15500</span>
+Выручка за период: 46500 руб.
+Дней с выполненным планом: 3</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+8000
+5000
+6000
+7000</pre></div><div><b>Вывод</b><pre>Выручка за период: 18000 руб.
+Дней с выполненным планом: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+10000</pre></div><div><b>Вывод</b><pre>Выручка за период: 0 руб.
+Дней с выполненным планом: 0</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Обнуляйте накопитель до цикла</b><p>Если записать <code>total = 0</code> внутри цикла, на каждой итерации сумма начинается заново. В конце останется только последнее значение. Всё, что накапливается, создают перед <code>for</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Сумма цифр номера</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Номер билета состоит только из цифр. Вводится номер. Выведите сумму его цифр и количество нулей в нём.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Функция <code>input()</code> возвращает строку. Цикл <code>for</code> по строке выдаёт символы по одному, поэтому преобразовывать номер в число не нужно.</li><li>Каждый символ — цифра в виде текста. Чтобы сложить, переводим её в число: <code>int(digit)</code>.</li><li>Нули считаем отдельным счётчиком. Сравниваем символ с текстом <code>"0"</code>, а не с числом.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+ticket = <span class="f">input</span>(<span class="s">&quot;Номер билета: &quot;</span>)
+
+<span class="c"># Расчёт</span>
+digits_sum = <span class="n">0</span>
+zeros = <span class="n">0</span>
+<span class="k">for</span> digit <span class="k">in</span> ticket:
+    digits_sum += <span class="f">int</span>(digit)
+    <span class="k">if</span> digit == <span class="s">&quot;0&quot;</span>:
+        zeros += <span class="n">1</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Сумма цифр:&quot;</span>, digits_sum)
+<span class="f">print</span>(<span class="s">&quot;Нулей в номере:&quot;</span>, zeros)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Номер билета: <span class="typed">4073</span>
+Сумма цифр: 14
+Нулей в номере: 1</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100200</pre></div><div><b>Вывод</b><pre>Сумма цифр: 3
+Нулей в номере: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Сумма цифр: 0
+Нулей в номере: 1</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Число нельзя перебирать циклом</b><p>Если номер сразу превратить в число командой <code>int(input())</code>, запись <code>for digit in ticket</code> даст ошибку: по числу цикл не идёт. Для перебора цифр оставляйте введённое значение строкой.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Самая дорогая покупка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество покупок (не меньше одной) и сумма каждой. Выведите самую большую сумму и номер покупки, в которой она встретилась впервые.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Наибольшее число ищут так: запоминают лучшее из уже виденных и сравнивают с ним каждое новое. Начальное «лучшее» нельзя брать наугад, поэтому им становится первая покупка.</li><li>Первая покупка прочитана до цикла, её номер — 1. Цикл начинается со второй: <code>range(2, count + 1)</code> даёт номера 2, 3, …, <code>count</code>.</li><li>Новое значение заменяет лучшее только при строгом сравнении <code>&gt;</code>. Тогда при равных суммах останется номер первой.</li><li>Вместе с суммой обновляется и номер: оба значения меняются в одном <code>if</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько покупок: &quot;</span>))
+best = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Покупка 1: &quot;</span>))
+best_number = <span class="n">1</span>
+
+<span class="c"># Расчёт</span>
+<span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span>, count + <span class="n">1</span>):
+    price = <span class="f">int</span>(<span class="f">input</span>(<span class="s">f&quot;</span><span class="s">Покупка </span>{number}<span class="s">: </span><span class="s">&quot;</span>))
+    <span class="k">if</span> price &gt; best:
+        best = price
+        best_number = number
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Самая дорогая покупка:&quot;</span>, best, <span class="s">&quot;руб.&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Номер покупки:&quot;</span>, best_number)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько покупок: <span class="typed">4</span>
+Покупка 1: <span class="typed">350</span>
+Покупка 2: <span class="typed">1200</span>
+Покупка 3: <span class="typed">80</span>
+Покупка 4: <span class="typed">1200</span>
+Самая дорогая покупка: 1200 руб.
+Номер покупки: 2</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+500</pre></div><div><b>Вывод</b><pre>Самая дорогая покупка: 500 руб.
+Номер покупки: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+90
+150
+700</pre></div><div><b>Вывод</b><pre>Самая дорогая покупка: 700 руб.
+Номер покупки: 3</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Начальное значение 0 подходит не всегда</b><p>Запись <code>best = 0</code> работает для сумм, но ломается для температур или баланса: если все значения отрицательные, ноль «победит», хотя его не было в данных. Надёжнее взять за начальное значение первый элемент.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.5.1</span><h3 class="task__title">Шаги за неделю</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Фитнес-браслет записал число шагов за каждый из семи дней. Вводятся семь чисел, по одному в строке. Выведите общее число шагов в виде <code>Всего шагов: 52000</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8000
+7500
+9000
+6000
+10000
+12000
+4500</pre></div><div><b>Вывод</b><pre>Всего шагов: 57000</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0
+0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Всего шагов: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумма начинается с нуля перед циклом; в цикле на каждой из семи итераций к ней добавляют введённое число.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.5.2</span><h3 class="task__title">Рост цены</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Цена товара росла в несколько этапов. Вводятся количество этапов и затем целый коэффициент роста на каждом этапе. Выведите итоговый коэффициент — произведение всех — в виде <code>Итого в 12 раз</code>. Если этапов не было, коэффициент равен 1.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+2
+3
+2</pre></div><div><b>Вывод</b><pre>Итого в 12 раз</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+5</pre></div><div><b>Вывод</b><pre>Итого в 5 раз</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Итого в 1 раз</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для произведения начальное значение — 1, а не 0: с нулём любое произведение останется нулём.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.5.3</span><h3 class="task__title">Отличные оценки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество оценок студента и сами оценки от 2 до 5. Выведите, сколько среди них пятёрок, в виде <code>Пятёрок: 3</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+5
+4
+5
+3
+5</pre></div><div><b>Вывод</b><pre>Пятёрок: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+4
+4
+3</pre></div><div><b>Вывод</b><pre>Пятёрок: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Пятёрок: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Счётчик увеличивается на 1 только для оценок, равных 5.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.5.4</span><h3 class="task__title">Удвоенные буквы</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Для шифровки каждую букву слова записывают дважды. Вводится слово (может быть пустым). Выведите новую строку, например из <code>кот</code> получается <code>ккоотт</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">кот</pre></div><div><b>Вывод</b><pre>ккоотт</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Я</pre></div><div><b>Вывод</b><pre>ЯЯ</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Результат начинается с пустой строки <code>""</code>. В цикле к нему добавляют букву, умноженную на 2.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.5.5</span><h3 class="task__title">Чётные заказы</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество заказов и сумма каждого — целое число. Выведите сумму только тех заказов, у которых сумма чётная, в виде <code>Сумма чётных: 340</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+120
+75
+200
+33
+20</pre></div><div><b>Вывод</b><pre>Сумма чётных: 340</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+7
+9</pre></div><div><b>Вывод</b><pre>Сумма чётных: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Сумма чётных: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Число чётное, если остаток от деления на 2 равен нулю. Складывайте только такие числа.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.5.6</span><h3 class="task__title">Крупные цифры кода</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Код активации состоит из цифр. Вводится код. Выведите, сколько в нём цифр больше 6, в виде <code>Цифр больше 6: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4073915</pre></div><div><b>Вывод</b><pre>Цифр больше 6: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">123456</pre></div><div><b>Вывод</b><pre>Цифр больше 6: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">98797</pre></div><div><b>Вывод</b><pre>Цифр больше 6: 5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Символ-цифру сначала переводят в число через <code>int()</code>, потом сравнивают.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.5.7</span><h3 class="task__title">Самый холодный день</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней (не меньше одного) и температура утром в каждый из них — целое число, возможно отрицательное. Выведите наименьшую температуру и номер дня, когда она была впервые. Формат: <code>Холоднее всего: -7 (день 3)</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+-2
+1
+-7
+0
+-7</pre></div><div><b>Вывод</b><pre>Холоднее всего: -7 (день 3)</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+4</pre></div><div><b>Вывод</b><pre>Холоднее всего: 4 (день 1)</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+-1
+-3
+-10</pre></div><div><b>Вывод</b><pre>Холоднее всего: -10 (день 3)</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Начальным значением возьмите первую температуру, а не 0. Номер дня меняйте вместе с температурой.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.5.8</span><h3 class="task__title">Число рассадок</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В очереди на выдачу заказов стоят n человек. Число способов выстроить их по-разному равно произведению <code>1 · 2 · … · n</code> (для нуля — 1). Вводится n от 0 до 10. Выведите результат в виде <code>Способов: 120</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>Способов: 120</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Способов: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>Способов: 3628800</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Множители — числа от 1 до n включительно. Какой конец у <code>range</code>, чтобы n вошло?</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.5.9</span><h3 class="task__title">Средний положительный баланс</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество счетов и баланс каждого — целое число, может быть отрицательным или нулём. Выведите среднее арифметическое только положительных балансов в виде <code>Средний баланс: 150.00</code>. Если положительных нет, выведите <code>Положительных балансов нет</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+100
+-50
+200
+0</pre></div><div><b>Вывод</b><pre>Средний баланс: 150.00</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+-5
+-2
+0</pre></div><div><b>Вывод</b><pre>Положительных балансов нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+10
+20
+25</pre></div><div><b>Вывод</b><pre>Средний баланс: 18.33</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Положительных балансов нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нужны две величины: сумма положительных и их количество. Делить можно только после цикла и только если количество не нулевое.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.5.10</span><h3 class="task__title">Первая дорогая покупка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество покупок и сумма каждой. Найдите первую покупку дороже 5000 рублей и прекратите проверку. Выведите <code>Дорогая покупка №3: 7200 руб.</code>, а если таких нет, — <code>Дорогих покупок нет</code>. Для выбора вывода используйте <code>else</code> у цикла.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+1200
+300
+7200
+9000</pre></div><div><b>Вывод</b><pre>Дорогая покупка №3: 7200 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+100
+5000
+4999</pre></div><div><b>Вывод</b><pre>Дорогих покупок нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Дорогих покупок нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>else</code> цикла выполняется, только если цикл дошёл до конца без <code>break</code>.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.5.11</span><h3 class="task__title">Простой ли номер зала</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В кинотеатре зал с номером n считается «простым», если n делится без остатка только на 1 и на само себя. Вводится целое n ≥ 2. Выведите <code>Простой</code> или <code>Составной</code>. Проверьте делители от 2 до n − 1 циклом <code>for</code> с <code>break</code> и <code>else</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>Простой</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Составной</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>Простой</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">49</pre></div><div><b>Вывод</b><pre>Составной</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если нашёлся хоть один делитель, ответ уже известен, и перебор можно прервать.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.5.12</span><h3 class="task__title">Перепишите цикл</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа сводит чеки: положительные суммы — оплаты, отрицательные — возвраты, их в итог не включаем. Сейчас цикл записан через <code>while</code> со счётчиком. Перепишите его через <code>for</code> с <code>range</code>. Вывод не должен измениться.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — переписать</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+number = <span class="n">1</span>
+total = <span class="n">0</span>
+<span class="k">while</span> number &lt;= count:
+    amount = <span class="f">int</span>(<span class="f">input</span>())
+    <span class="k">if</span> amount &gt; <span class="n">0</span>:
+        total += amount
+    number += <span class="n">1</span>
+<span class="f">print</span>(<span class="s">&quot;Оплат на сумму:&quot;</span>, total, <span class="s">&quot;руб.&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+500
+-200
+300
+-50</pre></div><div><b>Вывод</b><pre>Оплат на сумму: 800 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Оплат на сумму: 0 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Счётчик <code>number</code> и его увеличение берёт на себя <code>for</code>: обе строки со счётчиком из программы исчезнут.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.5.13</span><h3 class="task__title">Максимум пульса и повторы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Во время тренировки пульс измеряли несколько раз. Вводятся количество измерений (не меньше одного) и значения. Выведите наибольший пульс и сколько раз он встретился: <code>Максимум: 172, раз: 2</code>. Читайте значения один раз, список не нужен.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+150
+172
+165
+172
+140</pre></div><div><b>Вывод</b><pre>Максимум: 172, раз: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+90</pre></div><div><b>Вывод</b><pre>Максимум: 90, раз: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4
+100
+110
+120
+130</pre></div><div><b>Вывод</b><pre>Максимум: 130, раз: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Когда находится новый максимум, счётчик повторов сбрасывается в 1; когда значение равно текущему максимуму, счётчик растёт.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.5.14</span><h3 class="task__title">Серия выполненных планов</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Для каждого из дней вводится 1, если менеджер выполнил план, и 0, если не выполнил. Вводятся количество дней и затем эти значения. Выведите длину самой длинной серии подряд выполненных дней: <code>Лучшая серия: 3</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7
+1
+1
+0
+1
+1
+1
+0</pre></div><div><b>Вывод</b><pre>Лучшая серия: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Лучшая серия: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4
+1
+1
+1
+1</pre></div><div><b>Вывод</b><pre>Лучшая серия: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">3
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Лучшая серия: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Держите две величины: длину текущей серии и длину лучшей. Нуль обрывает текущую серию, но лучшую не трогает.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.5.15</span><h3 class="task__title">Исправьте ошибки</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа получает количество дней и температуру в каждый из них. Она выводит, сколько дней было с температурой ниже нуля, и сумму температур в такие дни. В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>n = <span class="f">int</span>(<span class="f">input</span>())
+count = <span class="n">0</span>
+total = <span class="n">0</span>
+<span class="k">for</span> day <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, n):
+    temperature = <span class="f">int</span>(<span class="f">input</span>())
+    <span class="k">if</span> temperature &gt; <span class="n">0</span>:
+        count += <span class="n">1</span>
+        total = temperature
+<span class="f">print</span>(<span class="s">&quot;Дней с морозом:&quot;</span>, count)
+<span class="f">print</span>(<span class="s">&quot;Сумма температур:&quot;</span>, total)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+-3
+4
+-8
+0
+-1</pre></div><div><b>Вывод</b><pre>Дней с морозом: 3
+Сумма температур: -12</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+5
+6
+7</pre></div><div><b>Вывод</b><pre>Дней с морозом: 0
+Сумма температур: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+-4</pre></div><div><b>Вывод</b><pre>Дней с морозом: 1
+Сумма температур: -4</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверьте: сколько раз повторяется цикл, какое условие выбрано и накапливается ли сумма или заменяется последним значением.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-4/index.html">← Задачи 3.4</a><a href="../../temy/23-praktika-for/index.html">Глава 3.5 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-6/index.html">Задачи 3.6 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.5 · Практика <code>for in</code> · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

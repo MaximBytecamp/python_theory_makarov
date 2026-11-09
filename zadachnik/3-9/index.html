@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.9 · Объект <code>slice</code> · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.9</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.9</span>
+<h1>Задачи к главе<br>«Объект <code>slice</code>»</h1>
+<p class="lead">Границы среза можно сохранить в переменную: <code>name = slice(0, 4)</code>, а потом писать <code>line[name]</code>. Так поля записи фиксированного формата получают имена, а <code>.start</code>, <code>.stop</code>, <code>.step</code> и <code>.indices()</code> показывают, из чего состоит срез.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/54-imenovannye-srezy/index.html">3.9 Объект <code>slice</code></a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.9</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip chip--now" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a></div>
+<p>Методов строк (<code>split</code>, <code>strip</code> и других) пока нет — они в модуле 5. Поля вырезают только срезами. Если в тексте задачи указан формат строки, считайте, что все данные ему соответствуют.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Код детали</a></li><li><a href="#r2">Разбор 2. Ведомость платежей</a></li><li><a href="#r3">Разбор 3. Срез выходит за границы</a></li><li><a href="#p1">Задача 3.9.1. Дата без разделителей</a></li><li><a href="#p2">Задача 3.9.2. Артикул товара</a></li><li><a href="#p3">Задача 3.9.3. Параметры среза</a></li><li><a href="#p4">Задача 3.9.4. Первые три результата</a></li><li><a href="#p5">Задача 3.9.5. Номер поезда и вагона</a></li><li><a href="#p6">Задача 3.9.6. Каждый второй день</a></li><li><a href="#p7">Задача 3.9.7. Расписание из строк</a></li><li><a href="#p8">Задача 3.9.8. Срез обрезан?</a></li><li><a href="#p9">Задача 3.9.9. Страница каталога</a></li><li><a href="#p10">Задача 3.9.10. Сумма в строке платежа</a></li><li><a href="#p11">Задача 3.9.11. Скрытый номер карты</a></li><li><a href="#p12">Задача 3.9.12. Исправьте программу</a></li><li><a href="#p13">Задача 3.9.13. Разбор по ширинам полей</a></li><li><a href="#p14">Задача 3.9.14. Хвост наоборот</a></li><li><a href="#p15">Задача 3.9.15. Самое тёплое окно</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой границы записаны один раз в именованном срезе, а дальше используется только имя.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Код детали</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Код детали на складе записан так: <code>BT-2045-17</code>. Первые два символа — категория, символы с четвёртого по седьмой — номер, последние два — партия. Вводится код. Выведите три строки: <code>Категория: …</code>, <code>Номер: …</code>, <code>Партия: …</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Формат фиксированный, значит, у каждого поля свои неизменные границы. Сначала считаем индексы: категория — <code>0</code> и <code>1</code>, дефис стоит под индексом <code>2</code>.</li><li>Номер начинается с индекса <code>3</code>, это четыре символа, поэтому граница <code>stop</code> равна <code>7</code>. Дефис под индексом <code>7</code> в срез не попадает.</li><li>Партия — символы с индексом <code>8</code> и <code>9</code>. Каждому полю даём имя через <code>slice()</code> и применяем его к строке.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+code = <span class="f">input</span>(<span class="s">&quot;Код детали: &quot;</span>)
+
+<span class="c"># Поля формата</span>
+category = <span class="f">slice</span>(<span class="n">0</span>, <span class="n">2</span>)
+number = <span class="f">slice</span>(<span class="n">3</span>, <span class="n">7</span>)
+batch = <span class="f">slice</span>(<span class="n">8</span>, <span class="n">10</span>)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Категория:&quot;</span>, code[category])
+<span class="f">print</span>(<span class="s">&quot;Номер:&quot;</span>, code[number])
+<span class="f">print</span>(<span class="s">&quot;Партия:&quot;</span>, code[batch])</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Код детали: <span class="typed">BT-2045-17</span>
+Категория: BT
+Номер: 2045
+Партия: 17</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">KX-0007-03</pre></div><div><b>Вывод</b><pre>Категория: KX
+Номер: 0007
+Партия: 03</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">ZZ-9999-99</pre></div><div><b>Вывод</b><pre>Категория: ZZ
+Номер: 9999
+Партия: 99</pre></div></div></div>
+<div class="margin-note"><b>Зачем имя вместо чисел</b><p>Запись <code>code[3:7]</code> требует помнить, что за поле лежит между индексами. Имя <code>number</code> объясняет это само. Если формат изменится, правят одну строку со срезом. Места, где поле используется, остаются прежними.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Ведомость платежей</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Кассовая программа хранит платёж в строке фиксированной длины: символы с индексом 0–7 — дата (<code>09.11.25</code>), с индекса 9 по 14 — сумма в рублях, выровненная вправо пробелами, дальше после пробела — название магазина. Вводятся количество платежей и сами строки. Выведите, сколько платежей было и на какую сумму. Формат: <code>Платежей: 3, на сумму 1750 руб.</code></p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Из трёх полей нужна только сумма. Дата и магазин в расчёте не участвуют, поэтому им срезы не нужны.</li><li>Сумма занимает шесть символов: индексы <code>9</code>–<code>14</code>, то есть <code>slice(9, 15)</code>. Если сумма короткая, слева в поле пробелы. Функция <code>int()</code> спокойно относится к пробелам по краям строки.</li><li>Срез создаём один раз до цикла. В цикле читаем строку, вырезаем поле, превращаем в число и прибавляем к общей сумме.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Платежей: &quot;</span>))
+amount_field = <span class="f">slice</span>(<span class="n">9</span>, <span class="n">15</span>)
+
+<span class="c"># Расчёт</span>
+total = <span class="n">0</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    record = <span class="f">input</span>()
+    total += <span class="f">int</span>(record[amount_field])
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Платежей: </span>{count}<span class="s">, на сумму </span>{total}<span class="s"> руб.</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Платежей: <span class="typed">3</span>
+<span class="typed">09.11.25    450 Магнит</span>
+<span class="typed">09.11.25    300 Аптека</span>
+<span class="typed">10.11.25   1000 Лента</span>
+Платежей: 3, на сумму 1750 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+01.01.25  12500 Салон</pre></div><div><b>Вывод</b><pre>Платежей: 1, на сумму 12500 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Платежей: 0, на сумму 0 руб.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Поле считают по индексам, а не по видимым символам</b><p>Пробелы в записи тоже занимают индексы. Если сдвинуть границу на один символ, в срез попадёт часть соседнего поля, а <code>int()</code> выдаст ошибку на букве. Перед написанием среза выпишите индексы нужного поля на листе.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Срез выходит за границы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Табло показывает начало названия остановки: срез с позиции 0 до позиции <code>stop</code>. Но <code>stop</code> вводит диспетчер, и он может оказаться больше длины названия. Вводятся название (одной строкой) и число <code>stop</code>. Выведите, сколько символов вошло в срез, и до какой позиции срез реально дошёл, — в формате <code>Взято 4, граница 4</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Срез с завышенной границей не вызывает ошибку: Python останавливается на конце строки. Значит, реальную границу надо узнать отдельно.</li><li>Метод <code>.indices(n)</code> принимает длину и возвращает три числа: реальные <code>start</code>, <code>stop</code>, <code>step</code>. Распаковываем их в три переменные.</li><li>Число символов в срезе проверяем через <code>len()</code> от самого среза. Границу берём из <code>.indices()</code>: она не больше длины строки.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+title = <span class="f">input</span>(<span class="s">&quot;Название: &quot;</span>)
+stop = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Граница stop: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+part = <span class="f">slice</span>(<span class="n">0</span>, stop)
+real_start, real_stop, real_step = part.indices(<span class="f">len</span>(title))
+taken = <span class="f">len</span>(title[part])
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Взято </span>{taken}<span class="s">, граница </span>{real_stop}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Название: <span class="typed">Невский проспект</span>
+Граница stop: <span class="typed">8</span>
+Взято 8, граница 8</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Кино
+10</pre></div><div><b>Вывод</b><pre>Взято 4, граница 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Парк
+0</pre></div><div><b>Вывод</b><pre>Взято 0, граница 0</pre></div></div></div>
+<div class="margin-note"><b>Что даёт .indices()</b><p>Метод заменяет границы среза на настоящие индексы для списка заданной длины: слишком большое число превращается в длину, отсутствующая граница — в <code>0</code> или конец списка. Эти три числа можно подставить в <code>range()</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.9.1</span><h3 class="task__title">Дата без разделителей</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Дата записана восемью цифрами в порядке «год, месяц, день»: <code>20251109</code>. Вводится такая строка. Выведите дату в виде <code>09.11.2025</code>. Для каждого поля заведите именованный срез.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">20251109</pre></div><div><b>Вывод</b><pre>09.11.2025</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">19990101</pre></div><div><b>Вывод</b><pre>01.01.1999</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">20240229</pre></div><div><b>Вывод</b><pre>29.02.2024</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Год занимает индексы 0–3, значит, граница <code>stop</code> у него равна 4.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.9.2</span><h3 class="task__title">Артикул товара</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Артикул устроен так: <code>KB-0450-BLK</code>. Первые два символа — вид товара, символы с индекса 3 по 6 — номер, последние три — цвет. Вводится артикул. Выведите три строки: <code>Вид: …</code>, <code>Номер: …</code>, <code>Цвет: …</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">KB-0450-BLK</pre></div><div><b>Вывод</b><pre>Вид: KB
+Номер: 0450
+Цвет: BLK</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">MS-1200-WHT</pre></div><div><b>Вывод</b><pre>Вид: MS
+Номер: 1200
+Цвет: WHT</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Дефисы занимают индексы 2 и 7, в срезы они не входят.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.9.3</span><h3 class="task__title">Параметры среза</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся три целых числа: начало, конец и шаг (шаг не равен нулю). Создайте срез из этих чисел, выведите три его параметра по одному в строке в форме <code>start: …</code>, <code>stop: …</code>, <code>step: …</code>, а четвёртой строкой — срез списка <code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>, заданный этим объектом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+8
+2</pre></div><div><b>Вывод</b><pre>start: 2
+stop: 8
+step: 2
+[2, 4, 6]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+10
+3</pre></div><div><b>Вывод</b><pre>start: 0
+stop: 10
+step: 3
+[0, 3, 6, 9]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">8
+2
+-2</pre></div><div><b>Вывод</b><pre>start: 8
+stop: 2
+step: -2
+[8, 6, 4]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Атрибуты читаются через точку: <code>part.start</code>.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.9.4</span><h3 class="task__title">Первые три результата</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Итоги забега записаны одной строкой: буква — это команда, порядок букв — порядок финиша, например <code>KMRTA</code>. Вводится такая строка (в ней может быть меньше трёх букв). Выведите призёров — первые три буквы в формате <code>Призёры: …</code>. Если участников меньше трёх, выведите всех. Срез заведите отдельной переменной с помощью <code>slice(3)</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">KMRTA</pre></div><div><b>Вывод</b><pre>Призёры: KMR</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">BC</pre></div><div><b>Вывод</b><pre>Призёры: BC</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">XYZ</pre></div><div><b>Вывод</b><pre>Призёры: XYZ</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>slice(3)</code> с одним аргументом задаёт только <code>stop</code>.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.9.5</span><h3 class="task__title">Номер поезда и вагона</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Билет закодирован строкой из 8 символов: символы 0–3 — номер поезда, символ 4 — класс вагона (буква), символы 5–6 — номер вагона, символ 7 — буква места. Вводится такая строка, например <code>0123A07B</code>. Выведите <code>Поезд 0123, вагон 07, класс A, место B</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0123A07B</pre></div><div><b>Вывод</b><pre>Поезд 0123, вагон 07, класс A, место B</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0750K12C</pre></div><div><b>Вывод</b><pre>Поезд 0750, вагон 12, класс K, место C</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одиночный символ тоже можно вырезать срезом: <code>slice(4, 5)</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.9.6</span><h3 class="task__title">Каждый второй день</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Тренировки за неделю записаны строкой из цифр: каждая цифра — число подходов за день, например <code>5072913</code>. Вводится такая строка (от 0 до 7 цифр). Выведите цифры дней с чётными номерами (индексы 0, 2, 4…) и цифры в обратном порядке. Для каждого вывода заведите свой срез: <code>slice(None, None, 2)</code> и <code>slice(None, None, -1)</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5072913</pre></div><div><b>Вывод</b><pre>Через день: 5793
+С конца: 3192705</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4</pre></div><div><b>Вывод</b><pre>Через день: 4
+С конца: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Через день: 
+С конца: </pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если границы не нужны, на их месте пишут <code>None</code>.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.9.7</span><h3 class="task__title">Расписание из строк</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Расписание задано строками фиксированного формата: <code>09:30-11:05 ауд.214</code>. Символы 0–4 — начало занятия, символы 6–10 — конец, с индекса 12 до конца — аудитория. Вводятся количество строк и сами строки. Для каждой выведите <code>ауд.214: начало 09:30, конец 11:05</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+09:30-11:05 ауд.214
+11:15-12:50 ауд.108</pre></div><div><b>Вывод</b><pre>ауд.214: начало 09:30, конец 11:05
+ауд.108: начало 11:15, конец 12:50</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+14:00-15:35 ауд.2</pre></div><div><b>Вывод</b><pre>ауд.2: начало 14:00, конец 15:35</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для среза «до конца строки» второй аргумент <code>slice</code> равен <code>None</code>.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.9.8</span><h3 class="task__title">Срез обрезан?</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся длина списка и граница <code>stop</code> среза <code>slice(0, stop)</code>. Выведите <code>Обрезан</code>, если граница больше длины списка и реальный срез закончился раньше, и <code>Целиком</code> в остальных случаях. Сравните <code>.stop</code> среза с границей, которую вернул <code>.indices()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+4</pre></div><div><b>Вывод</b><pre>Целиком</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+25</pre></div><div><b>Вывод</b><pre>Обрезан</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+10</pre></div><div><b>Вывод</b><pre>Целиком</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0
+3</pre></div><div><b>Вывод</b><pre>Обрезан</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод <code>.indices(n)</code> возвращает три числа. Реальная граница — второе.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.9.9</span><h3 class="task__title">Страница каталога</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Каталог закодирован строкой: каждая буква — один товар, например <code>ABCDEFG</code>. На странице показывается по 3 товара. Вводятся строка каталога и номер страницы, начиная с 1. Выведите коды товаров этой страницы одной строкой. Если страницы нет, выведите пустую строку. Границы среза рассчитайте по номеру страницы и сохраните в именованном срезе.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">ABCDEFG
+2</pre></div><div><b>Вывод</b><pre>DEF</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">ABCDEFG
+3</pre></div><div><b>Вывод</b><pre>G</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">AB
+5</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первый индекс страницы — <code>(page - 1) * size</code>, а <code>stop</code> — <code>page * size</code>.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.9.10</span><h3 class="task__title">Сумма в строке платежа</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Запись платежа: символы 0–7 — дата, символы 9–14 — сумма с пробелами слева, например <code>09.11.25    450 еда</code>. Вводятся количество записей и сами записи. Выведите сумму всех платежей и самую большую сумму. Максимум найдите циклом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+09.11.25    450 еда
+09.11.25   2300 одежда
+10.11.25     90 кофе</pre></div><div><b>Вывод</b><pre>Всего: 2840
+Самый крупный: 2300</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+01.01.25  15000 ремонт</pre></div><div><b>Вывод</b><pre>Всего: 15000
+Самый крупный: 15000</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Всего: 0
+Самый крупный: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Пробелы по краям поля <code>int()</code> игнорирует, чистить их не нужно.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.9.11</span><h3 class="task__title">Скрытый номер карты</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Номер карты — 16 цифр без пробелов. На экране показывают первые 4 и последние 4 цифры, а между ними восемь звёздочек. Вводится номер. Выведите замаскированный номер одной строкой. Первую и последнюю группы вырежьте именованными срезами.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4276123456780412</pre></div><div><b>Вывод</b><pre>4276********0412</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0000111122223333</pre></div><div><b>Вывод</b><pre>0000********3333</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Последние четыре символа — это <code>slice(12, 16)</code> или <code>slice(-4, None)</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.9.12</span><h3 class="task__title">Исправьте программу</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Артикул устроен так: <code>RU-0457-A</code>. Символы 3–6 — четырёхзначный номер, последний символ — литера. Программа должна вывести номер, литеру и длину поля номера. В ней две ошибки: номер выводится неполным, а длина считается неверно. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>record = <span class="f">input</span>()
+number_part = <span class="f">slice</span>(<span class="n">3</span>, <span class="n">6</span>)
+letter_part = <span class="f">slice</span>(<span class="n">8</span>, <span class="n">9</span>)
+<span class="f">print</span>(<span class="s">&quot;Номер:&quot;</span>, record[number_part])
+<span class="f">print</span>(<span class="s">&quot;Литера:&quot;</span>, record[letter_part])
+<span class="f">print</span>(<span class="s">&quot;Длина номера:&quot;</span>, number_part.stop + number_part.start)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">RU-0457-A</pre></div><div><b>Вывод</b><pre>Номер: 0457
+Литера: A
+Длина номера: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">KZ-9001-Q</pre></div><div><b>Вывод</b><pre>Номер: 9001
+Литера: Q
+Длина номера: 4</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Граница <code>stop</code> в срез не входит. Длина поля — это разность границ.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.9.13</span><h3 class="task__title">Разбор по ширинам полей</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Запись состоит из полей разной длины. Сначала вводится строка записи, затем количество полей, затем ширина каждого поля (по одной в строке). Выведите каждое поле на отдельной строке в форме <code>Поле 1: …</code>. Поля идут подряд без разделителей. Срез каждого поля создавайте в цикле, пересчитывая начало.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">MSK0451ANNA
+3
+3
+4
+4</pre></div><div><b>Вывод</b><pre>Поле 1: MSK
+Поле 2: 0451
+Поле 3: ANNA</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">ABCDEF
+1
+6</pre></div><div><b>Вывод</b><pre>Поле 1: ABCDEF</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">ABCDEF
+0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Начало следующего поля равно концу предыдущего. Храните текущую позицию в переменной и сдвигайте её на ширину.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.9.14</span><h3 class="task__title">Хвост наоборот</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Серийный номер прибора вводится одной строкой, например <code>AB-4075-XZ</code>, затем число <code>k</code> — сколько последних символов нужно показать. Выведите последние <code>k</code> символов в обратном порядке: от самого последнего. Если <code>k</code> больше длины строки, выведите всю строку наоборот, если <code>k</code> равно 0 — пустую строку. Один именованный срез с отрицательным шагом решает задачу без цикла.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">AB-4075-XZ
+3</pre></div><div><b>Вывод</b><pre>ZX-</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">123
+10</pre></div><div><b>Вывод</b><pre>321</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">123
+0</pre></div><div><b>Вывод</b><pre></pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">7
+1</pre></div><div><b>Вывод</b><pre>7</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>При шаге <code>-1</code> срез идёт от конца к началу. Остановиться нужно перед элементом с индексом <code>-k - 1</code>.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.9.15</span><h3 class="task__title">Самое тёплое окно</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Температуры по дням записаны строкой из цифр: одна цифра — один день, например <code>2354168</code>. Вводятся такая строка и ширина окна <code>w</code> (не больше длины строки, не меньше 1). Найдите окно из <code>w</code> подряд идущих дней с наибольшей суммой и выведите номер его первого дня, считая с нуля, и сумму: <code>Окно с 2, сумма 14</code>. Если таких окон несколько, выведите первое. Сумму окна считайте циклом по срезу <code>slice(i, i + w)</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2354168
+3</pre></div><div><b>Вывод</b><pre>Окно с 4, сумма 15</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1111
+2</pre></div><div><b>Вывод</b><pre>Окно с 0, сумма 2</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">573
+3</pre></div><div><b>Вывод</b><pre>Окно с 0, сумма 15</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">3212321
+1</pre></div><div><b>Вывод</b><pre>Окно с 0, сумма 3</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Окон ровно <code>len(temps) - w + 1</code>. Для каждого начала <code>i</code> заново создавайте срез.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-8/index.html">← Задачи 3.8</a><a href="../../temy/54-imenovannye-srezy/index.html">Глава 3.9 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-10/index.html">Задачи 3.10 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.9 · Объект <code>slice</code> · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

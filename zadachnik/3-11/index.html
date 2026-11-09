@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.11 · Методы списков: часть 2 · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.11</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.11</span>
+<h1>Задачи к главе<br>«Методы списков: часть 2»</h1>
+<p class="lead"><code>pop()</code> снимает элемент и возвращает его, <code>index()</code> и <code>count()</code> ищут значение, <code>sort()</code> и <code>sorted()</code> упорядочивают данные, а <code>clear()</code> очищает список. В задачах нужно различать вызовы, которые меняют список, и вызовы, которые возвращают новый результат.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/26-metody-spiskov-2/index.html">3.11 Методы списков: часть 2</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.11</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a><a class="chip chip--now" href="../../temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2</a></div>
+<p>Проверки <code>in</code> пока нет, поэтому <code>index()</code> вызывайте только для значения, которое точно есть в списке: иначе будет ошибка. То же для <code>pop()</code> с пустым списком. Сортировка без <code>key</code> сравнивает значения как есть: числа по величине, строки по алфавиту.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Отмена последнего действия</a></li><li><a href="#r2">Разбор 2. Первая пятёрка</a></li><li><a href="#r3">Разбор 3. Заказы без мелких сумм</a></li><li><a href="#p1">Задача 3.11.1. Последний ответ</a></li><li><a href="#p2">Задача 3.11.2. Вызов следующего клиента</a></li><li><a href="#p3">Задача 3.11.3. Сколько троек</a></li><li><a href="#p4">Задача 3.11.4. Показания по возрастанию</a></li><li><a href="#p5">Задача 3.11.5. Очистка корзины</a></li><li><a href="#p6">Задача 3.11.6. Позиция товара</a></li><li><a href="#p7">Задача 3.11.7. Три лучших результата</a></li><li><a href="#p8">Задача 3.11.8. Самое короткое и самое длинное</a></li><li><a href="#p9">Задача 3.11.9. Назад в браузере</a></li><li><a href="#p10">Задача 3.11.10. Обслужено за смену</a></li><li><a href="#p11">Задача 3.11.11. Исправьте сортировку</a></li><li><a href="#p12">Задача 3.11.12. Исправьте удаление</a></li><li><a href="#p13">Задача 3.11.13. Все позиции значения</a></li><li><a href="#p14">Задача 3.11.14. Медиана</a></li><li><a href="#p15">Задача 3.11.15. Сначала короткие, при равенстве по алфавиту</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой перед кодом выбран метод и объяснено, меняет он список или возвращает значение.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Отмена последнего действия</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Редактор хранит историю действий. Вводятся названия действий, по одному в строке, до слова <code>конец</code> (хотя бы одно). Пользователь нажимает «Отменить»: последнее действие надо убрать из истории. Выведите <code>Отменено: …</code> и оставшуюся историю.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Нужно и убрать последний элемент, и узнать, какой он: <code>pop()</code> делает оба действия сразу.</li><li>Результат метода сохраняем в переменную, чтобы потом вывести его в сообщении.</li><li>История собирается так же, как раньше: пустой список и <code>append()</code> в цикле, пока не встретится слово-стоп.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+history = []
+action = <span class="f">input</span>(<span class="s">&quot;Действие: &quot;</span>)
+<span class="k">while</span> action != <span class="s">&quot;конец&quot;</span>:
+    history.append(action)
+    action = <span class="f">input</span>(<span class="s">&quot;Действие: &quot;</span>)
+
+<span class="c"># Отмена</span>
+undone = history.pop()
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Отменено:&quot;</span>, undone)
+<span class="f">print</span>(<span class="s">&quot;История:&quot;</span>, history)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Действие: <span class="typed">ввод текста</span>
+Действие: <span class="typed">жирный шрифт</span>
+Действие: <span class="typed">вставка таблицы</span>
+Действие: <span class="typed">конец</span>
+Отменено: вставка таблицы
+История: [&#x27;ввод текста&#x27;, &#x27;жирный шрифт&#x27;]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">открытие файла
+конец</pre></div><div><b>Вывод</b><pre>Отменено: открытие файла
+История: []</pre></div></div></div>
+<div class="margin-note"><b>pop() на пустом списке</b><p>Если список пуст, <code>pop()</code> выдаёт ошибку <code>IndexError</code>. В условии сказано «хотя бы одно действие», поэтому здесь проверка не нужна. В другой программе перед <code>pop()</code> проверяют <code>len(history) &gt; 0</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Первая пятёрка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество оценок студента и сами оценки (от 2 до 5). Выведите, сколько среди них пятёрок. Если пятёрки есть, выведите ещё и номер первой из них, считая с единицы: <code>Пятёрок: 2, первая — оценка номер 3</code>. Если пятёрок нет, выведите <code>Пятёрок нет</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Количество находит <code>count(5)</code>. Он не падает, даже если пятёрок нет: вернёт <code>0</code>.</li><li>Позицию находит <code>index(5)</code>, но если пятёрки нет, метод вызывает ошибку. Поэтому сначала проверяем результат <code>count()</code>, и только потом вызываем <code>index()</code>.</li><li><code>index()</code> возвращает индекс с нуля, а номер оценки считают с единицы. Добавляем <code>1</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценок: &quot;</span>))
+grades = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    grades.append(<span class="f">int</span>(<span class="f">input</span>()))
+
+<span class="c"># Расчёт</span>
+fives = grades.count(<span class="n">5</span>)
+
+<span class="c"># Вывод</span>
+<span class="k">if</span> fives == <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">&quot;Пятёрок нет&quot;</span>)
+<span class="k">else</span>:
+    first = grades.index(<span class="n">5</span>) + <span class="n">1</span>
+    <span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Пятёрок: </span>{fives}<span class="s">, первая — оценка номер </span>{first}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Оценок: <span class="typed">5</span>
+<span class="typed">4</span>
+<span class="typed">3</span>
+<span class="typed">5</span>
+<span class="typed">4</span>
+<span class="typed">5</span>
+Пятёрок: 2, первая — оценка номер 3</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+4
+4
+3</pre></div><div><b>Вывод</b><pre>Пятёрок нет</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+5</pre></div><div><b>Вывод</b><pre>Пятёрок: 1, первая — оценка номер 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Пятёрок нет</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>index() сообщает только о первом совпадении</b><p>Если значение встречается несколько раз, метод вернёт позицию первого. Все позиции придётся искать циклом по индексам.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Заказы без мелких сумм</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество заказов и суммы заказов (целые числа). Удалите из списка заказы меньше 500 рублей, сохранив порядок остальных. Выведите оставшиеся суммы и сколько заказов удалено: <code>Удалено: 2</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Удалять элементы из списка, который перебирает цикл <code>for</code>, нельзя: после удаления элементы сдвигаются, и цикл пропускает соседа удалённого.</li><li>Надёжный способ — идти по индексам с конца к началу. Удаление элемента на позиции <code>i</code> сдвигает только те, что правее, а они уже проверены.</li><li>Обратный перебор задаёт <code>range(len(orders) - 1, -1, -1)</code>. Для удаления по индексу подходит <code>pop(i)</code>. Количество удалённых считаем счётчиком.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказов: &quot;</span>))
+orders = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    orders.append(<span class="f">int</span>(<span class="f">input</span>()))
+
+<span class="c"># Удаление с конца</span>
+removed = <span class="n">0</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(orders) - <span class="n">1</span>, -<span class="n">1</span>, -<span class="n">1</span>):
+    <span class="k">if</span> orders[i] &lt; <span class="n">500</span>:
+        orders.pop(i)
+        removed += <span class="n">1</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(orders)
+<span class="f">print</span>(<span class="s">&quot;Удалено:&quot;</span>, removed)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Заказов: <span class="typed">6</span>
+<span class="typed">300</span>
+<span class="typed">1200</span>
+<span class="typed">450</span>
+<span class="typed">480</span>
+<span class="typed">900</span>
+<span class="typed">100</span>
+[1200, 900]
+Удалено: 4</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+600
+700
+800</pre></div><div><b>Вывод</b><pre>[600, 700, 800]
+Удалено: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+10
+20</pre></div><div><b>Вывод</b><pre>[]
+Удалено: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[]
+Удалено: 0</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Удаление внутри обычного цикла for</b><p>В списке <code>[300, 450, 900]</code> цикл <code>for order in orders</code> с удалением значений меньше 500 уберёт 300, а 450 пропустит: после удаления он встал на место 300, а цикл перешёл к следующему индексу. Обход с конца или обход копии этой проблемы не создают.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.11.1</span><h3 class="task__title">Последний ответ</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество ответов (хотя бы один) и сами ответы — слова, по одному в строке. Уберите последний ответ из списка. Выведите две строки: <code>Убран: …</code> и оставшийся список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+да
+нет
+может быть</pre></div><div><b>Вывод</b><pre>Убран: может быть
+[&#x27;да&#x27;, &#x27;нет&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+да</pre></div><div><b>Вывод</b><pre>Убран: да
+[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>pop()</code> без аргумента снимает последний элемент.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.11.2</span><h3 class="task__title">Вызов следующего клиента</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В электронной очереди стоят клиенты. Вводятся количество (хотя бы один) и талоны клиентов в порядке прихода. Оператор вызывает первого клиента. Выведите <code>Вызван: …</code> и список талонов, оставшихся в очереди.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+А-17
+А-18
+Б-04</pre></div><div><b>Вывод</b><pre>Вызван: А-17
+[&#x27;А-18&#x27;, &#x27;Б-04&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+А-01</pre></div><div><b>Вывод</b><pre>Вызван: А-01
+[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Индекс первого элемента — 0, его можно передать в <code>pop()</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.11.3</span><h3 class="task__title">Сколько троек</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество оценок и сами оценки. Выведите, сколько среди них троек, в виде <code>Троек: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+3
+4
+3
+5
+2</pre></div><div><b>Вывод</b><pre>Троек: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+5
+4</pre></div><div><b>Вывод</b><pre>Троек: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Троек: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод возвращает число совпадений, а если их нет — ноль.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.11.4</span><h3 class="task__title">Показания по возрастанию</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество показаний счётчика воды и сами показания (целые числа). Упорядочьте их по возрастанию на месте и выведите список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+120
+80
+95
+200
+80</pre></div><div><b>Вывод</b><pre>[80, 80, 95, 120, 200]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+50</pre></div><div><b>Вывод</b><pre>[50]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод <code>sort()</code> ничего не возвращает, поэтому выводите сам список после вызова.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.11.5</span><h3 class="task__title">Очистка корзины</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся названия товаров в корзине до слова <code>конец</code>. Выведите корзину, затем очистите её и выведите ещё раз. Вторая строка — пустой список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">чай
+сахар
+конец</pre></div><div><b>Вывод</b><pre>[&#x27;чай&#x27;, &#x27;сахар&#x27;]
+[]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">конец</pre></div><div><b>Вывод</b><pre>[]
+[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод не принимает аргументов и ничего не возвращает.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.11.6</span><h3 class="task__title">Позиция товара</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество товаров на полке, их названия (все разные) и название искомого товара, который есть на полке. Выведите, каким по счёту он стоит, считая с единицы: <code>Позиция: 3</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+чай
+кофе
+какао
+молоко
+какао</pre></div><div><b>Вывод</b><pre>Позиция: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+чай
+кофе
+чай</pre></div><div><b>Вывод</b><pre>Позиция: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод даёт индекс, а позиция в человеческом счёте на единицу больше.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.11.7</span><h3 class="task__title">Три лучших результата</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество результатов забега в очках (не меньше трёх) и сами результаты. Выведите три лучших по убыванию и, отдельной строкой, исходный список в прежнем порядке.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+70
+95
+82
+95
+60</pre></div><div><b>Вывод</b><pre>Лучшие: [95, 95, 82]
+Исходный: [70, 95, 82, 95, 60]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+10
+30
+20</pre></div><div><b>Вывод</b><pre>Лучшие: [30, 20, 10]
+Исходный: [10, 30, 20]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Исходный список должен остаться нетронутым. Какая из двух сортировок это обеспечивает?</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.11.8</span><h3 class="task__title">Самое короткое и самое длинное</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество названий товаров (хотя бы одно) и сами названия. Упорядочьте список по длине названия, от короткого к длинному, на месте. Выведите <code>Короткое: …</code> и <code>Длинное: …</code>. Равные по длине названия остаются в исходном порядке.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+чайник
+фен
+холодильник
+утюг</pre></div><div><b>Вывод</b><pre>Короткое: фен
+Длинное: холодильник</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+лампа</pre></div><div><b>Вывод</b><pre>Короткое: лампа
+Длинное: лампа</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+кот
+дом
+сон</pre></div><div><b>Вывод</b><pre>Короткое: кот
+Длинное: сон</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Параметр <code>key=len</code> сравнивает элементы по длине, а не по алфавиту.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.11.9</span><h3 class="task__title">Назад в браузере</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">История страниц хранится списком: последняя — текущая. Вводятся количество страниц (хотя бы две), их названия и число нажатий «Назад» (меньше количества страниц). Каждое нажатие убирает текущую страницу. Выведите <code>Сейчас: …</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+главная
+каталог
+корзина
+оплата
+2</pre></div><div><b>Вывод</b><pre>Сейчас: каталог</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+главная
+поиск
+товар
+0</pre></div><div><b>Вывод</b><pre>Сейчас: товар</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+главная
+поиск
+1</pre></div><div><b>Вывод</b><pre>Сейчас: главная</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Страницу убирают с конца списка, как верхнюю карточку в стопке.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.11.10</span><h3 class="task__title">Обслужено за смену</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество клиентов в очереди, их фамилии и число клиентов, которых кассир успел обслужить (не больше длины очереди). Обслуженных снимайте с начала очереди. Выведите две строки: <code>Обслужены: […]</code> и <code>Остались: […]</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+Иванов
+Петрова
+Сидоров
+Ким
+2</pre></div><div><b>Вывод</b><pre>Обслужены: [&#x27;Иванов&#x27;, &#x27;Петрова&#x27;]
+Остались: [&#x27;Сидоров&#x27;, &#x27;Ким&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+Иванов
+Петрова
+0</pre></div><div><b>Вывод</b><pre>Обслужены: []
+Остались: [&#x27;Иванов&#x27;, &#x27;Петрова&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+Иванов
+Петрова
+2</pre></div><div><b>Вывод</b><pre>Обслужены: [&#x27;Иванов&#x27;, &#x27;Петрова&#x27;]
+Остались: []</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Каждый обслуженный — это <code>pop(0)</code>, который затем добавляется в другой список.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.11.11</span><h3 class="task__title">Исправьте сортировку</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа должна вывести три лучших результата теста (по убыванию) и исходный список. Она падает с ошибкой, а после исправления падения выводит худшие результаты вместо лучших. В программе две ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+scores = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    scores.append(<span class="f">int</span>(<span class="f">input</span>()))
+ranked = scores.sort()
+<span class="f">print</span>(<span class="s">&quot;Три лучших:&quot;</span>, ranked[:<span class="n">3</span>])
+<span class="f">print</span>(<span class="s">&quot;Исходный порядок:&quot;</span>, scores)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+40
+90
+75
+60
+85</pre></div><div><b>Вывод</b><pre>Три лучших: [90, 85, 75]
+Исходный порядок: [40, 90, 75, 60, 85]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+50
+50
+50</pre></div><div><b>Вывод</b><pre>Три лучших: [50, 50, 50]
+Исходный порядок: [50, 50, 50]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна сортировка возвращает новый список, другая меняет старый и возвращает <code>None</code>. И не забудьте про направление.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.11.12</span><h3 class="task__title">Исправьте удаление</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Температуры за ночь записаны в список. Программа должна убрать все отрицательные значения, но при нескольких отрицательных подряд часть из них остаётся. В программе одна ошибка. Исправьте её.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+temps = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    temps.append(<span class="f">int</span>(<span class="f">input</span>()))
+<span class="k">for</span> t <span class="k">in</span> temps:
+    <span class="k">if</span> t &lt; <span class="n">0</span>:
+        temps.remove(t)
+<span class="f">print</span>(temps)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+3
+-2
+-5
+4
+-1
+0</pre></div><div><b>Вывод</b><pre>[3, 4, 0]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+-1
+-2
+-3</pre></div><div><b>Вывод</b><pre>[]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+5
+6</pre></div><div><b>Вывод</b><pre>[5, 6]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Перебирайте не тот список, из которого удаляете.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.11.13</span><h3 class="task__title">Все позиции значения</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество замеров пульса, сами замеры и число, которое нужно найти. Выведите номера всех замеров с таким значением, считая с единицы, по одному в строке. Если значение не встречается, выведите <code>Не найдено</code>. Сначала узнайте количество совпадений методом <code>count()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+72
+80
+72
+65
+72
+72</pre></div><div><b>Вывод</b><pre>1
+3
+5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+70
+71
+72
+99</pre></div><div><b>Вывод</b><pre>Не найдено</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+60
+60</pre></div><div><b>Вывод</b><pre>1</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0
+60</pre></div><div><b>Вывод</b><pre>Не найдено</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>index()</code> возвращает только первое совпадение, поэтому все позиции ищите циклом по индексам.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.11.14</span><h3 class="task__title">Медиана</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество цен (хотя бы одна) и сами цены. Выведите медиану: среднее значение упорядоченного списка. При нечётном количестве это средний элемент, при чётном — среднее двух средних. Формат: <code>Медиана: 4.5</code>. Исходный список менять не нужно.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+90
+10
+50
+70
+30</pre></div><div><b>Вывод</b><pre>Медиана: 50</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4
+4
+9
+1
+5</pre></div><div><b>Вывод</b><pre>Медиана: 4.5</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+42</pre></div><div><b>Вывод</b><pre>Медиана: 42</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">2
+7
+8</pre></div><div><b>Вывод</b><pre>Медиана: 7.5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Середина упорядоченного списка находится на индексе <code>count // 2</code>. Для чётного количества нужен ещё соседний элемент слева.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.11.15</span><h3 class="task__title">Сначала короткие, при равенстве по алфавиту</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество слов и сами слова. Выведите их в порядке возрастания длины, а слова одной длины — по алфавиту. Используйте две сортировки подряд на одном списке. Результат выведите списком.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+лук
+хлеб
+сыр
+рис
+мёд
+масло</pre></div><div><b>Вывод</b><pre>[&#x27;лук&#x27;, &#x27;мёд&#x27;, &#x27;рис&#x27;, &#x27;сыр&#x27;, &#x27;хлеб&#x27;, &#x27;масло&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+чай</pre></div><div><b>Вывод</b><pre>[&#x27;чай&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сортировка устойчива: элементы с равным ключом сохраняют порядок, в котором они были перед ней. Какой порядок нужен перед сортировкой по длине?</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-10/index.html">← Задачи 3.10</a><a href="../../temy/26-metody-spiskov-2/index.html">Глава 3.11 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-12/index.html">Задачи 3.12 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.11 · Методы списков: часть 2 · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

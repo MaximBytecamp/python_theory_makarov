@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.14 · Функции для коллекций · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.14</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.14</span>
+<h1>Задачи к главе<br>«Функции для коллекций»</h1>
+<p class="lead">Пять встроенных функций сокращают перебор: <code>enumerate()</code> даёт номер к каждому элементу, <code>zip()</code> ведёт два списка параллельно, <code>reversed()</code> обходит список с конца, <code>any()</code> и <code>all()</code> отвечают на вопрос «есть хотя бы один?» и «все ли?». Звёздочка <code>*</code> раскладывает список на отдельные значения.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/30-funkcii-kollekciy/index.html">3.14 Функции для коллекций</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.14</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a><a class="chip" href="../../temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2</a><a class="chip" href="../../temy/27-metody-spiskov-3/index.html"><i>3.12</i>Методы списков: часть 3</a><a class="chip" href="../../temy/39-dvumernye-spiski/index.html"><i>3.13</i>Двумерные списки</a><a class="chip chip--now" href="../../temy/30-funkcii-kollekciy/index.html"><i>3.14</i>Функции для коллекций</a></div>
+<p>Генераторов и включений пока нет, поэтому в <code>any()</code> и <code>all()</code> передают готовый список из <code>True</code> и <code>False</code>: его собирает цикл с <code>append()</code>. Методов строк нет. Список вводят так: сначала количество, потом элементы по одному в строке.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Нумерованный список покупок</a></li><li><a href="#r2">Разбор 2. Чек из двух списков</a></li><li><a href="#r3">Разбор 3. Проверка пульса</a></li><li><a href="#p1">Задача 3.14.1. Очередь в кассу</a></li><li><a href="#p2">Задача 3.14.2. Журнал в обратном порядке</a></li><li><a href="#p3">Задача 3.14.3. Оценки по фамилиям</a></li><li><a href="#p4">Задача 3.14.4. Была ли жара</a></li><li><a href="#p5">Задача 3.14.5. Все заказы оплачены</a></li><li><a href="#p6">Задача 3.14.6. Маршрут туда и обратно</a></li><li><a href="#p7">Задача 3.14.7. Пустые позиции на складе</a></li><li><a href="#p8">Задача 3.14.8. Выручка за смену</a></li><li><a href="#p9">Задача 3.14.9. Дни с ростом шагов</a></li><li><a href="#p10">Задача 3.14.10. Цены со скидками разной длины</a></li><li><a href="#p11">Задача 3.14.11. Контрольное измерение</a></li><li><a href="#p12">Задача 3.14.12. Исправьте план задач</a></li><li><a href="#p13">Задача 3.14.13. Расхождения при инвентаризации</a></li><li><a href="#p14">Задача 3.14.14. Продажи двух магазинов по дням</a></li><li><a href="#p15">Задача 3.14.15. Симметричный график смен</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В них по очереди работают <code>enumerate()</code>, <code>zip()</code> и пара <code>any()</code> / <code>all()</code>.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Нумерованный список покупок</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Приложение показывает список покупок с номерами. Вводятся количество товаров и названия, по одному в строке. Выведите каждый товар в виде <code>1. молоко</code>, нумерация с единицы.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Номер нужен вместе с названием в каждой строке вывода. Для этого подходит <code>enumerate()</code>: он выдаёт пары «номер — значение».</li><li>По умолчанию номера идут с нуля, а покупателю нужна единица. Параметр <code>start=1</code> сдвигает только номер, сам список не меняется.</li><li>Пара сразу распаковывается в две переменные в заголовке <code>for</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько товаров: &quot;</span>))
+items = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    items.append(<span class="f">input</span>(<span class="s">&quot;Товар: &quot;</span>))
+
+<span class="c"># Вывод</span>
+<span class="k">for</span> number, item <span class="k">in</span> <span class="f">enumerate</span>(items, start=<span class="n">1</span>):
+    <span class="f">print</span>(<span class="s">f&quot;</span>{number}<span class="s">. </span>{item}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько товаров: <span class="typed">3</span>
+Товар: <span class="typed">молоко</span>
+Товар: <span class="typed">хлеб</span>
+Товар: <span class="typed">сыр</span>
+1. молоко
+2. хлеб
+3. сыр</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+чай</pre></div><div><b>Вывод</b><pre>1. чай</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>start=1 не сдвигает элементы</b><p>Первый товар по-прежнему лежит в <code>items[0]</code>. Параметр <code>start</code> меняет только число, которое <code>enumerate()</code> выдаёт рядом с элементом. Если взять <code>items[number]</code>, то при нумерации с единицы получится сдвиг на один элемент, а на последнем номере — ошибка.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Чек из двух списков</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На кассе пробили несколько позиций. Вводятся количество позиций, затем столько же цен, затем столько же количеств. Для каждой позиции выведите строку <code>Позиция 1: 3 x 120 = 360</code> (количество, цена, стоимость), в конце — <code>Итого: …</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Цена и количество одной позиции лежат на одинаковых местах в двух разных списках. Параллельный проход по ним — это <code>zip(prices, quantities)</code>.</li><li>Нужен ещё и номер позиции. Тогда <code>enumerate()</code> оборачивает <code>zip()</code>: каждый шаг выдаёт номер и пару. Пару в заголовке <code>for</code> записывают в скобках.</li><li>Стоимость позиции считаем в теле цикла и сразу добавляем к итогу. Итог выводим после цикла.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Позиций в чеке: &quot;</span>))
+prices = []
+quantities = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    prices.append(<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена: &quot;</span>)))
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    quantities.append(<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Количество: &quot;</span>)))
+
+<span class="c"># Расчёт и вывод</span>
+total = <span class="n">0</span>
+<span class="k">for</span> number, (price, quantity) <span class="k">in</span> <span class="f">enumerate</span>(<span class="f">zip</span>(prices, quantities), start=<span class="n">1</span>):
+    cost = price * quantity
+    total += cost
+    <span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Позиция </span>{number}<span class="s">: </span>{quantity}<span class="s"> x </span>{price}<span class="s"> = </span>{cost}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Итого:&quot;</span>, total)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Позиций в чеке: <span class="typed">2</span>
+Цена: <span class="typed">120</span>
+Цена: <span class="typed">50</span>
+Количество: <span class="typed">3</span>
+Количество: <span class="typed">4</span>
+Позиция 1: 3 x 120 = 360
+Позиция 2: 4 x 50 = 200
+Итого: 560</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+999
+1</pre></div><div><b>Вывод</b><pre>Позиция 1: 1 x 999 = 999
+Итого: 999</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Итого: 0</pre></div></div></div>
+<div class="margin-note"><b>Если списки разной длины</b><p><code>zip()</code> останавливается, когда кончился самый короткий список. Лишние элементы длинного списка молча отбрасываются и ошибки не будет. Поэтому в задаче количество вводится один раз и для цен, и для количеств.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Проверка пульса</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Фитнес-браслет записал серию измерений пульса. Вводятся количество измерений и сами значения. Норма — от 50 до 100 ударов в минуту включительно. Если измерений нет, выведите <code>Измерений нет</code>. Иначе выведите <code>Все в норме</code> или <code>Есть выход за норму</code>, а второй строкой — <code>Тревога</code>, если хотя бы одно значение выше 140, иначе <code>Тревоги нет</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Вопросов два. «Все ли значения в норме?» — это <code>all()</code>. «Есть ли хотя бы одно выше 140?» — это <code>any()</code>.</li><li>Обе функции работают со списком из <code>True</code> и <code>False</code>. Строим два списка одним проходом: для каждого пульса добавляем результат проверки.</li><li>Пустой список обрабатываем отдельно, до вызова функций: <code>all()</code> от пустого списка даёт <code>True</code>, и без проверки браслет объявил бы «все в норме» при нуле измерений.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько измерений: &quot;</span>))
+normal = []
+critical = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    pulse = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Пульс: &quot;</span>))
+    normal.append(<span class="n">50</span> &lt;= pulse &lt;= <span class="n">100</span>)
+    critical.append(pulse &gt; <span class="n">140</span>)
+
+<span class="c"># Вывод</span>
+<span class="k">if</span> count == <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">&quot;Измерений нет&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Все в норме&quot;</span> <span class="k">if</span> <span class="f">all</span>(normal) <span class="k">else</span> <span class="s">&quot;Есть выход за норму&quot;</span>)
+    <span class="f">print</span>(<span class="s">&quot;Тревога&quot;</span> <span class="k">if</span> <span class="f">any</span>(critical) <span class="k">else</span> <span class="s">&quot;Тревоги нет&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько измерений: <span class="typed">4</span>
+Пульс: <span class="typed">72</span>
+Пульс: <span class="typed">80</span>
+Пульс: <span class="typed">95</span>
+Пульс: <span class="typed">60</span>
+Все в норме
+Тревоги нет</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+72
+150
+45</pre></div><div><b>Вывод</b><pre>Есть выход за норму
+Тревога</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+40
+90</pre></div><div><b>Вывод</b><pre>Есть выход за норму
+Тревоги нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Измерений нет</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>all() и any() на пустом списке</b><p><code>all([])</code> равно <code>True</code>: нет ни одного элемента, который нарушил бы условие. <code>any([])</code> равно <code>False</code>: нет ни одного подходящего. Если для пустого входа нужен особый ответ, его проверяют отдельным <code>if</code> заранее.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.14.1</span><h3 class="task__title">Очередь в кассу</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество покупателей и их имена, по одному в строке. Выведите очередь с номерами с единицы в виде <code>1. Анна</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+Анна
+Игорь
+Марина</pre></div><div><b>Вывод</b><pre>1. Анна
+2. Игорь
+3. Марина</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+Ольга</pre></div><div><b>Вывод</b><pre>1. Ольга</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Номер с единицы задаёт параметр <code>start</code> у <code>enumerate()</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.14.2</span><h3 class="task__title">Журнал в обратном порядке</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество записей журнала и сами записи, по одной в строке. Выведите их по одной в строке, начиная с последней. Исходный список менять не нужно.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+вход
+оплата
+выход</pre></div><div><b>Вывод</b><pre>выход
+оплата
+вход</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+запуск</pre></div><div><b>Вывод</b><pre>запуск</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>reversed()</code> можно подставить прямо в заголовок цикла вместо самого списка.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.14.3</span><h3 class="task__title">Оценки по фамилиям</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество студентов, затем их фамилии (по одной в строке), затем столько же оценок. Для каждого студента выведите строку вида <code>Орлов: 5</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+Орлов
+Лебедев
+Воронова
+5
+4
+3</pre></div><div><b>Вывод</b><pre>Орлов: 5
+Лебедев: 4
+Воронова: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+Сидоров
+2</pre></div><div><b>Вывод</b><pre>Сидоров: 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Фамилия и оценка одного студента стоят на одинаковых местах в своих списках.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.14.4</span><h3 class="task__title">Была ли жара</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней и дневная температура за каждый день. Если хотя бы в один день было выше 30 градусов, выведите <code>Жара была</code>, иначе <code>Жары не было</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+25
+31
+28</pre></div><div><b>Вывод</b><pre>Жара была</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+20
+22
+30</pre></div><div><b>Вывод</b><pre>Жары не было</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Жары не было</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для каждого дня добавьте в список результат сравнения, потом передайте список в <code>any()</code>.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.14.5</span><h3 class="task__title">Все заказы оплачены</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество заказов и статус каждого: <code>да</code>, если заказ оплачен, иначе <code>нет</code>. Если заказов нет, выведите <code>Заказов нет</code>. Иначе выведите <code>Все оплачены</code> или <code>Есть неоплаченные</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+да
+да
+да</pre></div><div><b>Вывод</b><pre>Все оплачены</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+да
+нет
+да</pre></div><div><b>Вывод</b><pre>Есть неоплаченные</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Заказов нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Случай «заказов нет» проверьте до вызова <code>all()</code>: на пустом списке эта функция даёт <code>True</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.14.6</span><h3 class="task__title">Маршрут туда и обратно</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество остановок и их названия, по одному в строке. Выведите маршрут одной строкой через <code> - </code>, а следующей строкой — обратный маршрут в том же формате.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+Вокзал
+Рынок
+Парк
+Университет</pre></div><div><b>Вывод</b><pre>Вокзал - Рынок - Парк - Университет
+Университет - Парк - Рынок - Вокзал</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+Депо</pre></div><div><b>Вывод</b><pre>Депо
+Депо</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Звёздочка перед списком или перед <code>reversed(…)</code> раскладывает его на отдельные аргументы <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.14.7</span><h3 class="task__title">Пустые позиции на складе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество позиций на складе и остаток по каждой. Позиции нумеруются с единицы. Выведите номера позиций с нулевым остатком, по одному в строке. Если таких нет, выведите <code>Пустых позиций нет</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+12
+0
+7
+0
+3</pre></div><div><b>Вывод</b><pre>2
+4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Пустых позиций нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Пустых позиций нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Заведите переменную-флаг, которая станет <code>True</code> при первой найденной пустой позиции.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.14.8</span><h3 class="task__title">Выручка за смену</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество видов товара, затем цены этих товаров, затем сколько штук каждого продано за смену. Выведите общую выручку.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+50
+120
+300
+10
+4
+1</pre></div><div><b>Вывод</b><pre>Выручка: 1280</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+99
+10
+0
+0</pre></div><div><b>Вывод</b><pre>Выручка: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Выручка: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>На каждом шаге <code>zip()</code> выдаёт цену и количество одного товара.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.14.9</span><h3 class="task__title">Дни с ростом шагов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней и число шагов за каждый день. Выведите, в скольких днях шагов было больше, чем накануне. Первый день не сравнивается.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+6000
+7500
+7000
+9000
+9500</pre></div><div><b>Вывод</b><pre>Дней с ростом: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+5000
+5000
+5000</pre></div><div><b>Вывод</b><pre>Дней с ростом: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+4000</pre></div><div><b>Вывод</b><pre>Дней с ростом: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравнивайте пары соседних значений: список и тот же список без первого элемента.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.14.10</span><h3 class="task__title">Цены со скидками разной длины</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество товаров <code>n</code>, затем <code>n</code> цен в рублях. Потом вводится количество скидок <code>m</code> и <code>m</code> скидок в процентах. Скидки назначены первым <code>m</code> товарам; остальные продаются без скидки, и их выводить не нужно. Для каждого товара со скидкой выведите цену после скидки — целую часть от <code>цена * (100 - скидка) // 100</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+1000
+250
+399
+80
+2
+10
+50</pre></div><div><b>Вывод</b><pre>900
+125</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+500
+300
+0</pre></div><div><b>Вывод</b><pre></pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+500
+300
+3
+20
+25
+30</pre></div><div><b>Вывод</b><pre>400
+225</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Выбирать первые <code>m</code> цен вручную не надо: <code>zip()</code> сам остановится на самом коротком списке.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.14.11</span><h3 class="task__title">Контрольное измерение</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Датчик сначала выдаёт одно контрольное значение, потом рабочие. Вводится количество измерений (не меньше одного) и сами измерения. Выведите контрольное значение, а затем, сколько рабочих измерений совпало с ним точно. Если рабочих измерений нет, второе число — 0.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+20
+20
+21
+20
+19</pre></div><div><b>Вывод</b><pre>Контроль: 20
+Совпало: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+7
+8
+9</pre></div><div><b>Вывод</b><pre>Контроль: 7
+Совпало: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+15</pre></div><div><b>Вывод</b><pre>Контроль: 15
+Совпало: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Запись <code>first, *rest = values</code> кладёт первый элемент в <code>first</code>, остальные — в список <code>rest</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.14.12</span><h3 class="task__title">Исправьте план задач</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа должна вывести план: вводятся количество задач, названия задач, затем столько же значений — часы на каждую. Формат строки: <code>1. Отчёт: 3 ч</code>, нумерация с единицы. В программе две ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — исправить две ошибки</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+names = []
+hours = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    names.append(<span class="f">input</span>())
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    hours.append(<span class="f">int</span>(<span class="f">input</span>()))
+
+<span class="k">for</span> number, name, hour <span class="k">in</span> <span class="f">enumerate</span>(<span class="f">zip</span>(names, hours)):
+    <span class="f">print</span>(<span class="s">f&quot;</span>{number}<span class="s">. </span>{name}<span class="s">: </span>{hour}<span class="s"> ч</span><span class="s">&quot;</span>)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+Отчёт
+Звонки
+Почта
+3
+1
+2</pre></div><div><b>Вывод</b><pre>1. Отчёт: 3 ч
+2. Звонки: 1 ч
+3. Почта: 2 ч</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+Планёрка
+1</pre></div><div><b>Вывод</b><pre>1. Планёрка: 1 ч</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первая ошибка в нумерации: с какого числа считает <code>enumerate()</code> по умолчанию? Вторая в заголовке цикла: что выдаёт <code>enumerate()</code>, когда внутри него <code>zip()</code>?</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.14.13</span><h3 class="task__title">Расхождения при инвентаризации</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество позиций, затем остатки по учёту, затем фактические остатки при пересчёте. Позиции нумеруются с единицы. Для каждой позиции, где числа различаются, выведите строку <code>Позиция 2: учёт 10, факт 8</code>. Если расхождений нет, выведите <code>Расхождений нет</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+10
+5
+7
+3
+10
+5
+6
+0</pre></div><div><b>Вывод</b><pre>Позиция 3: учёт 7, факт 6
+Позиция 4: учёт 3, факт 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+4
+4
+4
+4</pre></div><div><b>Вывод</b><pre>Расхождений нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Расхождений нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нужны и номер, и пара значений. Заголовок цикла: <code>for number, (a, b) in enumerate(zip(…), start=1)</code>.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.14.14</span><h3 class="task__title">Продажи двух магазинов по дням</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество дней <code>m</code>, затем <code>m</code> значений продаж первого магазина, затем <code>m</code> значений второго. Для каждого дня выведите строку <code>День 1: 340</code> — суммарные продажи двух магазинов. Дни нумеруются с единицы.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+100
+200
+150
+240
+180
+90</pre></div><div><b>Вывод</b><pre>День 1: 340
+День 2: 380
+День 3: 240</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+500
+300</pre></div><div><b>Вывод</b><pre>День 1: 800</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Соберите оба списка в один список <code>table</code>. Запись <code>zip(*table)</code> выдаёт значения первого и второго магазина за один и тот же день.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.14.15</span><h3 class="task__title">Симметричный график смен</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">График считается симметричным, если читается одинаково слева направо и справа налево. Вводятся количество смен и номера бригад по сменам. Выведите <code>Симметричный</code> или <code>Несимметричный</code>. Пустой график считается симметричным.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+1
+2
+3
+2
+1</pre></div><div><b>Вывод</b><pre>Симметричный</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4
+1
+2
+3
+1</pre></div><div><b>Вывод</b><pre>Несимметричный</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+7</pre></div><div><b>Вывод</b><pre>Симметричный</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Симметричный</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Идите по списку и по его обратному обходу одновременно, а результаты сравнений собирайте в список для <code>all()</code>.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-13/index.html">← Задачи 3.13</a><a href="../../temy/30-funkcii-kollekciy/index.html">Глава 3.14 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-15/index.html">Задачи 3.15 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.14 · Функции для коллекций · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

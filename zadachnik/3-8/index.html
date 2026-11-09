@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.8 · Срезы · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.8</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.8</span>
+<h1>Задачи к главе<br>«Срезы»</h1>
+<p class="lead">Срез <code>items[start:stop:step]</code> берёт часть списка или строки одним выражением: первые элементы, последние, каждый второй, всё в обратном порядке. Срезу можно присвоить новое значение, чтобы заменить часть списка, а через <code>del</code> — удалить.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/31-srezy/index.html">3.8 Срезы</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.8</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip chip--now" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a></div>
+<p>Начало среза входит в результат, конец не входит. Срез возвращает новый объект, а срез с присваиванием или <code>del</code> меняет сам список. Добавлять элементы методами списков пока нельзя; списки собирают из нескольких вызовов <code>input()</code> или записывают в программе.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Недельный отчёт</a></li><li><a href="#r2">Разбор 2. Очередь заказов</a></li><li><a href="#r3">Разбор 3. Цены до и после наценки</a></li><li><a href="#p1">Задача 3.8.1. Первые три заказа</a></li><li><a href="#p2">Задача 3.8.2. Последние два замера</a></li><li><a href="#p3">Задача 3.8.3. Каждая вторая смена</a></li><li><a href="#p4">Задача 3.8.4. Слово задом наперёд</a></li><li><a href="#p5">Задача 3.8.5. Части артикула</a></li><li><a href="#p6">Задача 3.8.6. Палиндром</a></li><li><a href="#p7">Задача 3.8.7. Оценка жюри</a></li><li><a href="#p8">Задача 3.8.8. Объединение заказов</a></li><li><a href="#p9">Задача 3.8.9. Оставить нечётные места</a></li><li><a href="#p10">Задача 3.8.10. Скрытый номер карты</a></li><li><a href="#p11">Задача 3.8.11. Страница каталога</a></li><li><a href="#p12">Задача 3.8.12. Перепишите без индексов</a></li><li><a href="#p13">Задача 3.8.13. Суммы по три подряд</a></li><li><a href="#p14">Задача 3.8.14. Поменять половины</a></li><li><a href="#p15">Задача 3.8.15. Исправьте ошибки</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью: чтение частей списка, замена и удаление через срез, копия списка перед изменением.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Недельный отчёт</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся продажи за семь дней недели. Выведите списками три группы: первые три дня, последние три дня и каждый второй день, начиная с первого.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Первые три элемента — это позиции 0, 1, 2. Срез <code>sales[:3]</code>: начало пропущено (значит, с самого начала), конец 3 не входит.</li><li>Последние три берём отрицательным началом: <code>sales[-3:]</code>. Конец пропущен — до конца списка.</li><li>Каждый второй, начиная с первого, — это шаг 2 на всём списке: <code>sales[::2]</code>.</li><li>Каждый срез — новый список. Исходный остаётся прежним.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+sales = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 3: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 4: &quot;</span>)),
+         <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 5: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 6: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 7: &quot;</span>))]
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Первые три дня:&quot;</span>, sales[:<span class="n">3</span>])
+<span class="f">print</span>(<span class="s">&quot;Последние три дня:&quot;</span>, sales[-<span class="n">3</span>:])
+<span class="f">print</span>(<span class="s">&quot;Каждый второй день:&quot;</span>, sales[::<span class="n">2</span>])</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>День 1: <span class="typed">10</span>
+День 2: <span class="typed">20</span>
+День 3: <span class="typed">30</span>
+День 4: <span class="typed">40</span>
+День 5: <span class="typed">50</span>
+День 6: <span class="typed">60</span>
+День 7: <span class="typed">70</span>
+Первые три дня: [10, 20, 30]
+Последние три дня: [50, 60, 70]
+Каждый второй день: [10, 30, 50, 70]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Первые три дня: [5, 5, 5]
+Последние три дня: [5, 5, 5]
+Каждый второй день: [5, 5, 5, 5]</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Конец среза не входит</b><p>Срез <code>sales[0:2]</code> содержит два элемента — с индексами 0 и 1. Чтобы взять три, нужно <code>sales[0:3]</code> или <code>sales[:3]</code>. Число элементов в срезе без шага равно <code>stop - start</code>: так проверяют срез в уме.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Очередь заказов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В очереди шесть номеров заказов. Первые два уже выданы. На освободившиеся места в конце очереди добавили два новых заказа. Вводятся шесть номеров очереди, затем два новых номера. Удалите выданные заказы, замените два последних элемента новыми и выведите получившийся список.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Выданные заказы — первые два элемента, срез <code>[:2]</code>. Удаляем его командой <code>del orders[:2]</code>. Список теперь короче на два элемента.</li><li>Заменить последние два элемента можно присваиванием среза: <code>orders[-2:] = [новый, новый]</code>. Справа записан список из двух значений.</li><li>Порядок важен: срез <code>[-2:]</code> считается от конца текущего списка, а после удаления в нём четыре элемента.</li><li>Новые номера читаем прямо в правой части присваивания, в том порядке, в каком они вводятся.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+orders = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказ 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказ 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказ 3: &quot;</span>)),
+          <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказ 4: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказ 5: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказ 6: &quot;</span>))]
+
+<span class="c"># Изменение</span>
+<span class="k">del</span> orders[:<span class="n">2</span>]
+orders[-<span class="n">2</span>:] = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Новый заказ 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Новый заказ 2: &quot;</span>))]
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(orders)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Заказ 1: <span class="typed">101</span>
+Заказ 2: <span class="typed">102</span>
+Заказ 3: <span class="typed">103</span>
+Заказ 4: <span class="typed">104</span>
+Заказ 5: <span class="typed">105</span>
+Заказ 6: <span class="typed">106</span>
+Новый заказ 1: <span class="typed">201</span>
+Новый заказ 2: <span class="typed">202</span>
+[103, 104, 201, 202]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6
+6
+6</pre></div><div><b>Вывод</b><pre>[3, 4, 6, 6]</pre></div></div></div>
+<div class="margin-note"><b>Срез слева от = меняет список</b><p>Запись <code>orders[-2:] = …</code> не создаёт новый список, а подменяет часть старого. Справа должен стоять список, а не одно число: число вместо списка вызовет ошибку. Новая часть может быть любой длины, и список подстроится.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Цены до и после наценки</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся пять цен. Магазин делает наценку 20 рублей на каждый товар, но прежний прайс нужно сохранить. Выведите список цен после наценки, затем старый список и затем старый список в обратном порядке.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Простое присваивание <code>old_prices = prices</code> не создаёт копию: обе переменные ссылаются на один и тот же список, и изменение через одну будет видно через другую.</li><li>Копию делает полный срез: <code>prices[:]</code>. Это новый список с теми же значениями.</li><li>Наценку добавляем в основном списке по индексам, а копию не трогаем.</li><li>Обратный порядок старого списка — срез с шагом −1: <code>old_prices[::-1]</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+prices = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 3: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 4: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 5: &quot;</span>))]
+
+<span class="c"># Расчёт</span>
+old_prices = prices[:]
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(prices)):
+    prices[index] += <span class="n">20</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Новый прайс:&quot;</span>, prices)
+<span class="f">print</span>(<span class="s">&quot;Старый прайс:&quot;</span>, old_prices)
+<span class="f">print</span>(<span class="s">&quot;Старый прайс с конца:&quot;</span>, old_prices[::-<span class="n">1</span>])</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Цена 1: <span class="typed">100</span>
+Цена 2: <span class="typed">250</span>
+Цена 3: <span class="typed">80</span>
+Цена 4: <span class="typed">300</span>
+Цена 5: <span class="typed">45</span>
+Новый прайс: [120, 270, 100, 320, 65]
+Старый прайс: [100, 250, 80, 300, 45]
+Старый прайс с конца: [45, 300, 80, 250, 100]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Новый прайс: [20, 20, 20, 20, 20]
+Старый прайс: [0, 0, 0, 0, 0]
+Старый прайс с конца: [0, 0, 0, 0, 0]</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Присваивание не копирует список</b><p>Если вместо <code>prices[:]</code> написать <code>old_prices = prices</code>, то после наценки в обоих списках окажутся новые цены, потому что список всего один. Срез создаёт новый объект.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.8.1</span><h3 class="task__title">Первые три заказа</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся шесть номеров заказов. Выведите первые три списком одной командой <code>print()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">11
+12
+13
+14
+15
+16</pre></div><div><b>Вывод</b><pre>[11, 12, 13]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7
+7
+7
+7
+7
+7</pre></div><div><b>Вывод</b><pre>[7, 7, 7]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Срез без начала берёт элементы с самого начала. Конец среза не входит в результат.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.8.2</span><h3 class="task__title">Последние два замера</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся шесть показаний датчика. Выведите последние два списком.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+6
+7
+8
+9
+10</pre></div><div><b>Вывод</b><pre>[9, 10]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1
+1
+1
+1
+1</pre></div><div><b>Вывод</b><pre>[1, 1]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Отрицательное начало отсчитывается от конца списка; конец среза можно не указывать.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.8.3</span><h3 class="task__title">Каждая вторая смена</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся семь чисел — выручка по сменам. Выведите списком выручку каждой второй смены, начиная с первой, то есть смен с номерами 1, 3, 5 и 7.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6
+7</pre></div><div><b>Вывод</b><pre>[1, 3, 5, 7]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
+8
+7
+6
+5
+4
+3</pre></div><div><b>Вывод</b><pre>[9, 7, 5, 3]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Шаг среза записывают после второго двоеточия.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.8.4</span><h3 class="task__title">Слово задом наперёд</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится слово. Выведите его с буквами в обратном порядке.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">склад</pre></div><div><b>Вывод</b><pre>далкс</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">а</pre></div><div><b>Вывод</b><pre>а</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строки режутся так же, как списки. Отрицательный шаг идёт справа налево.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.8.5</span><h3 class="task__title">Части артикула</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Артикул товара записан строго в формате <code>ABC-2024-0517</code>: три буквы, дефис, четыре цифры года, дефис, четыре цифры номера. Вводится артикул. Выведите две строки: <code>Год: 2024</code> и <code>Номер: 0517</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">ABC-2024-0517</pre></div><div><b>Вывод</b><pre>Год: 2024
+Номер: 0517</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">XYZ-1999-0001</pre></div><div><b>Вывод</b><pre>Год: 1999
+Номер: 0001</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сосчитайте позиции символов: буквы занимают 0–2, дефис — 3, начало года — 4.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.8.6</span><h3 class="task__title">Палиндром</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Слово называется палиндромом, если читается одинаково в обе стороны, например <code>шалаш</code>. Вводится слово из строчных букв. Выведите <code>Палиндром</code> или <code>Не палиндром</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">шалаш</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">склад</pre></div><div><b>Вывод</b><pre>Не палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">я</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравните слово с его же срезом в обратном порядке.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.8.7</span><h3 class="task__title">Оценка жюри</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Пять судей выставили оценки. Первую и последнюю оценку отбрасывают, а по трём остальным считают среднее. Вводятся пять оценок в порядке выступления судей. Выведите среднее арифметическое оставшихся в виде <code>Итоговая оценка: 7.67</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7
+8
+9
+6
+10</pre></div><div><b>Вывод</b><pre>Итоговая оценка: 7.67</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Итоговая оценка: 5.00</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+1
+1
+1
+10</pre></div><div><b>Вывод</b><pre>Итоговая оценка: 1.00</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Срез <code>[1:-1]</code> оставляет всё, кроме первого и последнего элементов.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.8.8</span><h3 class="task__title">Объединение заказов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В списке пять сумм заказов. Заказы на второй и третьей позициях (номера 2 и 3) объединили в один. Вводятся пять сумм. Замените эти два элемента одним, равным их сумме, и выведите получившийся список. Присваивайте срез.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+200
+300
+400
+500</pre></div><div><b>Вывод</b><pre>[100, 500, 400, 500]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+0
+0
+0
+1</pre></div><div><b>Вывод</b><pre>[1, 0, 0, 1]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Справа от знака равенства стоит список из одного элемента. Он заменит два элемента, и список станет короче.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.8.9</span><h3 class="task__title">Оставить нечётные места</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В списке семь заявок. Нужно оставить заявки на местах 1, 3, 5 и 7, а заявки на местах 2, 4 и 6 удалить. Вводятся семь чисел. Удалите ненужные срезом с шагом и выведите список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6
+7</pre></div><div><b>Вывод</b><pre>[1, 3, 5, 7]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
+9
+9
+9
+9
+9
+9</pre></div><div><b>Вывод</b><pre>[9, 9, 9, 9]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Места 2, 4, 6 — это индексы 1, 3, 5. Удаляйте срез с началом 1 и шагом 2.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.8.10</span><h3 class="task__title">Скрытый номер карты</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится номер банковской карты из 16 цифр без пробелов. Покажите только последние четыре цифры, остальные скройте: <code>**** **** **** 1234</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4276123456781234</pre></div><div><b>Вывод</b><pre>**** **** **** 1234</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0000000000009999</pre></div><div><b>Вывод</b><pre>**** **** **** 9999</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нужен срез последних четырёх символов строки; звёздочки — готовый текст.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.8.11</span><h3 class="task__title">Страница каталога</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В программе записан каталог из восьми товаров. На странице показывают по три товара. Вводится номер страницы, начиная с 1. Выведите товары этой страницы по одному в строке. Если страницы нет, ничего не выводите.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>чай
+кофе
+сахар</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>масло
+соль</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Страница 1 начинается с индекса 0, страница 2 — с индекса 3. Срез за границей списка не вызывает ошибки.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.8.12</span><h3 class="task__title">Перепишите без индексов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа выводит пять цен от последней к первой, перебирая индексы. Перепишите её через <code>for</code> по срезу, без индексов. Вывод не должен измениться.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — переписать</span></figcaption><pre>prices = [<span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>())]
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(prices) - <span class="n">1</span>, -<span class="n">1</span>, -<span class="n">1</span>):
+    <span class="f">print</span>(prices[index])</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+20
+30
+40
+50</pre></div><div><b>Вывод</b><pre>50
+40
+30
+20
+10</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>5
+5
+5
+5
+5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Срез с шагом −1 даёт список в обратном порядке, а цикл по значениям проходит его от начала до конца.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.8.13</span><h3 class="task__title">Суммы по три подряд</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся продажи за шесть дней. Для каждого окна из трёх подряд идущих дней (дни 1–3, 2–4, 3–5, 4–6) выведите сумму в виде <code>Дни 2-4: 90</code>. Окно берите срезом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+20
+30
+40
+50
+60</pre></div><div><b>Вывод</b><pre>Дни 1-3: 60
+Дни 2-4: 90
+Дни 3-5: 120
+Дни 4-6: 150</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1
+1
+1
+1
+1</pre></div><div><b>Вывод</b><pre>Дни 1-3: 3
+Дни 2-4: 3
+Дни 3-5: 3
+Дни 4-6: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+5
+0
+5
+0
+5</pre></div><div><b>Вывод</b><pre>Дни 1-3: 5
+Дни 2-4: 10
+Дни 3-5: 5
+Дни 4-6: 10</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Окон на два меньше, чем элементов. Начало окна — переменная цикла, конец — на три больше.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.8.14</span><h3 class="task__title">Поменять половины</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Шесть задач запланированы на утро и вечер: первые три — утренние, последние три — вечерние. Вводятся шесть номеров задач. Поменяйте половины местами (сначала три вечерние, потом три утренние) и выведите список. Сначала сохраните обе половины срезами, затем присвойте их.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>[4, 5, 6, 1, 2, 3]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
+9
+9
+9
+9
+9</pre></div><div><b>Вывод</b><pre>[9, 9, 9, 9, 9, 9]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Срезы справа от = создают копии. Если присвоить первую половину, не сохранив её, старые значения пропадут.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.8.15</span><h3 class="task__title">Исправьте ошибки</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа получает шесть показаний датчика. Она должна вывести: первые три показания списком, сумму трёх последних показаний и все показания в обратном порядке (список полностью). В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>readings = [<span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>())]
+<span class="f">print</span>(readings[<span class="n">0</span>:<span class="n">2</span>])
+total = <span class="n">0</span>
+<span class="k">for</span> value <span class="k">in</span> readings[-<span class="n">3</span>]:
+    total += value
+<span class="f">print</span>(<span class="s">&quot;Сумма последних трёх:&quot;</span>, total)
+<span class="f">print</span>(readings[-<span class="n">1</span>:<span class="n">0</span>:-<span class="n">1</span>])</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>[1, 2, 3]
+Сумма последних трёх: 15
+[6, 5, 4, 3, 2, 1]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+0
+0
+0
+0
+10</pre></div><div><b>Вывод</b><pre>[10, 0, 0]
+Сумма последних трёх: 10
+[10, 0, 0, 0, 0, 10]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверьте каждый срез: сколько элементов он даёт, есть ли в нём двоеточие и дойдёт ли обратный срез до нулевого элемента.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-7/index.html">← Задачи 3.7</a><a href="../../temy/31-srezy/index.html">Глава 3.8 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-9/index.html">Задачи 3.9 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.8 · Срезы · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

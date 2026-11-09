@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.1 · Коллекции в Python · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.1</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.1</span>
+<h1>Задачи к главе<br>«Коллекции в Python»</h1>
+<p class="lead">Одна переменная хранит одно значение, а список — несколько, и каждое доступно по номеру. В задачах нужно читать элементы по индексу, считать от конца отрицательными индексами, менять элементы и добираться до значений во вложенном списке.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/24-kollekcii/index.html">3.1 Коллекции в Python</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.1</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip chip--now" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a></div>
+<p>Циклов пока нет — они в следующих главах, поэтому список записывается целиком: <code>[int(input()), int(input()), int(input())]</code>. Значения вводятся по одному в строке, в том порядке, который назван в условии. Максимум и минимум ищите условиями <code>if</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Температура за сутки</a></li><li><a href="#r2">Разбор 2. Продажа со склада</a></li><li><a href="#r3">Разбор 3. Оценки двух студентов</a></li><li><a href="#p1">Задача 3.1.1. Первое и последнее</a></li><li><a href="#p2">Задача 3.1.2. Средняя позиция</a></li><li><a href="#p3">Задача 3.1.3. Новая цена</a></li><li><a href="#p4">Задача 3.1.4. Код товара</a></li><li><a href="#p5">Задача 3.1.5. Касса в две смены</a></li><li><a href="#p6">Задача 3.1.6. Первый стал последним</a></li><li><a href="#p7">Задача 3.1.7. Поменять местами</a></li><li><a href="#p8">Задача 3.1.8. Прибавка веса</a></li><li><a href="#p9">Задача 3.1.9. Позиция в заказе</a></li><li><a href="#p10">Задача 3.1.10. Лучшая из трёх оценок</a></li><li><a href="#p11">Задача 3.1.11. Сумма цифр кода</a></li><li><a href="#p12">Задача 3.1.12. Расписание на два дня</a></li><li><a href="#p13">Задача 3.1.13. Исправьте обращения к списку</a></li><li><a href="#p14">Задача 3.1.14. Дешевле в каком магазине</a></li><li><a href="#p15">Задача 3.1.15. Транспонирование таблицы</a></li><li><a href="#p16">Задача 3.1.16. Слово-перевёртыш</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В первой список читается по индексам, во второй элемент заменяется, в третьей данные лежат во вложенном списке.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Температура за сутки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Метеостанция записывает температуру четыре раза в сутки: утром, днём, вечером и ночью. Вводятся четыре целых числа в этом порядке. Выведите число показаний, первое и последнее показание и изменение за сутки — последнее минус первое.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Четыре числа одного смысла храним в одном списке: <code>readings</code>. Список собираем из четырёх вызовов <code>input()</code> в порядке ввода.</li><li>Первый элемент — индекс <code>0</code>. Последний можно взять отрицательным индексом <code>-1</code>: он не зависит от длины списка.</li><li>Число показаний даёт <code>len(readings)</code>. Изменение — разность двух уже найденных значений.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+readings = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Утро: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Вечер: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Ночь: &quot;</span>))]
+
+<span class="c"># Расчёт</span>
+first = readings[<span class="n">0</span>]
+last = readings[-<span class="n">1</span>]
+change = last - first
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Показаний:&quot;</span>, <span class="f">len</span>(readings))
+<span class="f">print</span>(<span class="s">&quot;Первое:&quot;</span>, first)
+<span class="f">print</span>(<span class="s">&quot;Последнее:&quot;</span>, last)
+<span class="f">print</span>(<span class="s">&quot;Изменение за сутки:&quot;</span>, change)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Утро: <span class="typed">12</span>
+День: <span class="typed">18</span>
+Вечер: <span class="typed">16</span>
+Ночь: <span class="typed">9</span>
+Показаний: 4
+Первое: 12
+Последнее: 9
+Изменение за сутки: -3</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">-3
+2
+0
+-6</pre></div><div><b>Вывод</b><pre>Показаний: 4
+Первое: -3
+Последнее: -6
+Изменение за сутки: -3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+10
+10
+10</pre></div><div><b>Вывод</b><pre>Показаний: 4
+Первое: 10
+Последнее: 10
+Изменение за сутки: 0</pre></div></div></div>
+<div class="margin-note"><b>Два способа взять последний элемент</b><p>Запись <code>readings[-1]</code> и запись <code>readings[len(readings) - 1]</code> дают один и тот же элемент. Первая короче и понятнее. Вторая нужна, когда индекс считается по формуле.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Продажа со склада</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На складе три товара: стулья, столы и полки. Вводятся три остатка в этом порядке. Затем вводятся номер товара (1, 2 или 3) и количество проданных штук. Уменьшите остаток этого товара и выведите оба сообщения: <code>Остаток товара 2: 5</code> и <code>Остатки: [10, 5, 7]</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Остатки лежат в списке <code>stock</code>. Номер товара для покупателя начинается с 1, а индекс в списке — с 0.</li><li>Поэтому нужный элемент — <code>stock[number - 1]</code>. Эту запись можно и читать, и менять.</li><li>Продажу записываем как <code>stock[number - 1] -= sold</code>: так остаток заменяется новым значением прямо в списке.</li><li>После замены выводим один элемент и весь список.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+stock = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Стулья: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Столы: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Полки: &quot;</span>))]
+number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Номер товара (1-3): &quot;</span>))
+sold = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Продано, шт.: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+stock[number - <span class="n">1</span>] -= sold
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Остаток товара </span>{number}<span class="s">: </span>{stock[number - <span class="n">1</span>]}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Остатки:&quot;</span>, stock)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Стулья: <span class="typed">10</span>
+Столы: <span class="typed">8</span>
+Полки: <span class="typed">7</span>
+Номер товара (1-3): <span class="typed">2</span>
+Продано, шт.: <span class="typed">3</span>
+Остаток товара 2: 5
+Остатки: [10, 5, 7]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+8
+7
+1
+10</pre></div><div><b>Вывод</b><pre>Остаток товара 1: 0
+Остатки: [0, 8, 7]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">4
+0
+9
+3
+1</pre></div><div><b>Вывод</b><pre>Остаток товара 3: 8
+Остатки: [4, 0, 8]</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Номер для человека и индекс — не одно и то же</b><p>Если написать <code>stock[number]</code>, при номере 1 изменится столы, а при номере 3 программа упадёт с <code>IndexError</code>: в списке из трёх элементов индексы только 0, 1 и 2. Номер товара всегда пересчитывается: индекс равен номеру минус один.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Оценки двух студентов</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Для каждого из двух студентов вводятся фамилия и две оценки за семестр. Порядок ввода: фамилия, оценка, оценка, затем то же для второго. Выведите строки <code>Фамилия: средний балл</code> для каждого студента. Третьей строкой выведите <code>Лучший: фамилия</code>; при равных средних назовите первого студента.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Данные одного студента — это короткий список <code>[фамилия, оценка, оценка]</code>. Двух студентов складываем во внешний список: получается список списков.</li><li>Строка студента — <code>table[0]</code> или <code>table[1]</code>. Чтобы получить оценку, берём второй индекс: <code>table[0][1]</code> — первая оценка первого студента.</li><li>Среднее — сумма двух оценок, делённая на 2. Считаем его для каждого студента отдельно.</li><li>Лучшего выбираем условием: если у первого средний балл не меньше, называем первого, иначе второго. Знак <code>&gt;=</code> даёт нужный порядок при равенстве.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+table = [
+    [<span class="f">input</span>(<span class="s">&quot;Фамилия 1: &quot;</span>), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка: &quot;</span>))],
+    [<span class="f">input</span>(<span class="s">&quot;Фамилия 2: &quot;</span>), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценка: &quot;</span>))],
+]
+
+<span class="c"># Расчёт</span>
+average_1 = (table[<span class="n">0</span>][<span class="n">1</span>] + table[<span class="n">0</span>][<span class="n">2</span>]) / <span class="n">2</span>
+average_2 = (table[<span class="n">1</span>][<span class="n">1</span>] + table[<span class="n">1</span>][<span class="n">2</span>]) / <span class="n">2</span>
+best = table[<span class="n">0</span>][<span class="n">0</span>] <span class="k">if</span> average_1 &gt;= average_2 <span class="k">else</span> table[<span class="n">1</span>][<span class="n">0</span>]
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span>{table[<span class="n">0</span>][<span class="n">0</span>]}<span class="s">: </span>{average_1}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">f&quot;</span>{table[<span class="n">1</span>][<span class="n">0</span>]}<span class="s">: </span>{average_2}<span class="s">&quot;</span>)
+<span class="f">print</span>(<span class="s">&quot;Лучший:&quot;</span>, best)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Фамилия 1: <span class="typed">Орлов</span>
+Оценка: <span class="typed">5</span>
+Оценка: <span class="typed">4</span>
+Фамилия 2: <span class="typed">Сидоров</span>
+Оценка: <span class="typed">4</span>
+Оценка: <span class="typed">4</span>
+Орлов: 4.5
+Сидоров: 4.0
+Лучший: Орлов</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Орлов
+3
+4
+Сидоров
+5
+5</pre></div><div><b>Вывод</b><pre>Орлов: 3.5
+Сидоров: 5.0
+Лучший: Сидоров</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Орлов
+4
+5
+Сидоров
+5
+4</pre></div><div><b>Вывод</b><pre>Орлов: 4.5
+Сидоров: 4.5
+Лучший: Орлов</pre></div></div></div>
+<div class="margin-note"><b>Список может хранить значения разных типов</b><p>В строке студента лежат и текст, и числа. Это допустимо: у списка нет требования к однородности. Но тогда нужно помнить, что где лежит: индекс <code>0</code> — фамилия, индексы <code>1</code> и <code>2</code> — оценки.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.1.1</span><h3 class="task__title">Первое и последнее</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Пульс спортсмена измерили четыре раза: до разминки, после разминки, после нагрузки и после отдыха. Вводятся четыре целых числа в этом порядке. Первой строкой выведите <code>До: ...</code>, второй — <code>После отдыха: ...</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70
+95
+150
+80</pre></div><div><b>Вывод</b><pre>До: 70
+После отдыха: 80</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">65
+65
+65
+65</pre></div><div><b>Вывод</b><pre>До: 65
+После отдыха: 65</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первый элемент — индекс 0, последний — индекс -1.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.1.2</span><h3 class="task__title">Средняя позиция</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В очереди к кассе стоят пять человек, у каждого свой номер талона. Вводятся пять номеров в порядке очереди. Выведите номер талона у человека, который стоит посередине. Индекс середины вычислите по длине списка.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">101
+102
+103
+104
+105</pre></div><div><b>Вывод</b><pre>Посередине: 103</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7
+3
+9
+1
+5</pre></div><div><b>Вывод</b><pre>Посередине: 9</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Индекс середины списка из пяти элементов — длина, разделённая нацело на 2.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.1.3</span><h3 class="task__title">Новая цена</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В прайс-листе четыре цены. Вводятся четыре целых числа, затем новая цена для второго товара. Замените вторую цену и выведите весь список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">120
+80
+45
+200
+95</pre></div><div><b>Вывод</b><pre>[120, 95, 45, 200]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+10
+10
+10
+10</pre></div><div><b>Вывод</b><pre>[10, 10, 10, 10]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Второй элемент списка имеет индекс 1. Присваивание <code>список[индекс] = значение</code> меняет элемент.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.1.4</span><h3 class="task__title">Код товара</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится код товара — строка. Выведите её первый символ, последний символ и длину в формате <code>Серия: ...</code>, <code>Конец: ...</code>, <code>Длина: ...</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">K4075</pre></div><div><b>Вывод</b><pre>Серия: K
+Конец: 5
+Длина: 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">X</pre></div><div><b>Вывод</b><pre>Серия: X
+Конец: X
+Длина: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">AB-12-77</pre></div><div><b>Вывод</b><pre>Серия: A
+Конец: 7
+Длина: 8</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строка тоже последовательность: к символам применимы индексы и <code>len()</code>.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.1.5</span><h3 class="task__title">Касса в две смены</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Выручка записана в таблице из двух строк: первая строка — первая смена, вторая — вторая. В каждой строке два числа: наличные и безналичные. Вводятся четыре числа по порядку: наличные первой смены, безналичные первой, наличные второй, безналичные второй. Выведите безналичную выручку второй смены.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5200
+8100
+4300
+9650</pre></div><div><b>Вывод</b><pre>Безналичные, смена 2: 9650</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Безналичные, смена 2: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала выберите вторую строку таблицы, потом в ней — второй элемент.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.1.6</span><h3 class="task__title">Первый стал последним</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся четыре фамилии — очередь на приём. Первый человек уходит в конец, а остальные сдвигаются вперёд. Выведите новый список фамилий целиком.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Орлов
+Иванова
+Смирнов
+Кузьмина</pre></div><div><b>Вывод</b><pre>[&#x27;Иванова&#x27;, &#x27;Смирнов&#x27;, &#x27;Кузьмина&#x27;, &#x27;Орлов&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">А
+Б
+В
+Г</pre></div><div><b>Вывод</b><pre>[&#x27;Б&#x27;, &#x27;В&#x27;, &#x27;Г&#x27;, &#x27;А&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Соберите новый список из четырёх элементов старого, расположив их в нужном порядке.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.1.7</span><h3 class="task__title">Поменять местами</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Курьер получил список из четырёх адресов, но первый и последний нужно поменять местами. Вводятся четыре адреса. Выведите список после обмена. Обмен выполните заменой элементов, не собирая список заново.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Ленина 5
+Мира 12
+Садовая 3
+Парковая 8</pre></div><div><b>Вывод</b><pre>[&#x27;Парковая 8&#x27;, &#x27;Мира 12&#x27;, &#x27;Садовая 3&#x27;, &#x27;Ленина 5&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">a
+b
+c
+d</pre></div><div><b>Вывод</b><pre>[&#x27;d&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;a&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если сразу записать новое значение в первый элемент, старое пропадёт. Сохраните его во временной переменной.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.1.8</span><h3 class="task__title">Прибавка веса</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Тренер записывает вес спортсмена по неделям: пять целых чисел в граммах. Вводятся пять значений в порядке недель. Выведите разницу между последним и первым значением. Если вес вырос, выведите <code>Прибавка: N г</code>; если снизился — <code>Потеря: N г</code>, где N положительное; если не изменился — <code>Вес не изменился</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">70000
+70200
+70500
+70300
+71000</pre></div><div><b>Вывод</b><pre>Прибавка: 1000 г</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">70000
+69800
+69500
+69700
+69100</pre></div><div><b>Вывод</b><pre>Потеря: 900 г</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">70000
+71000
+72000
+69000
+70000</pre></div><div><b>Вывод</b><pre>Вес не изменился</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Среднее значение недель не нужно — сравниваются только первый и последний элементы.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.1.9</span><h3 class="task__title">Позиция в заказе</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Позиция заказа хранится списком из трёх элементов: название, количество и цена за штуку. Вводятся название (строка), количество и цена (целые числа). Выведите строку вида <code>Чайник: 3 шт. на 4500 руб.</code>, где стоимость — количество, умноженное на цену. Обращайтесь к элементам списка по индексам.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Чайник
+3
+1500</pre></div><div><b>Вывод</b><pre>Чайник: 3 шт. на 4500 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Лампа
+1
+890</pre></div><div><b>Вывод</b><pre>Лампа: 1 шт. на 890 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">Кабель
+0
+250</pre></div><div><b>Вывод</b><pre>Кабель: 0 шт. на 0 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Название лежит в элементе 0, количество — в элементе 1, цена — в элементе 2.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.1.10</span><h3 class="task__title">Лучшая из трёх оценок</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся три оценки студента за контрольные работы. Выведите наибольшую из них. Функции <code>max()</code> пока нет — используйте условия.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+5
+4</pre></div><div><b>Вывод</b><pre>Лучшая оценка: 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+4
+3</pre></div><div><b>Вывод</b><pre>Лучшая оценка: 5</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+2
+2</pre></div><div><b>Вывод</b><pre>Лучшая оценка: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">3
+3
+4</pre></div><div><b>Вывод</b><pre>Лучшая оценка: 4</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Примите первый элемент за лучший и сравнивайте с ним остальные по очереди.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.1.11</span><h3 class="task__title">Сумма цифр кода</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Код подтверждения состоит ровно из пяти цифр. Вводится строка из пяти цифр. Выведите сумму этих цифр. Каждую цифру получите как символ строки по индексу и переведите в число функцией <code>int()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12345</pre></div><div><b>Вывод</b><pre>Сумма цифр: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">00000</pre></div><div><b>Вывод</b><pre>Сумма цифр: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">90909</pre></div><div><b>Вывод</b><pre>Сумма цифр: 27</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Символ строки — это тоже строка, например <code>"7"</code>. Число из неё получает <code>int()</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.1.12</span><h3 class="task__title">Расписание на два дня</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Расписание группы задано в программе таблицей: первая строка — понедельник, вторая — вторник, в каждой по три пары: <code>[["Математика", "Физика", "Информатика"], ["Химия", "История", "Английский"]]</code>. Вводятся номер дня (1 или 2) и номер пары (1, 2 или 3). Выведите название предмета.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+1</pre></div><div><b>Вывод</b><pre>Математика</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+3</pre></div><div><b>Вывод</b><pre>Английский</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+1</pre></div><div><b>Вывод</b><pre>Химия</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Номера дня и пары начинаются с 1, а индексы — с 0.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.1.13</span><h3 class="task__title">Исправьте обращения к списку</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает четыре температуры воды в бассейне, выводит первую, последнюю и число измерений, а затем заменяет последнее измерение на 0 и выводит список. В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — исправить</span></figcaption><pre>temps = [<span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>())]
+<span class="f">print</span>(<span class="s">&quot;Первое:&quot;</span>, temps[<span class="n">1</span>])
+<span class="f">print</span>(<span class="s">&quot;Последнее:&quot;</span>, temps[<span class="n">4</span>])
+<span class="f">print</span>(<span class="s">&quot;Измерений:&quot;</span>, <span class="f">len</span>[temps])
+temps[-<span class="n">1</span>] = <span class="n">0</span>
+<span class="f">print</span>(temps)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">26
+27
+27
+25</pre></div><div><b>Вывод</b><pre>Первое: 26
+Последнее: 25
+Измерений: 4
+[26, 27, 27, 0]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">30
+30
+30
+30</pre></div><div><b>Вывод</b><pre>Первое: 30
+Последнее: 30
+Измерений: 4
+[30, 30, 30, 0]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна ошибка — не тот индекс начала, другая — индекс за пределами списка, третья — неверные скобки у <code>len</code>.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.1.14</span><h3 class="task__title">Дешевле в каком магазине</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Три товара сравнивают в двух магазинах. Вводятся шесть цен: сначала три цены в магазине 1, затем три цены в магазине 2, в одном и том же порядке товаров. Для каждого товара выведите строку <code>Товар 1: магазин 2</code> — номер магазина, где он дешевле. При равных ценах назовите магазин 1.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+250
+80
+120
+200
+80</pre></div><div><b>Вывод</b><pre>Товар 1: магазин 1
+Товар 2: магазин 2
+Товар 3: магазин 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10
+10
+10
+10
+10
+10</pre></div><div><b>Вывод</b><pre>Товар 1: магазин 1
+Товар 2: магазин 1
+Товар 3: магазин 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">500
+40
+60
+450
+45
+55</pre></div><div><b>Вывод</b><pre>Товар 1: магазин 2
+Товар 2: магазин 1
+Товар 3: магазин 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Цены одного товара стоят в одном столбце: у магазина 1 это строка 0, у магазина 2 — строка 1.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.1.15</span><h3 class="task__title">Транспонирование таблицы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Результаты двух тестов у двух студентов записаны таблицей 2 на 2: строка — студент, столбец — тест. Вводятся четыре числа по строкам: студент 1 тест 1, студент 1 тест 2, студент 2 тест 1, студент 2 тест 2. Выведите таблицу, где строки и столбцы поменялись местами: строка — тест, столбец — студент. Выведите её одним списком списков.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+4
+3
+2</pre></div><div><b>Вывод</b><pre>[[5, 3], [4, 2]]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1
+1
+1</pre></div><div><b>Вывод</b><pre>[[1, 1], [1, 1]]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первая строка новой таблицы — это первый столбец старой.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 3.1.16</span><h3 class="task__title">Слово-перевёртыш</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится слово из пяти букв в нижнем регистре. Выведите <code>Палиндром</code>, если оно читается одинаково в обе стороны, иначе — <code>Не палиндром</code>. Сравнивайте символы по индексам: первый с последним, второй с предпоследним.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">радар</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">норма</pre></div><div><b>Вывод</b><pre>Не палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">шалаш</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">ааббб</pre></div><div><b>Вывод</b><pre>Не палиндром</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Третью, среднюю, букву проверять не нужно. Нужны две проверки, соединённые <code>and</code>.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../2-6/index.html">← Задачи 2.6</a><a href="../../temy/24-kollekcii/index.html">Глава 3.1 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-2/index.html">Задачи 3.2 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.1 · Коллекции в Python · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.10 · Методы списков: часть 1 · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.10</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.10</span>
+<h1>Задачи к главе<br>«Методы списков: часть 1»</h1>
+<p class="lead">Методы <code>append()</code>, <code>extend()</code>, <code>insert()</code> и <code>remove()</code> меняют сам список, а <code>copy()</code> делает независимую копию. В задачах нужно выбрать метод, а ещё помнить, что присваивание <code>b = a</code> копии не создаёт.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/25-metody-spiskov-1/index.html">3.10 Методы списков: часть 1</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.10</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip chip--now" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a></div>
+<p>Методы возвращают <code>None</code>, поэтому записывать результат в переменную не нужно: <code>items.append(x)</code>, а не <code>items = items.append(x)</code>. Метода <code>pop()</code> и проверки <code>in</code> пока нет. <code>remove()</code> вызывайте только для значения, которое точно есть в списке: иначе будет ошибка.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Очередь в кассу</a></li><li><a href="#r2">Разбор 2. Расписание рейсов</a></li><li><a href="#r3">Разбор 3. Пересдача оценки</a></li><li><a href="#p1">Задача 3.10.1. Список покупок</a></li><li><a href="#p2">Задача 3.10.2. Срочный заказ</a></li><li><a href="#p3">Задача 3.10.3. Поставка на склад</a></li><li><a href="#p4">Задача 3.10.4. Отмена записи</a></li><li><a href="#p5">Задача 3.10.5. Черновик расписания</a></li><li><a href="#p6">Задача 3.10.6. Цены по возрастанию</a></li><li><a href="#p7">Задача 3.10.7. Два филиала</a></li><li><a href="#p8">Задача 3.10.8. append или extend</a></li><li><a href="#p9">Задача 3.10.9. Убрать все отмены</a></li><li><a href="#p10">Задача 3.10.10. Перенос заказа</a></li><li><a href="#p11">Задача 3.10.11. Исправьте программу</a></li><li><a href="#p12">Задача 3.10.12. Исправьте резервную копию</a></li><li><a href="#p13">Задача 3.10.13. Реклама в ленте</a></li><li><a href="#p14">Задача 3.10.14. Слияние двух прайсов</a></li><li><a href="#p15">Задача 3.10.15. Поворот списка</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой видно, какой метод подходит к действию и что в итоге хранится в списке.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Очередь в кассу</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Покупатели подходят к кассе. Вводятся имена, по одному в строке, до слова <code>конец</code>. Выведите список в порядке прихода и на отдельной строке — сколько людей в очереди: <code>В очереди: 3</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Заранее не известно, сколько людей придёт, поэтому начинаем с пустого списка и растим его. Новый элемент в конец добавляет <code>append()</code>.</li><li>Ввод повторяется, пока не встретится слово-стоп. Это цикл <code>while</code>: первое имя читаем до цикла, следующее — в конце каждого прохода.</li><li>Слово <code>конец</code> в список добавлять не нужно, поэтому <code>append()</code> стоит внутри цикла, а стоп-слово до него не доходит.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+queue = []
+name = <span class="f">input</span>(<span class="s">&quot;Имя: &quot;</span>)
+<span class="k">while</span> name != <span class="s">&quot;конец&quot;</span>:
+    queue.append(name)
+    name = <span class="f">input</span>(<span class="s">&quot;Имя: &quot;</span>)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(queue)
+<span class="f">print</span>(<span class="s">&quot;В очереди:&quot;</span>, <span class="f">len</span>(queue))</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Имя: <span class="typed">Анна</span>
+Имя: <span class="typed">Игорь</span>
+Имя: <span class="typed">Мария</span>
+Имя: <span class="typed">конец</span>
+[&#x27;Анна&#x27;, &#x27;Игорь&#x27;, &#x27;Мария&#x27;]
+В очереди: 3</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Ольга
+конец</pre></div><div><b>Вывод</b><pre>[&#x27;Ольга&#x27;]
+В очереди: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">конец</pre></div><div><b>Вывод</b><pre>[]
+В очереди: 0</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>append() ничего не возвращает</b><p>Запись <code>queue = queue.append(name)</code> сохраняет в <code>queue</code> значение <code>None</code>, и следующий вызов падает с ошибкой. Метод меняет список на месте, поэтому пишут только <code>queue.append(name)</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Расписание рейсов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Автовокзал составляет расписание. Вводятся количество утренних рейсов и их время отправления (по одному в строке), затем количество вечерних рейсов и их время. Потом вводится время внепланового рейса. Он должен стоять вторым в общем списке. Выведите общий список и количество рейсов в нём.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Утренние и вечерние рейсы читаем в два отдельных списка через <code>append()</code> внутри цикла <code>for</code>.</li><li>Вечерние рейсы нужно присоединить сразу целым списком: для этого есть <code>extend()</code>. Он добавляет каждый элемент второго списка в конец первого.</li><li>Внеплановый рейс идёт на конкретную позицию. «Вторым» значит индекс <code>1</code>, это работа для <code>insert(1, значение)</code>: он сдвигает остальные элементы вправо.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+morning = []
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Утренних рейсов: &quot;</span>))
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    morning.append(<span class="f">input</span>())
+
+evening = []
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Вечерних рейсов: &quot;</span>))
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    evening.append(<span class="f">input</span>())
+
+extra = <span class="f">input</span>(<span class="s">&quot;Внеплановый рейс: &quot;</span>)
+
+<span class="c"># Расписание</span>
+morning.extend(evening)
+morning.insert(<span class="n">1</span>, extra)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(morning)
+<span class="f">print</span>(<span class="s">&quot;Рейсов:&quot;</span>, <span class="f">len</span>(morning))</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Утренних рейсов: <span class="typed">2</span>
+<span class="typed">07:15</span>
+<span class="typed">09:40</span>
+Вечерних рейсов: <span class="typed">2</span>
+<span class="typed">17:20</span>
+<span class="typed">19:05</span>
+Внеплановый рейс: <span class="typed">12:00</span>
+[&#x27;07:15&#x27;, &#x27;12:00&#x27;, &#x27;09:40&#x27;, &#x27;17:20&#x27;, &#x27;19:05&#x27;]
+Рейсов: 5</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+08:00
+0
+11:30</pre></div><div><b>Вывод</b><pre>[&#x27;08:00&#x27;, &#x27;11:30&#x27;]
+Рейсов: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+06:00
+07:00
+08:00
+1
+20:00
+13:15</pre></div><div><b>Вывод</b><pre>[&#x27;06:00&#x27;, &#x27;13:15&#x27;, &#x27;07:00&#x27;, &#x27;08:00&#x27;, &#x27;20:00&#x27;]
+Рейсов: 5</pre></div></div></div>
+<div class="margin-note"><b>insert() и позиция за концом списка</b><p>Если номер позиции больше длины списка, <code>insert()</code> добавляет значение в конец, ошибки нет. Поэтому в задаче с пустым утренним списком внеплановый рейс всё равно окажется в списке.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Пересдача оценки</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В журнале хранятся оценки студента. Нужно заменить одну оценку на новую после пересдачи, но сохранить старый список для отчёта. Вводятся количество оценок, сами оценки, затем оценка, которая заменяется (она точно есть в списке), и новая оценка. Выведите две строки: <code>Было: […]</code> и <code>Стало: […]</code>. Новая оценка добавляется в конец списка.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Если написать <code>old = grades</code>, это будет второе имя того же списка: изменение через одно имя видно через другое. Копию делает только <code>grades.copy()</code>.</li><li>Копию делаем до изменений. После этого работаем с основным списком: <code>remove()</code> удаляет первое подходящее значение, <code>append()</code> добавляет новое в конец.</li><li>В конце печатаем оба списка. Копия осталась прежней, основной список изменился.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Оценок: &quot;</span>))
+grades = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    grades.append(<span class="f">int</span>(<span class="f">input</span>()))
+old_grade = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заменить оценку: &quot;</span>))
+new_grade = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Новая оценка: &quot;</span>))
+
+<span class="c"># Правка</span>
+before = grades.copy()
+grades.remove(old_grade)
+grades.append(new_grade)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Было:&quot;</span>, before)
+<span class="f">print</span>(<span class="s">&quot;Стало:&quot;</span>, grades)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Оценок: <span class="typed">4</span>
+<span class="typed">3</span>
+<span class="typed">5</span>
+<span class="typed">4</span>
+<span class="typed">3</span>
+Заменить оценку: <span class="typed">3</span>
+Новая оценка: <span class="typed">4</span>
+Было: [3, 5, 4, 3]
+Стало: [5, 4, 3, 4]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+2
+5</pre></div><div><b>Вывод</b><pre>Было: [2]
+Стало: [5]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+5
+5
+5
+5
+4</pre></div><div><b>Вывод</b><pre>Было: [5, 5, 5]
+Стало: [5, 5, 4]</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Два имени — один список</b><p>Строка <code>before = grades</code> не копирует данные: оба имени указывают на один и тот же список. После <code>grades.remove(old_grade)</code> список <code>before</code> тоже станет другим, и отчёт покажет уже изменённые данные. Для независимого списка нужен <code>grades.copy()</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.10.1</span><h3 class="task__title">Список покупок</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся названия товаров, по одному в строке, до слова <code>хватит</code>. Выведите список покупок и на второй строке их количество: <code>Товаров: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">хлеб
+молоко
+хватит</pre></div><div><b>Вывод</b><pre>[&#x27;хлеб&#x27;, &#x27;молоко&#x27;]
+Товаров: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">хватит</pre></div><div><b>Вывод</b><pre>[]
+Товаров: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">сыр
+хватит</pre></div><div><b>Вывод</b><pre>[&#x27;сыр&#x27;]
+Товаров: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Добавляйте в список внутри цикла, а стоп-слово до списка не доводите.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.10.2</span><h3 class="task__title">Срочный заказ</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В очереди заказов лежат три номера: <code>[1041, 1042, 1043]</code>. Вводится номер срочного заказа. Поставьте его первым в очереди и выведите список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1050</pre></div><div><b>Вывод</b><pre>[1050, 1041, 1042, 1043]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>[1, 1041, 1042, 1043]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первая позиция списка имеет индекс 0.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.10.3</span><h3 class="task__title">Поставка на склад</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">На складе лежат коробки с номерами <code>[101, 102, 103]</code>. Вводятся количество новых коробок и их номера (по одному в строке). Добавьте их в конец списка сразу целой группой и выведите результат. Если новых коробок нет, список не меняется.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+201
+202</pre></div><div><b>Вывод</b><pre>[101, 102, 103, 201, 202]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[101, 102, 103]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+999</pre></div><div><b>Вывод</b><pre>[101, 102, 103, 999]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала соберите новые номера в отдельный список, потом присоедините его одним методом.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.10.4</span><h3 class="task__title">Отмена записи</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В кабинет записаны пациенты: <code>["Орлов", "Серова", "Ким", "Попов"]</code>. Вводится фамилия того, кто отменил запись (она есть в списке). Удалите её и выведите список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Ким</pre></div><div><b>Вывод</b><pre>[&#x27;Орлов&#x27;, &#x27;Серова&#x27;, &#x27;Попов&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Орлов</pre></div><div><b>Вывод</b><pre>[&#x27;Серова&#x27;, &#x27;Ким&#x27;, &#x27;Попов&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">Попов</pre></div><div><b>Вывод</b><pre>[&#x27;Орлов&#x27;, &#x27;Серова&#x27;, &#x27;Ким&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод удаляет значение, а не позицию.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.10.5</span><h3 class="task__title">Черновик расписания</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Основное расписание: <code>["Математика", "Физика", "История"]</code>. Вводится название дополнительного урока. Сделайте копию расписания, добавьте урок в конец копии и выведите обе строки: <code>Основное: […]</code> и <code>Черновик: […]</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">Информатика</pre></div><div><b>Вывод</b><pre>Основное: [&#x27;Математика&#x27;, &#x27;Физика&#x27;, &#x27;История&#x27;]
+Черновик: [&#x27;Математика&#x27;, &#x27;Физика&#x27;, &#x27;История&#x27;, &#x27;Информатика&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Химия</pre></div><div><b>Вывод</b><pre>Основное: [&#x27;Математика&#x27;, &#x27;Физика&#x27;, &#x27;История&#x27;]
+Черновик: [&#x27;Математика&#x27;, &#x27;Физика&#x27;, &#x27;История&#x27;, &#x27;Химия&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Основной список должен остаться прежним.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.10.6</span><h3 class="task__title">Цены по возрастанию</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Прайс-лист хранится по возрастанию цен. Вводятся количество цен, сами цены (уже по возрастанию) и новая цена. Вставьте новую цену так, чтобы порядок сохранился, и выведите список. Позицию найдите циклом, сам список изменяйте методом <code>insert()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+100
+250
+400
+900
+300</pre></div><div><b>Вывод</b><pre>[100, 250, 300, 400, 900]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+100
+200
+300
+50</pre></div><div><b>Вывод</b><pre>[50, 100, 200, 300]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+100
+200
+300
+500</pre></div><div><b>Вывод</b><pre>[100, 200, 300, 500]</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0
+70</pre></div><div><b>Вывод</b><pre>[70]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Двигайтесь по списку, пока текущая цена меньше новой. Первая подходящая позиция и есть место вставки. Не выходите за конец списка.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.10.7</span><h3 class="task__title">Два филиала</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество изделий первого филиала и их артикулы, затем то же для второго филиала. Соберите общий список: сначала изделия первого, потом второго. Выведите его и количество изделий: <code>Всего: 5</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+11
+12
+3
+21
+22
+23</pre></div><div><b>Вывод</b><pre>[11, 12, 21, 22, 23]
+Всего: 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+1
+5</pre></div><div><b>Вывод</b><pre>[5]
+Всего: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+7
+0</pre></div><div><b>Вывод</b><pre>[7]
+Всего: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>extend()</code> дописывает содержимое второго списка в конец первого.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.10.8</span><h3 class="task__title">append или extend</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Есть список <code>[1, 2]</code>. Вводятся количество чисел и сами числа. Сделайте две копии исходного списка. В первую добавьте введённые числа как один элемент-список, во вторую — как отдельные элементы. Выведите две строки: <code>append: […]</code> и <code>extend: […]</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+7
+8</pre></div><div><b>Вывод</b><pre>append: [1, 2, [7, 8]]
+extend: [1, 2, 7, 8]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>append: [1, 2, []]
+extend: [1, 2]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+5</pre></div><div><b>Вывод</b><pre>append: [1, 2, [5]]
+extend: [1, 2, 5]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Различие видно по вложенным скобкам в выводе.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.10.9</span><h3 class="task__title">Убрать все отмены</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество заказов и номера статусов (по одному в строке). Статус <code>0</code> означает отмену. Удалите из списка все нули и выведите оставшиеся статусы. Нули удаляйте методом <code>remove()</code>, а перебирайте копию списка.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+1
+0
+2
+0
+0
+3</pre></div><div><b>Вывод</b><pre>[1, 2, 3]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+0
+0
+0</pre></div><div><b>Вывод</b><pre>[]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+4
+5</pre></div><div><b>Вывод</b><pre>[4, 5]</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нельзя перебирать список и удалять из него же: часть элементов будет пропущена. Для обхода возьмите копию.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.10.10</span><h3 class="task__title">Перенос заказа</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество активных заказов и их номера. Потом вводится номер выполненного заказа (он есть среди активных). Перенесите его в список выполненных, который сначала пуст. Выведите две строки: <code>Активные: […]</code> и <code>Выполненные: […]</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+501
+502
+503
+502</pre></div><div><b>Вывод</b><pre>Активные: [501, 503]
+Выполненные: [502]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+77
+77</pre></div><div><b>Вывод</b><pre>Активные: []
+Выполненные: [77]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала удалите значение из одного списка, потом добавьте в другой.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.10.11</span><h3 class="task__title">Исправьте программу</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа собирает корзину: читает названия до слова <code>стоп</code>, потом кладёт в корзину подарок — открытку, и выводит список. В ней две ошибки: после первого же товара вместо корзины в переменной оказывается <code>None</code>, а открытка попадает в список по буквам. Исправьте программу.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>cart = []
+name = <span class="f">input</span>()
+<span class="k">while</span> name != <span class="s">&quot;стоп&quot;</span>:
+    cart = cart.append(name)
+    name = <span class="f">input</span>()
+cart.extend(<span class="s">&quot;открытка&quot;</span>)
+<span class="f">print</span>(cart)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">молоко
+хлеб
+стоп</pre></div><div><b>Вывод</b><pre>[&#x27;молоко&#x27;, &#x27;хлеб&#x27;, &#x27;открытка&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">стоп</pre></div><div><b>Вывод</b><pre>[&#x27;открытка&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод <code>append()</code> меняет список на месте. А <code>extend()</code> перебирает то, что ему передали, и строка для него — набор букв.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.10.12</span><h3 class="task__title">Исправьте резервную копию</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает оценки, вводит значение, которое надо убрать (оно есть в списке), и пересдачу. Она должна вывести список до и после. Сейчас оба списка в выводе одинаковые: в программе одна ошибка. Исправьте её.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+grades = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    grades.append(<span class="f">int</span>(<span class="f">input</span>()))
+bad = <span class="f">int</span>(<span class="f">input</span>())
+retake = <span class="f">int</span>(<span class="f">input</span>())
+backup = grades
+grades.remove(bad)
+grades.append(retake)
+<span class="f">print</span>(<span class="s">&quot;Было:&quot;</span>, backup)
+<span class="f">print</span>(<span class="s">&quot;Стало:&quot;</span>, grades)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+3
+5
+4
+3
+5</pre></div><div><b>Вывод</b><pre>Было: [3, 5, 4]
+Стало: [5, 4, 5]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+2
+2
+2
+4</pre></div><div><b>Вывод</b><pre>Было: [2, 2]
+Стало: [2, 4]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Присваивание не копирует список, оно даёт ему второе имя.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.10.13</span><h3 class="task__title">Реклама в ленте</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В ленте новостей после каждого третьего поста показывают рекламу. Вводятся количество постов и их заголовки. Вставьте строку <code>РЕКЛАМА</code> после каждого третьего поста, но только если за рекламой идёт хотя бы один пост. Выведите ленту по одному элементу в строке.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7
+а
+б
+в
+г
+д
+е
+ж</pre></div><div><b>Вывод</b><pre>а
+б
+в
+РЕКЛАМА
+г
+д
+е
+РЕКЛАМА
+ж</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+а
+б
+в</pre></div><div><b>Вывод</b><pre>а
+б
+в</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4
+а
+б
+в
+г</pre></div><div><b>Вывод</b><pre>а
+б
+в
+РЕКЛАМА
+г</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>После вставки список стал длиннее на одну запись. Следующее место для рекламы находится на 4 позиции дальше.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.10.14</span><h3 class="task__title">Слияние двух прайсов</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся два прайс-листа, каждый уже по возрастанию цен: количество цен и сами цены. Составьте общий список, тоже по возрастанию. Начните с копии первого списка и вставьте в неё цены второго по одной на нужные места. Выведите общий список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+100
+300
+500
+3
+200
+400
+600</pre></div><div><b>Вывод</b><pre>[100, 200, 300, 400, 500, 600]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+10
+20
+2
+10
+20</pre></div><div><b>Вывод</b><pre>[10, 10, 20, 20]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+2
+5
+6</pre></div><div><b>Вывод</b><pre>[5, 6]</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">2
+5
+6
+0</pre></div><div><b>Вывод</b><pre>[5, 6]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для каждой цены второго списка позиция ищется заново: список меняется после каждой вставки.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.10.15</span><h3 class="task__title">Поворот списка</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Смены дежурных идут по кругу. Вводятся количество дежурных, фамилии и число <code>k</code> — на сколько человек сдвинуть список. Первый дежурный уходит в конец, и так <code>k</code> раз. Выведите список после сдвига. Каждый шаг — это снятие первого значения через <code>remove()</code> и добавление его в конец.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+Антонов
+Белова
+Волков
+Гусева
+1</pre></div><div><b>Вывод</b><pre>[&#x27;Белова&#x27;, &#x27;Волков&#x27;, &#x27;Гусева&#x27;, &#x27;Антонов&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+Антонов
+Белова
+Волков
+0</pre></div><div><b>Вывод</b><pre>[&#x27;Антонов&#x27;, &#x27;Белова&#x27;, &#x27;Волков&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+Антонов
+Белова
+Волков
+3</pre></div><div><b>Вывод</b><pre>[&#x27;Антонов&#x27;, &#x27;Белова&#x27;, &#x27;Волков&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">1
+Иванов
+5</pre></div><div><b>Вывод</b><pre>[&#x27;Иванов&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>remove()</code> убирает первое подходящее значение, а первый элемент как раз стоит под индексом 0.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-9/index.html">← Задачи 3.9</a><a href="../../temy/25-metody-spiskov-1/index.html">Глава 3.10 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-11/index.html">Задачи 3.11 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.10 · Методы списков: часть 1 · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

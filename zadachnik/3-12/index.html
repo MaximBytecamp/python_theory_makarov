@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.12 · Методы списков: часть 3 · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.12</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.12</span>
+<h1>Задачи к главе<br>«Методы списков: часть 3»</h1>
+<p class="lead"><code>reverse()</code> переворачивает список на месте, <code>del</code> удаляет элемент или срез, <code>in</code> и <code>not in</code> проверяют, есть ли значение в списке, а <code>copy.deepcopy()</code> копирует и вложенные списки. Отдельная тема — сравнение: <code>==</code> спрашивает «одинаковое содержимое?», <code>is</code> — «это один и тот же список?».</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/27-metody-spiskov-3/index.html">3.12 Методы списков: часть 3</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.12</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a><a class="chip" href="../../temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2</a><a class="chip chip--now" href="../../temy/27-metody-spiskov-3/index.html"><i>3.12</i>Методы списков: часть 3</a></div>
+<p>Для <code>deepcopy</code> в начале программы нужна строка <code>import copy</code>. Метод <code>copy()</code> у вложенного списка копирует только внешний список: внутренние списки остаются общими. Включений и словарей пока нет, множества тоже, повторы убирайте циклом и проверкой <code>in</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Запрещённые слова</a></li><li><a href="#r2">Разбор 2. Маршрут туда и обратно</a></li><li><a href="#r3">Разбор 3. План с черновиком</a></li><li><a href="#p1">Задача 3.12.1. Праздничный день</a></li><li><a href="#p2">Задача 3.12.2. Доступ по списку</a></li><li><a href="#p3">Задача 3.12.3. Время в обратном порядке</a></li><li><a href="#p4">Задача 3.12.4. Убрать последнюю покупку</a></li><li><a href="#p5">Задача 3.12.5. Совпали ли заказы</a></li><li><a href="#p6">Задача 3.12.6. Вырезать диапазон</a></li><li><a href="#p7">Задача 3.12.7. Равны и одинаковы</a></li><li><a href="#p8">Задача 3.12.8. Новые логины</a></li><li><a href="#p9">Задача 3.12.9. Палиндром ли список</a></li><li><a href="#p10">Задача 3.12.10. Каждый второй день выходной</a></li><li><a href="#p11">Задача 3.12.11. Исправьте копирование таблицы</a></li><li><a href="#p12">Задача 3.12.12. Исправьте обратный порядок</a></li><li><a href="#p13">Задача 3.12.13. Список без повторов</a></li><li><a href="#p14">Задача 3.12.14. Удалить позиции из заказа</a></li><li><a href="#p15">Задача 3.12.15. Общие и только у первого</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой видно, чем отличаются похожие действия: копия и второе имя, <code>==</code> и <code>is</code>, поверхностная и глубокая копия.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Запрещённые слова</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Чат отклоняет сообщения с запрещёнными словами: <code>спам</code>, <code>реклама</code>, <code>казино</code>. Вводится одно слово. Выведите <code>Запрещено</code>, если слово есть в этом списке, и <code>Можно</code>, если нет.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Запрещённые слова храним в списке. Проверку «есть ли значение в списке» выполняет оператор <code>in</code>.</li><li>Результат <code>in</code> — <code>True</code> или <code>False</code>. Его ставят прямо в условие <code>if</code>, отдельно сравнивать с <code>True</code> не нужно.</li><li>Две ветки: запрещённое слово и все остальные.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+banned = [<span class="s">&quot;спам&quot;</span>, <span class="s">&quot;реклама&quot;</span>, <span class="s">&quot;казино&quot;</span>]
+word = <span class="f">input</span>(<span class="s">&quot;Слово: &quot;</span>)
+
+<span class="c"># Проверка и вывод</span>
+<span class="k">if</span> word <span class="k">in</span> banned:
+    <span class="f">print</span>(<span class="s">&quot;Запрещено&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Можно&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Слово: <span class="typed">реклама</span>
+Запрещено</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">привет</pre></div><div><b>Вывод</b><pre>Можно</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">Спам</pre></div><div><b>Вывод</b><pre>Можно</pre></div></div></div>
+<div class="margin-note"><b>Регистр важен</b><p>Слова <code>Спам</code> и <code>спам</code> для Python разные строки, поэтому <code>in</code> не найдёт слово с заглавной буквы. Приводить регистр к одному виду умеют методы строк, они появятся в модуле 5.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Маршрут туда и обратно</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Автобус идёт по остановкам в заданном порядке и возвращается по тому же маршруту в обратную сторону. Вводятся количество остановок и их названия. Выведите две строки: <code>Туда: […]</code> и <code>Обратно: […]</code>. Список «туда» менять нельзя.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Для обратного маршрута подходит <code>reverse()</code>, но он меняет список на месте. Если применить его к исходному, маршрут «туда» пропадёт.</li><li>Поэтому сначала делаем независимую копию через <code>copy()</code>, а переворачиваем уже её.</li><li>Метод <code>reverse()</code> возвращает <code>None</code>, поэтому выводим копию после вызова, а не результат метода.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Остановок: &quot;</span>))
+route = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    route.append(<span class="f">input</span>())
+
+<span class="c"># Обратный маршрут</span>
+back = route.copy()
+back.reverse()
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Туда:&quot;</span>, route)
+<span class="f">print</span>(<span class="s">&quot;Обратно:&quot;</span>, back)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Остановок: <span class="typed">4</span>
+<span class="typed">Вокзал</span>
+<span class="typed">Рынок</span>
+<span class="typed">Парк</span>
+<span class="typed">Университет</span>
+Туда: [&#x27;Вокзал&#x27;, &#x27;Рынок&#x27;, &#x27;Парк&#x27;, &#x27;Университет&#x27;]
+Обратно: [&#x27;Университет&#x27;, &#x27;Парк&#x27;, &#x27;Рынок&#x27;, &#x27;Вокзал&#x27;]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+Депо</pre></div><div><b>Вывод</b><pre>Туда: [&#x27;Депо&#x27;]
+Обратно: [&#x27;Депо&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Туда: []
+Обратно: []</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Результат reverse() — None</b><p>Строка <code>back = route.reverse()</code> оставит в <code>back</code> значение <code>None</code>, а исходный список окажется перевёрнутым. Метод работает на месте и ничего не возвращает.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">План с черновиком</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">План на два дня — это список из двух списков дел. Вводятся количество дел первого дня и сами дела, затем то же для второго дня. Потом вводится новое дело. Нужно сделать черновик плана и добавить новое дело в первый день черновика, не трогая основной план. Выведите <code>План: …</code> и <code>Черновик: …</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>План — список, внутри которого лежат два списка. Метод <code>copy()</code> создаст новый внешний список, но внутренние списки останутся общими с оригиналом.</li><li>Значит, добавление в первый день черновика изменило бы и основной план. Чтобы скопировать все уровни, берём <code>copy.deepcopy()</code> и подключаем модуль строкой <code>import copy</code>.</li><li>После глубокой копии добавляем дело в <code>draft[0]</code>. Основной план остаётся прежним.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="k">import</span> copy
+
+<span class="c"># Ввод</span>
+day_one = []
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Дел в первый день: &quot;</span>))
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    day_one.append(<span class="f">input</span>())
+day_two = []
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Дел во второй день: &quot;</span>))
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    day_two.append(<span class="f">input</span>())
+new_task = <span class="f">input</span>(<span class="s">&quot;Новое дело: &quot;</span>)
+
+<span class="c"># Черновик</span>
+plan = [day_one, day_two]
+draft = copy.deepcopy(plan)
+draft[<span class="n">0</span>].append(new_task)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;План:&quot;</span>, plan)
+<span class="f">print</span>(<span class="s">&quot;Черновик:&quot;</span>, draft)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Дел в первый день: <span class="typed">2</span>
+<span class="typed">лекция</span>
+<span class="typed">практика</span>
+Дел во второй день: <span class="typed">1</span>
+<span class="typed">зачёт</span>
+Новое дело: <span class="typed">сдать отчёт</span>
+План: [[&#x27;лекция&#x27;, &#x27;практика&#x27;], [&#x27;зачёт&#x27;]]
+Черновик: [[&#x27;лекция&#x27;, &#x27;практика&#x27;, &#x27;сдать отчёт&#x27;], [&#x27;зачёт&#x27;]]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">0
+1
+выходной
+позвонить</pre></div><div><b>Вывод</b><pre>План: [[], [&#x27;выходной&#x27;]]
+Черновик: [[&#x27;позвонить&#x27;], [&#x27;выходной&#x27;]]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+сон
+0
+бег</pre></div><div><b>Вывод</b><pre>План: [[&#x27;сон&#x27;], []]
+Черновик: [[&#x27;сон&#x27;, &#x27;бег&#x27;], []]</pre></div></div></div>
+<div class="margin-note"><b>Поверхностная копия не спасает</b><p>При <code>draft = plan.copy()</code> список <code>draft[0]</code> и <code>plan[0]</code> — один и тот же объект. Это легко проверить: <code>draft[0] is plan[0]</code> даст <code>True</code>. После глубокой копии та же проверка даёт <code>False</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.12.1</span><h3 class="task__title">Праздничный день</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Праздничные дни января: <code>[1, 2, 3, 4, 5, 6, 7, 8]</code>. Вводится число месяца. Выведите <code>Праздник</code>, если оно есть в списке, и <code>Рабочий день</code>, если нет.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>Праздник</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">15</pre></div><div><b>Вывод</b><pre>Рабочий день</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">8</pre></div><div><b>Вывод</b><pre>Праздник</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">9</pre></div><div><b>Вывод</b><pre>Рабочий день</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверка состоит из одного слова между значением и списком.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.12.2</span><h3 class="task__title">Доступ по списку</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Доступ к серверу есть у пользователей <code>["admin", "olga", "ivan"]</code>. Вводится имя. Если его нет в списке, выведите <code>Доступ закрыт</code>, иначе — <code>Добро пожаловать</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">olga</pre></div><div><b>Вывод</b><pre>Добро пожаловать</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">guest</pre></div><div><b>Вывод</b><pre>Доступ закрыт</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Используйте <code>not in</code> в условии.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.12.3</span><h3 class="task__title">Время в обратном порядке</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество кругов бегуна (хотя бы один) и время каждого круга в секундах. Выведите список времён в обратном порядке, от последнего круга к первому.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+62
+60
+61
+65</pre></div><div><b>Вывод</b><pre>[65, 61, 60, 62]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+70</pre></div><div><b>Вывод</b><pre>[70]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Метод ничего не возвращает: выводите сам список после вызова.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.12.4</span><h3 class="task__title">Убрать последнюю покупку</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество покупок (хотя бы одна) и их названия. Покупатель отказался от последней. Удалите её оператором <code>del</code> и выведите оставшийся список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+хлеб
+сыр
+чай</pre></div><div><b>Вывод</b><pre>[&#x27;хлеб&#x27;, &#x27;сыр&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+молоко</pre></div><div><b>Вывод</b><pre>[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>После <code>del</code> пишется сам элемент с индексом.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.12.5</span><h3 class="task__title">Совпали ли заказы</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество позиций в двух заказах (оно одинаково) и сами позиции: сначала первый заказ, потом второй. Выведите <code>Заказы совпадают</code>, если списки равны (с учётом порядка), иначе <code>Заказы разные</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+чай
+сахар
+чай
+сахар</pre></div><div><b>Вывод</b><pre>Заказы совпадают</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+чай
+сахар
+сахар
+чай</pre></div><div><b>Вывод</b><pre>Заказы разные</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Заказы совпадают</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Списки сравниваются поэлементно с первой позиции.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.12.6</span><h3 class="task__title">Вырезать диапазон</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество записей в журнале, сами записи, затем два числа: номер первой записи и номер последней записи, которые нужно удалить (с единицы, включительно, диапазон не выходит за журнал). Удалите диапазон одним оператором <code>del</code> и выведите журнал.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+а
+б
+в
+г
+д
+2
+3</pre></div><div><b>Вывод</b><pre>[&#x27;а&#x27;, &#x27;г&#x27;, &#x27;д&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+а
+б
+в
+1
+3</pre></div><div><b>Вывод</b><pre>[]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+а
+б
+в
+2
+2</pre></div><div><b>Вывод</b><pre>[&#x27;а&#x27;, &#x27;в&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Номер с единицы превращается в индекс вычитанием единицы, а правая граница среза в срез не входит.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.12.7</span><h3 class="task__title">Равны и одинаковы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество чисел, сами числа и ещё одно, новое число. Создайте список <code>a</code> из первых чисел, список <code>b = a.copy()</code> и <code>c = a</code>. Выведите три строки: <code>a == b: …</code>, <code>a is b: …</code>, <code>a is c: …</code>. Затем добавьте новое число в список через имя <code>c</code> и выведите списки <code>a</code> и <code>b</code> и снова <code>a == b: …</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+1
+2
+3
+4</pre></div><div><b>Вывод</b><pre>a == b: True
+a is b: False
+a is c: True
+a: [1, 2, 3, 4]
+b: [1, 2, 3]
+a == b: False</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+7</pre></div><div><b>Вывод</b><pre>a == b: True
+a is b: False
+a is c: True
+a: [7]
+b: []
+a == b: False</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>is</code> проверяет, что это один и тот же объект. Равное содержимое проверяет <code>==</code>. Имена <code>a</code> и <code>c</code> ведут к одному списку.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.12.8</span><h3 class="task__title">Новые логины</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В системе уже есть логины. Вводятся их количество и сами логины, затем количество новых заявок и логины из заявок. Добавьте в систему только те логины, которых там ещё нет. Выведите итоговый список логинов и количество отклонённых: <code>Отклонено: 1</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+olga
+ivan
+3
+anna
+olga
+anna</pre></div><div><b>Вывод</b><pre>[&#x27;olga&#x27;, &#x27;ivan&#x27;, &#x27;anna&#x27;]
+Отклонено: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+2
+a
+b</pre></div><div><b>Вывод</b><pre>[&#x27;a&#x27;, &#x27;b&#x27;]
+Отклонено: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+root
+0</pre></div><div><b>Вывод</b><pre>[&#x27;root&#x27;]
+Отклонено: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Заявки обрабатывайте по одной: после добавления логин сам становится занятым.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.12.9</span><h3 class="task__title">Палиндром ли список</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество чисел и сами числа. Выведите <code>Палиндром</code>, если список читается одинаково слева направо и справа налево, и <code>Не палиндром</code> в остальных случаях. Исходный список менять нельзя.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+1
+2
+3
+2
+1</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+2
+3</pre></div><div><b>Вывод</b><pre>Не палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">1
+7</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравнивать нужно список и его перевёрнутую копию.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.12.10</span><h3 class="task__title">Каждый второй день выходной</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней в графике и названия смен по порядку. Удалите из графика дни с индексами 1, 3, 5… (каждый второй) одним оператором <code>del</code> с шагом и выведите оставшиеся.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+а
+б
+в
+г
+д</pre></div><div><b>Вывод</b><pre>[&#x27;а&#x27;, &#x27;в&#x27;, &#x27;д&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+а</pre></div><div><b>Вывод</b><pre>[&#x27;а&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>У среза три части: начало, конец и шаг. Начинайте со второго элемента.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.12.11</span><h3 class="task__title">Исправьте копирование таблицы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа вводит четыре оценки: по две в каждой из двух групп. Затем делает копию таблицы и исправляет в ней первую оценку первой группы на пятёрку. Основная таблица должна остаться прежней, но сейчас в ней тоже появляется пятёрка. В программе одна ошибка. Исправьте её.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre><span class="k">import</span> copy
+
+a = <span class="f">int</span>(<span class="f">input</span>())
+b = <span class="f">int</span>(<span class="f">input</span>())
+c = <span class="f">int</span>(<span class="f">input</span>())
+d = <span class="f">int</span>(<span class="f">input</span>())
+table = [[a, b], [c, d]]
+draft = table.copy()
+draft[<span class="n">0</span>][<span class="n">0</span>] = <span class="n">5</span>
+<span class="f">print</span>(<span class="s">&quot;Таблица:&quot;</span>, table)
+<span class="f">print</span>(<span class="s">&quot;Копия:&quot;</span>, draft)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+4
+3
+4</pre></div><div><b>Вывод</b><pre>Таблица: [[3, 4], [3, 4]]
+Копия: [[5, 4], [3, 4]]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+2
+2
+2</pre></div><div><b>Вывод</b><pre>Таблица: [[2, 2], [2, 2]]
+Копия: [[5, 2], [2, 2]]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Внутренние списки при поверхностной копии остаются общими.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.12.12</span><h3 class="task__title">Исправьте обратный порядок</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает названия станций и должна вывести их в прямом и обратном порядке. Сейчас оба списка в выводе перевёрнуты. В программе одна ошибка. Исправьте её.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>count = <span class="f">int</span>(<span class="f">input</span>())
+stations = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(count):
+    stations.append(<span class="f">input</span>())
+backward = stations
+backward.reverse()
+<span class="f">print</span>(<span class="s">&quot;Прямо:&quot;</span>, stations)
+<span class="f">print</span>(<span class="s">&quot;Обратно:&quot;</span>, backward)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+А
+Б
+В</pre></div><div><b>Вывод</b><pre>Прямо: [&#x27;А&#x27;, &#x27;Б&#x27;, &#x27;В&#x27;]
+Обратно: [&#x27;В&#x27;, &#x27;Б&#x27;, &#x27;А&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+А</pre></div><div><b>Вывод</b><pre>Прямо: [&#x27;А&#x27;]
+Обратно: [&#x27;А&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сколько в программе списков на самом деле?</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.12.13</span><h3 class="task__title">Список без повторов</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество посетителей за день и их имена (имена могут повторяться). Выведите список имён без повторов в порядке первого появления и количество уникальных посетителей: <code>Уникальных: 3</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+Анна
+Игорь
+Анна
+Оля
+Игорь</pre></div><div><b>Вывод</b><pre>[&#x27;Анна&#x27;, &#x27;Игорь&#x27;, &#x27;Оля&#x27;]
+Уникальных: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+А
+А
+А</pre></div><div><b>Вывод</b><pre>[&#x27;А&#x27;]
+Уникальных: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>[]
+Уникальных: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Добавляйте имя, только если его ещё нет в новом списке.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.12.14</span><h3 class="task__title">Удалить позиции из заказа</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество позиций в заказе и их названия. Затем вводятся количество позиций, которые покупатель убирает, и их номера в заказе (с единицы, номера разные и могут идти в любом порядке). Удалите их все через <code>del</code> и выведите оставшиеся названия. Удалять нужно так, чтобы ранние удаления не сдвигали номера остальных.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+а
+б
+в
+г
+д
+2
+2
+4</pre></div><div><b>Вывод</b><pre>[&#x27;а&#x27;, &#x27;в&#x27;, &#x27;д&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+а
+б
+в
+г
+д
+3
+1
+5
+3</pre></div><div><b>Вывод</b><pre>[&#x27;б&#x27;, &#x27;г&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+а
+б
+0</pre></div><div><b>Вывод</b><pre>[&#x27;а&#x27;, &#x27;б&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">2
+а
+б
+2
+2
+1</pre></div><div><b>Вывод</b><pre>[]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Удаление сдвигает все элементы правее. Начните с самого большого номера.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.12.15</span><h3 class="task__title">Общие и только у первого</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Два магазина привезли товары. Вводятся количество товаров первого магазина и их названия, затем то же для второго. Выведите три строки: <code>Есть у обоих: […]</code>, <code>Только у первого: […]</code>, <code>Только у второго: […]</code>. Порядок — как в исходных списках, повторов в списках нет.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+чай
+кофе
+сахар
+3
+кофе
+молоко
+чай</pre></div><div><b>Вывод</b><pre>Есть у обоих: [&#x27;чай&#x27;, &#x27;кофе&#x27;]
+Только у первого: [&#x27;сахар&#x27;]
+Только у второго: [&#x27;молоко&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+а
+1
+б</pre></div><div><b>Вывод</b><pre>Есть у обоих: []
+Только у первого: [&#x27;а&#x27;]
+Только у второго: [&#x27;б&#x27;]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+2
+а
+б</pre></div><div><b>Вывод</b><pre>Есть у обоих: []
+Только у первого: []
+Только у второго: [&#x27;а&#x27;, &#x27;б&#x27;]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Общие товары попадают в первый список при обходе первого магазина, а «только у второго» собирается отдельным обходом.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-11/index.html">← Задачи 3.11</a><a href="../../temy/27-metody-spiskov-3/index.html">Глава 3.12 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-13/index.html">Задачи 3.13 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.12 · Методы списков: часть 3 · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

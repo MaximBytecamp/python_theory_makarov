@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.6 · Перебор списка по индексам · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.6</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.6</span>
+<h1>Задачи к главе<br>«Перебор списка по индексам»</h1>
+<p class="lead">Цикл <code>for</code> по списку выдаёт значения, но не позиции. Если нужно изменить элемент, сравнить его с соседом или пройти список с конца, цикл ведут по индексам: <code>for index in range(len(items))</code>. Когда нужны и позиция, и значение, подходит <code>enumerate()</code>.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/28-indeksy-spiska/index.html">3.6 Перебор списка по индексам</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.6</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip chip--now" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a></div>
+<p>Добавлять элементы в список пока нельзя, поэтому списки в задачах фиксированной длины: их собирают из нескольких вызовов <code>input()</code>, как в главе 3.1. Количество элементов названо в условии. Наибольшее и наименьшее ищите циклом, без <code>max()</code> и <code>min()</code>.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Снижение цен</a></li><li><a href="#r2">Разбор 2. Дни похолодания</a></li><li><a href="#r3">Разбор 3. Маршрут с остановками</a></li><li><a href="#p1">Задача 3.6.1. Бонус к баллам</a></li><li><a href="#p2">Задача 3.6.2. Позиции и значения</a></li><li><a href="#p3">Задача 3.6.3. С последнего к первому</a></li><li><a href="#p4">Задача 3.6.4. Нумерованный список покупок</a></li><li><a href="#p5">Задача 3.6.5. Сумма на чётных позициях</a></li><li><a href="#p6">Задача 3.6.6. Дни роста продаж</a></li><li><a href="#p7">Задача 3.6.7. Повторные запросы</a></li><li><a href="#p8">Задача 3.6.8. Положение пика</a></li><li><a href="#p9">Задача 3.6.9. Возвраты как ноль</a></li><li><a href="#p10">Задача 3.6.10. Нарастающий итог</a></li><li><a href="#p11">Задача 3.6.11. Когда была такая температура</a></li><li><a href="#p12">Задача 3.6.12. Перепишите через enumerate</a></li><li><a href="#p13">Задача 3.6.13. Очередь сдвинулась</a></li><li><a href="#p14">Задача 3.6.14. Переворот на месте</a></li><li><a href="#p15">Задача 3.6.15. Исправьте ошибки</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью: изменение элементов по индексу, сравнение соседних элементов и нумерованный вывод через <code>enumerate()</code>.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Снижение цен</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В магазине снижают цену на 50 рублей у всех товаров дороже 500 рублей. Вводятся пять цен, по одной в строке. Выведите список цен после снижения одной командой <code>print()</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Цены нужно изменить в самом списке. Цикл <code>for price in prices</code> не подойдёт: он меняет копию значения, а список остаётся прежним.</li><li>Поэтому проходим позиции: <code>range(len(prices))</code> даёт 0, 1, 2, 3, 4.</li><li>На каждой позиции читаем значение <code>prices[index]</code>, проверяем условие и, если оно верно, записываем новое значение в ту же ячейку.</li><li>Список выводим после цикла: он уже содержит новые цены.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+prices = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 3: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 4: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 5: &quot;</span>))]
+
+<span class="c"># Расчёт</span>
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(prices)):
+    <span class="k">if</span> prices[index] &gt; <span class="n">500</span>:
+        prices[index] -= <span class="n">50</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(prices)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Цена 1: <span class="typed">300</span>
+Цена 2: <span class="typed">800</span>
+Цена 3: <span class="typed">500</span>
+Цена 4: <span class="typed">1200</span>
+Цена 5: <span class="typed">90</span>
+[300, 750, 500, 1150, 90]</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+200
+300
+400
+500</pre></div><div><b>Вывод</b><pre>[100, 200, 300, 400, 500]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">501
+501
+501
+501
+501</pre></div><div><b>Вывод</b><pre>[451, 451, 451, 451, 451]</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Цикл по значениям список не меняет</b><p>В записи <code>for price in prices: price = price - 50</code> переменной <code>price</code> присваивается новое число, а ячейка списка остаётся прежней. Чтобы изменить сам список, пишите в ячейку по индексу: <code>prices[index] = …</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Дни похолодания</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся температуры за шесть дней подряд. День считается днём похолодания, если температура упала на 5 градусов и больше по сравнению с предыдущим днём. Для каждого такого дня выведите строку <code>Похолодание в день 4</code>, а в конце — <code>Всего дней: 2</code>. Дни нумеруются с 1.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Для сравнения с предыдущим днём нужен индекс. Пара состоит из элемента <code>index - 1</code> и элемента <code>index</code>.</li><li>У первого дня предыдущего нет, поэтому индексы начинаем с 1: <code>range(1, len(temperatures))</code>. Так мы не выйдем за левую границу и не получим <code>temperatures[-1]</code> по ошибке.</li><li>Падение — это <code>temperatures[index - 1] - temperatures[index]</code>. Если оно не меньше 5, выводим номер дня <code>index + 1</code> и увеличиваем счётчик.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+temperatures = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 3: &quot;</span>)),
+                <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 4: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 5: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;День 6: &quot;</span>))]
+
+<span class="c"># Расчёт и вывод</span>
+count = <span class="n">0</span>
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="f">len</span>(temperatures)):
+    drop = temperatures[index - <span class="n">1</span>] - temperatures[index]
+    <span class="k">if</span> drop &gt;= <span class="n">5</span>:
+        <span class="f">print</span>(<span class="s">&quot;Похолодание в день&quot;</span>, index + <span class="n">1</span>)
+        count += <span class="n">1</span>
+<span class="f">print</span>(<span class="s">&quot;Всего дней:&quot;</span>, count)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>День 1: <span class="typed">20</span>
+День 2: <span class="typed">14</span>
+День 3: <span class="typed">15</span>
+День 4: <span class="typed">9</span>
+День 5: <span class="typed">10</span>
+День 6: <span class="typed">10</span>
+Похолодание в день 2
+Похолодание в день 4
+Всего дней: 2</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+11
+12
+13
+14
+15</pre></div><div><b>Вывод</b><pre>Всего дней: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">-2
+-7
+-12
+-12
+-18
+-23</pre></div><div><b>Вывод</b><pre>Похолодание в день 2
+Похолодание в день 3
+Похолодание в день 5
+Похолодание в день 6
+Всего дней: 4</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Начало диапазона зависит от того, с кем сравниваем</b><p>Если сравнивать с предыдущим элементом, индекс <code>0</code> брать нельзя: <code>temperatures[0 - 1]</code> — это последний элемент списка, и программа даст неверный ответ без ошибки. Если сравнивать со следующим, диапазон заканчивается на <code>len(...) - 1</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Маршрут с остановками</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся названия четырёх остановок маршрута, по одному в строке. Выведите их с номерами от 1 в виде <code>1. Вокзал</code>. К последней остановке добавьте в конце <code>(конечная)</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Нужны и номер, и название, поэтому используем <code>enumerate(stops, start=1)</code>: он выдаёт пары (номер, значение), а номер начинает с единицы.</li><li>Последняя остановка — та, чей номер равен длине списка: <code>number == len(stops)</code>.</li><li>Остальные остановки выводим по общему образцу, у последней добавляем пометку.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+stops = [<span class="f">input</span>(<span class="s">&quot;Остановка 1: &quot;</span>), <span class="f">input</span>(<span class="s">&quot;Остановка 2: &quot;</span>), <span class="f">input</span>(<span class="s">&quot;Остановка 3: &quot;</span>), <span class="f">input</span>(<span class="s">&quot;Остановка 4: &quot;</span>)]
+
+<span class="c"># Вывод</span>
+<span class="k">for</span> number, name <span class="k">in</span> <span class="f">enumerate</span>(stops, start=<span class="n">1</span>):
+    <span class="k">if</span> number == <span class="f">len</span>(stops):
+        <span class="f">print</span>(<span class="s">f&quot;</span>{number}<span class="s">. </span>{name}<span class="s"> (конечная)</span><span class="s">&quot;</span>)
+    <span class="k">else</span>:
+        <span class="f">print</span>(<span class="s">f&quot;</span>{number}<span class="s">. </span>{name}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Остановка 1: <span class="typed">Вокзал</span>
+Остановка 2: <span class="typed">Рынок</span>
+Остановка 3: <span class="typed">Парк</span>
+Остановка 4: <span class="typed">Университет</span>
+1. Вокзал
+2. Рынок
+3. Парк
+4. Университет (конечная)</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">А
+Б
+В
+Г</pre></div><div><b>Вывод</b><pre>1. А
+2. Б
+3. В
+4. Г (конечная)</pre></div></div></div>
+<div class="margin-note"><b>Нумерация с нуля и с единицы</b><p>Без <code>start=1</code> счёт идёт с нуля. Человек считает с единицы, поэтому в списке для чтения номера начинают с 1. Значение <code>start</code> меняет только номера, индексы списка остаются прежними: нулевой элемент по-прежнему <code>stops[0]</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.6.1</span><h3 class="task__title">Бонус к баллам</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">За активность на занятиях каждому из четырёх студентов добавляют 5 баллов. Вводятся четыре текущих балла. Выведите изменённый список одной командой <code>print()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">60
+75
+82
+90</pre></div><div><b>Вывод</b><pre>[65, 80, 87, 95]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>[5, 5, 5, 5]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Изменять надо ячейку списка, поэтому цикл ведут по индексам, а не по значениям.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.6.2</span><h3 class="task__title">Позиции и значения</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся четыре показания счётчика воды. Выведите каждое в виде <code>0: 120</code>, где число слева — индекс в списке, справа — значение. Индексы начинаются с 0.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">120
+135
+150
+171</pre></div><div><b>Вывод</b><pre>0: 120
+1: 135
+2: 150
+3: 171</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>0: 5
+1: 5
+2: 5
+3: 5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Индекс — переменная цикла, значение берётся из списка по этому индексу.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.6.3</span><h3 class="task__title">С последнего к первому</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся пять цен из прайс-листа. Выведите их по одной в строке в обратном порядке: от последней к первой. Список не переворачивайте, проходите его индексами с конца.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+250
+80
+300
+45</pre></div><div><b>Вывод</b><pre>45
+300
+80
+250
+100</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7
+7
+7
+7
+7</pre></div><div><b>Вывод</b><pre>7
+7
+7
+7
+7</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Последний индекс — <code>len(prices) - 1</code>, первый — 0. Шаг <code>-1</code>, а конец диапазона не входит в перебор.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.6.4</span><h3 class="task__title">Нумерованный список покупок</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся четыре названия товаров. Выведите их с номерами от 1 в виде <code>1) молоко</code>. Используйте <code>enumerate()</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">молоко
+хлеб
+сыр
+яйца</pre></div><div><b>Вывод</b><pre>1) молоко
+2) хлеб
+3) сыр
+4) яйца</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">a
+b
+c
+d</pre></div><div><b>Вывод</b><pre>1) a
+2) b
+3) c
+4) d</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Параметр <code>start=1</code> задаёт первый номер.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.6.5</span><h3 class="task__title">Сумма на чётных позициях</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся шесть чисел — выручка по часам смены. Выведите сумму чисел, которые стоят на позициях 0, 2 и 4 (позиции считаются с нуля), в виде <code>Сумма: 360</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+50
+120
+40
+140
+30</pre></div><div><b>Вывод</b><pre>Сумма: 360</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1
+1
+1
+1
+1</pre></div><div><b>Вывод</b><pre>Сумма: 3</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Позиция чётная, если остаток от деления индекса на 2 равен нулю.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.6.6</span><h3 class="task__title">Дни роста продаж</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся продажи за шесть дней. Выведите, в скольких днях продажи были больше, чем накануне, в виде <code>Дней роста: 3</code>. Первый день не считается: сравнивать его не с чем.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+12
+11
+15
+15
+20</pre></div><div><b>Вывод</b><pre>Дней роста: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
+8
+7
+6
+5
+4</pre></div><div><b>Вывод</b><pre>Дней роста: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Дней роста: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравните элемент с индексом <code>index</code> и предыдущий. Диапазон начинается с 1.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.6.7</span><h3 class="task__title">Повторные запросы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Сервер записал номера шести запросов подряд. Подозрительным считается запрос, номер которого совпадает с предыдущим. Вводятся шесть целых чисел. Выведите количество таких запросов в виде <code>Повторов подряд: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+4
+7
+7
+7
+2</pre></div><div><b>Вывод</b><pre>Повторов подряд: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Повторов подряд: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">9
+9
+9
+9
+9
+9</pre></div><div><b>Вывод</b><pre>Повторов подряд: 5</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравнивайте элемент со следующим. Тогда последний индекс в диапазон входить не должен.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.6.8</span><h3 class="task__title">Положение пика</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся пять показаний пульса. Выведите наибольшее значение и его номер в ряду (нумерация с 1; при равных значениях — первый) в виде <code>Пик 172 на позиции 3</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">90
+120
+172
+150
+172</pre></div><div><b>Вывод</b><pre>Пик 172 на позиции 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">80
+80
+80
+80
+80</pre></div><div><b>Вывод</b><pre>Пик 80 на позиции 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">170
+160
+150
+140
+130</pre></div><div><b>Вывод</b><pre>Пик 170 на позиции 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Запоминайте не само значение, а индекс лучшего элемента. Значение всегда можно получить из списка.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.6.9</span><h3 class="task__title">Возвраты как ноль</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В выписке шесть операций: положительные числа — поступления, отрицательные — возвраты. Вводятся шесть чисел. Замените в списке все отрицательные значения нулём. Выведите в первой строке <code>Исправлено: 2</code>, во второй — список после замены.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">500
+-120
+300
+-50
+0
+80</pre></div><div><b>Вывод</b><pre>Исправлено: 2
+[500, 0, 300, 0, 0, 80]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Исправлено: 0
+[1, 2, 3, 4, 5, 6]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">-1
+-1
+-1
+-1
+-1
+-1</pre></div><div><b>Вывод</b><pre>Исправлено: 6
+[0, 0, 0, 0, 0, 0]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Внутри условия два действия: запись нуля в ячейку и увеличение счётчика.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.6.10</span><h3 class="task__title">Нарастающий итог</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся продажи за пять дней. Замените каждый элемент списка суммой продаж с первого дня по этот день включительно (нарастающий итог) и выведите список целиком. Например, продажи 3, 1, 4 превращаются в 3, 4, 8. Новый список не создавайте, меняйте исходный.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+1
+4
+1
+5</pre></div><div><b>Вывод</b><pre>[3, 4, 8, 9, 14]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>[0, 0, 0, 0, 0]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+20
+30
+40
+50</pre></div><div><b>Вывод</b><pre>[10, 30, 60, 100, 150]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>К каждому элементу, кроме первого, прибавьте предыдущий — он уже содержит итог за прошлые дни.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.6.11</span><h3 class="task__title">Когда была такая температура</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся температуры за шесть дней, а затем искомая температура. Найдите номер первого дня (с 1), когда температура была равна искомой, и выведите <code>Впервые в день 3</code>. Если такого дня не было, выведите <code>Такой температуры не было</code>. Для выбора вывода используйте <code>else</code> у цикла.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">12
+15
+18
+15
+11
+9
+15</pre></div><div><b>Вывод</b><pre>Впервые в день 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">12
+15
+18
+15
+11
+9
+20</pre></div><div><b>Вывод</b><pre>Такой температуры не было</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Впервые в день 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Как только значение найдено, выведите ответ и прервите цикл через <code>break</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.6.12</span><h3 class="task__title">Перепишите через enumerate</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа печатает оценки студента с номерами. Перепишите цикл так, чтобы он использовал <code>enumerate()</code> вместо <code>range(len(...))</code>. Вывод не должен измениться.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — переписать</span></figcaption><pre>marks = [<span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>())]
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(marks)):
+    <span class="f">print</span>(<span class="s">&quot;Оценка&quot;</span>, index + <span class="n">1</span>, <span class="s">&quot;-&quot;</span>, marks[index])</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+4
+4
+3</pre></div><div><b>Вывод</b><pre>Оценка 1 - 5
+Оценка 2 - 4
+Оценка 3 - 4
+Оценка 4 - 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+2
+2
+2</pre></div><div><b>Вывод</b><pre>Оценка 1 - 2
+Оценка 2 - 2
+Оценка 3 - 2
+Оценка 4 - 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Выражение <code>index + 1</code> заменяется параметром <code>start=1</code>, а <code>marks[index]</code> — второй переменной цикла.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.6.13</span><h3 class="task__title">Очередь сдвинулась</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">В электронной очереди пять талонов. Первый талон обслужили и снова поставили в конец, остальные сдвинулись на одно место вперёд. Вводятся пять номеров талонов. Выведите список после сдвига. Список меняйте на месте, циклом по индексам.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">101
+102
+103
+104
+105</pre></div><div><b>Вывод</b><pre>[102, 103, 104, 105, 101]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7
+7
+7
+7
+7</pre></div><div><b>Вывод</b><pre>[7, 7, 7, 7, 7]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала сохраните первый элемент в переменную, иначе он затрётся. Затем каждый элемент заменяйте следующим, а в последнюю ячейку запишите сохранённое.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.6.14</span><h3 class="task__title">Переворот на месте</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся пять чисел — показания датчика. Переверните список на месте: первый элемент должен поменяться с последним, второй — с предпоследним. Для этого проходите только половину списка и меняйте элементы местами через временную переменную. Выведите список после переворота.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5</pre></div><div><b>Вывод</b><pre>[5, 4, 3, 2, 1]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">9
+9
+9
+9
+9</pre></div><div><b>Вывод</b><pre>[9, 9, 9, 9, 9]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+20
+30
+40
+50</pre></div><div><b>Вывод</b><pre>[50, 40, 30, 20, 10]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Парой к индексу <code>index</code> служит <code>len(values) - 1 - index</code>. Если пройти весь список, элементы вернутся на места.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.6.15</span><h3 class="task__title">Исправьте ошибки</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа получает цены на товар за пять дней и должна вывести наибольший рост цены за сутки: на сколько цена выросла за день сильнее всего. Если цена ни разу не выросла, ответ 0. В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>prices = [<span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>())]
+best = <span class="n">0</span>
+<span class="k">for</span> index <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(prices)):
+    jump = prices[index] - prices[index + <span class="n">1</span>]
+    <span class="k">if</span> jump &gt; best:
+        best == jump
+<span class="f">print</span>(<span class="s">&quot;Наибольший рост:&quot;</span>, best)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+120
+110
+150
+140</pre></div><div><b>Вывод</b><pre>Наибольший рост: 40</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">50
+40
+30
+20
+10</pre></div><div><b>Вывод</b><pre>Наибольший рост: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">70
+70
+70
+70
+70</pre></div><div><b>Вывод</b><pre>Наибольший рост: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна ошибка приводит к <code>IndexError</code>, вторая даёт обратный знак, третья оставляет значение <code>best</code> неизменным.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-5/index.html">← Задачи 3.5</a><a href="../../temy/28-indeksy-spiska/index.html">Глава 3.6 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-7/index.html">Задачи 3.7 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.6 · Перебор списка по индексам · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

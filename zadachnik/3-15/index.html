@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.15 · Функция <code>sum()</code> · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.15</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.15</span>
+<h1>Задачи к главе<br>«Функция <code>sum()</code>»</h1>
+<p class="lead">Сумму элементов списка больше не нужно копить в цикле: <code>sum(items)</code> делает это одним вызовом. Второй аргумент задаёт начальное значение, на пустом списке получается ноль, а сумма списка из <code>True</code> и <code>False</code> считает, сколько раз сработало условие.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/32-sum/index.html">3.15 Функция <code>sum()</code></a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.15</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a><a class="chip" href="../../temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2</a><a class="chip" href="../../temy/27-metody-spiskov-3/index.html"><i>3.12</i>Методы списков: часть 3</a><a class="chip" href="../../temy/39-dvumernye-spiski/index.html"><i>3.13</i>Двумерные списки</a><a class="chip" href="../../temy/30-funkcii-kollekciy/index.html"><i>3.14</i>Функции для коллекций</a><a class="chip chip--now" href="../../temy/32-sum/index.html"><i>3.15</i>Функция <code>sum()</code></a></div>
+<p>Генераторов и включений пока нет. Если нужно сложить не все числа, а только подходящие, подходящие сначала добавляют в новый список циклом. Подсчёт по условию тоже идёт через список из <code>True</code> и <code>False</code>, который строит цикл. Методов строк нет.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Выручка и средняя за день</a></li><li><a href="#r2">Разбор 2. Касса с начальным остатком</a></li><li><a href="#r3">Разбор 3. Заказы всех курьеров</a></li><li><a href="#p1">Задача 3.15.1. Сумма покупок</a></li><li><a href="#p2">Задача 3.15.2. Средний чек</a></li><li><a href="#p3">Задача 3.15.3. Баланс карты</a></li><li><a href="#p4">Задача 3.15.4. Отличные оценки</a></li><li><a href="#p5">Задача 3.15.5. Вес багажа</a></li><li><a href="#p6">Задача 3.15.6. Доля просроченных доставок</a></li><li><a href="#p7">Задача 3.15.7. Дни теплее среднего</a></li><li><a href="#p8">Задача 3.15.8. Какая накладная больше</a></li><li><a href="#p9">Задача 3.15.9. Итоги по строкам таблицы</a></li><li><a href="#p10">Задача 3.15.10. Только крупные заказы</a></li><li><a href="#p11">Задача 3.15.11. Нехватка товаров</a></li><li><a href="#p12">Задача 3.15.12. Исправьте расчёт по карте</a></li><li><a href="#p13">Задача 3.15.13. Чек без самой дорогой позиции</a></li><li><a href="#p14">Задача 3.15.14. Самый крупный заказ среди курьеров</a></li><li><a href="#p15">Задача 3.15.15. Выпуск по сменам</a></li><li><a href="#p16">Задача 3.15.16. Лучшие три дня подряд</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В них встречаются сумма списка, начальное значение, подсчёт по условию и склейка списков через <code>sum()</code>.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Выручка и средняя за день</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Магазин записывает выручку по дням. Вводятся количество дней и выручка за каждый день. Если дней нет, выведите <code>Данных нет</code>. Иначе выведите общую выручку и среднюю за день с двумя знаками после запятой.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Все значения сначала складываем в список, потом одним вызовом <code>sum(sales)</code> получаем общую выручку.</li><li>Средняя за день — сумма, делённая на количество дней. Если дней нет, делить нельзя: сам <code>sum()</code> на пустом списке даст 0, а вот деление на ноль упадёт с ошибкой.</li><li>Поэтому случай «дней нет» отделяем условием, а общую сумму и среднюю выводим только в ветке <code>else</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько дней: &quot;</span>))
+sales = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    sales.append(<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Выручка за день: &quot;</span>)))
+
+<span class="c"># Расчёт и вывод</span>
+total = <span class="f">sum</span>(sales)
+<span class="k">if</span> count == <span class="n">0</span>:
+    <span class="f">print</span>(<span class="s">&quot;Данных нет&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Всего:&quot;</span>, total)
+    <span class="f">print</span>(<span class="s">f&quot;</span><span class="s">В среднем за день: </span>{total / count:<span class="s">.2f</span>}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Сколько дней: <span class="typed">3</span>
+Выручка за день: <span class="typed">120</span>
+Выручка за день: <span class="typed">80</span>
+Выручка за день: <span class="typed">100</span>
+Всего: 300
+В среднем за день: 100.00</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+10
+20
+25</pre></div><div><b>Вывод</b><pre>Всего: 55
+В среднем за день: 18.33</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Данных нет</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Сумма пустого списка равна 0</b><p><code>sum([])</code> возвращает <code>0</code>. Ошибка появляется позже, на делении: <code>0 / 0</code> недопустимо. Сумму можно считать без проверки, а делить на количество — только когда оно не равно нулю.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Касса с начальным остатком</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В начале смены в кассе лежит какая-то сумма. Вводятся остаток на начало смены, количество продаж и сумма каждой продажи. Выведите, сколько денег в кассе в конце смены (<code>В кассе: …</code>), и сколько продаж было на 1000 рублей и больше (<code>Крупных продаж: …</code>).</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Деньги в кассе — это остаток плюс все продажи. Второй аргумент <code>sum()</code> — начальное значение: <code>sum(sales, opening)</code> стартует не с нуля, а с остатка.</li><li>Крупные продажи считаем без отдельного счётчика. На каждой продаже добавляем в список <code>True</code> или <code>False</code> для условия «от 1000».</li><li><code>True</code> при сложении равно 1, <code>False</code> равно 0. Поэтому <code>sum(is_large)</code> — это число продаж, для которых условие выполнилось.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+opening = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Остаток на начало смены: &quot;</span>))
+count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сколько продаж: &quot;</span>))
+sales = []
+is_large = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    amount = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сумма продажи: &quot;</span>))
+    sales.append(amount)
+    is_large.append(amount &gt;= <span class="n">1000</span>)
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;В кассе:&quot;</span>, <span class="f">sum</span>(sales, opening))
+<span class="f">print</span>(<span class="s">&quot;Крупных продаж:&quot;</span>, <span class="f">sum</span>(is_large))</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Остаток на начало смены: <span class="typed">5000</span>
+Сколько продаж: <span class="typed">4</span>
+Сумма продажи: <span class="typed">350</span>
+Сумма продажи: <span class="typed">1200</span>
+Сумма продажи: <span class="typed">80</span>
+Сумма продажи: <span class="typed">2500</span>
+В кассе: 9130
+Крупных продаж: 2</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+0</pre></div><div><b>Вывод</b><pre>В кассе: 1000
+Крупных продаж: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+2
+999
+1000</pre></div><div><b>Вывод</b><pre>В кассе: 1999
+Крупных продаж: 1</pre></div></div></div>
+<div class="margin-note"><b>Начальное значение — не вторая коллекция</b><p>Второй аргумент <code>sum()</code> прибавляется к результату один раз в самом начале. Для чисел это обычно 0 и его не пишут. Список для сложения всегда первый: запись <code>sum(opening, sales)</code> с перепутанным порядком выдаст ошибку.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Заказы всех курьеров</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">У службы доставки несколько курьеров. Вводится количество курьеров, затем для каждого — количество его заказов и сумма каждого заказа. Выведите, сколько заказов всего, их общую сумму и в третьей строке все суммы в порядке ввода: <code>Все суммы: 300 450 120</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Заказы каждого курьера собираем в отдельный список, а эти списки — в один общий список списков.</li><li>Нужен один плоский список всех заказов. Сложение списков <code>+</code> склеивает их, а <code>sum()</code> складывает всё подряд, поэтому <code>sum(all_lists, [])</code> склеит все курьерские списки.</li><li>Начальное значение здесь обязательно пустой список. Без него <code>sum()</code> начнёт с числа 0 и попытается сложить число со списком.</li><li>Дальше работаем с плоским списком теми же средствами: <code>len()</code>, <code>sum()</code>, <code>print(*merged)</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+couriers = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Курьеров: &quot;</span>))
+all_lists = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(couriers):
+    count = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Заказов у курьера: &quot;</span>))
+    orders = []
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+        orders.append(<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Сумма заказа: &quot;</span>)))
+    all_lists.append(orders)
+
+<span class="c"># Расчёт</span>
+merged = <span class="f">sum</span>(all_lists, [])
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Заказов всего:&quot;</span>, <span class="f">len</span>(merged))
+<span class="f">print</span>(<span class="s">&quot;Сумма:&quot;</span>, <span class="f">sum</span>(merged))
+<span class="f">print</span>(<span class="s">&quot;Все суммы:&quot;</span>, *merged)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Курьеров: <span class="typed">2</span>
+Заказов у курьера: <span class="typed">2</span>
+Сумма заказа: <span class="typed">300</span>
+Сумма заказа: <span class="typed">450</span>
+Заказов у курьера: <span class="typed">1</span>
+Сумма заказа: <span class="typed">120</span>
+Заказов всего: 3
+Сумма: 870
+Все суммы: 300 450 120</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+0
+1
+500
+0</pre></div><div><b>Вывод</b><pre>Заказов всего: 1
+Сумма: 500
+Все суммы: 500</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+0</pre></div><div><b>Вывод</b><pre>Заказов всего: 0
+Сумма: 0
+Все суммы:</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Без [] сложение списков не работает</b><p><code>sum([[1, 2], [3]])</code> заканчивается ошибкой <code>TypeError</code>: сначала к 0 пытаются прибавить список. Запись <code>sum([[1, 2], [3]], [])</code> даёт <code>[1, 2, 3]</code>.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.15.1</span><h3 class="task__title">Сумма покупок</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество покупок и цена каждой. Выведите <code>Итого: …</code> — сумму всех цен. Если покупок нет, итог равен нулю.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+120
+80
+450</pre></div><div><b>Вывод</b><pre>Итого: 650</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+999</pre></div><div><b>Вывод</b><pre>Итого: 999</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Итого: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Соберите цены в список и передайте его в <code>sum()</code>.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.15.2</span><h3 class="task__title">Средний чек</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество чеков и сумма каждого. Если чеков нет, выведите <code>Чеков нет</code>. Иначе выведите <code>Средний чек: …</code> с двумя знаками после запятой.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+120
+250
+310</pre></div><div><b>Вывод</b><pre>Средний чек: 226.67</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+100
+300</pre></div><div><b>Вывод</b><pre>Средний чек: 200.00</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Чеков нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Деление на количество чеков допустимо только тогда, когда оно не равно нулю.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.15.3</span><h3 class="task__title">Баланс карты</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся остаток на карте, количество операций и сами операции: положительное число — пополнение, отрицательное — списание. Выведите <code>Баланс: …</code> после всех операций.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+3
+500
+-200
+-150</pre></div><div><b>Вывод</b><pre>Баланс: 1150</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">300
+1
+-400</pre></div><div><b>Вывод</b><pre>Баланс: -100</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">250
+0</pre></div><div><b>Вывод</b><pre>Баланс: 250</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Остаток на карте — это начальное значение суммы, второй аргумент <code>sum()</code>.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.15.4</span><h3 class="task__title">Отличные оценки</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество оценок и сами оценки. Выведите, сколько среди них пятёрок.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+5
+4
+5
+3
+5</pre></div><div><b>Вывод</b><pre>Пятёрок: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+4
+4
+3</pre></div><div><b>Вывод</b><pre>Пятёрок: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Пятёрок: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для каждой оценки добавьте в список результат сравнения с пятёркой, затем сложите список.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.15.5</span><h3 class="task__title">Вес багажа</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество мест багажа и вес каждого места в килограммах (может быть дробным). Выведите общий вес с двумя знаками после запятой.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+12.5
+7.3
+9.2</pre></div><div><b>Вывод</b><pre>Общий вес: 29.00 кг</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+23.4</pre></div><div><b>Вывод</b><pre>Общий вес: 23.40 кг</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Общий вес: 0.00 кг</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Вес вводится дробным числом, поэтому каждое значение переводят через <code>float()</code>.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.15.6</span><h3 class="task__title">Доля просроченных доставок</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество доставок и задержка каждой в днях (0 — вовремя). Доставка просрочена, если задержка больше нуля. Если доставок нет, выведите <code>Доставок нет</code>. Иначе выведите долю просроченных в процентах с двумя знаками после запятой: <code>Просрочено: …%</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8
+0
+0
+2
+0
+0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Просрочено: 12.50%</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+0
+0</pre></div><div><b>Вывод</b><pre>Просрочено: 33.33%</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4
+0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Просрочено: 0.00%</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Доставок нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Число просроченных — это сумма списка из <code>True</code> и <code>False</code>. Долю получите делением на общее количество.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.15.7</span><h3 class="task__title">Дни теплее среднего</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней (не меньше одного) и температура за каждый день. Выведите, в скольких днях температура была строго выше средней за весь период.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+18
+20
+22
+24
+26</pre></div><div><b>Вывод</b><pre>Дней теплее среднего: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+10
+10
+10</pre></div><div><b>Вывод</b><pre>Дней теплее среднего: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+15</pre></div><div><b>Вывод</b><pre>Дней теплее среднего: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Среднюю нужно знать до сравнения, поэтому сначала соберите весь список, потом посчитайте среднее, потом проходите по списку второй раз.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.15.8</span><h3 class="task__title">Какая накладная больше</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся две накладные. Для каждой сначала количество позиций, затем сумма каждой позиции. Выведите <code>Первая больше</code>, <code>Вторая больше</code> или <code>Суммы равны</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+500
+300
+3
+100
+200
+150</pre></div><div><b>Вывод</b><pre>Первая больше</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+100
+2
+80
+90</pre></div><div><b>Вывод</b><pre>Вторая больше</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+50
+50
+1
+100</pre></div><div><b>Вывод</b><pre>Суммы равны</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0
+0</pre></div><div><b>Вывод</b><pre>Суммы равны</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Достаточно сравнить <code>sum(first)</code> и <code>sum(second)</code>.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.15.9</span><h3 class="task__title">Итоги по строкам таблицы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Таблица продаж: строка — товар, столбец — неделя. Вводятся количество строк, количество столбцов и значения по строкам, по одному в строке ввода. Для каждой строки выведите <code>Товар 1: …</code> (сумма по неделям), последней строкой — <code>Всего: …</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3
+10
+20
+30
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Товар 1: 60
+Товар 2: 15
+Всего: 75</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+7
+8</pre></div><div><b>Вывод</b><pre>Товар 1: 15
+Всего: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+3</pre></div><div><b>Вывод</b><pre>Всего: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумма одной строки таблицы — это <code>sum(row)</code>. Итоги строк копите в отдельный список.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.15.10</span><h3 class="task__title">Только крупные заказы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся порог в рублях, количество заказов и сумма каждого заказа. Выведите сумму только тех заказов, которые не меньше порога. Если подходящих нет, сумма равна 0.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+4
+500
+1500
+1000
+200</pre></div><div><b>Вывод</b><pre>Крупные заказы на сумму: 2500</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5000
+2
+100
+200</pre></div><div><b>Вывод</b><pre>Крупные заказы на сумму: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">100
+0</pre></div><div><b>Вывод</b><pre>Крупные заказы на сумму: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Добавляйте в новый список только подходящие суммы, затем сложите этот список.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.15.11</span><h3 class="task__title">Нехватка товаров</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество позиций, затем потребность по каждой, затем остаток на складе по каждой. Выведите две строки: <code>Не хватает позиций: …</code> и <code>Докупить штук: …</code>. Нехватка по позиции — это разность потребности и остатка, если потребность больше.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+10
+5
+8
+4
+5
+10</pre></div><div><b>Вывод</b><pre>Не хватает позиций: 1
+Докупить штук: 6</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Не хватает позиций: 0
+Докупить штук: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Не хватает позиций: 0
+Докупить штук: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Список нехваток хранит только положительные разности. Количество позиций — его длина, количество штук — его сумма.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.15.12</span><h3 class="task__title">Исправьте расчёт по карте</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает остаток на карте, количество операций и сами операции (минус — списание). Она должна вывести баланс после всех операций и число списаний. Формат: <code>Баланс: …</code> и <code>Списаний: …</code>. В программе две ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — исправить две ошибки</span></figcaption><pre>balance = <span class="f">int</span>(<span class="f">input</span>())
+count = <span class="f">int</span>(<span class="f">input</span>())
+operations = []
+<span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(count):
+    operations.append(<span class="f">int</span>(<span class="f">input</span>()))
+is_expense = []
+<span class="k">for</span> operation <span class="k">in</span> operations:
+    is_expense.append(operation &lt; <span class="n">0</span>)
+<span class="f">print</span>(<span class="s">&quot;Баланс:&quot;</span>, <span class="f">sum</span>(balance, operations))
+<span class="f">print</span>(<span class="s">&quot;Списаний:&quot;</span>, <span class="f">len</span>(is_expense))</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+3
+500
+-200
+-150</pre></div><div><b>Вывод</b><pre>Баланс: 1150
+Списаний: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">200
+2
+50
+60</pre></div><div><b>Вывод</b><pre>Баланс: 310
+Списаний: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">300
+0</pre></div><div><b>Вывод</b><pre>Баланс: 300
+Списаний: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>В первой ошибке перепутан порядок аргументов <code>sum()</code>. Во второй вместо числа списаний считается длина списка из <code>True</code> и <code>False</code>.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.15.13</span><h3 class="task__title">Чек без самой дорогой позиции</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Магазин делает подарок: самая дорогая позиция в чеке бесплатна. Вводятся количество позиций (не меньше одной) и цена каждой. Выведите сумму к оплате. Самую дорогую цену найдите циклом.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+300
+1200
+450
+800</pre></div><div><b>Вывод</b><pre>К оплате: 1550</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+100
+100
+100</pre></div><div><b>Вывод</b><pre>К оплате: 200</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+500</pre></div><div><b>Вывод</b><pre>К оплате: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>К оплате — сумма всех цен минус одна, наибольшая. Если одинаковых цен несколько, вычитается только одна из них.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.15.14</span><h3 class="task__title">Самый крупный заказ среди курьеров</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится количество курьеров, затем для каждого — количество заказов и сумма каждого заказа. Все заказы нумеруются подряд с единицы в порядке ввода. Если заказов нет, выведите <code>Заказов нет</code>. Иначе выведите <code>Самый крупный: … руб., заказ №…</code>. При равных суммах выберите более ранний заказ.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+2
+300
+450
+2
+450
+120</pre></div><div><b>Вывод</b><pre>Самый крупный: 450 руб., заказ №2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+0
+1
+700</pre></div><div><b>Вывод</b><pre>Самый крупный: 700 руб., заказ №1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+0
+0</pre></div><div><b>Вывод</b><pre>Заказов нет</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Склейте списки курьеров через <code>sum(…, [])</code>, потом ищите максимум циклом, а номер берите из <code>enumerate()</code>.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.15.15</span><h3 class="task__title">Выпуск по сменам</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество цехов, количество смен и выпуск продукции по цехам: цех за цехом, внутри цеха — смена за сменой. Для каждой смены выведите строку <code>Смена 1: …</code> — выпуск всех цехов за эту смену.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3
+10
+20
+30
+5
+6
+7</pre></div><div><b>Вывод</b><pre>Смена 1: 15
+Смена 2: 26
+Смена 3: 37</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Смена 1: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+2
+9
+1</pre></div><div><b>Вывод</b><pre>Смена 1: 9
+Смена 2: 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Запись <code>zip(*table)</code> выдаёт столбцы таблицы по одному. Столбец можно передать в <code>sum()</code>.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 3.15.16</span><h3 class="task__title">Лучшие три дня подряд</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество дней (не меньше трёх) и продажи за каждый день. Найдите три подряд идущих дня с наибольшей суммой продаж. Выведите <code>Лучшие три дня: с дня …, продано …</code>. Дни нумеруются с единицы; при равных суммах выберите более раннее окно.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+100
+200
+150
+400
+300
+50</pre></div><div><b>Вывод</b><pre>Лучшие три дня: с дня 3, продано 850</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+10
+20
+30</pre></div><div><b>Вывод</b><pre>Лучшие три дня: с дня 1, продано 60</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+5
+5
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Лучшие три дня: с дня 1, продано 15</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумму каждого окна даёт <code>sum(sales[start:start + 3])</code>. Номер дня на единицу больше индекса.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-14/index.html">← Задачи 3.14</a><a href="../../temy/32-sum/index.html">Глава 3.15 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-16/index.html">Задачи 3.16 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.15 · Функция <code>sum()</code> · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.13 · Двумерные списки · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.13</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.13</span>
+<h1>Задачи к главе<br>«Двумерные списки»</h1>
+<p class="lead">Таблица в Python — это список списков: внешний список хранит строки, внутренние — ячейки. Элемент выбирают двумя индексами <code>table[строка][столбец]</code>, обходят вложенными циклами, а строят построчно: для каждой строки заводят новый список.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/39-dvumernye-spiski/index.html">3.13 Двумерные списки</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.13</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a><a class="chip" href="../../temy/31-srezy/index.html"><i>3.8</i>Срезы</a><a class="chip" href="../../temy/54-imenovannye-srezy/index.html"><i>3.9</i>Объект <code>slice</code></a><a class="chip" href="../../temy/25-metody-spiskov-1/index.html"><i>3.10</i>Методы списков: часть 1</a><a class="chip" href="../../temy/26-metody-spiskov-2/index.html"><i>3.11</i>Методы списков: часть 2</a><a class="chip" href="../../temy/27-metody-spiskov-3/index.html"><i>3.12</i>Методы списков: часть 3</a><a class="chip chip--now" href="../../temy/39-dvumernye-spiski/index.html"><i>3.13</i>Двумерные списки</a></div>
+<p>Включений и генераторов пока нет, поэтому матрицу строят циклом и <code>append()</code>. Запись <code>[[0] * 3] * 3</code> создаёт три ссылки на одну строку и для таблиц не годится. Таблицу вводят по одному числу в строке: сначала число строк, затем число столбцов, затем все ячейки подряд, строка за строкой.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Оценки студента</a></li><li><a href="#r2">Разбор 2. Продажи по магазинам и дням</a></li><li><a href="#r3">Разбор 3. Игровое поле</a></li><li><a href="#p1">Задача 3.13.1. Расписание: один урок</a></li><li><a href="#p2">Задача 3.13.2. Печать таблицы</a></li><li><a href="#p3">Задача 3.13.3. Сумма всей таблицы</a></li><li><a href="#p4">Задача 3.13.4. Выручка одного магазина</a></li><li><a href="#p5">Задача 3.13.5. Пустая таблица</a></li><li><a href="#p6">Задача 3.13.6. Таблица умножения</a></li><li><a href="#p7">Задача 3.13.7. Суммы по столбцам</a></li><li><a href="#p8">Задача 3.13.8. Итоговые строка и столбец</a></li><li><a href="#p9">Задача 3.13.9. Рекордная ячейка</a></li><li><a href="#p10">Задача 3.13.10. Транспонирование</a></li><li><a href="#p11">Задача 3.13.11. Исправьте создание поля</a></li><li><a href="#p12">Задача 3.13.12. Исправьте суммы по строкам</a></li><li><a href="#p13">Задача 3.13.13. Свободные места в зале</a></li><li><a href="#p14">Задача 3.13.14. Соседи клетки</a></li><li><a href="#p15">Задача 3.13.15. Поворот таблицы</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В каждой видно, как таблица создаётся, как к ней обращаются и где легко перепутать строку со столбцом.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Оценки студента</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В журнале три студента, у каждого три оценки за контрольные: <code>[[5, 4, 5], [3, 4, 4], [5, 5, 5]]</code>. Вводится номер студента (1–3). Выведите его оценки списком и сумму баллов: <code>Сумма: 14</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Каждая строка таблицы — один студент. Строку с номером <code>n</code> достаём индексом <code>journal[n - 1]</code>: индексы начинаются с нуля, а студентов нумеруют с единицы.</li><li>Сумму оценок строки считаем одним циклом по этой строке. Вложенный цикл здесь не нужен: строка таблицы — это список чисел.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Данные и ввод</span>
+journal = [[<span class="n">5</span>, <span class="n">4</span>, <span class="n">5</span>], [<span class="n">3</span>, <span class="n">4</span>, <span class="n">4</span>], [<span class="n">5</span>, <span class="n">5</span>, <span class="n">5</span>]]
+number = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Номер студента: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+grades = journal[number - <span class="n">1</span>]
+total = <span class="n">0</span>
+<span class="k">for</span> grade <span class="k">in</span> grades:
+    total += grade
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(grades)
+<span class="f">print</span>(<span class="s">&quot;Сумма:&quot;</span>, total)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Номер студента: <span class="typed">1</span>
+[5, 4, 5]
+Сумма: 14</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>[3, 4, 4]
+Сумма: 11</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>[5, 5, 5]
+Сумма: 15</pre></div></div></div>
+<div class="margin-note"><b>Первый индекс — строка</b><p>В записи <code>journal[0][2]</code> первое число выбирает строку (первого студента), второе — столбец (третью контрольную). Если поменять индексы местами, получится ячейка другого студента или ошибка выхода за границы.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Продажи по магазинам и дням</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество магазинов (строки), количество дней (столбцы) и затем выручка: магазин за магазином, внутри магазина день за днём. Выведите выручку каждого магазина за весь период (<code>Магазин 1: …</code>) и общую выручку за каждый день (<code>День 1: …</code>).</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Сначала читаем таблицу. Для каждой строки заводим свой новый список <code>row</code>, наполняем его <code>append()</code> и только потом добавляем в таблицу. Так строки получаются независимыми.</li><li>Сумма по магазину — это сумма строки: внешний цикл по строкам, внутренний по её ячейкам, перед каждой строкой счётчик сбрасывается в ноль.</li><li>Сумма по дню — это сумма столбца. Тут внешний цикл идёт по номерам столбцов, а внутренний — по строкам, и берётся <code>table[i][j]</code>.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+rows = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Магазинов: &quot;</span>))
+cols = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Дней: &quot;</span>))
+table = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(rows):
+    row = []
+    <span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(cols):
+        row.append(<span class="f">int</span>(<span class="f">input</span>()))
+    table.append(row)
+
+<span class="c"># Суммы по магазинам</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(rows):
+    total = <span class="n">0</span>
+    <span class="k">for</span> value <span class="k">in</span> table[i]:
+        total += value
+    <span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Магазин </span>{i + <span class="n">1</span>}<span class="s">: </span>{total}<span class="s">&quot;</span>)
+
+<span class="c"># Суммы по дням</span>
+<span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(cols):
+    total = <span class="n">0</span>
+    <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(rows):
+        total += table[i][j]
+    <span class="f">print</span>(<span class="s">f&quot;</span><span class="s">День </span>{j + <span class="n">1</span>}<span class="s">: </span>{total}<span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Магазинов: <span class="typed">2</span>
+Дней: <span class="typed">3</span>
+<span class="typed">10</span>
+<span class="typed">20</span>
+<span class="typed">30</span>
+<span class="typed">5</span>
+<span class="typed">5</span>
+<span class="typed">5</span>
+Магазин 1: 60
+Магазин 2: 15
+День 1: 15
+День 2: 25
+День 3: 35</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+2
+7
+8</pre></div><div><b>Вывод</b><pre>Магазин 1: 15
+День 1: 7
+День 2: 8</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+4
+6
+9</pre></div><div><b>Вывод</b><pre>Магазин 1: 4
+Магазин 2: 6
+Магазин 3: 9
+День 1: 19</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Счётчик сбрасывают для каждой строки</b><p>Если поставить <code>total = 0</code> один раз до внешнего цикла, суммы строк будут накапливаться: у второго магазина окажется сумма двух магазинов. Начальное значение задают перед внутренним циклом.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Игровое поле</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Игровое поле — квадрат из клеток. Вводятся размер поля <code>n</code>, количество ходов и сами ходы: номер строки и номер столбца (с единицы), по одному числу в строке. Пустая клетка обозначается точкой, занятая — буквой <code>X</code>. Выведите поле: каждая строка поля — одна строка текста, символы без пробелов.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Поле создаём построчно: для каждой строки новый список из <code>n</code> точек. Запись <code>[["."] * n] * n</code> дала бы одну строку, повторённую <code>n</code> раз, и ход в одной клетке появился бы во всех строках.</li><li>Ход приходит как две пары чисел с единицы, а индексы идут с нуля, поэтому вычитаем единицу из каждого.</li><li>Для вывода обходим строки, а внутри строки печатаем клетки с <code>end=""</code>, чтобы они стояли подряд. После строки пустой <code>print()</code> переводит вывод на следующую.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Поле</span>
+n = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Размер поля: &quot;</span>))
+field = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(n):
+    row = []
+    <span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(n):
+        row.append(<span class="s">&quot;.&quot;</span>)
+    field.append(row)
+
+<span class="c"># Ходы</span>
+moves = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Ходов: &quot;</span>))
+<span class="k">for</span> k <span class="k">in</span> <span class="f">range</span>(moves):
+    r = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Строка: &quot;</span>))
+    c = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Столбец: &quot;</span>))
+    field[r - <span class="n">1</span>][c - <span class="n">1</span>] = <span class="s">&quot;X&quot;</span>
+
+<span class="c"># Вывод</span>
+<span class="k">for</span> row <span class="k">in</span> field:
+    <span class="k">for</span> cell <span class="k">in</span> row:
+        <span class="f">print</span>(cell, end=<span class="s">&quot;&quot;</span>)
+    <span class="f">print</span>()</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Размер поля: <span class="typed">3</span>
+Ходов: <span class="typed">2</span>
+Строка: <span class="typed">1</span>
+Столбец: <span class="typed">1</span>
+Строка: <span class="typed">2</span>
+Столбец: <span class="typed">3</span>
+X..
+..X
+...</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+0</pre></div><div><b>Вывод</b><pre>..
+..</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+4
+1
+1
+1
+2
+2
+1
+2
+2</pre></div><div><b>Вывод</b><pre>XX
+XX</pre></div></div></div>
+<div class="margin-note"><b>Почему не [["."] * n] * n</b><p>Внешнее умножение копирует ссылки: все <code>n</code> строк оказываются одним и тем же списком. Присваивание <code>field[0][0] = "X"</code> тогда меняет первую клетку в каждой строке. Построчное создание в цикле даёт независимые строки.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.13.1</span><h3 class="task__title">Расписание: один урок</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Расписание хранится таблицей: <code>[["Математика", "Физика", "История"], ["Химия", "Информатика", "Литература"]]</code>. Строка — день, столбец — номер урока. Вводятся номер дня и номер урока (с единицы). Выведите название урока.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1
+1</pre></div><div><b>Вывод</b><pre>Математика</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+3</pre></div><div><b>Вывод</b><pre>Литература</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+2</pre></div><div><b>Вывод</b><pre>Физика</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первый индекс выбирает строку, второй — столбец. Оба нужно уменьшить на единицу.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.13.2</span><h3 class="task__title">Печать таблицы</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Температуры за три дня в трёх городах: <code>[[12, 14, 11], [8, 9, 7], [20, 22, 21]]</code>. Выведите таблицу: каждая строка — одним списком на отдельной строке вывода.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>[12, 14, 11]
+[8, 9, 7]
+[20, 22, 21]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Цикл по двумерному списку выдаёт строки целиком.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.13.3</span><h3 class="task__title">Сумма всей таблицы</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество строк, количество столбцов и числа таблицы подряд. Выведите сумму всех чисел.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+2
+1
+2
+3
+4</pre></div><div><b>Вывод</b><pre>Сумма: 10</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+3
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Сумма: 15</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+3</pre></div><div><b>Вывод</b><pre>Сумма: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Таблицу целиком хранить не обязательно: каждое число можно сразу прибавить.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.13.4</span><h3 class="task__title">Выручка одного магазина</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Выручка трёх магазинов за четыре дня: <code>[[10, 12, 9, 15], [20, 18, 22, 19], [7, 5, 8, 6]]</code>. Вводится номер магазина (1–3). Выведите его выручку за все дни.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Выручка: 46</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>Выручка: 79</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>Выручка: 26</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Нужная строка — это список чисел, его можно обойти одним циклом.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.13.5</span><h3 class="task__title">Пустая таблица</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество строк и количество столбцов. Создайте таблицу из нулей циклами с <code>append()</code> и выведите её: каждая строка таблицы — список на отдельной строке вывода.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3</pre></div><div><b>Вывод</b><pre>[0, 0, 0]
+[0, 0, 0]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1</pre></div><div><b>Вывод</b><pre>[0]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+2</pre></div><div><b>Вывод</b><pre>[0, 0]
+[0, 0]
+[0, 0]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Новый список <code>row</code> заводится внутри внешнего цикла: для каждой строки свой.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.13.6</span><h3 class="task__title">Таблица умножения</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число <code>n</code>. Постройте таблицу умножения размера n×n, где в строке i и столбце j (с единицы) стоит произведение i·j. Выведите строки таблицы списками.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>[1, 2, 3]
+[2, 4, 6]
+[3, 6, 9]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>[1]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>[1, 2, 3, 4, 5]
+[2, 4, 6, 8, 10]
+[3, 6, 9, 12, 15]
+[4, 8, 12, 16, 20]
+[5, 10, 15, 20, 25]</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Счётчики циклов можно начать с единицы: тогда они сразу равны множителям.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.13.7</span><h3 class="task__title">Суммы по столбцам</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество строк, количество столбцов и числа таблицы подряд (строка за строкой). Выведите список сумм по столбцам.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3
+1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>[5, 7, 9]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+4
+5
+6</pre></div><div><b>Вывод</b><pre>[15]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+2
+9
+8</pre></div><div><b>Вывод</b><pre>[9, 8]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Для столбца внешний цикл идёт по номерам столбцов, внутренний — по строкам.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.13.8</span><h3 class="task__title">Итоговые строка и столбец</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество строк, количество столбцов и числа таблицы подряд. Добавьте к каждой строке справа её сумму, а ниже — строку сумм по всем столбцам (включая последний, итоговый). Выведите получившуюся таблицу: каждая строка списком на отдельной строке вывода.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+2
+1
+2
+3
+4</pre></div><div><b>Вывод</b><pre>[1, 2, 3]
+[3, 4, 7]
+[4, 6, 10]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+3
+5
+6
+7</pre></div><div><b>Вывод</b><pre>[5, 6, 7, 18]
+[5, 6, 7, 18]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+1
+4
+6</pre></div><div><b>Вывод</b><pre>[4, 4]
+[6, 6]
+[10, 10]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сначала допишите суммы к строкам. Тогда столбец итогов уже существует, и итоговая строка считается тем же циклом.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.13.9</span><h3 class="task__title">Рекордная ячейка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество строк, количество столбцов и числа таблицы подряд (хотя бы одна ячейка). Найдите наибольшее число и выведите его положение: <code>Максимум 17 в строке 2, столбце 3</code> (номера с единицы). Если наибольших несколько, выведите первое по порядку обхода.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3
+4
+9
+2
+7
+1
+9</pre></div><div><b>Вывод</b><pre>Максимум 9 в строке 1, столбце 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1
+5</pre></div><div><b>Вывод</b><pre>Максимум 5 в строке 1, столбце 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+2
+-3
+-1
+-8
+-1</pre></div><div><b>Вывод</b><pre>Максимум -1 в строке 1, столбце 2</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Заведите лучший результат и его координаты до обхода. Знак строгий: при равенстве запись не обновляется.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.13.10</span><h3 class="task__title">Транспонирование</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся количество строк, количество столбцов и числа таблицы подряд. Постройте транспонированную таблицу, где строки и столбцы поменялись местами, и выведите её по строке на список.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3
+1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>[1, 4]
+[2, 5]
+[3, 6]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+3
+7
+8
+9</pre></div><div><b>Вывод</b><pre>[7]
+[8]
+[9]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+1
+1
+2
+3</pre></div><div><b>Вывод</b><pre>[1, 2, 3]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строкой новой таблицы становится столбец старой.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.13.11</span><h3 class="task__title">Исправьте создание поля</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа создаёт поле 3×3 из нулей, ставит единицу в клетку, номер строки и столбца которой вводятся (с единицы), и выводит поле. Сейчас единица появляется во всех строках сразу. В программе одна ошибка. Исправьте её.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>field = [[<span class="n">0</span>] * <span class="n">3</span>] * <span class="n">3</span>
+r = <span class="f">int</span>(<span class="f">input</span>())
+c = <span class="f">int</span>(<span class="f">input</span>())
+field[r - <span class="n">1</span>][c - <span class="n">1</span>] = <span class="n">1</span>
+<span class="k">for</span> row <span class="k">in</span> field:
+    <span class="f">print</span>(row)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+2</pre></div><div><b>Вывод</b><pre>[0, 0, 0]
+[0, 1, 0]
+[0, 0, 0]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+3</pre></div><div><b>Вывод</b><pre>[0, 0, 1]
+[0, 0, 0]
+[0, 0, 0]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Все три строки поля оказались одним и тем же списком. Создавайте строки в цикле.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.13.12</span><h3 class="task__title">Исправьте суммы по строкам</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа читает таблицу и должна вывести сумму каждой строки отдельно. Вместо этого суммы накапливаются: вторая строка выводит сумму двух строк и так далее. В программе одна ошибка. Исправьте её.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>rows = <span class="f">int</span>(<span class="f">input</span>())
+cols = <span class="f">int</span>(<span class="f">input</span>())
+table = []
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(rows):
+    row = []
+    <span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(cols):
+        row.append(<span class="f">int</span>(<span class="f">input</span>()))
+    table.append(row)
+total = <span class="n">0</span>
+<span class="k">for</span> row <span class="k">in</span> table:
+    <span class="k">for</span> value <span class="k">in</span> row:
+        total += value
+    <span class="f">print</span>(total)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+2
+1
+2
+3
+4</pre></div><div><b>Вывод</b><pre>3
+7</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+3
+5
+5
+5</pre></div><div><b>Вывод</b><pre>15</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Где в программе сбрасывается счётчик суммы и сколько раз?</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.13.13</span><h3 class="task__title">Свободные места в зале</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Зал кинотеатра задан строками из символов: <code>.</code> — свободное место, <code>X</code> — занятое. Вводятся количество рядов, сами ряды (каждый одной строкой) и число <code>k</code> — сколько мест подряд нужно. Выведите номер первого ряда (с единицы), где есть <code>k</code> свободных мест подряд: <code>Ряд 2</code>. Если такого ряда нет, выведите <code>Нет мест</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+X.X.X
+..X..
+.....
+3</pre></div><div><b>Вывод</b><pre>Ряд 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+X.X
+.X.
+2</pre></div><div><b>Вывод</b><pre>Нет мест</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+...
+1</pre></div><div><b>Вывод</b><pre>Ряд 1</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">0
+2</pre></div><div><b>Вывод</b><pre>Нет мест</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Считайте длину текущей серии свободных мест: она растёт на свободном месте и обнуляется на занятом. Не забудьте про первый подходящий ряд.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.13.14</span><h3 class="task__title">Соседи клетки</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Поле задано таблицей из нулей и единиц (единица — занятая клетка). Вводятся количество строк, количество столбцов, числа таблицы подряд, затем номер строки и номер столбца клетки (с нуля). Выведите, сколько занятых клеток среди восьми соседей этой клетки. Саму клетку не считайте, клетки за краем поля тоже.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+3
+1
+0
+1
+0
+0
+0
+1
+1
+1
+1
+1</pre></div><div><b>Вывод</b><pre>Соседей: 5</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+2
+1
+1
+1
+1
+0
+0</pre></div><div><b>Вывод</b><pre>Соседей: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+1
+1
+0
+0</pre></div><div><b>Вывод</b><pre>Соседей: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Смещения по строке и по столбцу независимо пробегают значения от −1 до 1. Перед чтением ячейки проверьте, что она внутри поля.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.13.15</span><h3 class="task__title">Поворот таблицы</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится размер квадратной таблицы <code>n</code> и её числа подряд (строка за строкой). Поверните таблицу на 90 градусов по часовой стрелке и выведите результат: каждая строка — список на отдельной строке вывода.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+1
+2
+3
+4</pre></div><div><b>Вывод</b><pre>[3, 1]
+[4, 2]</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3
+1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div><div><b>Вывод</b><pre>[7, 4, 1]
+[8, 5, 2]
+[9, 6, 3]</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+5</pre></div><div><b>Вывод</b><pre>[5]</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первая строка новой таблицы — это первый столбец старой, прочитанный снизу вверх.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-12/index.html">← Задачи 3.12</a><a href="../../temy/39-dvumernye-spiski/index.html">Глава 3.13 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-14/index.html">Задачи 3.14 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.13 · Двумерные списки · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.7 · Вложенные циклы · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.7</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.7</span>
+<h1>Задачи к главе<br>«Вложенные циклы»</h1>
+<p class="lead">Если для каждого элемента одного набора нужно перебрать целый набор другого — строки и столбцы таблицы, пары товаров, дни и смены, — один цикл записывают внутри другого. Внутренний цикл на каждом шаге внешнего проходит заново и полностью.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/29-vlozhennye-cikly/index.html">3.7 Вложенные циклы</a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.7</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>15 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a><a class="chip" href="../../temy/22-range/index.html"><i>3.4</i>Функция <code>range()</code></a><a class="chip" href="../../temy/23-praktika-for/index.html"><i>3.5</i>Практика <code>for in</code></a><a class="chip" href="../../temy/28-indeksy-spiska/index.html"><i>3.6</i>Перебор списка по индексам</a><a class="chip chip--now" href="../../temy/29-vlozhennye-cikly/index.html"><i>3.7</i>Вложенные циклы</a></div>
+<p>Добавлять элементы в список пока нельзя, поэтому таблицы в задачах либо записаны в программе, либо собираются из нескольких вызовов <code>input()</code>. Оператор <code>break</code> выходит только из внутреннего цикла; чтобы выйти из обоих, используют признак — переменную со значением <code>None</code>, пока ничего не найдено.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Стоимость нескольких штук</a></li><li><a href="#r2">Разбор 2. Где дешевле</a></li><li><a href="#r3">Разбор 3. Общие свободные часы</a></li><li><a href="#p1">Задача 3.7.1. Квадратная таблица умножения</a></li><li><a href="#p2">Задача 3.7.2. Схема стеллажа</a></li><li><a href="#p3">Задача 3.7.3. Число матчей</a></li><li><a href="#p4">Задача 3.7.4. График смен</a></li><li><a href="#p5">Задача 3.7.5. Ячейки с малым остатком</a></li><li><a href="#p6">Задача 3.7.6. Лесенка</a></li><li><a href="#p7">Задача 3.7.7. Общие номера заказов</a></li><li><a href="#p8">Задача 3.7.8. Выручка по точкам</a></li><li><a href="#p9">Задача 3.7.9. Пары товаров на подарок</a></li><li><a href="#p10">Задача 3.7.10. Рамка</a></li><li><a href="#p11">Задача 3.7.11. Первая пустая ячейка</a></li><li><a href="#p12">Задача 3.7.12. Перепишите повторы</a></li><li><a href="#p13">Задача 3.7.13. Исправьте ошибки</a></li><li><a href="#p14">Задача 3.7.14. Самый выгодный магазин</a></li><li><a href="#p15">Задача 3.7.15. Простые числа до n</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью: вывод таблицы, поиск в таблице с выходом из обоих циклов и сравнение двух наборов.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Стоимость нескольких штук</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Магазин канцелярии печатает таблицу для покупателей оптом. Вводятся цены трёх товаров. Для каждого товара выведите в одной строке через пробел стоимость 1, 2, 3 и 4 штук.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Строка таблицы относится к одному товару, внутри строки меняется количество. Значит, внешний цикл идёт по товарам, внутренний — по количеству.</li><li>Количество от 1 до 4 даёт <code>range(1, 5)</code>.</li><li>Числа одной строки печатаем с <code>end=" "</code>, чтобы они не переходили на новую строку. Когда строка закончилась, пустой <code>print()</code> переводит вывод на следующую.</li><li>Этот <code>print()</code> стоит в теле внешнего цикла, но после внутреннего: он выполняется один раз на строку.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+prices = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Цена 3: &quot;</span>))]
+
+<span class="c"># Вывод</span>
+<span class="k">for</span> price <span class="k">in</span> prices:
+    <span class="k">for</span> quantity <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">5</span>):
+        <span class="f">print</span>(price * quantity, end=<span class="s">&quot; &quot;</span>)
+    <span class="f">print</span>()</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Цена 1: <span class="typed">30</span>
+Цена 2: <span class="typed">55</span>
+Цена 3: <span class="typed">120</span>
+30 60 90 120 
+55 110 165 220 
+120 240 360 480 </pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10
+10
+10</pre></div><div><b>Вывод</b><pre>10 20 30 40 
+10 20 30 40 
+10 20 30 40 </pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Куда ставить перевод строки</b><p>Если пустой <code>print()</code> отступить глубже и поставить во внутренний цикл, каждое число окажется на отдельной строке. Если убрать в самый конец программы, вся таблица сольётся в одну строку. Переход к новой строке нужен после каждого прохода внутреннего цикла, то есть на уровне внешнего.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Где дешевле</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">В программе записана таблица цен: три магазина (строки), четыре товара (столбцы). Вводится бюджет. Найдите первую цену, которая не больше бюджета, просматривая магазины по порядку и в каждом товары по порядку. Выведите <code>Магазин 2, товар 3: 140 руб.</code> или <code>Подходящих цен нет</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Таблица — список строк, каждая строка — список цен. Внешний цикл берёт по одной строке, внутренний перебирает цены в строке.</li><li>Нужны номера магазина и товара. Заведём счётчики и увеличиваем их: номера считаются с 1.</li><li>После находки надо выйти из обоих циклов, а <code>break</code> выходит только из внутреннего. Поэтому используем признак: переменная <code>found</code> равна <code>None</code>, пока ничего не найдено.</li><li>Найдя цену, сохраняем в <code>found</code> готовую строку ответа и делаем <code>break</code>. Во внешнем цикле после внутреннего проверяем <code>found is not None</code> и тоже выходим.</li><li>После циклов остаётся два варианта: признак заполнен — выводим его, иначе выводим сообщение, что ничего нет.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Данные</span>
+prices = [
+    [<span class="n">190</span>, <span class="n">250</span>, <span class="n">320</span>, <span class="n">410</span>],
+    [<span class="n">210</span>, <span class="n">160</span>, <span class="n">140</span>, <span class="n">300</span>],
+    [<span class="n">150</span>, <span class="n">180</span>, <span class="n">220</span>, <span class="n">130</span>],
+]
+
+<span class="c"># Ввод</span>
+budget = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Бюджет, руб.: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+found = <span class="k">None</span>
+shop = <span class="n">0</span>
+<span class="k">for</span> row <span class="k">in</span> prices:
+    shop += <span class="n">1</span>
+    product = <span class="n">0</span>
+    <span class="k">for</span> price <span class="k">in</span> row:
+        product += <span class="n">1</span>
+        <span class="k">if</span> price &lt;= budget:
+            found = <span class="s">f&quot;</span><span class="s">Магазин </span>{shop}<span class="s">, товар </span>{product}<span class="s">: </span>{price}<span class="s"> руб.</span><span class="s">&quot;</span>
+            <span class="k">break</span>
+    <span class="k">if</span> found <span class="k">is</span> <span class="k">not</span> <span class="k">None</span>:
+        <span class="k">break</span>
+
+<span class="c"># Вывод</span>
+<span class="k">if</span> found <span class="k">is</span> <span class="k">None</span>:
+    <span class="f">print</span>(<span class="s">&quot;Подходящих цен нет&quot;</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(found)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Бюджет, руб.: <span class="typed">150</span>
+Магазин 2, товар 3: 140 руб.</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100</pre></div><div><b>Вывод</b><pre>Подходящих цен нет</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">400</pre></div><div><b>Вывод</b><pre>Магазин 1, товар 1: 190 руб.</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Один break не прерывает внешний цикл</b><p>Если после находки поставить только <code>break</code> во внутреннем цикле, внешний продолжит работу и перейдёт к следующему магазину. Программа найдёт последнюю подходящую цену вместо первой. Выход из двух циклов требует проверки признака в теле внешнего.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Общие свободные часы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Два сотрудника назвали по три часа дня, когда свободны. Вводятся три часа первого и три часа второго, по одному числу в строке. Часы внутри списка одного человека не повторяются. Выведите каждый общий час в виде <code>Общий час: 14</code> и затем <code>Всего общих часов: 2</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Нужно сравнить каждый час первого со всеми часами второго. Это и есть вложенные циклы: внешний по первому списку, внутренний по второму.</li><li>Если часы равны, это общий час: выводим и увеличиваем счётчик.</li><li>Часы внутри списка не повторяются, поэтому одно и то же значение не будет найдено дважды, и <code>break</code> не нужен.</li><li>Счётчик создаётся до циклов, итоговая строка выводится после них.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+first = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Первый, час 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Первый, час 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Первый, час 3: &quot;</span>))]
+second = [<span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Второй, час 1: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Второй, час 2: &quot;</span>)), <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Второй, час 3: &quot;</span>))]
+
+<span class="c"># Расчёт и вывод</span>
+common = <span class="n">0</span>
+<span class="k">for</span> left <span class="k">in</span> first:
+    <span class="k">for</span> right <span class="k">in</span> second:
+        <span class="k">if</span> left == right:
+            <span class="f">print</span>(<span class="s">&quot;Общий час:&quot;</span>, left)
+            common += <span class="n">1</span>
+<span class="f">print</span>(<span class="s">&quot;Всего общих часов:&quot;</span>, common)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Первый, час 1: <span class="typed">10</span>
+Первый, час 2: <span class="typed">14</span>
+Первый, час 3: <span class="typed">16</span>
+Второй, час 1: <span class="typed">9</span>
+Второй, час 2: <span class="typed">14</span>
+Второй, час 3: <span class="typed">16</span>
+Общий час: 14
+Общий час: 16
+Всего общих часов: 2</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">9
+10
+11
+12
+13
+14</pre></div><div><b>Вывод</b><pre>Всего общих часов: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">8
+9
+10
+10
+9
+8</pre></div><div><b>Вывод</b><pre>Общий час: 8
+Общий час: 9
+Общий час: 10
+Всего общих часов: 3</pre></div></div></div>
+<div class="margin-note"><b>Сколько сравнений выполняется</b><p>Два списка по 3 элемента дают 3 × 3 = 9 сравнений. Для списков по 1000 элементов это уже миллион. Такая запись подходит для небольших данных, но число действий растёт как произведение размеров.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.7.1</span><h3 class="task__title">Квадратная таблица умножения</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число n от 1 до 9. Выведите таблицу умножения размером n × n: в строке с номером r на позиции c стоит произведение r × c. Числа в строке разделяйте пробелом (после последнего числа пробел тоже допустим).</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4</pre></div><div><b>Вывод</b><pre>1 2 3 4 
+2 4 6 8 
+3 6 9 12 
+4 8 12 16 </pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>1 </pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">6</pre></div><div><b>Вывод</b><pre>1 2 3 4 5 6 
+2 4 6 8 10 12 
+3 6 9 12 15 18 
+4 8 12 16 20 24 
+5 10 15 20 25 30 
+6 12 18 24 30 36 </pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Внешний цикл — строки, внутренний — столбцы. Пустой <code>print()</code> нужен после внутреннего цикла.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.7.2</span><h3 class="task__title">Схема стеллажа</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Склад рисует схему стеллажа: вводятся число полок и число ячеек на каждой полке. Выведите прямоугольник из символов <code>*</code>: одна строка на полку, по одному символу на ячейку, без пробелов.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+5</pre></div><div><b>Вывод</b><pre>*****
+*****
+*****</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1</pre></div><div><b>Вывод</b><pre>*</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">2
+7</pre></div><div><b>Вывод</b><pre>*******
+*******</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Символы одной полки печатаются без перевода строки. Его добавляют после каждой полки.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.7.3</span><h3 class="task__title">Число матчей</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В турнире играют n команд. Каждая команда проводит с каждой другой команды по одному матчу на своём поле (пара «A — B» и пара «B — A» считаются разными). Вводится n. Подсчитайте число матчей перебором всех пар и выведите <code>Матчей: 12</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4</pre></div><div><b>Вывод</b><pre>Матчей: 12</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Матчей: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Матчей: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Перебирайте номера хозяев и гостей. Матч команды с самой собой не считается.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.7.4</span><h3 class="task__title">График смен</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся число дней и число смен в день. Выведите по одной строке для каждой смены каждого дня в виде <code>День 2, смена 1</code>. Сначала идут все смены первого дня, затем второго и так далее. Нумерация с 1.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">2
+3</pre></div><div><b>Вывод</b><pre>День 1, смена 1
+День 1, смена 2
+День 1, смена 3
+День 2, смена 1
+День 2, смена 2
+День 2, смена 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+1</pre></div><div><b>Вывод</b><pre>День 1, смена 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+0</pre></div><div><b>Вывод</b><pre></pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>День — внешний цикл, смена — внутренний. Каждый перебор начинается с 1.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.7.5</span><h3 class="task__title">Ячейки с малым остатком</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В программе записан остаток товара в ячейках стеллажей: три полки по четыре ячейки. Вводится порог. Выведите количество ячеек, где остаток строго меньше порога, в виде <code>Ячеек: 5</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>Ячеек: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Ячеек: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">100</pre></div><div><b>Вывод</b><pre>Ячеек: 12</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Внешний цикл берёт полку, внутренний — остаток в ячейке этой полки.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.7.6</span><h3 class="task__title">Лесенка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число n. Выведите n строк: в строке с номером r стоят числа от 1 до r подряд, без пробелов. Для n = 3 это строки <code>1</code>, <code>12</code>, <code>123</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>1
+12
+123</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>1
+12
+123
+1234
+12345</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Граница внутреннего цикла зависит от номера строки внешнего.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.7.7</span><h3 class="task__title">Общие номера заказов</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Два склада прислали по три номера заказов; внутри одного склада номера не повторяются. Вводятся три номера первого склада, затем три номера второго. Выведите, сколько номеров встречается в обоих списках, в виде <code>Общих номеров: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">101
+102
+103
+103
+105
+101</pre></div><div><b>Вывод</b><pre>Общих номеров: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Общих номеров: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">7
+8
+9
+9
+8
+7</pre></div><div><b>Вывод</b><pre>Общих номеров: 3</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сравните каждый номер первого списка со всеми номерами второго.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.7.8</span><h3 class="task__title">Выручка по точкам</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">У сети три точки, и по каждой известна выручка за три дня. Вводятся девять чисел: сначала три числа первой точки, затем второй, затем третьей. Для каждой точки выведите строку <code>Точка 2: 4300</code> (номера с 1), а в конце — <code>Всего: 11200</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">1000
+1200
+900
+1500
+1400
+1400
+800
+700
+600</pre></div><div><b>Вывод</b><pre>Точка 1: 3100
+Точка 2: 4300
+Точка 3: 2100
+Всего: 9500</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0
+0
+0
+0
+0
+0
+0
+0
+0</pre></div><div><b>Вывод</b><pre>Точка 1: 0
+Точка 2: 0
+Точка 3: 0
+Всего: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумму одной точки обнуляйте перед внутренним циклом, а общую сумму — перед обоими циклами.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.7.9</span><h3 class="task__title">Пары товаров на подарок</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся цены пяти товаров, а затем бюджет. Подсчитайте, сколькими способами можно выбрать два разных товара так, чтобы их сумма была равна бюджету. Пары «первый + второй» и «второй + первый» считаются одним способом. Выведите <code>Способов: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">100
+200
+300
+400
+500
+600</pre></div><div><b>Вывод</b><pre>Способов: 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">50
+50
+50
+50
+50
+100</pre></div><div><b>Вывод</b><pre>Способов: 10</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10
+20
+30
+40
+50
+5</pre></div><div><b>Вывод</b><pre>Способов: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Если внутренний индекс начинать с <code>first + 1</code>, каждая пара встретится один раз и товар не окажется в паре с самим собой.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.7.10</span><h3 class="task__title">Рамка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся высота и ширина прямоугольника, оба не меньше 2. Выведите рамку из символов <code>#</code>: границы из <code>#</code>, а внутри — пробелы. Например, для высоты 3 и ширины 5 получится три строки: <code>#####</code>, <code>#   #</code>, <code>#####</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+5</pre></div><div><b>Вывод</b><pre>#####
+#   #
+#####</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2
+2</pre></div><div><b>Вывод</b><pre>##
+##</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">5
+4</pre></div><div><b>Вывод</b><pre>####
+#  #
+#  #
+#  #
+####</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Клетка лежит на границе, если это первая или последняя строка либо первый или последний столбец.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.7.11</span><h3 class="task__title">Первая пустая ячейка</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">На складе две полки по три ячейки. Вводятся шесть остатков: три числа первой полки, затем три второй. Ячейка пуста, если остаток равен 0. Найдите первую пустую ячейку (полки и ячейки смотрите по порядку, нумерация с 1) и выведите <code>Полка 2, ячейка 3</code>. Если пустых нет, выведите <code>Пустых ячеек нет</code>. После находки оба цикла надо прервать.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+0
+3
+1
+0
+2</pre></div><div><b>Вывод</b><pre>Полка 1, ячейка 2</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5
+6</pre></div><div><b>Вывод</b><pre>Пустых ячеек нет</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0
+1
+1
+1
+1
+0</pre></div><div><b>Вывод</b><pre>Полка 1, ячейка 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Результат поиска сохраняйте в переменной со значением <code>None</code> и проверяйте её после внутреннего цикла.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.7.12</span><h3 class="task__title">Перепишите повторы</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Программа печатает таблицу: по строке для множителей от 1 до <code>rows</code>, и в каждой — числа для коэффициентов от 1 до 4. Число строк задано в начале программы (<code>rows = 3</code>). Три почти одинаковых цикла можно заменить вложенными, чтобы число строк менялось одной переменной. Перепишите программу. Вывод не должен измениться.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — переписать</span></figcaption><pre>rows = <span class="n">3</span>
+<span class="k">for</span> factor <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">5</span>):
+    <span class="f">print</span>(<span class="n">1</span> * factor, end=<span class="s">&quot; &quot;</span>)
+<span class="f">print</span>()
+<span class="k">for</span> factor <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">5</span>):
+    <span class="f">print</span>(<span class="n">2</span> * factor, end=<span class="s">&quot; &quot;</span>)
+<span class="f">print</span>()
+<span class="k">for</span> factor <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, <span class="n">5</span>):
+    <span class="f">print</span>(<span class="n">3</span> * factor, end=<span class="s">&quot; &quot;</span>)
+<span class="f">print</span>()</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Данные в начале программы</b><pre>rows = <span class="n">3</span></pre></div><div><b>Вывод</b><pre>1 2 3 4 
+2 4 6 8 
+3 6 9 12 </pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Данные в начале программы</b><pre>rows = <span class="n">1</span></pre></div><div><b>Вывод</b><pre>1 2 3 4 </pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Единственное, чем различаются три блока, — число 1, 2 или 3. Сделайте его переменной внешнего цикла.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.7.13</span><h3 class="task__title">Исправьте ошибки</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Пять человек назвали число баллов в тесте. Программа подсчитывает, сколько существует пар людей с одинаковым баллом (пара из двух разных людей считается один раз). В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — с ошибками</span></figcaption><pre>scores = [<span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>()), <span class="f">int</span>(<span class="f">input</span>())]
+pairs = <span class="n">0</span>
+<span class="k">for</span> first <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(scores)):
+    <span class="k">for</span> second <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(scores)):
+        <span class="k">if</span> scores[first] = scores[second]:
+            pairs += <span class="n">1</span>
+<span class="f">print</span>(<span class="s">&quot;Пар:&quot;</span> pairs)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5
+3
+5
+5
+4</pre></div><div><b>Вывод</b><pre>Пар: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+2
+3
+4
+5</pre></div><div><b>Вывод</b><pre>Пар: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">7
+7
+7
+7
+7</pre></div><div><b>Вывод</b><pre>Пар: 10</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Одна ошибка в сравнении, одна в заголовке внутреннего цикла (человек не должен сравниваться с самим собой, а пара — считаться дважды), одна в вызове <code>print()</code>.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.7.14</span><h3 class="task__title">Самый выгодный магазин</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Три магазина продают одни и те же три товара. Вводятся девять цен: три цены первого магазина, затем второго, затем третьего. Найдите магазин, где комплект из всех трёх товаров дешевле всего (при равенстве — первый). Выведите <code>Дешевле всего в магазине 2: 640 руб.</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">200
+300
+150
+180
+250
+210
+220
+240
+190</pre></div><div><b>Вывод</b><pre>Дешевле всего в магазине 2: 640 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+100
+100
+100
+100
+100
+100
+100
+100</pre></div><div><b>Вывод</b><pre>Дешевле всего в магазине 1: 300 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">500
+400
+300
+10
+20
+30
+90
+80
+70</pre></div><div><b>Вывод</b><pre>Дешевле всего в магазине 2: 60 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Сумму магазина считает внутренний цикл. Пока ни один магазин не рассмотрен, лучшей суммы нет: храните её как <code>None</code> и проверяйте это условие первым.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.7.15</span><h3 class="task__title">Простые числа до n</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число n ≥ 2. Выведите в одной строке через пробел все простые числа от 2 до n включительно. Число простое, если не делится ни на одно число от 2 до себя минус один. Для проверки используйте внутренний цикл с <code>break</code> и <code>else</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">20</pre></div><div><b>Вывод</b><pre>2 3 5 7 11 13 17 19 </pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">2</pre></div><div><b>Вывод</b><pre>2 </pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">30</pre></div><div><b>Вывод</b><pre>2 3 5 7 11 13 17 19 23 29 </pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p><code>else</code> нужно поставить на уровень внутреннего <code>for</code>: он срабатывает, когда делитель не нашёлся.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-6/index.html">← Задачи 3.6</a><a href="../../temy/29-vlozhennye-cikly/index.html">Глава 3.7 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-8/index.html">Задачи 3.8 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.7 · Вложенные циклы · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

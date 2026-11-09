@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F1E9">
+  <title>Задачи 3.3 · Цикл <code>for in</code> · Задачник по Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;1,7..72,400&family=Pixelify+Sans:wght@500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../zadachnik/zadachnik.css">
+</head>
+<body>
+  <div class="book">
+    <div class="book__body">
+      <div class="spine"><span>Задачник · модуль 3 · Списки и циклы</span></div>
+      <main class="leaf">
+
+<div class="running">
+<p class="eyebrow"><a href="../../index.html" style="text-decoration:none;color:inherit">Справочник по Python</a> · <a href="../index.html" style="text-decoration:none;color:inherit">задачник</a> · модуль 3</p>
+<p class="running__folio">Задачи 3.3</p></div>
+<header class="chapter-head">
+<span class="chapter-num">3.3</span>
+<h1>Задачи к главе<br>«Цикл <code>for in</code>»</h1>
+<p class="lead">Цикл <code>for</code> берёт элементы последовательности по одному: буквы строки, значения списка, числа из <code>range()</code>. В задачах нужно выбрать, что перебирать, и решить, что делать с каждым элементом: сложить, посчитать, сравнить, прервать перебор.</p></header>
+<dl class="passport">
+<div><dt>Глава справочника</dt><dd><a href="../../temy/21-for-in/index.html">3.3 Цикл <code>for in</code></a></dd></div>
+<div><dt>Можно использовать</dt><dd>главы 1.1–3.3</dd></div>
+<div><dt>Разборов</dt><dd>3 с решением</dd></div>
+<div><dt>Практика</dt><dd>16 задач без решения</dd></div>
+</dl>
+<section class="allowed">
+<b>Уже изучено — этим и решаем</b>
+<div class="chips"><a class="chip" href="../../temy/01-peremennye/index.html"><i>1.1</i>Переменные в программировании</a><a class="chip" href="../../temy/02-tipy-dannyh/index.html"><i>1.2</i>Типы данных в Python</a><a class="chip" href="../../temy/03-print/index.html"><i>1.3</i>Функция <code>print()</code>: вывод данных</a><a class="chip" href="../../temy/04-print-sep-end/index.html"><i>1.4</i>Параметры <code>print()</code>: sep и end</a><a class="chip" href="../../temy/05-input/index.html"><i>1.5</i>Функция <code>input()</code>: ввод данных</a><a class="chip" href="../../temy/06-mnozhestvennoe-prisvaivanie/index.html"><i>1.6</i>Множественное присваивание</a><a class="chip" href="../../temy/07-operatory/index.html"><i>1.7</i>Операторы в Python</a><a class="chip" href="../../temy/08-operacii-deleniya/index.html"><i>1.8</i>Операции деления: /, // и %</a><a class="chip" href="../../temy/09-round-i-format/index.html"><i>1.9</i><code>round()</code> и формат <code>.2f</code></a><a class="chip" href="../../temy/10-logicheskiy-tip/index.html"><i>2.1</i>Логический тип: and, or, not</a><a class="chip" href="../../temy/11-sostavnye-usloviya/index.html"><i>2.2</i>Составление условий без ветвления</a><a class="chip" href="../../temy/12-dvoynoe-sravnenie/index.html"><i>2.3</i>Двойное сравнение и диапазоны</a><a class="chip" href="../../temy/13-if-elif-else/index.html"><i>2.4</i>Операторы ветвления: if, elif, else</a><a class="chip" href="../../temy/14-vlozhennye-usloviya/index.html"><i>2.5</i>Вложенные условия</a><a class="chip" href="../../temy/15-ternarnyy-operator/index.html"><i>2.6</i>Тернарный условный оператор</a><a class="chip" href="../../temy/24-kollekcii/index.html"><i>3.1</i>Коллекции в Python</a><a class="chip" href="../../temy/20-while/index.html"><i>3.2</i>Цикл <code>while</code></a><a class="chip chip--now" href="../../temy/21-for-in/index.html"><i>3.3</i>Цикл <code>for in</code></a></div>
+<p>Пока доступны <code>range(stop)</code> и <code>range(start, stop)</code>, без шага. Списки задаются в программе готовыми, изменять их можно только заменой элемента. Если задача читает n значений, сначала вводится n, затем сами значения по одному в строке. Максимум и минимум ищите условиями.</p>
+</section>
+<nav class="contents"><b>На этой странице</b><ol><li><a href="#r1">Разбор 1. Сколько раз встречается буква</a></li><li><a href="#r2">Разбор 2. Выручка за неделю</a></li><li><a href="#r3">Разбор 3. Допуск к экзамену</a></li><li><a href="#p1">Задача 3.3.1. Буквы столбиком</a></li><li><a href="#p2">Задача 3.3.2. Таблица умножения</a></li><li><a href="#p3">Задача 3.3.3. Сумма покупок</a></li><li><a href="#p4">Задача 3.3.4. Нечётные номера</a></li><li><a href="#p5">Задача 3.3.5. Дорогие товары</a></li><li><a href="#p6">Задача 3.3.6. Слов в строке</a></li><li><a href="#p7">Задача 3.3.7. Факториал</a></li><li><a href="#p8">Задача 3.3.8. Минимум и среднее</a></li><li><a href="#p9">Задача 3.3.9. Погашение долга</a></li><li><a href="#p10">Задача 3.3.10. Рабочие дни</a></li><li><a href="#p11">Задача 3.3.11. Сумма цифр карты</a></li><li><a href="#p12">Задача 3.3.12. Температура по дням</a></li><li><a href="#p13">Задача 3.3.13. Исправьте сумму квадратов</a></li><li><a href="#p14">Задача 3.3.14. Совершенное число</a></li><li><a href="#p15">Задача 3.3.15. Перевёртыш по буквам</a></li><li><a href="#p16">Задача 3.3.16. Самая длинная серия роста</a></li><li><a href="#check">Как проверить своё решение</a></li></ol></nav>
+<h2 id="solved"><span class="sec">§1</span>Разборы: как решать и оформлять</h2>
+<p>Три задачи решены полностью. В первой перебирается строка, во второй — числа из <code>range()</code> с накоплением нескольких величин, в третьей цикл прерывается по условию и использует блок <code>else</code>.</p>
+<article class="task task--solved" id="r1">
+<header class="task__head"><span class="task__num">Разбор 1</span><h3 class="task__title">Сколько раз встречается буква</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводятся слово и одна буква. Выведите, сколько раз эта буква встречается в слове, в формате <code>Буква «а»: 3 раз(а)</code> — подставьте введённую букву и найденное число.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Строку можно перебирать: цикл <code>for</code> берёт из неё символы по одному.</li><li>Нужен счётчик <code>count</code>, который до цикла равен нулю.</li><li>Для каждого символа сравниваем его с искомой буквой. Совпало — счётчик растёт на 1.</li><li>Вывод стоит после цикла, на уровне самого <code>for</code>: иначе сообщение напечатается для каждой буквы.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+word = <span class="f">input</span>(<span class="s">&quot;Слово: &quot;</span>)
+target = <span class="f">input</span>(<span class="s">&quot;Буква: &quot;</span>)
+
+<span class="c"># Расчёт</span>
+count = <span class="n">0</span>
+<span class="k">for</span> letter <span class="k">in</span> word:
+    <span class="k">if</span> letter == target:
+        count += <span class="n">1</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Буква «</span>{target}<span class="s">»: </span>{count}<span class="s"> раз(а)</span><span class="s">&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Слово: <span class="typed">банан</span>
+Буква: <span class="typed">а</span>
+Буква «а»: 2 раз(а)</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">банан
+к</pre></div><div><b>Вывод</b><pre>Буква «к»: 0 раз(а)</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">ааа
+а</pre></div><div><b>Вывод</b><pre>Буква «а»: 3 раз(а)</pre></div></div></div>
+<div class="margin-note"><b>Переменная цикла получает копию элемента</b><p>Имя <code>letter</code> в каждом проходе указывает на очередной символ. Изменить саму строку через эту переменную нельзя. Если нужен результат обработки, его накапливают в отдельной переменной — здесь это <code>count</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r2">
+<header class="task__head"><span class="task__num">Разбор 2</span><h3 class="task__title">Выручка за неделю</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Магазин ведёт учёт выручки по дням. Вводятся плановая дневная выручка, число дней n и затем выручка за каждый из n дней. Выведите три строки: <code>Всего: ...</code>, <code>Лучший день: ...</code> (наибольшая выручка) и <code>Дней с выполненным планом: ...</code> (выручка не меньше плана).</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Число дней известно заранее, значения вводятся по одному. Подходит <code>for day in range(n)</code>: тело выполнится n раз. Значение <code>day</code> тут не нужно, оно служит только счётчиком повторов.</li><li>Три результата — три накопителя: <code>total</code>, <code>best</code> и <code>days_done</code>. Все три заводятся до цикла.</li><li>Выручка не бывает отрицательной, поэтому лучший день можно начать искать с нуля: любая введённая выручка не меньше него.</li><li>В теле цикла читаем число и обновляем все три накопителя. Сравнение с планом и с лучшим — два отдельных <code>if</code>, потому что оба условия могут выполняться одновременно.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод</span>
+plan = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;План на день: &quot;</span>))
+n = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Дней: &quot;</span>))
+
+<span class="c"># Расчёт</span>
+total = <span class="n">0</span>
+best = <span class="n">0</span>
+days_done = <span class="n">0</span>
+<span class="k">for</span> day <span class="k">in</span> <span class="f">range</span>(n):
+    revenue = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Выручка: &quot;</span>))
+    total += revenue
+    <span class="k">if</span> revenue &gt; best:
+        best = revenue
+    <span class="k">if</span> revenue &gt;= plan:
+        days_done += <span class="n">1</span>
+
+<span class="c"># Вывод</span>
+<span class="f">print</span>(<span class="s">&quot;Всего:&quot;</span>, total)
+<span class="f">print</span>(<span class="s">&quot;Лучший день:&quot;</span>, best)
+<span class="f">print</span>(<span class="s">&quot;Дней с выполненным планом:&quot;</span>, days_done)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>План на день: <span class="typed">5000</span>
+Дней: <span class="typed">4</span>
+Выручка: <span class="typed">4800</span>
+Выручка: <span class="typed">5200</span>
+Выручка: <span class="typed">5000</span>
+Выручка: <span class="typed">6100</span>
+Всего: 21100
+Лучший день: 6100
+Дней с выполненным планом: 3</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3000
+1
+2000</pre></div><div><b>Вывод</b><pre>Всего: 2000
+Лучший день: 2000
+Дней с выполненным планом: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">100
+0</pre></div><div><b>Вывод</b><pre>Всего: 0
+Лучший день: 0
+Дней с выполненным планом: 0</pre></div></div></div>
+<div class="margin-note margin-note--warn"><b>Два if подряд и if / elif — разные вещи</b><p>Если связать проверки в <code>if / elif</code>, то день, который побил рекорд, не попал бы во вторую проверку, и подсчёт дней с выполненным планом оказался бы неверным. Когда условия независимы, каждое записывают отдельным <code>if</code>.</p></div>
+</div></article>
+<article class="task task--solved" id="r3">
+<header class="task__head"><span class="task__num">Разбор 3</span><h3 class="task__title">Допуск к экзамену</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Студент допускается к экзамену, если по всем предметам оценка не ниже 3. Вводится число предметов n, затем оценки по порядку предметов. Если найдена оценка ниже 3, выведите <code>Долг по предмету N</code> с номером предмета (начиная с 1) и <code>Допуск закрыт</code>, остальные оценки не разбирайте. Если долгов нет, выведите <code>Допуск открыт</code>.</p>
+<h4>Как рассуждаем</h4>
+<ol class="steps"><li>Номера предметов нужны пользователю с 1, поэтому берём <code>range(1, n + 1)</code>: переменная цикла сразу равна номеру предмета.</li><li>Как только найден первый долг, остальное не интересно. Выходим из цикла командой <code>break</code>.</li><li>Сообщение «допуск открыт» нужно только если <code>break</code> не сработал. Для этого есть блок <code>else</code> у цикла: он выполняется, если цикл дошёл до конца без прерывания.</li><li>Так не нужен ни флаг, ни повторная проверка после цикла.</li></ol>
+<figure class="code"><figcaption><span>main.py</span><span>решение</span></figcaption><pre><span class="c"># Ввод и проверка</span>
+n = <span class="f">int</span>(<span class="f">input</span>(<span class="s">&quot;Предметов: &quot;</span>))
+
+<span class="k">for</span> subject <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, n + <span class="n">1</span>):
+    grade = <span class="f">int</span>(<span class="f">input</span>(<span class="s">f&quot;</span><span class="s">Оценка по предмету </span>{subject}<span class="s">: </span><span class="s">&quot;</span>))
+    <span class="k">if</span> grade &lt; <span class="n">3</span>:
+        <span class="f">print</span>(<span class="s">f&quot;</span><span class="s">Долг по предмету </span>{subject}<span class="s">&quot;</span>)
+        <span class="f">print</span>(<span class="s">&quot;Допуск закрыт&quot;</span>)
+        <span class="k">break</span>
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">&quot;Допуск открыт&quot;</span>)</pre></figure>
+<figure class="code code--out"><figcaption><span>Вывод в терминал</span><span>синим — то, что ввёл пользователь</span></figcaption><pre>Предметов: <span class="typed">4</span>
+Оценка по предмету 1: <span class="typed">5</span>
+Оценка по предмету 2: <span class="typed">4</span>
+Оценка по предмету 3: <span class="typed">3</span>
+Оценка по предмету 4: <span class="typed">5</span>
+Допуск открыт</pre></figure>
+<h4>Проверка на других данных</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+5
+2
+3
+2</pre></div><div><b>Вывод</b><pre>Долг по предмету 2
+Допуск закрыт</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Допуск открыт</pre></div></div></div>
+<div class="margin-note"><b>Блок else привязан к for, а не к if</b><p>Блок <code>else</code> стоит на уровне <code>for</code> и срабатывает при нормальном завершении цикла. Если его по ошибке сдвинуть под <code>if</code>, программа будет писать «допуск открыт» после каждой хорошей оценки.</p></div>
+</div></article>
+<h2 id="practice"><span class="sec">§2</span>Задачи для самостоятельной работы</h2>
+<p>Решений здесь нет — только условие и примеры, на которых решение нужно проверить. Сложность отмечена звёздами: <b>★☆☆</b> — прямое применение главы, <b>★★☆</b> — нужно собрать несколько шагов, <b>★★★</b> — есть подвох или требуется догадка.</p>
+<article class="task" id="p1">
+<header class="task__head"><span class="task__num">Задача 3.3.1</span><h3 class="task__title">Буквы столбиком</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Для вывода на табло слово нужно показать по буквам. Вводится слово. Выведите каждую его букву с новой строки.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">рейс</pre></div><div><b>Вывод</b><pre>р
+е
+й
+с</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">А</pre></div><div><b>Вывод</b><pre>А</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строку можно перебирать так же, как список.</p></details>
+</div></article>
+<article class="task" id="p2">
+<header class="task__head"><span class="task__num">Задача 3.3.2</span><h3 class="task__title">Таблица умножения</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число n. Выведите таблицу умножения на n от 1 до 10, по одной строке на каждый множитель, в формате <code>3 x 4 = 12</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">7</pre></div><div><b>Вывод</b><pre>7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+7 x 4 = 28
+7 x 5 = 35
+7 x 6 = 42
+7 x 7 = 49
+7 x 8 = 56
+7 x 9 = 63
+7 x 10 = 70</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>1 x 1 = 1
+1 x 2 = 2
+1 x 3 = 3
+1 x 4 = 4
+1 x 5 = 5
+1 x 6 = 6
+1 x 7 = 7
+1 x 8 = 8
+1 x 9 = 9
+1 x 10 = 10</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">-2</pre></div><div><b>Вывод</b><pre>-2 x 1 = -2
+-2 x 2 = -4
+-2 x 3 = -6
+-2 x 4 = -8
+-2 x 5 = -10
+-2 x 6 = -12
+-2 x 7 = -14
+-2 x 8 = -16
+-2 x 9 = -18
+-2 x 10 = -20</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Множитель принимает значения от 1 до 10, то есть <code>range(1, 11)</code>.</p></details>
+</div></article>
+<article class="task" id="p3">
+<header class="task__head"><span class="task__num">Задача 3.3.3</span><h3 class="task__title">Сумма покупок</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Вводится число покупок n, затем цена каждой покупки. Выведите общую сумму в формате <code>Итого: 1730 руб.</code>. При n = 0 выведите итого 0.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3
+450
+1200
+80</pre></div><div><b>Вывод</b><pre>Итого: 1730 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Итого: 0 руб.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1
+999</pre></div><div><b>Вывод</b><pre>Итого: 999 руб.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Переменная цикла в этой задаче не нужна — число повторов задаёт <code>range(n)</code>.</p></details>
+</div></article>
+<article class="task" id="p4">
+<header class="task__head"><span class="task__num">Задача 3.3.4</span><h3 class="task__title">Нечётные номера</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">В зале n мест с номерами от 1 до n. Нечётные места слева. Вводится n. Выведите через пробел в одной строке номера всех нечётных мест, начиная с первого.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">9</pre></div><div><b>Вывод</b><pre>1 3 5 7 9 </pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>1 3 5 7 9 </pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>1 </pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Номер нечётный, если остаток от деления на 2 равен 1.</p></details>
+</div></article>
+<article class="task" id="p5">
+<header class="task__head"><span class="task__num">Задача 3.3.5</span><h3 class="task__title">Дорогие товары</h3><span class="level level--1" title="Сложность: базовая"><i>★☆☆</i>базовая</span></header>
+<div class="task__body">
+<p class="task__text">Прайс-лист задан в программе списком <code>[120, 80, 450, 45, 990, 300]</code>. Вводится порог цены. Выведите, сколько товаров стоит строго больше порога, в формате <code>Дороже порога: 3</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">200</pre></div><div><b>Вывод</b><pre>Дороже порога: 3</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1000</pre></div><div><b>Вывод</b><pre>Дороже порога: 0</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Дороже порога: 6</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Перебирайте сам список и увеличивайте счётчик, когда цена больше порога.</p></details>
+</div></article>
+<article class="task" id="p6">
+<header class="task__head"><span class="task__num">Задача 3.3.6</span><h3 class="task__title">Слов в строке</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится фраза, в которой слова разделены ровно одним пробелом, без пробелов в начале и конце. Фраза может быть пустой. Выведите число слов в формате <code>Слов: 4</code>. Подсчитайте пробелы и добавьте единицу, если фраза не пуста.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">рейс задержан на час</pre></div><div><b>Вывод</b><pre>Слов: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">привет</pre></div><div><b>Вывод</b><pre>Слов: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block"></pre></div><div><b>Вывод</b><pre>Слов: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Слов на одно больше, чем пробелов. Пустую строку разберите отдельно.</p></details>
+</div></article>
+<article class="task" id="p7">
+<header class="task__head"><span class="task__num">Задача 3.3.7</span><h3 class="task__title">Факториал</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится целое число n ≥ 0. Выведите его факториал — произведение чисел от 1 до n — в формате <code>5! = 120</code>. Факториал 0 равен 1.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">5</pre></div><div><b>Вывод</b><pre>5! = 120</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>0! = 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>1! = 1</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>10! = 3628800</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Накопитель произведения начинается с 1, а не с 0.</p></details>
+</div></article>
+<article class="task" id="p8">
+<header class="task__head"><span class="task__num">Задача 3.3.8</span><h3 class="task__title">Минимум и среднее</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Датчик передал n показаний температуры (n ≥ 1). Вводится n, затем показания по одному (целые). Выведите самое низкое показание и среднее с двумя знаками в формате <code>Минимум: -4</code> и <code>Среднее: 2.50</code>. Функцию <code>min()</code> не используйте.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4
+3
+-4
+6
+5</pre></div><div><b>Вывод</b><pre>Минимум: -4
+Среднее: 2.50</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+12</pre></div><div><b>Вывод</b><pre>Минимум: 12
+Среднее: 12.00</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3
+7
+7
+7</pre></div><div><b>Вывод</b><pre>Минимум: 7
+Среднее: 7.00</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Первое показание считайте минимальным и вводите до цикла; цикл обрабатывает остальные n − 1 показаний.</p></details>
+</div></article>
+<article class="task" id="p9">
+<header class="task__head"><span class="task__num">Задача 3.3.9</span><h3 class="task__title">Погашение долга</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Клиент гасит долг ежемесячными платежами. Вводятся сумма долга, размер платежа и число месяцев наблюдения m. Для каждого месяца выведите <code>Месяц 1: осталось 7000</code>. Если долг погашен (остаток не больше нуля), выведите <code>Долг погашен в месяце N</code> и завершите вывод; такой месяц строкой «осталось» не показывается. Если за m месяцев долг не погашен, ничего больше не выводите.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">10000
+3000
+5</pre></div><div><b>Вывод</b><pre>Месяц 1: осталось 7000
+Месяц 2: осталось 4000
+Месяц 3: осталось 1000
+Долг погашен в месяце 4</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">10000
+3000
+2</pre></div><div><b>Вывод</b><pre>Месяц 1: осталось 7000
+Месяц 2: осталось 4000</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">3000
+3000
+3</pre></div><div><b>Вывод</b><pre>Долг погашен в месяце 1</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверку «долг погашен» делайте сразу после вычитания платежа, до вывода остатка.</p></details>
+</div></article>
+<article class="task" id="p10">
+<header class="task__head"><span class="task__num">Задача 3.3.10</span><h3 class="task__title">Рабочие дни</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Проект длится n дней, первый день — понедельник. Выходные — суббота и воскресенье (дни 6, 7, 13, 14 и так далее). Вводится n. Выведите <code>День 1</code>, <code>День 2</code>, … только для рабочих дней, каждый с новой строки. Для пропуска выходных используйте <code>continue</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">8</pre></div><div><b>Вывод</b><pre>День 1
+День 2
+День 3
+День 4
+День 5
+День 8</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>День 1
+День 2
+День 3</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">14</pre></div><div><b>Вывод</b><pre>День 1
+День 2
+День 3
+День 4
+День 5
+День 8
+День 9
+День 10
+День 11
+День 12</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Остаток от деления номера дня на 7 равен 6 для субботы и 0 для воскресенья.</p></details>
+</div></article>
+<article class="task" id="p11">
+<header class="task__head"><span class="task__num">Задача 3.3.11</span><h3 class="task__title">Сумма цифр карты</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Вводится номер карты — строка из цифр. Выведите сумму всех цифр и количество семёрок в формате <code>Сумма цифр: 31</code> и <code>Семёрок: 2</code>.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">4276380012</pre></div><div><b>Вывод</b><pre>Сумма цифр: 33
+Семёрок: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">7777</pre></div><div><b>Вывод</b><pre>Сумма цифр: 28
+Семёрок: 4</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">0</pre></div><div><b>Вывод</b><pre>Сумма цифр: 0
+Семёрок: 0</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Символ-цифра — строка. Для сложения её нужно перевести через <code>int()</code>, а для сравнения с семёркой достаточно строки <code>"7"</code>.</p></details>
+</div></article>
+<article class="task" id="p12">
+<header class="task__head"><span class="task__num">Задача 3.3.12</span><h3 class="task__title">Температура по дням</h3><span class="level level--2" title="Сложность: средняя"><i>★★☆</i>средняя</span></header>
+<div class="task__body">
+<p class="task__text">Температура за неделю задана в программе списком <code>[18, 21, 25, 19, 27, 23, 16]</code>. Вводится порог. Выведите по одной строке на каждый день в формате <code>День 3: 25</code>, а если температура выше порога, допишите в конце <code> *</code> (пробел и звёздочка). Номера дней начинаются с 1.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">22</pre></div><div><b>Вывод</b><pre>День 1: 18
+День 2: 21
+День 3: 25 *
+День 4: 19
+День 5: 27 *
+День 6: 23 *
+День 7: 16</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">30</pre></div><div><b>Вывод</b><pre>День 1: 18
+День 2: 21
+День 3: 25
+День 4: 19
+День 5: 27
+День 6: 23
+День 7: 16</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>День 1: 18 *
+День 2: 21 *
+День 3: 25 *
+День 4: 19 *
+День 5: 27 *
+День 6: 23 *
+День 7: 16 *</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Номер дня не берётся из списка — заведите для него отдельную переменную и увеличивайте в конце тела цикла.</p></details>
+</div></article>
+<article class="task" id="p13">
+<header class="task__head"><span class="task__num">Задача 3.3.13</span><h3 class="task__title">Исправьте сумму квадратов</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Программа выводит сумму квадратов чисел от 1 до n включительно. В программе три ошибки. Исправьте их.</p>
+<figure class="code"><figcaption><span>main.py</span><span>дано — исправить</span></figcaption><pre>n = <span class="f">input</span>()
+<span class="k">for</span> number <span class="k">in</span> <span class="f">range</span>(<span class="n">1</span>, n):
+    total = <span class="n">0</span>
+    total += number * number
+<span class="f">print</span>(<span class="s">&quot;Сумма квадратов:&quot;</span>, total)</pre></figure>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">3</pre></div><div><b>Вывод</b><pre>Сумма квадратов: 14</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Сумма квадратов: 1</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">10</pre></div><div><b>Вывод</b><pre>Сумма квадратов: 385</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Проверьте тип n, место, где обнуляется накопитель, и верхнюю границу диапазона.</p></details>
+</div></article>
+<article class="task" id="p14">
+<header class="task__head"><span class="task__num">Задача 3.3.14</span><h3 class="task__title">Совершенное число</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Число называют совершенным, если оно равно сумме своих делителей, меньших его самого (6 = 1 + 2 + 3). Вводится натуральное число. Выведите <code>Совершенное</code> или <code>Не совершенное</code>. Единица не совершенное: у неё нет меньших делителей.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6</pre></div><div><b>Вывод</b><pre>Совершенное</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">28</pre></div><div><b>Вывод</b><pre>Совершенное</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">12</pre></div><div><b>Вывод</b><pre>Не совершенное</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">1</pre></div><div><b>Вывод</b><pre>Не совершенное</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Перебирайте кандидатов в делители от 1 до n − 1 и складывайте те, на которые число делится без остатка.</p></details>
+</div></article>
+<article class="task" id="p15">
+<header class="task__head"><span class="task__num">Задача 3.3.15</span><h3 class="task__title">Перевёртыш по буквам</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Вводится слово в нижнем регистре, без пробелов. Выведите <code>Палиндром</code>, если слово читается одинаково слева направо и справа налево, иначе — <code>Не палиндром</code>. Собирайте перевёрнутое слово в цикле по буквам: каждую новую букву дописывайте слева.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">шалаш</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">рейс</pre></div><div><b>Вывод</b><pre>Не палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">а</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">кабак</pre></div><div><b>Вывод</b><pre>Палиндром</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Строки можно складывать. Если дописывать каждую новую букву в начало, порядок букв развернётся.</p></details>
+</div></article>
+<article class="task" id="p16">
+<header class="task__head"><span class="task__num">Задача 3.3.16</span><h3 class="task__title">Самая длинная серия роста</h3><span class="level level--3" title="Сложность: повышенная"><i>★★★</i>повышенная</span></header>
+<div class="task__body">
+<p class="task__text">Курс валюты записан за n дней (n ≥ 1). Вводится n, затем курс по дням, целые числа. Серия роста — подряд идущие дни, в каждом из которых курс строго выше, чем в предыдущем. Выведите длину самой длинной серии, считая в ней дни, в формате <code>Серия роста: 3 дн.</code>. Один день тоже считается серией длины 1.</p>
+<h4>Примеры для проверки</h4><div class="io"><div class="io__case"><span class="io__n">Пример 1</span><div><b>Ввод</b><pre class="typed-block">6
+10
+11
+12
+9
+10
+8</pre></div><div><b>Вывод</b><pre>Серия роста: 3 дн.</pre></div></div><div class="io__case"><span class="io__n">Пример 2</span><div><b>Ввод</b><pre class="typed-block">1
+50</pre></div><div><b>Вывод</b><pre>Серия роста: 1 дн.</pre></div></div><div class="io__case"><span class="io__n">Пример 3</span><div><b>Ввод</b><pre class="typed-block">4
+9
+8
+7
+6</pre></div><div><b>Вывод</b><pre>Серия роста: 1 дн.</pre></div></div><div class="io__case"><span class="io__n">Пример 4</span><div><b>Ввод</b><pre class="typed-block">3
+5
+5
+5</pre></div><div><b>Вывод</b><pre>Серия роста: 1 дн.</pre></div></div></div>
+<details class="hint"><summary>Подсказка</summary><p>Храните предыдущее значение и длину текущей серии. Если рост прервался, серия начинается заново с длины 1.</p></details>
+</div></article>
+<h2 id="check"><span class="sec">§3</span>Как проверить своё решение</h2>
+<ol class="steps"><li>Запустите программу и введите значения из колонки «Ввод» — каждое значение отдельной строкой, после каждого <kbd>Enter</kbd>.</li><li>Сравните то, что напечатала программа, с колонкой «Вывод» — символ в символ: пробелы, двоеточия, количество знаков после точки.</li><li>Подсказки <code>input()</code> в примерах не показаны: текст подсказки у каждого свой, проверяется только результат.</li><li>Прогоните все примеры, а не только первый: второй обычно ловит ошибку, которую первый пропускает.</li></ol>
+<div class="margin-note"><b>Оформление, которое проверяют</b><p>Имена переменных называют смысл: <code>total_cost</code>, а не <code>x</code>. Данные — вверху, расчёт — отдельными строками, вывод — в конце. Одно и то же выражение не повторяется: результат сохраняется в переменную и дальше используется по имени.</p></div>
+<div class="pager"><a href="../3-2/index.html">← Задачи 3.2</a><a href="../../temy/21-for-in/index.html">Глава 3.3 в справочнике</a><a href="../index.html">К оглавлению задачника</a><a href="../3-4/index.html">Задачи 3.4 →</a></div>
+        <div class="colophon">
+          <span>Задачи к главе 3.3 · Цикл <code>for in</code> · Задачник по Python</span>
+          <span class="author-line">Автор: Макаров Максим Николаевич</span>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
